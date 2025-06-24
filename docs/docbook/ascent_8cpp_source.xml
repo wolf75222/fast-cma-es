@@ -1,0 +1,617 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_ascent_8cpp_source" xml:lang="en-US">
+<title>ascent.cpp</title>
+<indexterm><primary>_fcmaescpp/ascent.cpp</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_ascent_8cpp_source_1l00001"/>00001 <emphasis role="preprocessor">#include&#32;&quot;ascent/Ascent.h&quot;</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00002"/>00002 <emphasis role="preprocessor">#include&#32;&lt;math.h&gt;</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00003"/>00003 <emphasis role="preprocessor">#include&#32;&lt;stdio.h&gt;</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00004"/>00004 <emphasis role="preprocessor">#include&#32;&lt;stdlib.h&gt;</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00005"/>00005 <emphasis role="preprocessor">#include&#32;&lt;string.h&gt;</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00006"/>00006 <emphasis role="preprocessor">#include&#32;&quot;keplerian_toolbox/core_functions/propagate_lagrangian.hpp&quot;</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00007"/>00007 <emphasis role="preprocessor">#include&#32;&quot;keplerian_toolbox/core_functions/propagate_taylor.hpp&quot;</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00008"/>00008 <emphasis role="preprocessor">#include&#32;&quot;keplerian_toolbox/core_functions/propagate_taylor_J2.hpp&quot;</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00009"/>00009 <emphasis role="preprocessor">#include&#32;&quot;keplerian_toolbox/core_functions/par2ic.hpp&quot;</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00010"/>00010 <emphasis role="preprocessor">#include&#32;&quot;keplerian_toolbox/core_functions/ic2par.hpp&quot;</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00011"/>00011 <emphasis role="preprocessor">#include&#32;&quot;keplerian_toolbox/core_functions/fb_vel.hpp&quot;</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00012"/>00012 <emphasis role="preprocessor">#include&#32;&quot;keplerian_toolbox/core_functions/fb_prop.hpp&quot;</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00013"/>00013 <emphasis role="preprocessor">#include&#32;&quot;keplerian_toolbox/core_functions/lambert_find_N.hpp&quot;</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00014"/>00014 <emphasis role="preprocessor">#include&#32;&quot;keplerian_toolbox/planet/base.hpp&quot;</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00015"/>00015 <emphasis role="preprocessor">#include&#32;&quot;keplerian_toolbox/planet/jpl_low_precision.hpp&quot;</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00016"/>00016 <emphasis role="preprocessor">#include&#32;&quot;keplerian_toolbox/lambert_problem.hpp&quot;</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00017"/>00017 
+<anchor xml:id="_ascent_8cpp_source_1l00018"/>00018 <emphasis role="keyword">using&#32;namespace&#32;</emphasis>asc;
+<anchor xml:id="_ascent_8cpp_source_1l00019"/>00019 
+<anchor xml:id="_ascent_8cpp_source_1l00020"/><link linkend="_struct_p_v_thrust">00020</link> <emphasis role="keyword">struct&#32;</emphasis><link linkend="_struct_p_v_thrust">PVThrust</link>&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00021"/>00021 
+<anchor xml:id="_ascent_8cpp_source_1l00022"/><link linkend="_struct_p_v_thrust_1ae8a9c89ffadcb3ee34c8a73cc1915a02">00022</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_struct_p_v_thrust_1ae8a9c89ffadcb3ee34c8a73cc1915a02">_veff</link>;
+<anchor xml:id="_ascent_8cpp_source_1l00023"/><link linkend="_struct_p_v_thrust_1aff57ae6be1d59ba76d1d5cb20ab3f7a8">00023</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_struct_p_v_thrust_1aff57ae6be1d59ba76d1d5cb20ab3f7a8">_mu</link>;
+<anchor xml:id="_ascent_8cpp_source_1l00024"/><link linkend="_struct_p_v_thrust_1a7c9b6042921c8a1f6ea50625739f4e77">00024</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_struct_p_v_thrust_1a7c9b6042921c8a1f6ea50625739f4e77">_ux</link>;
+<anchor xml:id="_ascent_8cpp_source_1l00025"/><link linkend="_struct_p_v_thrust_1a1aabd4508e41926e63411a74fbab4b19">00025</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_struct_p_v_thrust_1a1aabd4508e41926e63411a74fbab4b19">_uy</link>;
+<anchor xml:id="_ascent_8cpp_source_1l00026"/><link linkend="_struct_p_v_thrust_1a07f93fb87261c551035e907d7ba133eb">00026</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_struct_p_v_thrust_1a07f93fb87261c551035e907d7ba133eb">_uz</link>;
+<anchor xml:id="_ascent_8cpp_source_1l00027"/><link linkend="_struct_p_v_thrust_1afc970af5b54428f05ed1e14b32fe00e1">00027</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_struct_p_v_thrust_1afc970af5b54428f05ed1e14b32fe00e1">_unorm</link>;
+<anchor xml:id="_ascent_8cpp_source_1l00028"/>00028 
+<anchor xml:id="_ascent_8cpp_source_1l00029"/><link linkend="_struct_p_v_thrust_1a6eb2b209c427f2d8477af8e066c7fe07">00029</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_struct_p_v_thrust_1a6eb2b209c427f2d8477af8e066c7fe07">operator()</link>(<emphasis role="keyword">const</emphasis>&#32;state_t&#32;&amp;pv,&#32;state_t&#32;&amp;yDot,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00030"/>00030 
+<anchor xml:id="_ascent_8cpp_source_1l00031"/>00031 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;x&#32;=&#32;pv[0];&#32;&#32;<emphasis role="comment">//&#32;position</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00032"/>00032 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;y&#32;=&#32;pv[1];
+<anchor xml:id="_ascent_8cpp_source_1l00033"/>00033 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;z&#32;=&#32;pv[2];
+<anchor xml:id="_ascent_8cpp_source_1l00034"/>00034 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;m&#32;=&#32;pv[6];
+<anchor xml:id="_ascent_8cpp_source_1l00035"/>00035 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;r&#32;=&#32;sqrt(x&#32;*&#32;x&#32;+&#32;y&#32;*&#32;y&#32;+&#32;z&#32;*&#32;z);
+<anchor xml:id="_ascent_8cpp_source_1l00036"/>00036 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;rrr&#32;=&#32;r&#32;*&#32;r&#32;*&#32;r;
+<anchor xml:id="_ascent_8cpp_source_1l00037"/>00037 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;yDot[0]&#32;=&#32;pv[3];&#32;<emphasis role="comment">//&#32;velocity</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00038"/>00038 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;yDot[1]&#32;=&#32;pv[4];
+<anchor xml:id="_ascent_8cpp_source_1l00039"/>00039 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;yDot[2]&#32;=&#32;pv[5];
+<anchor xml:id="_ascent_8cpp_source_1l00040"/>00040 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;yDot[3]&#32;=&#32;-<link linkend="_struct_p_v_thrust_1aff57ae6be1d59ba76d1d5cb20ab3f7a8">_mu</link>&#32;*&#32;x&#32;/&#32;(rrr);
+<anchor xml:id="_ascent_8cpp_source_1l00041"/>00041 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;yDot[4]&#32;=&#32;-<link linkend="_struct_p_v_thrust_1aff57ae6be1d59ba76d1d5cb20ab3f7a8">_mu</link>&#32;*&#32;y&#32;/&#32;(rrr);
+<anchor xml:id="_ascent_8cpp_source_1l00042"/>00042 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;yDot[5]&#32;=&#32;-<link linkend="_struct_p_v_thrust_1aff57ae6be1d59ba76d1d5cb20ab3f7a8">_mu</link>&#32;*&#32;z&#32;/&#32;(rrr);
+<anchor xml:id="_ascent_8cpp_source_1l00043"/>00043 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(m&#32;&gt;&#32;0)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00044"/>00044 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;yDot[3]&#32;+=&#32;<link linkend="_struct_p_v_thrust_1a7c9b6042921c8a1f6ea50625739f4e77">_ux</link>&#32;/&#32;m;
+<anchor xml:id="_ascent_8cpp_source_1l00045"/>00045 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;yDot[4]&#32;+=&#32;<link linkend="_struct_p_v_thrust_1a1aabd4508e41926e63411a74fbab4b19">_uy</link>&#32;/&#32;m;
+<anchor xml:id="_ascent_8cpp_source_1l00046"/>00046 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;yDot[5]&#32;+=&#32;<link linkend="_struct_p_v_thrust_1a07f93fb87261c551035e907d7ba133eb">_uz</link>&#32;/&#32;m;
+<anchor xml:id="_ascent_8cpp_source_1l00047"/>00047 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_ascent_8cpp_source_1l00048"/>00048 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;yDot[6]&#32;=&#32;-<link linkend="_struct_p_v_thrust_1afc970af5b54428f05ed1e14b32fe00e1">_unorm</link>&#32;/&#32;<link linkend="_struct_p_v_thrust_1ae8a9c89ffadcb3ee34c8a73cc1915a02">_veff</link>;
+<anchor xml:id="_ascent_8cpp_source_1l00049"/>00049 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_ascent_8cpp_source_1l00050"/>00050 };
+<anchor xml:id="_ascent_8cpp_source_1l00051"/>00051 
+<anchor xml:id="_ascent_8cpp_source_1l00052"/>00052 <emphasis role="keyword">extern</emphasis>&#32;<emphasis role="stringliteral">&quot;C&quot;</emphasis>&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00053"/><link linkend="_ascent_8cpp_1ad82324920dbdc173d7bc71c3e8ebf7c8">00053</link> <emphasis role="keywordtype">double</emphasis>*&#32;<link linkend="_ascent_8cpp_1ad82324920dbdc173d7bc71c3e8ebf7c8">integratePVthrust</link>(<emphasis role="keywordtype">double</emphasis>&#32;*yd,&#32;<emphasis role="keywordtype">double</emphasis>&#32;mu,&#32;<emphasis role="keywordtype">double</emphasis>&#32;ux,&#32;<emphasis role="keywordtype">double</emphasis>&#32;uy,&#32;<emphasis role="keywordtype">double</emphasis>&#32;uz,&#32;<emphasis role="keywordtype">double</emphasis>&#32;veff,&#32;<emphasis role="keywordtype">double</emphasis>&#32;dt,&#32;<emphasis role="keywordtype">double</emphasis>&#32;step)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00054"/>00054 
+<anchor xml:id="_ascent_8cpp_source_1l00055"/>00055 &#32;&#32;&#32;&#32;state_t&#32;y(7);
+<anchor xml:id="_ascent_8cpp_source_1l00056"/>00056 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;7;&#32;i++)
+<anchor xml:id="_ascent_8cpp_source_1l00057"/>00057 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;y[i]&#32;=&#32;yd[i];
+<anchor xml:id="_ascent_8cpp_source_1l00058"/>00058 
+<anchor xml:id="_ascent_8cpp_source_1l00059"/>00059 &#32;&#32;&#32;&#32;&#32;&#32;RK4&#32;integrator;
+<anchor xml:id="_ascent_8cpp_source_1l00060"/>00060 <emphasis role="comment">//&#32;&#32;&#32;&#32;DOPRI45&#32;integrator;</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00061"/>00061 <emphasis role="comment">//&#32;&#32;&#32;&#32;ABM4&#32;integrator;</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00062"/>00062 <emphasis role="comment">//&#32;&#32;&#32;&#32;PC233&#32;integrator;</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00063"/>00063 <emphasis role="comment">//&#32;&#32;&#32;&#32;VABM&#32;integrator;</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00064"/>00064 
+<anchor xml:id="_ascent_8cpp_source_1l00065"/>00065 &#32;&#32;&#32;&#32;<link linkend="_struct_p_v_thrust">PVThrust</link>&#32;pvt;
+<anchor xml:id="_ascent_8cpp_source_1l00066"/>00066 &#32;&#32;&#32;&#32;pvt.<link linkend="_struct_p_v_thrust_1ae8a9c89ffadcb3ee34c8a73cc1915a02">_veff</link>&#32;=&#32;veff;
+<anchor xml:id="_ascent_8cpp_source_1l00067"/>00067 &#32;&#32;&#32;&#32;pvt.<link linkend="_struct_p_v_thrust_1aff57ae6be1d59ba76d1d5cb20ab3f7a8">_mu</link>&#32;=&#32;mu;
+<anchor xml:id="_ascent_8cpp_source_1l00068"/>00068 &#32;&#32;&#32;&#32;pvt.<link linkend="_struct_p_v_thrust_1a7c9b6042921c8a1f6ea50625739f4e77">_ux</link>&#32;=&#32;ux;
+<anchor xml:id="_ascent_8cpp_source_1l00069"/>00069 &#32;&#32;&#32;&#32;pvt.<link linkend="_struct_p_v_thrust_1a1aabd4508e41926e63411a74fbab4b19">_uy</link>&#32;=&#32;uy;
+<anchor xml:id="_ascent_8cpp_source_1l00070"/>00070 &#32;&#32;&#32;&#32;pvt.<link linkend="_struct_p_v_thrust_1a07f93fb87261c551035e907d7ba133eb">_uz</link>&#32;=&#32;uz;
+<anchor xml:id="_ascent_8cpp_source_1l00071"/>00071 &#32;&#32;&#32;&#32;pvt.<link linkend="_struct_p_v_thrust_1afc970af5b54428f05ed1e14b32fe00e1">_unorm</link>&#32;=&#32;sqrt(ux&#32;*&#32;ux&#32;+&#32;uy&#32;*&#32;uy&#32;+&#32;uz&#32;*&#32;uz);
+<anchor xml:id="_ascent_8cpp_source_1l00072"/>00072 
+<anchor xml:id="_ascent_8cpp_source_1l00073"/>00073 <emphasis role="comment">//&#32;&#32;&#32;&#32;Recorder&#32;recorder;</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00074"/>00074 
+<anchor xml:id="_ascent_8cpp_source_1l00075"/>00075 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;steps&#32;=&#32;0;
+<anchor xml:id="_ascent_8cpp_source_1l00076"/>00076 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;t&#32;=&#32;0.0;
+<anchor xml:id="_ascent_8cpp_source_1l00077"/>00077 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(dt&#32;&gt;&#32;0)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00078"/>00078 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">while</emphasis>&#32;(t&#32;&lt;&#32;dt)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00079"/>00079 &#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;&#32;&#32;&#32;&#32;&#32;recorder({&#32;t,&#32;y[0],&#32;y[1],&#32;y[2],&#32;y[3],&#32;y[4],&#32;y[5],&#32;y[6]&#32;});</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00080"/>00080 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;steps++;
+<anchor xml:id="_ascent_8cpp_source_1l00081"/>00081 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(t&#32;+&#32;step&#32;&gt;=&#32;dt)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00082"/>00082 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;integrator(pvt,&#32;y,&#32;t,&#32;dt&#32;-&#32;t);
+<anchor xml:id="_ascent_8cpp_source_1l00083"/>00083 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+<anchor xml:id="_ascent_8cpp_source_1l00084"/>00084 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}&#32;<emphasis role="keywordflow">else</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00085"/>00085 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;integrator(pvt,&#32;y,&#32;t,&#32;step);
+<anchor xml:id="_ascent_8cpp_source_1l00086"/>00086 &#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;&#32;&#32;&#32;&#32;&#32;recorder.csv(&quot;PVThrust&quot;,&#32;{&#32;&quot;t&quot;,&#32;&quot;x&quot;,&#32;&quot;y&quot;,&#32;&quot;z&quot;,&#32;&quot;vx&quot;,&#32;&quot;vy&quot;,&#32;&quot;vz&quot;,&#32;&quot;m&quot;&#32;});</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00087"/>00087 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}&#32;&#32;&#32;
+<anchor xml:id="_ascent_8cpp_source_1l00088"/>00088 &#32;&#32;&#32;&#32;}&#32;<emphasis role="keywordflow">else</emphasis>&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00089"/>00089 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">while</emphasis>&#32;(t&#32;&gt;&#32;dt)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00090"/>00090 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;steps++;
+<anchor xml:id="_ascent_8cpp_source_1l00091"/>00091 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(t&#32;-&#32;step&#32;&lt;=&#32;dt)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00092"/>00092 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;integrator(pvt,&#32;y,&#32;t,&#32;dt&#32;-&#32;t);
+<anchor xml:id="_ascent_8cpp_source_1l00093"/>00093 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+<anchor xml:id="_ascent_8cpp_source_1l00094"/>00094 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}&#32;<emphasis role="keywordflow">else</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00095"/>00095 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;integrator(pvt,&#32;y,&#32;t,&#32;-step);
+<anchor xml:id="_ascent_8cpp_source_1l00096"/>00096 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_ascent_8cpp_source_1l00097"/>00097 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_ascent_8cpp_source_1l00098"/>00098 
+<anchor xml:id="_ascent_8cpp_source_1l00099"/>00099 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;*res&#32;=&#32;<emphasis role="keyword">new</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>[7];
+<anchor xml:id="_ascent_8cpp_source_1l00100"/>00100 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;7;&#32;i++)
+<anchor xml:id="_ascent_8cpp_source_1l00101"/>00101 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;res[i]&#32;=&#32;y[i];
+<anchor xml:id="_ascent_8cpp_source_1l00102"/>00102 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;res;
+<anchor xml:id="_ascent_8cpp_source_1l00103"/>00103 }
+<anchor xml:id="_ascent_8cpp_source_1l00104"/>00104 ;
+<anchor xml:id="_ascent_8cpp_source_1l00105"/>00105 }
+<anchor xml:id="_ascent_8cpp_source_1l00106"/>00106 
+<anchor xml:id="_ascent_8cpp_source_1l00107"/><link linkend="_struct_damp">00107</link> <emphasis role="keyword">struct&#32;</emphasis><link linkend="_struct_damp">Damp</link>&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00108"/>00108 
+<anchor xml:id="_ascent_8cpp_source_1l00109"/><link linkend="_struct_damp_1ac4918310ac12cfdf15bb7fb8bccbf930">00109</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_struct_damp_1ac4918310ac12cfdf15bb7fb8bccbf930">alpha</link>;
+<anchor xml:id="_ascent_8cpp_source_1l00110"/>00110 
+<anchor xml:id="_ascent_8cpp_source_1l00111"/><link linkend="_struct_damp_1a5b5c78ee17f6b01bbedd2c9490fe706d">00111</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_struct_damp_1a5b5c78ee17f6b01bbedd2c9490fe706d">operator()</link>(<emphasis role="keyword">const</emphasis>&#32;state_t&#32;&amp;y,&#32;state_t&#32;&amp;yDot,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00112"/>00112 
+<anchor xml:id="_ascent_8cpp_source_1l00113"/>00113 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;x1&#32;=&#32;y[0];
+<anchor xml:id="_ascent_8cpp_source_1l00114"/>00114 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;x2&#32;=&#32;y[1];
+<anchor xml:id="_ascent_8cpp_source_1l00115"/>00115 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;yDot[0]&#32;=&#32;x2;
+<anchor xml:id="_ascent_8cpp_source_1l00116"/>00116 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;yDot[1]&#32;=&#32;-x1&#32;+&#32;<link linkend="_struct_damp_1ac4918310ac12cfdf15bb7fb8bccbf930">alpha</link>;
+<anchor xml:id="_ascent_8cpp_source_1l00117"/>00117 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_ascent_8cpp_source_1l00118"/>00118 };
+<anchor xml:id="_ascent_8cpp_source_1l00119"/>00119 
+<anchor xml:id="_ascent_8cpp_source_1l00120"/>00120 <emphasis role="keyword">extern</emphasis>&#32;<emphasis role="stringliteral">&quot;C&quot;</emphasis>&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00121"/><link linkend="_ascent_8cpp_1a91f8ebf7f31b0db72464aede82c3a2bd">00121</link> <emphasis role="keywordtype">double</emphasis>*&#32;<link linkend="_ascent_8cpp_1a91f8ebf7f31b0db72464aede82c3a2bd">integrateDamp_C</link>(<emphasis role="keywordtype">double</emphasis>&#32;*yd,&#32;<emphasis role="keywordtype">double</emphasis>&#32;alpha,&#32;<emphasis role="keywordtype">double</emphasis>&#32;dt,&#32;<emphasis role="keywordtype">double</emphasis>&#32;step)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00122"/>00122 
+<anchor xml:id="_ascent_8cpp_source_1l00123"/>00123 &#32;&#32;&#32;&#32;state_t&#32;y(2);
+<anchor xml:id="_ascent_8cpp_source_1l00124"/>00124 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;2;&#32;i++)
+<anchor xml:id="_ascent_8cpp_source_1l00125"/>00125 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;y[i]&#32;=&#32;yd[i];
+<anchor xml:id="_ascent_8cpp_source_1l00126"/>00126 
+<anchor xml:id="_ascent_8cpp_source_1l00127"/>00127 <emphasis role="comment">//&#32;&#32;&#32;&#32;RK4&#32;integrator;</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00128"/>00128 <emphasis role="comment">//&#32;&#32;&#32;&#32;DOPRI45&#32;integrator;</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00129"/>00129 <emphasis role="comment">//&#32;&#32;&#32;&#32;ABM4&#32;integrator;</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00130"/>00130 &#32;&#32;&#32;&#32;PC233&#32;integrator;
+<anchor xml:id="_ascent_8cpp_source_1l00131"/>00131 <emphasis role="comment">//&#32;&#32;&#32;&#32;VABM&#32;integrator;</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00132"/>00132 &#32;&#32;&#32;&#32;<link linkend="_struct_damp">Damp</link>&#32;damp;
+<anchor xml:id="_ascent_8cpp_source_1l00133"/>00133 &#32;&#32;&#32;&#32;damp.<link linkend="_struct_damp_1ac4918310ac12cfdf15bb7fb8bccbf930">alpha</link>&#32;=&#32;alpha;
+<anchor xml:id="_ascent_8cpp_source_1l00134"/>00134 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;steps&#32;=&#32;0;
+<anchor xml:id="_ascent_8cpp_source_1l00135"/>00135 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;t&#32;=&#32;0.0;
+<anchor xml:id="_ascent_8cpp_source_1l00136"/>00136 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">while</emphasis>&#32;(t&#32;&lt;&#32;dt)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00137"/>00137 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;steps++;
+<anchor xml:id="_ascent_8cpp_source_1l00138"/>00138 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(t&#32;+&#32;step&#32;&gt;=&#32;dt)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00139"/>00139 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;integrator(damp,&#32;y,&#32;t,&#32;dt&#32;-&#32;t);
+<anchor xml:id="_ascent_8cpp_source_1l00140"/>00140 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+<anchor xml:id="_ascent_8cpp_source_1l00141"/>00141 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}&#32;<emphasis role="keywordflow">else</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00142"/>00142 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;integrator(damp,&#32;y,&#32;t,&#32;step);
+<anchor xml:id="_ascent_8cpp_source_1l00143"/>00143 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_ascent_8cpp_source_1l00144"/>00144 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;*res&#32;=&#32;<emphasis role="keyword">new</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>[2];
+<anchor xml:id="_ascent_8cpp_source_1l00145"/>00145 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;2;&#32;i++)
+<anchor xml:id="_ascent_8cpp_source_1l00146"/>00146 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;res[i]&#32;=&#32;y[i];
+<anchor xml:id="_ascent_8cpp_source_1l00147"/>00147 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;res;
+<anchor xml:id="_ascent_8cpp_source_1l00148"/>00148 }
+<anchor xml:id="_ascent_8cpp_source_1l00149"/>00149 ;
+<anchor xml:id="_ascent_8cpp_source_1l00150"/>00150 }
+<anchor xml:id="_ascent_8cpp_source_1l00151"/>00151 
+<anchor xml:id="_ascent_8cpp_source_1l00152"/><link linkend="_struct_f8">00152</link> <emphasis role="keyword">struct&#32;</emphasis><link linkend="_struct_f8">F8</link>&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00153"/>00153 
+<anchor xml:id="_ascent_8cpp_source_1l00154"/><link linkend="_struct_f8_1a049ead0e788956d08e235dd4ce263c9f">00154</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">static</emphasis>&#32;<emphasis role="keyword">constexpr</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_struct_f8_1a049ead0e788956d08e235dd4ce263c9f">ksi</link>&#32;=&#32;0.05236;
+<anchor xml:id="_ascent_8cpp_source_1l00155"/><link linkend="_struct_f8_1aa3fcaa03c86beb1785f1f205a4fa3f15">00155</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">static</emphasis>&#32;<emphasis role="keyword">constexpr</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_struct_f8_1aa3fcaa03c86beb1785f1f205a4fa3f15">ksi_2</link>&#32;=&#32;<link linkend="_struct_f8_1a049ead0e788956d08e235dd4ce263c9f">ksi</link>&#32;*&#32;<link linkend="_struct_f8_1a049ead0e788956d08e235dd4ce263c9f">ksi</link>;
+<anchor xml:id="_ascent_8cpp_source_1l00156"/><link linkend="_struct_f8_1ab005a6e178e54c61d0360419108a067a">00156</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">static</emphasis>&#32;<emphasis role="keyword">constexpr</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_struct_f8_1ab005a6e178e54c61d0360419108a067a">ksi_3</link>&#32;=&#32;<link linkend="_struct_f8_1a049ead0e788956d08e235dd4ce263c9f">ksi</link>&#32;*&#32;<link linkend="_struct_f8_1aa3fcaa03c86beb1785f1f205a4fa3f15">ksi_2</link>;
+<anchor xml:id="_ascent_8cpp_source_1l00157"/><link linkend="_struct_f8_1aab1a8275b253b608be5771f9beadb04e">00157</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_struct_f8_1aab1a8275b253b608be5771f9beadb04e">w</link>;
+<anchor xml:id="_ascent_8cpp_source_1l00158"/>00158 
+<anchor xml:id="_ascent_8cpp_source_1l00159"/><link linkend="_struct_f8_1a765d953b5bc8963d058e899423a0180e">00159</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_struct_f8_1a765d953b5bc8963d058e899423a0180e">operator()</link>(<emphasis role="keyword">const</emphasis>&#32;state_t&#32;&amp;y,&#32;state_t&#32;&amp;yDot,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00160"/>00160 
+<anchor xml:id="_ascent_8cpp_source_1l00161"/>00161 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;y0&#32;=&#32;y[0];
+<anchor xml:id="_ascent_8cpp_source_1l00162"/>00162 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;y0_2&#32;=&#32;y0&#32;*&#32;y0;
+<anchor xml:id="_ascent_8cpp_source_1l00163"/>00163 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;y0_3&#32;=&#32;y0_2&#32;*&#32;y0;
+<anchor xml:id="_ascent_8cpp_source_1l00164"/>00164 
+<anchor xml:id="_ascent_8cpp_source_1l00165"/>00165 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;y1&#32;=&#32;y[1];
+<anchor xml:id="_ascent_8cpp_source_1l00166"/>00166 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;y1_2&#32;=&#32;y1&#32;*&#32;y1;
+<anchor xml:id="_ascent_8cpp_source_1l00167"/>00167 
+<anchor xml:id="_ascent_8cpp_source_1l00168"/>00168 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;y2&#32;=&#32;y[2];
+<anchor xml:id="_ascent_8cpp_source_1l00169"/>00169 
+<anchor xml:id="_ascent_8cpp_source_1l00170"/>00170 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;yDot[0]&#32;=&#32;-0.877&#32;*&#32;y0&#32;+&#32;y2&#32;-&#32;0.088&#32;*&#32;y0&#32;*&#32;y2&#32;+&#32;0.47&#32;*&#32;y0_2
+<anchor xml:id="_ascent_8cpp_source_1l00171"/>00171 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-&#32;0.019&#32;*&#32;y1_2&#32;-&#32;y0_2&#32;*&#32;y2&#32;+&#32;3.846&#32;*&#32;y0_3&#32;+&#32;0.215&#32;*&#32;<link linkend="_struct_f8_1a049ead0e788956d08e235dd4ce263c9f">ksi</link>
+<anchor xml:id="_ascent_8cpp_source_1l00172"/>00172 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-&#32;0.28&#32;*&#32;y0_2&#32;*&#32;<link linkend="_struct_f8_1a049ead0e788956d08e235dd4ce263c9f">ksi</link>&#32;+&#32;0.47&#32;*&#32;y0&#32;*&#32;<link linkend="_struct_f8_1aa3fcaa03c86beb1785f1f205a4fa3f15">ksi_2</link>&#32;-&#32;0.63&#32;*&#32;<link linkend="_struct_f8_1ab005a6e178e54c61d0360419108a067a">ksi_3</link>
+<anchor xml:id="_ascent_8cpp_source_1l00173"/>00173 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-&#32;(0.215&#32;*&#32;<link linkend="_struct_f8_1a049ead0e788956d08e235dd4ce263c9f">ksi</link>&#32;-&#32;0.28&#32;*&#32;y0_2&#32;*&#32;<link linkend="_struct_f8_1a049ead0e788956d08e235dd4ce263c9f">ksi</link>&#32;-&#32;0.63&#32;*&#32;<link linkend="_struct_f8_1ab005a6e178e54c61d0360419108a067a">ksi_3</link>)&#32;*&#32;2&#32;*&#32;<link linkend="_struct_f8_1aab1a8275b253b608be5771f9beadb04e">w</link>;
+<anchor xml:id="_ascent_8cpp_source_1l00174"/>00174 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;yDot[1]&#32;=&#32;y2;
+<anchor xml:id="_ascent_8cpp_source_1l00175"/>00175 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;yDot[2]&#32;=&#32;-4.208&#32;*&#32;y0&#32;-&#32;0.396&#32;*&#32;y2&#32;-&#32;0.47&#32;*&#32;y0_2&#32;-&#32;3.564&#32;*&#32;y0_3
+<anchor xml:id="_ascent_8cpp_source_1l00176"/>00176 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;+&#32;20.967&#32;*&#32;<link linkend="_struct_f8_1a049ead0e788956d08e235dd4ce263c9f">ksi</link>&#32;-&#32;6.265&#32;*&#32;y0_2&#32;*&#32;<link linkend="_struct_f8_1a049ead0e788956d08e235dd4ce263c9f">ksi</link>&#32;+&#32;46&#32;*&#32;y0&#32;*&#32;<link linkend="_struct_f8_1aa3fcaa03c86beb1785f1f205a4fa3f15">ksi_2</link>
+<anchor xml:id="_ascent_8cpp_source_1l00177"/>00177 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-&#32;61.4&#32;*&#32;<link linkend="_struct_f8_1ab005a6e178e54c61d0360419108a067a">ksi_3</link>
+<anchor xml:id="_ascent_8cpp_source_1l00178"/>00178 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-&#32;(20.967&#32;*&#32;<link linkend="_struct_f8_1a049ead0e788956d08e235dd4ce263c9f">ksi</link>&#32;-&#32;6.265&#32;*&#32;y0_2&#32;*&#32;<link linkend="_struct_f8_1a049ead0e788956d08e235dd4ce263c9f">ksi</link>&#32;-&#32;61.4&#32;*&#32;<link linkend="_struct_f8_1ab005a6e178e54c61d0360419108a067a">ksi_3</link>)&#32;*&#32;2&#32;*&#32;<link linkend="_struct_f8_1aab1a8275b253b608be5771f9beadb04e">w</link>;
+<anchor xml:id="_ascent_8cpp_source_1l00179"/>00179 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_ascent_8cpp_source_1l00180"/>00180 };
+<anchor xml:id="_ascent_8cpp_source_1l00181"/>00181 
+<anchor xml:id="_ascent_8cpp_source_1l00182"/>00182 <emphasis role="comment">//#include&#32;&quot;ascent/integrators_modular/VABM.h&quot;</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00183"/>00183 <emphasis role="comment">//#using&#32;VABM&#32;=&#32;VABM&lt;state_t&gt;;</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00184"/>00184 
+<anchor xml:id="_ascent_8cpp_source_1l00185"/>00185 <emphasis role="keyword">extern</emphasis>&#32;<emphasis role="stringliteral">&quot;C&quot;</emphasis>&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00186"/><link linkend="_ascent_8cpp_1a6bf1992b7bf98468c32c6b6f19185dbf">00186</link> <emphasis role="keywordtype">double</emphasis>*&#32;<link linkend="_ascent_8cpp_1a6bf1992b7bf98468c32c6b6f19185dbf">integrateF8_C</link>(<emphasis role="keywordtype">double</emphasis>&#32;*yd,&#32;<emphasis role="keywordtype">double</emphasis>&#32;w,&#32;<emphasis role="keywordtype">double</emphasis>&#32;dt,&#32;<emphasis role="keywordtype">double</emphasis>&#32;step)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00187"/>00187 
+<anchor xml:id="_ascent_8cpp_source_1l00188"/>00188 &#32;&#32;&#32;&#32;state_t&#32;y(3);
+<anchor xml:id="_ascent_8cpp_source_1l00189"/>00189 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;3;&#32;i++)
+<anchor xml:id="_ascent_8cpp_source_1l00190"/>00190 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;y[i]&#32;=&#32;yd[i];
+<anchor xml:id="_ascent_8cpp_source_1l00191"/>00191 
+<anchor xml:id="_ascent_8cpp_source_1l00192"/>00192 <emphasis role="comment">//&#32;&#32;&#32;&#32;RK4&#32;integrator;</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00193"/>00193 <emphasis role="comment">//&#32;&#32;&#32;&#32;DOPRI45&#32;integrator;</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00194"/>00194 <emphasis role="comment">//&#32;&#32;&#32;&#32;ABM4&#32;integrator;</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00195"/>00195 &#32;&#32;&#32;&#32;PC233&#32;integrator;
+<anchor xml:id="_ascent_8cpp_source_1l00196"/>00196 <emphasis role="comment">//&#32;&#32;&#32;&#32;VABM&#32;integrator;</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00197"/>00197 &#32;&#32;&#32;&#32;<link linkend="_struct_f8">F8</link>&#32;f8;
+<anchor xml:id="_ascent_8cpp_source_1l00198"/>00198 &#32;&#32;&#32;&#32;f8.w&#32;=&#32;w;
+<anchor xml:id="_ascent_8cpp_source_1l00199"/>00199 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;steps&#32;=&#32;0;
+<anchor xml:id="_ascent_8cpp_source_1l00200"/>00200 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;t&#32;=&#32;0.0;
+<anchor xml:id="_ascent_8cpp_source_1l00201"/>00201 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">while</emphasis>&#32;(t&#32;&lt;&#32;dt)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00202"/>00202 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;steps++;
+<anchor xml:id="_ascent_8cpp_source_1l00203"/>00203 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(t&#32;+&#32;step&#32;&gt;=&#32;dt)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00204"/>00204 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;integrator(f8,&#32;y,&#32;t,&#32;dt&#32;-&#32;t);
+<anchor xml:id="_ascent_8cpp_source_1l00205"/>00205 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+<anchor xml:id="_ascent_8cpp_source_1l00206"/>00206 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}&#32;<emphasis role="keywordflow">else</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00207"/>00207 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;integrator(f8,&#32;y,&#32;t,&#32;step);
+<anchor xml:id="_ascent_8cpp_source_1l00208"/>00208 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_ascent_8cpp_source_1l00209"/>00209 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;*res&#32;=&#32;<emphasis role="keyword">new</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>[3];
+<anchor xml:id="_ascent_8cpp_source_1l00210"/>00210 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;3;&#32;i++)
+<anchor xml:id="_ascent_8cpp_source_1l00211"/>00211 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;res[i]&#32;=&#32;y[i];
+<anchor xml:id="_ascent_8cpp_source_1l00212"/>00212 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;res;
+<anchor xml:id="_ascent_8cpp_source_1l00213"/>00213 }
+<anchor xml:id="_ascent_8cpp_source_1l00214"/>00214 ;
+<anchor xml:id="_ascent_8cpp_source_1l00215"/>00215 }
+<anchor xml:id="_ascent_8cpp_source_1l00216"/>00216 
+<anchor xml:id="_ascent_8cpp_source_1l00217"/><link linkend="_ascent_8cpp_1a7029b8dc4f9351f6a28fbfc893a920a6">00217</link> <emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_ascent_8cpp_1a7029b8dc4f9351f6a28fbfc893a920a6">wic2par</link>(state_t&#32;rv,&#32;<emphasis role="keywordtype">double</emphasis>*&#32;kep,&#32;<emphasis role="keywordtype">double</emphasis>&#32;mu)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00218"/>00218 &#32;&#32;&#32;&#32;kep_toolbox::array3D&#32;rk;
+<anchor xml:id="_ascent_8cpp_source_1l00219"/>00219 &#32;&#32;&#32;&#32;kep_toolbox::array3D&#32;vk;
+<anchor xml:id="_ascent_8cpp_source_1l00220"/>00220 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;3;&#32;i++)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00221"/>00221 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;rk[i]&#32;=&#32;rv[i];
+<anchor xml:id="_ascent_8cpp_source_1l00222"/>00222 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;vk[i]&#32;=&#32;rv[i+3];
+<anchor xml:id="_ascent_8cpp_source_1l00223"/>00223 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_ascent_8cpp_source_1l00224"/>00224 &#32;&#32;&#32;&#32;kep_toolbox::ic2par(rk,&#32;vk,&#32;mu,&#32;kep);
+<anchor xml:id="_ascent_8cpp_source_1l00225"/>00225 }
+<anchor xml:id="_ascent_8cpp_source_1l00226"/>00226 
+<anchor xml:id="_ascent_8cpp_source_1l00227"/><link linkend="_struct_p_v_twaste">00227</link> <emphasis role="keyword">struct&#32;</emphasis><link linkend="_struct_p_v_twaste">PVTwaste</link>&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00228"/>00228 
+<anchor xml:id="_ascent_8cpp_source_1l00229"/><link linkend="_struct_p_v_twaste_1a3fec432bcbb1df023d16d391281c851c">00229</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">static</emphasis>&#32;<emphasis role="keyword">constexpr</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_struct_p_v_twaste_1a3fec432bcbb1df023d16d391281c851c">muE</link>&#32;=&#32;3.986004407799724E5;
+<anchor xml:id="_ascent_8cpp_source_1l00230"/><link linkend="_struct_p_v_twaste_1a52e84d9913b95d595e0bacf4f7ca9de4">00230</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">static</emphasis>&#32;<emphasis role="keyword">constexpr</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_struct_p_v_twaste_1a52e84d9913b95d595e0bacf4f7ca9de4">muS</link>&#32;=&#32;1.32712440018E11;
+<anchor xml:id="_ascent_8cpp_source_1l00231"/><link linkend="_struct_p_v_twaste_1a943290c3b910f9f1016d0dced0705b5d">00231</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">static</emphasis>&#32;<emphasis role="keyword">constexpr</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_struct_p_v_twaste_1a943290c3b910f9f1016d0dced0705b5d">muM</link>&#32;=&#32;4.9028E3;
+<anchor xml:id="_ascent_8cpp_source_1l00232"/>00232 
+<anchor xml:id="_ascent_8cpp_source_1l00233"/><link linkend="_struct_p_v_twaste_1ae6cc1ca203ca5714f009597f21084df7">00233</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">static</emphasis>&#32;<emphasis role="keyword">constexpr</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_struct_p_v_twaste_1ae6cc1ca203ca5714f009597f21084df7">Re</link>&#32;=&#32;6378.1363;
+<anchor xml:id="_ascent_8cpp_source_1l00234"/><link linkend="_struct_p_v_twaste_1ac38aab594992fbf42162e262a5198fe8">00234</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">static</emphasis>&#32;<emphasis role="keyword">constexpr</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_struct_p_v_twaste_1ac38aab594992fbf42162e262a5198fe8">C20</link>&#32;=&#32;-4.84165371736E-4;
+<anchor xml:id="_ascent_8cpp_source_1l00235"/><link linkend="_struct_p_v_twaste_1ac151accd6ddb505bc4dcb0e733bf63d6">00235</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">static</emphasis>&#32;<emphasis role="keyword">constexpr</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_struct_p_v_twaste_1ac151accd6ddb505bc4dcb0e733bf63d6">C22</link>&#32;=&#32;2.43914352398E-6;
+<anchor xml:id="_ascent_8cpp_source_1l00236"/><link linkend="_struct_p_v_twaste_1a2e8b7d56d53ecea62d2eab181484c289">00236</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">static</emphasis>&#32;<emphasis role="keyword">constexpr</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_struct_p_v_twaste_1a2e8b7d56d53ecea62d2eab181484c289">S22</link>&#32;=&#32;-1.40016683654E-6;
+<anchor xml:id="_ascent_8cpp_source_1l00237"/>00237 
+<anchor xml:id="_ascent_8cpp_source_1l00238"/><link linkend="_struct_p_v_twaste_1a837536dbf943a0e98a06baf33501fff5">00238</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">static</emphasis>&#32;<emphasis role="keyword">constexpr</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_struct_p_v_twaste_1a837536dbf943a0e98a06baf33501fff5">muERe2V5C20</link>&#32;=&#32;<link linkend="_struct_p_v_twaste_1a3fec432bcbb1df023d16d391281c851c">muE</link>*<link linkend="_struct_p_v_twaste_1ae6cc1ca203ca5714f009597f21084df7">Re</link>*<link linkend="_struct_p_v_twaste_1ae6cc1ca203ca5714f009597f21084df7">Re</link>*sqrt(5)*<link linkend="_struct_p_v_twaste_1ac38aab594992fbf42162e262a5198fe8">C20</link>;
+<anchor xml:id="_ascent_8cpp_source_1l00239"/><link linkend="_struct_p_v_twaste_1afbeafc30daf033bf6e391c52acc30de0">00239</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">static</emphasis>&#32;<emphasis role="keyword">constexpr</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_struct_p_v_twaste_1afbeafc30daf033bf6e391c52acc30de0">muERe2V15C22</link>&#32;=&#32;<link linkend="_struct_p_v_twaste_1a3fec432bcbb1df023d16d391281c851c">muE</link>*<link linkend="_struct_p_v_twaste_1ae6cc1ca203ca5714f009597f21084df7">Re</link>*<link linkend="_struct_p_v_twaste_1ae6cc1ca203ca5714f009597f21084df7">Re</link>*sqrt(15)*<link linkend="_struct_p_v_twaste_1ac151accd6ddb505bc4dcb0e733bf63d6">C22</link>;
+<anchor xml:id="_ascent_8cpp_source_1l00240"/><link linkend="_struct_p_v_twaste_1a269ded5e0e6bf15f9555b8051fd41ab6">00240</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">static</emphasis>&#32;<emphasis role="keyword">constexpr</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_struct_p_v_twaste_1a269ded5e0e6bf15f9555b8051fd41ab6">muERe2V15S22</link>&#32;=&#32;<link linkend="_struct_p_v_twaste_1a3fec432bcbb1df023d16d391281c851c">muE</link>*<link linkend="_struct_p_v_twaste_1ae6cc1ca203ca5714f009597f21084df7">Re</link>*<link linkend="_struct_p_v_twaste_1ae6cc1ca203ca5714f009597f21084df7">Re</link>*sqrt(15)*<link linkend="_struct_p_v_twaste_1a2e8b7d56d53ecea62d2eab181484c289">S22</link>;
+<anchor xml:id="_ascent_8cpp_source_1l00241"/>00241 
+<anchor xml:id="_ascent_8cpp_source_1l00242"/><link linkend="_struct_p_v_twaste_1ae2c0e25846d64775a15258981426f1ba">00242</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">static</emphasis>&#32;<emphasis role="keyword">constexpr</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_struct_p_v_twaste_1ae2c0e25846d64775a15258981426f1ba">thetaG</link>&#32;=&#32;280.4606*M_PI/180.0;
+<anchor xml:id="_ascent_8cpp_source_1l00243"/><link linkend="_struct_p_v_twaste_1afb0a11e7c464f1d5e2ea31ac73457e1b">00243</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">static</emphasis>&#32;<emphasis role="keyword">constexpr</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_struct_p_v_twaste_1afb0a11e7c464f1d5e2ea31ac73457e1b">vE</link>&#32;=&#32;4.178074622024230E-3*M_PI/180.0;
+<anchor xml:id="_ascent_8cpp_source_1l00244"/><link linkend="_struct_p_v_twaste_1a65eb3aee288895471a46b161b71a2075">00244</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">static</emphasis>&#32;<emphasis role="keyword">constexpr</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_struct_p_v_twaste_1a65eb3aee288895471a46b161b71a2075">vMa</link>&#32;=&#32;1.512151961904581E-4*M_PI/180.0;
+<anchor xml:id="_ascent_8cpp_source_1l00245"/><link linkend="_struct_p_v_twaste_1ac16a357b63460839f8817382093ce2e2">00245</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">static</emphasis>&#32;<emphasis role="keyword">constexpr</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_struct_p_v_twaste_1ac16a357b63460839f8817382093ce2e2">vMp</link>&#32;=&#32;1.2893925235125941E-6*M_PI/180.0;
+<anchor xml:id="_ascent_8cpp_source_1l00246"/><link linkend="_struct_p_v_twaste_1ac94bac84a19f62603f096eb832ccacdf">00246</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">static</emphasis>&#32;<emphasis role="keyword">constexpr</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_struct_p_v_twaste_1ac94bac84a19f62603f096eb832ccacdf">vMs</link>&#32;=&#32;6.128913003523574E-7*M_PI/180.0;
+<anchor xml:id="_ascent_8cpp_source_1l00247"/><link linkend="_struct_p_v_twaste_1a6de94e89e8e369b52666fe682ad31c43">00247</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">static</emphasis>&#32;<emphasis role="keyword">constexpr</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_struct_p_v_twaste_1a6de94e89e8e369b52666fe682ad31c43">aS</link>&#32;=&#32;1.49619E8;
+<anchor xml:id="_ascent_8cpp_source_1l00248"/><link linkend="_struct_p_v_twaste_1ae2e5af7b7e92b4f42357a69a54d98463">00248</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">static</emphasis>&#32;<emphasis role="keyword">constexpr</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_struct_p_v_twaste_1ae2e5af7b7e92b4f42357a69a54d98463">Psrp</link>&#32;=&#32;4.56E-3;
+<anchor xml:id="_ascent_8cpp_source_1l00249"/><link linkend="_struct_p_v_twaste_1ab5ec885cc8046aa8cc73ad72f9aef8da">00249</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">static</emphasis>&#32;<emphasis role="keyword">constexpr</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_struct_p_v_twaste_1ab5ec885cc8046aa8cc73ad72f9aef8da">Psrpas2</link>&#32;=&#32;<link linkend="_struct_p_v_twaste_1ae2e5af7b7e92b4f42357a69a54d98463">Psrp</link>*<link linkend="_struct_p_v_twaste_1a6de94e89e8e369b52666fe682ad31c43">aS</link>*<link linkend="_struct_p_v_twaste_1a6de94e89e8e369b52666fe682ad31c43">aS</link>;
+<anchor xml:id="_ascent_8cpp_source_1l00250"/>00250 
+<anchor xml:id="_ascent_8cpp_source_1l00251"/><link linkend="_struct_p_v_twaste_1aa423f7cadbdad2fd76457f73a144b9e3">00251</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">static</emphasis>&#32;<emphasis role="keyword">constexpr</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_struct_p_v_twaste_1aa423f7cadbdad2fd76457f73a144b9e3">phiS</link>&#32;=&#32;357.5256*M_PI/180.0;
+<anchor xml:id="_ascent_8cpp_source_1l00252"/><link linkend="_struct_p_v_twaste_1a9e79ddea190aeb198ef6ab36181c95cf">00252</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">static</emphasis>&#32;<emphasis role="keyword">constexpr</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_struct_p_v_twaste_1a9e79ddea190aeb198ef6ab36181c95cf">OMomS</link>&#32;=&#32;282.94*M_PI/180.0;
+<anchor xml:id="_ascent_8cpp_source_1l00253"/><link linkend="_struct_p_v_twaste_1ab8ade552c1fccf17ddaa56c7f842b1e2">00253</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">static</emphasis>&#32;<emphasis role="keyword">constexpr</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_struct_p_v_twaste_1ab8ade552c1fccf17ddaa56c7f842b1e2">vS</link>&#32;=&#32;1.1407410259335311E-5*M_PI/180.0;
+<anchor xml:id="_ascent_8cpp_source_1l00254"/><link linkend="_struct_p_v_twaste_1a926ed0db0d282eab35a5072abc024b22">00254</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">static</emphasis>&#32;<emphasis role="keyword">constexpr</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_struct_p_v_twaste_1a926ed0db0d282eab35a5072abc024b22">ep</link>&#32;=&#32;23.4392911*M_PI/180.0;
+<anchor xml:id="_ascent_8cpp_source_1l00255"/><link linkend="_struct_p_v_twaste_1a51a1f5057c4468e7a27a0dfacf72934b">00255</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">static</emphasis>&#32;<emphasis role="keyword">constexpr</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_struct_p_v_twaste_1a51a1f5057c4468e7a27a0dfacf72934b">cosep</link>&#32;=&#32;cos(<link linkend="_struct_p_v_twaste_1a926ed0db0d282eab35a5072abc024b22">ep</link>);
+<anchor xml:id="_ascent_8cpp_source_1l00256"/><link linkend="_struct_p_v_twaste_1a9920cfb5cdf508bc5ed7053e9b8dae90">00256</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">static</emphasis>&#32;<emphasis role="keyword">constexpr</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_struct_p_v_twaste_1a9920cfb5cdf508bc5ed7053e9b8dae90">sinep</link>&#32;=&#32;sin(<link linkend="_struct_p_v_twaste_1a926ed0db0d282eab35a5072abc024b22">ep</link>);
+<anchor xml:id="_ascent_8cpp_source_1l00257"/>00257 
+<anchor xml:id="_ascent_8cpp_source_1l00258"/><link linkend="_struct_p_v_twaste_1a2d0bba9d3cc1604b9b7f5d246424ff26">00258</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_struct_p_v_twaste_1a2d0bba9d3cc1604b9b7f5d246424ff26">_cram</link>;
+<anchor xml:id="_ascent_8cpp_source_1l00259"/>00259 
+<anchor xml:id="_ascent_8cpp_source_1l00260"/><link linkend="_struct_p_v_twaste_1a24eeb47274a02f75d1e1f4cce1d0e858">00260</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_struct_p_v_twaste_1a24eeb47274a02f75d1e1f4cce1d0e858">sunr</link>(<emphasis role="keywordtype">double</emphasis>&#32;t,&#32;<emphasis role="keywordtype">double</emphasis>&amp;&#32;xsun,&#32;<emphasis role="keywordtype">double</emphasis>&amp;&#32;ysun,&#32;<emphasis role="keywordtype">double</emphasis>&amp;&#32;zsun)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00261"/>00261 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;lsun&#32;=&#32;<link linkend="_struct_p_v_twaste_1aa423f7cadbdad2fd76457f73a144b9e3">phiS</link>&#32;+&#32;<link linkend="_struct_p_v_twaste_1ab8ade552c1fccf17ddaa56c7f842b1e2">vS</link>&#32;*&#32;t;
+<anchor xml:id="_ascent_8cpp_source_1l00262"/>00262 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;rsun&#32;=&#32;1E6&#32;*&#32;(149.619&#32;-&#32;2.499*cos(lsun)
+<anchor xml:id="_ascent_8cpp_source_1l00263"/>00263 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-&#32;0.021*cos(2*lsun));
+<anchor xml:id="_ascent_8cpp_source_1l00264"/>00264 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;lambdas&#32;=&#32;<link linkend="_struct_p_v_twaste_1a9e79ddea190aeb198ef6ab36181c95cf">OMomS</link>&#32;+&#32;lsun&#32;+
+<anchor xml:id="_ascent_8cpp_source_1l00265"/>00265 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;(6892.0/3600.0*sin(lsun)&#32;+
+<anchor xml:id="_ascent_8cpp_source_1l00266"/>00266 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;72.0/3600.0*sin(2*lsun))*M_PI/180.0;
+<anchor xml:id="_ascent_8cpp_source_1l00267"/>00267 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xsun&#32;=&#32;rsun&#32;*&#32;cos(lambdas);
+<anchor xml:id="_ascent_8cpp_source_1l00268"/>00268 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ysun&#32;=&#32;rsun&#32;*&#32;sin(lambdas)&#32;*&#32;<link linkend="_struct_p_v_twaste_1a51a1f5057c4468e7a27a0dfacf72934b">cosep</link>;
+<anchor xml:id="_ascent_8cpp_source_1l00269"/>00269 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;zsun&#32;=&#32;rsun&#32;*&#32;sin(lambdas)&#32;*&#32;<link linkend="_struct_p_v_twaste_1a9920cfb5cdf508bc5ed7053e9b8dae90">sinep</link>;
+<anchor xml:id="_ascent_8cpp_source_1l00270"/>00270 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_ascent_8cpp_source_1l00271"/>00271 
+<anchor xml:id="_ascent_8cpp_source_1l00272"/><link linkend="_struct_p_v_twaste_1a1cfca4e9f5f2698750985837e6cb9098">00272</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_struct_p_v_twaste_1a1cfca4e9f5f2698750985837e6cb9098">moonr</link>(<emphasis role="keywordtype">double</emphasis>&#32;t,&#32;<emphasis role="keywordtype">double</emphasis>&amp;&#32;xM,&#32;<emphasis role="keywordtype">double</emphasis>&amp;&#32;yM,&#32;<emphasis role="keywordtype">double</emphasis>&amp;&#32;zM)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00273"/>00273 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;phiM&#32;=&#32;<link linkend="_struct_p_v_twaste_1ab8ade552c1fccf17ddaa56c7f842b1e2">vS</link>&#32;*&#32;t;
+<anchor xml:id="_ascent_8cpp_source_1l00274"/>00274 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;phiMa&#32;=&#32;<link linkend="_struct_p_v_twaste_1a65eb3aee288895471a46b161b71a2075">vMa</link>&#32;*&#32;t;
+<anchor xml:id="_ascent_8cpp_source_1l00275"/>00275 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;phiMp&#32;=&#32;<link linkend="_struct_p_v_twaste_1ac16a357b63460839f8817382093ce2e2">vMp</link>&#32;*&#32;t;
+<anchor xml:id="_ascent_8cpp_source_1l00276"/>00276 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;phiMs&#32;=&#32;<link linkend="_struct_p_v_twaste_1ac94bac84a19f62603f096eb832ccacdf">vMs</link>&#32;*&#32;t;
+<anchor xml:id="_ascent_8cpp_source_1l00277"/>00277 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;L0&#32;=&#32;phiMp&#32;+&#32;phiMa&#32;+&#32;218.31617*M_PI/180.0;
+<anchor xml:id="_ascent_8cpp_source_1l00278"/>00278 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;lM&#32;=&#32;phiMa&#32;+&#32;134.96292*M_PI/180.0;
+<anchor xml:id="_ascent_8cpp_source_1l00279"/>00279 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;lsM&#32;=&#32;phiM&#32;+&#32;357.5256*M_PI/180.0;
+<anchor xml:id="_ascent_8cpp_source_1l00280"/>00280 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;FM&#32;=&#32;phiMp&#32;+&#32;phiMa&#32;+&#32;phiMs&#32;+&#32;93.27283*M_PI/180.0;
+<anchor xml:id="_ascent_8cpp_source_1l00281"/>00281 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;DM&#32;=&#32;phiMp&#32;+&#32;phiMa&#32;-&#32;phiM&#32;+&#32;297.85027*M_PI/180.0;
+<anchor xml:id="_ascent_8cpp_source_1l00282"/>00282 
+<anchor xml:id="_ascent_8cpp_source_1l00283"/>00283 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;rM&#32;=&#32;385000.0&#32;-&#32;20905.0&#32;*&#32;cos(lM)&#32;-&#32;3699.0&#32;*&#32;cos(2*DM&#32;-&#32;lM)
+<anchor xml:id="_ascent_8cpp_source_1l00284"/>00284 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-&#32;2956.0&#32;*&#32;cos(2*DM)&#32;-&#32;570.0&#32;*&#32;cos(2*lM)
+<anchor xml:id="_ascent_8cpp_source_1l00285"/>00285 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;+&#32;246.0&#32;*&#32;cos(2*lM&#32;-&#32;2*DM)&#32;-&#32;205.0&#32;*&#32;cos(lsM&#32;-&#32;2*DM)
+<anchor xml:id="_ascent_8cpp_source_1l00286"/>00286 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-&#32;171.0&#32;*&#32;cos(lM&#32;+&#32;2*DM)
+<anchor xml:id="_ascent_8cpp_source_1l00287"/>00287 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-&#32;152.0&#32;*&#32;cos(lM&#32;+&#32;lsM&#32;-&#32;2*DM);
+<anchor xml:id="_ascent_8cpp_source_1l00288"/>00288 
+<anchor xml:id="_ascent_8cpp_source_1l00289"/>00289 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;lambdaM&#32;=&#32;L0
+<anchor xml:id="_ascent_8cpp_source_1l00290"/>00290 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;+&#32;(22640.0&#32;/&#32;3600.0&#32;*&#32;sin(lM)&#32;+&#32;769.0&#32;/&#32;3600.0&#32;*&#32;sin(2&#32;*&#32;lM)
+<anchor xml:id="_ascent_8cpp_source_1l00291"/>00291 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-&#32;4856.0&#32;/&#32;3600.0&#32;*&#32;sin(lM&#32;-&#32;2*DM)&#32;+&#32;2370.0&#32;/&#32;3600.0&#32;*&#32;sin(2*DM)
+<anchor xml:id="_ascent_8cpp_source_1l00292"/>00292 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-&#32;668.0&#32;/&#32;3600.0&#32;*&#32;sin(lsM)&#32;-&#32;412.0&#32;/&#32;3600.0&#32;*&#32;sin(2*FM)
+<anchor xml:id="_ascent_8cpp_source_1l00293"/>00293 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-&#32;212.0&#32;/&#32;3600.0&#32;*&#32;sin(2*lM&#32;-&#32;2*DM)&#32;-&#32;206.0&#32;/&#32;3600.0&#32;*&#32;sin(lM&#32;+&#32;lsM&#32;-&#32;2*DM)
+<anchor xml:id="_ascent_8cpp_source_1l00294"/>00294 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;+&#32;192.0&#32;/&#32;3600.0&#32;*&#32;sin(lM&#32;+&#32;2*DM)&#32;-&#32;165.0&#32;/&#32;3600.0&#32;*&#32;sin(lsM&#32;-&#32;2*DM)
+<anchor xml:id="_ascent_8cpp_source_1l00295"/>00295 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;+&#32;148.0&#32;/&#32;3600.0&#32;*&#32;sin(lM&#32;-&#32;lsM)&#32;-&#32;125.0&#32;/&#32;3600.0&#32;*&#32;sin(DM)
+<anchor xml:id="_ascent_8cpp_source_1l00296"/>00296 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-&#32;110.0&#32;/&#32;3600.0&#32;*&#32;sin(lM&#32;+&#32;lsM)&#32;-&#32;55.0&#32;/&#32;3600.0&#32;*&#32;sin(2*FM&#32;-&#32;2*DM))
+<anchor xml:id="_ascent_8cpp_source_1l00297"/>00297 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;*&#32;M_PI/180.0;
+<anchor xml:id="_ascent_8cpp_source_1l00298"/>00298 
+<anchor xml:id="_ascent_8cpp_source_1l00299"/>00299 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;betaM&#32;=&#32;&#32;(18520.0/3600.0&#32;*&#32;sin(FM&#32;+&#32;lambdaM&#32;-&#32;L0&#32;+&#32;(412.0&#32;/&#32;3600.0&#32;*&#32;sin(2*FM)
+<anchor xml:id="_ascent_8cpp_source_1l00300"/>00300 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;+&#32;541.0&#32;/&#32;3600.0&#32;*&#32;sin(lsM)))&#32;*&#32;M_PI/180.0
+<anchor xml:id="_ascent_8cpp_source_1l00301"/>00301 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-&#32;526.0&#32;/&#32;3600.0&#32;*&#32;sin(FM&#32;-&#32;2*DM)
+<anchor xml:id="_ascent_8cpp_source_1l00302"/>00302 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;+&#32;44.0&#32;/&#32;3600.0&#32;*&#32;sin(lM&#32;+&#32;FM&#32;-&#32;2*DM)&#32;-&#32;31.0&#32;/&#32;3600.0&#32;*&#32;sin(-lM&#32;+&#32;FM&#32;-&#32;2*DM)
+<anchor xml:id="_ascent_8cpp_source_1l00303"/>00303 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-&#32;25.0&#32;/&#32;3600.0&#32;*&#32;sin(-2*lM&#32;+&#32;FM)&#32;-&#32;23.0&#32;/&#32;3600.0&#32;*&#32;sin(lsM&#32;+&#32;FM&#32;-&#32;2*DM)
+<anchor xml:id="_ascent_8cpp_source_1l00304"/>00304 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;+&#32;21.0&#32;/&#32;3600.0&#32;*&#32;sin(-lM&#32;+&#32;FM)&#32;+&#32;11.0&#32;/&#32;3600.0&#32;*&#32;sin(-lsM&#32;+&#32;FM&#32;-&#32;2*DM))
+<anchor xml:id="_ascent_8cpp_source_1l00305"/>00305 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;*&#32;M_PI/180.0;
+<anchor xml:id="_ascent_8cpp_source_1l00306"/>00306 
+<anchor xml:id="_ascent_8cpp_source_1l00307"/>00307 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;M1&#32;=&#32;rM&#32;*&#32;cos(lambdaM)&#32;*&#32;cos(betaM);
+<anchor xml:id="_ascent_8cpp_source_1l00308"/>00308 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;M2&#32;=&#32;rM&#32;*&#32;sin(lambdaM)&#32;*&#32;cos(betaM);
+<anchor xml:id="_ascent_8cpp_source_1l00309"/>00309 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;M3&#32;=&#32;rM&#32;*&#32;sin(betaM);
+<anchor xml:id="_ascent_8cpp_source_1l00310"/>00310 
+<anchor xml:id="_ascent_8cpp_source_1l00311"/>00311 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xM&#32;=&#32;M1;
+<anchor xml:id="_ascent_8cpp_source_1l00312"/>00312 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;yM&#32;=&#32;<link linkend="_struct_p_v_twaste_1a51a1f5057c4468e7a27a0dfacf72934b">cosep</link>&#32;*&#32;M2&#32;-&#32;<link linkend="_struct_p_v_twaste_1a9920cfb5cdf508bc5ed7053e9b8dae90">sinep</link>&#32;*&#32;M3;
+<anchor xml:id="_ascent_8cpp_source_1l00313"/>00313 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;zM&#32;=&#32;<link linkend="_struct_p_v_twaste_1a9920cfb5cdf508bc5ed7053e9b8dae90">sinep</link>&#32;*&#32;M2&#32;+&#32;<link linkend="_struct_p_v_twaste_1a51a1f5057c4468e7a27a0dfacf72934b">cosep</link>&#32;*&#32;M3;
+<anchor xml:id="_ascent_8cpp_source_1l00314"/>00314 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_ascent_8cpp_source_1l00315"/>00315 
+<anchor xml:id="_ascent_8cpp_source_1l00316"/><link linkend="_struct_p_v_twaste_1a5750399f7beaf3ada4493ba6ae4634b0">00316</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_struct_p_v_twaste_1a5750399f7beaf3ada4493ba6ae4634b0">operator()</link>(<emphasis role="keyword">const</emphasis>&#32;state_t&#32;&amp;pv,&#32;state_t&#32;&amp;yDot,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;t)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00317"/>00317 
+<anchor xml:id="_ascent_8cpp_source_1l00318"/>00318 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;position</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00319"/>00319 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;x&#32;=&#32;pv[0];
+<anchor xml:id="_ascent_8cpp_source_1l00320"/>00320 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;y&#32;=&#32;pv[1];
+<anchor xml:id="_ascent_8cpp_source_1l00321"/>00321 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;z&#32;=&#32;pv[2];
+<anchor xml:id="_ascent_8cpp_source_1l00322"/>00322 
+<anchor xml:id="_ascent_8cpp_source_1l00323"/>00323 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;velocity</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00324"/>00324 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;yDot[0]&#32;=&#32;pv[3];
+<anchor xml:id="_ascent_8cpp_source_1l00325"/>00325 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;yDot[1]&#32;=&#32;pv[4];
+<anchor xml:id="_ascent_8cpp_source_1l00326"/>00326 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;yDot[2]&#32;=&#32;pv[5];
+<anchor xml:id="_ascent_8cpp_source_1l00327"/>00327 
+<anchor xml:id="_ascent_8cpp_source_1l00328"/>00328 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;rq&#32;=&#32;x&#32;*&#32;x&#32;+&#32;y&#32;*&#32;y&#32;+&#32;z&#32;*&#32;z;
+<anchor xml:id="_ascent_8cpp_source_1l00329"/>00329 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;r&#32;=&#32;sqrt(rq);
+<anchor xml:id="_ascent_8cpp_source_1l00330"/>00330 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;rq2&#32;=&#32;rq&#32;*&#32;rq;
+<anchor xml:id="_ascent_8cpp_source_1l00331"/>00331 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;rq3&#32;=&#32;rq2&#32;*&#32;rq;
+<anchor xml:id="_ascent_8cpp_source_1l00332"/>00332 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;rrr&#32;=&#32;r*r*r;
+<anchor xml:id="_ascent_8cpp_source_1l00333"/>00333 
+<anchor xml:id="_ascent_8cpp_source_1l00334"/>00334 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;z15&#32;=&#32;15.0*z*z&#32;/&#32;rq3;
+<anchor xml:id="_ascent_8cpp_source_1l00335"/>00335 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;rq23&#32;=&#32;3.0&#32;/&#32;rq2;
+<anchor xml:id="_ascent_8cpp_source_1l00336"/>00336 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;muERe2V5C20q2r&#32;=&#32;<link linkend="_struct_p_v_twaste_1a837536dbf943a0e98a06baf33501fff5">muERe2V5C20</link>&#32;/&#32;(2*r);
+<anchor xml:id="_ascent_8cpp_source_1l00337"/>00337 
+<anchor xml:id="_ascent_8cpp_source_1l00338"/>00338 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;earth&#32;gravity</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00339"/>00339 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;fkepX&#32;=&#32;-<link linkend="_struct_p_v_twaste_1a3fec432bcbb1df023d16d391281c851c">muE</link>&#32;*&#32;x&#32;/&#32;rrr;
+<anchor xml:id="_ascent_8cpp_source_1l00340"/>00340 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;fkepY&#32;=&#32;-<link linkend="_struct_p_v_twaste_1a3fec432bcbb1df023d16d391281c851c">muE</link>&#32;*&#32;y&#32;/&#32;rrr;
+<anchor xml:id="_ascent_8cpp_source_1l00341"/>00341 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;fkepZ&#32;=&#32;-<link linkend="_struct_p_v_twaste_1a3fec432bcbb1df023d16d391281c851c">muE</link>&#32;*&#32;z&#32;/&#32;rrr;
+<anchor xml:id="_ascent_8cpp_source_1l00342"/>00342 
+<anchor xml:id="_ascent_8cpp_source_1l00343"/>00343 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;J2&#32;perturbation</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00344"/>00344 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;fJ2X&#32;=&#32;muERe2V5C20q2r&#32;*&#32;x&#32;*&#32;(rq23&#32;-&#32;z15);
+<anchor xml:id="_ascent_8cpp_source_1l00345"/>00345 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;fJ2Y&#32;=&#32;muERe2V5C20q2r&#32;*&#32;y&#32;*&#32;(rq23&#32;-&#32;z15);
+<anchor xml:id="_ascent_8cpp_source_1l00346"/>00346 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;fJ2Z&#32;=&#32;muERe2V5C20q2r&#32;*&#32;z&#32;*&#32;(3*rq23&#32;-&#32;z15);
+<anchor xml:id="_ascent_8cpp_source_1l00347"/>00347 
+<anchor xml:id="_ascent_8cpp_source_1l00348"/>00348 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;solar&#32;radiation&#32;pressure</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00349"/>00349 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;xsun,&#32;ysun,&#32;zsun;
+<anchor xml:id="_ascent_8cpp_source_1l00350"/>00350 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_struct_p_v_twaste_1a24eeb47274a02f75d1e1f4cce1d0e858">sunr</link>(t,&#32;xsun,&#32;ysun,&#32;zsun);
+<anchor xml:id="_ascent_8cpp_source_1l00351"/>00351 
+<anchor xml:id="_ascent_8cpp_source_1l00352"/>00352 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;rsun&#32;=&#32;sqrt(xsun&#32;*&#32;xsun&#32;+&#32;ysun&#32;*&#32;ysun&#32;+&#32;zsun&#32;*&#32;zsun);
+<anchor xml:id="_ascent_8cpp_source_1l00353"/>00353 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;rsun3&#32;=&#32;rsun*rsun*rsun;
+<anchor xml:id="_ascent_8cpp_source_1l00354"/>00354 
+<anchor xml:id="_ascent_8cpp_source_1l00355"/>00355 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;xsd&#32;=&#32;x&#32;-&#32;xsun;
+<anchor xml:id="_ascent_8cpp_source_1l00356"/>00356 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;ysd&#32;=&#32;y&#32;-&#32;ysun;
+<anchor xml:id="_ascent_8cpp_source_1l00357"/>00357 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;zsd&#32;=&#32;z&#32;-&#32;zsun;
+<anchor xml:id="_ascent_8cpp_source_1l00358"/>00358 
+<anchor xml:id="_ascent_8cpp_source_1l00359"/>00359 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;rsd&#32;=&#32;sqrt(xsd&#32;*&#32;xsd&#32;+&#32;ysd&#32;*&#32;ysd&#32;+&#32;zsd&#32;*&#32;zsd);
+<anchor xml:id="_ascent_8cpp_source_1l00360"/>00360 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;rsd3&#32;=&#32;rsd*rsd*rsd;
+<anchor xml:id="_ascent_8cpp_source_1l00361"/>00361 
+<anchor xml:id="_ascent_8cpp_source_1l00362"/>00362 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;fSRPX&#32;=&#32;<link linkend="_struct_p_v_twaste_1a2d0bba9d3cc1604b9b7f5d246424ff26">_cram</link>&#32;*&#32;xsd&#32;*&#32;<link linkend="_struct_p_v_twaste_1ab5ec885cc8046aa8cc73ad72f9aef8da">Psrpas2</link>&#32;/&#32;rsd3;
+<anchor xml:id="_ascent_8cpp_source_1l00363"/>00363 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;fSRPY&#32;=&#32;<link linkend="_struct_p_v_twaste_1a2d0bba9d3cc1604b9b7f5d246424ff26">_cram</link>&#32;*&#32;ysd&#32;*&#32;<link linkend="_struct_p_v_twaste_1ab5ec885cc8046aa8cc73ad72f9aef8da">Psrpas2</link>&#32;/&#32;rsd3;
+<anchor xml:id="_ascent_8cpp_source_1l00364"/>00364 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;fSRPZ&#32;=&#32;<link linkend="_struct_p_v_twaste_1a2d0bba9d3cc1604b9b7f5d246424ff26">_cram</link>&#32;*&#32;zsd&#32;*&#32;<link linkend="_struct_p_v_twaste_1ab5ec885cc8046aa8cc73ad72f9aef8da">Psrpas2</link>&#32;/&#32;rsd3;
+<anchor xml:id="_ascent_8cpp_source_1l00365"/>00365 
+<anchor xml:id="_ascent_8cpp_source_1l00366"/>00366 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;C22</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00367"/>00367 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;tGvEt&#32;=&#32;<link linkend="_struct_p_v_twaste_1ae2c0e25846d64775a15258981426f1ba">thetaG</link>&#32;+&#32;<link linkend="_struct_p_v_twaste_1afb0a11e7c464f1d5e2ea31ac73457e1b">vE</link>&#32;*&#32;t;
+<anchor xml:id="_ascent_8cpp_source_1l00368"/>00368 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;costGvEt&#32;=&#32;cos(tGvEt);
+<anchor xml:id="_ascent_8cpp_source_1l00369"/>00369 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;sintGvEt&#32;=&#32;sin(tGvEt);
+<anchor xml:id="_ascent_8cpp_source_1l00370"/>00370 
+<anchor xml:id="_ascent_8cpp_source_1l00371"/>00371 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;xc&#32;=&#32;x&#32;*&#32;costGvEt&#32;+&#32;y&#32;*&#32;sintGvEt;
+<anchor xml:id="_ascent_8cpp_source_1l00372"/>00372 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;yc&#32;=&#32;-x&#32;*&#32;sintGvEt&#32;+&#32;y&#32;*&#32;costGvEt;
+<anchor xml:id="_ascent_8cpp_source_1l00373"/>00373 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;zc&#32;=&#32;z;
+<anchor xml:id="_ascent_8cpp_source_1l00374"/>00374 
+<anchor xml:id="_ascent_8cpp_source_1l00375"/>00375 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;xcq&#32;=&#32;xc*xc;
+<anchor xml:id="_ascent_8cpp_source_1l00376"/>00376 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;ycq&#32;=&#32;yc*yc;
+<anchor xml:id="_ascent_8cpp_source_1l00377"/>00377 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;zcq&#32;=&#32;zc*zc;
+<anchor xml:id="_ascent_8cpp_source_1l00378"/>00378 
+<anchor xml:id="_ascent_8cpp_source_1l00379"/>00379 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;rc&#32;=&#32;xcq&#32;+&#32;ycq&#32;+&#32;zcq;
+<anchor xml:id="_ascent_8cpp_source_1l00380"/>00380 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;rc5&#32;=&#32;rc*rc*rc*rc*rc;
+<anchor xml:id="_ascent_8cpp_source_1l00381"/>00381 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;rc5s&#32;=&#32;sqrt(rc5);
+<anchor xml:id="_ascent_8cpp_source_1l00382"/>00382 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;rc7s&#32;=&#32;sqrt(rc5*rc*rc);
+<anchor xml:id="_ascent_8cpp_source_1l00383"/>00383 
+<anchor xml:id="_ascent_8cpp_source_1l00384"/>00384 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;fc22x&#32;=&#32;5*<link linkend="_struct_p_v_twaste_1afbeafc30daf033bf6e391c52acc30de0">muERe2V15C22</link>*xc*(ycq-xcq)&#32;/&#32;(2*rc7s)&#32;+&#32;<link linkend="_struct_p_v_twaste_1afbeafc30daf033bf6e391c52acc30de0">muERe2V15C22</link>*x&#32;/&#32;rc5s;
+<anchor xml:id="_ascent_8cpp_source_1l00385"/>00385 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;fc22y&#32;=&#32;5*<link linkend="_struct_p_v_twaste_1afbeafc30daf033bf6e391c52acc30de0">muERe2V15C22</link>*yc*(ycq-xcq)&#32;/&#32;(2*rc7s)&#32;+&#32;<link linkend="_struct_p_v_twaste_1afbeafc30daf033bf6e391c52acc30de0">muERe2V15C22</link>*y&#32;/&#32;rc5s;
+<anchor xml:id="_ascent_8cpp_source_1l00386"/>00386 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;fc22Z&#32;=&#32;5*<link linkend="_struct_p_v_twaste_1afbeafc30daf033bf6e391c52acc30de0">muERe2V15C22</link>*zc*(ycq-xcq)&#32;/&#32;(2*rc7s);
+<anchor xml:id="_ascent_8cpp_source_1l00387"/>00387 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;fc22X&#32;=&#32;fc22x&#32;*&#32;costGvEt&#32;-&#32;fc22y&#32;*&#32;sintGvEt;
+<anchor xml:id="_ascent_8cpp_source_1l00388"/>00388 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;fc22Y&#32;=&#32;fc22x&#32;*&#32;sintGvEt&#32;-&#32;fc22y&#32;*&#32;costGvEt;
+<anchor xml:id="_ascent_8cpp_source_1l00389"/>00389 
+<anchor xml:id="_ascent_8cpp_source_1l00390"/>00390 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;S22</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00391"/>00391 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;fs22x&#32;=&#32;-5*<link linkend="_struct_p_v_twaste_1a269ded5e0e6bf15f9555b8051fd41ab6">muERe2V15S22</link>*xcq*y&#32;/&#32;rc7s&#32;+&#32;<link linkend="_struct_p_v_twaste_1a269ded5e0e6bf15f9555b8051fd41ab6">muERe2V15S22</link>*y&#32;/&#32;rc5s;
+<anchor xml:id="_ascent_8cpp_source_1l00392"/>00392 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;fs22y&#32;=&#32;-5*<link linkend="_struct_p_v_twaste_1a269ded5e0e6bf15f9555b8051fd41ab6">muERe2V15S22</link>*xc*ycq&#32;/&#32;rc7s&#32;+&#32;<link linkend="_struct_p_v_twaste_1a269ded5e0e6bf15f9555b8051fd41ab6">muERe2V15S22</link>*x&#32;/&#32;rc5s;
+<anchor xml:id="_ascent_8cpp_source_1l00393"/>00393 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;fs22Z&#32;=&#32;-5*<link linkend="_struct_p_v_twaste_1a269ded5e0e6bf15f9555b8051fd41ab6">muERe2V15S22</link>*zc*(ycq-xcq)&#32;/&#32;rc7s;
+<anchor xml:id="_ascent_8cpp_source_1l00394"/>00394 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;fs22X&#32;=&#32;fs22x&#32;*&#32;costGvEt&#32;-&#32;fs22y&#32;*&#32;sintGvEt;
+<anchor xml:id="_ascent_8cpp_source_1l00395"/>00395 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;fs22Y&#32;=&#32;fs22x&#32;*&#32;sintGvEt&#32;-&#32;fs22y&#32;*&#32;costGvEt;
+<anchor xml:id="_ascent_8cpp_source_1l00396"/>00396 
+<anchor xml:id="_ascent_8cpp_source_1l00397"/>00397 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;solar&#32;gravity</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00398"/>00398 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;fsunX&#32;=&#32;-<link linkend="_struct_p_v_twaste_1a52e84d9913b95d595e0bacf4f7ca9de4">muS</link>&#32;*&#32;(xsd&#32;/&#32;rsd3&#32;+&#32;xsun&#32;/&#32;rsun3);
+<anchor xml:id="_ascent_8cpp_source_1l00399"/>00399 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;fsunY&#32;=&#32;-<link linkend="_struct_p_v_twaste_1a52e84d9913b95d595e0bacf4f7ca9de4">muS</link>&#32;*&#32;(ysd&#32;/&#32;rsd3&#32;+&#32;ysun&#32;/&#32;rsun3);
+<anchor xml:id="_ascent_8cpp_source_1l00400"/>00400 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;fsunZ&#32;=&#32;-<link linkend="_struct_p_v_twaste_1a52e84d9913b95d595e0bacf4f7ca9de4">muS</link>&#32;*&#32;(zsd&#32;/&#32;rsd3&#32;+&#32;zsun&#32;/&#32;rsun3);
+<anchor xml:id="_ascent_8cpp_source_1l00401"/>00401 
+<anchor xml:id="_ascent_8cpp_source_1l00402"/>00402 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;lunar&#32;gravity</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00403"/>00403 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;solar&#32;radiation&#32;pressure</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00404"/>00404 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;xmoo,&#32;ymoo,&#32;zmoo;
+<anchor xml:id="_ascent_8cpp_source_1l00405"/>00405 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_struct_p_v_twaste_1a1cfca4e9f5f2698750985837e6cb9098">moonr</link>(t,&#32;xmoo,&#32;ymoo,&#32;zmoo);
+<anchor xml:id="_ascent_8cpp_source_1l00406"/>00406 
+<anchor xml:id="_ascent_8cpp_source_1l00407"/>00407 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;rmoo&#32;=&#32;sqrt(xmoo&#32;*&#32;xmoo&#32;+&#32;ymoo&#32;*&#32;ymoo&#32;+&#32;zmoo&#32;*&#32;zmoo);
+<anchor xml:id="_ascent_8cpp_source_1l00408"/>00408 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;rmoo3&#32;=&#32;rmoo*rmoo*rmoo;
+<anchor xml:id="_ascent_8cpp_source_1l00409"/>00409 
+<anchor xml:id="_ascent_8cpp_source_1l00410"/>00410 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;xmd&#32;=&#32;x&#32;-&#32;xmoo;
+<anchor xml:id="_ascent_8cpp_source_1l00411"/>00411 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;ymd&#32;=&#32;y&#32;-&#32;ymoo;
+<anchor xml:id="_ascent_8cpp_source_1l00412"/>00412 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;zmd&#32;=&#32;z&#32;-&#32;zmoo;
+<anchor xml:id="_ascent_8cpp_source_1l00413"/>00413 
+<anchor xml:id="_ascent_8cpp_source_1l00414"/>00414 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;rmd&#32;=&#32;sqrt(xmd&#32;*&#32;xmd&#32;+&#32;ymd&#32;*&#32;ymd&#32;+&#32;zmd&#32;*&#32;zmd);
+<anchor xml:id="_ascent_8cpp_source_1l00415"/>00415 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;rmd3&#32;=&#32;rmd*rmd*rmd;
+<anchor xml:id="_ascent_8cpp_source_1l00416"/>00416 
+<anchor xml:id="_ascent_8cpp_source_1l00417"/>00417 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;fmooX&#32;=&#32;-<link linkend="_struct_p_v_twaste_1a943290c3b910f9f1016d0dced0705b5d">muM</link>&#32;*&#32;(xmd&#32;/&#32;rmd3&#32;+&#32;xmoo&#32;/&#32;rmoo3);
+<anchor xml:id="_ascent_8cpp_source_1l00418"/>00418 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;fmooY&#32;=&#32;-<link linkend="_struct_p_v_twaste_1a943290c3b910f9f1016d0dced0705b5d">muM</link>&#32;*&#32;(ymd&#32;/&#32;rmd3&#32;+&#32;ymoo&#32;/&#32;rmoo3);
+<anchor xml:id="_ascent_8cpp_source_1l00419"/>00419 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;fmooZ&#32;=&#32;-<link linkend="_struct_p_v_twaste_1a943290c3b910f9f1016d0dced0705b5d">muM</link>&#32;*&#32;(zmd&#32;/&#32;rmd3&#32;+&#32;zmoo&#32;/&#32;rmoo3);
+<anchor xml:id="_ascent_8cpp_source_1l00420"/>00420 
+<anchor xml:id="_ascent_8cpp_source_1l00421"/>00421 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;acceleration</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00422"/>00422 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;yDot[3]&#32;=&#32;fkepX&#32;+&#32;fJ2X&#32;+&#32;fSRPX&#32;+&#32;fc22X&#32;+&#32;fs22X&#32;+&#32;fsunX&#32;+&#32;fmooX;
+<anchor xml:id="_ascent_8cpp_source_1l00423"/>00423 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;yDot[4]&#32;=&#32;fkepY&#32;+&#32;fJ2Y&#32;+&#32;fSRPY&#32;+&#32;fc22Y&#32;+&#32;fs22Y&#32;+&#32;fsunY&#32;+&#32;fmooY;
+<anchor xml:id="_ascent_8cpp_source_1l00424"/>00424 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;yDot[5]&#32;=&#32;fkepZ&#32;+&#32;fJ2Z&#32;+&#32;fSRPZ&#32;+&#32;fc22Z&#32;+&#32;fs22Z&#32;+&#32;fsunZ&#32;+&#32;fmooZ;
+<anchor xml:id="_ascent_8cpp_source_1l00425"/>00425 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_ascent_8cpp_source_1l00426"/>00426 };
+<anchor xml:id="_ascent_8cpp_source_1l00427"/>00427 
+<anchor xml:id="_ascent_8cpp_source_1l00428"/>00428 <emphasis role="keyword">using&#32;namespace&#32;</emphasis>std;
+<anchor xml:id="_ascent_8cpp_source_1l00429"/>00429 
+<anchor xml:id="_ascent_8cpp_source_1l00430"/>00430 <emphasis role="keyword">extern</emphasis>&#32;<emphasis role="stringliteral">&quot;C&quot;</emphasis>&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00431"/>00431 
+<anchor xml:id="_ascent_8cpp_source_1l00432"/><link linkend="_ascent_8cpp_1a3ac859a2fc844d9b3218d8377ff8ddc3">00432</link> <emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_ascent_8cpp_1a3ac859a2fc844d9b3218d8377ff8ddc3">integratePVTwaste_C</link>(<emphasis role="keywordtype">double</emphasis>&#32;*rvt,&#32;<emphasis role="keywordtype">double</emphasis>&#32;dt,&#32;<emphasis role="keywordtype">double</emphasis>&#32;step,
+<anchor xml:id="_ascent_8cpp_source_1l00433"/>00433 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;cram,&#32;<emphasis role="keywordtype">bool</emphasis>&#32;dopri)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00434"/>00434 
+<anchor xml:id="_ascent_8cpp_source_1l00435"/>00435 &#32;&#32;&#32;&#32;state_t&#32;y(6);
+<anchor xml:id="_ascent_8cpp_source_1l00436"/>00436 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;6;&#32;i++)&#32;<emphasis role="comment">//&#32;r,&#32;v</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00437"/>00437 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;y[i]&#32;=&#32;rvt[i];
+<anchor xml:id="_ascent_8cpp_source_1l00438"/>00438 
+<anchor xml:id="_ascent_8cpp_source_1l00439"/>00439 &#32;&#32;&#32;&#32;<link linkend="_struct_p_v_twaste">PVTwaste</link>&#32;pvt;
+<anchor xml:id="_ascent_8cpp_source_1l00440"/>00440 &#32;&#32;&#32;&#32;pvt.<link linkend="_struct_p_v_twaste_1a2d0bba9d3cc1604b9b7f5d246424ff26">_cram</link>&#32;=&#32;cram;
+<anchor xml:id="_ascent_8cpp_source_1l00441"/>00441 
+<anchor xml:id="_ascent_8cpp_source_1l00442"/>00442 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;steps&#32;=&#32;0;
+<anchor xml:id="_ascent_8cpp_source_1l00443"/>00443 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;t&#32;=&#32;rvt[7];
+<anchor xml:id="_ascent_8cpp_source_1l00444"/>00444 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;tN&#32;=&#32;t&#32;+&#32;dt;
+<anchor xml:id="_ascent_8cpp_source_1l00445"/>00445 
+<anchor xml:id="_ascent_8cpp_source_1l00446"/>00446 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(dt&#32;&gt;&#32;0)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00447"/>00447 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(dopri)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00448"/>00448 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;DOPRI45&#32;integrator;
+<anchor xml:id="_ascent_8cpp_source_1l00449"/>00449 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">while</emphasis>&#32;(t&#32;&lt;&#32;tN)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00450"/>00450 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;steps++;
+<anchor xml:id="_ascent_8cpp_source_1l00451"/>00451 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(t&#32;+&#32;step&#32;&gt;=&#32;tN)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00452"/>00452 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;integrator(pvt,&#32;y,&#32;t,&#32;tN&#32;-&#32;t);
+<anchor xml:id="_ascent_8cpp_source_1l00453"/>00453 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+<anchor xml:id="_ascent_8cpp_source_1l00454"/>00454 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}&#32;<emphasis role="keywordflow">else</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00455"/>00455 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;integrator(pvt,&#32;y,&#32;t,&#32;step);
+<anchor xml:id="_ascent_8cpp_source_1l00456"/>00456 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_ascent_8cpp_source_1l00457"/>00457 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}&#32;<emphasis role="keywordflow">else</emphasis>&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00458"/>00458 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;RK4&#32;integrator;
+<anchor xml:id="_ascent_8cpp_source_1l00459"/>00459 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">while</emphasis>&#32;(t&#32;&lt;&#32;tN)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00460"/>00460 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;steps++;
+<anchor xml:id="_ascent_8cpp_source_1l00461"/>00461 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(t&#32;+&#32;step&#32;&gt;=&#32;tN)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00462"/>00462 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;integrator(pvt,&#32;y,&#32;t,&#32;tN&#32;-&#32;t);
+<anchor xml:id="_ascent_8cpp_source_1l00463"/>00463 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+<anchor xml:id="_ascent_8cpp_source_1l00464"/>00464 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}&#32;<emphasis role="keywordflow">else</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00465"/>00465 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;integrator(pvt,&#32;y,&#32;t,&#32;step);
+<anchor xml:id="_ascent_8cpp_source_1l00466"/>00466 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_ascent_8cpp_source_1l00467"/>00467 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_ascent_8cpp_source_1l00468"/>00468 &#32;&#32;&#32;&#32;}&#32;<emphasis role="keywordflow">else</emphasis>&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00469"/>00469 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;step&#32;=&#32;-abs(step);&#32;<emphasis role="comment">//&#32;step&#32;negative</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00470"/>00470 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(dopri)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00471"/>00471 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;DOPRI45&#32;integrator;
+<anchor xml:id="_ascent_8cpp_source_1l00472"/>00472 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">while</emphasis>&#32;(t&#32;&gt;&#32;dt)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00473"/>00473 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;steps++;
+<anchor xml:id="_ascent_8cpp_source_1l00474"/>00474 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(t&#32;+&#32;step&#32;&lt;=&#32;tN)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00475"/>00475 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;integrator(pvt,&#32;y,&#32;t,&#32;tN&#32;-&#32;t);
+<anchor xml:id="_ascent_8cpp_source_1l00476"/>00476 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+<anchor xml:id="_ascent_8cpp_source_1l00477"/>00477 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}&#32;<emphasis role="keywordflow">else</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00478"/>00478 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;integrator(pvt,&#32;y,&#32;t,&#32;step);
+<anchor xml:id="_ascent_8cpp_source_1l00479"/>00479 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_ascent_8cpp_source_1l00480"/>00480 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}&#32;<emphasis role="keywordflow">else</emphasis>&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00481"/>00481 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;RK4&#32;integrator;
+<anchor xml:id="_ascent_8cpp_source_1l00482"/>00482 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">while</emphasis>&#32;(t&#32;&gt;&#32;dt)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00483"/>00483 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;steps++;
+<anchor xml:id="_ascent_8cpp_source_1l00484"/>00484 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(t&#32;+&#32;step&#32;&lt;=&#32;tN)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00485"/>00485 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;integrator(pvt,&#32;y,&#32;t,&#32;tN&#32;-&#32;t);
+<anchor xml:id="_ascent_8cpp_source_1l00486"/>00486 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+<anchor xml:id="_ascent_8cpp_source_1l00487"/>00487 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}&#32;<emphasis role="keywordflow">else</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00488"/>00488 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;integrator(pvt,&#32;y,&#32;t,&#32;step);
+<anchor xml:id="_ascent_8cpp_source_1l00489"/>00489 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_ascent_8cpp_source_1l00490"/>00490 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_ascent_8cpp_source_1l00491"/>00491 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_ascent_8cpp_source_1l00492"/>00492 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;6;&#32;i++)
+<anchor xml:id="_ascent_8cpp_source_1l00493"/>00493 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;rvt[i]&#32;=&#32;y[i];
+<anchor xml:id="_ascent_8cpp_source_1l00494"/>00494 &#32;&#32;&#32;&#32;rvt[7]&#32;=&#32;tN;
+<anchor xml:id="_ascent_8cpp_source_1l00495"/>00495 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;steps;
+<anchor xml:id="_ascent_8cpp_source_1l00496"/>00496 };
+<anchor xml:id="_ascent_8cpp_source_1l00497"/>00497 
+<anchor xml:id="_ascent_8cpp_source_1l00498"/><link linkend="_ascent_8cpp_1ae5ba225583cb2594ec1b3c02e0da17fb">00498</link> <emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_ascent_8cpp_1ae5ba225583cb2594ec1b3c02e0da17fb">integratePVTwasteN_C</link>(<emphasis role="keywordtype">double</emphasis>&#32;*rvt,&#32;<emphasis role="keywordtype">double</emphasis>&#32;dtN,&#32;<emphasis role="keywordtype">double</emphasis>&#32;step,
+<anchor xml:id="_ascent_8cpp_source_1l00499"/>00499 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;cram,&#32;<emphasis role="keywordtype">int</emphasis>&#32;N,&#32;<emphasis role="keywordtype">bool</emphasis>&#32;dopri,&#32;<emphasis role="keywordtype">double</emphasis>*&#32;res)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00500"/>00500 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">try</emphasis>&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00501"/>00501 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;state_t&#32;y(6);
+<anchor xml:id="_ascent_8cpp_source_1l00502"/>00502 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;6;&#32;i++)&#32;<emphasis role="comment">//&#32;r,&#32;v</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00503"/>00503 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;y[i]&#32;=&#32;rvt[i];
+<anchor xml:id="_ascent_8cpp_source_1l00504"/>00504 
+<anchor xml:id="_ascent_8cpp_source_1l00505"/>00505 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_struct_p_v_twaste">PVTwaste</link>&#32;pvt;
+<anchor xml:id="_ascent_8cpp_source_1l00506"/>00506 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pvt.<link linkend="_struct_p_v_twaste_1a2d0bba9d3cc1604b9b7f5d246424ff26">_cram</link>&#32;=&#32;cram;
+<anchor xml:id="_ascent_8cpp_source_1l00507"/>00507 
+<anchor xml:id="_ascent_8cpp_source_1l00508"/>00508 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;time[1],&#32;r[3],&#32;v[3],&#32;kep[6]</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00509"/>00509 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;t&#32;=&#32;rvt[7];
+<anchor xml:id="_ascent_8cpp_source_1l00510"/>00510 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;tN&#32;=&#32;t&#32;+&#32;dtN;
+<anchor xml:id="_ascent_8cpp_source_1l00511"/>00511 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;dt&#32;=&#32;(tN&#32;-&#32;t)&#32;/&#32;N;
+<anchor xml:id="_ascent_8cpp_source_1l00512"/>00512 
+<anchor xml:id="_ascent_8cpp_source_1l00513"/>00513 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(dtN&#32;&gt;&#32;0)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00514"/>00514 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(dopri)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00515"/>00515 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;DOPRI45&#32;integrator;
+<anchor xml:id="_ascent_8cpp_source_1l00516"/>00516 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;j&#32;=&#32;0;
+<anchor xml:id="_ascent_8cpp_source_1l00517"/>00517 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;N+1;&#32;i++)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00518"/>00518 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;res[j++]&#32;=&#32;t;
+<anchor xml:id="_ascent_8cpp_source_1l00519"/>00519 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;k&#32;=&#32;0;&#32;k&#32;&lt;&#32;6;&#32;k++)
+<anchor xml:id="_ascent_8cpp_source_1l00520"/>00520 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;res[j++]&#32;=&#32;y[k];
+<anchor xml:id="_ascent_8cpp_source_1l00521"/>00521 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;kep[6];
+<anchor xml:id="_ascent_8cpp_source_1l00522"/>00522 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_ascent_8cpp_1a7029b8dc4f9351f6a28fbfc893a920a6">wic2par</link>(y,&#32;kep,&#32;pvt.<link linkend="_struct_p_v_twaste_1a3fec432bcbb1df023d16d391281c851c">muE</link>);
+<anchor xml:id="_ascent_8cpp_source_1l00523"/>00523 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;k&#32;=&#32;0;&#32;k&#32;&lt;&#32;6;&#32;k++)
+<anchor xml:id="_ascent_8cpp_source_1l00524"/>00524 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;res[j++]&#32;=&#32;kep[k];
+<anchor xml:id="_ascent_8cpp_source_1l00525"/>00525 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(i&#32;==&#32;N)&#32;<emphasis role="keywordflow">break</emphasis>;
+<anchor xml:id="_ascent_8cpp_source_1l00526"/>00526 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;nextT&#32;=&#32;t&#32;+&#32;dt;
+<anchor xml:id="_ascent_8cpp_source_1l00527"/>00527 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">while</emphasis>&#32;(t&#32;&lt;&#32;nextT)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00528"/>00528 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(t&#32;+&#32;step&#32;&gt;=&#32;nextT)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00529"/>00529 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;integrator(pvt,&#32;y,&#32;t,&#32;nextT&#32;-&#32;t);
+<anchor xml:id="_ascent_8cpp_source_1l00530"/>00530 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+<anchor xml:id="_ascent_8cpp_source_1l00531"/>00531 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}&#32;<emphasis role="keywordflow">else</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00532"/>00532 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;integrator(pvt,&#32;y,&#32;t,&#32;step);
+<anchor xml:id="_ascent_8cpp_source_1l00533"/>00533 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_ascent_8cpp_source_1l00534"/>00534 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_ascent_8cpp_source_1l00535"/>00535 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}&#32;<emphasis role="keywordflow">else</emphasis>&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00536"/>00536 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;RK4&#32;integrator;
+<anchor xml:id="_ascent_8cpp_source_1l00537"/>00537 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;j&#32;=&#32;0;
+<anchor xml:id="_ascent_8cpp_source_1l00538"/>00538 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;N+1;&#32;i++)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00539"/>00539 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;res[j++]&#32;=&#32;t;
+<anchor xml:id="_ascent_8cpp_source_1l00540"/>00540 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;k&#32;=&#32;0;&#32;k&#32;&lt;&#32;6;&#32;k++)
+<anchor xml:id="_ascent_8cpp_source_1l00541"/>00541 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;res[j++]&#32;=&#32;y[k];
+<anchor xml:id="_ascent_8cpp_source_1l00542"/>00542 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;kep[6];
+<anchor xml:id="_ascent_8cpp_source_1l00543"/>00543 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_ascent_8cpp_1a7029b8dc4f9351f6a28fbfc893a920a6">wic2par</link>(y,&#32;kep,&#32;pvt.<link linkend="_struct_p_v_twaste_1a3fec432bcbb1df023d16d391281c851c">muE</link>);
+<anchor xml:id="_ascent_8cpp_source_1l00544"/>00544 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;k&#32;=&#32;0;&#32;k&#32;&lt;&#32;6;&#32;k++)
+<anchor xml:id="_ascent_8cpp_source_1l00545"/>00545 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;res[j++]&#32;=&#32;kep[k];
+<anchor xml:id="_ascent_8cpp_source_1l00546"/>00546 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(i&#32;==&#32;N)&#32;<emphasis role="keywordflow">break</emphasis>;
+<anchor xml:id="_ascent_8cpp_source_1l00547"/>00547 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;nextT&#32;=&#32;t&#32;+&#32;dt;
+<anchor xml:id="_ascent_8cpp_source_1l00548"/>00548 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">while</emphasis>&#32;(t&#32;&lt;&#32;nextT)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00549"/>00549 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(t&#32;+&#32;step&#32;&gt;=&#32;nextT)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00550"/>00550 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;integrator(pvt,&#32;y,&#32;t,&#32;nextT&#32;-&#32;t);
+<anchor xml:id="_ascent_8cpp_source_1l00551"/>00551 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+<anchor xml:id="_ascent_8cpp_source_1l00552"/>00552 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}&#32;<emphasis role="keywordflow">else</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00553"/>00553 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;integrator(pvt,&#32;y,&#32;t,&#32;step);
+<anchor xml:id="_ascent_8cpp_source_1l00554"/>00554 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_ascent_8cpp_source_1l00555"/>00555 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_ascent_8cpp_source_1l00556"/>00556 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_ascent_8cpp_source_1l00557"/>00557 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}&#32;<emphasis role="keywordflow">else</emphasis>&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00558"/>00558 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;step&#32;=&#32;-abs(step);&#32;<emphasis role="comment">//&#32;step&#32;negative</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00559"/>00559 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(dopri)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00560"/>00560 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;DOPRI45&#32;integrator;
+<anchor xml:id="_ascent_8cpp_source_1l00561"/>00561 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;j&#32;=&#32;0;
+<anchor xml:id="_ascent_8cpp_source_1l00562"/>00562 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;N+1;&#32;i++)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00563"/>00563 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;res[j++]&#32;=&#32;t;
+<anchor xml:id="_ascent_8cpp_source_1l00564"/>00564 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;k&#32;=&#32;0;&#32;k&#32;&lt;&#32;6;&#32;k++)
+<anchor xml:id="_ascent_8cpp_source_1l00565"/>00565 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;res[j++]&#32;=&#32;y[k];
+<anchor xml:id="_ascent_8cpp_source_1l00566"/>00566 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;kep[6];
+<anchor xml:id="_ascent_8cpp_source_1l00567"/>00567 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_ascent_8cpp_1a7029b8dc4f9351f6a28fbfc893a920a6">wic2par</link>(y,&#32;kep,&#32;pvt.<link linkend="_struct_p_v_twaste_1a3fec432bcbb1df023d16d391281c851c">muE</link>);
+<anchor xml:id="_ascent_8cpp_source_1l00568"/>00568 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;k&#32;=&#32;0;&#32;k&#32;&lt;&#32;6;&#32;k++)
+<anchor xml:id="_ascent_8cpp_source_1l00569"/>00569 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;res[j++]&#32;=&#32;kep[k];
+<anchor xml:id="_ascent_8cpp_source_1l00570"/>00570 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(i&#32;==&#32;N)&#32;<emphasis role="keywordflow">break</emphasis>;
+<anchor xml:id="_ascent_8cpp_source_1l00571"/>00571 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;nextT&#32;=&#32;t&#32;+&#32;dt;
+<anchor xml:id="_ascent_8cpp_source_1l00572"/>00572 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">while</emphasis>&#32;(t&#32;&gt;&#32;nextT)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00573"/>00573 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(t&#32;+&#32;step&#32;&lt;=&#32;nextT)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00574"/>00574 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;integrator(pvt,&#32;y,&#32;t,&#32;nextT&#32;-&#32;t);
+<anchor xml:id="_ascent_8cpp_source_1l00575"/>00575 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+<anchor xml:id="_ascent_8cpp_source_1l00576"/>00576 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}&#32;<emphasis role="keywordflow">else</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00577"/>00577 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;integrator(pvt,&#32;y,&#32;t,&#32;step);
+<anchor xml:id="_ascent_8cpp_source_1l00578"/>00578 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_ascent_8cpp_source_1l00579"/>00579 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_ascent_8cpp_source_1l00580"/>00580 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}&#32;<emphasis role="keywordflow">else</emphasis>&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00581"/>00581 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;RK4&#32;integrator;
+<anchor xml:id="_ascent_8cpp_source_1l00582"/>00582 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;j&#32;=&#32;0;
+<anchor xml:id="_ascent_8cpp_source_1l00583"/>00583 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;N+1;&#32;i++)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00584"/>00584 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;res[j++]&#32;=&#32;t;
+<anchor xml:id="_ascent_8cpp_source_1l00585"/>00585 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;k&#32;=&#32;0;&#32;k&#32;&lt;&#32;6;&#32;k++)
+<anchor xml:id="_ascent_8cpp_source_1l00586"/>00586 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;res[j++]&#32;=&#32;y[k];
+<anchor xml:id="_ascent_8cpp_source_1l00587"/>00587 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;kep[6];
+<anchor xml:id="_ascent_8cpp_source_1l00588"/>00588 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_ascent_8cpp_1a7029b8dc4f9351f6a28fbfc893a920a6">wic2par</link>(y,&#32;kep,&#32;pvt.<link linkend="_struct_p_v_twaste_1a3fec432bcbb1df023d16d391281c851c">muE</link>);
+<anchor xml:id="_ascent_8cpp_source_1l00589"/>00589 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;k&#32;=&#32;0;&#32;k&#32;&lt;&#32;6;&#32;k++)
+<anchor xml:id="_ascent_8cpp_source_1l00590"/>00590 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;res[j++]&#32;=&#32;kep[k];
+<anchor xml:id="_ascent_8cpp_source_1l00591"/>00591 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(i&#32;==&#32;N)&#32;<emphasis role="keywordflow">break</emphasis>;
+<anchor xml:id="_ascent_8cpp_source_1l00592"/>00592 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;nextT&#32;=&#32;t&#32;+&#32;dt;
+<anchor xml:id="_ascent_8cpp_source_1l00593"/>00593 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">while</emphasis>&#32;(t&#32;&gt;&#32;nextT)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00594"/>00594 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(t&#32;+&#32;step&#32;&lt;=&#32;nextT)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00595"/>00595 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;integrator(pvt,&#32;y,&#32;t,&#32;nextT&#32;-&#32;t);
+<anchor xml:id="_ascent_8cpp_source_1l00596"/>00596 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+<anchor xml:id="_ascent_8cpp_source_1l00597"/>00597 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}&#32;<emphasis role="keywordflow">else</emphasis>
+<anchor xml:id="_ascent_8cpp_source_1l00598"/>00598 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;integrator(pvt,&#32;y,&#32;t,&#32;step);
+<anchor xml:id="_ascent_8cpp_source_1l00599"/>00599 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_ascent_8cpp_source_1l00600"/>00600 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_ascent_8cpp_source_1l00601"/>00601 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_ascent_8cpp_source_1l00602"/>00602 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_ascent_8cpp_source_1l00603"/>00603 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;6;&#32;i++)
+<anchor xml:id="_ascent_8cpp_source_1l00604"/>00604 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;rvt[i]&#32;=&#32;y[i];
+<anchor xml:id="_ascent_8cpp_source_1l00605"/>00605 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;rvt[7]&#32;=&#32;tN;
+<anchor xml:id="_ascent_8cpp_source_1l00606"/>00606 &#32;&#32;&#32;&#32;&#32;}&#32;<emphasis role="keywordflow">catch</emphasis>&#32;(std::exception&#32;&amp;e)&#32;{
+<anchor xml:id="_ascent_8cpp_source_1l00607"/>00607 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cout&#32;&lt;&lt;&#32;e.what()&#32;&lt;&lt;&#32;endl;
+<anchor xml:id="_ascent_8cpp_source_1l00608"/>00608 &#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_ascent_8cpp_source_1l00609"/>00609 };
+<anchor xml:id="_ascent_8cpp_source_1l00610"/>00610 
+<anchor xml:id="_ascent_8cpp_source_1l00611"/>00611 }
+<anchor xml:id="_ascent_8cpp_source_1l00612"/>00612 
+</programlisting></section>

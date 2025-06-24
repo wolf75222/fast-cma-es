@@ -1,0 +1,701 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_classfcmaes_1_1modecpp_1_1_m_o_d_e___c" xml:lang="en-US">
+<title>fcmaes.modecpp.MODE_C Class Reference</title>
+<indexterm><primary>fcmaes.modecpp.MODE_C</primary></indexterm>
+<para>
+
+<para>A class for managing the MODE-C optimization algorithm. </para>
+ 
+</para>
+Collaboration diagram for fcmaes.modecpp.MODE_C:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1modecpp_1_1_m_o_d_e___c__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Public Member Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1modecpp_1_1_m_o_d_e___c_1ac8edb933a20c41ff33f74d59f9a7f486">__init__</link> (self, int <link linkend="_classfcmaes_1_1modecpp_1_1_m_o_d_e___c_1a6c3952de5a26ec3374f08723eecf3b2e">nobj</link>, int <link linkend="_classfcmaes_1_1modecpp_1_1_m_o_d_e___c_1aa461c8e27adc9620ba6f4ed42b6e04cc">ncon</link>, Bounds <link linkend="_classfcmaes_1_1modecpp_1_1_m_o_d_e___c_1ab5837c03082fdd02b53bb829e538a094">bounds</link>, Optional[int] <link linkend="_classfcmaes_1_1modecpp_1_1_m_o_d_e___c_1ac85826131061fe5596f9420ff628f582">popsize</link>=64, Optional[float] f=0.5, Optional[float] cr=0.9, Optional[float] pro_c=0.5, Optional[float] dis_c=15.0, Optional[float] pro_m=0.9, Optional[float] dis_m=20.0, Optional[bool] nsga_update=True, Optional[int] pareto_update=0, Optional[ArrayLike] ints=None, Optional[float] min_mutate=0.1, Optional[float] max_mutate=0.5, Optional[Generator] rg=Generator(PCG64DXSM()), Optional[int] runid=0)</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1modecpp_1_1_m_o_d_e___c_1a580bb3d8baef2a338186cac64df0ea45">__del__</link> (self)</para>
+
+<para>Handles the cleanup and destruction of resources managed by an instance of this class. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1modecpp_1_1_m_o_d_e___c_1a3267cafa8c068a367179034c3f5a562d">set_guess</link> (self, guess, mofun, rg=None)</para>
+
+<para>Set the initial guess values for optimization along with corresponding function evaluations. </para>
+</listitem>
+            <listitem><para>np.ndarray <link linkend="_classfcmaes_1_1modecpp_1_1_m_o_d_e___c_1ae42863ed67ebbb8f39a488a9caecebc1">ask</link> (self)</para>
+
+<para>Generates and retrieves a new population of candidate solutions. </para>
+</listitem>
+            <listitem><para>int <link linkend="_classfcmaes_1_1modecpp_1_1_m_o_d_e___c_1adff2bdf2d7fa9dd5d8aabf4962471e07">tell</link> (self, np.ndarray ys, Optional[np.ndarray] xs=None)</para>
+
+<para>Submits new candidate solutions and their corresponding function values to the optimizer. </para>
+</listitem>
+            <listitem><para>int <link linkend="_classfcmaes_1_1modecpp_1_1_m_o_d_e___c_1a92426eb6d5a2f38b3a1218fd9479a1bc">tell_switch</link> (self, np.ndarray ys, Optional[bool] nsga_update=True, Optional[int] pareto_update=0)</para>
+
+<para>Updates information to a switching mechanism based on the input array. </para>
+</listitem>
+            <listitem><para>np.ndarray <link linkend="_classfcmaes_1_1modecpp_1_1_m_o_d_e___c_1a3433826fba507128212dc6dd455a7227">population</link> (self)</para>
+
+<para>Generates and retrieves the current population of individuals in a population-based algorithm. </para>
+</listitem>
+            <listitem><para>Tuple[np.ndarray, np.ndarray] <link linkend="_classfcmaes_1_1modecpp_1_1_m_o_d_e___c_1aa4a7a3e4f9a3fc84dc37faf820025306">minimize_ser</link> (self, Callable[[ArrayLike], ArrayLike] fun, Optional[int] max_evaluations=100000)</para>
+
+<para>Minimizes the given scalar function using a serial optimization method. </para>
+</listitem>
+            <listitem><para>Tuple[np.ndarray, np.ndarray] <link linkend="_classfcmaes_1_1modecpp_1_1_m_o_d_e___c_1a672b403a7e745d9e69532454f32d2b62">minimize_par</link> (self, Callable[[ArrayLike], ArrayLike] fun, Optional[int] max_evaluations=100000, Optional[int] workers=mp.cpu_count())</para>
+
+<para>Run a parallel multi-objective optimization process. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Public Attributes    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1modecpp_1_1_m_o_d_e___c_1a082166f4b177fc11e1aba67824f04e09">ptr</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1modecpp_1_1_m_o_d_e___c_1ac85826131061fe5596f9420ff628f582">popsize</link> = popsize</para>
+
+<para>The size of the population used in the optimization process. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1modecpp_1_1_m_o_d_e___c_1af4ebfa8da5f83635f078bc8f543a3243">dim</link> = dim</para>
+
+<para>The dimensionality of the decision variable space. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1modecpp_1_1_m_o_d_e___c_1a6c3952de5a26ec3374f08723eecf3b2e">nobj</link> = nobj</para>
+
+<para>The number of objective functions. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1modecpp_1_1_m_o_d_e___c_1aa461c8e27adc9620ba6f4ed42b6e04cc">ncon</link> = ncon</para>
+
+<para>The number of constraints in the optimization problem. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1modecpp_1_1_m_o_d_e___c_1ab5837c03082fdd02b53bb829e538a094">bounds</link> = bounds</para>
+
+<para>The bounds on variables, specified as a sequence of (min, max) bounds or. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>A class for managing the MODE-C optimization algorithm. </para>
+
+
+
+<para>This class provides an interface for the multi-objective differential evolution (MODE) algorithm and supports handling of objective functions, constraints, parallel evaluation, and population management. It is designed to work with scenarios that require solving optimization problems with multiple competing objectives, bounded variables, and potentially integer-constrained decision variables.</para>
+
+<para><literallayout><computeroutput>       using the `scipy.optimize.Bounds` class.
+</computeroutput></literallayout> </para>
+<para>
+Definition at line <link linkend="_modecpp_8py_source_1l00320">320</link> of file <link linkend="_modecpp_8py_source">modecpp.py</link>.</para>
+</section>
+<section>
+<title>Constructor &amp; Destructor Documentation</title>
+<anchor xml:id="_classfcmaes_1_1modecpp_1_1_m_o_d_e___c_1ac8edb933a20c41ff33f74d59f9a7f486"/><section>
+    <title>__init__()</title>
+<indexterm><primary>__init__</primary><secondary>fcmaes.modecpp.MODE_C</secondary></indexterm>
+<indexterm><primary>fcmaes.modecpp.MODE_C</primary><secondary>__init__</secondary></indexterm>
+<para><computeroutput>fcmaes.modecpp.MODE_C.__init__ ( self, int nobj, int ncon, Bounds bounds, Optional[int]  popsize = <computeroutput>64</computeroutput>
+, Optional[float]  f = <computeroutput>0.5</computeroutput>
+, Optional[float]  cr = <computeroutput>0.9</computeroutput>
+, Optional[float]  pro_c = <computeroutput>0.5</computeroutput>
+, Optional[float]  dis_c = <computeroutput>15.0</computeroutput>
+, Optional[float]  pro_m = <computeroutput>0.9</computeroutput>
+, Optional[float]  dis_m = <computeroutput>20.0</computeroutput>
+, Optional[bool]  nsga_update = <computeroutput>True</computeroutput>
+, Optional[int]  pareto_update = <computeroutput>0</computeroutput>
+, Optional[ArrayLike]  ints = <computeroutput>None</computeroutput>
+, Optional[float]  min_mutate = <computeroutput>0.1</computeroutput>
+, Optional[float]  max_mutate = <computeroutput>0.5</computeroutput>
+, Optional[Generator]  rg = <computeroutput>Generator(PCG64DXSM())</computeroutput>
+, Optional[int]  runid = <computeroutput>0</computeroutput>
+)</computeroutput></para><para>
+Definition at line <link linkend="_modecpp_8py_source_1l00365">365</link> of file <link linkend="_modecpp_8py_source">modecpp.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1modecpp_1_1_m_o_d_e___c_1a580bb3d8baef2a338186cac64df0ea45"/><section>
+    <title>__del__()</title>
+<indexterm><primary>__del__</primary><secondary>fcmaes.modecpp.MODE_C</secondary></indexterm>
+<indexterm><primary>fcmaes.modecpp.MODE_C</primary><secondary>__del__</secondary></indexterm>
+<para><computeroutput>fcmaes.modecpp.MODE_C.__del__ ( self)</computeroutput></para><para>
+
+<para>Handles the cleanup and destruction of resources managed by an instance of this class. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method is automatically called when the instance is about to be destroyed. It ensures
+   that any resources tied to the instance are released properly to avoid memory leaks or
+   resource contention.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>Exception</entry><entry>
+<para>If the clean-up or destruction process encounters an error. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_modecpp_8py_source_1l00423">423</link> of file <link linkend="_modecpp_8py_source">modecpp.py</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Function Documentation</title>
+<anchor xml:id="_classfcmaes_1_1modecpp_1_1_m_o_d_e___c_1ae42863ed67ebbb8f39a488a9caecebc1"/><section>
+    <title>ask()</title>
+<indexterm><primary>ask</primary><secondary>fcmaes.modecpp.MODE_C</secondary></indexterm>
+<indexterm><primary>fcmaes.modecpp.MODE_C</primary><secondary>ask</secondary></indexterm>
+<para><computeroutput> np.ndarray fcmaes.modecpp.MODE_C.ask ( self)</computeroutput></para><para>
+
+<para>Generates and retrieves a new population of candidate solutions. </para>
+</para>
+
+<para><literallayout><computeroutput>   This function interacts with a C library to generate a new population of
+   solutions for an optimization task. It ensures that the results are
+   retrieved and formatted appropriately in a NumPy array for further
+   processing or evaluation.
+</computeroutput></literallayout></para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>np A 2D NumPy array containing the generated population of solutions. Each row corresponds to a candidate solution, and each column corresponds to a dimension in the solution space. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_modecpp_8py_source_1l00471">471</link> of file <link linkend="_modecpp_8py_source">modecpp.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1modecpp_1_1_m_o_d_e___c_ae42863ed67ebbb8f39a488a9caecebc1_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1modecpp_1_1_m_o_d_e___c_1a672b403a7e745d9e69532454f32d2b62"/><section>
+    <title>minimize_par()</title>
+<indexterm><primary>minimize_par</primary><secondary>fcmaes.modecpp.MODE_C</secondary></indexterm>
+<indexterm><primary>fcmaes.modecpp.MODE_C</primary><secondary>minimize_par</secondary></indexterm>
+<para><computeroutput> Tuple[np.ndarray, np.ndarray] fcmaes.modecpp.MODE_C.minimize_par ( self, Callable[[ArrayLike], ArrayLike] fun, Optional[int]  max_evaluations = <computeroutput>100000</computeroutput>
+, Optional[int]  workers = <computeroutput>mp.cpu_count()</computeroutput>
+)</computeroutput></para><para>
+
+<para>Run a parallel multi-objective optimization process. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method leverages parallel processing to perform multi-objective
+   optimizations using a given objective function. It runs multiple iterations
+   until the stopping criteria are met or the specified maximum evaluations are
+   reached.
+
+
+       fun (Callable[[ArrayLike], ArrayLike]): Objective function to minimize.
+</computeroutput></literallayout> 
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>max_evaluations</entry><entry>
+<para>Maximum number of evaluations allowed. Defaults to 100000. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>workers</entry><entry>
+<para>Number of parallel workers to use. Defaults to the number of CPU cores.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>Tuple[np.ndarray, np.ndarray]: A tuple containing the array of evaluated input solutions (<computeroutput>xs</computeroutput>) and their corresponding objective values (<computeroutput>ys</computeroutput>). </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_modecpp_8py_source_1l00632">632</link> of file <link linkend="_modecpp_8py_source">modecpp.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1modecpp_1_1_m_o_d_e___c_a672b403a7e745d9e69532454f32d2b62_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1modecpp_1_1_m_o_d_e___c_1aa4a7a3e4f9a3fc84dc37faf820025306"/><section>
+    <title>minimize_ser()</title>
+<indexterm><primary>minimize_ser</primary><secondary>fcmaes.modecpp.MODE_C</secondary></indexterm>
+<indexterm><primary>fcmaes.modecpp.MODE_C</primary><secondary>minimize_ser</secondary></indexterm>
+<para><computeroutput> Tuple[np.ndarray, np.ndarray] fcmaes.modecpp.MODE_C.minimize_ser ( self, Callable[[ArrayLike], ArrayLike] fun, Optional[int]  max_evaluations = <computeroutput>100000</computeroutput>
+)</computeroutput></para><para>
+
+<para>Minimizes the given scalar function using a serial optimization method. </para>
+</para>
+
+<para>The function iteratively evaluates the objective function on the candidate solutions, updates the internal state of the optimizer, and stops when the termination criterion is met or the maximum number of evaluations is reached.</para>
+
+<para><literallayout><computeroutput>       fun (Callable[[ArrayLike], ArrayLike]): The objective function to be minimized.
+           It should take an input of type ArrayLike and return a value of type ArrayLike.
+</computeroutput></literallayout> 
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>max_evaluations</entry><entry>
+<para>The maximum number of function evaluations allowed. Defaults to 100000.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>Tuple[np.ndarray, np.ndarray]: A tuple containing the final candidate solutions as a numpy array and their corresponding evaluated objective function values as a numpy array. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_modecpp_8py_source_1l00600">600</link> of file <link linkend="_modecpp_8py_source">modecpp.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1modecpp_1_1_m_o_d_e___c_aa4a7a3e4f9a3fc84dc37faf820025306_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1modecpp_1_1_m_o_d_e___c_1a3433826fba507128212dc6dd455a7227"/><section>
+    <title>population()</title>
+<indexterm><primary>population</primary><secondary>fcmaes.modecpp.MODE_C</secondary></indexterm>
+<indexterm><primary>fcmaes.modecpp.MODE_C</primary><secondary>population</secondary></indexterm>
+<para><computeroutput> np.ndarray fcmaes.modecpp.MODE_C.population ( self)</computeroutput></para><para>
+
+<para>Generates and retrieves the current population of individuals in a population-based algorithm. </para>
+</para>
+
+<para>This method computes the population from an internal representation and returns it as a numpy array. The population matrix is reconstructed by splitting and reshaping raw flat data fetched from an external C function.</para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>np A 2D numpy array where each row represents an individual in the population and columns represent their feature values. If an error occurs during processing, the method returns None.</para>
+</formalpara>
+
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>Exception</entry><entry>
+<para>If an internal error occurs during computation or interfacing with external C functions, an exception is raised and error information is printed to standard output. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_modecpp_8py_source_1l00569">569</link> of file <link linkend="_modecpp_8py_source">modecpp.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1modecpp_1_1_m_o_d_e___c_1a3267cafa8c068a367179034c3f5a562d"/><section>
+    <title>set_guess()</title>
+<indexterm><primary>set_guess</primary><secondary>fcmaes.modecpp.MODE_C</secondary></indexterm>
+<indexterm><primary>fcmaes.modecpp.MODE_C</primary><secondary>set_guess</secondary></indexterm>
+<para><computeroutput>fcmaes.modecpp.MODE_C.set_guess ( self,  guess,  mofun,  rg = <computeroutput>None</computeroutput>
+)</computeroutput></para><para>
+
+<para>Set the initial guess values for optimization along with corresponding function evaluations. </para>
+</para>
+
+<para>This function initializes guesses and their associated computed values based on the input guess and the provided function evaluator.</para>
+
+<para>If a random generator is not provided, a default PCG64DXSM-based generator is created and used to randomly select a subset of guesses and evaluations.</para>
+
+<para><literallayout><computeroutput>       guess (Union[np.ndarray, Tuple[np.ndarray, np.ndarray]]): Initial guesses
+           for the optimization process. It can either be a numpy array of
+           guesses, or a tuple containing both the guesses and their
+           pre-computed evaluations.
+</computeroutput></literallayout> 
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>mofun</entry><entry>
+<para>A callable function used to compute the output of each guess value. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>rg</entry><entry>
+<para>A numpy random generator for sampling. Defaults to None, in which case a new generator instance is created. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_modecpp_8py_source_1l00446">446</link> of file <link linkend="_modecpp_8py_source">modecpp.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1modecpp_1_1_m_o_d_e___c_a3267cafa8c068a367179034c3f5a562d_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1modecpp_1_1_m_o_d_e___c_1adff2bdf2d7fa9dd5d8aabf4962471e07"/><section>
+    <title>tell()</title>
+<indexterm><primary>tell</primary><secondary>fcmaes.modecpp.MODE_C</secondary></indexterm>
+<indexterm><primary>fcmaes.modecpp.MODE_C</primary><secondary>tell</secondary></indexterm>
+<para><computeroutput> int fcmaes.modecpp.MODE_C.tell ( self, np.ndarray ys, Optional[np.ndarray]  xs = <computeroutput>None</computeroutput>
+)</computeroutput></para><para>
+
+<para>Submits new candidate solutions and their corresponding function values to the optimizer. </para>
+</para>
+
+<para><literallayout><computeroutput>   This function allows reporting of new solution candidates (`xs`) along with their associated
+   function values (`ys`) to the optimization process. The optimizer will use this information
+   to update its state and proceed with optimization.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>ys</entry><entry>
+<para>A NumPy array of the function values corresponding to the given candidate solutions. This must be a one-dimensional array or will be flattened internally. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>xs</entry><entry>
+<para>A NumPy array of candidate solutions. This must be a two-dimensional array with each row representing a candidate solution. If not provided, only the function values (<computeroutput>ys</computeroutput>) are reported.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>int A status code. The status code indicates successful reporting of the solutions (e.g., positive values) or failure due to an exception encountered during processing (negative values like -1). </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_modecpp_8py_source_1l00505">505</link> of file <link linkend="_modecpp_8py_source">modecpp.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1modecpp_1_1_m_o_d_e___c_adff2bdf2d7fa9dd5d8aabf4962471e07_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1modecpp_1_1_m_o_d_e___c_1a92426eb6d5a2f38b3a1218fd9479a1bc"/><section>
+    <title>tell_switch()</title>
+<indexterm><primary>tell_switch</primary><secondary>fcmaes.modecpp.MODE_C</secondary></indexterm>
+<indexterm><primary>fcmaes.modecpp.MODE_C</primary><secondary>tell_switch</secondary></indexterm>
+<para><computeroutput> int fcmaes.modecpp.MODE_C.tell_switch ( self, np.ndarray ys, Optional[bool]  nsga_update = <computeroutput>True</computeroutput>
+, Optional[int]  pareto_update = <computeroutput>0</computeroutput>
+)</computeroutput></para><para>
+
+<para>Updates information to a switching mechanism based on the input array. </para>
+</para>
+
+<para><literallayout><computeroutput>   This function performs an operation to update internal mechanisms using the provided
+   data. It interacts with an external library or module through a C function call,
+   processing the input array into a flattened format before submission.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>ys</entry><entry>
+<para>A NumPy array containing input data. The array will be flattened before use. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>nsga_update</entry><entry>
+<para>Indicates whether an NSGA update mechanism is enabled. Default is True. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>pareto_update</entry><entry>
+<para>Specifies whether a Pareto-based update mechanism is triggered. Default is 0.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>int The result of the external function call. On successful operation, it will likely be a status code or effect-based response. In case of an error, it returns -1. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_modecpp_8py_source_1l00540">540</link> of file <link linkend="_modecpp_8py_source">modecpp.py</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Data Documentation</title>
+<anchor xml:id="_classfcmaes_1_1modecpp_1_1_m_o_d_e___c_1ab5837c03082fdd02b53bb829e538a094"/><section>
+    <title>bounds</title>
+<indexterm><primary>bounds</primary><secondary>fcmaes.modecpp.MODE_C</secondary></indexterm>
+<indexterm><primary>fcmaes.modecpp.MODE_C</primary><secondary>bounds</secondary></indexterm>
+<para><computeroutput>fcmaes.modecpp.MODE_C.bounds = bounds</computeroutput></para><para>
+
+<para>The bounds on variables, specified as a sequence of (min, max) bounds or. </para>
+</para>
+
+<para>Initializes an instance of the optimization problem using the specified parameters. <literallayout><computeroutput>   This constructor sets up the necessary parameters for a multi-objective differential
+   evolution (MODE) algorithm, with options for NSGA-II-inspired updates and Pareto
+   front approximations. It handles checks on bounds, dimensions, and population size,
+   and initializes the required internal structures for the optimization process.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>nobj</entry><entry>
+<para>Number of objectives in the optimization problem. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>ncon</entry><entry>
+<para>Number of constraints in the optimization problem. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>bounds</entry><entry>
+<para>Object defining the lower and upper bounds for the decision variables. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>popsize</entry><entry>
+<para>Size of the population. Defaults to 64. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>f</entry><entry>
+<para>Differential weight utilized in mutation. Defaults to 0.5. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>cr</entry><entry>
+<para>Crossover probability. Defaults to 0.9. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>pro_c</entry><entry>
+<para>Probability of crossover used in simulated binary crossover. Defaults to 0.5. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>dis_c</entry><entry>
+<para>Distribution index for crossover. Defaults to 15.0. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>pro_m</entry><entry>
+<para>Probability of mutation. Defaults to 0.9. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>dis_m</entry><entry>
+<para>Distribution index for mutation. Defaults to 20.0. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>nsga_update</entry><entry>
+<para>Flag to enable NSGA-II-inspired update rules. Defaults to True. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>pareto_update</entry><entry>
+<para>Mode for Pareto front update. Defaults to 0. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>ints</entry><entry>
+<para>Binary array denoting whether each variable is an integer (True) or continuous (False). Defaults to None. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>min_mutate</entry><entry>
+<para>Minimum mutation rate for adaptive mutation. Defaults to 0.1. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>max_mutate</entry><entry>
+<para>Maximum mutation rate for adaptive mutation. Defaults to 0.5. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>rg</entry><entry>
+<para>Random number generator instance. Defaults to Generator(PCG64DXSM()). </para>
+</entry>
+                            </row>
+                            <row>
+<entry>runid</entry><entry>
+<para>Unique identifier for the model run. Defaults to 0. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_modecpp_8py_source_1l00408">408</link> of file <link linkend="_modecpp_8py_source">modecpp.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1modecpp_1_1_m_o_d_e___c_1af4ebfa8da5f83635f078bc8f543a3243"/><section>
+    <title>dim</title>
+<indexterm><primary>dim</primary><secondary>fcmaes.modecpp.MODE_C</secondary></indexterm>
+<indexterm><primary>fcmaes.modecpp.MODE_C</primary><secondary>dim</secondary></indexterm>
+<para><computeroutput>fcmaes.modecpp.MODE_C.dim = dim</computeroutput></para><para>
+
+<para>The dimensionality of the decision variable space. </para>
+</para>
+<para>
+Definition at line <link linkend="_modecpp_8py_source_1l00405">405</link> of file <link linkend="_modecpp_8py_source">modecpp.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1modecpp_1_1_m_o_d_e___c_1aa461c8e27adc9620ba6f4ed42b6e04cc"/><section>
+    <title>ncon</title>
+<indexterm><primary>ncon</primary><secondary>fcmaes.modecpp.MODE_C</secondary></indexterm>
+<indexterm><primary>fcmaes.modecpp.MODE_C</primary><secondary>ncon</secondary></indexterm>
+<para><computeroutput>fcmaes.modecpp.MODE_C.ncon = ncon</computeroutput></para><para>
+
+<para>The number of constraints in the optimization problem. </para>
+</para>
+<para>
+Definition at line <link linkend="_modecpp_8py_source_1l00407">407</link> of file <link linkend="_modecpp_8py_source">modecpp.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1modecpp_1_1_m_o_d_e___c_1a6c3952de5a26ec3374f08723eecf3b2e"/><section>
+    <title>nobj</title>
+<indexterm><primary>nobj</primary><secondary>fcmaes.modecpp.MODE_C</secondary></indexterm>
+<indexterm><primary>fcmaes.modecpp.MODE_C</primary><secondary>nobj</secondary></indexterm>
+<para><computeroutput>fcmaes.modecpp.MODE_C.nobj = nobj</computeroutput></para><para>
+
+<para>The number of objective functions. </para>
+</para>
+<para>
+Definition at line <link linkend="_modecpp_8py_source_1l00406">406</link> of file <link linkend="_modecpp_8py_source">modecpp.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1modecpp_1_1_m_o_d_e___c_1ac85826131061fe5596f9420ff628f582"/><section>
+    <title>popsize</title>
+<indexterm><primary>popsize</primary><secondary>fcmaes.modecpp.MODE_C</secondary></indexterm>
+<indexterm><primary>fcmaes.modecpp.MODE_C</primary><secondary>popsize</secondary></indexterm>
+<para><computeroutput>fcmaes.modecpp.MODE_C.popsize = popsize</computeroutput></para><para>
+
+<para>The size of the population used in the optimization process. </para>
+</para>
+<para>
+Definition at line <link linkend="_modecpp_8py_source_1l00404">404</link> of file <link linkend="_modecpp_8py_source">modecpp.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1modecpp_1_1_m_o_d_e___c_1a082166f4b177fc11e1aba67824f04e09"/><section>
+    <title>ptr</title>
+<indexterm><primary>ptr</primary><secondary>fcmaes.modecpp.MODE_C</secondary></indexterm>
+<indexterm><primary>fcmaes.modecpp.MODE_C</primary><secondary>ptr</secondary></indexterm>
+<para><computeroutput>fcmaes.modecpp.MODE_C.ptr</computeroutput></para><emphasis role="strong">Initial value:</emphasis><programlisting linenumbering="unnumbered">=&#32;&#32;<link linkend="_modeoptimizer_8cpp_1a53418a6215cc2512fc8379c813113f7f">initMODE_C</link>(runid,&#32;dim,&#32;nobj,&#32;ncon,&#32;seed,
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;array_type(*lower),&#32;array_type(*upper),&#32;bool_array_type(*ints),
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;popsize,&#32;f,&#32;cr,
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pro_c,&#32;dis_c,&#32;pro_m,&#32;dis_m,
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;nsga_update,&#32;pareto_update,&#32;min_mutate,&#32;max_mutate)
+</programlisting><para>
+Definition at line <link linkend="_modecpp_8py_source_1l00399">399</link> of file <link linkend="_modecpp_8py_source">modecpp.py</link>.</para>
+</section>
+<para>
+The documentation for this class was generated from the following file:</para>
+fcmaes/<link linkend="_modecpp_8py">modecpp.py</link></section>
+</section>

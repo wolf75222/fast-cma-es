@@ -1,0 +1,1090 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_class_c_n_m_seq_opt" xml:lang="en-US">
+<title>CNMSeqOpt Class Reference</title>
+<indexterm><primary>CNMSeqOpt</primary></indexterm>
+<para>
+<computeroutput>#include &lt;nmsopt.h&gt;</computeroutput>
+</para>
+Inheritance diagram for CNMSeqOpt:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="class_c_n_m_seq_opt__inherit__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Collaboration diagram for CNMSeqOpt:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="class_c_n_m_seq_opt__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Public Member Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_class_c_n_m_seq_opt_1a71ef10bfb9e6d7c852bb3e96156d3ed8">CNMSeqOpt</link> ()</para>
+</listitem>
+            <listitem><para>virtual <link linkend="_class_c_n_m_seq_opt_1a91ae0f70b98a4b34c31f86f483d23a31">~CNMSeqOpt</link> ()</para>
+</listitem>
+            <listitem><para>void <link linkend="_class_c_n_m_seq_opt_1a0db683f79e6af131ffd6e59238a6df51">updateDims</link> (const int aParamCount, const int PopSize0=0)</para>
+</listitem>
+            <listitem><para>void <link linkend="_class_c_n_m_seq_opt_1aff1efaf9224552ae9a607a60f4ca17fc">init</link> (<link linkend="_class_c_bite_rnd">CBiteRnd</link> &amp;rnd, const double *const InitParams=NULL, const double InitRadius=1.0)</para>
+</listitem>
+            <listitem><para>int <link linkend="_class_c_n_m_seq_opt_1a7acf8fee1b87f954b19f8a4313e58b7d">optimize</link> (<link linkend="_class_c_bite_rnd">CBiteRnd</link> &amp;rnd, double *const OutCost=NULL, double *const OutValues=NULL)</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+Public Member Functions inherited from <link linkend="_class_c_bite_opt_base">CBiteOptBase&lt; double &gt;</link>        <itemizedlist>
+            <listitem><para><link linkend="_class_c_bite_opt_base_1af11515f00a0a685516aa9cc3daf7f603">CBiteOptBase</link> ()</para>
+</listitem>
+            <listitem><para>virtual <link linkend="_class_c_bite_opt_base_1abc6be9a0740c36dfadb4ec3508dc0d65">~CBiteOptBase</link> ()</para>
+</listitem>
+            <listitem><para>virtual const double * <link linkend="_class_c_bite_opt_base_1abbed35653d8765915efc675204c19bb2">getBestParams</link> () const</para>
+</listitem>
+            <listitem><para>virtual double <link linkend="_class_c_bite_opt_base_1a4b2d3669723dbe251cf391cc10dd4f5c">getBestCost</link> () const</para>
+</listitem>
+            <listitem><para><link linkend="_class_c_bite_sel_base">CBiteSelBase</link> ** <link linkend="_class_c_bite_opt_base_1a2eaae4dd1761eaef42ead68546994c12">getSels</link> ()</para>
+</listitem>
+            <listitem><para>const char ** <link linkend="_class_c_bite_opt_base_1afd1006a5d6154064115a205b54ecaa8c">getSelNames</link> () const</para>
+</listitem>
+            <listitem><para>int <link linkend="_class_c_bite_opt_base_1a96f3b9e0a82d830bc34c17a5d0f8fa19">getSelCount</link> () const</para>
+</listitem>
+        </itemizedlist>
+Public Member Functions inherited from <link linkend="_class_c_bite_opt_interface">CBiteOptInterface</link>        <itemizedlist>
+            <listitem><para><link linkend="_class_c_bite_opt_interface_1a0155b3fcab9eeb2d7505c0326e12e809">CBiteOptInterface</link> ()</para>
+</listitem>
+            <listitem><para>virtual <link linkend="_class_c_bite_opt_interface_1a070d1317053ec55bbe7d8ddde32076ce">~CBiteOptInterface</link> ()</para>
+</listitem>
+            <listitem><para>virtual void <link linkend="_class_c_bite_opt_interface_1ae7f8adaf2fd8acb10ccf057592a6229d">getMinValues</link> (double *const p) const =0</para>
+</listitem>
+            <listitem><para>virtual void <link linkend="_class_c_bite_opt_interface_1a9debe40625c2bc248a4ffd12a9197a4d">getMaxValues</link> (double *const p) const =0</para>
+</listitem>
+            <listitem><para>virtual double <link linkend="_class_c_bite_opt_interface_1a45d7e2c9ea31b6f8bb23758a6879df9d">optcost</link> (const double *const p)=0</para>
+</listitem>
+        </itemizedlist>
+<simplesect>
+    <title>Private Types    </title>
+        <itemizedlist>
+            <listitem><para>enum <link linkend="_class_c_n_m_seq_opt_1a1f81889f90eb0c0e9b5f9ee1b9e1faa7">EState</link> { <link linkend="_class_c_n_m_seq_opt_1a1f81889f90eb0c0e9b5f9ee1b9e1faa7a2882bfaa75c67e68fad7e1b31b752a6e">stReflection</link>
+, <link linkend="_class_c_n_m_seq_opt_1a1f81889f90eb0c0e9b5f9ee1b9e1faa7a598ff65bb5323e300f4ba87a2155aac4">stExpansion</link>
+, <link linkend="_class_c_n_m_seq_opt_1a1f81889f90eb0c0e9b5f9ee1b9e1faa7aa9847544ca4f0a439c38dff1d0f6db0a">stContraction</link>
+, <link linkend="_class_c_n_m_seq_opt_1a1f81889f90eb0c0e9b5f9ee1b9e1faa7aeb70e74fc5104ae8c19bad1a162741c7">stReduction</link>
+ }</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Private Member Functions    </title>
+        <itemizedlist>
+            <listitem><para>virtual void <link linkend="_class_c_n_m_seq_opt_1a523bc7d383b7a2cfeef8d2a4edc12b5f">initBuffers</link> (const int aParamCount, const int aPopSize, const int aCnsCount=0, const int aObjCount=1)</para>
+</listitem>
+            <listitem><para>virtual void <link linkend="_class_c_n_m_seq_opt_1a76ae39736ff317e9aa048d24872e7084">deleteBuffers</link> ()</para>
+</listitem>
+            <listitem><para>void <link linkend="_class_c_n_m_seq_opt_1a2b301caae34520d6495dabb8fcfd5c63">findhi</link> ()</para>
+</listitem>
+            <listitem><para>void <link linkend="_class_c_n_m_seq_opt_1abe5f0b09856d48eb312d0c3a8701fdcc">calccent</link> ()</para>
+</listitem>
+            <listitem><para>void <link linkend="_class_c_n_m_seq_opt_1a67aa8414c254cfb6a9b442450850987d">copy</link> (const double *const ip, const double Cost)</para>
+</listitem>
+            <listitem><para>double <link linkend="_class_c_n_m_seq_opt_1a1ef451e7a70db607e096c343dac37bb1">eval</link> (<link linkend="_class_c_bite_rnd">CBiteRnd</link> &amp;rnd, const double *const Params, double *const OutCost=NULL, double *const OutValues=NULL)</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Private Attributes    </title>
+        <itemizedlist>
+            <listitem><para>int <link linkend="_class_c_n_m_seq_opt_1a61e71ca1c5282bcfab71d638613f8ff2">N</link></para>
+
+<para>The total number of internal parameter values in use. </para>
+</listitem>
+            <listitem><para>int <link linkend="_class_c_n_m_seq_opt_1a7eae04524ddb0580b4657ab2d74f8837">M</link></para>
+
+<para>The number of points in a simplex. </para>
+</listitem>
+            <listitem><para>int <link linkend="_class_c_n_m_seq_opt_1ac7358629418dff64bb5febd828f64f0e">M1</link></para>
+
+<para>= M - 1. </para>
+</listitem>
+            <listitem><para>double <link linkend="_class_c_n_m_seq_opt_1aff51e4e10e5089f3b8a1f8286f83010e">M1i</link></para>
+
+<para>= 1.0 / ( M - 1 ). </para>
+</listitem>
+            <listitem><para>int <link linkend="_class_c_n_m_seq_opt_1a553e8ff44398fb272de572df3055c8a0">xlo</link></para>
+
+<para>Current lowest-cost parameter vector. </para>
+</listitem>
+            <listitem><para>int <link linkend="_class_c_n_m_seq_opt_1a371cf09612300720f18981ae1e3aec9a">xhi</link></para>
+
+<para>Current highest-cost parameter vector. </para>
+</listitem>
+            <listitem><para>int <link linkend="_class_c_n_m_seq_opt_1aa38748f581346e620b42202427ae7fd3">xhi2</link></para>
+
+<para>Current second-highest-cost parameter vector. </para>
+</listitem>
+            <listitem><para>double ** <link linkend="_class_c_n_m_seq_opt_1a356c7d926e3bc14c441622a19ab12df1">x</link></para>
+
+<para>Parameter vectors for all points. </para>
+</listitem>
+            <listitem><para>double * <link linkend="_class_c_n_m_seq_opt_1a49d787843631379aad7a4e096b4368e3">y</link></para>
+
+<para>Parameter vector costs. </para>
+</listitem>
+            <listitem><para>double * <link linkend="_class_c_n_m_seq_opt_1a752068f193d7b65015a3b3b1d34a2c84">x0</link></para>
+</listitem>
+            <listitem><para>double * <link linkend="_class_c_n_m_seq_opt_1ad1d9690201835708ecbf9e639e7a1a84">x1</link></para>
+
+<para>Temporary parameter vector 1. Passed to stExpansion. </para>
+</listitem>
+            <listitem><para>double <link linkend="_class_c_n_m_seq_opt_1ac43a76bb5f3f4a5f059f17ad8e54d646">y1</link></para>
+
+<para>stExpansion. </para>
+</listitem>
+            <listitem><para>double * <link linkend="_class_c_n_m_seq_opt_1a22d3e10bba1fbfa50a458527d285d04b">x2</link></para>
+
+<para>Temporary parameter vector 2. </para>
+</listitem>
+            <listitem><para>double * <link linkend="_class_c_n_m_seq_opt_1abc45d41e6ba582da381eb4c9999442ad">rx</link></para>
+
+<para>Lowest-cost parameter vector used during reduction. </para>
+</listitem>
+            <listitem><para>int <link linkend="_class_c_n_m_seq_opt_1a71dd7363e56585f44ccf346c31bf031c">rj</link></para>
+
+<para>Current vector index during reduction. </para>
+</listitem>
+            <listitem><para>bool <link linkend="_class_c_n_m_seq_opt_1af1e9f2a0229d5f931333d2285894434d">DoInitEvals</link></para>
+
+<para>&quot;True&quot; if initial evaluations should be performed. </para>
+</listitem>
+            <listitem><para><link linkend="_class_c_n_m_seq_opt_1a1f81889f90eb0c0e9b5f9ee1b9e1faa7">EState</link> <link linkend="_class_c_n_m_seq_opt_1af55bab09410e2932dc2983c3646fba93">State</link></para>
+
+<para>Current optimization state. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Additional Inherited Members    </title>
+Static Public Attributes inherited from <link linkend="_class_c_bite_opt_base">CBiteOptBase&lt; double &gt;</link>        <itemizedlist>
+            <listitem><para>static const int <link linkend="_class_c_bite_opt_base_1ad4c10c5958656e9ad5bb0073415b9c9f">MaxSelCount</link></para>
+
+<para>that can be added to *this object (for static arrays). </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+Protected Member Functions inherited from <link linkend="_class_c_bite_opt_base">CBiteOptBase&lt; double &gt;</link>        <itemizedlist>
+            <listitem><para>void <link linkend="_class_c_bite_opt_base_1a768362da5c773eea5a8649d44676eeed">initCommonVars</link> (<link linkend="_class_c_bite_rnd">CBiteRnd</link> &amp;rnd)</para>
+</listitem>
+            <listitem><para>void <link linkend="_class_c_bite_opt_base_1ac2ee22488c24887a922a30dd15d898e6">updateDiffValues</link> ()</para>
+</listitem>
+            <listitem><para>void <link linkend="_class_c_bite_opt_base_1a9e49b98f5f6a2470d060282b2fd26a53">updateBestCost</link> (const double UpdCost, const double *const UpdValues, const int p=-1)</para>
+</listitem>
+            <listitem><para>double <link linkend="_class_c_bite_opt_base_1a7b849dbede3dc6be555a4197541fad51">getRealValue</link> (const double *const NormParams, const int i) const</para>
+</listitem>
+            <listitem><para>double <link linkend="_class_c_bite_opt_base_1a634a498e8ebd71bbf87fd1df02f178e0">wrapParamReal</link> (<link linkend="_class_c_bite_rnd">CBiteRnd</link> &amp;rnd, const double v, const int i) const</para>
+</listitem>
+            <listitem><para>void <link linkend="_class_c_bite_opt_base_1a5d8710f00b828beca21c0d2699ae340d">addSel</link> (<link linkend="_class_c_bite_sel_base">CBiteSelBase</link> &amp;s, const char *const sname)</para>
+</listitem>
+            <listitem><para>int <link linkend="_class_c_bite_opt_base_1abf93d2e584756812ad210f86e4f84a69">select</link> (T &amp;Sel, <link linkend="_class_c_bite_rnd">CBiteRnd</link> &amp;rnd)</para>
+</listitem>
+            <listitem><para>void <link linkend="_class_c_bite_opt_base_1aa08dcfff8871910e4d01a94f261ee752">applySelsIncr</link> (<link linkend="_class_c_bite_rnd">CBiteRnd</link> &amp;rnd, const double v=1.0)</para>
+</listitem>
+            <listitem><para>void <link linkend="_class_c_bite_opt_base_1a47acdb7a495f75170b0eb457e0dc950e">applySelsDecr</link> (<link linkend="_class_c_bite_rnd">CBiteRnd</link> &amp;rnd)</para>
+</listitem>
+        </itemizedlist>
+Protected Member Functions inherited from <link linkend="_class_c_bite_par_pops">CBiteParPops&lt; double &gt;</link>        <itemizedlist>
+            <listitem><para>void <link linkend="_class_c_bite_par_pops_1a24cc3d1978b4dbe57fad8a6f6d7efd8a">setParPopCount</link> (const int NewCount)</para>
+</listitem>
+            <listitem><para>int <link linkend="_class_c_bite_par_pops_1afa8a97732cea882b664c2d0fbedf2289">getMinDistParPop</link> (const double Cost, const double *const Params) const</para>
+</listitem>
+        </itemizedlist>
+        <itemizedlist>
+            <listitem><para><link linkend="_class_c_bite_par_pops_1a1d00195283da4d97f648da706e5c5cec">CBiteParPops</link> ()</para>
+</listitem>
+            <listitem><para>virtual <link linkend="_class_c_bite_par_pops_1a772516362f17b8e5790596740ce355ba">~CBiteParPops</link> ()</para>
+</listitem>
+        </itemizedlist>
+Protected Member Functions inherited from <link linkend="_class_c_bite_pop">CBitePop&lt; double &gt;</link>        <itemizedlist>
+            <listitem><para>void <link linkend="_class_c_bite_pop_1a0d5ab322641bb1a091df91ff7ee630c4">zeroParams</link> (double *const dst) const</para>
+</listitem>
+            <listitem><para>void <link linkend="_class_c_bite_pop_1a24130fea35014433f142e3b9ed0f8929">copyParams</link> (double *const dst, const double *const src) const</para>
+</listitem>
+            <listitem><para>void <link linkend="_class_c_bite_pop_1a57e751582761922bbabff1ddb7af277b">copyValues</link> (double *const dst, const double *const src) const</para>
+</listitem>
+        </itemizedlist>
+        <itemizedlist>
+            <listitem><para><link linkend="_class_c_bite_pop_1ad427518ed1d47fbe3c2222b3a11badb7">CBitePop</link> ()</para>
+</listitem>
+            <listitem><para><link linkend="_class_c_bite_pop_1a73402384f4b75abf6d956dc086ccf36e">CBitePop</link> (const <link linkend="_class_c_bite_pop">CBitePop</link> &amp;s)</para>
+</listitem>
+            <listitem><para>virtual <link linkend="_class_c_bite_pop_1ac386e4638d6fc6bd5370eeae895347c3">~CBitePop</link> ()</para>
+</listitem>
+            <listitem><para><link linkend="_class_c_bite_pop">CBitePop</link> &amp; <link linkend="_class_c_bite_pop_1ab18cf322db6ab186db1e19b53e34c232">operator=</link> (const <link linkend="_class_c_bite_pop">CBitePop</link> &amp;s)</para>
+</listitem>
+            <listitem><para>void <link linkend="_class_c_bite_pop_1a3fc2d887ae91be62fd9fc3100268e53c">copy</link> (const <link linkend="_class_c_bite_pop">CBitePop</link> &amp;s)</para>
+</listitem>
+            <listitem><para>void <link linkend="_class_c_bite_pop_1a7850902dad276dcecea68559eaccc168">updateCentroid</link> ()</para>
+</listitem>
+            <listitem><para>const double * <link linkend="_class_c_bite_pop_1a5e6ccebb178353b084084f841b09042d">getCentroid</link> () const</para>
+</listitem>
+            <listitem><para>const double * <link linkend="_class_c_bite_pop_1aaa8e3f180accfedf21218cbed8ffbb79">getParamsOrdered</link> (const int i) const</para>
+</listitem>
+            <listitem><para>double * <link linkend="_class_c_bite_pop_1ad38d886687357797479e69098759476a">getCnsPtr</link> (double *const pp) const</para>
+</listitem>
+            <listitem><para>double * <link linkend="_class_c_bite_pop_1ad6cbe6cfbf9954dcb6f8a223a5e1f36b">getObjPtr</link> (double *const pp) const</para>
+</listitem>
+            <listitem><para>double * <link linkend="_class_c_bite_pop_1aa4f3255c9607f72eff280f8c3c09143f">getRankPtr</link> (double *const pp) const</para>
+</listitem>
+            <listitem><para>const double ** <link linkend="_class_c_bite_pop_1ac2a01e9eb6b884a0b318e4b914273acf">getPopParams</link> () const</para>
+</listitem>
+            <listitem><para>double * <link linkend="_class_c_bite_pop_1a0053ae41c70babe967c5931f491ea865">getCurParams</link> () const</para>
+</listitem>
+            <listitem><para>int <link linkend="_class_c_bite_pop_1a5aef425d751172e1fff38a455cb51d34">getCurPopSize</link> () const</para>
+</listitem>
+            <listitem><para>int <link linkend="_class_c_bite_pop_1a7e1fbb7f7e9aaf8f73eb865fa4610185">getCurPopPos</link> () const</para>
+</listitem>
+            <listitem><para>void <link linkend="_class_c_bite_pop_1a767519aa2fcc2667dc135a131bc9fd85">resetCurPopPos</link> ()</para>
+</listitem>
+            <listitem><para>void <link linkend="_class_c_bite_pop_1a48d6ede5c82534c973e0458726e820dd">incrCurPopSize</link> ()</para>
+</listitem>
+            <listitem><para>void <link linkend="_class_c_bite_pop_1a4656171c63f1944ae045d6f222d9d33a">decrCurPopSize</link> ()</para>
+</listitem>
+            <listitem><para>int <link linkend="_class_c_bite_pop_1aad999ddc8a2ed72ffaee0db7732c9f76">updatePop</link> (double UpdCost, const double *const UpdParams, const bool DoUpdateCentroid, const bool CanRejectCost=true)</para>
+</listitem>
+        </itemizedlist>
+Static Protected Member Functions inherited from <link linkend="_class_c_bite_pop">CBitePop&lt; double &gt;</link>        <itemizedlist>
+            <listitem><para>static double <link linkend="_class_c_bite_pop_1a3b7e8d2276455475bd761e29c8c72ac6">wrapParam</link> (<link linkend="_class_c_bite_rnd">CBiteRnd</link> &amp;rnd, const double v)</para>
+</listitem>
+            <listitem><para>static double <link linkend="_class_c_bite_pop_1aecaac61269e65bda93cb2dc1a3a26091">getGaussianInt</link> (<link linkend="_class_c_bite_rnd">CBiteRnd</link> &amp;rnd, const double sd, const double meanInt)</para>
+</listitem>
+            <listitem><para>static double <link linkend="_class_c_bite_pop_1ad4e3a3c5b7a25ad02ef0231bd3fe8388">calcLP1Coeff</link> (const double Count)</para>
+</listitem>
+        </itemizedlist>
+Protected Attributes inherited from <link linkend="_class_c_bite_opt_base">CBiteOptBase&lt; double &gt;</link>        <itemizedlist>
+            <listitem><para>double * <link linkend="_class_c_bite_opt_base_1a07d5b7c3007f79c7dc1f6106d9832dc6">MinValues</link></para>
+
+<para>Minimal parameter values. </para>
+</listitem>
+            <listitem><para>double * <link linkend="_class_c_bite_opt_base_1a9b100a7afa3bdcb3684383ff2df7867a">MaxValues</link></para>
+
+<para>Maximal parameter values. </para>
+</listitem>
+            <listitem><para>double * <link linkend="_class_c_bite_opt_base_1a70f5211fb9521491b0e6a336e21dd7bc">DiffValues</link></para>
+
+<para>values. </para>
+</listitem>
+            <listitem><para>double * <link linkend="_class_c_bite_opt_base_1ad5c0fe9c5312847158a6df8f4639de23">DiffValuesI</link></para>
+
+<para>Inverse DiffValues. </para>
+</listitem>
+            <listitem><para>double * <link linkend="_class_c_bite_opt_base_1a0fbab700b9d9c5c36d5ef664540efad0">BestValues</link></para>
+
+<para>Best parameter vector. </para>
+</listitem>
+            <listitem><para>double <link linkend="_class_c_bite_opt_base_1adc4dfe02978fd4ed460f49c7e9a01633">BestCost</link></para>
+
+<para>Cost of the best parameter vector. </para>
+</listitem>
+            <listitem><para>double * <link linkend="_class_c_bite_opt_base_1a0a97be5c42eed6fbaffba04c8720e6ce">NewValues</link></para>
+
+<para>Temporary new parameter buffer, with real values. </para>
+</listitem>
+            <listitem><para>int <link linkend="_class_c_bite_opt_base_1ab756659a8ba09ba42ffa3d207564fdd8">StallCount</link></para>
+
+<para>The number of iterations without improvement. </para>
+</listitem>
+            <listitem><para>double <link linkend="_class_c_bite_opt_base_1a48296b534db162fa0007ff83757cb84b">HiBound</link></para>
+
+<para>be used by the optimizer. </para>
+</listitem>
+            <listitem><para>double <link linkend="_class_c_bite_opt_base_1acc0aa62d6125bd03d3baae22b0bf0467">AvgCost</link></para>
+
+<para>the optimizer. </para>
+</listitem>
+            <listitem><para><link linkend="_class_c_bite_sel_base">CBiteSelBase</link> * <link linkend="_class_c_bite_opt_base_1aebc1904c883f8b4dafefeda608c4536b">Sels</link> [<link linkend="_class_c_bite_opt_base_1ad4c10c5958656e9ad5bb0073415b9c9f">MaxSelCount</link>]</para>
+
+<para>indexed access in some cases. </para>
+</listitem>
+            <listitem><para>const char * <link linkend="_class_c_bite_opt_base_1a43d69538ae5aa7d78d8b3a3e821902b7">SelNames</link> [<link linkend="_class_c_bite_opt_base_1ad4c10c5958656e9ad5bb0073415b9c9f">MaxSelCount</link>]</para>
+
+<para>Selector names. </para>
+</listitem>
+            <listitem><para>int <link linkend="_class_c_bite_opt_base_1ae9b284aca73ab2f6784f12174e391f7b">SelCount</link></para>
+
+<para>The number of selectors in use. </para>
+</listitem>
+            <listitem><para><link linkend="_class_c_bite_sel_base">CBiteSelBase</link> * <link linkend="_class_c_bite_opt_base_1a3922d6b29602643882d3212071a5e679">ApplySels</link> [<link linkend="_class_c_bite_opt_base_1ab1e0b2f8caf76a2a75401e2f6bc913ba">MaxApplySels</link>]</para>
+
+<para><link linkend="_class_c_bite_opt_base_1abf93d2e584756812ad210f86e4f84a69">select()</link> function calls during the optimize() function call. </para>
+</listitem>
+            <listitem><para>int <link linkend="_class_c_bite_opt_base_1afc2d6ec2c61d8f41bd39bb99632cf12e">ApplySelsCount</link></para>
+
+<para>optimize() function call. </para>
+</listitem>
+        </itemizedlist>
+Protected Attributes inherited from <link linkend="_class_c_bite_par_pops">CBiteParPops&lt; double &gt;</link>        <itemizedlist>
+            <listitem><para><link linkend="_class_c_bite_pop">CBitePop</link>&lt; double &gt; * <link linkend="_class_c_bite_par_pops_1a79983cca58bd18a6ff73120e65a976dd">ParPops</link> [<link linkend="_class_c_bite_par_pops_1a451f5fa8bb3503f9c344fe03f46ffcc9">MaxParPopCount</link>]</para>
+
+<para>orbiting *this population. </para>
+</listitem>
+            <listitem><para>int <link linkend="_class_c_bite_par_pops_1aea59bf6c1cf9894f944d07cec99882ee">ParPopCount</link></para>
+
+<para>be changed via the <link linkend="_class_c_bite_par_pops_1a24cc3d1978b4dbe57fad8a6f6d7efd8a">setParPopCount()</link> function. </para>
+</listitem>
+        </itemizedlist>
+Protected Attributes inherited from <link linkend="_class_c_bite_pop">CBitePop&lt; double &gt;</link>        <itemizedlist>
+            <listitem><para>int <link linkend="_class_c_bite_pop_1a0dc6f7b3a19db513e349e68c3471f9fa">ParamCount</link></para>
+
+<para>The total number of internal parameter values in use. </para>
+</listitem>
+            <listitem><para>double <link linkend="_class_c_bite_pop_1a884c9ad4c0327aaa0110a23a89f5697a">ParamCountI</link></para>
+
+<para>= 1.0 / ParamCount. </para>
+</listitem>
+            <listitem><para>int <link linkend="_class_c_bite_pop_1a58e3bf5abc2fb4b1e173aa6cb3477bfb">PopSize</link></para>
+
+<para>The size of population in use (maximal). </para>
+</listitem>
+            <listitem><para>int <link linkend="_class_c_bite_pop_1a0b64743a84d5af143d44e7f6e9f02ada">PopSize1</link></para>
+
+<para>= PopSize - 1. </para>
+</listitem>
+            <listitem><para>int <link linkend="_class_c_bite_pop_1adc98fbdebc2671ef0826245d8c472cc5">CurPopSize</link></para>
+
+<para>Current population size. </para>
+</listitem>
+            <listitem><para>int <link linkend="_class_c_bite_pop_1a26b81c70200085e410cf83258e139f9b">CurPopSize1</link></para>
+
+<para>= CurPopSize - 1. </para>
+</listitem>
+            <listitem><para>double <link linkend="_class_c_bite_pop_1aa5105ca75379f9a760dc9f0b9ea30ea7">CurPopSizeI</link></para>
+
+<para>= 1.0 / CurPopSize. </para>
+</listitem>
+            <listitem><para>int <link linkend="_class_c_bite_pop_1aa7c87b9148768d6104f8d3dfb5abebce">CurPopPos</link></para>
+
+<para>update. This variable should be initialized by the optimizer. </para>
+</listitem>
+            <listitem><para>int <link linkend="_class_c_bite_pop_1a2bf725291723a8dcaa215496e3175471">CnsCount</link></para>
+
+<para>The number of constraints per solution. </para>
+</listitem>
+            <listitem><para>int <link linkend="_class_c_bite_pop_1a2f7c6a4707e23c21197ab32b71d900c7">ObjCount</link></para>
+
+<para>The number of objectives per solution. </para>
+</listitem>
+            <listitem><para>uint8_t * <link linkend="_class_c_bite_pop_1ac69b014720b11a472509b22588eaf6c3">PopParamsBuf</link></para>
+
+<para>Buffer for all PopParams vectors. </para>
+</listitem>
+            <listitem><para>double ** <link linkend="_class_c_bite_pop_1a0c41790e473b70c5ec37986d0fb1f9a2">PopParams</link></para>
+</listitem>
+            <listitem><para>size_t <link linkend="_class_c_bite_pop_1a6d4a3479ca9e60de6cf4667d5b2937a5">PopCnsOffs</link></para>
+
+<para>a population item. </para>
+</listitem>
+            <listitem><para>size_t <link linkend="_class_c_bite_pop_1a98e2af75120c4184b271c14d22acf9d4">PopObjOffs</link></para>
+
+<para>population item. </para>
+</listitem>
+            <listitem><para>size_t <link linkend="_class_c_bite_pop_1a3ecc4ffcf1c6f3f9b4e4e5a873c481fe">PopRankOffs</link></para>
+
+<para>item. </para>
+</listitem>
+            <listitem><para>size_t <link linkend="_class_c_bite_pop_1a3cdac0ad2cf5c8403f1f7676171f4e76">PopItemSize</link></para>
+
+<para>Size in bytes of population item. </para>
+</listitem>
+            <listitem><para>double * <link linkend="_class_c_bite_pop_1ac31d95bc1f383828e72bcf1eb499e949">CentParams</link></para>
+
+<para>Centroid of the parameter vectors. </para>
+</listitem>
+            <listitem><para>bool <link linkend="_class_c_bite_pop_1a41f29468becc588bea6ff3f842db93ea">NeedCentUpdate</link></para>
+
+<para>&quot;True&quot; if centroid update is needed. </para>
+</listitem>
+            <listitem><para>double <link linkend="_class_c_bite_pop_1ab6dec63b0ee3955563c2a3f815614f31">CentLPC</link></para>
+
+<para>Centroid averaging filter coefficient. </para>
+</listitem>
+            <listitem><para>double * <link linkend="_class_c_bite_pop_1acae90e3584dca8b6c08c70d7bd317729">TmpParams</link></para>
+
+<para>element of the PopParams array. </para>
+</listitem>
+        </itemizedlist>
+Static Protected Attributes inherited from <link linkend="_class_c_bite_opt_base">CBiteOptBase&lt; double &gt;</link>        <itemizedlist>
+            <listitem><para>static const int <link linkend="_class_c_bite_opt_base_1ab1e0b2f8caf76a2a75401e2f6bc913ba">MaxApplySels</link></para>
+
+<para>that can be used during a single optimize() function call. </para>
+</listitem>
+        </itemizedlist>
+Static Protected Attributes inherited from <link linkend="_class_c_bite_par_pops">CBiteParPops&lt; double &gt;</link>        <itemizedlist>
+            <listitem><para>static const int <link linkend="_class_c_bite_par_pops_1a451f5fa8bb3503f9c344fe03f46ffcc9">MaxParPopCount</link></para>
+
+<para>population supported. </para>
+</listitem>
+        </itemizedlist>
+Static Protected Attributes inherited from <link linkend="_class_c_bite_pop">CBitePop&lt; double &gt;</link>        <itemizedlist>
+            <listitem><para>static const int <link linkend="_class_c_bite_pop_1a8009a96dd8a678daaefc9410ba2e0a76">IntOverBits</link></para>
+</listitem>
+            <listitem><para>static const int <link linkend="_class_c_bite_pop_1ac9adf8849ed7251dadd94815e20bdee8">IntMantBits</link></para>
+</listitem>
+            <listitem><para>static const int64_t <link linkend="_class_c_bite_pop_1a1302e3c2e578dd650aedb57e18645092">IntMantMult</link></para>
+
+<para>multiplier. </para>
+</listitem>
+            <listitem><para>static const int64_t <link linkend="_class_c_bite_pop_1aeba03d86b17ed01a97dc8225c5598b2d">IntMantMultM</link></para>
+
+<para>IntMantMult. </para>
+</listitem>
+            <listitem><para>static const int64_t <link linkend="_class_c_bite_pop_1a8c64d2e83f225b034df818b06b09ecd2">IntMantMult2</link></para>
+
+<para>IntMantMult * 2. </para>
+</listitem>
+            <listitem><para>static const int64_t <link linkend="_class_c_bite_pop_1a27448c9be1bed517e4a48aa656ca4f76">IntMantMask</link></para>
+
+<para>corresponds to mantissa. </para>
+</listitem>
+        </itemizedlist>
+<section>
+<title>Detailed Description</title>
+
+<para>Sequential Nelder-Mead simplex method. Features custom coefficients tuned to provide better convergence at higher dimensions. Also implements various algorithmic optimizations.</para>
+
+<para>Description is available at <link xlink:href="https://github.com/avaneev/biteopt">https://github.com/avaneev/biteopt</link> </para>
+<para>
+Definition at line <link linkend="_nmsopt_8h_source_1l00046">46</link> of file <link linkend="_nmsopt_8h_source">nmsopt.h</link>.</para>
+</section>
+<section>
+<title>Member Enumeration Documentation</title>
+<anchor xml:id="_class_c_n_m_seq_opt_1a1f81889f90eb0c0e9b5f9ee1b9e1faa7"/><section>
+    <title>EState</title>
+<indexterm><primary>EState</primary><secondary>CNMSeqOpt</secondary></indexterm>
+<indexterm><primary>CNMSeqOpt</primary><secondary>EState</secondary></indexterm>
+<para><computeroutput>enum <link linkend="_class_c_n_m_seq_opt_1a1f81889f90eb0c0e9b5f9ee1b9e1faa7">CNMSeqOpt::EState</link><computeroutput>[private]</computeroutput></computeroutput></para>
+<para>Algorithm&apos;s state automata states. </para>
+<informaltable frame="all">
+<title>Enumerator</title>
+    <tgroup cols="2" align="left" colsep="1" rowsep="1">
+      <colspec colname='c1'/>
+      <colspec colname='c2'/>
+<tbody>
+<row><entry><indexterm><primary>stReflection</primary><secondary>CNMSeqOpt</secondary></indexterm>
+<indexterm><primary>CNMSeqOpt</primary><secondary>stReflection</secondary></indexterm>
+<anchor xml:id="_class_c_n_m_seq_opt_1a1f81889f90eb0c0e9b5f9ee1b9e1faa7a2882bfaa75c67e68fad7e1b31b752a6e"/>stReflection</entry><entry></entry></row><row><entry><indexterm><primary>stExpansion</primary><secondary>CNMSeqOpt</secondary></indexterm>
+<indexterm><primary>CNMSeqOpt</primary><secondary>stExpansion</secondary></indexterm>
+<anchor xml:id="_class_c_n_m_seq_opt_1a1f81889f90eb0c0e9b5f9ee1b9e1faa7a598ff65bb5323e300f4ba87a2155aac4"/>stExpansion</entry><entry></entry></row><row><entry><indexterm><primary>stContraction</primary><secondary>CNMSeqOpt</secondary></indexterm>
+<indexterm><primary>CNMSeqOpt</primary><secondary>stContraction</secondary></indexterm>
+<anchor xml:id="_class_c_n_m_seq_opt_1a1f81889f90eb0c0e9b5f9ee1b9e1faa7aa9847544ca4f0a439c38dff1d0f6db0a"/>stContraction</entry><entry></entry></row><row><entry><indexterm><primary>stReduction</primary><secondary>CNMSeqOpt</secondary></indexterm>
+<indexterm><primary>CNMSeqOpt</primary><secondary>stReduction</secondary></indexterm>
+<anchor xml:id="_class_c_n_m_seq_opt_1a1f81889f90eb0c0e9b5f9ee1b9e1faa7aeb70e74fc5104ae8c19bad1a162741c7"/>stReduction</entry><entry></entry></row>    </tbody>
+    </tgroup>
+</informaltable>
+<para>
+Definition at line <link linkend="_nmsopt_8h_source_1l00347">347</link> of file <link linkend="_nmsopt_8h_source">nmsopt.h</link>.</para>
+</section>
+</section>
+<section>
+<title>Constructor &amp; Destructor Documentation</title>
+<anchor xml:id="_class_c_n_m_seq_opt_1a71ef10bfb9e6d7c852bb3e96156d3ed8"/><section>
+    <title>CNMSeqOpt()</title>
+<indexterm><primary>CNMSeqOpt</primary><secondary>CNMSeqOpt</secondary></indexterm>
+<indexterm><primary>CNMSeqOpt</primary><secondary>CNMSeqOpt</secondary></indexterm>
+<para><computeroutput>CNMSeqOpt::CNMSeqOpt ( )<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_nmsopt_8h_source_1l00049">49</link> of file <link linkend="_nmsopt_8h_source">nmsopt.h</link>.</para>
+</section>
+<anchor xml:id="_class_c_n_m_seq_opt_1a91ae0f70b98a4b34c31f86f483d23a31"/><section>
+    <title>~CNMSeqOpt()</title>
+<indexterm><primary>~CNMSeqOpt</primary><secondary>CNMSeqOpt</secondary></indexterm>
+<indexterm><primary>CNMSeqOpt</primary><secondary>~CNMSeqOpt</secondary></indexterm>
+<para><computeroutput>virtual CNMSeqOpt::~CNMSeqOpt ( )<computeroutput>[inline]</computeroutput>, <computeroutput>[virtual]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_nmsopt_8h_source_1l00055">55</link> of file <link linkend="_nmsopt_8h_source">nmsopt.h</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Function Documentation</title>
+<anchor xml:id="_class_c_n_m_seq_opt_1abe5f0b09856d48eb312d0c3a8701fdcc"/><section>
+    <title>calccent()</title>
+<indexterm><primary>calccent</primary><secondary>CNMSeqOpt</secondary></indexterm>
+<indexterm><primary>CNMSeqOpt</primary><secondary>calccent</secondary></indexterm>
+<para><computeroutput>void CNMSeqOpt::calccent ( )<computeroutput>[inline]</computeroutput>, <computeroutput>[private]</computeroutput></computeroutput></para>
+<para>Function calculates the centroid vector that excludes a highest-cost parameter vector. </para>
+<para>
+Definition at line <link linkend="_nmsopt_8h_source_1l00409">409</link> of file <link linkend="_nmsopt_8h_source">nmsopt.h</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="class_c_n_m_seq_opt_abe5f0b09856d48eb312d0c3a8701fdcc_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="class_c_n_m_seq_opt_abe5f0b09856d48eb312d0c3a8701fdcc_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_class_c_n_m_seq_opt_1a67aa8414c254cfb6a9b442450850987d"/><section>
+    <title>copy()</title>
+<indexterm><primary>copy</primary><secondary>CNMSeqOpt</secondary></indexterm>
+<indexterm><primary>CNMSeqOpt</primary><secondary>copy</secondary></indexterm>
+<para><computeroutput>void CNMSeqOpt::copy (const double *const ip, const double Cost)<computeroutput>[inline]</computeroutput>, <computeroutput>[private]</computeroutput></computeroutput></para>
+<para>Function replaces the highest-cost vector with a new vector. Function also resets the StallCount to 0.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>ip</entry><entry>
+<para>Input vector. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>Cost</entry><entry>
+<para>Input vector&apos;s cost. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_nmsopt_8h_source_1l00461">461</link> of file <link linkend="_nmsopt_8h_source">nmsopt.h</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="class_c_n_m_seq_opt_a67aa8414c254cfb6a9b442450850987d_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="class_c_n_m_seq_opt_a67aa8414c254cfb6a9b442450850987d_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_class_c_n_m_seq_opt_1a76ae39736ff317e9aa048d24872e7084"/><section>
+    <title>deleteBuffers()</title>
+<indexterm><primary>deleteBuffers</primary><secondary>CNMSeqOpt</secondary></indexterm>
+<indexterm><primary>CNMSeqOpt</primary><secondary>deleteBuffers</secondary></indexterm>
+<para><computeroutput>virtual void CNMSeqOpt::deleteBuffers ( )<computeroutput>[inline]</computeroutput>, <computeroutput>[private]</computeroutput>, <computeroutput>[virtual]</computeroutput></computeroutput></para>
+<para>Function deletes buffers previously allocated via the <link linkend="_class_c_n_m_seq_opt_1a523bc7d383b7a2cfeef8d2a4edc12b5f">initBuffers()</link> function. Derived classes should call this function of the base class. </para>
+<para>
+Reimplemented from <link linkend="_class_c_bite_opt_base_1aed59421f7102fb6921e4af39acfb8369">CBiteOptBase&lt; double &gt;</link>.</para>
+<para>
+Definition at line <link linkend="_nmsopt_8h_source_1l00370">370</link> of file <link linkend="_nmsopt_8h_source">nmsopt.h</link>.</para>
+</section>
+<anchor xml:id="_class_c_n_m_seq_opt_1a1ef451e7a70db607e096c343dac37bb1"/><section>
+    <title>eval()</title>
+<indexterm><primary>eval</primary><secondary>CNMSeqOpt</secondary></indexterm>
+<indexterm><primary>CNMSeqOpt</primary><secondary>eval</secondary></indexterm>
+<para><computeroutput>double CNMSeqOpt::eval (<link linkend="_class_c_bite_rnd">CBiteRnd</link> &amp; rnd, const double *const Params, double *const OutCost = <computeroutput>NULL</computeroutput>
+, double *const OutValues = <computeroutput>NULL</computeroutput>
+)<computeroutput>[inline]</computeroutput>, <computeroutput>[private]</computeroutput></computeroutput></para>
+<para>Function evaluates parameter vector and applies value range wrapping, also records a new best solution.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="3" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry></entry><entry>rnd</entry><entry>
+<para>Random number generator. </para>
+</entry>
+                            </row>
+                            <row>
+<entry></entry><entry>Params</entry><entry>
+<para>Parameter vector to evaluate. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>out</entry><entry>OutCost</entry><entry>
+<para>If not NULL, pointer to variable that receives cost of the newly-evaluated solution. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>out</entry><entry>OutValues</entry><entry>
+<para>If not NULL, pointer to array that receives newly-evaluated parameter vector, in real scale. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_nmsopt_8h_source_1l00496">496</link> of file <link linkend="_nmsopt_8h_source">nmsopt.h</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="class_c_n_m_seq_opt_a1ef451e7a70db607e096c343dac37bb1_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="class_c_n_m_seq_opt_a1ef451e7a70db607e096c343dac37bb1_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_class_c_n_m_seq_opt_1a2b301caae34520d6495dabb8fcfd5c63"/><section>
+    <title>findhi()</title>
+<indexterm><primary>findhi</primary><secondary>CNMSeqOpt</secondary></indexterm>
+<indexterm><primary>CNMSeqOpt</primary><secondary>findhi</secondary></indexterm>
+<para><computeroutput>void CNMSeqOpt::findhi ( )<computeroutput>[inline]</computeroutput>, <computeroutput>[private]</computeroutput></computeroutput></para>
+<para>Function finds the highest-cost vector. </para>
+<para>
+Definition at line <link linkend="_nmsopt_8h_source_1l00382">382</link> of file <link linkend="_nmsopt_8h_source">nmsopt.h</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="class_c_n_m_seq_opt_a2b301caae34520d6495dabb8fcfd5c63_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_class_c_n_m_seq_opt_1aff1efaf9224552ae9a607a60f4ca17fc"/><section>
+    <title>init()</title>
+<indexterm><primary>init</primary><secondary>CNMSeqOpt</secondary></indexterm>
+<indexterm><primary>CNMSeqOpt</primary><secondary>init</secondary></indexterm>
+<para><computeroutput>void CNMSeqOpt::init (<link linkend="_class_c_bite_rnd">CBiteRnd</link> &amp; rnd, const double *const InitParams = <computeroutput>NULL</computeroutput>
+, const double InitRadius = <computeroutput>1.0</computeroutput>
+)<computeroutput>[inline]</computeroutput></computeroutput></para>
+<para>Function initializes *this optimizer. Performs N=PopSize objective function evaluations.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>rnd</entry><entry>
+<para>Random number generator. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>InitParams</entry><entry>
+<para>If not NULL, initial parameter vector, also used as centroid. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>InitRadius</entry><entry>
+<para>Initial radius, relative to the default value. Set to negative to use uniformly-random sampling. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_nmsopt_8h_source_1l00098">98</link> of file <link linkend="_nmsopt_8h_source">nmsopt.h</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="class_c_n_m_seq_opt_aff1efaf9224552ae9a607a60f4ca17fc_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_class_c_n_m_seq_opt_1a523bc7d383b7a2cfeef8d2a4edc12b5f"/><section>
+    <title>initBuffers()</title>
+<indexterm><primary>initBuffers</primary><secondary>CNMSeqOpt</secondary></indexterm>
+<indexterm><primary>CNMSeqOpt</primary><secondary>initBuffers</secondary></indexterm>
+<para><computeroutput>virtual void CNMSeqOpt::initBuffers (const int aParamCount, const int aPopSize, const int aCnsCount = <computeroutput>0</computeroutput>
+, const int aObjCount = <computeroutput>1</computeroutput>
+)<computeroutput>[inline]</computeroutput>, <computeroutput>[private]</computeroutput>, <computeroutput>[virtual]</computeroutput></computeroutput></para>
+<para>Function initializes all common buffers, and &quot;PopSize&quot; variables. This function should be called when population&apos;s dimensions were changed. This function calls the <link linkend="_class_c_n_m_seq_opt_1a76ae39736ff317e9aa048d24872e7084">deleteBuffers()</link> function to release any derived classes&apos; allocated buffers. Allocates an additional vector for temporary use, which is at the same the last vector in the PopParams array. Derived classes should call this function of the base class.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>aParamCount</entry><entry>
+<para>New parameter count. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>aPopSize</entry><entry>
+<para>New population size. If &lt;= 0, population buffers will not be allocated. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>aCnsCount</entry><entry>
+<para>New constraint value count. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>aObjCount</entry><entry>
+<para>New objective value count. If equals 0, a rank element will not be auto-added. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Reimplemented from <link linkend="_class_c_bite_opt_base_1a5c53a8eb3a4269a746d990282452d71e">CBiteOptBase&lt; double &gt;</link>.</para>
+<para>
+Definition at line <link linkend="_nmsopt_8h_source_1l00357">357</link> of file <link linkend="_nmsopt_8h_source">nmsopt.h</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="class_c_n_m_seq_opt_a523bc7d383b7a2cfeef8d2a4edc12b5f_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_class_c_n_m_seq_opt_1a7acf8fee1b87f954b19f8a4313e58b7d"/><section>
+    <title>optimize()</title>
+<indexterm><primary>optimize</primary><secondary>CNMSeqOpt</secondary></indexterm>
+<indexterm><primary>CNMSeqOpt</primary><secondary>optimize</secondary></indexterm>
+<para><computeroutput>int CNMSeqOpt::optimize (<link linkend="_class_c_bite_rnd">CBiteRnd</link> &amp; rnd, double *const OutCost = <computeroutput>NULL</computeroutput>
+, double *const OutValues = <computeroutput>NULL</computeroutput>
+)<computeroutput>[inline]</computeroutput></computeroutput></para>
+<para>Function performs the parameter optimization iteration that involves 1 objective function evaluation.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="3" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry></entry><entry>rnd</entry><entry>
+<para>Random number generator. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>out</entry><entry>OutCost</entry><entry>
+<para>If not NULL, pointer to variable that receives cost of the newly-evaluated solution. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>out</entry><entry>OutValues</entry><entry>
+<para>If not NULL, pointer to array that receives newly-evaluated parameter vector, in real scale. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>The number of non-improving iterations so far. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_nmsopt_8h_source_1l00167">167</link> of file <link linkend="_nmsopt_8h_source">nmsopt.h</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="class_c_n_m_seq_opt_a7acf8fee1b87f954b19f8a4313e58b7d_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_class_c_n_m_seq_opt_1a0db683f79e6af131ffd6e59238a6df51"/><section>
+    <title>updateDims()</title>
+<indexterm><primary>updateDims</primary><secondary>CNMSeqOpt</secondary></indexterm>
+<indexterm><primary>CNMSeqOpt</primary><secondary>updateDims</secondary></indexterm>
+<para><computeroutput>void CNMSeqOpt::updateDims (const int aParamCount, const int PopSize0 = <computeroutput>0</computeroutput>
+)<computeroutput>[inline]</computeroutput></computeroutput></para>
+<para>Function updates dimensionality of *this object.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>aParamCount</entry><entry>
+<para>The number of parameters being optimized. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>PopSize0</entry><entry>
+<para>The number of elements in population to use. If set to 0 or negative, the default formula will be used. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_nmsopt_8h_source_1l00069">69</link> of file <link linkend="_nmsopt_8h_source">nmsopt.h</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="class_c_n_m_seq_opt_a0db683f79e6af131ffd6e59238a6df51_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+<section>
+<title>Member Data Documentation</title>
+<anchor xml:id="_class_c_n_m_seq_opt_1af1e9f2a0229d5f931333d2285894434d"/><section>
+    <title>DoInitEvals</title>
+<indexterm><primary>DoInitEvals</primary><secondary>CNMSeqOpt</secondary></indexterm>
+<indexterm><primary>CNMSeqOpt</primary><secondary>DoInitEvals</secondary></indexterm>
+<para><computeroutput>bool CNMSeqOpt::DoInitEvals<computeroutput>[private]</computeroutput></computeroutput></para><para>
+
+<para>&quot;True&quot; if initial evaluations should be performed. </para>
+</para>
+<para>
+Definition at line <link linkend="_nmsopt_8h_source_1l00341">341</link> of file <link linkend="_nmsopt_8h_source">nmsopt.h</link>.</para>
+</section>
+<anchor xml:id="_class_c_n_m_seq_opt_1a7eae04524ddb0580b4657ab2d74f8837"/><section>
+    <title>M</title>
+<indexterm><primary>M</primary><secondary>CNMSeqOpt</secondary></indexterm>
+<indexterm><primary>CNMSeqOpt</primary><secondary>M</secondary></indexterm>
+<para><computeroutput>int CNMSeqOpt::M<computeroutput>[private]</computeroutput></computeroutput></para><para>
+
+<para>The number of points in a simplex. </para>
+</para>
+<para>
+Definition at line <link linkend="_nmsopt_8h_source_1l00326">326</link> of file <link linkend="_nmsopt_8h_source">nmsopt.h</link>.</para>
+</section>
+<anchor xml:id="_class_c_n_m_seq_opt_1ac7358629418dff64bb5febd828f64f0e"/><section>
+    <title>M1</title>
+<indexterm><primary>M1</primary><secondary>CNMSeqOpt</secondary></indexterm>
+<indexterm><primary>CNMSeqOpt</primary><secondary>M1</secondary></indexterm>
+<para><computeroutput>int CNMSeqOpt::M1<computeroutput>[private]</computeroutput></computeroutput></para><para>
+
+<para>= M - 1. </para>
+</para>
+<para>
+Definition at line <link linkend="_nmsopt_8h_source_1l00327">327</link> of file <link linkend="_nmsopt_8h_source">nmsopt.h</link>.</para>
+</section>
+<anchor xml:id="_class_c_n_m_seq_opt_1aff51e4e10e5089f3b8a1f8286f83010e"/><section>
+    <title>M1i</title>
+<indexterm><primary>M1i</primary><secondary>CNMSeqOpt</secondary></indexterm>
+<indexterm><primary>CNMSeqOpt</primary><secondary>M1i</secondary></indexterm>
+<para><computeroutput>double CNMSeqOpt::M1i<computeroutput>[private]</computeroutput></computeroutput></para><para>
+
+<para>= 1.0 / ( M - 1 ). </para>
+</para>
+<para>
+Definition at line <link linkend="_nmsopt_8h_source_1l00328">328</link> of file <link linkend="_nmsopt_8h_source">nmsopt.h</link>.</para>
+</section>
+<anchor xml:id="_class_c_n_m_seq_opt_1a61e71ca1c5282bcfab71d638613f8ff2"/><section>
+    <title>N</title>
+<indexterm><primary>N</primary><secondary>CNMSeqOpt</secondary></indexterm>
+<indexterm><primary>CNMSeqOpt</primary><secondary>N</secondary></indexterm>
+<para><computeroutput>int CNMSeqOpt::N<computeroutput>[private]</computeroutput></computeroutput></para><para>
+
+<para>The total number of internal parameter values in use. </para>
+</para>
+<para>
+Definition at line <link linkend="_nmsopt_8h_source_1l00325">325</link> of file <link linkend="_nmsopt_8h_source">nmsopt.h</link>.</para>
+</section>
+<anchor xml:id="_class_c_n_m_seq_opt_1a71dd7363e56585f44ccf346c31bf031c"/><section>
+    <title>rj</title>
+<indexterm><primary>rj</primary><secondary>CNMSeqOpt</secondary></indexterm>
+<indexterm><primary>CNMSeqOpt</primary><secondary>rj</secondary></indexterm>
+<para><computeroutput>int CNMSeqOpt::rj<computeroutput>[private]</computeroutput></computeroutput></para><para>
+
+<para>Current vector index during reduction. </para>
+</para>
+<para>
+Definition at line <link linkend="_nmsopt_8h_source_1l00340">340</link> of file <link linkend="_nmsopt_8h_source">nmsopt.h</link>.</para>
+</section>
+<anchor xml:id="_class_c_n_m_seq_opt_1abc45d41e6ba582da381eb4c9999442ad"/><section>
+    <title>rx</title>
+<indexterm><primary>rx</primary><secondary>CNMSeqOpt</secondary></indexterm>
+<indexterm><primary>CNMSeqOpt</primary><secondary>rx</secondary></indexterm>
+<para><computeroutput>double* CNMSeqOpt::rx<computeroutput>[private]</computeroutput></computeroutput></para><para>
+
+<para>Lowest-cost parameter vector used during reduction. </para>
+</para>
+<para>
+Definition at line <link linkend="_nmsopt_8h_source_1l00339">339</link> of file <link linkend="_nmsopt_8h_source">nmsopt.h</link>.</para>
+</section>
+<anchor xml:id="_class_c_n_m_seq_opt_1af55bab09410e2932dc2983c3646fba93"/><section>
+    <title>State</title>
+<indexterm><primary>State</primary><secondary>CNMSeqOpt</secondary></indexterm>
+<indexterm><primary>CNMSeqOpt</primary><secondary>State</secondary></indexterm>
+<para><computeroutput><link linkend="_class_c_n_m_seq_opt_1a1f81889f90eb0c0e9b5f9ee1b9e1faa7">EState</link> CNMSeqOpt::State<computeroutput>[private]</computeroutput></computeroutput></para><para>
+
+<para>Current optimization state. </para>
+</para>
+<para>
+Definition at line <link linkend="_nmsopt_8h_source_1l00355">355</link> of file <link linkend="_nmsopt_8h_source">nmsopt.h</link>.</para>
+</section>
+<anchor xml:id="_class_c_n_m_seq_opt_1a356c7d926e3bc14c441622a19ab12df1"/><section>
+    <title>x</title>
+<indexterm><primary>x</primary><secondary>CNMSeqOpt</secondary></indexterm>
+<indexterm><primary>CNMSeqOpt</primary><secondary>x</secondary></indexterm>
+<para><computeroutput>double** CNMSeqOpt::x<computeroutput>[private]</computeroutput></computeroutput></para><para>
+
+<para>Parameter vectors for all points. </para>
+</para>
+<para>
+Definition at line <link linkend="_nmsopt_8h_source_1l00332">332</link> of file <link linkend="_nmsopt_8h_source">nmsopt.h</link>.</para>
+</section>
+<anchor xml:id="_class_c_n_m_seq_opt_1a752068f193d7b65015a3b3b1d34a2c84"/><section>
+    <title>x0</title>
+<indexterm><primary>x0</primary><secondary>CNMSeqOpt</secondary></indexterm>
+<indexterm><primary>CNMSeqOpt</primary><secondary>x0</secondary></indexterm>
+<para><computeroutput>double* CNMSeqOpt::x0<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_nmsopt_8h_source_1l00334">334</link> of file <link linkend="_nmsopt_8h_source">nmsopt.h</link>.</para>
+</section>
+<anchor xml:id="_class_c_n_m_seq_opt_1ad1d9690201835708ecbf9e639e7a1a84"/><section>
+    <title>x1</title>
+<indexterm><primary>x1</primary><secondary>CNMSeqOpt</secondary></indexterm>
+<indexterm><primary>CNMSeqOpt</primary><secondary>x1</secondary></indexterm>
+<para><computeroutput>double* CNMSeqOpt::x1<computeroutput>[private]</computeroutput></computeroutput></para><para>
+
+<para>Temporary parameter vector 1. Passed to stExpansion. </para>
+</para>
+<para>
+Definition at line <link linkend="_nmsopt_8h_source_1l00335">335</link> of file <link linkend="_nmsopt_8h_source">nmsopt.h</link>.</para>
+</section>
+<anchor xml:id="_class_c_n_m_seq_opt_1a22d3e10bba1fbfa50a458527d285d04b"/><section>
+    <title>x2</title>
+<indexterm><primary>x2</primary><secondary>CNMSeqOpt</secondary></indexterm>
+<indexterm><primary>CNMSeqOpt</primary><secondary>x2</secondary></indexterm>
+<para><computeroutput>double* CNMSeqOpt::x2<computeroutput>[private]</computeroutput></computeroutput></para><para>
+
+<para>Temporary parameter vector 2. </para>
+</para>
+<para>
+Definition at line <link linkend="_nmsopt_8h_source_1l00338">338</link> of file <link linkend="_nmsopt_8h_source">nmsopt.h</link>.</para>
+</section>
+<anchor xml:id="_class_c_n_m_seq_opt_1a371cf09612300720f18981ae1e3aec9a"/><section>
+    <title>xhi</title>
+<indexterm><primary>xhi</primary><secondary>CNMSeqOpt</secondary></indexterm>
+<indexterm><primary>CNMSeqOpt</primary><secondary>xhi</secondary></indexterm>
+<para><computeroutput>int CNMSeqOpt::xhi<computeroutput>[private]</computeroutput></computeroutput></para><para>
+
+<para>Current highest-cost parameter vector. </para>
+</para>
+<para>
+Definition at line <link linkend="_nmsopt_8h_source_1l00330">330</link> of file <link linkend="_nmsopt_8h_source">nmsopt.h</link>.</para>
+</section>
+<anchor xml:id="_class_c_n_m_seq_opt_1aa38748f581346e620b42202427ae7fd3"/><section>
+    <title>xhi2</title>
+<indexterm><primary>xhi2</primary><secondary>CNMSeqOpt</secondary></indexterm>
+<indexterm><primary>CNMSeqOpt</primary><secondary>xhi2</secondary></indexterm>
+<para><computeroutput>int CNMSeqOpt::xhi2<computeroutput>[private]</computeroutput></computeroutput></para><para>
+
+<para>Current second-highest-cost parameter vector. </para>
+</para>
+<para>
+Definition at line <link linkend="_nmsopt_8h_source_1l00331">331</link> of file <link linkend="_nmsopt_8h_source">nmsopt.h</link>.</para>
+</section>
+<anchor xml:id="_class_c_n_m_seq_opt_1a553e8ff44398fb272de572df3055c8a0"/><section>
+    <title>xlo</title>
+<indexterm><primary>xlo</primary><secondary>CNMSeqOpt</secondary></indexterm>
+<indexterm><primary>CNMSeqOpt</primary><secondary>xlo</secondary></indexterm>
+<para><computeroutput>int CNMSeqOpt::xlo<computeroutput>[private]</computeroutput></computeroutput></para><para>
+
+<para>Current lowest-cost parameter vector. </para>
+</para>
+<para>
+Definition at line <link linkend="_nmsopt_8h_source_1l00329">329</link> of file <link linkend="_nmsopt_8h_source">nmsopt.h</link>.</para>
+</section>
+<anchor xml:id="_class_c_n_m_seq_opt_1a49d787843631379aad7a4e096b4368e3"/><section>
+    <title>y</title>
+<indexterm><primary>y</primary><secondary>CNMSeqOpt</secondary></indexterm>
+<indexterm><primary>CNMSeqOpt</primary><secondary>y</secondary></indexterm>
+<para><computeroutput>double* CNMSeqOpt::y<computeroutput>[private]</computeroutput></computeroutput></para><para>
+
+<para>Parameter vector costs. </para>
+</para>
+<para>
+Definition at line <link linkend="_nmsopt_8h_source_1l00333">333</link> of file <link linkend="_nmsopt_8h_source">nmsopt.h</link>.</para>
+</section>
+<anchor xml:id="_class_c_n_m_seq_opt_1ac43a76bb5f3f4a5f059f17ad8e54d646"/><section>
+    <title>y1</title>
+<indexterm><primary>y1</primary><secondary>CNMSeqOpt</secondary></indexterm>
+<indexterm><primary>CNMSeqOpt</primary><secondary>y1</secondary></indexterm>
+<para><computeroutput>double CNMSeqOpt::y1<computeroutput>[private]</computeroutput></computeroutput></para><para>
+
+<para>stExpansion. </para>
+</para>
+
+<para>Cost of temporary parameter vector 1. Passed to </para>
+<para>
+Definition at line <link linkend="_nmsopt_8h_source_1l00336">336</link> of file <link linkend="_nmsopt_8h_source">nmsopt.h</link>.</para>
+</section>
+<para>
+The documentation for this class was generated from the following file:</para>
+_fcmaescpp/include/<link linkend="_nmsopt_8h">nmsopt.h</link></section>
+</section>

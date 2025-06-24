@@ -1,0 +1,837 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_classacmaes_1_1_acmaes_optimizer" xml:lang="en-US">
+<title>acmaes::AcmaesOptimizer Class Reference</title>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary></indexterm>
+Collaboration diagram for acmaes::AcmaesOptimizer:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classacmaes_1_1_acmaes_optimizer__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Public Member Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classacmaes_1_1_acmaes_optimizer_1a1a141c42370061770c70d35a2e72e22f">AcmaesOptimizer</link> (long runid_, <link linkend="_class_fitness">Fitness</link> *fitfun_, int popsize_, int mu_, const <link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> &amp;guess_, const <link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> &amp;inputSigma_, int maxEvaluations_, double accuracy_, double stopfitness_, double stopTolHistFun_, int update_gap_, long seed)</para>
+</listitem>
+            <listitem><para><link linkend="_classacmaes_1_1_acmaes_optimizer_1ad1c4b82ea7f71d9d61f45fc4978cc734">~AcmaesOptimizer</link> ()</para>
+</listitem>
+            <listitem><para>bool <link linkend="_classacmaes_1_1_acmaes_optimizer_1ae9f3415b9bcc43366193e7d4b0beda87">updateEvolutionPaths</link> (const <link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> &amp;zmean, const <link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> &amp;xold)</para>
+</listitem>
+            <listitem><para>double <link linkend="_classacmaes_1_1_acmaes_optimizer_1a911e67d9e8445b3a8be575f184341b8e">updateCovariance</link> (bool hsig, const <link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link> &amp;bestArx, const <link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link> &amp;<link linkend="_classacmaes_1_1_acmaes_optimizer_1a29fdebcd5e9fe0daa7d3ab4b6b4eaf66">arz</link>, const <link linkend="_daoptimizer_8cpp_1aa45a218a6a9d424e78898121d21f082d">ivec</link> &amp;arindex, const <link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link> &amp;xold)</para>
+</listitem>
+            <listitem><para>void <link linkend="_classacmaes_1_1_acmaes_optimizer_1a6e1292651cf19abf87f9ece1aa9c92d7">updateBD</link> (double negccov)</para>
+</listitem>
+            <listitem><para><link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link> <link linkend="_classacmaes_1_1_acmaes_optimizer_1ae6ef63f98f9b5b9034438301df2ca323">ask_all</link> ()</para>
+</listitem>
+            <listitem><para>int <link linkend="_classacmaes_1_1_acmaes_optimizer_1ad73e4ffab0c5d511107d58491540de24">tell_all</link> (<link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link> ys, <link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link> xs)</para>
+</listitem>
+            <listitem><para>int <link linkend="_classacmaes_1_1_acmaes_optimizer_1aaabb9e299b54d36fc3244bfc05184e27">tell_all_asked</link> (<link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link> ys, <link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link> xs)</para>
+</listitem>
+            <listitem><para><link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link> <link linkend="_classacmaes_1_1_acmaes_optimizer_1a7e8a9548f7c49fb789b98f6570d5ea7b">getPopulation</link> ()</para>
+</listitem>
+            <listitem><para><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> <link linkend="_classacmaes_1_1_acmaes_optimizer_1a76117dfd997b8f098304f5d4f0fbf52e">ask</link> ()</para>
+</listitem>
+            <listitem><para>int <link linkend="_classacmaes_1_1_acmaes_optimizer_1ac1703b5f2c650cf8da235ea475e17d6f">tell</link> (double y, const <link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> &amp;x)</para>
+</listitem>
+            <listitem><para>void <link linkend="_classacmaes_1_1_acmaes_optimizer_1a36c0bd51d20f3c63e8cadf76421fc5d4">updateCMA</link> ()</para>
+</listitem>
+            <listitem><para>int <link linkend="_classacmaes_1_1_acmaes_optimizer_1a6ffd7f760692210629187fea1b98007c">doOptimize</link> ()</para>
+</listitem>
+            <listitem><para>int <link linkend="_classacmaes_1_1_acmaes_optimizer_1ab3af1e3acb2561d4b0be23b402b232a9">do_optimize_delayed_update</link> (int workers)</para>
+</listitem>
+            <listitem><para><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> <link linkend="_classacmaes_1_1_acmaes_optimizer_1ae23d2ccb359090f4e5c2c162b7d6a4bf">getBestX</link> ()</para>
+</listitem>
+            <listitem><para>double <link linkend="_classacmaes_1_1_acmaes_optimizer_1a0d762f718e82fecd480762662f480e1a">getBestValue</link> ()</para>
+</listitem>
+            <listitem><para>double <link linkend="_classacmaes_1_1_acmaes_optimizer_1a60785f3698538af538a606d1eea6c908">getIterations</link> ()</para>
+</listitem>
+            <listitem><para>int <link linkend="_classacmaes_1_1_acmaes_optimizer_1a1b182abe1e3428733780dc6fe0b669e0">getStop</link> ()</para>
+</listitem>
+            <listitem><para><link linkend="_class_fitness">Fitness</link> * <link linkend="_classacmaes_1_1_acmaes_optimizer_1a8f2c15cc704f0ce15f6cc875522e2d5e">getFitfun</link> ()</para>
+</listitem>
+            <listitem><para>int <link linkend="_classacmaes_1_1_acmaes_optimizer_1ae9ccb84da924f3a0df38032ac09298a8">getDim</link> ()</para>
+</listitem>
+            <listitem><para>int <link linkend="_classacmaes_1_1_acmaes_optimizer_1a224ece6966b6635c9912673e06457697">getPopsize</link> ()</para>
+</listitem>
+            <listitem><para><link linkend="_class_fitness">Fitness</link> * <link linkend="_classacmaes_1_1_acmaes_optimizer_1aba0ace56e07ab7c89e6f380a168f88a1">getFitfunPar</link> ()</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Public Attributes    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link> <link linkend="_classacmaes_1_1_acmaes_optimizer_1a6d351621f77f58b69bdaedbd3f12c5e7">popX</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Private Attributes    </title>
+        <itemizedlist>
+            <listitem><para>long <link linkend="_classacmaes_1_1_acmaes_optimizer_1a755e250be4d7f61b3d813a4f13a25282">runid</link></para>
+</listitem>
+            <listitem><para><link linkend="_class_fitness">Fitness</link> * <link linkend="_classacmaes_1_1_acmaes_optimizer_1a94047d045c240637d027ceb4ef111a95">fitfun</link></para>
+</listitem>
+            <listitem><para><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> <link linkend="_classacmaes_1_1_acmaes_optimizer_1a73710e1f7b550eb765980f6d8205acd2">guess</link></para>
+</listitem>
+            <listitem><para>double <link linkend="_classacmaes_1_1_acmaes_optimizer_1af49bb3ec0e42ef7f4cbfe3934abc026a">accuracy</link></para>
+</listitem>
+            <listitem><para>int <link linkend="_classacmaes_1_1_acmaes_optimizer_1abc8fbb4d336cd6525618902f212e9071">popsize</link></para>
+</listitem>
+            <listitem><para><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> <link linkend="_classacmaes_1_1_acmaes_optimizer_1aa64448926972de66e258f3eae95993d4">inputSigma</link></para>
+</listitem>
+            <listitem><para>int <link linkend="_classacmaes_1_1_acmaes_optimizer_1a29e0940b9fe073e2cf0879010ddd619a">dim</link></para>
+</listitem>
+            <listitem><para>int <link linkend="_classacmaes_1_1_acmaes_optimizer_1a64b1dc96aadfd73ac75ac18f602a4be5">maxEvaluations</link></para>
+</listitem>
+            <listitem><para>double <link linkend="_classacmaes_1_1_acmaes_optimizer_1a8257d791e3d09fefa27942e2842a02f5">stopfitness</link></para>
+</listitem>
+            <listitem><para>double <link linkend="_classacmaes_1_1_acmaes_optimizer_1acd6aa48f968c88bbf105a05bc2b66112">stopTolUpX</link></para>
+</listitem>
+            <listitem><para>double <link linkend="_classacmaes_1_1_acmaes_optimizer_1a676d55f32118eeb0bdf0546721f9ae23">stopTolX</link></para>
+</listitem>
+            <listitem><para>double <link linkend="_classacmaes_1_1_acmaes_optimizer_1a14dd207015f4c247ca4a80c683a8b0f6">stopTolFun</link></para>
+</listitem>
+            <listitem><para>double <link linkend="_classacmaes_1_1_acmaes_optimizer_1a93f72fbef497480928c9e7b04123e930">stopTolHistFun</link></para>
+</listitem>
+            <listitem><para>int <link linkend="_classacmaes_1_1_acmaes_optimizer_1a9fba5c1ce916fdda28b4e9af75ef693f">mu</link></para>
+</listitem>
+            <listitem><para><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> <link linkend="_classacmaes_1_1_acmaes_optimizer_1a535998e869d050bac252c34d8b570b0f">weights</link></para>
+</listitem>
+            <listitem><para>double <link linkend="_classacmaes_1_1_acmaes_optimizer_1a12077354f7b80409fe6506c29b4f9d05">mueff</link></para>
+</listitem>
+            <listitem><para>double <link linkend="_classacmaes_1_1_acmaes_optimizer_1a9290a3cb7cec20b03d78ccc1b53a06dc">sigma</link></para>
+</listitem>
+            <listitem><para>double <link linkend="_classacmaes_1_1_acmaes_optimizer_1adda41c9a7372cec6cbe9277c09117829">cc</link></para>
+</listitem>
+            <listitem><para>double <link linkend="_classacmaes_1_1_acmaes_optimizer_1ab72d93c09c86ab626df76157673b5d57">cs</link></para>
+</listitem>
+            <listitem><para>double <link linkend="_classacmaes_1_1_acmaes_optimizer_1a42ca377b32c9aba2a082b73203c7dddd">damps</link></para>
+</listitem>
+            <listitem><para>double <link linkend="_classacmaes_1_1_acmaes_optimizer_1a8a406c0b2eac5e1e7c775e6951858172">ccov1</link></para>
+</listitem>
+            <listitem><para>double <link linkend="_classacmaes_1_1_acmaes_optimizer_1ad5f6392eb25c1d4afeeab490c8d1556f">ccovmu</link></para>
+</listitem>
+            <listitem><para>double <link linkend="_classacmaes_1_1_acmaes_optimizer_1a6bff526b6be45c84a7196b26f9c10375">chiN</link></para>
+</listitem>
+            <listitem><para>double <link linkend="_classacmaes_1_1_acmaes_optimizer_1ab663ec0cbe33131f3d5c9b5f30236b8b">ccov1Sep</link></para>
+</listitem>
+            <listitem><para>double <link linkend="_classacmaes_1_1_acmaes_optimizer_1ac2566f3a92b546f094a7bb8ec5d87de6">ccovmuSep</link></para>
+</listitem>
+            <listitem><para>double <link linkend="_classacmaes_1_1_acmaes_optimizer_1a56b024cd6dc9dfcc03b282918f905d4d">lazy_update_gap</link> = 0</para>
+</listitem>
+            <listitem><para><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> <link linkend="_classacmaes_1_1_acmaes_optimizer_1a7824c6afa9a2633c7e24d71db2f52787">xmean</link></para>
+</listitem>
+            <listitem><para><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> <link linkend="_classacmaes_1_1_acmaes_optimizer_1a3b2ec952c9c29e2c8fe353a7eb7b3a6f">pc</link></para>
+</listitem>
+            <listitem><para><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> <link linkend="_classacmaes_1_1_acmaes_optimizer_1a941f1cfcd98230d2022fb506e62b96df">ps</link></para>
+</listitem>
+            <listitem><para>double <link linkend="_classacmaes_1_1_acmaes_optimizer_1adffd8b681b2402481801e0cc34b9d6e2">normps</link></para>
+</listitem>
+            <listitem><para><link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link> <link linkend="_classacmaes_1_1_acmaes_optimizer_1a326b26c7190938716b46310b7985fb1f">B</link></para>
+</listitem>
+            <listitem><para><link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link> <link linkend="_classacmaes_1_1_acmaes_optimizer_1a28b375f6c8c9333a8d11169a4b4bbf51">BD</link></para>
+</listitem>
+            <listitem><para><link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link> <link linkend="_classacmaes_1_1_acmaes_optimizer_1a822048c321fe48fe4615a8fcb92e31a7">diagD</link></para>
+</listitem>
+            <listitem><para><link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link> <link linkend="_classacmaes_1_1_acmaes_optimizer_1aff3401adacb15732828daef99c6d7dab">C</link></para>
+</listitem>
+            <listitem><para><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> <link linkend="_classacmaes_1_1_acmaes_optimizer_1af0d9962901e706966ac55076a9123de0">diagC</link></para>
+</listitem>
+            <listitem><para><link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link> <link linkend="_classacmaes_1_1_acmaes_optimizer_1a29fdebcd5e9fe0daa7d3ab4b6b4eaf66">arz</link></para>
+</listitem>
+            <listitem><para><link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link> <link linkend="_classacmaes_1_1_acmaes_optimizer_1a54b9d653087f054270a377aeafa63e02">arx</link></para>
+</listitem>
+            <listitem><para><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> <link linkend="_classacmaes_1_1_acmaes_optimizer_1ae72ada0035312e1bb1edf6ad35204f71">fitness</link></para>
+</listitem>
+            <listitem><para>int <link linkend="_classacmaes_1_1_acmaes_optimizer_1a2c9bbb5f803acf531a67986025d0e913">iterations</link> = 0</para>
+</listitem>
+            <listitem><para>int <link linkend="_classacmaes_1_1_acmaes_optimizer_1ad2efb063f4c0954c1870313b98667bd0">last_update</link> = 0</para>
+</listitem>
+            <listitem><para><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> <link linkend="_classacmaes_1_1_acmaes_optimizer_1a4f8eb45ad2bbe6ee494dc655173f2f86">fitnessHistory</link></para>
+</listitem>
+            <listitem><para>int <link linkend="_classacmaes_1_1_acmaes_optimizer_1a51907ba6ceea0937ac45997d424ca5ed">historySize</link></para>
+</listitem>
+            <listitem><para>double <link linkend="_classacmaes_1_1_acmaes_optimizer_1a13682ca7e26ba1755a7a7b09d446ac8a">bestValue</link></para>
+</listitem>
+            <listitem><para><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> <link linkend="_classacmaes_1_1_acmaes_optimizer_1acfda423e0a6771582cf79f67f0e66954">bestX</link></para>
+</listitem>
+            <listitem><para>int <link linkend="_classacmaes_1_1_acmaes_optimizer_1a1529659459b814102415217b9ce822c6">stop</link></para>
+</listitem>
+            <listitem><para>int <link linkend="_classacmaes_1_1_acmaes_optimizer_1afeb20b9c89d465d55e43c1da48beba53">told</link> = 0</para>
+</listitem>
+            <listitem><para>pcg64 * <link linkend="_classacmaes_1_1_acmaes_optimizer_1a6484fd82e910d1481f21c2c85a267f56">rs</link></para>
+</listitem>
+            <listitem><para>bool <link linkend="_classacmaes_1_1_acmaes_optimizer_1a822ff0e80ba2c337ea65b4b361d7b332">computeArz</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+<para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00052">52</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<section>
+<title>Constructor &amp; Destructor Documentation</title>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1a1a141c42370061770c70d35a2e72e22f"/><section>
+    <title>AcmaesOptimizer()</title>
+<indexterm><primary>AcmaesOptimizer</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>AcmaesOptimizer</secondary></indexterm>
+<para><computeroutput>acmaes::AcmaesOptimizer::AcmaesOptimizer (long runid_, <link linkend="_class_fitness">Fitness</link> * fitfun_, int popsize_, int mu_, const <link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> &amp; guess_, const <link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> &amp; inputSigma_, int maxEvaluations_, double accuracy_, double stopfitness_, double stopTolHistFun_, int update_gap_, long seed)<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00056">56</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classacmaes_1_1_acmaes_optimizer_a1a141c42370061770c70d35a2e72e22f_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1ad1c4b82ea7f71d9d61f45fc4978cc734"/><section>
+    <title>~AcmaesOptimizer()</title>
+<indexterm><primary>~AcmaesOptimizer</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>~AcmaesOptimizer</secondary></indexterm>
+<para><computeroutput>acmaes::AcmaesOptimizer::~AcmaesOptimizer ( )<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00176">176</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Function Documentation</title>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1a76117dfd997b8f098304f5d4f0fbf52e"/><section>
+    <title>ask()</title>
+<indexterm><primary>ask</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>ask</secondary></indexterm>
+<para><computeroutput><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> acmaes::AcmaesOptimizer::ask ( )<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00315">315</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classacmaes_1_1_acmaes_optimizer_a76117dfd997b8f098304f5d4f0fbf52e_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classacmaes_1_1_acmaes_optimizer_a76117dfd997b8f098304f5d4f0fbf52e_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1ae6ef63f98f9b5b9034438301df2ca323"/><section>
+    <title>ask_all()</title>
+<indexterm><primary>ask_all</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>ask_all</secondary></indexterm>
+<para><computeroutput><link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link> acmaes::AcmaesOptimizer::ask_all ( )<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00280">280</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classacmaes_1_1_acmaes_optimizer_ae6ef63f98f9b5b9034438301df2ca323_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classacmaes_1_1_acmaes_optimizer_ae6ef63f98f9b5b9034438301df2ca323_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1ab3af1e3acb2561d4b0be23b402b232a9"/><section>
+    <title>do_optimize_delayed_update()</title>
+<indexterm><primary>do_optimize_delayed_update</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>do_optimize_delayed_update</secondary></indexterm>
+<para><computeroutput>int acmaes::AcmaesOptimizer::do_optimize_delayed_update (int workers)<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00443">443</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classacmaes_1_1_acmaes_optimizer_ab3af1e3acb2561d4b0be23b402b232a9_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1a6ffd7f760692210629187fea1b98007c"/><section>
+    <title>doOptimize()</title>
+<indexterm><primary>doOptimize</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>doOptimize</secondary></indexterm>
+<para><computeroutput>int acmaes::AcmaesOptimizer::doOptimize ( )<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00424">424</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classacmaes_1_1_acmaes_optimizer_a6ffd7f760692210629187fea1b98007c_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1a0d762f718e82fecd480762662f480e1a"/><section>
+    <title>getBestValue()</title>
+<indexterm><primary>getBestValue</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>getBestValue</secondary></indexterm>
+<para><computeroutput>double acmaes::AcmaesOptimizer::getBestValue ( )<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00475">475</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1ae23d2ccb359090f4e5c2c162b7d6a4bf"/><section>
+    <title>getBestX()</title>
+<indexterm><primary>getBestX</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>getBestX</secondary></indexterm>
+<para><computeroutput><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> acmaes::AcmaesOptimizer::getBestX ( )<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00471">471</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1ae9ccb84da924f3a0df38032ac09298a8"/><section>
+    <title>getDim()</title>
+<indexterm><primary>getDim</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>getDim</secondary></indexterm>
+<para><computeroutput>int acmaes::AcmaesOptimizer::getDim ( )<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00491">491</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1a8f2c15cc704f0ce15f6cc875522e2d5e"/><section>
+    <title>getFitfun()</title>
+<indexterm><primary>getFitfun</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>getFitfun</secondary></indexterm>
+<para><computeroutput><link linkend="_class_fitness">Fitness</link> * acmaes::AcmaesOptimizer::getFitfun ( )<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00487">487</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1aba0ace56e07ab7c89e6f380a168f88a1"/><section>
+    <title>getFitfunPar()</title>
+<indexterm><primary>getFitfunPar</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>getFitfunPar</secondary></indexterm>
+<para><computeroutput><link linkend="_class_fitness">Fitness</link> * acmaes::AcmaesOptimizer::getFitfunPar ( )<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00499">499</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1a60785f3698538af538a606d1eea6c908"/><section>
+    <title>getIterations()</title>
+<indexterm><primary>getIterations</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>getIterations</secondary></indexterm>
+<para><computeroutput>double acmaes::AcmaesOptimizer::getIterations ( )<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00479">479</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1a224ece6966b6635c9912673e06457697"/><section>
+    <title>getPopsize()</title>
+<indexterm><primary>getPopsize</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>getPopsize</secondary></indexterm>
+<para><computeroutput>int acmaes::AcmaesOptimizer::getPopsize ( )<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00495">495</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1a7e8a9548f7c49fb789b98f6570d5ea7b"/><section>
+    <title>getPopulation()</title>
+<indexterm><primary>getPopulation</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>getPopulation</secondary></indexterm>
+<para><computeroutput><link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link> acmaes::AcmaesOptimizer::getPopulation ( )<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00308">308</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1a1b182abe1e3428733780dc6fe0b669e0"/><section>
+    <title>getStop()</title>
+<indexterm><primary>getStop</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>getStop</secondary></indexterm>
+<para><computeroutput>int acmaes::AcmaesOptimizer::getStop ( )<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00483">483</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1ac1703b5f2c650cf8da235ea475e17d6f"/><section>
+    <title>tell()</title>
+<indexterm><primary>tell</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>tell</secondary></indexterm>
+<para><computeroutput>int acmaes::AcmaesOptimizer::tell (double y, const <link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> &amp; x)<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00324">324</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classacmaes_1_1_acmaes_optimizer_ac1703b5f2c650cf8da235ea475e17d6f_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classacmaes_1_1_acmaes_optimizer_ac1703b5f2c650cf8da235ea475e17d6f_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1ad73e4ffab0c5d511107d58491540de24"/><section>
+    <title>tell_all()</title>
+<indexterm><primary>tell_all</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>tell_all</secondary></indexterm>
+<para><computeroutput>int acmaes::AcmaesOptimizer::tell_all (<link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link> ys, <link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link> xs)<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00292">292</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classacmaes_1_1_acmaes_optimizer_ad73e4ffab0c5d511107d58491540de24_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1aaabb9e299b54d36fc3244bfc05184e27"/><section>
+    <title>tell_all_asked()</title>
+<indexterm><primary>tell_all_asked</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>tell_all_asked</secondary></indexterm>
+<para><computeroutput>int acmaes::AcmaesOptimizer::tell_all_asked (<link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link> ys, <link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link> xs)<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00300">300</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classacmaes_1_1_acmaes_optimizer_aaabb9e299b54d36fc3244bfc05184e27_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1a6e1292651cf19abf87f9ece1aa9c92d7"/><section>
+    <title>updateBD()</title>
+<indexterm><primary>updateBD</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>updateBD</secondary></indexterm>
+<para><computeroutput>void acmaes::AcmaesOptimizer::updateBD (double negccov)<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00247">247</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classacmaes_1_1_acmaes_optimizer_a6e1292651cf19abf87f9ece1aa9c92d7_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1a36c0bd51d20f3c63e8cadf76421fc5d4"/><section>
+    <title>updateCMA()</title>
+<indexterm><primary>updateCMA</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>updateCMA</secondary></indexterm>
+<para><computeroutput>void acmaes::AcmaesOptimizer::updateCMA ( )<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00346">346</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classacmaes_1_1_acmaes_optimizer_a36c0bd51d20f3c63e8cadf76421fc5d4_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classacmaes_1_1_acmaes_optimizer_a36c0bd51d20f3c63e8cadf76421fc5d4_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1a911e67d9e8445b3a8be575f184341b8e"/><section>
+    <title>updateCovariance()</title>
+<indexterm><primary>updateCovariance</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>updateCovariance</secondary></indexterm>
+<para><computeroutput>double acmaes::AcmaesOptimizer::updateCovariance (bool hsig, const <link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link> &amp; bestArx, const <link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link> &amp; arz, const <link linkend="_daoptimizer_8cpp_1aa45a218a6a9d424e78898121d21f082d">ivec</link> &amp; arindex, const <link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link> &amp; xold)<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00201">201</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classacmaes_1_1_acmaes_optimizer_a911e67d9e8445b3a8be575f184341b8e_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classacmaes_1_1_acmaes_optimizer_a911e67d9e8445b3a8be575f184341b8e_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1ae9f3415b9bcc43366193e7d4b0beda87"/><section>
+    <title>updateEvolutionPaths()</title>
+<indexterm><primary>updateEvolutionPaths</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>updateEvolutionPaths</secondary></indexterm>
+<para><computeroutput>bool acmaes::AcmaesOptimizer::updateEvolutionPaths (const <link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> &amp; zmean, const <link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> &amp; xold)<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00184">184</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classacmaes_1_1_acmaes_optimizer_ae9f3415b9bcc43366193e7d4b0beda87_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+<section>
+<title>Member Data Documentation</title>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1af49bb3ec0e42ef7f4cbfe3934abc026a"/><section>
+    <title>accuracy</title>
+<indexterm><primary>accuracy</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>accuracy</secondary></indexterm>
+<para><computeroutput>double acmaes::AcmaesOptimizer::accuracy<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00509">509</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1a54b9d653087f054270a377aeafa63e02"/><section>
+    <title>arx</title>
+<indexterm><primary>arx</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>arx</secondary></indexterm>
+<para><computeroutput><link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link> acmaes::AcmaesOptimizer::arx<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00542">542</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1a29fdebcd5e9fe0daa7d3ab4b6b4eaf66"/><section>
+    <title>arz</title>
+<indexterm><primary>arz</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>arz</secondary></indexterm>
+<para><computeroutput><link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link> acmaes::AcmaesOptimizer::arz<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00541">541</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1a326b26c7190938716b46310b7985fb1f"/><section>
+    <title>B</title>
+<indexterm><primary>B</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>B</secondary></indexterm>
+<para><computeroutput><link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link> acmaes::AcmaesOptimizer::B<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00536">536</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1a28b375f6c8c9333a8d11169a4b4bbf51"/><section>
+    <title>BD</title>
+<indexterm><primary>BD</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>BD</secondary></indexterm>
+<para><computeroutput><link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link> acmaes::AcmaesOptimizer::BD<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00537">537</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1a13682ca7e26ba1755a7a7b09d446ac8a"/><section>
+    <title>bestValue</title>
+<indexterm><primary>bestValue</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>bestValue</secondary></indexterm>
+<para><computeroutput>double acmaes::AcmaesOptimizer::bestValue<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00548">548</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1acfda423e0a6771582cf79f67f0e66954"/><section>
+    <title>bestX</title>
+<indexterm><primary>bestX</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>bestX</secondary></indexterm>
+<para><computeroutput><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> acmaes::AcmaesOptimizer::bestX<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00549">549</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1aff3401adacb15732828daef99c6d7dab"/><section>
+    <title>C</title>
+<indexterm><primary>C</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>C</secondary></indexterm>
+<para><computeroutput><link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link> acmaes::AcmaesOptimizer::C<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00539">539</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1adda41c9a7372cec6cbe9277c09117829"/><section>
+    <title>cc</title>
+<indexterm><primary>cc</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>cc</secondary></indexterm>
+<para><computeroutput>double acmaes::AcmaesOptimizer::cc<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00523">523</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1a8a406c0b2eac5e1e7c775e6951858172"/><section>
+    <title>ccov1</title>
+<indexterm><primary>ccov1</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>ccov1</secondary></indexterm>
+<para><computeroutput>double acmaes::AcmaesOptimizer::ccov1<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00526">526</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1ab663ec0cbe33131f3d5c9b5f30236b8b"/><section>
+    <title>ccov1Sep</title>
+<indexterm><primary>ccov1Sep</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>ccov1Sep</secondary></indexterm>
+<para><computeroutput>double acmaes::AcmaesOptimizer::ccov1Sep<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00529">529</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1ad5f6392eb25c1d4afeeab490c8d1556f"/><section>
+    <title>ccovmu</title>
+<indexterm><primary>ccovmu</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>ccovmu</secondary></indexterm>
+<para><computeroutput>double acmaes::AcmaesOptimizer::ccovmu<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00527">527</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1ac2566f3a92b546f094a7bb8ec5d87de6"/><section>
+    <title>ccovmuSep</title>
+<indexterm><primary>ccovmuSep</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>ccovmuSep</secondary></indexterm>
+<para><computeroutput>double acmaes::AcmaesOptimizer::ccovmuSep<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00530">530</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1a6bff526b6be45c84a7196b26f9c10375"/><section>
+    <title>chiN</title>
+<indexterm><primary>chiN</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>chiN</secondary></indexterm>
+<para><computeroutput>double acmaes::AcmaesOptimizer::chiN<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00528">528</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1a822ff0e80ba2c337ea65b4b361d7b332"/><section>
+    <title>computeArz</title>
+<indexterm><primary>computeArz</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>computeArz</secondary></indexterm>
+<para><computeroutput>bool acmaes::AcmaesOptimizer::computeArz<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00553">553</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1ab72d93c09c86ab626df76157673b5d57"/><section>
+    <title>cs</title>
+<indexterm><primary>cs</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>cs</secondary></indexterm>
+<para><computeroutput>double acmaes::AcmaesOptimizer::cs<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00524">524</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1a42ca377b32c9aba2a082b73203c7dddd"/><section>
+    <title>damps</title>
+<indexterm><primary>damps</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>damps</secondary></indexterm>
+<para><computeroutput>double acmaes::AcmaesOptimizer::damps<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00525">525</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1af0d9962901e706966ac55076a9123de0"/><section>
+    <title>diagC</title>
+<indexterm><primary>diagC</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>diagC</secondary></indexterm>
+<para><computeroutput><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> acmaes::AcmaesOptimizer::diagC<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00540">540</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1a822048c321fe48fe4615a8fcb92e31a7"/><section>
+    <title>diagD</title>
+<indexterm><primary>diagD</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>diagD</secondary></indexterm>
+<para><computeroutput><link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link> acmaes::AcmaesOptimizer::diagD<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00538">538</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1a29e0940b9fe073e2cf0879010ddd619a"/><section>
+    <title>dim</title>
+<indexterm><primary>dim</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>dim</secondary></indexterm>
+<para><computeroutput>int acmaes::AcmaesOptimizer::dim<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00512">512</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1a94047d045c240637d027ceb4ef111a95"/><section>
+    <title>fitfun</title>
+<indexterm><primary>fitfun</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>fitfun</secondary></indexterm>
+<para><computeroutput><link linkend="_class_fitness">Fitness</link>* acmaes::AcmaesOptimizer::fitfun<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00507">507</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1ae72ada0035312e1bb1edf6ad35204f71"/><section>
+    <title>fitness</title>
+<indexterm><primary>fitness</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>fitness</secondary></indexterm>
+<para><computeroutput><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> acmaes::AcmaesOptimizer::fitness<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00543">543</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1a4f8eb45ad2bbe6ee494dc655173f2f86"/><section>
+    <title>fitnessHistory</title>
+<indexterm><primary>fitnessHistory</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>fitnessHistory</secondary></indexterm>
+<para><computeroutput><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> acmaes::AcmaesOptimizer::fitnessHistory<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00546">546</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1a73710e1f7b550eb765980f6d8205acd2"/><section>
+    <title>guess</title>
+<indexterm><primary>guess</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>guess</secondary></indexterm>
+<para><computeroutput><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> acmaes::AcmaesOptimizer::guess<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00508">508</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1a51907ba6ceea0937ac45997d424ca5ed"/><section>
+    <title>historySize</title>
+<indexterm><primary>historySize</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>historySize</secondary></indexterm>
+<para><computeroutput>int acmaes::AcmaesOptimizer::historySize<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00547">547</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1aa64448926972de66e258f3eae95993d4"/><section>
+    <title>inputSigma</title>
+<indexterm><primary>inputSigma</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>inputSigma</secondary></indexterm>
+<para><computeroutput><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> acmaes::AcmaesOptimizer::inputSigma<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00511">511</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1a2c9bbb5f803acf531a67986025d0e913"/><section>
+    <title>iterations</title>
+<indexterm><primary>iterations</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>iterations</secondary></indexterm>
+<para><computeroutput>int acmaes::AcmaesOptimizer::iterations = 0<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00544">544</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1ad2efb063f4c0954c1870313b98667bd0"/><section>
+    <title>last_update</title>
+<indexterm><primary>last_update</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>last_update</secondary></indexterm>
+<para><computeroutput>int acmaes::AcmaesOptimizer::last_update = 0<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00545">545</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1a56b024cd6dc9dfcc03b282918f905d4d"/><section>
+    <title>lazy_update_gap</title>
+<indexterm><primary>lazy_update_gap</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>lazy_update_gap</secondary></indexterm>
+<para><computeroutput>double acmaes::AcmaesOptimizer::lazy_update_gap = 0<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00531">531</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1a64b1dc96aadfd73ac75ac18f602a4be5"/><section>
+    <title>maxEvaluations</title>
+<indexterm><primary>maxEvaluations</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>maxEvaluations</secondary></indexterm>
+<para><computeroutput>int acmaes::AcmaesOptimizer::maxEvaluations<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00513">513</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1a9fba5c1ce916fdda28b4e9af75ef693f"/><section>
+    <title>mu</title>
+<indexterm><primary>mu</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>mu</secondary></indexterm>
+<para><computeroutput>int acmaes::AcmaesOptimizer::mu<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00519">519</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1a12077354f7b80409fe6506c29b4f9d05"/><section>
+    <title>mueff</title>
+<indexterm><primary>mueff</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>mueff</secondary></indexterm>
+<para><computeroutput>double acmaes::AcmaesOptimizer::mueff<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00521">521</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1adffd8b681b2402481801e0cc34b9d6e2"/><section>
+    <title>normps</title>
+<indexterm><primary>normps</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>normps</secondary></indexterm>
+<para><computeroutput>double acmaes::AcmaesOptimizer::normps<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00535">535</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1a3b2ec952c9c29e2c8fe353a7eb7b3a6f"/><section>
+    <title>pc</title>
+<indexterm><primary>pc</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>pc</secondary></indexterm>
+<para><computeroutput><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> acmaes::AcmaesOptimizer::pc<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00533">533</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1abc8fbb4d336cd6525618902f212e9071"/><section>
+    <title>popsize</title>
+<indexterm><primary>popsize</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>popsize</secondary></indexterm>
+<para><computeroutput>int acmaes::AcmaesOptimizer::popsize<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00510">510</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1a6d351621f77f58b69bdaedbd3f12c5e7"/><section>
+    <title>popX</title>
+<indexterm><primary>popX</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>popX</secondary></indexterm>
+<para><computeroutput><link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link> acmaes::AcmaesOptimizer::popX</computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00503">503</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1a941f1cfcd98230d2022fb506e62b96df"/><section>
+    <title>ps</title>
+<indexterm><primary>ps</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>ps</secondary></indexterm>
+<para><computeroutput><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> acmaes::AcmaesOptimizer::ps<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00534">534</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1a6484fd82e910d1481f21c2c85a267f56"/><section>
+    <title>rs</title>
+<indexterm><primary>rs</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>rs</secondary></indexterm>
+<para><computeroutput>pcg64* acmaes::AcmaesOptimizer::rs<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00552">552</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1a755e250be4d7f61b3d813a4f13a25282"/><section>
+    <title>runid</title>
+<indexterm><primary>runid</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>runid</secondary></indexterm>
+<para><computeroutput>long acmaes::AcmaesOptimizer::runid<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00506">506</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1a9290a3cb7cec20b03d78ccc1b53a06dc"/><section>
+    <title>sigma</title>
+<indexterm><primary>sigma</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>sigma</secondary></indexterm>
+<para><computeroutput>double acmaes::AcmaesOptimizer::sigma<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00522">522</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1a1529659459b814102415217b9ce822c6"/><section>
+    <title>stop</title>
+<indexterm><primary>stop</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>stop</secondary></indexterm>
+<para><computeroutput>int acmaes::AcmaesOptimizer::stop<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00550">550</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1a8257d791e3d09fefa27942e2842a02f5"/><section>
+    <title>stopfitness</title>
+<indexterm><primary>stopfitness</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>stopfitness</secondary></indexterm>
+<para><computeroutput>double acmaes::AcmaesOptimizer::stopfitness<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00514">514</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1a14dd207015f4c247ca4a80c683a8b0f6"/><section>
+    <title>stopTolFun</title>
+<indexterm><primary>stopTolFun</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>stopTolFun</secondary></indexterm>
+<para><computeroutput>double acmaes::AcmaesOptimizer::stopTolFun<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00517">517</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1a93f72fbef497480928c9e7b04123e930"/><section>
+    <title>stopTolHistFun</title>
+<indexterm><primary>stopTolHistFun</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>stopTolHistFun</secondary></indexterm>
+<para><computeroutput>double acmaes::AcmaesOptimizer::stopTolHistFun<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00518">518</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1acd6aa48f968c88bbf105a05bc2b66112"/><section>
+    <title>stopTolUpX</title>
+<indexterm><primary>stopTolUpX</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>stopTolUpX</secondary></indexterm>
+<para><computeroutput>double acmaes::AcmaesOptimizer::stopTolUpX<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00515">515</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1a676d55f32118eeb0bdf0546721f9ae23"/><section>
+    <title>stopTolX</title>
+<indexterm><primary>stopTolX</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>stopTolX</secondary></indexterm>
+<para><computeroutput>double acmaes::AcmaesOptimizer::stopTolX<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00516">516</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1afeb20b9c89d465d55e43c1da48beba53"/><section>
+    <title>told</title>
+<indexterm><primary>told</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>told</secondary></indexterm>
+<para><computeroutput>int acmaes::AcmaesOptimizer::told = 0<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00551">551</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1a535998e869d050bac252c34d8b570b0f"/><section>
+    <title>weights</title>
+<indexterm><primary>weights</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>weights</secondary></indexterm>
+<para><computeroutput><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> acmaes::AcmaesOptimizer::weights<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00520">520</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classacmaes_1_1_acmaes_optimizer_1a7824c6afa9a2633c7e24d71db2f52787"/><section>
+    <title>xmean</title>
+<indexterm><primary>xmean</primary><secondary>acmaes::AcmaesOptimizer</secondary></indexterm>
+<indexterm><primary>acmaes::AcmaesOptimizer</primary><secondary>xmean</secondary></indexterm>
+<para><computeroutput><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> acmaes::AcmaesOptimizer::xmean<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00532">532</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<para>
+The documentation for this class was generated from the following file:</para>
+_fcmaescpp/<link linkend="_acmaesoptimizer_8cpp">acmaesoptimizer.cpp</link></section>
+</section>

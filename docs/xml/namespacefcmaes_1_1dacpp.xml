@@ -1,0 +1,184 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.13.2" xml:lang="en-US">
+  <compounddef id="namespacefcmaes_1_1dacpp" kind="namespace" language="Python">
+    <compoundname>fcmaes::dacpp</compoundname>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="namespacefcmaes_1_1dacpp_1a51548e77349fcaa0963fafeed727cc3c" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>fcmaes::dacpp.optimizeDA_C</definition>
+        <argsstring></argsstring>
+        <name>optimizeDA_C</name>
+        <qualifiedname>fcmaes.dacpp.optimizeDA_C</qualifiedname>
+        <initializer>=  libcmalib.optimizeDA_C</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="fcmaes/dacpp.py" line="114" column="1" bodyfile="fcmaes/dacpp.py" bodystart="114" bodyend="-1"/>
+        <referencedby refid="namespacefcmaes_1_1dacpp_1aa5ad4244fa09713fa980fb5229adc4c1" compoundref="dacpp_8py" startline="87" endline="111">fcmaes.dacpp.minimize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="namespacefcmaes_1_1dacpp_1a9d643e00b79952e37ee44d2b7bf23b19" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>fcmaes::dacpp.argtypes</definition>
+        <argsstring></argsstring>
+        <name>argtypes</name>
+        <qualifiedname>fcmaes.dacpp.argtypes</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="fcmaes/dacpp.py" line="115" column="1" bodyfile="fcmaes/dacpp.py" bodystart="115" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="namespacefcmaes_1_1dacpp_1aa5ad4244fa09713fa980fb5229adc4c1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>OptimizeResult</type>
+        <definition> OptimizeResult fcmaes.dacpp.minimize</definition>
+        <argsstring>(Callable[[ArrayLike], float] fun, Optional[Bounds] bounds=None, Optional[ArrayLike] x0=None, Optional[int] max_evaluations=100000, Optional[bool] use_local_search=True, Optional[Generator] rg=Generator(PCG64DXSM()), Optional[int] runid=0)</argsstring>
+        <name>minimize</name>
+        <qualifiedname>fcmaes.dacpp.minimize</qualifiedname>
+        <param>
+          <type>Callable</type>
+          <defname>fun</defname>
+          <array>[[ArrayLike]</array>
+        </param>
+        <param>
+          <type>float]</type>
+          <declname>fun</declname>
+          <defname>bounds</defname>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>bounds</declname>
+          <defname>x0</defname>
+          <array>[Bounds]</array>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>x0</declname>
+          <defname>max_evaluations</defname>
+          <array>[ArrayLike]</array>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>max_evaluations</declname>
+          <defname>use_local_search</defname>
+          <array>[int]</array>
+          <defval>100000</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>use_local_search</declname>
+          <defname>rg</defname>
+          <array>[bool]</array>
+          <defval>True</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>rg</declname>
+          <defname>runid</defname>
+          <array>[Generator]</array>
+          <defval>Generator(PCG64DXSM())</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>runid</declname>
+          <array>[int]</array>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+<para>Minimizes a given function using Differential Annealing (DA) algorithm with optional local search. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function is a Python interface to an underlying C implementation.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>fun</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The objective function to be minimized. It should accept a 1-D array-like object as input and return a float. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bounds</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional bounds for the variables as an instance of <computeroutput>scipy.optimize.Bounds</computeroutput>. This defines the lower and upper bounds of the search space. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>x0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional initial guess for the solution as a 1-D array-like object. If not provided, it will be generated randomly within the bounds. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max_evaluations</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Maximum number of function evaluations allowed. Default is 100000. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>use_local_search</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Whether to perform local search after the main optimization (True) or not (False). Default is True. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Random number generator instance for reproducibility. Defaults to <computeroutput>numpy.random.Generator(PCG64DXSM())</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>runid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional identifier for the optimization run. Defaults to 0.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para></para>
+</simplesect>
+<simplesect kind="return"><para>OptimizeResult The optimization result represented as a <computeroutput>scipy.optimize.OptimizeResult</computeroutput> object. This object includes the found solution, function value at the solution, number of function evaluations (nfev), number of iterations (nit), the status of the optimization, and a success flag.</para>
+</simplesect>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>Exception</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If an unexpected error occurs during the optimization process. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="fcmaes/dacpp.py" line="81" column="1" bodyfile="fcmaes/dacpp.py" bodystart="87" bodyend="111"/>
+        <references refid="namespacefcmaes_1_1dacpp_1a51548e77349fcaa0963fafeed727cc3c" compoundref="dacpp_8py" startline="114">fcmaes.dacpp.optimizeDA_C</references>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="fcmaes/dacpp.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

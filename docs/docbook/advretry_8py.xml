@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_advretry_8py" xml:lang="en-US">
+<title>fcmaes/advretry.py File Reference</title>
+<indexterm><primary>fcmaes/advretry.py</primary></indexterm>
+<para>
+
+<para>============================================================================= </para>
+ 
+</para>
+<simplesect>
+    <title>Classes    </title>
+        <itemizedlist>
+            <listitem><para>class <link linkend="_classfcmaes_1_1advretry_1_1_store">fcmaes.advretry.Store</link></para>
+
+<para>Manages the storing, evaluation, and tracking of data in an optimization problem. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Namespaces    </title>
+        <itemizedlist>
+            <listitem><para>namespace <link linkend="_namespacefcmaes">fcmaes</link></para>
+</listitem>
+            <listitem><para>namespace <link linkend="_namespacefcmaes_1_1advretry">fcmaes.advretry</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para>OptimizeResult <link linkend="_namespacefcmaes_1_1advretry_1ac919a7d43929d78301af60b182a99f24">fcmaes.advretry.minimize</link> (Callable[[ArrayLike], float] fun, Bounds bounds, Optional[float] value_limit=np.inf, Optional[int] num_retries=5000, Optional[int] workers=mp.cpu_count(), Optional[int] popsize=31, Optional[int] min_evaluations=1500, Optional[int] max_eval_fac=None, Optional[int] check_interval=100, Optional[int] capacity=500, Optional[float] stop_fitness=-np.inf, Optional[<link linkend="_classfcmaes_1_1optimizer_1_1_optimizer">Optimizer</link>] optimizer=None, Optional[int] statistic_num=0, Optional[str] datafile=None)</para>
+
+<para>Minimizes an objective function using a specified optimizer with options for retrying and parallel evaluations, storing intermediate and final results. </para>
+</listitem>
+            <listitem><para>OptimizeResult <link linkend="_namespacefcmaes_1_1advretry_1afa7f53840d446eae71b0a9d7a01077e4">fcmaes.advretry.retry</link> (<link linkend="_classfcmaes_1_1advretry_1_1_store">Store</link> store, Callable optimize, Optional[float] value_limit=np.inf, workers=mp.cpu_count(), stop_fitness=-np.inf)</para>
+
+<para>Retries the optimization process using multiple worker processes and random number generators. </para>
+</listitem>
+            <listitem><para>OptimizeResult <link linkend="_namespacefcmaes_1_1advretry_1a5e2cd1f8c09ad3861f3e9fec0c5d8ea0">fcmaes.advretry.minimize_plot</link> (str name, <link linkend="_classfcmaes_1_1optimizer_1_1_optimizer">Optimizer</link> optimizer, Callable[[ArrayLike], float] fun, Bounds bounds, Optional[float] value_limit=np.inf, Optional[float] plot_limit=np.inf, Optional[int] num_retries=1024, Optional[int] workers=mp.cpu_count(), Optional[float] stop_fitness=-np.inf, Optional[int] statistic_num=5000)</para>
+
+<para>Minimizes an objective function using a specified optimizer and plots the optimization progress. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1advretry_1a2e67b1339ce1e546807f7cba0a45d8c9">fcmaes.advretry._retry_loop</link> (pid, rgs, store, optimize, value_limit, stop_fitness=-np.inf)</para>
+
+<para>Retries a loop for optimization until stopping criteria are met. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1advretry_1a6c3c42e1fa5ab01ff7ba59710578ebb5">fcmaes.advretry._crossover</link> (fun, store, optimize, rg)</para>
+
+<para>Performs a crossover operation to optimize a function. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>============================================================================= </para>
+
+<para>Fast version 1.6.11</para>
+
+<para>(c) 2025 – Dietmar Wolz (c) 2025 – Latitude</para>
+
+<para>License MIT</para>
+
+<para><itemizedlist>
+<listitem>
+<para><link linkend="_advretry_8py">advretry.py</link></para>
+</listitem></itemizedlist>
+</para>
+
+<para><formalpara>
+<title>Description</title>
+<para><itemizedlist>
+<listitem>
+<para>This module implements an advanced retry mechanism for optimization tasks using the Fast CMA-ES algorithm. It provides functionality for parallel evaluations, statistical tracking, and result persistence.</para>
+</listitem><listitem>
+<para>The retry mechanism allows for multiple attempts to optimize a function while managing resources efficiently. It supports parallel processing and statistical analysis of the optimization process.</para>
+</listitem></itemizedlist>
+</para>
+</formalpara>
+<formalpara><title>Author</title>
+
+<para>:<itemizedlist>
+<listitem>
+<para>Dietmar Wolz <literallayout><computeroutput>-&#32;romain.despoullains<emphasis role="preprocessor">@latitude.eu</emphasis>
+-&#32;corentin.generet<emphasis role="preprocessor">@latitude.eu</emphasis>
+</computeroutput></literallayout></para>
+</listitem></itemizedlist>
+</para>
+</formalpara>
+<formalpara>
+<title>References</title>
+<para><itemizedlist>
+<listitem>
+<para>[1] <link xlink:href="https://github.com/dietmarwo/fast-cma-es">https://github.com/dietmarwo/fast-cma-es</link></para>
+</listitem></itemizedlist>
+</para>
+</formalpara>
+<formalpara>
+<title>Documentation</title>
+<para><itemizedlist>
+<listitem></listitem></itemizedlist>
+</para>
+</formalpara>
+<informaltable frame='bottom'><tgroup cols='1'><colspec align='center'/><tbody><row><entry align='center'>
+</entry></row></tbody></tgroup></informaltable>
+ </para>
+<para>
+Definition in file <link linkend="_advretry_8py_source">advretry.py</link>.</para>
+</section>
+</section>

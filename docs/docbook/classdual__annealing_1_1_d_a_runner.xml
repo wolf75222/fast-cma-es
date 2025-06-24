@@ -1,0 +1,229 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_classdual__annealing_1_1_d_a_runner" xml:lang="en-US">
+<title>dual_annealing::DARunner Class Reference</title>
+<indexterm><primary>dual_annealing::DARunner</primary></indexterm>
+Collaboration diagram for dual_annealing::DARunner:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classdual__annealing_1_1_d_a_runner__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Public Member Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classdual__annealing_1_1_d_a_runner_1ab74bf44c93edc55f999fb2605f5ff8fa">DARunner</link> (<link linkend="_classdual__annealing_1_1_fitness">Fitness</link> *fun_, <link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> &amp;x0_, long seed_, bool use_local_search_)</para>
+</listitem>
+            <listitem><para><link linkend="_classdual__annealing_1_1_d_a_runner_1a76caa1fe49af670bbdedc500bffe8549">~DARunner</link> ()</para>
+</listitem>
+            <listitem><para>void <link linkend="_classdual__annealing_1_1_d_a_runner_1ae439a61ba872582e64f2fc32568cd669">search</link> ()</para>
+</listitem>
+            <listitem><para><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> <link linkend="_classdual__annealing_1_1_d_a_runner_1ac923ec281c800062d6b3e1e4e778183f">bestX</link> ()</para>
+</listitem>
+            <listitem><para>double <link linkend="_classdual__annealing_1_1_d_a_runner_1a4b0f48a1d4ae3a336fa8fd7ac5412274">bestY</link> ()</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Private Attributes    </title>
+        <itemizedlist>
+            <listitem><para>int <link linkend="_classdual__annealing_1_1_d_a_runner_1af8ca542fabea4845d0f5328e5352a35e">MAX_REINIT_COUNT</link> = 1000</para>
+</listitem>
+            <listitem><para>double <link linkend="_classdual__annealing_1_1_d_a_runner_1aa8381759804d5cc3b4292b52fac60839">temperature_start</link> = 5230</para>
+</listitem>
+            <listitem><para>double <link linkend="_classdual__annealing_1_1_d_a_runner_1ac82ca2d8cb2aa15d9b258acd72457a54">qv</link> = 2.62</para>
+</listitem>
+            <listitem><para>double <link linkend="_classdual__annealing_1_1_d_a_runner_1af08f83bd6889eab07940f8449e82ac28">qa</link> = -5.0</para>
+</listitem>
+            <listitem><para>bool <link linkend="_classdual__annealing_1_1_d_a_runner_1a78921fe0a6d5da888ecfea3c94032d9a">use_local_search</link></para>
+</listitem>
+            <listitem><para>double <link linkend="_classdual__annealing_1_1_d_a_runner_1a7040dfd6a925a6eb8f88bc0b541d5ff8">maxsteps</link> = 1000</para>
+</listitem>
+            <listitem><para>double <link linkend="_classdual__annealing_1_1_d_a_runner_1a0ef3f5607f26f6f636f7232fb89d068f">temperature_restart</link> = 0.1</para>
+</listitem>
+            <listitem><para><link linkend="_classdual__annealing_1_1_fitness">Fitness</link> * <link linkend="_classdual__annealing_1_1_d_a_runner_1a317b83fdc0799403979dd0b297adc415">owf</link></para>
+</listitem>
+            <listitem><para>pcg64 * <link linkend="_classdual__annealing_1_1_d_a_runner_1ae1c19d12feed61dc3f5933b7b426ad73">rs</link></para>
+</listitem>
+            <listitem><para><link linkend="_classdual__annealing_1_1_energy_state">EnergyState</link> * <link linkend="_classdual__annealing_1_1_d_a_runner_1af151a579442ae1acac266642e5aaf639">es</link></para>
+</listitem>
+            <listitem><para><link linkend="_classdual__annealing_1_1_strategy_chain">StrategyChain</link> * <link linkend="_classdual__annealing_1_1_d_a_runner_1ac65e14436ec2b8978a0314de5cf44fec">sc</link></para>
+</listitem>
+            <listitem><para><link linkend="_classdual__annealing_1_1_visiting_distribution">VisitingDistribution</link> * <link linkend="_classdual__annealing_1_1_d_a_runner_1a9151deb647c2beb8201767b00a79785b">vd</link></para>
+</listitem>
+            <listitem><para>int <link linkend="_classdual__annealing_1_1_d_a_runner_1a0a4a5f10e88460ae6bd092917af3e5e9">iter</link> = 0</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+<para>
+Definition at line <link linkend="_daoptimizer_8cpp_source_1l00556">556</link> of file <link linkend="_daoptimizer_8cpp_source">daoptimizer.cpp</link>.</para>
+</section>
+<section>
+<title>Constructor &amp; Destructor Documentation</title>
+<anchor xml:id="_classdual__annealing_1_1_d_a_runner_1ab74bf44c93edc55f999fb2605f5ff8fa"/><section>
+    <title>DARunner()</title>
+<indexterm><primary>DARunner</primary><secondary>dual_annealing::DARunner</secondary></indexterm>
+<indexterm><primary>dual_annealing::DARunner</primary><secondary>DARunner</secondary></indexterm>
+<para><computeroutput>dual_annealing::DARunner::DARunner (<link linkend="_classdual__annealing_1_1_fitness">Fitness</link> * fun_, <link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> &amp; x0_, long seed_, bool use_local_search_)<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_daoptimizer_8cpp_source_1l00560">560</link> of file <link linkend="_daoptimizer_8cpp_source">daoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classdual__annealing_1_1_d_a_runner_1a76caa1fe49af670bbdedc500bffe8549"/><section>
+    <title>~DARunner()</title>
+<indexterm><primary>~DARunner</primary><secondary>dual_annealing::DARunner</secondary></indexterm>
+<indexterm><primary>dual_annealing::DARunner</primary><secondary>~DARunner</secondary></indexterm>
+<para><computeroutput>dual_annealing::DARunner::~DARunner ( )<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_daoptimizer_8cpp_source_1l00576">576</link> of file <link linkend="_daoptimizer_8cpp_source">daoptimizer.cpp</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Function Documentation</title>
+<anchor xml:id="_classdual__annealing_1_1_d_a_runner_1ac923ec281c800062d6b3e1e4e778183f"/><section>
+    <title>bestX()</title>
+<indexterm><primary>bestX</primary><secondary>dual_annealing::DARunner</secondary></indexterm>
+<indexterm><primary>dual_annealing::DARunner</primary><secondary>bestX</secondary></indexterm>
+<para><computeroutput><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> dual_annealing::DARunner::bestX ( )<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_daoptimizer_8cpp_source_1l00612">612</link> of file <link linkend="_daoptimizer_8cpp_source">daoptimizer.cpp</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classdual__annealing_1_1_d_a_runner_ac923ec281c800062d6b3e1e4e778183f_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classdual__annealing_1_1_d_a_runner_1a4b0f48a1d4ae3a336fa8fd7ac5412274"/><section>
+    <title>bestY()</title>
+<indexterm><primary>bestY</primary><secondary>dual_annealing::DARunner</secondary></indexterm>
+<indexterm><primary>dual_annealing::DARunner</primary><secondary>bestY</secondary></indexterm>
+<para><computeroutput>double dual_annealing::DARunner::bestY ( )<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_daoptimizer_8cpp_source_1l00616">616</link> of file <link linkend="_daoptimizer_8cpp_source">daoptimizer.cpp</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classdual__annealing_1_1_d_a_runner_a4b0f48a1d4ae3a336fa8fd7ac5412274_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classdual__annealing_1_1_d_a_runner_1ae439a61ba872582e64f2fc32568cd669"/><section>
+    <title>search()</title>
+<indexterm><primary>search</primary><secondary>dual_annealing::DARunner</secondary></indexterm>
+<indexterm><primary>dual_annealing::DARunner</primary><secondary>search</secondary></indexterm>
+<para><computeroutput>void dual_annealing::DARunner::search ( )<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_daoptimizer_8cpp_source_1l00583">583</link> of file <link linkend="_daoptimizer_8cpp_source">daoptimizer.cpp</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classdual__annealing_1_1_d_a_runner_ae439a61ba872582e64f2fc32568cd669_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+<section>
+<title>Member Data Documentation</title>
+<anchor xml:id="_classdual__annealing_1_1_d_a_runner_1af151a579442ae1acac266642e5aaf639"/><section>
+    <title>es</title>
+<indexterm><primary>es</primary><secondary>dual_annealing::DARunner</secondary></indexterm>
+<indexterm><primary>dual_annealing::DARunner</primary><secondary>es</secondary></indexterm>
+<para><computeroutput><link linkend="_classdual__annealing_1_1_energy_state">EnergyState</link>* dual_annealing::DARunner::es<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_daoptimizer_8cpp_source_1l00634">634</link> of file <link linkend="_daoptimizer_8cpp_source">daoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classdual__annealing_1_1_d_a_runner_1a0a4a5f10e88460ae6bd092917af3e5e9"/><section>
+    <title>iter</title>
+<indexterm><primary>iter</primary><secondary>dual_annealing::DARunner</secondary></indexterm>
+<indexterm><primary>dual_annealing::DARunner</primary><secondary>iter</secondary></indexterm>
+<para><computeroutput>int dual_annealing::DARunner::iter = 0<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_daoptimizer_8cpp_source_1l00637">637</link> of file <link linkend="_daoptimizer_8cpp_source">daoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classdual__annealing_1_1_d_a_runner_1af8ca542fabea4845d0f5328e5352a35e"/><section>
+    <title>MAX_REINIT_COUNT</title>
+<indexterm><primary>MAX_REINIT_COUNT</primary><secondary>dual_annealing::DARunner</secondary></indexterm>
+<indexterm><primary>dual_annealing::DARunner</primary><secondary>MAX_REINIT_COUNT</secondary></indexterm>
+<para><computeroutput>int dual_annealing::DARunner::MAX_REINIT_COUNT = 1000<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_daoptimizer_8cpp_source_1l00622">622</link> of file <link linkend="_daoptimizer_8cpp_source">daoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classdual__annealing_1_1_d_a_runner_1a7040dfd6a925a6eb8f88bc0b541d5ff8"/><section>
+    <title>maxsteps</title>
+<indexterm><primary>maxsteps</primary><secondary>dual_annealing::DARunner</secondary></indexterm>
+<indexterm><primary>dual_annealing::DARunner</primary><secondary>maxsteps</secondary></indexterm>
+<para><computeroutput>double dual_annealing::DARunner::maxsteps = 1000<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_daoptimizer_8cpp_source_1l00628">628</link> of file <link linkend="_daoptimizer_8cpp_source">daoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classdual__annealing_1_1_d_a_runner_1a317b83fdc0799403979dd0b297adc415"/><section>
+    <title>owf</title>
+<indexterm><primary>owf</primary><secondary>dual_annealing::DARunner</secondary></indexterm>
+<indexterm><primary>dual_annealing::DARunner</primary><secondary>owf</secondary></indexterm>
+<para><computeroutput><link linkend="_classdual__annealing_1_1_fitness">Fitness</link>* dual_annealing::DARunner::owf<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_daoptimizer_8cpp_source_1l00632">632</link> of file <link linkend="_daoptimizer_8cpp_source">daoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classdual__annealing_1_1_d_a_runner_1af08f83bd6889eab07940f8449e82ac28"/><section>
+    <title>qa</title>
+<indexterm><primary>qa</primary><secondary>dual_annealing::DARunner</secondary></indexterm>
+<indexterm><primary>dual_annealing::DARunner</primary><secondary>qa</secondary></indexterm>
+<para><computeroutput>double dual_annealing::DARunner::qa = -5.0<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_daoptimizer_8cpp_source_1l00625">625</link> of file <link linkend="_daoptimizer_8cpp_source">daoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classdual__annealing_1_1_d_a_runner_1ac82ca2d8cb2aa15d9b258acd72457a54"/><section>
+    <title>qv</title>
+<indexterm><primary>qv</primary><secondary>dual_annealing::DARunner</secondary></indexterm>
+<indexterm><primary>dual_annealing::DARunner</primary><secondary>qv</secondary></indexterm>
+<para><computeroutput>double dual_annealing::DARunner::qv = 2.62<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_daoptimizer_8cpp_source_1l00624">624</link> of file <link linkend="_daoptimizer_8cpp_source">daoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classdual__annealing_1_1_d_a_runner_1ae1c19d12feed61dc3f5933b7b426ad73"/><section>
+    <title>rs</title>
+<indexterm><primary>rs</primary><secondary>dual_annealing::DARunner</secondary></indexterm>
+<indexterm><primary>dual_annealing::DARunner</primary><secondary>rs</secondary></indexterm>
+<para><computeroutput>pcg64* dual_annealing::DARunner::rs<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_daoptimizer_8cpp_source_1l00633">633</link> of file <link linkend="_daoptimizer_8cpp_source">daoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classdual__annealing_1_1_d_a_runner_1ac65e14436ec2b8978a0314de5cf44fec"/><section>
+    <title>sc</title>
+<indexterm><primary>sc</primary><secondary>dual_annealing::DARunner</secondary></indexterm>
+<indexterm><primary>dual_annealing::DARunner</primary><secondary>sc</secondary></indexterm>
+<para><computeroutput><link linkend="_classdual__annealing_1_1_strategy_chain">StrategyChain</link>* dual_annealing::DARunner::sc<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_daoptimizer_8cpp_source_1l00635">635</link> of file <link linkend="_daoptimizer_8cpp_source">daoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classdual__annealing_1_1_d_a_runner_1a0ef3f5607f26f6f636f7232fb89d068f"/><section>
+    <title>temperature_restart</title>
+<indexterm><primary>temperature_restart</primary><secondary>dual_annealing::DARunner</secondary></indexterm>
+<indexterm><primary>dual_annealing::DARunner</primary><secondary>temperature_restart</secondary></indexterm>
+<para><computeroutput>double dual_annealing::DARunner::temperature_restart = 0.1<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_daoptimizer_8cpp_source_1l00631">631</link> of file <link linkend="_daoptimizer_8cpp_source">daoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classdual__annealing_1_1_d_a_runner_1aa8381759804d5cc3b4292b52fac60839"/><section>
+    <title>temperature_start</title>
+<indexterm><primary>temperature_start</primary><secondary>dual_annealing::DARunner</secondary></indexterm>
+<indexterm><primary>dual_annealing::DARunner</primary><secondary>temperature_start</secondary></indexterm>
+<para><computeroutput>double dual_annealing::DARunner::temperature_start = 5230<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_daoptimizer_8cpp_source_1l00623">623</link> of file <link linkend="_daoptimizer_8cpp_source">daoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classdual__annealing_1_1_d_a_runner_1a78921fe0a6d5da888ecfea3c94032d9a"/><section>
+    <title>use_local_search</title>
+<indexterm><primary>use_local_search</primary><secondary>dual_annealing::DARunner</secondary></indexterm>
+<indexterm><primary>dual_annealing::DARunner</primary><secondary>use_local_search</secondary></indexterm>
+<para><computeroutput>bool dual_annealing::DARunner::use_local_search<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_daoptimizer_8cpp_source_1l00626">626</link> of file <link linkend="_daoptimizer_8cpp_source">daoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classdual__annealing_1_1_d_a_runner_1a9151deb647c2beb8201767b00a79785b"/><section>
+    <title>vd</title>
+<indexterm><primary>vd</primary><secondary>dual_annealing::DARunner</secondary></indexterm>
+<indexterm><primary>dual_annealing::DARunner</primary><secondary>vd</secondary></indexterm>
+<para><computeroutput><link linkend="_classdual__annealing_1_1_visiting_distribution">VisitingDistribution</link>* dual_annealing::DARunner::vd<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_daoptimizer_8cpp_source_1l00636">636</link> of file <link linkend="_daoptimizer_8cpp_source">daoptimizer.cpp</link>.</para>
+</section>
+<para>
+The documentation for this class was generated from the following file:</para>
+_fcmaescpp/<link linkend="_daoptimizer_8cpp">daoptimizer.cpp</link></section>
+</section>

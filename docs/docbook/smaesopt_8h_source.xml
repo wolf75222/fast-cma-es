@@ -1,0 +1,174 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_smaesopt_8h_source" xml:lang="en-US">
+<title>smaesopt.h</title>
+<indexterm><primary>_fcmaescpp/include/smaesopt.h</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_smaesopt_8h_source_1l00001"/>00001 <emphasis role="comment">//$&#32;nocpp</emphasis>
+<anchor xml:id="_smaesopt_8h_source_1l00002"/>00002 
+<anchor xml:id="_smaesopt_8h_source_1l00032"/>00032 
+<anchor xml:id="_smaesopt_8h_source_1l00033"/>00033 <emphasis role="preprocessor">#ifndef&#32;SMAESOPT_INCLUDED</emphasis>
+<anchor xml:id="_smaesopt_8h_source_1l00034"/>00034 <emphasis role="preprocessor">#define&#32;SMAESOPT_INCLUDED</emphasis>
+<anchor xml:id="_smaesopt_8h_source_1l00035"/>00035 
+<anchor xml:id="_smaesopt_8h_source_1l00036"/>00036 <emphasis role="preprocessor">#include&#32;&quot;<link linkend="_biteort_8h">biteort.h</link>&quot;</emphasis>
+<anchor xml:id="_smaesopt_8h_source_1l00037"/>00037 
+<anchor xml:id="_smaesopt_8h_source_1l00044"/>00044 
+<anchor xml:id="_smaesopt_8h_source_1l00045"/><link linkend="_class_c_s_m_a_e_s_opt">00045</link> <emphasis role="keyword">class&#32;</emphasis><link linkend="_class_c_s_m_a_e_s_opt">CSMAESOpt</link>&#32;:&#32;<emphasis role="keyword">public</emphasis>&#32;<link linkend="_class_c_bite_opt_base_1a424395289a687d98b8d27cbd828dbc6c">CBiteOptBase</link>&lt;&#32;double&#32;&gt;
+<anchor xml:id="_smaesopt_8h_source_1l00046"/>00046 {
+<anchor xml:id="_smaesopt_8h_source_1l00047"/>00047 <emphasis role="keyword">public</emphasis>:
+<anchor xml:id="_smaesopt_8h_source_1l00055"/>00055 
+<anchor xml:id="_smaesopt_8h_source_1l00056"/><link linkend="_class_c_s_m_a_e_s_opt_1a962bc70900bbe39b2997eb8bf3249013">00056</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_class_c_s_m_a_e_s_opt_1a962bc70900bbe39b2997eb8bf3249013">updateDims</link>(&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;aParamCount,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;PopSize0&#32;=&#32;0&#32;)
+<anchor xml:id="_smaesopt_8h_source_1l00057"/>00057 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_smaesopt_8h_source_1l00058"/>00058 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;aPopSize&#32;=&#32;(&#32;PopSize0&#32;&gt;&#32;0&#32;?&#32;PopSize0&#32;:&#32;13&#32;+&#32;aParamCount&#32;);
+<anchor xml:id="_smaesopt_8h_source_1l00059"/>00059 
+<anchor xml:id="_smaesopt_8h_source_1l00060"/>00060 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;aParamCount&#32;==&#32;<link linkend="_class_c_bite_pop_1a0dc6f7b3a19db513e349e68c3471f9fa">ParamCount</link>&#32;&amp;&amp;&#32;aPopSize&#32;==&#32;<link linkend="_class_c_bite_pop_1a58e3bf5abc2fb4b1e173aa6cb3477bfb">PopSize</link>&#32;)
+<anchor xml:id="_smaesopt_8h_source_1l00061"/>00061 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_smaesopt_8h_source_1l00062"/>00062 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>;
+<anchor xml:id="_smaesopt_8h_source_1l00063"/>00063 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_smaesopt_8h_source_1l00064"/>00064 
+<anchor xml:id="_smaesopt_8h_source_1l00065"/>00065 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_opt_base_1a5c53a8eb3a4269a746d990282452d71e">initBuffers</link>(&#32;aParamCount,&#32;aPopSize&#32;);
+<anchor xml:id="_smaesopt_8h_source_1l00066"/>00066 
+<anchor xml:id="_smaesopt_8h_source_1l00067"/>00067 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_s_m_a_e_s_opt_1a9dcc2658933cb8f1689bd5bf55f4e4f3">Ort</link>.updateDims(&#32;aParamCount,&#32;aPopSize&#32;);
+<anchor xml:id="_smaesopt_8h_source_1l00068"/>00068 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_smaesopt_8h_source_1l00069"/>00069 
+<anchor xml:id="_smaesopt_8h_source_1l00079"/>00079 
+<anchor xml:id="_smaesopt_8h_source_1l00080"/><link linkend="_class_c_s_m_a_e_s_opt_1ae9526767119fdd032998923fdb4383aa">00080</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_class_c_s_m_a_e_s_opt_1ae9526767119fdd032998923fdb4383aa">init</link>(&#32;<link linkend="_class_c_bite_rnd">CBiteRnd</link>&amp;&#32;rnd,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>*&#32;<emphasis role="keyword">const</emphasis>&#32;InitParams&#32;=&#32;NULL,
+<anchor xml:id="_smaesopt_8h_source_1l00081"/>00081 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;InitRadius&#32;=&#32;1.0,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>*&#32;<emphasis role="keyword">const</emphasis>&#32;sdevs&#32;=&#32;NULL&#32;&#32;)
+<anchor xml:id="_smaesopt_8h_source_1l00082"/>00082 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_smaesopt_8h_source_1l00083"/>00083 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_opt_base_1a768362da5c773eea5a8649d44676eeed">initCommonVars</link>(&#32;rnd&#32;);
+<anchor xml:id="_smaesopt_8h_source_1l00084"/>00084 
+<anchor xml:id="_smaesopt_8h_source_1l00085"/>00085 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_s_m_a_e_s_opt_1ad423ccfeb5d6b9ae4a6218dd10ab5892">cure</link>&#32;=&#32;0;
+<anchor xml:id="_smaesopt_8h_source_1l00086"/>00086 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_s_m_a_e_s_opt_1a17c264dd72b9ca488ce6cfb53a80b4fe">curem</link>&#32;=&#32;(int)&#32;ceil(&#32;<link linkend="_class_c_bite_pop_1adc98fbdebc2671ef0826245d8c472cc5">CurPopSize</link>&#32;*&#32;<link linkend="_class_c_s_m_a_e_s_opt_1a9dcc2658933cb8f1689bd5bf55f4e4f3">Ort</link>.EvalFac&#32;);
+<anchor xml:id="_smaesopt_8h_source_1l00087"/>00087 
+<anchor xml:id="_smaesopt_8h_source_1l00088"/>00088 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;Provide&#32;initial&#32;centroid&#32;and&#32;sigma&#32;(PopParams&#32;is&#32;used&#32;here</emphasis>
+<anchor xml:id="_smaesopt_8h_source_1l00089"/>00089 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;temporarily,&#32;otherwise&#32;initially&#32;undefined).</emphasis>
+<anchor xml:id="_smaesopt_8h_source_1l00090"/>00090 
+<anchor xml:id="_smaesopt_8h_source_1l00091"/>00091 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;sd&#32;=&#32;0.25&#32;*&#32;InitRadius;
+<anchor xml:id="_smaesopt_8h_source_1l00092"/>00092 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;i;
+<anchor xml:id="_smaesopt_8h_source_1l00093"/>00093 
+<anchor xml:id="_smaesopt_8h_source_1l00094"/>00094 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;InitParams&#32;==&#32;NULL&#32;)
+<anchor xml:id="_smaesopt_8h_source_1l00095"/>00095 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_smaesopt_8h_source_1l00096"/>00096 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;<link linkend="_class_c_bite_pop_1a0dc6f7b3a19db513e349e68c3471f9fa">ParamCount</link>;&#32;i++&#32;)
+<anchor xml:id="_smaesopt_8h_source_1l00097"/>00097 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_smaesopt_8h_source_1l00098"/>00098 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_pop_1a0c41790e473b70c5ec37986d0fb1f9a2">PopParams</link>[&#32;0&#32;][&#32;i&#32;]&#32;=&#32;<link linkend="_class_c_bite_opt_base_1a07d5b7c3007f79c7dc1f6106d9832dc6">MinValues</link>[&#32;i&#32;]&#32;+&#32;<link linkend="_class_c_bite_opt_base_1a70f5211fb9521491b0e6a336e21dd7bc">DiffValues</link>[&#32;i&#32;]&#32;*&#32;0.5;
+<anchor xml:id="_smaesopt_8h_source_1l00099"/>00099 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_pop_1a0c41790e473b70c5ec37986d0fb1f9a2">PopParams</link>[&#32;1&#32;][&#32;i&#32;]&#32;=&#32;fabs(&#32;<link linkend="_class_c_bite_opt_base_1a70f5211fb9521491b0e6a336e21dd7bc">DiffValues</link>[&#32;i&#32;])&#32;*&#32;(sdevs&#32;==&#32;NULL&#32;?&#32;&#32;sd&#32;:&#32;sdevs[i]);
+<anchor xml:id="_smaesopt_8h_source_1l00100"/>00100 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_smaesopt_8h_source_1l00101"/>00101 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_smaesopt_8h_source_1l00102"/>00102 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>
+<anchor xml:id="_smaesopt_8h_source_1l00103"/>00103 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_smaesopt_8h_source_1l00104"/>00104 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;<link linkend="_class_c_bite_pop_1a0dc6f7b3a19db513e349e68c3471f9fa">ParamCount</link>;&#32;i++&#32;)
+<anchor xml:id="_smaesopt_8h_source_1l00105"/>00105 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_smaesopt_8h_source_1l00106"/>00106 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_pop_1a0c41790e473b70c5ec37986d0fb1f9a2">PopParams</link>[&#32;0&#32;][&#32;i&#32;]&#32;=&#32;InitParams[&#32;i&#32;];
+<anchor xml:id="_smaesopt_8h_source_1l00107"/>00107 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_pop_1a0c41790e473b70c5ec37986d0fb1f9a2">PopParams</link>[&#32;1&#32;][&#32;i&#32;]&#32;=&#32;fabs(&#32;<link linkend="_class_c_bite_opt_base_1a70f5211fb9521491b0e6a336e21dd7bc">DiffValues</link>[&#32;i&#32;])&#32;*&#32;(sdevs&#32;==&#32;NULL&#32;?&#32;&#32;sd&#32;:&#32;sdevs[i]);
+<anchor xml:id="_smaesopt_8h_source_1l00108"/>00108 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_smaesopt_8h_source_1l00109"/>00109 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_smaesopt_8h_source_1l00110"/>00110 
+<anchor xml:id="_smaesopt_8h_source_1l00111"/>00111 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_s_m_a_e_s_opt_1a9dcc2658933cb8f1689bd5bf55f4e4f3">Ort</link>.init(&#32;<link linkend="_class_c_bite_pop_1a0c41790e473b70c5ec37986d0fb1f9a2">PopParams</link>[&#32;0&#32;],&#32;<link linkend="_class_c_bite_pop_1a0c41790e473b70c5ec37986d0fb1f9a2">PopParams</link>[&#32;1&#32;]);
+<anchor xml:id="_smaesopt_8h_source_1l00112"/>00112 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_smaesopt_8h_source_1l00113"/>00113 
+<anchor xml:id="_smaesopt_8h_source_1l00121"/>00121 
+<anchor xml:id="_smaesopt_8h_source_1l00122"/><link linkend="_class_c_s_m_a_e_s_opt_1a278f47b6393fed2d1c9ccffee0bc05f9">00122</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_class_c_s_m_a_e_s_opt_1a278f47b6393fed2d1c9ccffee0bc05f9">sample</link>(&#32;<link linkend="_class_c_bite_rnd">CBiteRnd</link>&amp;&#32;rnd,&#32;<emphasis role="keywordtype">double</emphasis>*&#32;<emphasis role="keyword">const</emphasis>&#32;op&#32;)<emphasis role="keyword">&#32;const</emphasis>
+<anchor xml:id="_smaesopt_8h_source_1l00123"/>00123 <emphasis role="keyword">&#32;&#32;&#32;&#32;</emphasis>{
+<anchor xml:id="_smaesopt_8h_source_1l00124"/>00124 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;Generate&#32;vector,&#32;check&#32;its&#32;feasibility,&#32;and&#32;resample&#32;it&#32;up&#32;to&#32;10</emphasis>
+<anchor xml:id="_smaesopt_8h_source_1l00125"/>00125 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;times.</emphasis>
+<anchor xml:id="_smaesopt_8h_source_1l00126"/>00126 
+<anchor xml:id="_smaesopt_8h_source_1l00127"/>00127 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;infcount&#32;=&#32;0;
+<anchor xml:id="_smaesopt_8h_source_1l00128"/>00128 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;i;
+<anchor xml:id="_smaesopt_8h_source_1l00129"/>00129 
+<anchor xml:id="_smaesopt_8h_source_1l00130"/>00130 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">while</emphasis>(&#32;<emphasis role="keyword">true</emphasis>&#32;)
+<anchor xml:id="_smaesopt_8h_source_1l00131"/>00131 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_smaesopt_8h_source_1l00132"/>00132 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_s_m_a_e_s_opt_1a9dcc2658933cb8f1689bd5bf55f4e4f3">Ort</link>.sample(&#32;rnd,&#32;op&#32;);
+<anchor xml:id="_smaesopt_8h_source_1l00133"/>00133 
+<anchor xml:id="_smaesopt_8h_source_1l00134"/>00134 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;<link linkend="_class_c_s_m_a_e_s_opt_1a65fddc11f5608ddba75e7994441a5a5c">isFeasible</link>(&#32;op&#32;))
+<anchor xml:id="_smaesopt_8h_source_1l00135"/>00135 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_smaesopt_8h_source_1l00136"/>00136 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+<anchor xml:id="_smaesopt_8h_source_1l00137"/>00137 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_smaesopt_8h_source_1l00138"/>00138 
+<anchor xml:id="_smaesopt_8h_source_1l00139"/>00139 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;infcount++;
+<anchor xml:id="_smaesopt_8h_source_1l00140"/>00140 
+<anchor xml:id="_smaesopt_8h_source_1l00141"/>00141 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;infcount&#32;==&#32;10&#32;)
+<anchor xml:id="_smaesopt_8h_source_1l00142"/>00142 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_smaesopt_8h_source_1l00143"/>00143 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;Force&#32;bound&#32;constraints.</emphasis>
+<anchor xml:id="_smaesopt_8h_source_1l00144"/>00144 
+<anchor xml:id="_smaesopt_8h_source_1l00145"/>00145 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;<link linkend="_class_c_bite_pop_1a0dc6f7b3a19db513e349e68c3471f9fa">ParamCount</link>;&#32;i++&#32;)
+<anchor xml:id="_smaesopt_8h_source_1l00146"/>00146 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_smaesopt_8h_source_1l00147"/>00147 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;op[&#32;i&#32;]&#32;=&#32;<link linkend="_class_c_bite_opt_base_1a634a498e8ebd71bbf87fd1df02f178e0">wrapParamReal</link>(&#32;rnd,&#32;op[&#32;i&#32;],&#32;i&#32;);
+<anchor xml:id="_smaesopt_8h_source_1l00148"/>00148 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_smaesopt_8h_source_1l00149"/>00149 
+<anchor xml:id="_smaesopt_8h_source_1l00150"/>00150 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+<anchor xml:id="_smaesopt_8h_source_1l00151"/>00151 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_smaesopt_8h_source_1l00152"/>00152 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_smaesopt_8h_source_1l00153"/>00153 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_smaesopt_8h_source_1l00154"/>00154 
+<anchor xml:id="_smaesopt_8h_source_1l00166"/>00166 
+<anchor xml:id="_smaesopt_8h_source_1l00167"/><link linkend="_class_c_s_m_a_e_s_opt_1ae6322c2f8523f5a70a5d5bac5b9baa43">00167</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_class_c_s_m_a_e_s_opt_1ae6322c2f8523f5a70a5d5bac5b9baa43">optimize</link>(&#32;<link linkend="_class_c_bite_rnd">CBiteRnd</link>&amp;&#32;rnd,&#32;<emphasis role="keywordtype">double</emphasis>*&#32;<emphasis role="keyword">const</emphasis>&#32;OutCost&#32;=&#32;NULL,
+<anchor xml:id="_smaesopt_8h_source_1l00168"/>00168 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>*&#32;<emphasis role="keyword">const</emphasis>&#32;OutValues&#32;=&#32;NULL&#32;)
+<anchor xml:id="_smaesopt_8h_source_1l00169"/>00169 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_smaesopt_8h_source_1l00170"/>00170 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>*&#32;<emphasis role="keyword">const</emphasis>&#32;Params&#32;=&#32;<link linkend="_class_c_bite_pop_1a0053ae41c70babe967c5931f491ea865">getCurParams</link>();
+<anchor xml:id="_smaesopt_8h_source_1l00171"/>00171 
+<anchor xml:id="_smaesopt_8h_source_1l00172"/>00172 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_s_m_a_e_s_opt_1a278f47b6393fed2d1c9ccffee0bc05f9">sample</link>(&#32;rnd,&#32;Params&#32;);
+<anchor xml:id="_smaesopt_8h_source_1l00173"/>00173 
+<anchor xml:id="_smaesopt_8h_source_1l00174"/>00174 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;NewCost&#32;=&#32;<link linkend="_class_c_bite_opt_interface_1a45d7e2c9ea31b6f8bb23758a6879df9d">optcost</link>(&#32;Params&#32;);
+<anchor xml:id="_smaesopt_8h_source_1l00175"/>00175 
+<anchor xml:id="_smaesopt_8h_source_1l00176"/>00176 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;OutCost&#32;!=&#32;NULL&#32;)
+<anchor xml:id="_smaesopt_8h_source_1l00177"/>00177 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_smaesopt_8h_source_1l00178"/>00178 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;*OutCost&#32;=&#32;NewCost;
+<anchor xml:id="_smaesopt_8h_source_1l00179"/>00179 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_smaesopt_8h_source_1l00180"/>00180 
+<anchor xml:id="_smaesopt_8h_source_1l00181"/>00181 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;OutValues&#32;!=&#32;NULL&#32;)
+<anchor xml:id="_smaesopt_8h_source_1l00182"/>00182 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_smaesopt_8h_source_1l00183"/>00183 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_pop_1a57e751582761922bbabff1ddb7af277b">copyValues</link>(&#32;OutValues,&#32;Params&#32;);
+<anchor xml:id="_smaesopt_8h_source_1l00184"/>00184 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_smaesopt_8h_source_1l00185"/>00185 
+<anchor xml:id="_smaesopt_8h_source_1l00186"/>00186 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_pop_1aad999ddc8a2ed72ffaee0db7732c9f76">updatePop</link>(&#32;NewCost,&#32;Params,&#32;<emphasis role="keyword">false</emphasis>&#32;);
+<anchor xml:id="_smaesopt_8h_source_1l00187"/>00187 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_opt_base_1a9e49b98f5f6a2470d060282b2fd26a53">updateBestCost</link>(&#32;NewCost,&#32;Params&#32;);
+<anchor xml:id="_smaesopt_8h_source_1l00188"/>00188 
+<anchor xml:id="_smaesopt_8h_source_1l00189"/>00189 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_opt_base_1acc0aa62d6125bd03d3baae22b0bf0467">AvgCost</link>&#32;+=&#32;NewCost;
+<anchor xml:id="_smaesopt_8h_source_1l00190"/>00190 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_s_m_a_e_s_opt_1ad423ccfeb5d6b9ae4a6218dd10ab5892">cure</link>++;
+<anchor xml:id="_smaesopt_8h_source_1l00191"/>00191 
+<anchor xml:id="_smaesopt_8h_source_1l00192"/>00192 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;<link linkend="_class_c_s_m_a_e_s_opt_1ad423ccfeb5d6b9ae4a6218dd10ab5892">cure</link>&#32;&gt;=&#32;<link linkend="_class_c_s_m_a_e_s_opt_1a17c264dd72b9ca488ce6cfb53a80b4fe">curem</link>&#32;)
+<anchor xml:id="_smaesopt_8h_source_1l00193"/>00193 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_smaesopt_8h_source_1l00194"/>00194 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_opt_base_1acc0aa62d6125bd03d3baae22b0bf0467">AvgCost</link>&#32;/=&#32;<link linkend="_class_c_s_m_a_e_s_opt_1ad423ccfeb5d6b9ae4a6218dd10ab5892">cure</link>;
+<anchor xml:id="_smaesopt_8h_source_1l00195"/>00195 
+<anchor xml:id="_smaesopt_8h_source_1l00196"/>00196 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;<link linkend="_class_c_bite_opt_base_1acc0aa62d6125bd03d3baae22b0bf0467">AvgCost</link>&#32;&lt;&#32;<link linkend="_class_c_bite_opt_base_1a48296b534db162fa0007ff83757cb84b">HiBound</link>&#32;)
+<anchor xml:id="_smaesopt_8h_source_1l00197"/>00197 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_smaesopt_8h_source_1l00198"/>00198 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_opt_base_1a48296b534db162fa0007ff83757cb84b">HiBound</link>&#32;=&#32;<link linkend="_class_c_bite_opt_base_1acc0aa62d6125bd03d3baae22b0bf0467">AvgCost</link>;
+<anchor xml:id="_smaesopt_8h_source_1l00199"/>00199 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_opt_base_1ab756659a8ba09ba42ffa3d207564fdd8">StallCount</link>&#32;=&#32;0;
+<anchor xml:id="_smaesopt_8h_source_1l00200"/>00200 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_smaesopt_8h_source_1l00201"/>00201 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>
+<anchor xml:id="_smaesopt_8h_source_1l00202"/>00202 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_smaesopt_8h_source_1l00203"/>00203 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_opt_base_1ab756659a8ba09ba42ffa3d207564fdd8">StallCount</link>&#32;+=&#32;<link linkend="_class_c_s_m_a_e_s_opt_1ad423ccfeb5d6b9ae4a6218dd10ab5892">cure</link>;
+<anchor xml:id="_smaesopt_8h_source_1l00204"/>00204 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_smaesopt_8h_source_1l00205"/>00205 
+<anchor xml:id="_smaesopt_8h_source_1l00206"/>00206 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_pop_1a767519aa2fcc2667dc135a131bc9fd85">resetCurPopPos</link>();
+<anchor xml:id="_smaesopt_8h_source_1l00207"/>00207 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_opt_base_1acc0aa62d6125bd03d3baae22b0bf0467">AvgCost</link>&#32;=&#32;0.0;
+<anchor xml:id="_smaesopt_8h_source_1l00208"/>00208 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_s_m_a_e_s_opt_1ad423ccfeb5d6b9ae4a6218dd10ab5892">cure</link>&#32;=&#32;0;
+<anchor xml:id="_smaesopt_8h_source_1l00209"/>00209 
+<anchor xml:id="_smaesopt_8h_source_1l00210"/>00210 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_s_m_a_e_s_opt_1a9dcc2658933cb8f1689bd5bf55f4e4f3">Ort</link>.update(&#32;*<emphasis role="keyword">this</emphasis>&#32;);
+<anchor xml:id="_smaesopt_8h_source_1l00211"/>00211 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_smaesopt_8h_source_1l00212"/>00212 
+<anchor xml:id="_smaesopt_8h_source_1l00213"/>00213 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>(&#32;<link linkend="_class_c_bite_opt_base_1ab756659a8ba09ba42ffa3d207564fdd8">StallCount</link>&#32;);
+<anchor xml:id="_smaesopt_8h_source_1l00214"/>00214 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_smaesopt_8h_source_1l00215"/>00215 
+<anchor xml:id="_smaesopt_8h_source_1l00216"/>00216 <emphasis role="keyword">protected</emphasis>:
+<anchor xml:id="_smaesopt_8h_source_1l00217"/><link linkend="_class_c_s_m_a_e_s_opt_1a9dcc2658933cb8f1689bd5bf55f4e4f3">00217</link> &#32;&#32;&#32;&#32;<link linkend="_class_c_bite_ort">CBiteOrt</link>&#32;<link linkend="_class_c_s_m_a_e_s_opt_1a9dcc2658933cb8f1689bd5bf55f4e4f3">Ort</link>;&#32;
+<anchor xml:id="_smaesopt_8h_source_1l00218"/><link linkend="_class_c_s_m_a_e_s_opt_1ad423ccfeb5d6b9ae4a6218dd10ab5892">00218</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_class_c_s_m_a_e_s_opt_1ad423ccfeb5d6b9ae4a6218dd10ab5892">cure</link>;&#32;
+<anchor xml:id="_smaesopt_8h_source_1l00220"/><link linkend="_class_c_s_m_a_e_s_opt_1a17c264dd72b9ca488ce6cfb53a80b4fe">00220</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_class_c_s_m_a_e_s_opt_1a17c264dd72b9ca488ce6cfb53a80b4fe">curem</link>;&#32;
+<anchor xml:id="_smaesopt_8h_source_1l00221"/>00221 
+<anchor xml:id="_smaesopt_8h_source_1l00227"/>00227 
+<anchor xml:id="_smaesopt_8h_source_1l00228"/><link linkend="_class_c_s_m_a_e_s_opt_1a65fddc11f5608ddba75e7994441a5a5c">00228</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">bool</emphasis>&#32;<link linkend="_class_c_s_m_a_e_s_opt_1a65fddc11f5608ddba75e7994441a5a5c">isFeasible</link>(&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>*&#32;<emphasis role="keyword">const</emphasis>&#32;x&#32;)<emphasis role="keyword">&#32;const</emphasis>
+<anchor xml:id="_smaesopt_8h_source_1l00229"/>00229 <emphasis role="keyword">&#32;&#32;&#32;&#32;</emphasis>{
+<anchor xml:id="_smaesopt_8h_source_1l00230"/>00230 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;i;
+<anchor xml:id="_smaesopt_8h_source_1l00231"/>00231 
+<anchor xml:id="_smaesopt_8h_source_1l00232"/>00232 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;<link linkend="_class_c_bite_pop_1a0dc6f7b3a19db513e349e68c3471f9fa">ParamCount</link>;&#32;i++&#32;)
+<anchor xml:id="_smaesopt_8h_source_1l00233"/>00233 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_smaesopt_8h_source_1l00234"/>00234 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;x[&#32;i&#32;]&#32;&lt;&#32;<link linkend="_class_c_bite_opt_base_1a07d5b7c3007f79c7dc1f6106d9832dc6">MinValues</link>[&#32;i&#32;]&#32;||&#32;x[&#32;i&#32;]&#32;&gt;&#32;<link linkend="_class_c_bite_opt_base_1a9b100a7afa3bdcb3684383ff2df7867a">MaxValues</link>[&#32;i&#32;])
+<anchor xml:id="_smaesopt_8h_source_1l00235"/>00235 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_smaesopt_8h_source_1l00236"/>00236 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>(&#32;<emphasis role="keyword">false</emphasis>&#32;);
+<anchor xml:id="_smaesopt_8h_source_1l00237"/>00237 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_smaesopt_8h_source_1l00238"/>00238 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_smaesopt_8h_source_1l00239"/>00239 
+<anchor xml:id="_smaesopt_8h_source_1l00240"/>00240 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>(&#32;<emphasis role="keyword">true</emphasis>&#32;);
+<anchor xml:id="_smaesopt_8h_source_1l00241"/>00241 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_smaesopt_8h_source_1l00242"/>00242 };
+<anchor xml:id="_smaesopt_8h_source_1l00243"/>00243 
+<anchor xml:id="_smaesopt_8h_source_1l00244"/>00244 <emphasis role="preprocessor">#endif&#32;</emphasis><emphasis role="comment">//&#32;SMAESOPT_INCLUDED</emphasis>
+</programlisting></section>

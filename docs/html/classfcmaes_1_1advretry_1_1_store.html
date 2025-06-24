@@ -1,0 +1,2023 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>Fast CMA-ES: fcmaes.advretry.Store Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/TeX/AMSmath','[tex]/TeX/AMSsymbols']
+  },
+  tex: {
+    macros: {},
+    packages: ['base','configmacros','TeX/AMSmath','TeX/AMSsymbols']
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/jothepro/doxygen-awesome-css" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="fcames.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Fast CMA-ES
+   &#160;<span id="projectnumber">1.6.11</span>
+   </div>
+   <div id="projectbrief">Fast Covariance Matrix Adaptation Evolution Strategy (CMA-ES) implementation in C++ and Python</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.13.2 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('classfcmaes_1_1advretry_1_1_store.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="classfcmaes_1_1advretry_1_1_store-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">fcmaes.advretry.Store Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Manages the storing, evaluation, and tracking of data in an optimization problem.  
+ <a href="#details">More...</a></p>
+<div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for fcmaes.advretry.Store:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfcmaes_1_1advretry_1_1_store__coll__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a1dfb9b034380f6ca44583ab26014d0ba" id="r_a1dfb9b034380f6ca44583ab26014d0ba"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1dfb9b034380f6ca44583ab26014d0ba">__init__</a> (self, Callable[[ArrayLike], float] <a class="el" href="#a9421450cd349123b0c703029528418f5">fun</a>, Bounds bounds, Optional[int] <a class="el" href="#a943e1c9111fc75a8c7aad94b9feb5538">max_eval_fac</a>=None, Optional[int] <a class="el" href="#a3dc00b6f12a508d7e3537e4869bae3ae">check_interval</a>=100, Optional[int] <a class="el" href="#ac02358030591fcfa40acde3b27f6ee30">capacity</a>=500, Optional[int] <a class="el" href="#a4c08da826f59305eaa14d6bbdbaa6b1d">num_retries</a>=None, Optional[int] <a class="el" href="#ae5d9ac54fe3531077bedd2945298073f">statistic_num</a>=0, Optional[str] <a class="el" href="#a4a5af1d8a29594eff250c931f481d146">datafile</a>=None)</td></tr>
+<tr class="memdesc:a1dfb9b034380f6ca44583ab26014d0ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes an instance of the class with parameters and attributes required for managing function optimization within specified bounds using shared multiprocessing resources.  <br /></td></tr>
+<tr class="separator:a1dfb9b034380f6ca44583ab26014d0ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd78c63348eaf496e00df2bc0d3711aa" id="r_abd78c63348eaf496e00df2bc0d3711aa"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abd78c63348eaf496e00df2bc0d3711aa">wrapper</a> (self, ArrayLike x)</td></tr>
+<tr class="memdesc:abd78c63348eaf496e00df2bc0d3711aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper function to evaluate a given function, update statistics, and log the results.  <br /></td></tr>
+<tr class="separator:abd78c63348eaf496e00df2bc0d3711aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19b9d6c0787fb06a2b00e595f487bf37" id="r_a19b9d6c0787fb06a2b00e595f487bf37"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a19b9d6c0787fb06a2b00e595f487bf37">save</a> (self, str name)</td></tr>
+<tr class="memdesc:a19b9d6c0787fb06a2b00e595f487bf37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves the current data of the instance to a compressed file using bz2 and cPickle modules.  <br /></td></tr>
+<tr class="separator:a19b9d6c0787fb06a2b00e595f487bf37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc9b28c43aee9110aef2fad53f30a077" id="r_adc9b28c43aee9110aef2fad53f30a077"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adc9b28c43aee9110aef2fad53f30a077">load</a> (self, str name)</td></tr>
+<tr class="memdesc:adc9b28c43aee9110aef2fad53f30a077"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads and processes data from a compressed file.  <br /></td></tr>
+<tr class="separator:adc9b28c43aee9110aef2fad53f30a077"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aabe26248085adae1ad80a9b17202e5b7" id="r_aabe26248085adae1ad80a9b17202e5b7"><td class="memItemLeft" align="right" valign="top">List&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aabe26248085adae1ad80a9b17202e5b7">get_data</a> (self)</td></tr>
+<tr class="memdesc:aabe26248085adae1ad80a9b17202e5b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves and aggregates data from various attributes and methods.  <br /></td></tr>
+<tr class="separator:aabe26248085adae1ad80a9b17202e5b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acff238ba31618eab7787f5204b5676f3" id="r_acff238ba31618eab7787f5204b5676f3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acff238ba31618eab7787f5204b5676f3">set_data</a> (self, ArrayLike data)</td></tr>
+<tr class="memdesc:acff238ba31618eab7787f5204b5676f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the data for an internal storage structure and processes it.  <br /></td></tr>
+<tr class="separator:acff238ba31618eab7787f5204b5676f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afda8cdd53cf9e0c3160f59bb623becba" id="r_afda8cdd53cf9e0c3160f59bb623becba"><td class="memItemLeft" align="right" valign="top">np.ndarray&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afda8cdd53cf9e0c3160f59bb623becba">get_improvements</a> (self)</td></tr>
+<tr class="memdesc:afda8cdd53cf9e0c3160f59bb623becba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates and returns an array of improvements based on stored time and value data.  <br /></td></tr>
+<tr class="separator:afda8cdd53cf9e0c3160f59bb623becba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ccfce173196171f999e4a3c4531f01f" id="r_a6ccfce173196171f999e4a3c4531f01f"><td class="memItemLeft" align="right" valign="top">List&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6ccfce173196171f999e4a3c4531f01f">get_statistics</a> (self, int num)</td></tr>
+<tr class="memdesc:a6ccfce173196171f999e4a3c4531f01f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates and returns a list of statistics determined by evenly dividing the provided time series data into a specified number of segments.  <br /></td></tr>
+<tr class="separator:a6ccfce173196171f999e4a3c4531f01f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb6d9b590c7c36a83fa8b764d6e15f7e" id="r_acb6d9b590c7c36a83fa8b764d6e15f7e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acb6d9b590c7c36a83fa8b764d6e15f7e">eval_num</a> (self, int max_evals)</td></tr>
+<tr class="memdesc:acb6d9b590c7c36a83fa8b764d6e15f7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the evaluation number based on a multiplier and maximum evaluations.  <br /></td></tr>
+<tr class="separator:acb6d9b590c7c36a83fa8b764d6e15f7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab543494f5cc2e6a7f877ca8cb0e35591" id="r_ab543494f5cc2e6a7f877ca8cb0e35591"><td class="memItemLeft" align="right" valign="top">Tuple[float, np.ndarray, np.ndarray, np.ndarray, np.ndarray]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab543494f5cc2e6a7f877ca8cb0e35591">limits</a> (self)</td></tr>
+<tr class="memdesc:ab543494f5cc2e6a7f877ca8cb0e35591"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the limits and other related calculations used for determining bounds during operations like crossover and mutation.  <br /></td></tr>
+<tr class="separator:ab543494f5cc2e6a7f877ca8cb0e35591"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00ab052ea8b184b7344875122481b623" id="r_a00ab052ea8b184b7344875122481b623"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a00ab052ea8b184b7344875122481b623">distance</a> (self, np.ndarray xprev, np.ndarray x)</td></tr>
+<tr class="memdesc:a00ab052ea8b184b7344875122481b623"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the normalized distance between two points in a Euclidean space.  <br /></td></tr>
+<tr class="separator:a00ab052ea8b184b7344875122481b623"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ae90f35f58deb629c18747fbf9b1cc9" id="r_a0ae90f35f58deb629c18747fbf9b1cc9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0ae90f35f58deb629c18747fbf9b1cc9">replace</a> (self, int i, float y, np.ndarray x)</td></tr>
+<tr class="memdesc:a0ae90f35f58deb629c18747fbf9b1cc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replaces the y and x values at a specified index.  <br /></td></tr>
+<tr class="separator:a0ae90f35f58deb629c18747fbf9b1cc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a879e1014d958865e37c48d5d271c8dc6" id="r_a879e1014d958865e37c48d5d271c8dc6"><td class="memItemLeft" align="right" valign="top">Tuple[int, int]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a879e1014d958865e37c48d5d271c8dc6">crossover</a> (self)</td></tr>
+<tr class="memdesc:a879e1014d958865e37c48d5d271c8dc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Selects two good entries for recombination based on a probabilistic threshold.  <br /></td></tr>
+<tr class="separator:a879e1014d958865e37c48d5d271c8dc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5c9f7209b6bfb5bf079ad940a84eea4" id="r_aa5c9f7209b6bfb5bf079ad940a84eea4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa5c9f7209b6bfb5bf079ad940a84eea4">sort</a> (self)</td></tr>
+<tr class="memdesc:aa5c9f7209b6bfb5bf079ad940a84eea4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sorts and updates stored data based on the given criteria.  <br /></td></tr>
+<tr class="separator:aa5c9f7209b6bfb5bf079ad940a84eea4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7dfa5440d1d295083cef68ea37be60fe" id="r_a7dfa5440d1d295083cef68ea37be60fe"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7dfa5440d1d295083cef68ea37be60fe">add_result</a> (self, float y, np.ndarray x, int evals, Optional[float] limit=np.inf)</td></tr>
+<tr class="memdesc:a7dfa5440d1d295083cef68ea37be60fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a result to the current optimization process, updating the best result if necessary and storing the new result in the internal data structure.  <br /></td></tr>
+<tr class="separator:a7dfa5440d1d295083cef68ea37be60fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95e2b65e516214df91625c67e4ebe558" id="r_a95e2b65e516214df91625c67e4ebe558"><td class="memItemLeft" align="right" valign="top">np.ndarray&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a95e2b65e516214df91625c67e4ebe558">get_x_best</a> (self)</td></tr>
+<tr class="memdesc:a95e2b65e516214df91625c67e4ebe558"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a copy of the best solutions stored in the internal state.  <br /></td></tr>
+<tr class="separator:a95e2b65e516214df91625c67e4ebe558"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97e407315b2e0c802b9d5b4414f3f91b" id="r_a97e407315b2e0c802b9d5b4414f3f91b"><td class="memItemLeft" align="right" valign="top">np.ndarray&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a97e407315b2e0c802b9d5b4414f3f91b">get_x</a> (self, pid)</td></tr>
+<tr class="memdesc:a97e407315b2e0c802b9d5b4414f3f91b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves a segment of the <code>xs</code> array corresponding to the provided <code>pid</code>.  <br /></td></tr>
+<tr class="separator:a97e407315b2e0c802b9d5b4414f3f91b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2df2e37a5663c3e12c22c4b97f2549a2" id="r_a2df2e37a5663c3e12c22c4b97f2549a2"><td class="memItemLeft" align="right" valign="top">np.ndarray&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2df2e37a5663c3e12c22c4b97f2549a2">get_xs</a> (self)</td></tr>
+<tr class="memdesc:a2df2e37a5663c3e12c22c4b97f2549a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds and returns an array of x values stored in the object.  <br /></td></tr>
+<tr class="separator:a2df2e37a5663c3e12c22c4b97f2549a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a907617cde0def7276f1f609d7690335f" id="r_a907617cde0def7276f1f609d7690335f"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a907617cde0def7276f1f609d7690335f">get_y</a> (self, int pid)</td></tr>
+<tr class="memdesc:a907617cde0def7276f1f609d7690335f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetches a value for a given ID from a dictionary of float values.  <br /></td></tr>
+<tr class="separator:a907617cde0def7276f1f609d7690335f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cc073975313c4893de761cfc9771d77" id="r_a3cc073975313c4893de761cfc9771d77"><td class="memItemLeft" align="right" valign="top">np.ndarray&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3cc073975313c4893de761cfc9771d77">get_ys</a> (self)</td></tr>
+<tr class="memdesc:a3cc073975313c4893de761cfc9771d77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the stored y-values up to the specified count.  <br /></td></tr>
+<tr class="separator:a3cc073975313c4893de761cfc9771d77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a801f488c7741c549ab3212f5ce52803a" id="r_a801f488c7741c549ab3212f5ce52803a"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a801f488c7741c549ab3212f5ce52803a">get_y_best</a> (self)</td></tr>
+<tr class="memdesc:a801f488c7741c549ab3212f5ce52803a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the best value of y stored in the <code>best_y</code> attribute.  <br /></td></tr>
+<tr class="separator:a801f488c7741c549ab3212f5ce52803a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e6a826522ffacef8ab24249fc4127b4" id="r_a0e6a826522ffacef8ab24249fc4127b4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0e6a826522ffacef8ab24249fc4127b4">get_count_evals</a> (self)</td></tr>
+<tr class="memdesc:a0e6a826522ffacef8ab24249fc4127b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the value of the evaluation count.  <br /></td></tr>
+<tr class="separator:a0e6a826522ffacef8ab24249fc4127b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a329ccb4c8a17a35fec30a506495dee61" id="r_a329ccb4c8a17a35fec30a506495dee61"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a329ccb4c8a17a35fec30a506495dee61">get_count_runs</a> (self)</td></tr>
+<tr class="memdesc:a329ccb4c8a17a35fec30a506495dee61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the count of runs.  <br /></td></tr>
+<tr class="separator:a329ccb4c8a17a35fec30a506495dee61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a732636cd5ab3c40b878ef2e0274b1d1b" id="r_a732636cd5ab3c40b878ef2e0274b1d1b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a732636cd5ab3c40b878ef2e0274b1d1b">set_x</a> (self, pid, <a class="el" href="#adcc4bcd2b2d9dd72a7d315ac273def89">xs</a>)</td></tr>
+<tr class="memdesc:a732636cd5ab3c40b878ef2e0274b1d1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a subset of the <code>xs</code> list for a specific process ID.  <br /></td></tr>
+<tr class="separator:a732636cd5ab3c40b878ef2e0274b1d1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12d96e54629b449293d2aabf5542ddc1" id="r_a12d96e54629b449293d2aabf5542ddc1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a12d96e54629b449293d2aabf5542ddc1">set_y</a> (self, pid, y)</td></tr>
+<tr class="memdesc:a12d96e54629b449293d2aabf5542ddc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of y for a given pid within the 'ys' mapping.  <br /></td></tr>
+<tr class="separator:a12d96e54629b449293d2aabf5542ddc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1a185da0fdff01550d275b4635f73df" id="r_ac1a185da0fdff01550d275b4635f73df"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac1a185da0fdff01550d275b4635f73df">get_runs_compare_incr</a> (self, float limit)</td></tr>
+<tr class="memdesc:ac1a185da0fdff01550d275b4635f73df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares the current count of runs against a specified limit and increments internal counters accordingly if the limit is not exceeded.  <br /></td></tr>
+<tr class="separator:ac1a185da0fdff01550d275b4635f73df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03953d817f7ad4b1c13818e1f133a6da" id="r_a03953d817f7ad4b1c13818e1f133a6da"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a03953d817f7ad4b1c13818e1f133a6da">dump</a> (self)</td></tr>
+<tr class="memdesc:a03953d817f7ad4b1c13818e1f133a6da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logs a summary of the execution metrics and current status.  <br /></td></tr>
+<tr class="separator:a03953d817f7ad4b1c13818e1f133a6da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a9421450cd349123b0c703029528418f5" id="r_a9421450cd349123b0c703029528418f5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9421450cd349123b0c703029528418f5">fun</a> = fun</td></tr>
+<tr class="separator:a9421450cd349123b0c703029528418f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69725da93edb777480fc90c959d45678" id="r_a69725da93edb777480fc90c959d45678"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a69725da93edb777480fc90c959d45678">lower</a></td></tr>
+<tr class="memdesc:a69725da93edb777480fc90c959d45678"><td class="mdescLeft">&#160;</td><td class="mdescRight">The lower bounds for the optimization problem.  <br /></td></tr>
+<tr class="separator:a69725da93edb777480fc90c959d45678"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d112bb91cc58f032a0bb929c236fd8e" id="r_a8d112bb91cc58f032a0bb929c236fd8e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8d112bb91cc58f032a0bb929c236fd8e">upper</a> = _convertBounds(bounds)</td></tr>
+<tr class="memdesc:a8d112bb91cc58f032a0bb929c236fd8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">The upper bounds for the optimization problem.  <br /></td></tr>
+<tr class="separator:a8d112bb91cc58f032a0bb929c236fd8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2d1513e8146883a75bab3f55fb4be95" id="r_ad2d1513e8146883a75bab3f55fb4be95"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad2d1513e8146883a75bab3f55fb4be95">delta</a> = self.upper - self.lower</td></tr>
+<tr class="memdesc:ad2d1513e8146883a75bab3f55fb4be95"><td class="mdescLeft">&#160;</td><td class="mdescRight">The difference between upper and lower bounds.  <br /></td></tr>
+<tr class="separator:ad2d1513e8146883a75bab3f55fb4be95"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac02358030591fcfa40acde3b27f6ee30" id="r_ac02358030591fcfa40acde3b27f6ee30"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac02358030591fcfa40acde3b27f6ee30">capacity</a> = capacity</td></tr>
+<tr class="memdesc:ac02358030591fcfa40acde3b27f6ee30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum storage capacity for evaluated results.  <br /></td></tr>
+<tr class="separator:ac02358030591fcfa40acde3b27f6ee30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c08da826f59305eaa14d6bbdbaa6b1d" id="r_a4c08da826f59305eaa14d6bbdbaa6b1d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4c08da826f59305eaa14d6bbdbaa6b1d">num_retries</a> = num_retries</td></tr>
+<tr class="memdesc:a4c08da826f59305eaa14d6bbdbaa6b1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum number of retries during the optimization process.  <br /></td></tr>
+<tr class="separator:a4c08da826f59305eaa14d6bbdbaa6b1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aebbd407d5af1334e38fbdc5a8ba36d3f" id="r_aebbd407d5af1334e38fbdc5a8ba36d3f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aebbd407d5af1334e38fbdc5a8ba36d3f">eval_fac_incr</a> = <a class="el" href="#a943e1c9111fc75a8c7aad94b9feb5538">max_eval_fac</a> / (<a class="el" href="#a4c08da826f59305eaa14d6bbdbaa6b1d">num_retries</a>/<a class="el" href="#a3dc00b6f12a508d7e3537e4869bae3ae">check_interval</a>)</td></tr>
+<tr class="memdesc:aebbd407d5af1334e38fbdc5a8ba36d3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Increment factor for evaluation adjustments.  <br /></td></tr>
+<tr class="separator:aebbd407d5af1334e38fbdc5a8ba36d3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a943e1c9111fc75a8c7aad94b9feb5538" id="r_a943e1c9111fc75a8c7aad94b9feb5538"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a943e1c9111fc75a8c7aad94b9feb5538">max_eval_fac</a> = max_eval_fac</td></tr>
+<tr class="memdesc:a943e1c9111fc75a8c7aad94b9feb5538"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum evaluation factor throughout the retries.  <br /></td></tr>
+<tr class="separator:a943e1c9111fc75a8c7aad94b9feb5538"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3dc00b6f12a508d7e3537e4869bae3ae" id="r_a3dc00b6f12a508d7e3537e4869bae3ae"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3dc00b6f12a508d7e3537e4869bae3ae">check_interval</a> = check_interval</td></tr>
+<tr class="memdesc:a3dc00b6f12a508d7e3537e4869bae3ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interval for sorting the evaluation store.  <br /></td></tr>
+<tr class="separator:a3dc00b6f12a508d7e3537e4869bae3ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe787e76d4993d0280a389dabc8c3fe9" id="r_abe787e76d4993d0280a389dabc8c3fe9"><td class="memItemLeft" align="right" valign="top">(pid+1) *self.dim]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abe787e76d4993d0280a389dabc8c3fe9">dim</a> = len(self.lower)</td></tr>
+<tr class="memdesc:abe787e76d4993d0280a389dabc8c3fe9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dimension of the optimization problem based on bounds.  <br /></td></tr>
+<tr class="separator:abe787e76d4993d0280a389dabc8c3fe9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3353add8a5c4d01dd02a8a56890c1036" id="r_a3353add8a5c4d01dd02a8a56890c1036"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3353add8a5c4d01dd02a8a56890c1036">t0</a> = time.perf_counter()</td></tr>
+<tr class="memdesc:a3353add8a5c4d01dd02a8a56890c1036"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timestamp indicating the start of evaluations (used for timing statistics).  <br /></td></tr>
+<tr class="separator:a3353add8a5c4d01dd02a8a56890c1036"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5d9ac54fe3531077bedd2945298073f" id="r_ae5d9ac54fe3531077bedd2945298073f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae5d9ac54fe3531077bedd2945298073f">statistic_num</a> = statistic_num</td></tr>
+<tr class="memdesc:ae5d9ac54fe3531077bedd2945298073f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of statistical points maintained for tracking.  <br /></td></tr>
+<tr class="separator:ae5d9ac54fe3531077bedd2945298073f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a5af1d8a29594eff250c931f481d146" id="r_a4a5af1d8a29594eff250c931f481d146"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4a5af1d8a29594eff250c931f481d146">datafile</a> = datafile</td></tr>
+<tr class="memdesc:a4a5af1d8a29594eff250c931f481d146"><td class="mdescLeft">&#160;</td><td class="mdescRight">Path to file for saving and loading data.  <br /></td></tr>
+<tr class="separator:a4a5af1d8a29594eff250c931f481d146"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af869a404006e773c0f7fd0744d3733f8" id="r_af869a404006e773c0f7fd0744d3733f8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af869a404006e773c0f7fd0744d3733f8">rg</a> = random.Random()</td></tr>
+<tr class="separator:af869a404006e773c0f7fd0744d3733f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae73944a21ee51902dfdc93403dadc8ce" id="r_ae73944a21ee51902dfdc93403dadc8ce"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae73944a21ee51902dfdc93403dadc8ce">add_mutex</a> = mp.Lock()</td></tr>
+<tr class="separator:ae73944a21ee51902dfdc93403dadc8ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a784de4dd2241f0d45a199379be53532d" id="r_a784de4dd2241f0d45a199379be53532d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a784de4dd2241f0d45a199379be53532d">check_mutex</a> = mp.Lock()</td></tr>
+<tr class="separator:a784de4dd2241f0d45a199379be53532d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adcc4bcd2b2d9dd72a7d315ac273def89" id="r_adcc4bcd2b2d9dd72a7d315ac273def89"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adcc4bcd2b2d9dd72a7d315ac273def89">xs</a> = mp.RawArray(ct.c_double, <a class="el" href="#ac02358030591fcfa40acde3b27f6ee30">capacity</a> * self.dim)</td></tr>
+<tr class="separator:adcc4bcd2b2d9dd72a7d315ac273def89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac058ac776acb3ce2891ddb0fe7a15100" id="r_ac058ac776acb3ce2891ddb0fe7a15100"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac058ac776acb3ce2891ddb0fe7a15100">ys</a> = mp.RawArray(ct.c_double, <a class="el" href="#ac02358030591fcfa40acde3b27f6ee30">capacity</a>)</td></tr>
+<tr class="separator:ac058ac776acb3ce2891ddb0fe7a15100"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca1758cb0a6f2a0033b311b9cc89684c" id="r_aca1758cb0a6f2a0033b311b9cc89684c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aca1758cb0a6f2a0033b311b9cc89684c">eval_fac</a> = mp.RawValue(ct.c_double, 1)</td></tr>
+<tr class="separator:aca1758cb0a6f2a0033b311b9cc89684c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0db304f4763604809335265782f7d98" id="r_af0db304f4763604809335265782f7d98"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af0db304f4763604809335265782f7d98">count_evals</a> = mp.RawValue(ct.c_long, 0)</td></tr>
+<tr class="separator:af0db304f4763604809335265782f7d98"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a073e21184da6081e7a868fb615bfa55f" id="r_a073e21184da6081e7a868fb615bfa55f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a073e21184da6081e7a868fb615bfa55f">count_runs</a> = mp.RawValue(ct.c_int, 0)</td></tr>
+<tr class="separator:a073e21184da6081e7a868fb615bfa55f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35cab48a8942fed186c0a6bd88b90497" id="r_a35cab48a8942fed186c0a6bd88b90497"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a35cab48a8942fed186c0a6bd88b90497">num_stored</a> = mp.RawValue(ct.c_int, 0)</td></tr>
+<tr class="separator:a35cab48a8942fed186c0a6bd88b90497"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a597ae039b1fe0bd28ed9afc8e270075a" id="r_a597ae039b1fe0bd28ed9afc8e270075a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a597ae039b1fe0bd28ed9afc8e270075a">best_y</a> = mp.RawValue(ct.c_double, np.inf)</td></tr>
+<tr class="separator:a597ae039b1fe0bd28ed9afc8e270075a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afefa9194fbf5ada1b23dcd45ed3e48f3" id="r_afefa9194fbf5ada1b23dcd45ed3e48f3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afefa9194fbf5ada1b23dcd45ed3e48f3">worst_y</a> = mp.RawValue(ct.c_double, np.inf)</td></tr>
+<tr class="separator:afefa9194fbf5ada1b23dcd45ed3e48f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb660ff644cb19f40c20494360cebb57" id="r_aeb660ff644cb19f40c20494360cebb57"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeb660ff644cb19f40c20494360cebb57">best_x</a> = mp.RawArray(ct.c_double, self.dim)</td></tr>
+<tr class="separator:aeb660ff644cb19f40c20494360cebb57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f708b7ec4308e915d2600f357ae7a1d" id="r_a9f708b7ec4308e915d2600f357ae7a1d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9f708b7ec4308e915d2600f357ae7a1d">time</a> = mp.RawArray(ct.c_double, self.statistic_num)</td></tr>
+<tr class="separator:a9f708b7ec4308e915d2600f357ae7a1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72b4b6c231e9e44a77a30dec5c731db2" id="r_a72b4b6c231e9e44a77a30dec5c731db2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a72b4b6c231e9e44a77a30dec5c731db2">val</a> = mp.RawArray(ct.c_double, self.statistic_num)</td></tr>
+<tr class="separator:a72b4b6c231e9e44a77a30dec5c731db2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d944cda44a59bf02cef0cd0b68cc4c4" id="r_a3d944cda44a59bf02cef0cd0b68cc4c4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3d944cda44a59bf02cef0cd0b68cc4c4">si</a> = mp.RawValue(ct.c_int, 0)</td></tr>
+<tr class="separator:a3d944cda44a59bf02cef0cd0b68cc4c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1505fe94e716ee8645e7e694f69efbc" id="r_ab1505fe94e716ee8645e7e694f69efbc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab1505fe94e716ee8645e7e694f69efbc">sevals</a> = mp.RawValue(ct.c_long, 0)</td></tr>
+<tr class="separator:ab1505fe94e716ee8645e7e694f69efbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44fe2e19ed26797a80dd27ee7c1a6b50" id="r_a44fe2e19ed26797a80dd27ee7c1a6b50"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a44fe2e19ed26797a80dd27ee7c1a6b50">bval</a> = mp.RawValue(ct.c_double, np.inf)</td></tr>
+<tr class="separator:a44fe2e19ed26797a80dd27ee7c1a6b50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Manages the storing, evaluation, and tracking of data in an optimization problem. </p>
+<p>The class enables handling function evaluations and implements tools for statistics tracking, result persistence, and multiprocessing compatibility. It facilitates managing optimization tasks with specific bounds, ensuring efficient computational resource usage and tracking statistical progress over iterations.</p>
+<pre class="fragment">   fun (Callable[[ArrayLike], float]): The fitness function to be optimized.
+</pre> 
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00234">234</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a1dfb9b034380f6ca44583ab26014d0ba" name="a1dfb9b034380f6ca44583ab26014d0ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1dfb9b034380f6ca44583ab26014d0ba">&#9670;&#160;</a></span>__init__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.advretry.Store.__init__ </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Callable[[ArrayLike], float]</td>          <td class="paramname"><span class="paramname"><em>fun</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Bounds</td>          <td class="paramname"><span class="paramname"><em>bounds</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[int] </td>          <td class="paramname"><span class="paramname"><em>max_eval_fac</em></span><span class="paramdefsep"> = </span><span class="paramdefval">None</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[int] </td>          <td class="paramname"><span class="paramname"><em>check_interval</em></span><span class="paramdefsep"> = </span><span class="paramdefval">100</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[int] </td>          <td class="paramname"><span class="paramname"><em>capacity</em></span><span class="paramdefsep"> = </span><span class="paramdefval">500</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[int] </td>          <td class="paramname"><span class="paramname"><em>num_retries</em></span><span class="paramdefsep"> = </span><span class="paramdefval">None</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[int] </td>          <td class="paramname"><span class="paramname"><em>statistic_num</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[str] </td>          <td class="paramname"><span class="paramname"><em>datafile</em></span><span class="paramdefsep"> = </span><span class="paramdefval">None</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initializes an instance of the class with parameters and attributes required for managing function optimization within specified bounds using shared multiprocessing resources. </p>
+<p>Sets up the evaluation store, statistic tracking, and random generator.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fun</td><td>A fitness function to be optimized. It takes an array-like input and returns a float value. </td></tr>
+    <tr><td class="paramname">bounds</td><td>Bounds of the objective function arguments defined as an instance of the Bounds class. </td></tr>
+    <tr><td class="paramname">max_eval_fac</td><td>Optional; Maximum number of evaluations factor. Defaults to None. If None, it is calculated based on <code>num_retries</code> and <code>check_interval</code>. </td></tr>
+    <tr><td class="paramname">check_interval</td><td>Optional; Number of iterations after which the evaluation store is sorted. Defaults to 100. </td></tr>
+    <tr><td class="paramname">capacity</td><td>Optional; Capacity of the evaluation store. Defaults to 500. </td></tr>
+    <tr><td class="paramname">num_retries</td><td>Optional; Maximum number of retries allowed. If None, it is calculated based on <code>max_eval_fac</code> and <code>check_interval</code>. Defaults to None. </td></tr>
+    <tr><td class="paramname">statistic_num</td><td>Optional; Number of statistics points to be maintained for tracking. Set to 0 to disable statistics. Defaults to 0. </td></tr>
+    <tr><td class="paramname">datafile</td><td>Optional; Path to a file for saving/loading relevant data. Defaults to None. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00293">293</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a7dfa5440d1d295083cef68ea37be60fe" name="a7dfa5440d1d295083cef68ea37be60fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7dfa5440d1d295083cef68ea37be60fe">&#9670;&#160;</a></span>add_result()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.advretry.Store.add_result </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">np.ndarray</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>evals</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[float] </td>          <td class="paramname"><span class="paramname"><em>limit</em></span><span class="paramdefsep"> = </span><span class="paramdefval">np.inf</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Adds a result to the current optimization process, updating the best result if necessary and storing the new result in the internal data structure. </p>
+<p>This method is designed to handle updates in a thread-safe manner. It increments the number of evaluations, checks if the new result is within the given limit, and updates the best result as well as the storage if the criteria are met. If the storage reaches its capacity, it triggers a sorting operation to maintain order.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">y</td><td>The result value to be added. </td></tr>
+    <tr><td class="paramname">x</td><td>The array representing input parameters corresponding to the result. </td></tr>
+    <tr><td class="paramname">evals</td><td>The number of evaluations associated with this result. </td></tr>
+    <tr><td class="paramname">limit</td><td>The threshold value. Results with a value greater than this limit are ignored. Defaults to infinity. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00663">663</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+<div id="dynsection-1" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfcmaes_1_1advretry_1_1_store_a7dfa5440d1d295083cef68ea37be60fe_cgraph.svg" width="100%" height="575"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a879e1014d958865e37c48d5d271c8dc6" name="a879e1014d958865e37c48d5d271c8dc6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a879e1014d958865e37c48d5d271c8dc6">&#9670;&#160;</a></span>crossover()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Tuple[int,int] fcmaes.advretry.Store.crossover </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Selects two good entries for recombination based on a probabilistic threshold. </p>
+<pre class="fragment">   This method attempts to choose two distinct indices from a pool based on a
+   random limit derived from the current number of stored entries. The method
+   performs several attempts to identify these indices under the defined constraints.
+   If successful, it returns the selected indices; otherwise, it returns default
+   values indicating no valid selection.
+</pre><dl class="section return"><dt>Returns</dt><dd>Tuple[int, int]: A tuple containing two indices selected for recombination. If the selection fails, returns (-1, -1). </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00592">592</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+<div id="dynsection-2" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classfcmaes_1_1advretry_1_1_store_a879e1014d958865e37c48d5d271c8dc6_cgraph.svg" width="334" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-3" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-3-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classfcmaes_1_1advretry_1_1_store_a879e1014d958865e37c48d5d271c8dc6_icgraph.svg" width="454" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a00ab052ea8b184b7344875122481b623" name="a00ab052ea8b184b7344875122481b623"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00ab052ea8b184b7344875122481b623">&#9670;&#160;</a></span>distance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> float fcmaes.advretry.Store.distance </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">np.ndarray</td>          <td class="paramname"><span class="paramname"><em>xprev</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">np.ndarray</td>          <td class="paramname"><span class="paramname"><em>x</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculates the normalized distance between two points in a Euclidean space. </p>
+<pre class="fragment">   The distance is normalized based on the difference between two points, scaled
+   by a pre-defined parameter `delta`, and divided by the square root of the
+   number of dimensions (`dim`).
+</pre><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">xprev</td><td>A numpy array representing the previous point. </td></tr>
+    <tr><td class="paramname">x</td><td>A numpy array representing the current point.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd>
+<dd>
+float The normalized distance between <code>xprev</code> and <code>x</code>. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00561">561</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+<div id="dynsection-4" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-4-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-4-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfcmaes_1_1advretry_1_1_store_a00ab052ea8b184b7344875122481b623_icgraph.svg" width="100%" height="535"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a03953d817f7ad4b1c13818e1f133a6da" name="a03953d817f7ad4b1c13818e1f133a6da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03953d817f7ad4b1c13818e1f133a6da">&#9670;&#160;</a></span>dump()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.advretry.Store.dump </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Logs a summary of the execution metrics and current status. </p>
+<pre class="fragment">   This method collects relevant metrics about the execution process and generates a
+   formatted log message to provide insights into the current state. Metrics such as
+   evaluation counts, best and worst outcomes, and a snapshot of the best solutions are
+   included in the message.
+</pre><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd>
+<dd>
+None </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00852">852</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+<div id="dynsection-5" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-5-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-5-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classfcmaes_1_1advretry_1_1_store_a03953d817f7ad4b1c13818e1f133a6da_cgraph.svg" width="436" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-6" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-6-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-6-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classfcmaes_1_1advretry_1_1_store_a03953d817f7ad4b1c13818e1f133a6da_icgraph.svg" width="419" height="120"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="acb6d9b590c7c36a83fa8b764d6e15f7e" name="acb6d9b590c7c36a83fa8b764d6e15f7e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb6d9b590c7c36a83fa8b764d6e15f7e">&#9670;&#160;</a></span>eval_num()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> int fcmaes.advretry.Store.eval_num </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>max_evals</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculates the evaluation number based on a multiplier and maximum evaluations. </p>
+<pre class="fragment">   This method computes the product of a multiplier (`eval_fac.value`) and the
+   provided maximum evaluations (`max_evals`). The result is cast to an integer
+   and returned.
+</pre><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">max_evals</td><td>The maximum number of evaluations.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd>
+<dd>
+int The calculated evaluation number. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00505">505</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+
+</div>
+</div>
+<a id="a0e6a826522ffacef8ab24249fc4127b4" name="a0e6a826522ffacef8ab24249fc4127b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e6a826522ffacef8ab24249fc4127b4">&#9670;&#160;</a></span>get_count_evals()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> int fcmaes.advretry.Store.get_count_evals </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retrieves the value of the evaluation count. </p>
+<pre class="fragment">   This method accesses the `count_evals` attribute and returns its integer
+   value. It is primarily intended to report the current count of evaluations
+   stored in the `count_evals` attribute.
+</pre><dl class="section return"><dt>Returns</dt><dd></dd>
+<dd>
+int The current evaluation count stored in <code>count_evals</code>. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00772">772</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+
+</div>
+</div>
+<a id="a329ccb4c8a17a35fec30a506495dee61" name="a329ccb4c8a17a35fec30a506495dee61"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a329ccb4c8a17a35fec30a506495dee61">&#9670;&#160;</a></span>get_count_runs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> int fcmaes.advretry.Store.get_count_runs </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retrieves the count of runs. </p>
+<pre class="fragment">   This method returns the value of the `count_runs` attribute, representing
+   the total count of runs made.
+</pre><dl class="section return"><dt>Returns</dt><dd></dd>
+<dd>
+int The value of the <code>count_runs</code> attribute. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00784">784</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+<div id="dynsection-7" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-7-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-7-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-7-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classfcmaes_1_1advretry_1_1_store_a329ccb4c8a17a35fec30a506495dee61_icgraph.svg" width="462" height="504"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="aabe26248085adae1ad80a9b17202e5b7" name="aabe26248085adae1ad80a9b17202e5b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aabe26248085adae1ad80a9b17202e5b7">&#9670;&#160;</a></span>get_data()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> List fcmaes.advretry.Store.get_data </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retrieves and aggregates data from various attributes and methods. </p>
+<pre class="fragment">   This method gathers data by calling several other methods and accessing a specific
+   attribute. It consolidates these pieces of data into a single list and returns it.
+</pre><dl class="section return"><dt>Returns</dt><dd></dd>
+<dd>
+List A list containing data from <code><a class="el" href="#a2df2e37a5663c3e12c22c4b97f2549a2" title="Builds and returns an array of x values stored in the object.">get_xs()</a></code>, <code><a class="el" href="#a3cc073975313c4893de761cfc9771d77" title="Gets the stored y-values up to the specified count.">get_ys()</a></code>, <code><a class="el" href="#a95e2b65e516214df91625c67e4ebe558" title="Returns a copy of the best solutions stored in the internal state.">get_x_best()</a></code>, <code><a class="el" href="#a801f488c7741c549ab3212f5ce52803a" title="Returns the best value of y stored in the best_y attribute.">get_y_best()</a></code> methods, and the <code>num_stored.value</code> attribute. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00413">413</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+<div id="dynsection-8" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-8-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-8-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-8-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfcmaes_1_1advretry_1_1_store_aabe26248085adae1ad80a9b17202e5b7_cgraph.svg" width="100%" height="466"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-9" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-9-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-9-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-9-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfcmaes_1_1advretry_1_1_store_aabe26248085adae1ad80a9b17202e5b7_icgraph.svg" width="100%" height="372"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="afda8cdd53cf9e0c3160f59bb623becba" name="afda8cdd53cf9e0c3160f59bb623becba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afda8cdd53cf9e0c3160f59bb623becba">&#9670;&#160;</a></span>get_improvements()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> np.ndarray fcmaes.advretry.Store.get_improvements </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculates and returns an array of improvements based on stored time and value data. </p>
+<pre class="fragment">   The method processes the time and value attributes up to the index defined by `si.value`
+   and combines them into a structured NumPy array. It allows extracting the corresponding
+   values and improvements over the determined slice of the data.
+</pre><dl class="section return"><dt>Returns</dt><dd></dd>
+<dd>
+np A NumPy array containing pairs of time and value up to <code>si.value</code>. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00454">454</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+
+</div>
+</div>
+<a id="ac1a185da0fdff01550d275b4635f73df" name="ac1a185da0fdff01550d275b4635f73df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac1a185da0fdff01550d275b4635f73df">&#9670;&#160;</a></span>get_runs_compare_incr()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> bool fcmaes.advretry.Store.get_runs_compare_incr </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>limit</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Compares the current count of runs against a specified limit and increments internal counters accordingly if the limit is not exceeded. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">limit</td><td>The upper threshold to compare against the current count of runs.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd>
+<dd>
+bool True if the current count is less than the limit and the increment operation was performed. False otherwise. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00826">826</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+<div id="dynsection-10" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-10-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-10-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-10-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfcmaes_1_1advretry_1_1_store_ac1a185da0fdff01550d275b4635f73df_cgraph.svg" width="100%" height="461"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a6ccfce173196171f999e4a3c4531f01f" name="a6ccfce173196171f999e4a3c4531f01f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ccfce173196171f999e4a3c4531f01f">&#9670;&#160;</a></span>get_statistics()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> List fcmaes.advretry.Store.get_statistics </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>num</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculates and returns a list of statistics determined by evenly dividing the provided time series data into a specified number of segments. </p>
+<p>This function processes time series and value arrays to calculate specific statistics based on the distribution of data over a fixed number of intervals. It uses the time array to sample the values array at designated points, ensuring that the result represents data distributed across the defined segments.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">num</td><td>The number of segments into which the time series data will be divided.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd>
+<dd>
+List A list containing the computed statistics based on the segmented intervals of the time series data.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">IndexError</td><td>If the number of segments exceeds the number of available data points. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00477">477</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+
+</div>
+</div>
+<a id="a97e407315b2e0c802b9d5b4414f3f91b" name="a97e407315b2e0c802b9d5b4414f3f91b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97e407315b2e0c802b9d5b4414f3f91b">&#9670;&#160;</a></span>get_x()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> np.ndarray fcmaes.advretry.Store.get_x </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>pid</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retrieves a segment of the <code>xs</code> array corresponding to the provided <code>pid</code>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pid</td><td>Index used to calculate the segment.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd>
+<dd>
+np The segment of the <code>xs</code> array. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00702">702</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+<div id="dynsection-11" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-11-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-11-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-11-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfcmaes_1_1advretry_1_1_store_a97e407315b2e0c802b9d5b4414f3f91b_icgraph.svg" width="100%" height="580"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a95e2b65e516214df91625c67e4ebe558" name="a95e2b65e516214df91625c67e4ebe558"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a95e2b65e516214df91625c67e4ebe558">&#9670;&#160;</a></span>get_x_best()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> np.ndarray fcmaes.advretry.Store.get_x_best </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a copy of the best solutions stored in the internal state. </p>
+<pre class="fragment">   This method retrieves the best solution(s) found, which are stored
+   internally, and returns a copy of the data to avoid unintentional
+   modifications to the original data.
+</pre><dl class="section return"><dt>Returns</dt><dd></dd>
+<dd>
+np A numpy array containing the best solution(s). </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00690">690</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+<div id="dynsection-12" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-12-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-12-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-12-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfcmaes_1_1advretry_1_1_store_a95e2b65e516214df91625c67e4ebe558_icgraph.svg" width="100%" height="372"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a2df2e37a5663c3e12c22c4b97f2549a2" name="a2df2e37a5663c3e12c22c4b97f2549a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2df2e37a5663c3e12c22c4b97f2549a2">&#9670;&#160;</a></span>get_xs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> np.ndarray fcmaes.advretry.Store.get_xs </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Builds and returns an array of x values stored in the object. </p>
+<pre class="fragment">   This method iterates over the number of stored x values and retrieves each
+   value using the `get_x` method. The retrieved values are then compiled into
+   a NumPy array, which is returned.
+</pre><dl class="section return"><dt>Returns</dt><dd></dd>
+<dd>
+np A NumPy array containing the retrieved x values. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00715">715</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+<div id="dynsection-13" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-13-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-13-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-13-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classfcmaes_1_1advretry_1_1_store_a2df2e37a5663c3e12c22c4b97f2549a2_cgraph.svg" width="436" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-14" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-14-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-14-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-14-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfcmaes_1_1advretry_1_1_store_a2df2e37a5663c3e12c22c4b97f2549a2_icgraph.svg" width="100%" height="372"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a907617cde0def7276f1f609d7690335f" name="a907617cde0def7276f1f609d7690335f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a907617cde0def7276f1f609d7690335f">&#9670;&#160;</a></span>get_y()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> float fcmaes.advretry.Store.get_y </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>pid</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fetches a value for a given ID from a dictionary of float values. </p>
+<pre class="fragment">   This method retrieves a corresponding float value from the `ys` dictionary
+   based on the provided integer ID. The dictionary `ys` maps integer IDs to
+   float values. The function returns the float value associated with the
+   supplied `pid`.
+</pre><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pid</td><td>The unique identifier used to fetch a value from the <code>ys</code> </td></tr>
+    <tr><td class="paramname">dictionary.</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd>
+<dd>
+float The value corresponding to the provided <code>pid</code> from the <code>ys</code> </dd>
+<dd>
+dictionary. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00734">734</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+<div id="dynsection-15" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-15-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-15-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-15-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfcmaes_1_1advretry_1_1_store_a907617cde0def7276f1f609d7690335f_icgraph.svg" width="100%" height="567"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a801f488c7741c549ab3212f5ce52803a" name="a801f488c7741c549ab3212f5ce52803a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a801f488c7741c549ab3212f5ce52803a">&#9670;&#160;</a></span>get_y_best()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> float fcmaes.advretry.Store.get_y_best </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the best value of y stored in the <code>best_y</code> attribute. </p>
+<pre class="fragment">   The function accesses the `best_y` attribute and retrieves its value
+   as a float.
+</pre><dl class="section return"><dt>Returns</dt><dd></dd>
+<dd>
+float The best value of y. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00759">759</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+<div id="dynsection-16" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-16-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-16-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-16-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfcmaes_1_1advretry_1_1_store_a801f488c7741c549ab3212f5ce52803a_icgraph.svg" width="100%" height="372"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a3cc073975313c4893de761cfc9771d77" name="a3cc073975313c4893de761cfc9771d77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3cc073975313c4893de761cfc9771d77">&#9670;&#160;</a></span>get_ys()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> np.ndarray fcmaes.advretry.Store.get_ys </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the stored y-values up to the specified count. </p>
+<pre class="fragment">   This method retrieves the portion of the y-values list that corresponds to
+   the count determined by `num_stored.value`. The result is returned as a
+   NumPy array.
+</pre><dl class="section return"><dt>Returns</dt><dd></dd>
+<dd>
+np A NumPy array containing the stored y-values up to the specified count. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00747">747</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+<div id="dynsection-17" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-17-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-17-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-17-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfcmaes_1_1advretry_1_1_store_a3cc073975313c4893de761cfc9771d77_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="ab543494f5cc2e6a7f877ca8cb0e35591" name="ab543494f5cc2e6a7f877ca8cb0e35591"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab543494f5cc2e6a7f877ca8cb0e35591">&#9670;&#160;</a></span>limits()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Tuple[float, np.ndarray, np.ndarray, np.ndarray, np.ndarray] fcmaes.advretry.Store.limits </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the limits and other related calculations used for determining bounds during operations like crossover and mutation. </p>
+<p>The function calculates adjusted bounds, scaled deviations, and other factors based on the input variables, making use of random factors and mutex locks for thread safety.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Tuple[float, numpy.ndarray, numpy.ndarray, numpy.ndarray, numpy.ndarray]: A tuple containing the following elements:<ul>
+<li>A float value representing the initial target point y0.</li>
+<li>A NumPy array representing the point x1 selected for crossover.</li>
+<li>A NumPy array representing the calculated lower bounds for crossover.</li>
+<li>A NumPy array representing the calculated upper bounds for crossover.</li>
+<li>A NumPy array representing the scaled standard deviations for crossover.</li>
+</ul>
+</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">None</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00529">529</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+<div id="dynsection-18" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-18-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-18-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-18-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classfcmaes_1_1advretry_1_1_store_ab543494f5cc2e6a7f877ca8cb0e35591_cgraph.svg" width="566" height="190"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="adc9b28c43aee9110aef2fad53f30a077" name="adc9b28c43aee9110aef2fad53f30a077"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc9b28c43aee9110aef2fad53f30a077">&#9670;&#160;</a></span>load()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.advretry.Store.load </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str</td>          <td class="paramname"><span class="paramname"><em>name</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Loads and processes data from a compressed file. </p>
+<pre class="fragment">   This method allows loading data from a file compressed with BZ2 and serialized
+   with cPickle. After loading, the data is processed or assigned using the
+   `set_data` method of the instance.
+</pre><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>The name of the file (without extension) to load data from. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00399">399</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+<div id="dynsection-19" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-19-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-19-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-19-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfcmaes_1_1advretry_1_1_store_adc9b28c43aee9110aef2fad53f30a077_cgraph.svg" width="100%" height="461"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a0ae90f35f58deb629c18747fbf9b1cc9" name="a0ae90f35f58deb629c18747fbf9b1cc9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ae90f35f58deb629c18747fbf9b1cc9">&#9670;&#160;</a></span>replace()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.advretry.Store.replace </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>i</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">np.ndarray</td>          <td class="paramname"><span class="paramname"><em>x</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Replaces the y and x values at a specified index. </p>
+<pre class="fragment">   This method updates the y and x values in the object's internal data structure at the index
+   provided by the user.
+</pre><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i</td><td>Index at which to set the new y and x values. </td></tr>
+    <tr><td class="paramname">y</td><td>The new value for y to be set at the specified index. </td></tr>
+    <tr><td class="paramname">x</td><td>The new value for x to be set at the specified index. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00575">575</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+<div id="dynsection-20" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-20-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-20-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-20-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classfcmaes_1_1advretry_1_1_store_a0ae90f35f58deb629c18747fbf9b1cc9_cgraph.svg" width="440" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-21" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-21-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-21-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-21-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfcmaes_1_1advretry_1_1_store_a0ae90f35f58deb629c18747fbf9b1cc9_icgraph.svg" width="100%" height="516"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a19b9d6c0787fb06a2b00e595f487bf37" name="a19b9d6c0787fb06a2b00e595f487bf37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19b9d6c0787fb06a2b00e595f487bf37">&#9670;&#160;</a></span>save()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.advretry.Store.save </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str</td>          <td class="paramname"><span class="paramname"><em>name</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Saves the current data of the instance to a compressed file using bz2 and cPickle modules. </p>
+<pre class="fragment">   The method compresses and serializes the data obtained from `get_data` and saves
+   it to a file with the specified name appended by the '.pbz2' extension.
+</pre><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>The desired name for the output file, excluding the extension. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00386">386</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+<div id="dynsection-22" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-22-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-22-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-22-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfcmaes_1_1advretry_1_1_store_a19b9d6c0787fb06a2b00e595f487bf37_cgraph.svg" width="100%" height="466"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-23" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-23-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-23-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-23-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classfcmaes_1_1advretry_1_1_store_a19b9d6c0787fb06a2b00e595f487bf37_icgraph.svg" width="415" height="54"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="acff238ba31618eab7787f5204b5676f3" name="acff238ba31618eab7787f5204b5676f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acff238ba31618eab7787f5204b5676f3">&#9670;&#160;</a></span>set_data()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.advretry.Store.set_data </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ArrayLike</td>          <td class="paramname"><span class="paramname"><em>data</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the data for an internal storage structure and processes it. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>A multi-dimensional array-like structure containing:<ul>
+<li>data[0]: The x-coordinates.</li>
+<li>data[1]: The y-coordinates.</li>
+<li>data[2]: A subset of best x-coordinates.</li>
+<li>data[3]: The best y-coordinate.</li>
+<li>data[4]: The total count of stored elements. </li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00434">434</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+<div id="dynsection-24" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-24-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-24-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-24-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfcmaes_1_1advretry_1_1_store_acff238ba31618eab7787f5204b5676f3_cgraph.svg" width="100%" height="461"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-25" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-25-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-25-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-25-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classfcmaes_1_1advretry_1_1_store_acff238ba31618eab7787f5204b5676f3_icgraph.svg" width="468" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a732636cd5ab3c40b878ef2e0274b1d1b" name="a732636cd5ab3c40b878ef2e0274b1d1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a732636cd5ab3c40b878ef2e0274b1d1b">&#9670;&#160;</a></span>set_x()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.advretry.Store.set_x </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>pid</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>xs</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets a subset of the <code>xs</code> list for a specific process ID. </p>
+<pre class="fragment">   This function updates a section of the `xs` attribute corresponding to a
+   particular process ID (`pid`) based on the provided input values.
+</pre><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pid</td><td>Process ID whose section in <code>xs</code> is to be updated. </td></tr>
+    <tr><td class="paramname">xs</td><td>List of values to update in the specific section of <code>xs</code> for the given process ID. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00798">798</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+<div id="dynsection-26" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-26-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-26-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-26-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfcmaes_1_1advretry_1_1_store_a732636cd5ab3c40b878ef2e0274b1d1b_icgraph.svg" width="100%" height="516"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a12d96e54629b449293d2aabf5542ddc1" name="a12d96e54629b449293d2aabf5542ddc1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a12d96e54629b449293d2aabf5542ddc1">&#9670;&#160;</a></span>set_y()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.advretry.Store.set_y </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>pid</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>y</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the value of y for a given pid within the 'ys' mapping. </p>
+<pre class="fragment">   Modifies the associated value of y in the dictionary 'ys' for the
+   provided process identifier (pid). This method stores or updates
+   the y value tied to a specific pid.
+</pre><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pid</td><td>Identifier for the process whose y value is being set. </td></tr>
+    <tr><td class="paramname">y</td><td>The value to associate with the given pid in the 'ys' mapping. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00812">812</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+<div id="dynsection-27" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-27-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-27-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-27-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfcmaes_1_1advretry_1_1_store_a12d96e54629b449293d2aabf5542ddc1_icgraph.svg" width="100%" height="549"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="aa5c9f7209b6bfb5bf079ad940a84eea4" name="aa5c9f7209b6bfb5bf079ad940a84eea4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5c9f7209b6bfb5bf079ad940a84eea4">&#9670;&#160;</a></span>sort()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> int fcmaes.advretry.Store.sort </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sorts and updates stored data based on the given criteria. </p>
+<pre class="fragment">   The method sorts the stored data `ys` in ascending order of their values. It ensures
+   diversity by selecting specific data points that meet the distance threshold from the
+   two most recently added elements. It then updates the stored data to retain only the
+   best 90% of the sorted elements up to the storage capacity.
+</pre><dl class="section return"><dt>Returns</dt><dd></dd>
+<dd>
+int The updated number of stored elements.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">ValueError</td><td>If the number of stored elements is less than 2. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00623">623</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+<div id="dynsection-28" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-28-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-28-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-28-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfcmaes_1_1advretry_1_1_store_aa5c9f7209b6bfb5bf079ad940a84eea4_cgraph.svg" width="100%" height="461"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-29" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-29-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-29-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-29-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfcmaes_1_1advretry_1_1_store_aa5c9f7209b6bfb5bf079ad940a84eea4_icgraph.svg" width="100%" height="535"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="abd78c63348eaf496e00df2bc0d3711aa" name="abd78c63348eaf496e00df2bc0d3711aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd78c63348eaf496e00df2bc0d3711aa">&#9670;&#160;</a></span>wrapper()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> float fcmaes.advretry.Store.wrapper </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ArrayLike</td>          <td class="paramname"><span class="paramname"><em>x</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Wrapper function to evaluate a given function, update statistics, and log the results. </p>
+<p>It is typically used in optimization procedures to monitor evaluations and track progress over iterations.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The input array to evaluate the function.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd>
+<dd>
+float The evaluated function output for the given input array. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00360">360</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="ae73944a21ee51902dfdc93403dadc8ce" name="ae73944a21ee51902dfdc93403dadc8ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae73944a21ee51902dfdc93403dadc8ce">&#9670;&#160;</a></span>add_mutex</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.advretry.Store.add_mutex = mp.Lock()</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00328">328</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+
+</div>
+</div>
+<a id="aeb660ff644cb19f40c20494360cebb57" name="aeb660ff644cb19f40c20494360cebb57"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb660ff644cb19f40c20494360cebb57">&#9670;&#160;</a></span>best_x</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.advretry.Store.best_x = mp.RawArray(ct.c_double, self.dim)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00338">338</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+
+</div>
+</div>
+<a id="a597ae039b1fe0bd28ed9afc8e270075a" name="a597ae039b1fe0bd28ed9afc8e270075a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a597ae039b1fe0bd28ed9afc8e270075a">&#9670;&#160;</a></span>best_y</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.advretry.Store.best_y = mp.RawValue(ct.c_double, np.inf)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00336">336</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+
+</div>
+</div>
+<a id="a44fe2e19ed26797a80dd27ee7c1a6b50" name="a44fe2e19ed26797a80dd27ee7c1a6b50"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44fe2e19ed26797a80dd27ee7c1a6b50">&#9670;&#160;</a></span>bval</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.advretry.Store.bval = mp.RawValue(ct.c_double, np.inf)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00346">346</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+
+</div>
+</div>
+<a id="ac02358030591fcfa40acde3b27f6ee30" name="ac02358030591fcfa40acde3b27f6ee30"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac02358030591fcfa40acde3b27f6ee30">&#9670;&#160;</a></span>capacity</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.advretry.Store.capacity = capacity</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Maximum storage capacity for evaluated results. </p>
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00306">306</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+
+</div>
+</div>
+<a id="a3dc00b6f12a508d7e3537e4869bae3ae" name="a3dc00b6f12a508d7e3537e4869bae3ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3dc00b6f12a508d7e3537e4869bae3ae">&#9670;&#160;</a></span>check_interval</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int fcmaes.advretry.Store.check_interval = check_interval</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Interval for sorting the evaluation store. </p>
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00318">318</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+
+</div>
+</div>
+<a id="a784de4dd2241f0d45a199379be53532d" name="a784de4dd2241f0d45a199379be53532d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a784de4dd2241f0d45a199379be53532d">&#9670;&#160;</a></span>check_mutex</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.advretry.Store.check_mutex = mp.Lock()</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00329">329</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+
+</div>
+</div>
+<a id="af0db304f4763604809335265782f7d98" name="af0db304f4763604809335265782f7d98"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0db304f4763604809335265782f7d98">&#9670;&#160;</a></span>count_evals</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.advretry.Store.count_evals = mp.RawValue(ct.c_long, 0)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00333">333</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+
+</div>
+</div>
+<a id="a073e21184da6081e7a868fb615bfa55f" name="a073e21184da6081e7a868fb615bfa55f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a073e21184da6081e7a868fb615bfa55f">&#9670;&#160;</a></span>count_runs</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.advretry.Store.count_runs = mp.RawValue(ct.c_int, 0)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00334">334</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+
+</div>
+</div>
+<a id="a4a5af1d8a29594eff250c931f481d146" name="a4a5af1d8a29594eff250c931f481d146"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a5af1d8a29594eff250c931f481d146">&#9670;&#160;</a></span>datafile</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.advretry.Store.datafile = datafile</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Path to file for saving and loading data. </p>
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00322">322</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+
+</div>
+</div>
+<a id="ad2d1513e8146883a75bab3f55fb4be95" name="ad2d1513e8146883a75bab3f55fb4be95"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2d1513e8146883a75bab3f55fb4be95">&#9670;&#160;</a></span>delta</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.advretry.Store.delta = self.upper - self.lower</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The difference between upper and lower bounds. </p>
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00305">305</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+
+</div>
+</div>
+<a id="abe787e76d4993d0280a389dabc8c3fe9" name="abe787e76d4993d0280a389dabc8c3fe9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe787e76d4993d0280a389dabc8c3fe9">&#9670;&#160;</a></span>dim</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.advretry.Store.dim = len(self.lower)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dimension of the optimization problem based on bounds. </p>
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00319">319</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+
+</div>
+</div>
+<a id="aca1758cb0a6f2a0033b311b9cc89684c" name="aca1758cb0a6f2a0033b311b9cc89684c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca1758cb0a6f2a0033b311b9cc89684c">&#9670;&#160;</a></span>eval_fac</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.advretry.Store.eval_fac = mp.RawValue(ct.c_double, 1)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00332">332</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+
+</div>
+</div>
+<a id="aebbd407d5af1334e38fbdc5a8ba36d3f" name="aebbd407d5af1334e38fbdc5a8ba36d3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aebbd407d5af1334e38fbdc5a8ba36d3f">&#9670;&#160;</a></span>eval_fac_incr</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.advretry.Store.eval_fac_incr = <a class="el" href="#a943e1c9111fc75a8c7aad94b9feb5538">max_eval_fac</a> / (<a class="el" href="#a4c08da826f59305eaa14d6bbdbaa6b1d">num_retries</a>/<a class="el" href="#a3dc00b6f12a508d7e3537e4869bae3ae">check_interval</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Increment factor for evaluation adjustments. </p>
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00316">316</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+
+</div>
+</div>
+<a id="a9421450cd349123b0c703029528418f5" name="a9421450cd349123b0c703029528418f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9421450cd349123b0c703029528418f5">&#9670;&#160;</a></span>fun</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.advretry.Store.fun = fun</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00303">303</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+
+</div>
+</div>
+<a id="a69725da93edb777480fc90c959d45678" name="a69725da93edb777480fc90c959d45678"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69725da93edb777480fc90c959d45678">&#9670;&#160;</a></span>lower</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.advretry.Store.lower</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The lower bounds for the optimization problem. </p>
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00304">304</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+
+</div>
+</div>
+<a id="a943e1c9111fc75a8c7aad94b9feb5538" name="a943e1c9111fc75a8c7aad94b9feb5538"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a943e1c9111fc75a8c7aad94b9feb5538">&#9670;&#160;</a></span>max_eval_fac</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.advretry.Store.max_eval_fac = max_eval_fac</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Maximum evaluation factor throughout the retries. </p>
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00317">317</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+
+</div>
+</div>
+<a id="a4c08da826f59305eaa14d6bbdbaa6b1d" name="a4c08da826f59305eaa14d6bbdbaa6b1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c08da826f59305eaa14d6bbdbaa6b1d">&#9670;&#160;</a></span>num_retries</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.advretry.Store.num_retries = num_retries</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Maximum number of retries during the optimization process. </p>
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00314">314</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+
+</div>
+</div>
+<a id="a35cab48a8942fed186c0a6bd88b90497" name="a35cab48a8942fed186c0a6bd88b90497"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35cab48a8942fed186c0a6bd88b90497">&#9670;&#160;</a></span>num_stored</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.advretry.Store.num_stored = mp.RawValue(ct.c_int, 0)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00335">335</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+
+</div>
+</div>
+<a id="af869a404006e773c0f7fd0744d3733f8" name="af869a404006e773c0f7fd0744d3733f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af869a404006e773c0f7fd0744d3733f8">&#9670;&#160;</a></span>rg</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.advretry.Store.rg = random.Random()</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00323">323</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+
+</div>
+</div>
+<a id="ab1505fe94e716ee8645e7e694f69efbc" name="ab1505fe94e716ee8645e7e694f69efbc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1505fe94e716ee8645e7e694f69efbc">&#9670;&#160;</a></span>sevals</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.advretry.Store.sevals = mp.RawValue(ct.c_long, 0)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00345">345</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+
+</div>
+</div>
+<a id="a3d944cda44a59bf02cef0cd0b68cc4c4" name="a3d944cda44a59bf02cef0cd0b68cc4c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d944cda44a59bf02cef0cd0b68cc4c4">&#9670;&#160;</a></span>si</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.advretry.Store.si = mp.RawValue(ct.c_int, 0)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00344">344</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+
+</div>
+</div>
+<a id="ae5d9ac54fe3531077bedd2945298073f" name="ae5d9ac54fe3531077bedd2945298073f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5d9ac54fe3531077bedd2945298073f">&#9670;&#160;</a></span>statistic_num</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.advretry.Store.statistic_num = statistic_num</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Number of statistical points maintained for tracking. </p>
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00321">321</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+
+</div>
+</div>
+<a id="a3353add8a5c4d01dd02a8a56890c1036" name="a3353add8a5c4d01dd02a8a56890c1036"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3353add8a5c4d01dd02a8a56890c1036">&#9670;&#160;</a></span>t0</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.advretry.Store.t0 = time.perf_counter()</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Timestamp indicating the start of evaluations (used for timing statistics). </p>
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00320">320</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+
+</div>
+</div>
+<a id="a9f708b7ec4308e915d2600f357ae7a1d" name="a9f708b7ec4308e915d2600f357ae7a1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f708b7ec4308e915d2600f357ae7a1d">&#9670;&#160;</a></span>time</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.advretry.Store.time = mp.RawArray(ct.c_double, self.statistic_num)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00342">342</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+
+</div>
+</div>
+<a id="a8d112bb91cc58f032a0bb929c236fd8e" name="a8d112bb91cc58f032a0bb929c236fd8e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d112bb91cc58f032a0bb929c236fd8e">&#9670;&#160;</a></span>upper</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.advretry.Store.upper = _convertBounds(bounds)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The upper bounds for the optimization problem. </p>
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00304">304</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+
+</div>
+</div>
+<a id="a72b4b6c231e9e44a77a30dec5c731db2" name="a72b4b6c231e9e44a77a30dec5c731db2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72b4b6c231e9e44a77a30dec5c731db2">&#9670;&#160;</a></span>val</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.advretry.Store.val = mp.RawArray(ct.c_double, self.statistic_num)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00343">343</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+
+</div>
+</div>
+<a id="afefa9194fbf5ada1b23dcd45ed3e48f3" name="afefa9194fbf5ada1b23dcd45ed3e48f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afefa9194fbf5ada1b23dcd45ed3e48f3">&#9670;&#160;</a></span>worst_y</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.advretry.Store.worst_y = mp.RawValue(ct.c_double, np.inf)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00337">337</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+
+</div>
+</div>
+<a id="adcc4bcd2b2d9dd72a7d315ac273def89" name="adcc4bcd2b2d9dd72a7d315ac273def89"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adcc4bcd2b2d9dd72a7d315ac273def89">&#9670;&#160;</a></span>xs</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.advretry.Store.xs = mp.RawArray(ct.c_double, <a class="el" href="#ac02358030591fcfa40acde3b27f6ee30">capacity</a> * self.dim)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00330">330</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+
+</div>
+</div>
+<a id="ac058ac776acb3ce2891ddb0fe7a15100" name="ac058ac776acb3ce2891ddb0fe7a15100"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac058ac776acb3ce2891ddb0fe7a15100">&#9670;&#160;</a></span>ys</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.advretry.Store.ys = mp.RawArray(ct.c_double, <a class="el" href="#ac02358030591fcfa40acde3b27f6ee30">capacity</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="advretry_8py_source.html#l00331">331</a> of file <a class="el" href="advretry_8py_source.html">advretry.py</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>fcmaes/<a class="el" href="advretry_8py_source.html">advretry.py</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespacefcmaes.html">fcmaes</a></li><li class="navelem"><a class="el" href="namespacefcmaes_1_1advretry.html">advretry</a></li><li class="navelem"><a class="el" href="classfcmaes_1_1advretry_1_1_store.html">Store</a></li>
+    <li class="footer">Generated on Tue Jun 24 2025 15:37:19 for Fast CMA-ES by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+  </ul>
+</div>
+</body>
+</html>

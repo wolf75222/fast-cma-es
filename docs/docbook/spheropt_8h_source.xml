@@ -1,0 +1,294 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_spheropt_8h_source" xml:lang="en-US">
+<title>spheropt.h</title>
+<indexterm><primary>_fcmaescpp/include/spheropt.h</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_spheropt_8h_source_1l00001"/>00001 <emphasis role="comment">//$&#32;nocpp</emphasis>
+<anchor xml:id="_spheropt_8h_source_1l00002"/>00002 
+<anchor xml:id="_spheropt_8h_source_1l00032"/>00032 
+<anchor xml:id="_spheropt_8h_source_1l00033"/>00033 <emphasis role="preprocessor">#ifndef&#32;SPHEROPT_INCLUDED</emphasis>
+<anchor xml:id="_spheropt_8h_source_1l00034"/>00034 <emphasis role="preprocessor">#define&#32;SPHEROPT_INCLUDED</emphasis>
+<anchor xml:id="_spheropt_8h_source_1l00035"/>00035 
+<anchor xml:id="_spheropt_8h_source_1l00036"/>00036 <emphasis role="preprocessor">#include&#32;&quot;<link linkend="_biteaux_8h">biteaux.h</link>&quot;</emphasis>
+<anchor xml:id="_spheropt_8h_source_1l00037"/>00037 
+<anchor xml:id="_spheropt_8h_source_1l00043"/>00043 
+<anchor xml:id="_spheropt_8h_source_1l00044"/><link linkend="_class_c_spher_opt">00044</link> <emphasis role="keyword">class&#32;</emphasis><link linkend="_class_c_spher_opt_1a3ff6a1a07d0c5f3ac9c133b021b190ac">CSpherOpt</link>&#32;:&#32;<emphasis role="keyword">public</emphasis>&#32;<link linkend="_class_c_bite_opt_base_1a424395289a687d98b8d27cbd828dbc6c">CBiteOptBase</link>&lt;&#32;double&#32;&gt;
+<anchor xml:id="_spheropt_8h_source_1l00045"/>00045 {
+<anchor xml:id="_spheropt_8h_source_1l00046"/>00046 <emphasis role="keyword">public</emphasis>:
+<anchor xml:id="_spheropt_8h_source_1l00047"/><link linkend="_class_c_spher_opt_1a3ff6a1a07d0c5f3ac9c133b021b190ac">00047</link> &#32;&#32;&#32;&#32;<link linkend="_class_c_spher_opt_1a3ff6a1a07d0c5f3ac9c133b021b190ac">CSpherOpt</link>()
+<anchor xml:id="_spheropt_8h_source_1l00048"/>00048 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;:&#32;<link linkend="_class_c_spher_opt_1a5f268cc854a7de1995a54e9b73f87e2a">WPopCent</link>(&#32;NULL&#32;)
+<anchor xml:id="_spheropt_8h_source_1l00049"/>00049 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;,&#32;<link linkend="_class_c_spher_opt_1a2598f95d32a6dcb9c25366f89f795912">WPopRad</link>(&#32;NULL&#32;)
+<anchor xml:id="_spheropt_8h_source_1l00050"/>00050 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_spheropt_8h_source_1l00051"/>00051 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_opt_base_1a5d8710f00b828beca21c0d2699ae340d">addSel</link>(&#32;<link linkend="_class_c_spher_opt_1a03ab19cfd5185229176166ccc011f160">CentPowSel</link>,&#32;<emphasis role="stringliteral">&quot;CentPowSel&quot;</emphasis>&#32;);
+<anchor xml:id="_spheropt_8h_source_1l00052"/>00052 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_opt_base_1a5d8710f00b828beca21c0d2699ae340d">addSel</link>(&#32;<link linkend="_class_c_spher_opt_1a29f0077440e7edc368830ae2582181ac">RadPowSel</link>,&#32;<emphasis role="stringliteral">&quot;RadPowSel&quot;</emphasis>&#32;);
+<anchor xml:id="_spheropt_8h_source_1l00053"/>00053 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_opt_base_1a5d8710f00b828beca21c0d2699ae340d">addSel</link>(&#32;<link linkend="_class_c_spher_opt_1adb977f181df718708fe31cce2f7ee20b">EvalFacSel</link>,&#32;<emphasis role="stringliteral">&quot;EvalFacSel&quot;</emphasis>&#32;);
+<anchor xml:id="_spheropt_8h_source_1l00054"/>00054 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_spheropt_8h_source_1l00055"/>00055 
+<anchor xml:id="_spheropt_8h_source_1l00056"/><link linkend="_class_c_spher_opt_1a8b6557f101813e721289a7c8edecf349">00056</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">virtual</emphasis>&#32;<link linkend="_class_c_spher_opt_1a8b6557f101813e721289a7c8edecf349">~CSpherOpt</link>()
+<anchor xml:id="_spheropt_8h_source_1l00057"/>00057 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_spheropt_8h_source_1l00058"/>00058 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">delete</emphasis>[]&#32;<link linkend="_class_c_spher_opt_1a5f268cc854a7de1995a54e9b73f87e2a">WPopCent</link>;
+<anchor xml:id="_spheropt_8h_source_1l00059"/>00059 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">delete</emphasis>[]&#32;<link linkend="_class_c_spher_opt_1a2598f95d32a6dcb9c25366f89f795912">WPopRad</link>;
+<anchor xml:id="_spheropt_8h_source_1l00060"/>00060 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_spheropt_8h_source_1l00061"/>00061 
+<anchor xml:id="_spheropt_8h_source_1l00069"/>00069 
+<anchor xml:id="_spheropt_8h_source_1l00070"/><link linkend="_class_c_spher_opt_1a0be21abe1246b154cb848bd338bf1723">00070</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_class_c_spher_opt_1a0be21abe1246b154cb848bd338bf1723">updateDims</link>(&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;aParamCount,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;PopSize0&#32;=&#32;0&#32;)
+<anchor xml:id="_spheropt_8h_source_1l00071"/>00071 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_spheropt_8h_source_1l00072"/>00072 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;aPopSize&#32;=&#32;(&#32;PopSize0&#32;&gt;&#32;0&#32;?&#32;PopSize0&#32;:&#32;14&#32;+&#32;aParamCount&#32;);
+<anchor xml:id="_spheropt_8h_source_1l00073"/>00073 
+<anchor xml:id="_spheropt_8h_source_1l00074"/>00074 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;aParamCount&#32;==&#32;<link linkend="_class_c_bite_pop_1a0dc6f7b3a19db513e349e68c3471f9fa">ParamCount</link>&#32;&amp;&amp;&#32;aPopSize&#32;==&#32;<link linkend="_class_c_bite_pop_1a58e3bf5abc2fb4b1e173aa6cb3477bfb">PopSize</link>&#32;)
+<anchor xml:id="_spheropt_8h_source_1l00075"/>00075 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_spheropt_8h_source_1l00076"/>00076 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>;
+<anchor xml:id="_spheropt_8h_source_1l00077"/>00077 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_spheropt_8h_source_1l00078"/>00078 
+<anchor xml:id="_spheropt_8h_source_1l00079"/>00079 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_spher_opt_1a00c0facb71cb0ef24498e77ce68e6c04">initBuffers</link>(&#32;aParamCount,&#32;aPopSize&#32;);
+<anchor xml:id="_spheropt_8h_source_1l00080"/>00080 
+<anchor xml:id="_spheropt_8h_source_1l00081"/>00081 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_spher_opt_1adb82e9f193684e7b21d60e35bd38237f">JitMult</link>&#32;=&#32;5.0&#32;*&#32;<link linkend="_class_c_bite_pop_1a884c9ad4c0327aaa0110a23a89f5697a">ParamCountI</link>;
+<anchor xml:id="_spheropt_8h_source_1l00082"/>00082 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_spher_opt_1ae8093a1a0cab7fae9e8762ff306c4827">JitOffs</link>&#32;=&#32;1.0&#32;-&#32;<link linkend="_class_c_spher_opt_1adb82e9f193684e7b21d60e35bd38237f">JitMult</link>&#32;*&#32;0.5;
+<anchor xml:id="_spheropt_8h_source_1l00083"/>00083 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_spheropt_8h_source_1l00084"/>00084 
+<anchor xml:id="_spheropt_8h_source_1l00094"/>00094 
+<anchor xml:id="_spheropt_8h_source_1l00095"/><link linkend="_class_c_spher_opt_1a84b141fe50be3806222b2ad3d0846aaf">00095</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_class_c_spher_opt_1a84b141fe50be3806222b2ad3d0846aaf">init</link>(&#32;<link linkend="_class_c_bite_rnd">CBiteRnd</link>&amp;&#32;rnd,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>*&#32;<emphasis role="keyword">const</emphasis>&#32;InitParams&#32;=&#32;NULL,
+<anchor xml:id="_spheropt_8h_source_1l00096"/>00096 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;InitRadius&#32;=&#32;1.0&#32;)
+<anchor xml:id="_spheropt_8h_source_1l00097"/>00097 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_spheropt_8h_source_1l00098"/>00098 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_opt_base_1a768362da5c773eea5a8649d44676eeed">initCommonVars</link>(&#32;rnd&#32;);
+<anchor xml:id="_spheropt_8h_source_1l00099"/>00099 
+<anchor xml:id="_spheropt_8h_source_1l00100"/>00100 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_spher_opt_1a28e10a5d2dad5244fb97197e7e85095d">Radius</link>&#32;=&#32;0.5&#32;*&#32;InitRadius;
+<anchor xml:id="_spheropt_8h_source_1l00101"/>00101 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_spher_opt_1a92e80374efa3c695155056dc9bed3001">EvalFac</link>&#32;=&#32;2.0;
+<anchor xml:id="_spheropt_8h_source_1l00102"/>00102 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_spher_opt_1a0d833587909f28ade47110ec158b0d9b">cure</link>&#32;=&#32;0;
+<anchor xml:id="_spheropt_8h_source_1l00103"/>00103 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_spher_opt_1ae47ab981059bd16abc005b6c35c90259">curem</link>&#32;=&#32;(int)&#32;ceil(&#32;<link linkend="_class_c_bite_pop_1adc98fbdebc2671ef0826245d8c472cc5">CurPopSize</link>&#32;*&#32;<link linkend="_class_c_spher_opt_1a92e80374efa3c695155056dc9bed3001">EvalFac</link>&#32;);
+<anchor xml:id="_spheropt_8h_source_1l00104"/>00104 
+<anchor xml:id="_spheropt_8h_source_1l00105"/>00105 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;Provide&#32;initial&#32;centroid&#32;and&#32;sigma.</emphasis>
+<anchor xml:id="_spheropt_8h_source_1l00106"/>00106 
+<anchor xml:id="_spheropt_8h_source_1l00107"/>00107 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;i;
+<anchor xml:id="_spheropt_8h_source_1l00108"/>00108 
+<anchor xml:id="_spheropt_8h_source_1l00109"/>00109 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;InitParams&#32;==&#32;NULL&#32;)
+<anchor xml:id="_spheropt_8h_source_1l00110"/>00110 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_spheropt_8h_source_1l00111"/>00111 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;<link linkend="_class_c_bite_pop_1a0dc6f7b3a19db513e349e68c3471f9fa">ParamCount</link>;&#32;i++&#32;)
+<anchor xml:id="_spheropt_8h_source_1l00112"/>00112 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_spheropt_8h_source_1l00113"/>00113 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_pop_1ac31d95bc1f383828e72bcf1eb499e949">CentParams</link>[&#32;i&#32;]&#32;=&#32;0.5;
+<anchor xml:id="_spheropt_8h_source_1l00114"/>00114 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_spheropt_8h_source_1l00115"/>00115 
+<anchor xml:id="_spheropt_8h_source_1l00116"/>00116 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_spher_opt_1a3d0802a35e4655fc88d6082df144c20b">DoCentEval</link>&#32;=&#32;<emphasis role="keyword">false</emphasis>;
+<anchor xml:id="_spheropt_8h_source_1l00117"/>00117 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_spheropt_8h_source_1l00118"/>00118 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>
+<anchor xml:id="_spheropt_8h_source_1l00119"/>00119 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_spheropt_8h_source_1l00120"/>00120 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;<link linkend="_class_c_bite_pop_1a0dc6f7b3a19db513e349e68c3471f9fa">ParamCount</link>;&#32;i++&#32;)
+<anchor xml:id="_spheropt_8h_source_1l00121"/>00121 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_spheropt_8h_source_1l00122"/>00122 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_pop_1ac31d95bc1f383828e72bcf1eb499e949">CentParams</link>[&#32;i&#32;]&#32;=&#32;<link linkend="_class_c_bite_pop_1a3b7e8d2276455475bd761e29c8c72ac6">wrapParam</link>(&#32;rnd,
+<anchor xml:id="_spheropt_8h_source_1l00123"/>00123 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;(&#32;InitParams[&#32;i&#32;]&#32;-&#32;<link linkend="_class_c_bite_opt_base_1a07d5b7c3007f79c7dc1f6106d9832dc6">MinValues</link>[&#32;i&#32;])&#32;/&#32;<link linkend="_class_c_bite_opt_base_1a70f5211fb9521491b0e6a336e21dd7bc">DiffValues</link>[&#32;i&#32;]);
+<anchor xml:id="_spheropt_8h_source_1l00124"/>00124 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_spheropt_8h_source_1l00125"/>00125 
+<anchor xml:id="_spheropt_8h_source_1l00126"/>00126 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_spher_opt_1a3d0802a35e4655fc88d6082df144c20b">DoCentEval</link>&#32;=&#32;<emphasis role="keyword">true</emphasis>;
+<anchor xml:id="_spheropt_8h_source_1l00127"/>00127 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_spheropt_8h_source_1l00128"/>00128 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_spheropt_8h_source_1l00129"/>00129 
+<anchor xml:id="_spheropt_8h_source_1l00141"/>00141 
+<anchor xml:id="_spheropt_8h_source_1l00142"/><link linkend="_class_c_spher_opt_1a1515c953ba95c15ca8722ad8fb46523d">00142</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_class_c_spher_opt_1a1515c953ba95c15ca8722ad8fb46523d">optimize</link>(&#32;<link linkend="_class_c_bite_rnd">CBiteRnd</link>&amp;&#32;rnd,&#32;<emphasis role="keywordtype">double</emphasis>*&#32;<emphasis role="keyword">const</emphasis>&#32;OutCost&#32;=&#32;NULL,
+<anchor xml:id="_spheropt_8h_source_1l00143"/>00143 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>*&#32;<emphasis role="keyword">const</emphasis>&#32;OutValues&#32;=&#32;NULL&#32;)
+<anchor xml:id="_spheropt_8h_source_1l00144"/>00144 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_spheropt_8h_source_1l00145"/>00145 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>*&#32;<emphasis role="keyword">const</emphasis>&#32;Params&#32;=&#32;<link linkend="_class_c_bite_pop_1a0053ae41c70babe967c5931f491ea865">getCurParams</link>();
+<anchor xml:id="_spheropt_8h_source_1l00146"/>00146 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;i;
+<anchor xml:id="_spheropt_8h_source_1l00147"/>00147 
+<anchor xml:id="_spheropt_8h_source_1l00148"/>00148 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;<link linkend="_class_c_spher_opt_1a3d0802a35e4655fc88d6082df144c20b">DoCentEval</link>&#32;)
+<anchor xml:id="_spheropt_8h_source_1l00149"/>00149 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_spheropt_8h_source_1l00150"/>00150 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_spher_opt_1a3d0802a35e4655fc88d6082df144c20b">DoCentEval</link>&#32;=&#32;<emphasis role="keyword">false</emphasis>;
+<anchor xml:id="_spheropt_8h_source_1l00151"/>00151 
+<anchor xml:id="_spheropt_8h_source_1l00152"/>00152 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;<link linkend="_class_c_bite_pop_1a0dc6f7b3a19db513e349e68c3471f9fa">ParamCount</link>;&#32;i++&#32;)
+<anchor xml:id="_spheropt_8h_source_1l00153"/>00153 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_spheropt_8h_source_1l00154"/>00154 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Params[&#32;i&#32;]&#32;=&#32;<link linkend="_class_c_bite_pop_1ac31d95bc1f383828e72bcf1eb499e949">CentParams</link>[&#32;i&#32;];
+<anchor xml:id="_spheropt_8h_source_1l00155"/>00155 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_opt_base_1a0a97be5c42eed6fbaffba04c8720e6ce">NewValues</link>[&#32;i&#32;]&#32;=&#32;<link linkend="_class_c_bite_opt_base_1a7b849dbede3dc6be555a4197541fad51">getRealValue</link>(&#32;<link linkend="_class_c_bite_pop_1ac31d95bc1f383828e72bcf1eb499e949">CentParams</link>,&#32;i&#32;);
+<anchor xml:id="_spheropt_8h_source_1l00156"/>00156 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_spheropt_8h_source_1l00157"/>00157 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_spheropt_8h_source_1l00158"/>00158 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>
+<anchor xml:id="_spheropt_8h_source_1l00159"/>00159 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_spheropt_8h_source_1l00160"/>00160 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;s2&#32;=&#32;1e-300;
+<anchor xml:id="_spheropt_8h_source_1l00161"/>00161 
+<anchor xml:id="_spheropt_8h_source_1l00162"/>00162 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;<link linkend="_class_c_bite_pop_1a0dc6f7b3a19db513e349e68c3471f9fa">ParamCount</link>;&#32;i++&#32;)
+<anchor xml:id="_spheropt_8h_source_1l00163"/>00163 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_spheropt_8h_source_1l00164"/>00164 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Params[&#32;i&#32;]&#32;=&#32;rnd.<link linkend="_class_c_bite_rnd_1afdb77334884f1a612780def0dec0a326">get</link>()&#32;-&#32;0.5;
+<anchor xml:id="_spheropt_8h_source_1l00165"/>00165 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;s2&#32;+=&#32;Params[&#32;i&#32;]&#32;*&#32;Params[&#32;i&#32;];
+<anchor xml:id="_spheropt_8h_source_1l00166"/>00166 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_spheropt_8h_source_1l00167"/>00167 
+<anchor xml:id="_spheropt_8h_source_1l00168"/>00168 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;d&#32;=&#32;<link linkend="_class_c_spher_opt_1a28e10a5d2dad5244fb97197e7e85095d">Radius</link>&#32;/&#32;sqrt(&#32;s2&#32;);
+<anchor xml:id="_spheropt_8h_source_1l00169"/>00169 
+<anchor xml:id="_spheropt_8h_source_1l00170"/>00170 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;<link linkend="_class_c_bite_pop_1a0dc6f7b3a19db513e349e68c3471f9fa">ParamCount</link>&#32;&gt;&#32;4&#32;)
+<anchor xml:id="_spheropt_8h_source_1l00171"/>00171 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_spheropt_8h_source_1l00172"/>00172 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;<link linkend="_class_c_bite_pop_1a0dc6f7b3a19db513e349e68c3471f9fa">ParamCount</link>;&#32;i++&#32;)
+<anchor xml:id="_spheropt_8h_source_1l00173"/>00173 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_spheropt_8h_source_1l00174"/>00174 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Params[&#32;i&#32;]&#32;=&#32;<link linkend="_class_c_bite_pop_1a3b7e8d2276455475bd761e29c8c72ac6">wrapParam</link>(&#32;rnd,
+<anchor xml:id="_spheropt_8h_source_1l00175"/>00175 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_pop_1ac31d95bc1f383828e72bcf1eb499e949">CentParams</link>[&#32;i&#32;]&#32;+&#32;Params[&#32;i&#32;]&#32;*&#32;d&#32;);
+<anchor xml:id="_spheropt_8h_source_1l00176"/>00176 
+<anchor xml:id="_spheropt_8h_source_1l00177"/>00177 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_opt_base_1a0a97be5c42eed6fbaffba04c8720e6ce">NewValues</link>[&#32;i&#32;]&#32;=&#32;<link linkend="_class_c_bite_opt_base_1a7b849dbede3dc6be555a4197541fad51">getRealValue</link>(&#32;Params,&#32;i&#32;);
+<anchor xml:id="_spheropt_8h_source_1l00178"/>00178 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_spheropt_8h_source_1l00179"/>00179 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_spheropt_8h_source_1l00180"/>00180 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>
+<anchor xml:id="_spheropt_8h_source_1l00181"/>00181 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_spheropt_8h_source_1l00182"/>00182 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;<link linkend="_class_c_bite_pop_1a0dc6f7b3a19db513e349e68c3471f9fa">ParamCount</link>;&#32;i++&#32;)
+<anchor xml:id="_spheropt_8h_source_1l00183"/>00183 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_spheropt_8h_source_1l00184"/>00184 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;m&#32;=&#32;<link linkend="_class_c_spher_opt_1ae8093a1a0cab7fae9e8762ff306c4827">JitOffs</link>&#32;+&#32;rnd.<link linkend="_class_c_bite_rnd_1afdb77334884f1a612780def0dec0a326">get</link>()&#32;*&#32;<link linkend="_class_c_spher_opt_1adb82e9f193684e7b21d60e35bd38237f">JitMult</link>;
+<anchor xml:id="_spheropt_8h_source_1l00185"/>00185 
+<anchor xml:id="_spheropt_8h_source_1l00186"/>00186 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Params[&#32;i&#32;]&#32;=&#32;<link linkend="_class_c_bite_pop_1a3b7e8d2276455475bd761e29c8c72ac6">wrapParam</link>(&#32;rnd,
+<anchor xml:id="_spheropt_8h_source_1l00187"/>00187 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_pop_1ac31d95bc1f383828e72bcf1eb499e949">CentParams</link>[&#32;i&#32;]&#32;+&#32;Params[&#32;i&#32;]&#32;*&#32;d&#32;*&#32;m&#32;);
+<anchor xml:id="_spheropt_8h_source_1l00188"/>00188 
+<anchor xml:id="_spheropt_8h_source_1l00189"/>00189 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_opt_base_1a0a97be5c42eed6fbaffba04c8720e6ce">NewValues</link>[&#32;i&#32;]&#32;=&#32;<link linkend="_class_c_bite_opt_base_1a7b849dbede3dc6be555a4197541fad51">getRealValue</link>(&#32;Params,&#32;i&#32;);
+<anchor xml:id="_spheropt_8h_source_1l00190"/>00190 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_spheropt_8h_source_1l00191"/>00191 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_spheropt_8h_source_1l00192"/>00192 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_spheropt_8h_source_1l00193"/>00193 
+<anchor xml:id="_spheropt_8h_source_1l00194"/>00194 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;NewCost&#32;=&#32;<link linkend="_class_c_bite_opt_interface_1a45d7e2c9ea31b6f8bb23758a6879df9d">optcost</link>(&#32;<link linkend="_class_c_bite_opt_base_1a0a97be5c42eed6fbaffba04c8720e6ce">NewValues</link>&#32;);
+<anchor xml:id="_spheropt_8h_source_1l00195"/>00195 
+<anchor xml:id="_spheropt_8h_source_1l00196"/>00196 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;OutCost&#32;!=&#32;NULL&#32;)
+<anchor xml:id="_spheropt_8h_source_1l00197"/>00197 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_spheropt_8h_source_1l00198"/>00198 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;*OutCost&#32;=&#32;NewCost;
+<anchor xml:id="_spheropt_8h_source_1l00199"/>00199 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_spheropt_8h_source_1l00200"/>00200 
+<anchor xml:id="_spheropt_8h_source_1l00201"/>00201 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;OutValues&#32;!=&#32;NULL&#32;)
+<anchor xml:id="_spheropt_8h_source_1l00202"/>00202 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_spheropt_8h_source_1l00203"/>00203 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_pop_1a57e751582761922bbabff1ddb7af277b">copyValues</link>(&#32;OutValues,&#32;<link linkend="_class_c_bite_opt_base_1a0a97be5c42eed6fbaffba04c8720e6ce">NewValues</link>&#32;);
+<anchor xml:id="_spheropt_8h_source_1l00204"/>00204 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_spheropt_8h_source_1l00205"/>00205 
+<anchor xml:id="_spheropt_8h_source_1l00206"/>00206 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_pop_1aad999ddc8a2ed72ffaee0db7732c9f76">updatePop</link>(&#32;NewCost,&#32;Params,&#32;<emphasis role="keyword">false</emphasis>&#32;);
+<anchor xml:id="_spheropt_8h_source_1l00207"/>00207 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_opt_base_1a9e49b98f5f6a2470d060282b2fd26a53">updateBestCost</link>(&#32;NewCost,&#32;<link linkend="_class_c_bite_opt_base_1a0a97be5c42eed6fbaffba04c8720e6ce">NewValues</link>&#32;);
+<anchor xml:id="_spheropt_8h_source_1l00208"/>00208 
+<anchor xml:id="_spheropt_8h_source_1l00209"/>00209 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_opt_base_1acc0aa62d6125bd03d3baae22b0bf0467">AvgCost</link>&#32;+=&#32;NewCost;
+<anchor xml:id="_spheropt_8h_source_1l00210"/>00210 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_spher_opt_1a0d833587909f28ade47110ec158b0d9b">cure</link>++;
+<anchor xml:id="_spheropt_8h_source_1l00211"/>00211 
+<anchor xml:id="_spheropt_8h_source_1l00212"/>00212 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;<link linkend="_class_c_spher_opt_1a0d833587909f28ade47110ec158b0d9b">cure</link>&#32;&gt;=&#32;<link linkend="_class_c_spher_opt_1ae47ab981059bd16abc005b6c35c90259">curem</link>&#32;)
+<anchor xml:id="_spheropt_8h_source_1l00213"/>00213 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_spheropt_8h_source_1l00214"/>00214 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_opt_base_1acc0aa62d6125bd03d3baae22b0bf0467">AvgCost</link>&#32;/=&#32;<link linkend="_class_c_spher_opt_1a0d833587909f28ade47110ec158b0d9b">cure</link>;
+<anchor xml:id="_spheropt_8h_source_1l00215"/>00215 
+<anchor xml:id="_spheropt_8h_source_1l00216"/>00216 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;<link linkend="_class_c_bite_opt_base_1acc0aa62d6125bd03d3baae22b0bf0467">AvgCost</link>&#32;&lt;&#32;<link linkend="_class_c_bite_opt_base_1a48296b534db162fa0007ff83757cb84b">HiBound</link>&#32;)
+<anchor xml:id="_spheropt_8h_source_1l00217"/>00217 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_spheropt_8h_source_1l00218"/>00218 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_opt_base_1a48296b534db162fa0007ff83757cb84b">HiBound</link>&#32;=&#32;<link linkend="_class_c_bite_opt_base_1acc0aa62d6125bd03d3baae22b0bf0467">AvgCost</link>;
+<anchor xml:id="_spheropt_8h_source_1l00219"/>00219 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_opt_base_1ab756659a8ba09ba42ffa3d207564fdd8">StallCount</link>&#32;=&#32;0;
+<anchor xml:id="_spheropt_8h_source_1l00220"/>00220 
+<anchor xml:id="_spheropt_8h_source_1l00221"/>00221 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_opt_base_1aa08dcfff8871910e4d01a94f261ee752">applySelsIncr</link>(&#32;rnd&#32;);
+<anchor xml:id="_spheropt_8h_source_1l00222"/>00222 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_spheropt_8h_source_1l00223"/>00223 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>
+<anchor xml:id="_spheropt_8h_source_1l00224"/>00224 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_spheropt_8h_source_1l00225"/>00225 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_opt_base_1ab756659a8ba09ba42ffa3d207564fdd8">StallCount</link>&#32;+=&#32;<link linkend="_class_c_spher_opt_1a0d833587909f28ade47110ec158b0d9b">cure</link>;
+<anchor xml:id="_spheropt_8h_source_1l00226"/>00226 
+<anchor xml:id="_spheropt_8h_source_1l00227"/>00227 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_opt_base_1a47acdb7a495f75170b0eb457e0dc950e">applySelsDecr</link>(&#32;rnd&#32;);
+<anchor xml:id="_spheropt_8h_source_1l00228"/>00228 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_spheropt_8h_source_1l00229"/>00229 
+<anchor xml:id="_spheropt_8h_source_1l00230"/>00230 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_pop_1a767519aa2fcc2667dc135a131bc9fd85">resetCurPopPos</link>();
+<anchor xml:id="_spheropt_8h_source_1l00231"/>00231 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_opt_base_1acc0aa62d6125bd03d3baae22b0bf0467">AvgCost</link>&#32;=&#32;0.0;
+<anchor xml:id="_spheropt_8h_source_1l00232"/>00232 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_spher_opt_1a0d833587909f28ade47110ec158b0d9b">cure</link>&#32;=&#32;0;
+<anchor xml:id="_spheropt_8h_source_1l00233"/>00233 
+<anchor xml:id="_spheropt_8h_source_1l00234"/>00234 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_spher_opt_1a9bda67c2fee53ca92fc6f90bd99b459d">update</link>(&#32;rnd&#32;);
+<anchor xml:id="_spheropt_8h_source_1l00235"/>00235 
+<anchor xml:id="_spheropt_8h_source_1l00236"/>00236 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_spher_opt_1ae47ab981059bd16abc005b6c35c90259">curem</link>&#32;=&#32;(int)&#32;ceil(&#32;<link linkend="_class_c_bite_pop_1adc98fbdebc2671ef0826245d8c472cc5">CurPopSize</link>&#32;*&#32;<link linkend="_class_c_spher_opt_1a92e80374efa3c695155056dc9bed3001">EvalFac</link>&#32;);
+<anchor xml:id="_spheropt_8h_source_1l00237"/>00237 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_spheropt_8h_source_1l00238"/>00238 
+<anchor xml:id="_spheropt_8h_source_1l00239"/>00239 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>(&#32;<link linkend="_class_c_bite_opt_base_1ab756659a8ba09ba42ffa3d207564fdd8">StallCount</link>&#32;);
+<anchor xml:id="_spheropt_8h_source_1l00240"/>00240 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_spheropt_8h_source_1l00241"/>00241 
+<anchor xml:id="_spheropt_8h_source_1l00242"/>00242 <emphasis role="keyword">protected</emphasis>:
+<anchor xml:id="_spheropt_8h_source_1l00243"/><link linkend="_class_c_spher_opt_1a5f268cc854a7de1995a54e9b73f87e2a">00243</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>*&#32;<link linkend="_class_c_spher_opt_1a5f268cc854a7de1995a54e9b73f87e2a">WPopCent</link>;&#32;
+<anchor xml:id="_spheropt_8h_source_1l00244"/><link linkend="_class_c_spher_opt_1a2598f95d32a6dcb9c25366f89f795912">00244</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>*&#32;<link linkend="_class_c_spher_opt_1a2598f95d32a6dcb9c25366f89f795912">WPopRad</link>;&#32;
+<anchor xml:id="_spheropt_8h_source_1l00245"/><link linkend="_class_c_spher_opt_1adb82e9f193684e7b21d60e35bd38237f">00245</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_class_c_spher_opt_1adb82e9f193684e7b21d60e35bd38237f">JitMult</link>;&#32;
+<anchor xml:id="_spheropt_8h_source_1l00246"/><link linkend="_class_c_spher_opt_1ae8093a1a0cab7fae9e8762ff306c4827">00246</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_class_c_spher_opt_1ae8093a1a0cab7fae9e8762ff306c4827">JitOffs</link>;&#32;
+<anchor xml:id="_spheropt_8h_source_1l00247"/><link linkend="_class_c_spher_opt_1a28e10a5d2dad5244fb97197e7e85095d">00247</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_class_c_spher_opt_1a28e10a5d2dad5244fb97197e7e85095d">Radius</link>;&#32;
+<anchor xml:id="_spheropt_8h_source_1l00248"/><link linkend="_class_c_spher_opt_1a92e80374efa3c695155056dc9bed3001">00248</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_class_c_spher_opt_1a92e80374efa3c695155056dc9bed3001">EvalFac</link>;&#32;
+<anchor xml:id="_spheropt_8h_source_1l00249"/><link linkend="_class_c_spher_opt_1a0d833587909f28ade47110ec158b0d9b">00249</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_class_c_spher_opt_1a0d833587909f28ade47110ec158b0d9b">cure</link>;&#32;
+<anchor xml:id="_spheropt_8h_source_1l00250"/><link linkend="_class_c_spher_opt_1ae47ab981059bd16abc005b6c35c90259">00250</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_class_c_spher_opt_1ae47ab981059bd16abc005b6c35c90259">curem</link>;&#32;
+<anchor xml:id="_spheropt_8h_source_1l00251"/><link linkend="_class_c_spher_opt_1a3d0802a35e4655fc88d6082df144c20b">00251</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">bool</emphasis>&#32;<link linkend="_class_c_spher_opt_1a3d0802a35e4655fc88d6082df144c20b">DoCentEval</link>;&#32;
+<anchor xml:id="_spheropt_8h_source_1l00253"/><link linkend="_class_c_spher_opt_1a03ab19cfd5185229176166ccc011f160">00253</link> &#32;&#32;&#32;&#32;<link linkend="_class_c_bite_sel">CBiteSel&lt; 4 &gt;</link>&#32;<link linkend="_class_c_spher_opt_1a03ab19cfd5185229176166ccc011f160">CentPowSel</link>;&#32;
+<anchor xml:id="_spheropt_8h_source_1l00254"/><link linkend="_class_c_spher_opt_1a29f0077440e7edc368830ae2582181ac">00254</link> &#32;&#32;&#32;&#32;<link linkend="_class_c_bite_sel">CBiteSel&lt; 4 &gt;</link>&#32;<link linkend="_class_c_spher_opt_1a29f0077440e7edc368830ae2582181ac">RadPowSel</link>;&#32;
+<anchor xml:id="_spheropt_8h_source_1l00255"/><link linkend="_class_c_spher_opt_1adb977f181df718708fe31cce2f7ee20b">00255</link> &#32;&#32;&#32;&#32;<link linkend="_class_c_bite_sel">CBiteSel&lt; 3 &gt;</link>&#32;<link linkend="_class_c_spher_opt_1adb977f181df718708fe31cce2f7ee20b">EvalFacSel</link>;&#32;
+<anchor xml:id="_spheropt_8h_source_1l00256"/>00256 
+<anchor xml:id="_spheropt_8h_source_1l00257"/><link linkend="_class_c_spher_opt_1a00c0facb71cb0ef24498e77ce68e6c04">00257</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">virtual</emphasis>&#32;<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_class_c_spher_opt_1a00c0facb71cb0ef24498e77ce68e6c04">initBuffers</link>(&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;aParamCount,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;aPopSize,
+<anchor xml:id="_spheropt_8h_source_1l00258"/>00258 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;aCnsCount&#32;=&#32;0,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;aObjCount&#32;=&#32;1&#32;)
+<anchor xml:id="_spheropt_8h_source_1l00259"/>00259 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_spheropt_8h_source_1l00260"/>00260 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_opt_base_1a424395289a687d98b8d27cbd828dbc6c">CBiteOptBase&lt; double &gt; :: initBuffers</link>(&#32;aParamCount,&#32;aPopSize,
+<anchor xml:id="_spheropt_8h_source_1l00261"/>00261 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;aCnsCount,&#32;aObjCount&#32;);
+<anchor xml:id="_spheropt_8h_source_1l00262"/>00262 
+<anchor xml:id="_spheropt_8h_source_1l00263"/>00263 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_spher_opt_1a5f268cc854a7de1995a54e9b73f87e2a">WPopCent</link>&#32;=&#32;<emphasis role="keyword">new</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>[&#32;aPopSize&#32;];
+<anchor xml:id="_spheropt_8h_source_1l00264"/>00264 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_spher_opt_1a2598f95d32a6dcb9c25366f89f795912">WPopRad</link>&#32;=&#32;<emphasis role="keyword">new</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>[&#32;aPopSize&#32;];
+<anchor xml:id="_spheropt_8h_source_1l00265"/>00265 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_spheropt_8h_source_1l00266"/>00266 
+<anchor xml:id="_spheropt_8h_source_1l00267"/><link linkend="_class_c_spher_opt_1a6491915dd708c2791682a529005c035e">00267</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">virtual</emphasis>&#32;<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_class_c_spher_opt_1a6491915dd708c2791682a529005c035e">deleteBuffers</link>()
+<anchor xml:id="_spheropt_8h_source_1l00268"/>00268 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_spheropt_8h_source_1l00269"/>00269 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_opt_base_1a424395289a687d98b8d27cbd828dbc6c">CBiteOptBase&lt; double &gt; :: deleteBuffers</link>();
+<anchor xml:id="_spheropt_8h_source_1l00270"/>00270 
+<anchor xml:id="_spheropt_8h_source_1l00271"/>00271 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">delete</emphasis>[]&#32;<link linkend="_class_c_spher_opt_1a5f268cc854a7de1995a54e9b73f87e2a">WPopCent</link>;
+<anchor xml:id="_spheropt_8h_source_1l00272"/>00272 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">delete</emphasis>[]&#32;<link linkend="_class_c_spher_opt_1a2598f95d32a6dcb9c25366f89f795912">WPopRad</link>;
+<anchor xml:id="_spheropt_8h_source_1l00273"/>00273 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_spheropt_8h_source_1l00274"/>00274 
+<anchor xml:id="_spheropt_8h_source_1l00280"/>00280 
+<anchor xml:id="_spheropt_8h_source_1l00281"/><link linkend="_class_c_spher_opt_1a9bda67c2fee53ca92fc6f90bd99b459d">00281</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_class_c_spher_opt_1a9bda67c2fee53ca92fc6f90bd99b459d">update</link>(&#32;<link linkend="_class_c_bite_rnd">CBiteRnd</link>&amp;&#32;rnd&#32;)
+<anchor xml:id="_spheropt_8h_source_1l00282"/>00282 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_spheropt_8h_source_1l00283"/>00283 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">static</emphasis>&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;WCent[&#32;4&#32;]&#32;=&#32;{&#32;4.5,&#32;6.0,&#32;7.5,&#32;10.0&#32;};
+<anchor xml:id="_spheropt_8h_source_1l00284"/>00284 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">static</emphasis>&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;WRad[&#32;4&#32;]&#32;=&#32;{&#32;14.0,&#32;16.0,&#32;18.0,&#32;20.0&#32;};
+<anchor xml:id="_spheropt_8h_source_1l00285"/>00285 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">static</emphasis>&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;EvalFacs[&#32;3&#32;]&#32;=&#32;{&#32;2.1,&#32;2.0,&#32;1.9&#32;};
+<anchor xml:id="_spheropt_8h_source_1l00286"/>00286 
+<anchor xml:id="_spheropt_8h_source_1l00287"/>00287 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;CentFac&#32;=&#32;WCent[&#32;<link linkend="_class_c_bite_opt_base_1abf93d2e584756812ad210f86e4f84a69">select</link>(&#32;<link linkend="_class_c_spher_opt_1a03ab19cfd5185229176166ccc011f160">CentPowSel</link>,&#32;rnd&#32;)];
+<anchor xml:id="_spheropt_8h_source_1l00288"/>00288 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;RadFac&#32;=&#32;WRad[&#32;<link linkend="_class_c_bite_opt_base_1abf93d2e584756812ad210f86e4f84a69">select</link>(&#32;<link linkend="_class_c_spher_opt_1a29f0077440e7edc368830ae2582181ac">RadPowSel</link>,&#32;rnd&#32;)];
+<anchor xml:id="_spheropt_8h_source_1l00289"/>00289 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_spher_opt_1a92e80374efa3c695155056dc9bed3001">EvalFac</link>&#32;=&#32;EvalFacs[&#32;<link linkend="_class_c_bite_opt_base_1abf93d2e584756812ad210f86e4f84a69">select</link>(&#32;<link linkend="_class_c_spher_opt_1adb977f181df718708fe31cce2f7ee20b">EvalFacSel</link>,&#32;rnd&#32;)];
+<anchor xml:id="_spheropt_8h_source_1l00290"/>00290 
+<anchor xml:id="_spheropt_8h_source_1l00291"/>00291 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;lm&#32;=&#32;1.0&#32;/&#32;<link linkend="_class_c_spher_opt_1ae47ab981059bd16abc005b6c35c90259">curem</link>;
+<anchor xml:id="_spheropt_8h_source_1l00292"/>00292 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;s1&#32;=&#32;0.0;
+<anchor xml:id="_spheropt_8h_source_1l00293"/>00293 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;s2&#32;=&#32;0.0;
+<anchor xml:id="_spheropt_8h_source_1l00294"/>00294 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;i;
+<anchor xml:id="_spheropt_8h_source_1l00295"/>00295 
+<anchor xml:id="_spheropt_8h_source_1l00296"/>00296 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;<link linkend="_class_c_bite_pop_1adc98fbdebc2671ef0826245d8c472cc5">CurPopSize</link>;&#32;i++&#32;)
+<anchor xml:id="_spheropt_8h_source_1l00297"/>00297 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_spheropt_8h_source_1l00298"/>00298 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;l&#32;=&#32;1.0&#32;-&#32;i&#32;*&#32;lm;
+<anchor xml:id="_spheropt_8h_source_1l00299"/>00299 
+<anchor xml:id="_spheropt_8h_source_1l00300"/>00300 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;v1&#32;=&#32;pow(&#32;l,&#32;CentFac&#32;);
+<anchor xml:id="_spheropt_8h_source_1l00301"/>00301 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_spher_opt_1a5f268cc854a7de1995a54e9b73f87e2a">WPopCent</link>[&#32;i&#32;]&#32;=&#32;v1;
+<anchor xml:id="_spheropt_8h_source_1l00302"/>00302 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;s1&#32;+=&#32;v1;
+<anchor xml:id="_spheropt_8h_source_1l00303"/>00303 
+<anchor xml:id="_spheropt_8h_source_1l00304"/>00304 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;v2&#32;=&#32;pow(&#32;l,&#32;RadFac&#32;);
+<anchor xml:id="_spheropt_8h_source_1l00305"/>00305 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_spher_opt_1a2598f95d32a6dcb9c25366f89f795912">WPopRad</link>[&#32;i&#32;]&#32;=&#32;v2;
+<anchor xml:id="_spheropt_8h_source_1l00306"/>00306 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;s2&#32;+=&#32;v2;
+<anchor xml:id="_spheropt_8h_source_1l00307"/>00307 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_spheropt_8h_source_1l00308"/>00308 
+<anchor xml:id="_spheropt_8h_source_1l00309"/>00309 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;s1&#32;=&#32;1.0&#32;/&#32;s1;
+<anchor xml:id="_spheropt_8h_source_1l00310"/>00310 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;s2&#32;=&#32;1.0&#32;/&#32;s2;
+<anchor xml:id="_spheropt_8h_source_1l00311"/>00311 
+<anchor xml:id="_spheropt_8h_source_1l00312"/>00312 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>*&#32;ip&#32;=&#32;<link linkend="_class_c_bite_pop_1a0c41790e473b70c5ec37986d0fb1f9a2">PopParams</link>[&#32;0&#32;];
+<anchor xml:id="_spheropt_8h_source_1l00313"/>00313 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>*&#32;<emphasis role="keyword">const</emphasis>&#32;cp&#32;=&#32;<link linkend="_class_c_bite_pop_1ac31d95bc1f383828e72bcf1eb499e949">CentParams</link>;
+<anchor xml:id="_spheropt_8h_source_1l00314"/>00314 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>*&#32;<emphasis role="keyword">const</emphasis>&#32;wc&#32;=&#32;<link linkend="_class_c_spher_opt_1a5f268cc854a7de1995a54e9b73f87e2a">WPopCent</link>;
+<anchor xml:id="_spheropt_8h_source_1l00315"/>00315 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;w&#32;=&#32;wc[&#32;0&#32;]&#32;*&#32;s1;
+<anchor xml:id="_spheropt_8h_source_1l00316"/>00316 
+<anchor xml:id="_spheropt_8h_source_1l00317"/>00317 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;<link linkend="_class_c_bite_pop_1a0dc6f7b3a19db513e349e68c3471f9fa">ParamCount</link>;&#32;i++&#32;)
+<anchor xml:id="_spheropt_8h_source_1l00318"/>00318 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_spheropt_8h_source_1l00319"/>00319 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cp[&#32;i&#32;]&#32;=&#32;ip[&#32;i&#32;]&#32;*&#32;w;
+<anchor xml:id="_spheropt_8h_source_1l00320"/>00320 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_spheropt_8h_source_1l00321"/>00321 
+<anchor xml:id="_spheropt_8h_source_1l00322"/>00322 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;j;
+<anchor xml:id="_spheropt_8h_source_1l00323"/>00323 
+<anchor xml:id="_spheropt_8h_source_1l00324"/>00324 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(&#32;j&#32;=&#32;1;&#32;j&#32;&lt;&#32;<link linkend="_class_c_bite_pop_1adc98fbdebc2671ef0826245d8c472cc5">CurPopSize</link>;&#32;j++&#32;)
+<anchor xml:id="_spheropt_8h_source_1l00325"/>00325 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_spheropt_8h_source_1l00326"/>00326 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ip&#32;=&#32;<link linkend="_class_c_bite_pop_1a0c41790e473b70c5ec37986d0fb1f9a2">PopParams</link>[&#32;j&#32;];
+<anchor xml:id="_spheropt_8h_source_1l00327"/>00327 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;w&#32;=&#32;wc[&#32;j&#32;]&#32;*&#32;s1;
+<anchor xml:id="_spheropt_8h_source_1l00328"/>00328 
+<anchor xml:id="_spheropt_8h_source_1l00329"/>00329 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;<link linkend="_class_c_bite_pop_1a0dc6f7b3a19db513e349e68c3471f9fa">ParamCount</link>;&#32;i++&#32;)
+<anchor xml:id="_spheropt_8h_source_1l00330"/>00330 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_spheropt_8h_source_1l00331"/>00331 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cp[&#32;i&#32;]&#32;+=&#32;ip[&#32;i&#32;]&#32;*&#32;w;
+<anchor xml:id="_spheropt_8h_source_1l00332"/>00332 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_spheropt_8h_source_1l00333"/>00333 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_spheropt_8h_source_1l00334"/>00334 
+<anchor xml:id="_spheropt_8h_source_1l00335"/>00335 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>*&#32;<emphasis role="keyword">const</emphasis>&#32;rc&#32;=&#32;<link linkend="_class_c_spher_opt_1a2598f95d32a6dcb9c25366f89f795912">WPopRad</link>;
+<anchor xml:id="_spheropt_8h_source_1l00336"/>00336 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_spher_opt_1a28e10a5d2dad5244fb97197e7e85095d">Radius</link>&#32;=&#32;0.0;
+<anchor xml:id="_spheropt_8h_source_1l00337"/>00337 
+<anchor xml:id="_spheropt_8h_source_1l00338"/>00338 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(&#32;j&#32;=&#32;0;&#32;j&#32;&lt;&#32;<link linkend="_class_c_bite_pop_1adc98fbdebc2671ef0826245d8c472cc5">CurPopSize</link>;&#32;j++&#32;)
+<anchor xml:id="_spheropt_8h_source_1l00339"/>00339 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_spheropt_8h_source_1l00340"/>00340 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ip&#32;=&#32;<link linkend="_class_c_bite_pop_1a0c41790e473b70c5ec37986d0fb1f9a2">PopParams</link>[&#32;j&#32;];
+<anchor xml:id="_spheropt_8h_source_1l00341"/>00341 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;s&#32;=&#32;0.0;
+<anchor xml:id="_spheropt_8h_source_1l00342"/>00342 
+<anchor xml:id="_spheropt_8h_source_1l00343"/>00343 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;<link linkend="_class_c_bite_pop_1a0dc6f7b3a19db513e349e68c3471f9fa">ParamCount</link>;&#32;i++&#32;)
+<anchor xml:id="_spheropt_8h_source_1l00344"/>00344 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_spheropt_8h_source_1l00345"/>00345 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;d&#32;=&#32;ip[&#32;i&#32;]&#32;-&#32;cp[&#32;i&#32;];
+<anchor xml:id="_spheropt_8h_source_1l00346"/>00346 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;s&#32;+=&#32;d&#32;*&#32;d;
+<anchor xml:id="_spheropt_8h_source_1l00347"/>00347 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_spheropt_8h_source_1l00348"/>00348 
+<anchor xml:id="_spheropt_8h_source_1l00349"/>00349 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_spher_opt_1a28e10a5d2dad5244fb97197e7e85095d">Radius</link>&#32;+=&#32;s&#32;*&#32;rc[&#32;j&#32;];
+<anchor xml:id="_spheropt_8h_source_1l00350"/>00350 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_spheropt_8h_source_1l00351"/>00351 
+<anchor xml:id="_spheropt_8h_source_1l00352"/>00352 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_spher_opt_1a28e10a5d2dad5244fb97197e7e85095d">Radius</link>&#32;=&#32;sqrt(&#32;<link linkend="_class_c_spher_opt_1a28e10a5d2dad5244fb97197e7e85095d">Radius</link>&#32;*&#32;s2&#32;);
+<anchor xml:id="_spheropt_8h_source_1l00353"/>00353 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_spheropt_8h_source_1l00354"/>00354 };
+<anchor xml:id="_spheropt_8h_source_1l00355"/>00355 
+<anchor xml:id="_spheropt_8h_source_1l00356"/>00356 <emphasis role="preprocessor">#endif&#32;</emphasis><emphasis role="comment">//&#32;SPHEROPT_INCLUDED</emphasis>
+</programlisting></section>

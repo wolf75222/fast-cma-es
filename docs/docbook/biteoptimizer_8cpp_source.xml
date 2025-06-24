@@ -1,0 +1,165 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_biteoptimizer_8cpp_source" xml:lang="en-US">
+<title>biteoptimizer.cpp</title>
+<indexterm><primary>_fcmaescpp/biteoptimizer.cpp</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_biteoptimizer_8cpp_source_1l00001"/>00001 <emphasis role="comment">//&#32;Copyright&#32;(c)&#32;Dietmar&#32;Wolz.</emphasis>
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00002"/>00002 <emphasis role="comment">//</emphasis>
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00003"/>00003 <emphasis role="comment">//&#32;This&#32;source&#32;code&#32;is&#32;licensed&#32;under&#32;the&#32;MIT&#32;license&#32;found&#32;in&#32;the</emphasis>
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00004"/>00004 <emphasis role="comment">//&#32;LICENSE&#32;file&#32;in&#32;the&#32;root&#32;directory.</emphasis>
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00005"/>00005 
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00006"/>00006 <emphasis role="preprocessor">#include&#32;&lt;Eigen/Core&gt;</emphasis>
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00007"/>00007 <emphasis role="preprocessor">#include&#32;&lt;iostream&gt;</emphasis>
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00008"/>00008 <emphasis role="preprocessor">#include&#32;&lt;float.h&gt;</emphasis>
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00009"/>00009 <emphasis role="preprocessor">#include&#32;&lt;ctime&gt;</emphasis>
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00010"/>00010 <emphasis role="preprocessor">#include&#32;&lt;random&gt;</emphasis>
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00011"/>00011 <emphasis role="preprocessor">#include&#32;&quot;<link linkend="_biteopt_8h">biteopt.h</link>&quot;</emphasis>
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00012"/>00012 <emphasis role="preprocessor">#include&#32;&quot;<link linkend="_evaluator_8h">evaluator.h</link>&quot;</emphasis>
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00013"/>00013 
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00014"/>00014 <emphasis role="keyword">using&#32;namespace&#32;</emphasis>std;
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00015"/>00015 
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00016"/><link linkend="_namespacebiteopt">00016</link> <emphasis role="keyword">namespace&#32;</emphasis><link linkend="_namespacebiteopt">biteopt</link>&#32;{
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00017"/>00017 
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00018"/><link linkend="_classbiteopt_1_1_bite_optimizer">00018</link> <emphasis role="keyword">class&#32;</emphasis><link linkend="_classbiteopt_1_1_bite_optimizer_1ac0abad8d3fbb5e91bba5c49b59a60e8b">BiteOptimizer</link>:&#32;<emphasis role="keyword">public</emphasis>&#32;<link linkend="_class_c_bite_opt_deep_1a65d5f650fd7eae9ae1d1cb76387a3179">CBiteOptDeep</link>&#32;{
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00019"/>00019 
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00020"/>00020 <emphasis role="keyword">public</emphasis>:
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00021"/>00021 
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00022"/><link linkend="_classbiteopt_1_1_bite_optimizer_1ac0abad8d3fbb5e91bba5c49b59a60e8b">00022</link> &#32;&#32;&#32;&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1ac0abad8d3fbb5e91bba5c49b59a60e8b">BiteOptimizer</link>(<emphasis role="keywordtype">long</emphasis>&#32;runid_,&#32;<link linkend="_class_fitness">Fitness</link>&#32;*fitfun_,&#32;<emphasis role="keywordtype">int</emphasis>&#32;dim_,&#32;<emphasis role="keywordtype">double</emphasis>&#32;*init_,
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00023"/>00023 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;seed_,&#32;<emphasis role="keywordtype">int</emphasis>&#32;M_,&#32;<emphasis role="keywordtype">int</emphasis>&#32;popsize,&#32;<emphasis role="keywordtype">int</emphasis>&#32;stallCriterion_,&#32;<emphasis role="keywordtype">int</emphasis>&#32;maxEvaluations_,&#32;<emphasis role="keywordtype">double</emphasis>&#32;stopfitness_)&#32;{
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00024"/>00024 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;runid&#32;used&#32;to&#32;identify&#32;a&#32;specific&#32;run</emphasis>
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00025"/>00025 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1aaf39fcde875f4ba2aabf9b881a46dab0">runid</link>&#32;=&#32;runid_;
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00026"/>00026 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;fitness&#32;function&#32;to&#32;minimize</emphasis>
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00027"/>00027 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1a0ee80e7c3878dae82aef5f9a532281ae">fitfun</link>&#32;=&#32;fitfun_;
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00028"/>00028 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;Number&#32;of&#32;objective&#32;variables/problem&#32;dimension</emphasis>
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00029"/>00029 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1a8e4b9fbc66dcb68d7afbfbdc9897c180">dim</link>&#32;=&#32;dim_;
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00030"/>00030 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;Depth&#32;to&#32;use,&#32;1&#32;for&#32;plain&#32;CBiteOpt&#32;algorithm,&#32;&gt;1&#32;for&#32;CBiteOptDeep.&#32;Expected&#32;range&#32;is&#32;[1;&#32;36].</emphasis>
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00031"/>00031 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1a388a1a6fb08111aa79aba41ac358ef96">M</link>&#32;=&#32;M_&#32;&gt;&#32;0&#32;?&#32;M_&#32;:&#32;1;
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00032"/>00032 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;terminate&#32;if&#32;stallCriterion_*128*evaluations&#32;stalled,&#32;if&#32;&lt;=&#32;0&#32;not&#32;used</emphasis>
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00033"/>00033 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1a710877c371d6154d8718ffadc82c220e">stallCriterion</link>&#32;=&#32;stallCriterion_&#32;&gt;&#32;0&#32;?&#32;stallCriterion_&#32;:&#32;0;
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00034"/>00034 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;maximal&#32;number&#32;of&#32;evaluations&#32;allowed.</emphasis>
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00035"/>00035 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1a202fcfa155957a158f3a3916753448a4">maxEvaluations</link>&#32;=&#32;maxEvaluations_&#32;&gt;&#32;0&#32;?&#32;maxEvaluations_&#32;:&#32;50000;
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00036"/>00036 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;Number&#32;of&#32;iterations&#32;already&#32;performed.</emphasis>
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00037"/>00037 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;Limit&#32;for&#32;fitness&#32;value.</emphasis>
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00038"/>00038 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1a8e2a405cc4f23f9f34e15236ac072721">stopfitness</link>&#32;=&#32;stopfitness_;
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00039"/>00039 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//std::random_device&#32;rd;</emphasis>
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00040"/>00040 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//rs&#32;=&#32;new&#32;Eigen::Rand::P8_mt19937_64(seed_);</emphasis>
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00041"/>00041 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1a6635331036d8d48e550a1a6716bacf33">rs</link>&#32;=&#32;<emphasis role="keyword">new</emphasis>&#32;pcg64(seed_);
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00042"/>00042 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;stop&#32;criteria</emphasis>
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00043"/>00043 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1a9fdbe319b90b1f86175cd924c9700302">stop</link>&#32;=&#32;0;
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00044"/>00044 
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00045"/>00045 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1a96feed5acebf4945e27d50cbcd8ef36f">iterations</link>&#32;=&#32;0;
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00046"/>00046 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1ae9c0069b5b67d537814be3f7f83c0293">bestY</link>&#32;=&#32;DBL_MAX;
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00047"/>00047 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1a4b393b354bee73e0c41973074118a1e5">rnd</link>.init(seed_);
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00048"/>00048 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_opt_deep_1a48ae954f715acc3433125af9b0abaa61">updateDims</link>(dim_,&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1a388a1a6fb08111aa79aba41ac358ef96">M</link>,&#32;popsize);
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00049"/>00049 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_opt_deep_1abeb2e2aa0929e9fb6741ac7b0892a31b">init</link>(<link linkend="_classbiteopt_1_1_bite_optimizer_1a4b393b354bee73e0c41973074118a1e5">rnd</link>,&#32;init_);
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00050"/>00050 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00051"/>00051 
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00052"/><link linkend="_classbiteopt_1_1_bite_optimizer_1a5774713fad3253b58a5b79f52586e072">00052</link> &#32;&#32;&#32;&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1a5774713fad3253b58a5b79f52586e072">~BiteOptimizer</link>()&#32;{
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00053"/>00053 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">delete</emphasis>&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1a6635331036d8d48e550a1a6716bacf33">rs</link>;
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00054"/>00054 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00055"/>00055 
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00056"/><link linkend="_classbiteopt_1_1_bite_optimizer_1a11148136b4a3eebd78d235eda7e3dff4">00056</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">virtual</emphasis>&#32;<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1a11148136b4a3eebd78d235eda7e3dff4">getMinValues</link>(<emphasis role="keywordtype">double</emphasis>&#32;*<emphasis role="keyword">const</emphasis>&#32;p)<emphasis role="keyword">&#32;const&#32;</emphasis>{
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00057"/>00057 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1a0ee80e7c3878dae82aef5f9a532281ae">fitfun</link>-&gt;getMinValues(p);
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00058"/>00058 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00059"/>00059 
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00060"/><link linkend="_classbiteopt_1_1_bite_optimizer_1a8d1716460571a9aef6f8206715a5a71c">00060</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">virtual</emphasis>&#32;<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1a8d1716460571a9aef6f8206715a5a71c">getMaxValues</link>(<emphasis role="keywordtype">double</emphasis>&#32;*<emphasis role="keyword">const</emphasis>&#32;p)<emphasis role="keyword">&#32;const&#32;</emphasis>{
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00061"/>00061 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1a0ee80e7c3878dae82aef5f9a532281ae">fitfun</link>-&gt;getMaxValues(p);
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00062"/>00062 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00063"/>00063 
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00064"/><link linkend="_classbiteopt_1_1_bite_optimizer_1a0244d5e664ac99fd264ebe908023ce0c">00064</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">virtual</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1a0244d5e664ac99fd264ebe908023ce0c">optcost</link>(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;*<emphasis role="keyword">const</emphasis>&#32;p)&#32;{
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00065"/>00065 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1a0ee80e7c3878dae82aef5f9a532281ae">fitfun</link>-&gt;eval(p)(0);
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00066"/>00066 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00067"/>00067 
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00068"/><link linkend="_classbiteopt_1_1_bite_optimizer_1a311b608ce3c0eea69d66615f22448279">00068</link> &#32;&#32;&#32;&#32;<link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1a311b608ce3c0eea69d66615f22448279">getBestX</link>()&#32;{
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00069"/>00069 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1a2eb7f354f8bc1aa1e4f5a001d3ecdc38">bestX</link>&#32;=&#32;<link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>(<link linkend="_classbiteopt_1_1_bite_optimizer_1a8e4b9fbc66dcb68d7afbfbdc9897c180">dim</link>);
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00070"/>00070 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;*bx&#32;=&#32;<link linkend="_class_c_bite_opt_deep_1a17c7c044ef259f3c68e2e47c53c043a3">getBestParams</link>();
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00071"/>00071 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1a8e4b9fbc66dcb68d7afbfbdc9897c180">dim</link>;&#32;i++)
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00072"/>00072 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1a2eb7f354f8bc1aa1e4f5a001d3ecdc38">bestX</link>[i]&#32;=&#32;bx[i];
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00073"/>00073 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1a2eb7f354f8bc1aa1e4f5a001d3ecdc38">bestX</link>;
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00074"/>00074 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00075"/>00075 
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00076"/><link linkend="_classbiteopt_1_1_bite_optimizer_1aa117da98db6b95c17836e1c0acb37d88">00076</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1aa117da98db6b95c17836e1c0acb37d88">getBestValue</link>()&#32;{
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00077"/>00077 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_class_c_bite_opt_deep_1a961516dc7772d327e64965fc3e07ce31">getBestCost</link>();
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00078"/>00078 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00079"/>00079 
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00080"/><link linkend="_classbiteopt_1_1_bite_optimizer_1a5ebdeb53261b8a3d0366f7dee30995e1">00080</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1a5ebdeb53261b8a3d0366f7dee30995e1">getIterations</link>()&#32;{
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00081"/>00081 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1a96feed5acebf4945e27d50cbcd8ef36f">iterations</link>;
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00082"/>00082 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00083"/>00083 
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00084"/><link linkend="_classbiteopt_1_1_bite_optimizer_1aa080b647a6dc4297f6be40f55e443dfb">00084</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1aa080b647a6dc4297f6be40f55e443dfb">getStop</link>()&#32;{
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00085"/>00085 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1a9fdbe319b90b1f86175cd924c9700302">stop</link>;
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00086"/>00086 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00087"/>00087 
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00088"/><link linkend="_classbiteopt_1_1_bite_optimizer_1a7f48d5b15bac207bebbc9492708fb3fd">00088</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1a7f48d5b15bac207bebbc9492708fb3fd">doOptimize</link>()&#32;{
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00089"/>00089 
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00090"/>00090 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;--------------------&#32;Generation&#32;Loop&#32;--------------------------------</emphasis>
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00091"/>00091 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<link linkend="_classbiteopt_1_1_bite_optimizer_1a96feed5acebf4945e27d50cbcd8ef36f">iterations</link>&#32;=&#32;1;&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1a0ee80e7c3878dae82aef5f9a532281ae">fitfun</link>-&gt;evaluations()&#32;&lt;&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1a202fcfa155957a158f3a3916753448a4">maxEvaluations</link>;
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00092"/>00092 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1a96feed5acebf4945e27d50cbcd8ef36f">iterations</link>++)&#32;{
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00093"/>00093 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;stallCount&#32;=&#32;<link linkend="_class_c_bite_opt_deep_1a5f9dce3d0bcb37dd0d63fec707204786">optimize</link>(<link linkend="_classbiteopt_1_1_bite_optimizer_1a4b393b354bee73e0c41973074118a1e5">rnd</link>);
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00094"/>00094 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_class_c_bite_opt_deep_1a961516dc7772d327e64965fc3e07ce31">getBestCost</link>()&#32;&lt;&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1a8e2a405cc4f23f9f34e15236ac072721">stopfitness</link>)&#32;{
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00095"/>00095 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1a9fdbe319b90b1f86175cd924c9700302">stop</link>&#32;=&#32;1;
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00096"/>00096 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00097"/>00097 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00098"/>00098 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_classbiteopt_1_1_bite_optimizer_1a710877c371d6154d8718ffadc82c220e">stallCriterion</link>&#32;&gt;&#32;0&#32;&amp;&amp;&#32;stallCount&#32;&gt;&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1a710877c371d6154d8718ffadc82c220e">stallCriterion</link>*128*<link linkend="_classbiteopt_1_1_bite_optimizer_1a8e4b9fbc66dcb68d7afbfbdc9897c180">dim</link>)&#32;{
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00099"/>00099 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1a9fdbe319b90b1f86175cd924c9700302">stop</link>&#32;=&#32;2;
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00100"/>00100 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00101"/>00101 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00102"/>00102 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00103"/>00103 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00104"/>00104 
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00105"/>00105 <emphasis role="keyword">private</emphasis>:
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00106"/><link linkend="_classbiteopt_1_1_bite_optimizer_1aaf39fcde875f4ba2aabf9b881a46dab0">00106</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">long</emphasis>&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1aaf39fcde875f4ba2aabf9b881a46dab0">runid</link>;
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00107"/><link linkend="_classbiteopt_1_1_bite_optimizer_1a0ee80e7c3878dae82aef5f9a532281ae">00107</link> &#32;&#32;&#32;&#32;<link linkend="_class_fitness">Fitness</link>&#32;*<link linkend="_classbiteopt_1_1_bite_optimizer_1a0ee80e7c3878dae82aef5f9a532281ae">fitfun</link>;
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00108"/><link linkend="_classbiteopt_1_1_bite_optimizer_1a388a1a6fb08111aa79aba41ac358ef96">00108</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1a388a1a6fb08111aa79aba41ac358ef96">M</link>;&#32;<emphasis role="comment">//&#32;deepness</emphasis>
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00109"/><link linkend="_classbiteopt_1_1_bite_optimizer_1a710877c371d6154d8718ffadc82c220e">00109</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1a710877c371d6154d8718ffadc82c220e">stallCriterion</link>;&#32;<emphasis role="comment">//&#32;terminate&#32;if&#32;f&#32;stallCriterion*128*evaluations&#32;stalled,&#32;if&#32;&lt;=&#32;0&#32;not&#32;used</emphasis>
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00110"/><link linkend="_classbiteopt_1_1_bite_optimizer_1a8e4b9fbc66dcb68d7afbfbdc9897c180">00110</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1a8e4b9fbc66dcb68d7afbfbdc9897c180">dim</link>;
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00111"/><link linkend="_classbiteopt_1_1_bite_optimizer_1a202fcfa155957a158f3a3916753448a4">00111</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1a202fcfa155957a158f3a3916753448a4">maxEvaluations</link>;
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00112"/><link linkend="_classbiteopt_1_1_bite_optimizer_1a8e2a405cc4f23f9f34e15236ac072721">00112</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1a8e2a405cc4f23f9f34e15236ac072721">stopfitness</link>;
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00113"/><link linkend="_classbiteopt_1_1_bite_optimizer_1a96feed5acebf4945e27d50cbcd8ef36f">00113</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1a96feed5acebf4945e27d50cbcd8ef36f">iterations</link>;
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00114"/><link linkend="_classbiteopt_1_1_bite_optimizer_1ae9c0069b5b67d537814be3f7f83c0293">00114</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1ae9c0069b5b67d537814be3f7f83c0293">bestY</link>;
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00115"/><link linkend="_classbiteopt_1_1_bite_optimizer_1a9fdbe319b90b1f86175cd924c9700302">00115</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1a9fdbe319b90b1f86175cd924c9700302">stop</link>;
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00116"/><link linkend="_classbiteopt_1_1_bite_optimizer_1a2eb7f354f8bc1aa1e4f5a001d3ecdc38">00116</link> &#32;&#32;&#32;&#32;<link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1a2eb7f354f8bc1aa1e4f5a001d3ecdc38">bestX</link>;
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00117"/><link linkend="_classbiteopt_1_1_bite_optimizer_1a6635331036d8d48e550a1a6716bacf33">00117</link> &#32;&#32;&#32;&#32;pcg64&#32;*<link linkend="_classbiteopt_1_1_bite_optimizer_1a6635331036d8d48e550a1a6716bacf33">rs</link>;
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00118"/><link linkend="_classbiteopt_1_1_bite_optimizer_1a4b393b354bee73e0c41973074118a1e5">00118</link> &#32;&#32;&#32;&#32;<link linkend="_class_c_bite_rnd">CBiteRnd</link>&#32;<link linkend="_classbiteopt_1_1_bite_optimizer_1a4b393b354bee73e0c41973074118a1e5">rnd</link>;
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00119"/>00119 };
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00120"/>00120 
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00121"/>00121 }
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00122"/>00122 
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00123"/>00123 <emphasis role="keyword">using&#32;namespace&#32;</emphasis><link linkend="_namespacebiteopt">biteopt</link>;
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00124"/>00124 
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00125"/>00125 <emphasis role="keyword">extern</emphasis>&#32;<emphasis role="stringliteral">&quot;C&quot;</emphasis>&#32;{
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00126"/><link linkend="_biteoptimizer_8cpp_1a3a44f6d1b82c40e137d534553af547b1">00126</link> <emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_biteoptimizer_8cpp_1a3a44f6d1b82c40e137d534553af547b1">optimizeBite_C</link>(<emphasis role="keywordtype">long</emphasis>&#32;runid,&#32;<link linkend="_evaluator_8h_1af419da391481d5e767cbe038009da309">callback_type</link>&#32;func,&#32;<emphasis role="keywordtype">int</emphasis>&#32;dim,&#32;<emphasis role="keywordtype">int</emphasis>&#32;seed,
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00127"/>00127 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;*init,&#32;<emphasis role="keywordtype">double</emphasis>&#32;*lower,&#32;<emphasis role="keywordtype">double</emphasis>&#32;*upper,&#32;<emphasis role="keywordtype">int</emphasis>&#32;maxEvals,
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00128"/>00128 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;stopfitness,&#32;<emphasis role="keywordtype">int</emphasis>&#32;M,&#32;<emphasis role="keywordtype">int</emphasis>&#32;popsize,&#32;<emphasis role="keywordtype">int</emphasis>&#32;stall_iterations,&#32;<emphasis role="keywordtype">double</emphasis>*&#32;res)&#32;{
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00129"/>00129 
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00130"/>00130 &#32;&#32;&#32;&#32;<link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;lower_limit(dim),&#32;upper_limit(dim);
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00131"/>00131 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(lower&#32;!=&#32;NULL&#32;&amp;&amp;&#32;upper&#32;!=&#32;NULL)&#32;{
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00132"/>00132 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;dim;&#32;i++)&#32;{
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00133"/>00133 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;lower_limit[i]&#32;=&#32;lower[i];
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00134"/>00134 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;upper_limit[i]&#32;=&#32;upper[i];
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00135"/>00135 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00136"/>00136 &#32;&#32;&#32;&#32;}&#32;<emphasis role="keywordflow">else</emphasis>&#32;{
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00137"/>00137 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;lower_limit.resize(0);
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00138"/>00138 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;upper_limit.resize(0);
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00139"/>00139 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00140"/>00140 
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00141"/>00141 &#32;&#32;&#32;&#32;<link linkend="_class_fitness">Fitness</link>&#32;fitfun(func,&#32;<link linkend="_evaluator_8h_1ac05c49788a31e5f7cb8efbe8ca3b548e">noop_callback_par</link>,&#32;&#32;dim,&#32;1,&#32;lower_limit,&#32;upper_limit);
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00142"/>00142 &#32;&#32;&#32;&#32;<link linkend="_classbiteopt_1_1_bite_optimizer">BiteOptimizer</link>&#32;opt(runid,&#32;&amp;fitfun,&#32;dim,&#32;init,&#32;seed,&#32;M,&#32;popsize,&#32;stall_iterations,&#32;maxEvals,
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00143"/>00143 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;stopfitness);
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00144"/>00144 
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00145"/>00145 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">try</emphasis>&#32;{
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00146"/>00146 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;opt.doOptimize();
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00147"/>00147 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;bestX&#32;=&#32;opt.getBestX();
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00148"/>00148 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;bestY&#32;=&#32;opt.getBestValue();
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00149"/>00149 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;dim;&#32;i++)
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00150"/>00150 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;res[i]&#32;=&#32;bestX[i];
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00151"/>00151 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;res[dim]&#32;=&#32;bestY;
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00152"/>00152 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;res[dim&#32;+&#32;1]&#32;=&#32;fitfun.<link linkend="_class_fitness_1aba60038eac4e0e15d995e57f4ba079e1">evaluations</link>();
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00153"/>00153 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;res[dim&#32;+&#32;2]&#32;=&#32;opt.getIterations();
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00154"/>00154 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;res[dim&#32;+&#32;3]&#32;=&#32;opt.getStop();
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00155"/>00155 &#32;&#32;&#32;&#32;}&#32;<emphasis role="keywordflow">catch</emphasis>&#32;(std::exception&#32;&amp;e)&#32;{
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00156"/>00156 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cout&#32;&lt;&lt;&#32;e.what()&#32;&lt;&lt;&#32;endl;
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00157"/>00157 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00158"/>00158 }
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00159"/>00159 }
+<anchor xml:id="_biteoptimizer_8cpp_source_1l00160"/>00160 
+</programlisting></section>

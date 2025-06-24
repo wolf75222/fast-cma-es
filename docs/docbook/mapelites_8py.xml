@@ -1,0 +1,211 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_mapelites_8py" xml:lang="en-US">
+<title>fcmaes/mapelites.py File Reference</title>
+<indexterm><primary>fcmaes/mapelites.py</primary></indexterm>
+<para>
+
+<para>============================================================================= </para>
+ 
+</para>
+<simplesect>
+    <title>Classes    </title>
+        <itemizedlist>
+            <listitem><para>class <link linkend="_classfcmaes_1_1mapelites_1_1_archive">fcmaes.mapelites.Archive</link></para>
+
+<para>Handles the storage, organization, and management of solutions in a multi-dimensional archive for Quality-Diversity optimization. </para>
+</listitem>
+            <listitem><para>class <link linkend="_classfcmaes_1_1mapelites_1_1wrapper">fcmaes.mapelites.wrapper</link></para>
+
+<para>A callable class designed to fit and evaluate a function with given inputs. </para>
+</listitem>
+            <listitem><para>class <link linkend="_classfcmaes_1_1mapelites_1_1in__niche__filter">fcmaes.mapelites.in_niche_filter</link></para>
+
+<para>Filters and evaluates data based on niche and fitness criteria. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Namespaces    </title>
+        <itemizedlist>
+            <listitem><para>namespace <link linkend="_namespacefcmaes">fcmaes</link></para>
+</listitem>
+            <listitem><para>namespace <link linkend="_namespacefcmaes_1_1mapelites">fcmaes.mapelites</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1_archive">Archive</link> <link linkend="_namespacefcmaes_1_1mapelites_1a028f687a02a53b2626abc9f046a77aa2">fcmaes.mapelites.optimize_map_elites</link> (Callable[[ArrayLike], Tuple[float, np.ndarray]] qd_fitness, Bounds bounds, Bounds qd_bounds, Optional[int] niche_num=4000, Optional[int] samples_per_niche=20, Optional[int] workers=mp.cpu_count(), Optional[int] iterations=100, Optional[<link linkend="_classfcmaes_1_1mapelites_1_1_archive">Archive</link>] archive=None, Optional[Dict] me_params={}, Optional[Dict] cma_params={}, Optional[bool] use_stats=False)</para>
+
+<para>Optimizes a map-elites evolutionary algorithm to find diverse and high-performing solutions by distributing samples into niches, iteratively evolving them, and maintaining an archive to store the found solutions. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1_archive">Archive</link> <link linkend="_namespacefcmaes_1_1mapelites_1a49c2831aa0bf9634663977bbd6321afc">fcmaes.mapelites.empty_archive</link> (int dim, Bounds qd_bounds, int niche_num, int samples_per_niche, Optional[bool] use_stats=False)</para>
+
+<para>Creates and initializes an archive for quality diversity (QD) experiments. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1mapelites_1ace0194d76906adbf0c0dd3db084f177c">fcmaes.mapelites.set_KDTree</link> (<link linkend="_classfcmaes_1_1mapelites_1_1_archive">Archive</link> archive, Optional[np.ndarray] centers=None, Optional[int] niche_num=None, Optional[Bounds] qd_bounds=None, Optional[int] samples_per_niche=100)</para>
+
+<para>Sets up a KDTree for the given archive using specified or default parameters. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1_archive">Archive</link> <link linkend="_namespacefcmaes_1_1mapelites_1a9430b58efcd2bccef1537defe6b7e8db">fcmaes.mapelites.load_archive</link> (str name, Bounds bounds, Bounds qd_bounds, Optional[int] niche_num=10000, Optional[bool] use_stats=False)</para>
+
+<para>Loads an archive based on the provided parameters. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1mapelites_1ad2ec9edcc53986935aa2f2e1127d458d">fcmaes.mapelites.optimize_map_elites_</link> (archive, fitness, bounds, workers, me_params, cma_params)</para>
+
+<para>Optimize a solution using Map-Elites algorithm via multi-processing. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1mapelites_1a04bcf57530df0bef091b00ceb8e9d44a">fcmaes.mapelites.run_map_elites_</link> (archive, fitness, bounds, rg, me_params, cma_params)</para>
+
+<para>Runs the MAP-Elites algorithm with optional SBX (Simulated Binary Crossover) or iso+line variation, followed by CMA-ES optimization. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1mapelites_1addca945e57b8fc097ca552903b98187f">fcmaes.mapelites.optimize_cma_</link> (archive, fitness, bounds, rg, cma_params)</para>
+
+<para>Optimizes a solution using the Covariance Matrix Adaptation Evolution Strategy (CMA-ES). </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1mapelites_1a86f7f0503dc82b70b87a882b49a95f23">fcmaes.mapelites.update_archive</link> (<link linkend="_classfcmaes_1_1mapelites_1_1_archive">Archive</link> archive, np.ndarray xs, Optional[Callable[[ArrayLike], Tuple[float, np.ndarray]]] fitness=None, Optional[ArrayLike] yds=None)</para>
+
+<para>Evaluates a population, updates the archive with new solutions, and determines rankings. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1mapelites_1a5c3c74816cffd5997c0f9e897205abc8">fcmaes.mapelites.get_grid_indices</link> (ds, capacity, lb, ub)</para>
+
+<para>Computes and returns grid indices for a dataset based on the provided grid capacity, lower, and upper bounds. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1mapelites_1a5f70b23800f6a77b08d918f5aa0f9b3d">fcmaes.mapelites.variation_</link> (pop, lower, upper, rg, dis_c=20, dis_m=20)</para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1mapelites_1aa557fd895bcaf40f495273ef16953c11">fcmaes.mapelites.iso_dd_</link> (x1, x2, lower, upper, rg, iso_sigma=0.01, line_sigma=0.2)</para>
+
+<para>Generates isotropic deviation data within specified bounds. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1mapelites_1a1cd72ab87d7aa999a255ad854895d3aa">fcmaes.mapelites.get_centers_</link> (niche_num, dim, samples_per_niche)</para>
+
+<para>Determines and returns the centers of niches in a defined space using k-means clustering. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Variables    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_namespacefcmaes_1_1mapelites_1ae3ff11934566d45300958dca5961a6ca">fcmaes.mapelites.rng</link> = default_rng()</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>============================================================================= </para>
+
+<para>Fast version 1.6.11</para>
+
+<para>(c) 2025 – Dietmar Wolz (c) 2025 – Latitude</para>
+
+<para>License MIT</para>
+
+<para><itemizedlist>
+<listitem>
+<para><link linkend="_mapelites_8py">mapelites.py</link></para>
+</listitem></itemizedlist>
+</para>
+
+<para><formalpara>
+<title>Description</title>
+<para><itemizedlist>
+<listitem>
+<para>Numpy based implementation of CVT MAP-Elites including CMA-ES emitter and CMA-ES drilldown. </para>
+</listitem></itemizedlist>
+</para>
+</formalpara>
+<para>
+
+<para><literallayout><computeroutput>&#32;&#32;&#32;See&#32;[2]&#32;<emphasis role="keywordflow">and</emphasis>&#32;[3]
+<emphasis role="preprocessor">@par</emphasis>
+</computeroutput></literallayout> MAP-Elites implementations differ in the following details: </para>
+</para>
+<para>
+
+<para>1) Initialisation of the behavior space: </para>
+</para>
+<para>
+
+<para>a) Generated from some solution distribution by applying the fitness function to determine their behavior. b) Generated from uniform samples of the behavior space. </para>
+</para>
+<para>
+
+<para>We use b) because random solutions may cover only parts of the behavior space. Some parts may only be reachable by optimization. Another reason: <link linkend="_class_fitness">Fitness</link> computations may be expensive. Therefore we don&apos;t compute fitness values for the initial solution population. </para>
+</para>
+<para>
+
+<para>2) Initialization of the niches: </para>
+</para>
+<para>
+
+<para>a) Generated from some solution distribution. b) Generated from uniform samples of the solution space. These solutions are never evaluated but serve as initial population for SBX or Iso+LineDD. Their associated fitness value is set to math.inf (infinity). </para>
+</para>
+<para>
+
+<para>We use b) because this way we:<itemizedlist>
+<listitem>
+<para>Avoid computing fitness values for the initial population.</para>
+</listitem><listitem>
+<para>Enhance the diversity of initial solutions emitted by SBX or Iso+LineDD. </para>
+</listitem></itemizedlist>
+</para>
+</para>
+<para>
+
+<para>3) Iso+LineDD [4] is implemented but doesn&apos;t work well with extremely ragged solution landscapes. Therefore SBX+mutation is the default setting. </para>
+</para>
+<para>
+
+<para>4) SBX (Simulated binary crossover) is taken from <link linkend="_mode_8py">mode.py</link> and simplified. It is combined with mutation. Both spread factors - for crossover and mutation - are randomized for each application. </para>
+</para>
+<para>
+
+<para>5) Candidates for CMA-ES are sampled with a bias to better niches. As for SBX only a subset of the archive is used, the worst niches are ignored. </para>
+</para>
+<para>
+
+<para>6) There is a CMA-ES drill down for specific niches - in this mode all solutions outside the niche are rejected. Restricted solution box bounds are used derived from statistics maintained by the archive during the addition of new solution candidates. </para>
+</para>
+<para>
+
+<para>7) The QD-archive uses shared memory to reduce inter-process communication overhead.</para>
+</para>
+<formalpara><title>Author</title>
+
+<para>:<itemizedlist>
+<listitem>
+<para>Dietmar Wolz <literallayout><computeroutput>-&#32;romain.despoullains<emphasis role="preprocessor">@latitude.eu</emphasis>
+-&#32;corentin.generet<emphasis role="preprocessor">@latitude.eu</emphasis>
+</computeroutput></literallayout></para>
+</listitem></itemizedlist>
+</para>
+</formalpara>
+<formalpara>
+<title>References</title>
+<para><itemizedlist>
+<listitem>
+<para>[1] <link xlink:href="https://github.com/dietmarwo/fast-cma-es">https://github.com/dietmarwo/fast-cma-es</link></para>
+</listitem><listitem>
+<para>[2] <link xlink:href="https://arxiv.org/abs/1610.05729">https://arxiv.org/abs/1610.05729</link></para>
+</listitem><listitem>
+<para>[3] <link xlink:href="https://arxiv.org/pdf/1912.02400.pdf">https://arxiv.org/pdf/1912.02400.pdf</link></para>
+</listitem><listitem>
+<para>[4] <link xlink:href="https://arxiv.org/pdf/1804.03906">https://arxiv.org/pdf/1804.03906</link></para>
+</listitem></itemizedlist>
+</para>
+</formalpara>
+<formalpara>
+<title>Documentation</title>
+<para><itemizedlist>
+<listitem></listitem></itemizedlist>
+</para>
+</formalpara>
+<informaltable frame='bottom'><tgroup cols='1'><colspec align='center'/><tbody><row><entry align='center'>
+</entry></row></tbody></tgroup></informaltable>
+ </para>
+<para>
+Definition in file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+</section>

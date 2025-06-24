@@ -1,0 +1,395 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_classfcmaes_1_1evaluator_1_1__fitness" xml:lang="en-US">
+<title>fcmaes.evaluator._fitness Class Reference</title>
+<indexterm><primary>fcmaes.evaluator._fitness</primary></indexterm>
+<para>
+
+<para>Represents a fitness evaluation system for optimization problems. </para>
+ 
+</para>
+Collaboration diagram for fcmaes.evaluator._fitness:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1evaluator_1_1__fitness__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Public Member Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1evaluator_1_1__fitness_1adff76348882223d9268c6768e5115ebe">__init__</link> (self, <link linkend="_classfcmaes_1_1evaluator_1_1__fitness_1af7c0600358aeaeefc43be1935db00c49">fun</link>, <link linkend="_classfcmaes_1_1evaluator_1_1__fitness_1a87bb609b86427fcd5228e0ab0b175ca0">lower</link>, <link linkend="_classfcmaes_1_1evaluator_1_1__fitness_1ab1b189d5d30d98b40ca9a05798b591f7">upper</link>, <link linkend="_classfcmaes_1_1evaluator_1_1__fitness_1a332f053ac10729fa524170bb51362b3e">normalize</link>=None)</para>
+
+<para>Initializes the class with a given function, lower and upper bounds, and an optional normalization flag. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1evaluator_1_1__fitness_1aa36396c7701eed3f5d8e84a14a111104">values</link> (self, Xs)</para>
+
+<para>Evaluates the given input values through the provided function while tracking the number of evaluations performed. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1evaluator_1_1__fitness_1a763742cf075aeb82ff147ef85a40c7a0">closestFeasible</link> (self, X)</para>
+
+<para>Finds and returns the closest feasible value(s) within the specified boundaries. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1evaluator_1_1__fitness_1a80ef3b0f3b67f83f4b72bce0f35b28b6">encode</link> (self, X)</para>
+
+<para>Encodes the input data X by either normalizing it based on provided scaling factors or leaving it unchanged depending on the normalization setting. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1evaluator_1_1__fitness_1a0461d372942bcc1d8a5a92bca09aace8">decode</link> (self, X)</para>
+
+<para>Decodes the given input using an optional normalization method. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Public Attributes    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1evaluator_1_1__fitness_1af7c0600358aeaeefc43be1935db00c49">fun</link> = fun</para>
+
+<para>The fitness function used to evaluate fitness values. </para>
+</listitem>
+            <listitem><para>int <link linkend="_classfcmaes_1_1evaluator_1_1__fitness_1a12e30e84b93a7ecd593b0358d92d8a0c">evaluation_counter</link> = 0</para>
+
+<para>Counter tracking the number of fitness evaluations performed. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1evaluator_1_1__fitness_1a87bb609b86427fcd5228e0ab0b175ca0">lower</link> = lower</para>
+
+<para>The lower bound for input values. </para>
+</listitem>
+            <listitem><para>bool <link linkend="_classfcmaes_1_1evaluator_1_1__fitness_1a332f053ac10729fa524170bb51362b3e">normalize</link> = False</para>
+
+<para>Indicates whether normalization of input values is applied. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1evaluator_1_1__fitness_1ab1b189d5d30d98b40ca9a05798b591f7">upper</link> = upper</para>
+
+<para>The upper bound for input values. </para>
+</listitem>
+            <listitem><para>float <link linkend="_classfcmaes_1_1evaluator_1_1__fitness_1a81d7f4f260b083112c1c7c06c28f1fa8">scale</link> = 0.5 * (<link linkend="_classfcmaes_1_1evaluator_1_1__fitness_1ab1b189d5d30d98b40ca9a05798b591f7">upper</link> - <link linkend="_classfcmaes_1_1evaluator_1_1__fitness_1a87bb609b86427fcd5228e0ab0b175ca0">lower</link>)</para>
+</listitem>
+            <listitem><para>float <link linkend="_classfcmaes_1_1evaluator_1_1__fitness_1a96f3612f153e1efc5b985b8c9b104e11">typx</link> = 0.5 * (<link linkend="_classfcmaes_1_1evaluator_1_1__fitness_1ab1b189d5d30d98b40ca9a05798b591f7">upper</link> + <link linkend="_classfcmaes_1_1evaluator_1_1__fitness_1a87bb609b86427fcd5228e0ab0b175ca0">lower</link>)</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>Represents a fitness evaluation system for optimization problems. </para>
+
+
+
+<para>This class encapsulates a fitness evaluation system that supports parallel evaluation, manages scaling and normalization of input values based on given bounds, and provides encoding and decoding mechanisms for the input values. It tracks the number of fitness evaluations performed and ensures that inputs conform to specified feasible bounds. </para>
+<para>
+Definition at line <link linkend="_evaluator_8py_source_1l00380">380</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+</section>
+<section>
+<title>Constructor &amp; Destructor Documentation</title>
+<anchor xml:id="_classfcmaes_1_1evaluator_1_1__fitness_1adff76348882223d9268c6768e5115ebe"/><section>
+    <title>__init__()</title>
+<indexterm><primary>__init__</primary><secondary>fcmaes.evaluator._fitness</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator._fitness</primary><secondary>__init__</secondary></indexterm>
+<para><computeroutput>fcmaes.evaluator._fitness.__init__ ( self,  fun,  lower,  upper,  normalize = <computeroutput>None</computeroutput>
+)</computeroutput></para><para>
+
+<para>Initializes the class with a given function, lower and upper bounds, and an optional normalization flag. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>fun</entry><entry>
+<para>A function object that defines the operation or behavior related to the instance of the class. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>lower</entry><entry>
+<para>A numeric value or an iterable defining the lower bounds for the </para>
+</entry>
+                            </row>
+                            <row>
+<entry>function.</entry><entry>
+<para></para>
+</entry>
+                            </row>
+                            <row>
+<entry>upper</entry><entry>
+<para>A numeric value or an iterable defining the upper bounds for the </para>
+</entry>
+                            </row>
+                            <row>
+<entry>function.</entry><entry>
+<para></para>
+</entry>
+                            </row>
+                            <row>
+<entry>normalize</entry><entry>
+<para>Optional; A boolean flag indicating whether the function&apos;s behavior should be normalized. Defaults to False. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_evaluator_8py_source_1l00411">411</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Function Documentation</title>
+<anchor xml:id="_classfcmaes_1_1evaluator_1_1__fitness_1a763742cf075aeb82ff147ef85a40c7a0"/><section>
+    <title>closestFeasible()</title>
+<indexterm><primary>closestFeasible</primary><secondary>fcmaes.evaluator._fitness</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator._fitness</primary><secondary>closestFeasible</secondary></indexterm>
+<para><computeroutput>fcmaes.evaluator._fitness.closestFeasible ( self,  X)</computeroutput></para><para>
+
+<para>Finds and returns the closest feasible value(s) within the specified boundaries. </para>
+</para>
+
+<para><literallayout><computeroutput>   If lower and upper bounds are defined, the value(s) are clipped between those
+   bounds. If normalization is enabled, the values are clipped between -1.0 and
+   1.0. Otherwise, the original value(s) are returned.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>X</entry><entry>
+<para>The value(s) to be adjusted to the closest feasible within the specified boundaries.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>The value(s) clipped to the closest feasible within the boundaries. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_evaluator_8py_source_1l00452">452</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1evaluator_1_1__fitness_1a0461d372942bcc1d8a5a92bca09aace8"/><section>
+    <title>decode()</title>
+<indexterm><primary>decode</primary><secondary>fcmaes.evaluator._fitness</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator._fitness</primary><secondary>decode</secondary></indexterm>
+<para><computeroutput>fcmaes.evaluator._fitness.decode ( self,  X)</computeroutput></para><para>
+
+<para>Decodes the given input using an optional normalization method. </para>
+</para>
+
+<para><literallayout><computeroutput>   If normalization is enabled, it applies a transformation to the input based on the provided
+   scale and typx values. Otherwise, it returns the input as is.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>X</entry><entry>
+<para>Input data to decode.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>The decoded data. If normalization is enabled, it will be adjusted using the defined scale and typx values. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_evaluator_8py_source_1l00491">491</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1evaluator_1_1__fitness_1a80ef3b0f3b67f83f4b72bce0f35b28b6"/><section>
+    <title>encode()</title>
+<indexterm><primary>encode</primary><secondary>fcmaes.evaluator._fitness</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator._fitness</primary><secondary>encode</secondary></indexterm>
+<para><computeroutput>fcmaes.evaluator._fitness.encode ( self,  X)</computeroutput></para><para>
+
+<para>Encodes the input data X by either normalizing it based on provided scaling factors or leaving it unchanged depending on the normalization setting. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>X</entry><entry>
+<para>Input data to encode.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>The encoded data, normalized if the <computeroutput>normalize</computeroutput> attribute is set to True, otherwise the original input. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_evaluator_8py_source_1l00472">472</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1evaluator_1_1__fitness_1aa36396c7701eed3f5d8e84a14a111104"/><section>
+    <title>values()</title>
+<indexterm><primary>values</primary><secondary>fcmaes.evaluator._fitness</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator._fitness</primary><secondary>values</secondary></indexterm>
+<para><computeroutput>fcmaes.evaluator._fitness.values ( self,  Xs)</computeroutput></para><para>
+
+<para>Evaluates the given input values through the provided function while tracking the number of evaluations performed. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>Xs</entry><entry>
+<para>Input values for which the function is evaluated.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>np An array containing the evaluated results. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_evaluator_8py_source_1l00433">433</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1evaluator_1_1__fitness_aa36396c7701eed3f5d8e84a14a111104_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+<section>
+<title>Member Data Documentation</title>
+<anchor xml:id="_classfcmaes_1_1evaluator_1_1__fitness_1a12e30e84b93a7ecd593b0358d92d8a0c"/><section>
+    <title>evaluation_counter</title>
+<indexterm><primary>evaluation_counter</primary><secondary>fcmaes.evaluator._fitness</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator._fitness</primary><secondary>evaluation_counter</secondary></indexterm>
+<para><computeroutput>int fcmaes.evaluator._fitness.evaluation_counter = 0</computeroutput></para><para>
+
+<para>Counter tracking the number of fitness evaluations performed. </para>
+</para>
+<para>
+Definition at line <link linkend="_evaluator_8py_source_1l00413">413</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1evaluator_1_1__fitness_1af7c0600358aeaeefc43be1935db00c49"/><section>
+    <title>fun</title>
+<indexterm><primary>fun</primary><secondary>fcmaes.evaluator._fitness</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator._fitness</primary><secondary>fun</secondary></indexterm>
+<para><computeroutput>fcmaes.evaluator._fitness.fun = fun</computeroutput></para><para>
+
+<para>The fitness function used to evaluate fitness values. </para>
+</para>
+<para>
+Definition at line <link linkend="_evaluator_8py_source_1l00412">412</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1evaluator_1_1__fitness_1a87bb609b86427fcd5228e0ab0b175ca0"/><section>
+    <title>lower</title>
+<indexterm><primary>lower</primary><secondary>fcmaes.evaluator._fitness</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator._fitness</primary><secondary>lower</secondary></indexterm>
+<para><computeroutput>fcmaes.evaluator._fitness.lower = lower</computeroutput></para><para>
+
+<para>The lower bound for input values. </para>
+</para>
+
+<para>Can be <computeroutput>None</computeroutput> if no lower bound is defined. </para>
+<para>
+Definition at line <link linkend="_evaluator_8py_source_1l00414">414</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1evaluator_1_1__fitness_1a332f053ac10729fa524170bb51362b3e"/><section>
+    <title>normalize</title>
+<indexterm><primary>normalize</primary><secondary>fcmaes.evaluator._fitness</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator._fitness</primary><secondary>normalize</secondary></indexterm>
+<para><computeroutput>bool fcmaes.evaluator._fitness.normalize = False</computeroutput></para><para>
+
+<para>Indicates whether normalization of input values is applied. </para>
+</para>
+<para>
+Definition at line <link linkend="_evaluator_8py_source_1l00415">415</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1evaluator_1_1__fitness_1a81d7f4f260b083112c1c7c06c28f1fa8"/><section>
+    <title>scale</title>
+<indexterm><primary>scale</primary><secondary>fcmaes.evaluator._fitness</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator._fitness</primary><secondary>scale</secondary></indexterm>
+<para><computeroutput>fcmaes.evaluator._fitness.scale = 0.5 * (<link linkend="_classfcmaes_1_1evaluator_1_1__fitness_1ab1b189d5d30d98b40ca9a05798b591f7">upper</link> - <link linkend="_classfcmaes_1_1evaluator_1_1__fitness_1a87bb609b86427fcd5228e0ab0b175ca0">lower</link>)</computeroutput></para><para>
+Definition at line <link linkend="_evaluator_8py_source_1l00420">420</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1evaluator_1_1__fitness_1a96f3612f153e1efc5b985b8c9b104e11"/><section>
+    <title>typx</title>
+<indexterm><primary>typx</primary><secondary>fcmaes.evaluator._fitness</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator._fitness</primary><secondary>typx</secondary></indexterm>
+<para><computeroutput>fcmaes.evaluator._fitness.typx = 0.5 * (<link linkend="_classfcmaes_1_1evaluator_1_1__fitness_1ab1b189d5d30d98b40ca9a05798b591f7">upper</link> + <link linkend="_classfcmaes_1_1evaluator_1_1__fitness_1a87bb609b86427fcd5228e0ab0b175ca0">lower</link>)</computeroutput></para><para>
+Definition at line <link linkend="_evaluator_8py_source_1l00421">421</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1evaluator_1_1__fitness_1ab1b189d5d30d98b40ca9a05798b591f7"/><section>
+    <title>upper</title>
+<indexterm><primary>upper</primary><secondary>fcmaes.evaluator._fitness</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator._fitness</primary><secondary>upper</secondary></indexterm>
+<para><computeroutput>fcmaes.evaluator._fitness.upper = upper</computeroutput></para><para>
+
+<para>The upper bound for input values. </para>
+</para>
+
+<para>Can be <computeroutput>None</computeroutput> if no upper bound is defined. </para>
+<para>
+Definition at line <link linkend="_evaluator_8py_source_1l00419">419</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+</section>
+<para>
+The documentation for this class was generated from the following file:</para>
+fcmaes/<link linkend="_evaluator_8py">evaluator.py</link></section>
+</section>

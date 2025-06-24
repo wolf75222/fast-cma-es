@@ -1,0 +1,2462 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_classfcmaes_1_1mapelites_1_1_archive" xml:lang="en-US">
+<title>fcmaes.mapelites.Archive Class Reference</title>
+<indexterm><primary>fcmaes.mapelites.Archive</primary></indexterm>
+<para>
+
+<para>Handles the storage, organization, and management of solutions in a multi-dimensional archive for Quality-Diversity optimization. </para>
+ 
+</para>
+Collaboration diagram for fcmaes.mapelites.Archive:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mapelites_1_1_archive__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Public Member Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1_archive_1ae996ab317d60b697d3c339df9335a60f">__init__</link> (self, int <link linkend="_classfcmaes_1_1mapelites_1_1_archive_1ab255103df42bedc30ec7132cfc618122">dim</link>, Bounds <link linkend="_classfcmaes_1_1mapelites_1_1_archive_1aaf23b4a84332dd3988c05887f896bdb3">qd_bounds</link>, int <link linkend="_classfcmaes_1_1mapelites_1_1_archive_1a543edcd72de56099d1f83c9dcd79e082">capacity</link>, Optional[str] <link linkend="_classfcmaes_1_1mapelites_1_1_archive_1a41d911980a52f7f5c409af9b3a258124">name</link>=&quot;&quot;, <link linkend="_classfcmaes_1_1mapelites_1_1_archive_1a1d6bb3c3d671d59cd6c48cc30574652d">use_stats</link>=False)</para>
+
+<para>Initializes an instance of the class with specified parameters. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1_archive_1adae25149d74e878d190a51a3075af9bc">reset</link> (self)</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1_archive_1ac93d7c0f2200637a996a7b2802ff2e4b">init_niches</link> (self, int samples_per_niche=10)</para>
+
+<para>Initializes niches for clustering based on the specified sampling method and parameters. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1_archive_1ad4060a6948b61fe981b124afc8c12ba4">get_occupied_data</link> (self)</para>
+
+<para>Retrieves the data points marked as &quot;occupied&quot;. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1_archive_1a7374d1c9c1cc25dbe1e472f9a01360da">join</link> (self, <link linkend="_classfcmaes_1_1mapelites_1_1_archive">Archive</link> archive)</para>
+
+<para>Joins data from the given archive into the current archive by retrieving and processing occupied data, assigning it to corresponding niches, and sorting the archive. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1_archive_1a57b4373d065065bf5d4dbc7cc312c092">fname</link> (self, <link linkend="_classfcmaes_1_1mapelites_1_1_archive_1a41d911980a52f7f5c409af9b3a258124">name</link>)</para>
+
+<para>Generates a formatted string using name, capacity, dimension, and quality-dimension values for a specific architecture. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1_archive_1aedbfd9567b2d8da13a94da232465aa42">save</link> (self, str <link linkend="_classfcmaes_1_1mapelites_1_1_archive_1a41d911980a52f7f5c409af9b3a258124">name</link>)</para>
+
+<para>Saves the processed data and corresponding metadata in a compressed NPZ format. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1_archive_1a62da9c6f511c298d1ef06d6af7600196">load</link> (self, str <link linkend="_classfcmaes_1_1mapelites_1_1_archive_1a41d911980a52f7f5c409af9b3a258124">name</link>)</para>
+
+<para>Loads data from a specified file into the current object, initializing or updating its properties and attributes. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1_archive_1ab4f4023cb427da5cbedcf919c4641bfa">index_of_niches</link> (self, <link linkend="_classfcmaes_1_1mapelites_1_1_archive_1a60f70e50d917a1db752b0a0124a8e756">ds</link>)</para>
+
+<para>Determines the indices of the niches for the given data samples (ds) based on the clustering method used (either k-means clusters or grid-based clustering). </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1_archive_1ac73f5b05c273a6238d1da2d70603b2af">in_niche_filter</link> (self, Callable[[ArrayLike], float] fit, int index)</para>
+
+<para>Filters an element based on its fitness and niche index. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1_archive_1a82cd0403d58fbb41ef29c2cfb6ac74f7">set</link> (self, int i, np.ndarray yd, np.ndarray x)</para>
+
+<para>Updates statistical data and modifies the internal data store with the given values if certain conditions are met (e.g., improvement in objective value <computeroutput>y</computeroutput>). </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1_archive_1a9aaaf43220a388cc81d0750b7849dbdc">update_stats</link> (self, int i, np.ndarray x)</para>
+
+<para>Updates the statistical information for the given index and array input. </para>
+</listitem>
+            <listitem><para>int <link linkend="_classfcmaes_1_1mapelites_1_1_archive_1a7d6497547e738f46792eed929c0eb09c">get_occupied</link> (self)</para>
+
+<para>Retrieves the current number of occupied spaces from the associated value. </para>
+</listitem>
+            <listitem><para>int <link linkend="_classfcmaes_1_1mapelites_1_1_archive_1af0512120043e652b080fc57f7f9bc34e">get_count</link> (self, int i)</para>
+
+<para>Get the count for a specific index. </para>
+</listitem>
+            <listitem><para>np.ndarray <link linkend="_classfcmaes_1_1mapelites_1_1_archive_1abfbc79753a308a9880da632d96b37d5c">get_counts</link> (self)</para>
+
+<para>Retrieves a copy of the <computeroutput>counts</computeroutput> as a NumPy array. </para>
+</listitem>
+            <listitem><para>np.ndarray <link linkend="_classfcmaes_1_1mapelites_1_1_archive_1a240c31cf1f2a4a8f2fe6bef3ece80206">get_x_mean</link> (self, int i)</para>
+
+<para>Calculates and retrieves the mean value for a specific index of data. </para>
+</listitem>
+            <listitem><para>np.ndarray <link linkend="_classfcmaes_1_1mapelites_1_1_archive_1a12befeeecf65003f61a073520070a4d7">get_x_stdev</link> (self, int i)</para>
+
+<para>Calculates the standard deviation of x for a given identifier. </para>
+</listitem>
+            <listitem><para>np.ndarray <link linkend="_classfcmaes_1_1mapelites_1_1_archive_1a864352039c770d3095a4c68c67c07cc6">get_x_min</link> (self, int i)</para>
+
+<para>Gets the minimum x-coordinate value from a statistical data set. </para>
+</listitem>
+            <listitem><para>np.ndarray <link linkend="_classfcmaes_1_1mapelites_1_1_archive_1ae14fb3f28ebc29cc2356048a91d8e072">get_x_max</link> (self, int i)</para>
+
+<para>Returns the maximum value of the &apos;x&apos; statistic for the specified index. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1_archive_1a3976d13396ea59523d79e16b7d96f448">create_views</link> (self)</para>
+
+<para>Creates views for the attributes within the target process. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1_archive_1a4c0b220309e8100c4a104b29b9ca4898">encode_d</link> (self, d)</para>
+
+<para>Encodes the given value using the specified scale and lower bound. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1_archive_1ae916520d6c7090a4aebb511b782f003c">decode_d</link> (self, d)</para>
+
+<para>Decodes a given value <computeroutput>d</computeroutput> using the object&apos;s scaling factor and lower bound. </para>
+</listitem>
+            <listitem><para>np.ndarray <link linkend="_classfcmaes_1_1mapelites_1_1_archive_1a052f1f8d58ffc784ec8ee16aca535a14">get_xs</link> (self)</para>
+
+<para>Gets a view of the <computeroutput>xs</computeroutput> attribute. </para>
+</listitem>
+            <listitem><para>np.ndarray <link linkend="_classfcmaes_1_1mapelites_1_1_archive_1af91d2fd25aee22c7bcc46b2c5cad0092">get_ds</link> (self)</para>
+
+<para>Returns a view of the <computeroutput>ds</computeroutput> attribute. </para>
+</listitem>
+            <listitem><para>float <link linkend="_classfcmaes_1_1mapelites_1_1_archive_1ac9390a3bfd798bdb09d79476ed6c6584">get_y</link> (self, int i)</para>
+
+<para>Retrieves the y-coordinate value at a given index from the list of y-values. </para>
+</listitem>
+            <listitem><para>np.ndarray <link linkend="_classfcmaes_1_1mapelites_1_1_archive_1a91c9f1ac5485896833fc7b9859b85af1">get_ys</link> (self)</para>
+
+<para>Returns a copy of the <computeroutput>ys</computeroutput> array. </para>
+</listitem>
+            <listitem><para>float <link linkend="_classfcmaes_1_1mapelites_1_1_archive_1a50c9e9bac3b339e4158614dad396bb18">get_qd_score</link> (self)</para>
+
+<para>Calculates the QD (Quality-Diversity) score based on the provided array of values. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1_archive_1afc25798d5b07a1addd68fc50cec1f3e5">set_y</link> (self, int i, float y)</para>
+
+<para>Updates the <computeroutput>ys</computeroutput> attribute at the specified index with a new value. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1_archive_1a06c36a088a4f1f50b63e7d0cdf1dcc40">set_ys</link> (self, ArrayLike <link linkend="_classfcmaes_1_1mapelites_1_1_archive_1acb4c09718b6457bb5bfbb7f3773f7178">ys</link>)</para>
+
+<para>Sets multiple y-values for the object by iterating over the provided array-like collection. </para>
+</listitem>
+            <listitem><para>float <link linkend="_classfcmaes_1_1mapelites_1_1_archive_1ad3c852a54d31d2126b5f233e7d2fd7bb">get_c</link> (self, int i)</para>
+
+<para>Retrieves a slice of the <computeroutput>cs</computeroutput> list for the given index. </para>
+</listitem>
+            <listitem><para>np.ndarray <link linkend="_classfcmaes_1_1mapelites_1_1_archive_1a9884e6696809729e69a167c91d245464">get_cs</link> (self)</para>
+
+<para>Generates an array of results produced by the <computeroutput>get_c</computeroutput> method for a range of indices. </para>
+</listitem>
+            <listitem><para>np.ndarray <link linkend="_classfcmaes_1_1mapelites_1_1_archive_1abf4f2d32b118fa044a6eb99d9b508c1f">get_cs_decoded</link> (self)</para>
+
+<para>Returns decoded data using the decode_d method. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1_archive_1acb89d9fdd7c875d487477a461c3585f7">set_c</link> (self, int i, float c)</para>
+
+<para>Sets the values of a specific segment of the &apos;cs&apos; attribute. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1_archive_1a7b98c28bd774c39099d0e41b1c38459d">set_cs</link> (self, ArrayLike <link linkend="_classfcmaes_1_1mapelites_1_1_archive_1a2421ccea4dec3cbb9bef589d1a3209f9">cs</link>)</para>
+
+<para>Sets the values from the provided array-like object to the internal structure by calling <computeroutput>set_c</computeroutput> method for each element of the array-like object. </para>
+</listitem>
+            <listitem><para>float <link linkend="_classfcmaes_1_1mapelites_1_1_archive_1a4a9c0d92560064a154b7bbcf1d537480">get_stat</link> (self, int i, int j)</para>
+
+<para>Retrieves a specific statistical value for given indices i and j. </para>
+</listitem>
+            <listitem><para>np.ndarray <link linkend="_classfcmaes_1_1mapelites_1_1_archive_1a97f1345584f4d25bd8a24af6cb7d7e4c">get_stats</link> (self)</para>
+
+<para>Returns a copy of the stats data as a NumPy array. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1_archive_1a574aed6e61fc20fb94b479cb8fd5fc55">set_stat</link> (self, int i, int j, ArrayLike stat)</para>
+
+<para>Sets a specific portion of the stats array based on the given indices and data. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1_archive_1a0e469ed5be63b9dd87ea220095b620b8">set_stats</link> (self, ArrayLike <link linkend="_classfcmaes_1_1mapelites_1_1_archive_1ada2a26ca8d9683a969403f104a759c61">stats</link>)</para>
+
+<para>Sets the statistics for the object. </para>
+</listitem>
+            <listitem><para>np.ndarray <link linkend="_classfcmaes_1_1mapelites_1_1_archive_1a5721ccf23e8de4509bc3a9e996e1861a">random_xs</link> (self, int best_n, int chunk_size, Generator rg)</para>
+
+<para>Generates a random selection of indices and returns corresponding elements from the view. </para>
+</listitem>
+            <listitem><para>Tuple[np.ndarray, float, int] <link linkend="_classfcmaes_1_1mapelites_1_1_archive_1a691e8315e1b9c8d92b67520216c72cdf">random_xs_one</link> (self, int best_n, Generator rg)</para>
+
+<para>Selects and retrieves random elements based on the given range and size. </para>
+</listitem>
+            <listitem><para>np.ndarray <link linkend="_classfcmaes_1_1mapelites_1_1_archive_1abf0a5f4c90fb9600c527281e0e6b37bf">argsort</link> (self)</para>
+
+<para>Sorts the indices of the array returned by <computeroutput><link linkend="_classfcmaes_1_1mapelites_1_1_archive_1a91c9f1ac5485896833fc7b9859b85af1">get_ys()</link></computeroutput> in ascending order. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1_archive_1a0bcd8007cc5cf709da8ccc42aa2c46eb">dump</link> (self, Optional[int] n=None)</para>
+
+<para>Prints a sorted dump of data points up to the specified limit. </para>
+</listitem>
+            <listitem><para>str <link linkend="_classfcmaes_1_1mapelites_1_1_archive_1a4299111d24891cea4a03c19f28360923">info</link> (self)</para>
+
+<para>Generates a formatted string containing key metrics. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Public Attributes    </title>
+        <itemizedlist>
+            <listitem><para>(p+1) *self.dim] <link linkend="_classfcmaes_1_1mapelites_1_1_archive_1ab255103df42bedc30ec7132cfc618122">dim</link> = dim</para>
+
+<para>Dimensionality of the solution vectors. </para>
+</listitem>
+            <listitem><para>(i+1) *self.qd_dim] <link linkend="_classfcmaes_1_1mapelites_1_1_archive_1a7321ff2715dbc2d3258e2e880d48ef43">qd_dim</link> = len(qd_bounds.lb)</para>
+
+<para>Dimensionality of the quality-diversity descriptors. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1_archive_1aaf23b4a84332dd3988c05887f896bdb3">qd_bounds</link> = Bounds(np.array(qd_bounds.lb), np.array(qd_bounds.ub))</para>
+
+<para>Bounds for the quality-diversity descriptors. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1_archive_1acef7919c3b7f9798628857f25de27d3c">desc_lb</link> = self.qd_bounds.lb</para>
+
+<para>Lower bounds for the descriptors. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1_archive_1ae3f63fce62db86da46ee146bf27293c3">desc_scale</link> = self.qd_bounds.ub - self.qd_bounds.lb</para>
+
+<para>Scale of the descriptor bounds, calculated as. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1_archive_1a543edcd72de56099d1f83c9dcd79e082">capacity</link> = capacity</para>
+
+<para>Maximum capacity of the archive in terms of number. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1_archive_1a41d911980a52f7f5c409af9b3a258124">name</link> = name</para>
+
+<para>Optional name for the archive. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1_archive_1a2421ccea4dec3cbb9bef589d1a3209f9">cs</link> = None</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1_archive_1abbcf8dde9401f4b34d4669a064e12373">lock</link> = mp.Lock()</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1_archive_1a1d6bb3c3d671d59cd6c48cc30574652d">use_stats</link> = use_stats</para>
+
+<para>Flag to determine if solution statistics such as. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1_archive_1a55043a25e987ca5ad6f1cfaf22c835a2">xs</link> = <link linkend="_classfcmaes_1_1retry_1_1_shared2d">Shared2d</link>(np.empty((self.capacity, self.dim), dtype = np.float64))</para>
+
+<para>Resets the internal state of the object to its initial configuration by reinitializing its shared data structures and clearing any stored values. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1_archive_1a60f70e50d917a1db752b0a0124a8e756">ds</link> = <link linkend="_classfcmaes_1_1retry_1_1_shared2d">Shared2d</link>(np.empty((self.capacity, self.qd_dim), dtype = np.float64))</para>
+
+<para>A 2D shared array initialized with an empty array of shape <computeroutput>(capacity, qd_dim)</computeroutput> and data type <computeroutput>np.float64</computeroutput>. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1_archive_1acb4c09718b6457bb5bfbb7f3773f7178">ys</link> = mp.RawArray(ct.c_double, self.capacity)</para>
+
+<para>A 1D shared array initialized to hold float values, representing additional numeric data. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1_archive_1a17848162fe39d036fbc93aa58cc77b50">counts</link> = mp.RawArray(ct.c_long, self.capacity)</para>
+
+<para>A 1D shared array initialized to hold integer long values, used to maintain counts for each capacity slot. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1_archive_1ab1c9fa575d5a8225ba10e8a40fd0d59b">occupied</link> = mp.RawValue(ct.c_long, 0)</para>
+
+<para>A shared value for tracking the count of currently occupied slots in the storage. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1_archive_1ada2a26ca8d9683a969403f104a759c61">stats</link> = mp.RawArray(ct.c_double, self.capacity * self.dim * 4 if self.use_stats else 0)</para>
+
+<para>An optional shared array for maintaining statistical records. </para>
+</listitem>
+            <listitem><para>int <link linkend="_classfcmaes_1_1mapelites_1_1_archive_1ab750559fbd8fab712d01cf489c8d8cb9">cvt_clustering</link> = samples_per_niche &gt; 0</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1_archive_1aa7d0f9677d34b82ef42b01e551011a4a">centers</link> = mp.RawArray(ct.c_double, self.capacity * self.qd_dim)</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1_archive_1a6b4ef0e37ad2c67546dfbab83913c402">index_of_niches</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1_archive_1a6cbf2375b7948682ad57e3ef3d2f1dcb">xs_view</link> = self.xs.view()</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1_archive_1aba20d5a20cc178e6aa4f14538b54334f">ds_view</link> = self.ds.view()</para>
+</listitem>
+            <listitem><para>np.ndarray <link linkend="_classfcmaes_1_1mapelites_1_1_archive_1aa1482261105e35a39ca342dd76b15a18">si</link> = np.argsort(self.get_ys())</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>Handles the storage, organization, and management of solutions in a multi-dimensional archive for Quality-Diversity optimization. </para>
+
+
+
+<para>The <link linkend="_classfcmaes_1_1mapelites_1_1_archive">Archive</link> class allows for storing solutions with associated features and fitness values, clustering them into niches, and updating the archive based on improvements to the corresponding niches. The class also provides methods to retrieve statistical data on stored solutions as well as mechanisms for saving/loading the archive state.</para>
+
+<para><literallayout><computeroutput>        mean, standard deviation, min, max, etc., should be collected.
+</computeroutput></literallayout> </para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l00494">494</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+<section>
+<title>Constructor &amp; Destructor Documentation</title>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1ae996ab317d60b697d3c339df9335a60f"/><section>
+    <title>__init__()</title>
+<indexterm><primary>__init__</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>__init__</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.Archive.__init__ ( self, int dim, Bounds qd_bounds, int capacity, Optional[str]  name = <computeroutput>&quot;&quot;</computeroutput>
+,  use_stats = <computeroutput>False</computeroutput>
+)</computeroutput></para><para>
+
+<para>Initializes an instance of the class with specified parameters. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>dim</entry><entry>
+<para>Dimensionality of the data to be handled. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>qd_bounds</entry><entry>
+<para>An object representing the lower and upper bounds for the QD space. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>capacity</entry><entry>
+<para>Maximum capacity or size to store elements. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>name</entry><entry>
+<para>Optional string name identifier for the instance. Defaults to an empty string. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>use_stats</entry><entry>
+<para>Indicates whether to use statistics in computations or operations. Defaults to False. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l00537">537</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Function Documentation</title>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1abf0a5f4c90fb9600c527281e0e6b37bf"/><section>
+    <title>argsort()</title>
+<indexterm><primary>argsort</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>argsort</secondary></indexterm>
+<para><computeroutput> np.ndarray fcmaes.mapelites.Archive.argsort ( self)</computeroutput></para><para>
+
+<para>Sorts the indices of the array returned by <computeroutput><link linkend="_classfcmaes_1_1mapelites_1_1_archive_1a91c9f1ac5485896833fc7b9859b85af1">get_ys()</link></computeroutput> in ascending order. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method sorts the elements of the array obtained by calling `get_ys()` and
+   returns the indices that would sort this array in ascending order. The sorted
+   indices are also stored in the `si` attribute for future use.
+</computeroutput></literallayout></para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>np The indices that would sort the array in ascending order. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l01246">1246</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1a3976d13396ea59523d79e16b7d96f448"/><section>
+    <title>create_views()</title>
+<indexterm><primary>create_views</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>create_views</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.Archive.create_views ( self)</computeroutput></para><para>
+
+<para>Creates views for the attributes within the target process. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method initializes views for specific attributes to enhance
+   performance and allow efficient data manipulation in the target
+   process. The views are created using the `view()` method.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>AttributeError</entry><entry>
+<para>If either `xs` or `ds` is not properly initialized or does not support the <computeroutput>view()</computeroutput> method. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l00935">935</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1ae916520d6c7090a4aebb511b782f003c"/><section>
+    <title>decode_d()</title>
+<indexterm><primary>decode_d</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>decode_d</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.Archive.decode_d ( self,  d)</computeroutput></para><para>
+
+<para>Decodes a given value <computeroutput>d</computeroutput> using the object&apos;s scaling factor and lower bound. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method applies a transformation to the input value `d` based on the
+   attributes `desc_scale` and `desc_lb` of the object. It linearly scales
+   and offsets the input to produce the decoded value.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>d</entry><entry>
+<para>Input value to decode.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>The decoded value as a float. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l00968">968</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mapelites_1_1_archive_ae916520d6c7090a4aebb511b782f003c_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1a0bcd8007cc5cf709da8ccc42aa2c46eb"/><section>
+    <title>dump()</title>
+<indexterm><primary>dump</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>dump</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.Archive.dump ( self, Optional[int]  n = <computeroutput>None</computeroutput>
+)</computeroutput></para><para>
+
+<para>Prints a sorted dump of data points up to the specified limit. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method retrieves a list of data points (`ys`), sorts them in ascending
+   order, and prints the indices, values, additional details, and associated
+   features for the top `n` data points. If `n` is not specified, it defaults to
+   the object&apos;s capacity.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>n</entry><entry>
+<para>Optional[int], optional. The number of data points to print. Defaults to the object&apos;s capacity. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l01262">1262</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mapelites_1_1_archive_a0bcd8007cc5cf709da8ccc42aa2c46eb_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mapelites_1_1_archive_a0bcd8007cc5cf709da8ccc42aa2c46eb_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1a4c0b220309e8100c4a104b29b9ca4898"/><section>
+    <title>encode_d()</title>
+<indexterm><primary>encode_d</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>encode_d</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.Archive.encode_d ( self,  d)</computeroutput></para><para>
+
+<para>Encodes the given value using the specified scale and lower bound. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method calculates a normalized value by subtracting the lower
+   bound (self.desc_lb) from the input and then dividing by the scale
+   factor (self.desc_scale).
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>d</entry><entry>
+<para>A numerical value to be encoded.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>float The encoded value after applying the normalization formula. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l00952">952</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mapelites_1_1_archive_a4c0b220309e8100c4a104b29b9ca4898_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1a57b4373d065065bf5d4dbc7cc312c092"/><section>
+    <title>fname()</title>
+<indexterm><primary>fname</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>fname</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.Archive.fname ( self,  name)</computeroutput></para><para>
+
+<para>Generates a formatted string using name, capacity, dimension, and quality-dimension values for a specific architecture. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>name</entry><entry>
+<para>The name string that will be included in the formatted output.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>str A formatted string in the format &apos;arch.{name}.{self.capacity}.{self.dim}. {self.qd_dim}&apos;. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l00670">670</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mapelites_1_1_archive_a57b4373d065065bf5d4dbc7cc312c092_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1ad3c852a54d31d2126b5f233e7d2fd7bb"/><section>
+    <title>get_c()</title>
+<indexterm><primary>get_c</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>get_c</secondary></indexterm>
+<para><computeroutput> float fcmaes.mapelites.Archive.get_c ( self, int i)</computeroutput></para><para>
+
+<para>Retrieves a slice of the <computeroutput>cs</computeroutput> list for the given index. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>i</entry><entry>
+<para>Index to slice the <computeroutput>cs</computeroutput> list.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>float The extracted portion of the <computeroutput>cs</computeroutput> list corresponding to the specified index, scaled by <computeroutput>qd_dim</computeroutput>. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l01075">1075</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mapelites_1_1_archive_ad3c852a54d31d2126b5f233e7d2fd7bb_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1af0512120043e652b080fc57f7f9bc34e"/><section>
+    <title>get_count()</title>
+<indexterm><primary>get_count</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>get_count</secondary></indexterm>
+<para><computeroutput> int fcmaes.mapelites.Archive.get_count ( self, int i)</computeroutput></para><para>
+
+<para>Get the count for a specific index. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method retrieves the count value from the `counts` collection based on the
+   provided index.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>i</entry><entry>
+<para>The index of the element whose count is to be retrieved.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>int The count corresponding to the given index. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l00837">837</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mapelites_1_1_archive_af0512120043e652b080fc57f7f9bc34e_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1abfbc79753a308a9880da632d96b37d5c"/><section>
+    <title>get_counts()</title>
+<indexterm><primary>get_counts</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>get_counts</secondary></indexterm>
+<para><computeroutput> np.ndarray fcmaes.mapelites.Archive.get_counts ( self)</computeroutput></para><para>
+
+<para>Retrieves a copy of the <computeroutput>counts</computeroutput> as a NumPy array. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method returns a deep copy of the `counts` list, converted to a NumPy
+   array. It ensures that the original data remains unaltered while providing
+   a convenient format for numerical operations.
+</computeroutput></literallayout></para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>np A NumPy array containing the copied elements of <computeroutput>counts</computeroutput>. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l00850">850</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mapelites_1_1_archive_abfbc79753a308a9880da632d96b37d5c_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1a9884e6696809729e69a167c91d245464"/><section>
+    <title>get_cs()</title>
+<indexterm><primary>get_cs</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>get_cs</secondary></indexterm>
+<para><computeroutput> np.ndarray fcmaes.mapelites.Archive.get_cs ( self)</computeroutput></para><para>
+
+<para>Generates an array of results produced by the <computeroutput>get_c</computeroutput> method for a range of indices. </para>
+</para>
+
+<para>The <computeroutput>get_cs</computeroutput> method computes an array containing the output of the <computeroutput>get_c</computeroutput> method for a sequence of indices up to a specified capacity. Each index is processed individually to construct the final array.</para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>np A NumPy array comprising results obtained from the <computeroutput>get_c</computeroutput> method called for indices ranging from 0 to the object&apos;s capacity. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l01090">1090</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mapelites_1_1_archive_a9884e6696809729e69a167c91d245464_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mapelites_1_1_archive_a9884e6696809729e69a167c91d245464_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1abf4f2d32b118fa044a6eb99d9b508c1f"/><section>
+    <title>get_cs_decoded()</title>
+<indexterm><primary>get_cs_decoded</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>get_cs_decoded</secondary></indexterm>
+<para><computeroutput> np.ndarray fcmaes.mapelites.Archive.get_cs_decoded ( self)</computeroutput></para><para>
+
+<para>Returns decoded data using the decode_d method. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method retrieves data by iterating over a range equivalent to the
+   capacity attribute, applies the get_c method to each index, and returns
+   the results as a NumPy array. The resulting array is then passed to the
+   decode_d method to decode and return the final data.
+</computeroutput></literallayout></para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>np Decoded data obtained from processing the capacity range. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l01104">1104</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mapelites_1_1_archive_abf4f2d32b118fa044a6eb99d9b508c1f_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1af91d2fd25aee22c7bcc46b2c5cad0092"/><section>
+    <title>get_ds()</title>
+<indexterm><primary>get_ds</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>get_ds</secondary></indexterm>
+<para><computeroutput> np.ndarray fcmaes.mapelites.Archive.get_ds ( self)</computeroutput></para><para>
+
+<para>Returns a view of the <computeroutput>ds</computeroutput> attribute. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method provides a view of the data stored in the `ds` attribute. It
+   enables access to the data without modifying the original structure.
+</computeroutput></literallayout></para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>np A view of the <computeroutput>ds</computeroutput> attribute as a NumPy array. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l00993">993</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1a7d6497547e738f46792eed929c0eb09c"/><section>
+    <title>get_occupied()</title>
+<indexterm><primary>get_occupied</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>get_occupied</secondary></indexterm>
+<para><computeroutput> int fcmaes.mapelites.Archive.get_occupied ( self)</computeroutput></para><para>
+
+<para>Retrieves the current number of occupied spaces from the associated value. </para>
+</para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>int The number of occupied spaces. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l00822">822</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mapelites_1_1_archive_a7d6497547e738f46792eed929c0eb09c_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1ad4060a6948b61fe981b124afc8c12ba4"/><section>
+    <title>get_occupied_data()</title>
+<indexterm><primary>get_occupied_data</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>get_occupied_data</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.Archive.get_occupied_data ( self)</computeroutput></para><para>
+
+<para>Retrieves the data points marked as &quot;occupied&quot;. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method processes the &apos;ys&apos; array (retrieved by the `get_ys` method) to identify
+   elements corresponding to occupied data points. Occupied data points are determined
+   by checking where the values in &apos;ys&apos; are less than positive infinity. Once identified,
+   it returns the `ys`, `ds_view`, and `xs_view` data points corresponding to the
+   occupied entries.
+</computeroutput></literallayout></para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>tuple A tuple containing three arrays:<itemizedlist>
+<listitem>
+<para>The &apos;ys&apos; values for occupied data points.</para>
+</listitem><listitem>
+<para>The corresponding &apos;ds_view&apos; values for occupied data points.</para>
+</listitem><listitem>
+<para>The corresponding &apos;xs_view&apos; values for occupied data points. </para>
+</listitem></itemizedlist>
+</para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l00639">639</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mapelites_1_1_archive_ad4060a6948b61fe981b124afc8c12ba4_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1a50c9e9bac3b339e4158614dad396bb18"/><section>
+    <title>get_qd_score()</title>
+<indexterm><primary>get_qd_score</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>get_qd_score</secondary></indexterm>
+<para><computeroutput> float fcmaes.mapelites.Archive.get_qd_score ( self)</computeroutput></para><para>
+
+<para>Calculates the QD (Quality-Diversity) score based on the provided array of values. </para>
+</para>
+
+<para><literallayout><computeroutput>   The method processes an array of values (`ys`) to compute a QD score using either the sum of reciprocal
+   values for positive values or the sum of negated negative values. The computed score is dependent on
+   whether all the values in the array are positive or some are negative.
+</computeroutput></literallayout></para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>float The calculated QD score. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l01030">1030</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mapelites_1_1_archive_a50c9e9bac3b339e4158614dad396bb18_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mapelites_1_1_archive_a50c9e9bac3b339e4158614dad396bb18_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1a4a9c0d92560064a154b7bbcf1d537480"/><section>
+    <title>get_stat()</title>
+<indexterm><primary>get_stat</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>get_stat</secondary></indexterm>
+<para><computeroutput> float fcmaes.mapelites.Archive.get_stat ( self, int i, int j)</computeroutput></para><para>
+
+<para>Retrieves a specific statistical value for given indices i and j. </para>
+</para>
+
+<para>The method calculates an index based on the input values and extracts the corresponding dimension slice from the stats attribute.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>i</entry><entry>
+<para>Represents the first index to calculate the position. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>j</entry><entry>
+<para>Represents the second index to calculate the position.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>float A specific statistical value derived from the stats attribute. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l01146">1146</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mapelites_1_1_archive_a4a9c0d92560064a154b7bbcf1d537480_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1a97f1345584f4d25bd8a24af6cb7d7e4c"/><section>
+    <title>get_stats()</title>
+<indexterm><primary>get_stats</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>get_stats</secondary></indexterm>
+<para><computeroutput>  np.ndarray fcmaes.mapelites.Archive.get_stats ( self)</computeroutput></para><para>
+
+<para>Returns a copy of the stats data as a NumPy array. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method provides access to the current statistical data by returning a
+   NumPy array that contains a copy of the internal stats data.
+</computeroutput></literallayout></para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>np A NumPy array containing a copy of the stats data. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l01159">1159</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mapelites_1_1_archive_a97f1345584f4d25bd8a24af6cb7d7e4c_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1ae14fb3f28ebc29cc2356048a91d8e072"/><section>
+    <title>get_x_max()</title>
+<indexterm><primary>get_x_max</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>get_x_max</secondary></indexterm>
+<para><computeroutput> np.ndarray fcmaes.mapelites.Archive.get_x_max ( self, int i)</computeroutput></para><para>
+
+<para>Returns the maximum value of the &apos;x&apos; statistic for the specified index. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method retrieves the maximum value of the &apos;x&apos; statistic by utilizing
+   the `get_stat` method with specific parameters.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>i</entry><entry>
+<para>The index for which the &apos;x&apos; statistic&apos;s maximum value is to be retrieved.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>np The maximum value of the &apos;x&apos; statistic for the specified </para>
+
+<para>index. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l00921">921</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mapelites_1_1_archive_ae14fb3f28ebc29cc2356048a91d8e072_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1a240c31cf1f2a4a8f2fe6bef3ece80206"/><section>
+    <title>get_x_mean()</title>
+<indexterm><primary>get_x_mean</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>get_x_mean</secondary></indexterm>
+<para><computeroutput> np.ndarray fcmaes.mapelites.Archive.get_x_mean ( self, int i)</computeroutput></para><para>
+
+<para>Calculates and retrieves the mean value for a specific index of data. </para>
+</para>
+
+<para><literallayout><computeroutput>   This function calls another internal method to obtain the required statistic
+   associated with the given index and statistic type (mean in this case).
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>i</entry><entry>
+<para>The index of the data for which the mean value will be computed.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>np The calculated mean value for the specified index. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l00865">865</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mapelites_1_1_archive_a240c31cf1f2a4a8f2fe6bef3ece80206_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mapelites_1_1_archive_a240c31cf1f2a4a8f2fe6bef3ece80206_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1a864352039c770d3095a4c68c67c07cc6"/><section>
+    <title>get_x_min()</title>
+<indexterm><primary>get_x_min</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>get_x_min</secondary></indexterm>
+<para><computeroutput> np.ndarray fcmaes.mapelites.Archive.get_x_min ( self, int i)</computeroutput></para><para>
+
+<para>Gets the minimum x-coordinate value from a statistical data set. </para>
+</para>
+
+<para><literallayout><computeroutput>   This function retrieves the minimum value of the x-coordinate from the
+   dataset for a specified index and returns it as a NumPy array.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>i</entry><entry>
+<para>The index of the dataset for which the minimum x-coordinate value is retrieved.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>np The minimum x-coordinate value in the dataset corresponding to the provided index. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l00904">904</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mapelites_1_1_archive_a864352039c770d3095a4c68c67c07cc6_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1a12befeeecf65003f61a073520070a4d7"/><section>
+    <title>get_x_stdev()</title>
+<indexterm><primary>get_x_stdev</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>get_x_stdev</secondary></indexterm>
+<para><computeroutput> np.ndarray fcmaes.mapelites.Archive.get_x_stdev ( self, int i)</computeroutput></para><para>
+
+<para>Calculates the standard deviation of x for a given identifier. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method computes the standard deviation of the variable &apos;x&apos;, based on the
+   statistics collected for a specific identifier. If no data is available for
+   the identifier, it returns a zero array with the appropriate dimension.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>i</entry><entry>
+<para>Identifier used to retrieve the specific statistics.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>np A numpy array representing the standard deviation of x, with the same dimension as the data. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l00882">882</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mapelites_1_1_archive_a12befeeecf65003f61a073520070a4d7_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1a052f1f8d58ffc784ec8ee16aca535a14"/><section>
+    <title>get_xs()</title>
+<indexterm><primary>get_xs</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>get_xs</secondary></indexterm>
+<para><computeroutput> np.ndarray fcmaes.mapelites.Archive.get_xs ( self)</computeroutput></para><para>
+
+<para>Gets a view of the <computeroutput>xs</computeroutput> attribute. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method returns a view of the `xs` attribute, allowing access to
+   the data without copying it. The returned view reflects changes made
+   to the original data.
+</computeroutput></literallayout></para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>np A view of the <computeroutput>xs</computeroutput> attribute. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l00981">981</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1ac9390a3bfd798bdb09d79476ed6c6584"/><section>
+    <title>get_y()</title>
+<indexterm><primary>get_y</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>get_y</secondary></indexterm>
+<para><computeroutput> float fcmaes.mapelites.Archive.get_y ( self, int i)</computeroutput></para><para>
+
+<para>Retrieves the y-coordinate value at a given index from the list of y-values. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>i</entry><entry>
+<para>The index of the y-value to retrieve.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>float The y-coordinate value at the specified index. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l01005">1005</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mapelites_1_1_archive_ac9390a3bfd798bdb09d79476ed6c6584_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1a91c9f1ac5485896833fc7b9859b85af1"/><section>
+    <title>get_ys()</title>
+<indexterm><primary>get_ys</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>get_ys</secondary></indexterm>
+<para><computeroutput> np.ndarray fcmaes.mapelites.Archive.get_ys ( self)</computeroutput></para><para>
+
+<para>Returns a copy of the <computeroutput>ys</computeroutput> array. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method provides access to a copy of the `ys` attribute, ensuring
+   that the original data remains unaltered.
+</computeroutput></literallayout></para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>np A numpy array representing a copy of the <computeroutput>ys</computeroutput> attribute. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l01017">1017</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mapelites_1_1_archive_a91c9f1ac5485896833fc7b9859b85af1_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1ac73f5b05c273a6238d1da2d70603b2af"/><section>
+    <title>in_niche_filter()</title>
+<indexterm><primary>in_niche_filter</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>in_niche_filter</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.Archive.in_niche_filter ( self, Callable[[ArrayLike], float] fit, int index)</computeroutput></para><para>
+
+<para>Filters an element based on its fitness and niche index. </para>
+</para>
+
+<para><literallayout><computeroutput>   This function evaluates whether an element, represented by its fitness value and niche index, satisfies the
+   condition required for inclusion in a niche. The filtering mechanism is defined externally and passed in
+   as a callable.
+
+
+       fit (Callable[[ArrayLike], float]): A callable function that takes an array-like object and calculates
+           a fitness value for evaluation.
+</computeroutput></literallayout> 
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>index</entry><entry>
+<para>The index of the element within its group to be filtered.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>bool True if the element satisfies the niche filter condition, False otherwise. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l00760">760</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1ab4f4023cb427da5cbedcf919c4641bfa"/><section>
+    <title>index_of_niches()</title>
+<indexterm><primary>index_of_niches</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>index_of_niches</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.Archive.index_of_niches ( self,  ds)</computeroutput></para><para>
+
+<para>Determines the indices of the niches for the given data samples (ds) based on the clustering method used (either k-means clusters or grid-based clustering). </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>ds</entry><entry>
+<para>Input data samples for which the niche indices are to be determined.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>ndarray Niche indices of the input data samples. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l00739">739</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mapelites_1_1_archive_ab4f4023cb427da5cbedcf919c4641bfa_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1a4299111d24891cea4a03c19f28360923"/><section>
+    <title>info()</title>
+<indexterm><primary>info</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>info</secondary></indexterm>
+<para><computeroutput> str fcmaes.mapelites.Archive.info ( self)</computeroutput></para><para>
+
+<para>Generates a formatted string containing key metrics. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method calculates and returns a string with the following information:
+   occupied cells, the quality diversity (QD) score, the lowest value from
+   a collection of data (&apos;ys&apos;), and the total count of items. The output is
+   formatted as a single string.
+</computeroutput></literallayout></para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>str A formatted string that includes occupied cells, QD score rounded to three decimal places, the minimum value from &apos;ys&apos; rounded to three decimal places, and the total count of items. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l01283">1283</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mapelites_1_1_archive_a4299111d24891cea4a03c19f28360923_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1ac93d7c0f2200637a996a7b2802ff2e4b"/><section>
+    <title>init_niches()</title>
+<indexterm><primary>init_niches</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>init_niches</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.Archive.init_niches ( self, int  samples_per_niche = <computeroutput>10</computeroutput>
+)</computeroutput></para><para>
+
+<para>Initializes niches for clustering based on the specified sampling method and parameters. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method configures the clustering mode (CVT-clustering or grid-clustering)
+   based on the `samples_per_niche` parameter. It also sets up necessary resources,
+   such as a KDTree and shared memory for centroids, when CVT-clustering is selected.
+
+
+       samples_per_niche (int, optional): Defines the sampling strategy for niches.
+           If greater than 0, CVT-clustering is used; otherwise, grid-clustering is used.
+</computeroutput></literallayout> </para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l00616">616</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1a7374d1c9c1cc25dbe1e472f9a01360da"/><section>
+    <title>join()</title>
+<indexterm><primary>join</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>join</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.Archive.join ( self, <link linkend="_classfcmaes_1_1mapelites_1_1_archive">Archive</link> archive)</computeroutput></para><para>
+
+<para>Joins data from the given archive into the current archive by retrieving and processing occupied data, assigning it to corresponding niches, and sorting the archive. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>archive</entry><entry>
+<para>An archive containing data to be joined with the current archive. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l00651">651</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1a62da9c6f511c298d1ef06d6af7600196"/><section>
+    <title>load()</title>
+<indexterm><primary>load</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>load</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.Archive.load ( self, str name)</computeroutput></para><para>
+
+<para>Loads data from a specified file into the current object, initializing or updating its properties and attributes. </para>
+</para>
+
+<para>This method reads numpy data files and adjusts internal structures, such as clustering state, dimensions, capacity, and associated statistics based on the data provided.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>name</entry><entry>
+<para>The base name of the file from which to load data.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>FileNotFoundError</entry><entry>
+<para>If the file specified by the name parameter does not exist. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>ValueError</entry><entry>
+<para>If the data in the file is inconsistent or incompatible with the current object&apos;s structure. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l00707">707</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mapelites_1_1_archive_a62da9c6f511c298d1ef06d6af7600196_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1a5721ccf23e8de4509bc3a9e996e1861a"/><section>
+    <title>random_xs()</title>
+<indexterm><primary>random_xs</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>random_xs</secondary></indexterm>
+<para><computeroutput> np.ndarray fcmaes.mapelites.Archive.random_xs ( self, int best_n, int chunk_size, Generator rg)</computeroutput></para><para>
+
+<para>Generates a random selection of indices and returns corresponding elements from the view. </para>
+</para>
+
+<para><literallayout><computeroutput>   This function utilizes a random number generator to produce a set of indices based on
+   the provided parameters and returns the corresponding elements from an internal view.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>best_n</entry><entry>
+<para>The upper limit for the random integer selection range. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>chunk_size</entry><entry>
+<para>The number of random integers to select. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>rg</entry><entry>
+<para>A random number generator instance to produce the selection.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>np The array of selected elements corresponding to the randomly generated indices. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l01208">1208</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1a691e8315e1b9c8d92b67520216c72cdf"/><section>
+    <title>random_xs_one()</title>
+<indexterm><primary>random_xs_one</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>random_xs_one</secondary></indexterm>
+<para><computeroutput> Tuple[np.ndarray, float, int] fcmaes.mapelites.Archive.random_xs_one ( self, int best_n, Generator rg)</computeroutput></para><para>
+
+<para>Selects and retrieves random elements based on the given range and size. </para>
+</para>
+
+<para><literallayout><computeroutput>   This function utilizes a random number generator to select an index from a range
+   up to `best_n` and fetch the corresponding elements.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>best_n</entry><entry>
+<para>The upper limit (exclusive) for selecting a random index, provided as an integer. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>rg</entry><entry>
+<para>An instance of a random number generator implementing the <computeroutput>Generator</computeroutput> interface, used for generating random numbers.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>A tuple containing:<itemizedlist>
+<listitem>
+<para>The randomly selected x-coordinate as a numpy array.</para>
+</listitem><listitem>
+<para>The corresponding y-coordinate as a float.</para>
+</listitem><listitem>
+<para>The randomly chosen index as an integer. </para>
+</listitem></itemizedlist>
+</para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l01232">1232</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mapelites_1_1_archive_a691e8315e1b9c8d92b67520216c72cdf_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1adae25149d74e878d190a51a3075af9bc"/><section>
+    <title>reset()</title>
+<indexterm><primary>reset</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>reset</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.Archive.reset ( self)</computeroutput></para><para>
+Definition at line <link linkend="_mapelites_8py_source_1l00586">586</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mapelites_1_1_archive_adae25149d74e878d190a51a3075af9bc_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1aedbfd9567b2d8da13a94da232465aa42"/><section>
+    <title>save()</title>
+<indexterm><primary>save</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>save</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.Archive.save ( self, str name)</computeroutput></para><para>
+
+<para>Saves the processed data and corresponding metadata in a compressed NPZ format. </para>
+</para>
+
+<para><literallayout><computeroutput>   The method stores the data views such as xs (features), ds (distances), ys (labels),
+   and other optional attributes like clustering and statistics in a compressed file.
+   The filename of the saved file is dynamically generated based on the provided name.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>name</entry><entry>
+<para>Name used to generate the filename for the saved data. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l00683">683</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mapelites_1_1_archive_aedbfd9567b2d8da13a94da232465aa42_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1a82cd0403d58fbb41ef29c2cfb6ac74f7"/><section>
+    <title>set()</title>
+<indexterm><primary>set</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>set</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.Archive.set ( self, int i, np.ndarray yd, np.ndarray x)</computeroutput></para><para>
+
+<para>Updates statistical data and modifies the internal data store with the given values if certain conditions are met (e.g., improvement in objective value <computeroutput>y</computeroutput>). </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>i</entry><entry>
+<para>The index representing the position in the internal data storage to update. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>yd</entry><entry>
+<para>A numpy array containing the objective value <computeroutput>y</computeroutput> and additional associated data <computeroutput>d</computeroutput> as elements. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>x</entry><entry>
+<para>A numpy array representing the new input data associated with the index <computeroutput>i</computeroutput>. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l00778">778</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mapelites_1_1_archive_a82cd0403d58fbb41ef29c2cfb6ac74f7_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1acb89d9fdd7c875d487477a461c3585f7"/><section>
+    <title>set_c()</title>
+<indexterm><primary>set_c</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>set_c</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.Archive.set_c ( self, int i, float c)</computeroutput></para><para>
+
+<para>Sets the values of a specific segment of the &apos;cs&apos; attribute. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method updates a specific segment of the &apos;cs&apos; attribute based on the
+   provided index and float values. The index determines the segment of
+   &apos;cs&apos; to be updated, while the float input defines the new values to
+   assign to the segment.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>i</entry><entry>
+<para>Index to determine the specific segment of &apos;cs&apos; to update. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>c</entry><entry>
+<para>New float value that will replace the content of the specified segment in &apos;cs&apos;. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l01120">1120</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mapelites_1_1_archive_acb89d9fdd7c875d487477a461c3585f7_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1a7b98c28bd774c39099d0e41b1c38459d"/><section>
+    <title>set_cs()</title>
+<indexterm><primary>set_cs</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>set_cs</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.Archive.set_cs ( self, ArrayLike cs)</computeroutput></para><para>
+
+<para>Sets the values from the provided array-like object to the internal structure by calling <computeroutput>set_c</computeroutput> method for each element of the array-like object. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>cs</entry><entry>
+<para>An array-like object containing elements to be set using <computeroutput>set_c</computeroutput> method. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l01130">1130</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mapelites_1_1_archive_a7b98c28bd774c39099d0e41b1c38459d_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mapelites_1_1_archive_a7b98c28bd774c39099d0e41b1c38459d_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1a574aed6e61fc20fb94b479cb8fd5fc55"/><section>
+    <title>set_stat()</title>
+<indexterm><primary>set_stat</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>set_stat</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.Archive.set_stat ( self, int i, int j, ArrayLike stat)</computeroutput></para><para>
+
+<para>Sets a specific portion of the stats array based on the given indices and data. </para>
+</para>
+
+<para><literallayout><computeroutput>   This function updates the stats array by calculating an index position derived from
+   the given indices `i` and `j`. The data in `stat` is then inserted into the stats array
+   at a position determined by the indices and the object&apos;s dimension property.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>i</entry><entry>
+<para>Row index used to determine the position in the stats array. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>j</entry><entry>
+<para>Column index used to determine the position in the stats array. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>stat</entry><entry>
+<para>Array of statistical data to update the stats array. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l01175">1175</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mapelites_1_1_archive_a574aed6e61fc20fb94b479cb8fd5fc55_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1a0e469ed5be63b9dd87ea220095b620b8"/><section>
+    <title>set_stats()</title>
+<indexterm><primary>set_stats</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>set_stats</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.Archive.set_stats ( self, ArrayLike stats)</computeroutput></para><para>
+
+<para>Sets the statistics for the object. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method updates the internal statistics of the object with the values
+   provided in the input array. The values in the input array are assigned
+   directly to the object&apos;s statistics.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>stats</entry><entry>
+<para>The array-like object containing the new statistics to be set. It must be compatible with the internal statistics structure of the object. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l01191">1191</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mapelites_1_1_archive_a0e469ed5be63b9dd87ea220095b620b8_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1afc25798d5b07a1addd68fc50cec1f3e5"/><section>
+    <title>set_y()</title>
+<indexterm><primary>set_y</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>set_y</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.Archive.set_y ( self, int i, float y)</computeroutput></para><para>
+
+<para>Updates the <computeroutput>ys</computeroutput> attribute at the specified index with a new value. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>i</entry><entry>
+<para>The index to update in the <computeroutput>ys</computeroutput> attribute. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>y</entry><entry>
+<para>The new value to set at the specified index. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l01051">1051</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mapelites_1_1_archive_afc25798d5b07a1addd68fc50cec1f3e5_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1a06c36a088a4f1f50b63e7d0cdf1dcc40"/><section>
+    <title>set_ys()</title>
+<indexterm><primary>set_ys</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>set_ys</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.Archive.set_ys ( self, ArrayLike ys)</computeroutput></para><para>
+
+<para>Sets multiple y-values for the object by iterating over the provided array-like collection. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>ys</entry><entry>
+<para>An array-like collection of y-values to be set. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l01061">1061</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mapelites_1_1_archive_a06c36a088a4f1f50b63e7d0cdf1dcc40_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mapelites_1_1_archive_a06c36a088a4f1f50b63e7d0cdf1dcc40_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1a9aaaf43220a388cc81d0750b7849dbdc"/><section>
+    <title>update_stats()</title>
+<indexterm><primary>update_stats</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>update_stats</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.Archive.update_stats ( self, int i, np.ndarray x)</computeroutput></para><para>
+
+<para>Updates the statistical information for the given index and array input. </para>
+</para>
+
+<para>Tracks counts, mean, quadratic mean (qmean), minimum, and maximum values for the specified index.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>i</entry><entry>
+<para>Index of the element whose statistics need to be updated. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>x</entry><entry>
+<para>Input array used to update the statistics. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l00802">802</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mapelites_1_1_archive_a9aaaf43220a388cc81d0750b7849dbdc_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mapelites_1_1_archive_a9aaaf43220a388cc81d0750b7849dbdc_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+<section>
+<title>Member Data Documentation</title>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1a543edcd72de56099d1f83c9dcd79e082"/><section>
+    <title>capacity</title>
+<indexterm><primary>capacity</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>capacity</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.Archive.capacity = capacity</computeroutput></para><para>
+
+<para>Maximum capacity of the archive in terms of number. </para>
+</para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l00549">549</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1aa7d0f9677d34b82ef42b01e551011a4a"/><section>
+    <title>centers</title>
+<indexterm><primary>centers</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>centers</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.Archive.centers = mp.RawArray(ct.c_double, self.capacity * self.qd_dim)</computeroutput></para><para>
+Definition at line <link linkend="_mapelites_8py_source_1l00622">622</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1a17848162fe39d036fbc93aa58cc77b50"/><section>
+    <title>counts</title>
+<indexterm><primary>counts</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>counts</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.Archive.counts = mp.RawArray(ct.c_long, self.capacity)</computeroutput></para><para>
+
+<para>A 1D shared array initialized to hold integer long values, used to maintain counts for each capacity slot. </para>
+</para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l00591">591</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1a2421ccea4dec3cbb9bef589d1a3209f9"/><section>
+    <title>cs</title>
+<indexterm><primary>cs</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>cs</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.Archive.cs = None</computeroutput></para><para>
+Definition at line <link linkend="_mapelites_8py_source_1l00551">551</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1ab750559fbd8fab712d01cf489c8d8cb9"/><section>
+    <title>cvt_clustering</title>
+<indexterm><primary>cvt_clustering</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>cvt_clustering</secondary></indexterm>
+<para><computeroutput>int fcmaes.mapelites.Archive.cvt_clustering = samples_per_niche &gt; 0</computeroutput></para><para>
+Definition at line <link linkend="_mapelites_8py_source_1l00618">618</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1acef7919c3b7f9798628857f25de27d3c"/><section>
+    <title>desc_lb</title>
+<indexterm><primary>desc_lb</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>desc_lb</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.Archive.desc_lb = self.qd_bounds.lb</computeroutput></para><para>
+
+<para>Lower bounds for the descriptors. </para>
+</para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l00547">547</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1ae3f63fce62db86da46ee146bf27293c3"/><section>
+    <title>desc_scale</title>
+<indexterm><primary>desc_scale</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>desc_scale</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.Archive.desc_scale = self.qd_bounds.ub - self.qd_bounds.lb</computeroutput></para><para>
+
+<para>Scale of the descriptor bounds, calculated as. </para>
+</para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l00548">548</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1ab255103df42bedc30ec7132cfc618122"/><section>
+    <title>dim</title>
+<indexterm><primary>dim</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>dim</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.Archive.dim = dim</computeroutput></para><para>
+
+<para>Dimensionality of the solution vectors. </para>
+</para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l00544">544</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1a60f70e50d917a1db752b0a0124a8e756"/><section>
+    <title>ds</title>
+<indexterm><primary>ds</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>ds</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.Archive.ds = <link linkend="_classfcmaes_1_1retry_1_1_shared2d">Shared2d</link>(np.empty((self.capacity, self.qd_dim), dtype = np.float64))</computeroutput></para><para>
+
+<para>A 2D shared array initialized with an empty array of shape <computeroutput>(capacity, qd_dim)</computeroutput> and data type <computeroutput>np.float64</computeroutput>. </para>
+</para>
+
+<para>Represents supplementary 2D data storage. </para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l00588">588</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1aba20d5a20cc178e6aa4f14538b54334f"/><section>
+    <title>ds_view</title>
+<indexterm><primary>ds_view</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>ds_view</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.Archive.ds_view = self.ds.view()</computeroutput></para><para>
+Definition at line <link linkend="_mapelites_8py_source_1l00937">937</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1a6b4ef0e37ad2c67546dfbab83913c402"/><section>
+    <title>index_of_niches</title>
+<indexterm><primary>index_of_niches</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>index_of_niches</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.Archive.index_of_niches</computeroutput></para><para>
+Definition at line <link linkend="_mapelites_8py_source_1l00763">763</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1abbcf8dde9401f4b34d4669a064e12373"/><section>
+    <title>lock</title>
+<indexterm><primary>lock</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>lock</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.Archive.lock = mp.Lock()</computeroutput></para><para>
+Definition at line <link linkend="_mapelites_8py_source_1l00552">552</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1a41d911980a52f7f5c409af9b3a258124"/><section>
+    <title>name</title>
+<indexterm><primary>name</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>name</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.Archive.name = name</computeroutput></para><para>
+
+<para>Optional name for the archive. </para>
+</para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l00550">550</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1ab1c9fa575d5a8225ba10e8a40fd0d59b"/><section>
+    <title>occupied</title>
+<indexterm><primary>occupied</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>occupied</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.Archive.occupied = mp.RawValue(ct.c_long, 0)</computeroutput></para><para>
+
+<para>A shared value for tracking the count of currently occupied slots in the storage. </para>
+</para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l00592">592</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1aaf23b4a84332dd3988c05887f896bdb3"/><section>
+    <title>qd_bounds</title>
+<indexterm><primary>qd_bounds</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>qd_bounds</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.Archive.qd_bounds = Bounds(np.array(qd_bounds.lb), np.array(qd_bounds.ub))</computeroutput></para><para>
+
+<para>Bounds for the quality-diversity descriptors. </para>
+</para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l00546">546</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1a7321ff2715dbc2d3258e2e880d48ef43"/><section>
+    <title>qd_dim</title>
+<indexterm><primary>qd_dim</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>qd_dim</secondary></indexterm>
+<para><computeroutput>(i+1)*self.qd_dim] fcmaes.mapelites.Archive.qd_dim = len(qd_bounds.lb)</computeroutput></para><para>
+
+<para>Dimensionality of the quality-diversity descriptors. </para>
+</para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l00545">545</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1aa1482261105e35a39ca342dd76b15a18"/><section>
+    <title>si</title>
+<indexterm><primary>si</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>si</secondary></indexterm>
+<para><computeroutput>np.ndarray fcmaes.mapelites.Archive.si = np.argsort(self.get_ys())</computeroutput></para><para>
+Definition at line <link linkend="_mapelites_8py_source_1l01247">1247</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1ada2a26ca8d9683a969403f104a759c61"/><section>
+    <title>stats</title>
+<indexterm><primary>stats</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>stats</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.Archive.stats = mp.RawArray(ct.c_double, self.capacity * self.dim * 4 if self.use_stats else 0)</computeroutput></para><para>
+
+<para>An optional shared array for maintaining statistical records. </para>
+</para>
+
+<para>Its size depends on the combination of <computeroutput>capacity</computeroutput>, <computeroutput>dim</computeroutput>, and the <computeroutput>use_stats</computeroutput> flag. When <computeroutput>use_stats</computeroutput> is False, it is initialized with size <computeroutput>0</computeroutput>.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>ValueError</entry><entry>
+<para>Raised if any invalid or unexpected conditions arise during the reset operation, such as capacity mismatch, invalid dimensions, or unavailable memory for shared arrays. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l00593">593</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1a1d6bb3c3d671d59cd6c48cc30574652d"/><section>
+    <title>use_stats</title>
+<indexterm><primary>use_stats</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>use_stats</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.Archive.use_stats = use_stats</computeroutput></para><para>
+
+<para>Flag to determine if solution statistics such as. </para>
+</para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l00553">553</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1a55043a25e987ca5ad6f1cfaf22c835a2"/><section>
+    <title>xs</title>
+<indexterm><primary>xs</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>xs</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.Archive.xs = <link linkend="_classfcmaes_1_1retry_1_1_shared2d">Shared2d</link>(np.empty((self.capacity, self.dim), dtype = np.float64))</computeroutput></para><para>
+
+<para>Resets the internal state of the object to its initial configuration by reinitializing its shared data structures and clearing any stored values. </para>
+</para>
+
+<para>This allows the object to reuse storage and resources effectively.</para>
+
+<para>A 2D shared array initialized with an empty array of shape <computeroutput>(capacity, dim)</computeroutput> and data type <computeroutput>np.float64</computeroutput>. Represents the primary 2D data storage. </para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l00587">587</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1a6cbf2375b7948682ad57e3ef3d2f1dcb"/><section>
+    <title>xs_view</title>
+<indexterm><primary>xs_view</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>xs_view</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.Archive.xs_view = self.xs.view()</computeroutput></para><para>
+Definition at line <link linkend="_mapelites_8py_source_1l00936">936</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1_archive_1acb4c09718b6457bb5bfbb7f3773f7178"/><section>
+    <title>ys</title>
+<indexterm><primary>ys</primary><secondary>fcmaes.mapelites.Archive</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.Archive</primary><secondary>ys</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.Archive.ys = mp.RawArray(ct.c_double, self.capacity)</computeroutput></para><para>
+
+<para>A 1D shared array initialized to hold float values, representing additional numeric data. </para>
+</para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l00590">590</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+<para>
+The documentation for this class was generated from the following file:</para>
+fcmaes/<link linkend="_mapelites_8py">mapelites.py</link></section>
+</section>

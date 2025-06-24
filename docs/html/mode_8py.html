@@ -1,0 +1,276 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>Fast CMA-ES: fcmaes/mode.py File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/TeX/AMSmath','[tex]/TeX/AMSsymbols']
+  },
+  tex: {
+    macros: {},
+    packages: ['base','configmacros','TeX/AMSmath','TeX/AMSsymbols']
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/jothepro/doxygen-awesome-css" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="fcames.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Fast CMA-ES
+   &#160;<span id="projectnumber">1.6.11</span>
+   </div>
+   <div id="projectbrief">Fast Covariance Matrix Adaptation Evolution Strategy (CMA-ES) implementation in C++ and Python</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.13.2 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('mode_8py.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle"><div class="title">mode.py File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>=============================================================================  
+<a href="#details">More...</a></p>
+
+<p><a href="mode_8py_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfcmaes_1_1mode_1_1store.html">fcmaes.mode.store</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the management of shared data storage and processing for multi-objective optimization.  <a href="classfcmaes_1_1mode_1_1store.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfcmaes_1_1mode_1_1_m_o_d_e.html">fcmaes.mode.MODE</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multi-Objective Differential Evolution (<a class="el" href="classfcmaes_1_1mode_1_1_m_o_d_e.html" title="Multi-Objective Differential Evolution (MODE) optimization algorithm.">MODE</a>) optimization algorithm.  <a href="classfcmaes_1_1mode_1_1_m_o_d_e.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfcmaes_1_1mode_1_1wrapper.html">fcmaes.mode.wrapper</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A wrapper class to manage function calls with additional features such as tracking progress, logging results, and storing or plotting outcomes.  <a href="classfcmaes_1_1mode_1_1wrapper.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacefcmaes.html">fcmaes</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacefcmaes_1_1mode.html">fcmaes.mode</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a7e76a634ae4563d738ad007097e3c2b4" id="r_a7e76a634ae4563d738ad007097e3c2b4"><td class="memItemLeft" align="right" valign="top">Tuple[np.ndarray, np.ndarray]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacefcmaes_1_1mode.html#a7e76a634ae4563d738ad007097e3c2b4">fcmaes.mode.minimize</a> (Callable[[ArrayLike], ArrayLike] mofun, int nobj, int ncon, Bounds bounds, Optional[np.ndarray] guess=None, Optional[int] popsize=64, Optional[int] max_evaluations=100000, Optional[int] workers=1, Optional[float] f=0.5, Optional[float] cr=0.9, Optional[float] pro_c=0.5, Optional[float] dis_c=15.0, Optional[float] pro_m=0.9, Optional[float] dis_m=20.0, Optional[bool] nsga_update=True, Optional[int] pareto_update=0, Optional[ArrayLike] ints=None, Callable modifier=None, Optional[float] min_mutate=0.1, Optional[float] max_mutate=0.5, Optional[Generator] rg=Generator(PCG64DXSM()), Optional[<a class="el" href="classfcmaes_1_1mode_1_1store.html">store</a>] <a class="el" href="classfcmaes_1_1mode_1_1store.html">store</a>=None)</td></tr>
+<tr class="memdesc:a7e76a634ae4563d738ad007097e3c2b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Minimizes a multi-objective function subject to constraints and bounds using evolutionary algorithms.  <br /></td></tr>
+<tr class="separator:a7e76a634ae4563d738ad007097e3c2b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7437cac94470387e12001d7f424393af" id="r_a7437cac94470387e12001d7f424393af"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacefcmaes_1_1mode.html#a7437cac94470387e12001d7f424393af">fcmaes.mode._check_bounds</a> (bounds, dim)</td></tr>
+<tr class="separator:a7437cac94470387e12001d7f424393af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4421a58b8727b0b72ab4aaff9f3494b3" id="r_a4421a58b8727b0b72ab4aaff9f3494b3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacefcmaes_1_1mode.html#a4421a58b8727b0b72ab4aaff9f3494b3">fcmaes.mode._filter</a> (x, y)</td></tr>
+<tr class="memdesc:a4421a58b8727b0b72ab4aaff9f3494b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Filters and sorts input arrays based on specific conditions.  <br /></td></tr>
+<tr class="separator:a4421a58b8727b0b72ab4aaff9f3494b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64da91b9fe11c4db2c528851fe65f4e4" id="r_a64da91b9fe11c4db2c528851fe65f4e4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacefcmaes_1_1mode.html#a64da91b9fe11c4db2c528851fe65f4e4">fcmaes.mode.objranks</a> (objs)</td></tr>
+<tr class="memdesc:a64da91b9fe11c4db2c528851fe65f4e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the rank of objects based on their sum of ranks across all columns.  <br /></td></tr>
+<tr class="separator:a64da91b9fe11c4db2c528851fe65f4e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af072da864e0f91afc47942de9a8901a5" id="r_af072da864e0f91afc47942de9a8901a5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacefcmaes_1_1mode.html#af072da864e0f91afc47942de9a8901a5">fcmaes.mode.ranks</a> (cons, <a class="el" href="namespacefcmaes_1_1mode.html#ad8018519575a155be2d2f4659ce52b0b">feasible</a>, eps)</td></tr>
+<tr class="memdesc:af072da864e0f91afc47942de9a8901a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the ranks of constraint values, adjusted by their feasibility and scaled by the fraction of violations for each constraint.  <br /></td></tr>
+<tr class="separator:af072da864e0f91afc47942de9a8901a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9045b5ff7e2451881af650c926cc04c" id="r_aa9045b5ff7e2451881af650c926cc04c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacefcmaes_1_1mode.html#aa9045b5ff7e2451881af650c926cc04c">fcmaes.mode.get_valid</a> (xs, ys, nobj)</td></tr>
+<tr class="memdesc:aa9045b5ff7e2451881af650c926cc04c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Filters the input data based on a validity condition and returns the valid elements.  <br /></td></tr>
+<tr class="separator:aa9045b5ff7e2451881af650c926cc04c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4648393e4988cb88b634bc6969891383" id="r_a4648393e4988cb88b634bc6969891383"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacefcmaes_1_1mode.html#a4648393e4988cb88b634bc6969891383">fcmaes.mode.pareto_sort</a> (x0, y0, nobj, ncon)</td></tr>
+<tr class="memdesc:a4648393e4988cb88b634bc6969891383"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sorts solutions based on Pareto dominance and crowding distance.  <br /></td></tr>
+<tr class="separator:a4648393e4988cb88b634bc6969891383"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee5b0cd4fba6d7edff0afe48a8bc636a" id="r_aee5b0cd4fba6d7edff0afe48a8bc636a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacefcmaes_1_1mode.html#aee5b0cd4fba6d7edff0afe48a8bc636a">fcmaes.mode.pareto_domination</a> (ys, nobj, ncon, last_ycon=None, last_eps=0)</td></tr>
+<tr class="memdesc:aee5b0cd4fba6d7edff0afe48a8bc636a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines Pareto domination levels for a set of solutions considering objectives and constraint violations.  <br /></td></tr>
+<tr class="separator:aee5b0cd4fba6d7edff0afe48a8bc636a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2570992dd7d42219e4b1381adff7a710" id="r_a2570992dd7d42219e4b1381adff7a710"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacefcmaes_1_1mode.html#a2570992dd7d42219e4b1381adff7a710">fcmaes.mode.pareto_levels</a> (ys)</td></tr>
+<tr class="memdesc:a2570992dd7d42219e4b1381adff7a710"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines the Pareto levels of a given set of points.  <br /></td></tr>
+<tr class="separator:a2570992dd7d42219e4b1381adff7a710"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f27ab476c153a96dba3568003ab075a" id="r_a0f27ab476c153a96dba3568003ab075a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacefcmaes_1_1mode.html#a0f27ab476c153a96dba3568003ab075a">fcmaes.mode.crowd_dist</a> (y)</td></tr>
+<tr class="memdesc:a0f27ab476c153a96dba3568003ab075a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the crowding distance for the first objective in a multi-objective optimization problem.  <br /></td></tr>
+<tr class="separator:a0f27ab476c153a96dba3568003ab075a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afba15234474d356adb0ed83aa94f73a6" id="r_afba15234474d356adb0ed83aa94f73a6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacefcmaes_1_1mode.html#afba15234474d356adb0ed83aa94f73a6">fcmaes.mode.variation</a> (pop, lower, upper, rg, pro_c=1, dis_c=20, pro_m=1, dis_m=20)</td></tr>
+<tr class="memdesc:afba15234474d356adb0ed83aa94f73a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies genetic variation operations, including simulated binary crossover (SBX) and polynomial mutation, on a population to produce offspring.  <br /></td></tr>
+<tr class="separator:afba15234474d356adb0ed83aa94f73a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8018519575a155be2d2f4659ce52b0b" id="r_ad8018519575a155be2d2f4659ce52b0b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacefcmaes_1_1mode.html#ad8018519575a155be2d2f4659ce52b0b">fcmaes.mode.feasible</a> (xs, ys, ncon, eps=1E-2)</td></tr>
+<tr class="memdesc:ad8018519575a155be2d2f4659ce52b0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines feasible solutions based on constraints and filters the input arrays <code>xs</code> and <code>ys</code> accordingly.  <br /></td></tr>
+<tr class="separator:ad8018519575a155be2d2f4659ce52b0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc694697801d4ac2a3e8956987220939" id="r_afc694697801d4ac2a3e8956987220939"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacefcmaes_1_1mode.html#afc694697801d4ac2a3e8956987220939">fcmaes.mode.is_feasible</a> (y, nobj, eps=1E-2)</td></tr>
+<tr class="memdesc:afc694697801d4ac2a3e8956987220939"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if a given solution is feasible based on constraints and tolerance.  <br /></td></tr>
+<tr class="separator:afc694697801d4ac2a3e8956987220939"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bc11f1e1783869a0b99b01ba75c80eb" id="r_a0bc11f1e1783869a0b99b01ba75c80eb"><td class="memItemLeft" align="right" valign="top">Tuple[np.ndarray, np.ndarray]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacefcmaes_1_1mode.html#a0bc11f1e1783869a0b99b01ba75c80eb">fcmaes.mode.minimize_plot</a> (str name, Callable[[ArrayLike], ArrayLike] fun, int nobj, int ncon, Bounds bounds, Optional[int] popsize=64, Optional[int] max_evaluations=100000, Optional[bool] nsga_update=True, Optional[int] pareto_update=0, Optional[ArrayLike] ints=None, Optional[int] workers=mp.cpu_count())</td></tr>
+<tr class="separator:a0bc11f1e1783869a0b99b01ba75c80eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>============================================================================= </p>
+<p>Fast version 1.6.11</p>
+<p>(c) 2025 – Dietmar Wolz (c) 2025 – Latitude</p>
+<p>License MIT</p>
+<ul>
+<li><a class="el" href="mode_8py.html" title="=============================================================================">mode.py</a></li>
+</ul>
+<dl class="section user"><dt>Description</dt><dd><ul>
+<li>Numpy based implementation of multi objective Differential Evolution using either the DE/rand/1 strategy or a NSGA-II like population update (parameter 'nsga_update=True)'. Then it works similar to NSGA-II. </li>
+</ul>
+</dd></dl>
+<dl class="section user"><dt></dt><dd>Supports parallel fitness function evaluation. </dd></dl>
+<dl class="section user"><dt></dt><dd>Features enhanced multiple constraint ranking [2] improving its performance in handling constraints for engineering design optimization. </dd></dl>
+<dl class="section user"><dt></dt><dd>Enables the comparison of DE and NSGA-II population update mechanism with everything else kept completely identical. </dd></dl>
+<dl class="section user"><dt></dt><dd>Requires python 3.5 or higher. </dd></dl>
+<dl class="section user"><dt></dt><dd>Uses the following deviation from the standard DE algorithm: a) oscillating CR/F parameters. </dd></dl>
+<dl class="section user"><dt></dt><dd>You may keep parameters F and CR at their defaults since this implementation works well with the given settings for most problems, since the algorithm oscillates between different F and CR settings. </dd></dl>
+<dl class="section user"><dt></dt><dd>For expensive objective functions (e.g. machine learning parameter optimization) use the workers parameter to parallelize objective function evaluation. The workers parameter is limited by the population size. </dd></dl>
+<dl class="section user"><dt></dt><dd>The ints parameter is a boolean array indicating which parameters are discrete integer values. This parameter was introduced after observing non optimal DE-results for the ESP2 benchmark problem: <div class="fragment"><div class="line">[3]</div>
+</div><!-- fragment --> If defined it causes a "special treatment" for discrete variables: They are rounded to the next integer value and there is an additional mutation to avoid getting stuck at local minima. This behavior is specified by the internal function _modifier which can be overwritten by providing the optional modifier argument. If modifier is defined, ints is ignored. </dd></dl>
+<dl class="section user"><dt></dt><dd>See [4] for a detailed description.</dd></dl>
+<dl class="section author"><dt>Author</dt><dd>:<ul>
+<li>Dietmar Wolz <div class="fragment"><div class="line">- romain.despoullains<span class="preprocessor">@latitude.eu</span></div>
+<div class="line">- corentin.generet<span class="preprocessor">@latitude.eu</span></div>
+</div><!-- fragment --></li>
+</ul>
+</dd></dl>
+<dl class="section user"><dt>References</dt><dd><ul>
+<li>[1] <a href="https://github.com/dietmarwo/fast-cma-es">https://github.com/dietmarwo/fast-cma-es</a></li>
+<li>[2] <a href="https://www.jstage.jst.go.jp/article/tjpnsec/11/2/11_18/_article/-char/en/">https://www.jstage.jst.go.jp/article/tjpnsec/11/2/11_18/_article/-char/en/</a></li>
+<li>[3] <a href="https://github.com/AlgTUDelft/ExpensiveOptimBenchmark/blob/master/expensiveoptimbenchmark/problems/DockerCFDBenchmark.py">https://github.com/AlgTUDelft/ExpensiveOptimBenchmark/blob/master/expensiveoptimbenchmark/problems/DockerCFDBenchmark.py</a></li>
+<li>[4] <a href="https://github.com/dietmarwo/fast-cma-es/blob/master/tutorials/MODE.adoc">https://github.com/dietmarwo/fast-cma-es/blob/master/tutorials/MODE.adoc</a></li>
+</ul>
+</dd></dl>
+<dl class="section user"><dt>Documentation</dt><dd><ul>
+<li></li>
+</ul>
+</dd></dl>
+<hr  />
+ 
+<p class="definition">Definition in file <a class="el" href="mode_8py_source.html">mode.py</a>.</p>
+</div></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_4fd5af8b01e1bfea8ef7f814565b5f64.html">fcmaes</a></li><li class="navelem"><a class="el" href="mode_8py.html">mode.py</a></li>
+    <li class="footer">Generated on Tue Jun 24 2025 15:36:30 for Fast CMA-ES by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+  </ul>
+</div>
+</body>
+</html>

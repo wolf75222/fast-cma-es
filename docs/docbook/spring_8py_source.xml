@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_spring_8py_source" xml:lang="en-US">
+<title>spring.py</title>
+<indexterm><primary>examples/spring.py</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_spring_8py_source_1l00001"/><link linkend="_namespaceexamples_1_1spring">00001</link> <emphasis role="comment">#&#32;Copyright&#32;(c)&#32;Dietmar&#32;Wolz.</emphasis>
+<anchor xml:id="_spring_8py_source_1l00002"/>00002 <emphasis role="comment">#</emphasis>
+<anchor xml:id="_spring_8py_source_1l00003"/>00003 <emphasis role="comment">#&#32;This&#32;source&#32;code&#32;is&#32;licensed&#32;under&#32;the&#32;MIT&#32;license&#32;found&#32;in&#32;the</emphasis>
+<anchor xml:id="_spring_8py_source_1l00004"/>00004 <emphasis role="comment">#&#32;LICENSE&#32;file&#32;in&#32;the&#32;root&#32;directory.</emphasis>
+<anchor xml:id="_spring_8py_source_1l00005"/>00005 
+<anchor xml:id="_spring_8py_source_1l00006"/>00006 <emphasis role="comment">#&#32;This&#32;problem&#32;consists&#32;of&#32;minimizing&#32;the&#32;weight&#32;of&#32;a&#32;tension/compression&#32;spring&#32;subject&#32;to&#32;constraints&#32;on&#32;</emphasis>
+<anchor xml:id="_spring_8py_source_1l00007"/>00007 <emphasis role="comment">#&#32;shear&#32;stress,&#32;surge&#32;frequency&#32;and&#32;minimum&#32;deflection</emphasis>
+<anchor xml:id="_spring_8py_source_1l00008"/>00008 <emphasis role="comment">#&#32;The&#32;design&#32;variables&#32;are:</emphasis>
+<anchor xml:id="_spring_8py_source_1l00009"/>00009 
+<anchor xml:id="_spring_8py_source_1l00010"/>00010 <emphasis role="comment">#&#32;-&#32;x1:&#32;the&#32;mean&#32;coil&#32;diameter</emphasis>
+<anchor xml:id="_spring_8py_source_1l00011"/>00011 <emphasis role="comment">#&#32;-&#32;x2:&#32;the&#32;wire&#32;diameter</emphasis>
+<anchor xml:id="_spring_8py_source_1l00012"/>00012 <emphasis role="comment">#&#32;-&#32;x3:&#32;the&#32;number&#32;of&#32;active&#32;coils</emphasis>
+<anchor xml:id="_spring_8py_source_1l00013"/>00013 
+<anchor xml:id="_spring_8py_source_1l00014"/>00014 <emphasis role="comment">#&#32;which&#32;are&#32;subject&#32;to&#32;four&#32;inequality&#32;constraints.</emphasis>
+<anchor xml:id="_spring_8py_source_1l00015"/>00015 <emphasis role="comment">#&#32;fcmaes&#32;retry&#32;used&#32;with&#32;a&#32;penalty&#32;for&#32;constraint&#32;violations&#32;&apos;weight_penalty&apos;</emphasis>
+<anchor xml:id="_spring_8py_source_1l00016"/>00016 <emphasis role="comment">#&#32;works&#32;as&#32;well&#32;as&#32;scipy&#32;minimize.</emphasis>
+<anchor xml:id="_spring_8py_source_1l00017"/>00017 
+<anchor xml:id="_spring_8py_source_1l00018"/>00018 <emphasis role="comment">#&#32;This&#32;example&#32;is&#32;taken&#32;from&#32;https://www.sciencedirect.com/science/article/abs/pii/S0096300306015098</emphasis>
+<anchor xml:id="_spring_8py_source_1l00019"/>00019 
+<anchor xml:id="_spring_8py_source_1l00020"/>00020 <emphasis role="comment">#&#32;Tested&#32;using&#32;https://docs.conda.io/en/main/miniconda.html&#32;on&#32;Linux&#32;Mint&#32;21.</emphasis>
+<anchor xml:id="_spring_8py_source_1l00021"/>00021 
+<anchor xml:id="_spring_8py_source_1l00022"/>00022 <emphasis role="keyword">import</emphasis>&#32;math
+<anchor xml:id="_spring_8py_source_1l00023"/>00023 <emphasis role="keyword">import</emphasis>&#32;time
+<anchor xml:id="_spring_8py_source_1l00024"/>00024 <emphasis role="keyword">import</emphasis>&#32;numpy&#32;<emphasis role="keyword">as</emphasis>&#32;np
+<anchor xml:id="_spring_8py_source_1l00025"/>00025 <emphasis role="keyword">from</emphasis>&#32;scipy.optimize&#32;<emphasis role="keyword">import</emphasis>&#32;Bounds,&#32;minimize
+<anchor xml:id="_spring_8py_source_1l00026"/>00026 <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1optimizer">fcmaes.optimizer</link>&#32;<emphasis role="keyword">import</emphasis>&#32;dtime,&#32;random_x,&#32;logger
+<anchor xml:id="_spring_8py_source_1l00027"/>00027 <emphasis role="keyword">from</emphasis>&#32;fcmaes&#32;<emphasis role="keyword">import</emphasis>&#32;retry,&#32;advretry
+<anchor xml:id="_spring_8py_source_1l00028"/>00028 
+<anchor xml:id="_spring_8py_source_1l00029"/>00029 <emphasis role="keyword">import</emphasis>&#32;sys&#32;
+<anchor xml:id="_spring_8py_source_1l00030"/>00030 <emphasis role="keyword">from</emphasis>&#32;loguru&#32;<emphasis role="keyword">import</emphasis>&#32;logger
+<anchor xml:id="_spring_8py_source_1l00031"/>00031 
+<anchor xml:id="_spring_8py_source_1l00032"/>00032 logger.remove()
+<anchor xml:id="_spring_8py_source_1l00033"/><link linkend="_namespaceexamples_1_1spring_1aeded92414f5c10780704c6973ae03d81">00033</link> logger.add(sys.stdout,&#32;format=<emphasis role="stringliteral">&quot;{time:HH:mm:ss.SS}&#32;|&#32;{process}&#32;|&#32;{level}&#32;|&#32;{message}&quot;</emphasis>,&#32;level=<emphasis role="stringliteral">&quot;INFO&quot;</emphasis>)
+<anchor xml:id="_spring_8py_source_1l00034"/>00034 logger.add(<emphasis role="stringliteral">&quot;log_{time}.txt&quot;</emphasis>,&#32;format=<emphasis role="stringliteral">&quot;{time:HH:mm:ss.SS}&#32;|&#32;{process}&#32;|&#32;{level}&#32;|&#32;{message}&quot;</emphasis>,&#32;level=<emphasis role="stringliteral">&quot;INFO&quot;</emphasis>)
+<anchor xml:id="_spring_8py_source_1l00035"/>00035 
+<anchor xml:id="_spring_8py_source_1l00036"/><link linkend="_namespaceexamples_1_1spring_1ae6ba700de81ecca5fda9ecb43131e822">00036</link> bounds&#32;=&#32;Bounds([0.01,&#32;0.01,&#32;0.01],&#32;[20,&#32;20,&#32;20])
+<anchor xml:id="_spring_8py_source_1l00037"/>00037 
+<anchor xml:id="_spring_8py_source_1l00038"/><link linkend="_namespaceexamples_1_1spring_1ab4b7a17b6f29a47a16b6e750c9f44b6a">00038</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1spring_1ab4b7a17b6f29a47a16b6e750c9f44b6a">_feasible</link>(x):
+<anchor xml:id="_spring_8py_source_1l00039"/>00039 &#32;&#32;&#32;&#32;x&#32;=&#32;np.array(x)
+<anchor xml:id="_spring_8py_source_1l00040"/>00040 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;np.maximum(np.minimum(x,&#32;bounds.ub),&#32;bounds.lb)
+<anchor xml:id="_spring_8py_source_1l00041"/>00041 
+<anchor xml:id="_spring_8py_source_1l00042"/><link linkend="_namespaceexamples_1_1spring_1a682c6c4156dd71a76e42d83aa869de29">00042</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1spring_1a682c6c4156dd71a76e42d83aa869de29">constraint_ineq</link>(x):
+<anchor xml:id="_spring_8py_source_1l00043"/>00043 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;[&#32;x[1]**3&#32;*&#32;x[2]&#32;/&#32;(71785&#32;*&#32;x[0]**4)&#32;-&#32;1,
+<anchor xml:id="_spring_8py_source_1l00044"/>00044 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;1&#32;-&#32;(4*x[1]**2&#32;-&#32;x[0]*x[1])&#32;/&#32;(12566*(x[1]*x[0]**3&#32;-&#32;x[0]**4))&#32;-&#32;1/(5108*x[0]**2),
+<anchor xml:id="_spring_8py_source_1l00045"/>00045 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;140.45*x[0]/(x[1]**2&#32;*&#32;x[2])&#32;-&#32;1,
+<anchor xml:id="_spring_8py_source_1l00046"/>00046 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;1&#32;-&#32;(x[1]&#32;+&#32;x[0])&#32;/&#32;1.5]
+<anchor xml:id="_spring_8py_source_1l00047"/>00047 
+<anchor xml:id="_spring_8py_source_1l00048"/><link linkend="_namespaceexamples_1_1spring_1ad819bd367024b1a2ff5dcdcf9baf0f26">00048</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1spring_1ad819bd367024b1a2ff5dcdcf9baf0f26">penalty</link>(x):
+<anchor xml:id="_spring_8py_source_1l00049"/>00049 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;-&#32;np.sum(np.minimum(<link linkend="_namespaceexamples_1_1spring_1a682c6c4156dd71a76e42d83aa869de29">constraint_ineq</link>(x),&#32;0))
+<anchor xml:id="_spring_8py_source_1l00050"/>00050 
+<anchor xml:id="_spring_8py_source_1l00051"/><link linkend="_namespaceexamples_1_1spring_1a44581395454773e536a02fcb79378602">00051</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1spring_1a44581395454773e536a02fcb79378602">weight</link>(x):&#32;&#32;&#32;
+<anchor xml:id="_spring_8py_source_1l00052"/>00052 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;(x[2]&#32;+&#32;2)&#32;*&#32;x[1]*x[0]**2
+<anchor xml:id="_spring_8py_source_1l00053"/>00053 
+<anchor xml:id="_spring_8py_source_1l00054"/><link linkend="_namespaceexamples_1_1spring_1a39b97ec21efea793b97726fa1bdc4d0b">00054</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1spring_1a39b97ec21efea793b97726fa1bdc4d0b">weight_penalty</link>(x):&#32;
+<anchor xml:id="_spring_8py_source_1l00055"/>00055 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">try</emphasis>:
+<anchor xml:id="_spring_8py_source_1l00056"/>00056 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;val&#32;=&#32;<link linkend="_namespaceexamples_1_1spring_1a44581395454773e536a02fcb79378602">weight</link>(x)&#32;
+<anchor xml:id="_spring_8py_source_1l00057"/>00057 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;val&#32;+&#32;100000*<link linkend="_namespaceexamples_1_1spring_1ad819bd367024b1a2ff5dcdcf9baf0f26">penalty</link>(x)
+<anchor xml:id="_spring_8py_source_1l00058"/>00058 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">except</emphasis>&#32;ZeroDivisionError:
+<anchor xml:id="_spring_8py_source_1l00059"/>00059 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;1E99
+<anchor xml:id="_spring_8py_source_1l00060"/>00060 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_spring_8py_source_1l00061"/><link linkend="_namespaceexamples_1_1spring_1a5548a6c0d57e91af650b43407f2f1c60">00061</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1spring_1a5548a6c0d57e91af650b43407f2f1c60">print_result</link>(ret,&#32;best,&#32;t0,&#32;i):
+<anchor xml:id="_spring_8py_source_1l00062"/>00062 &#32;&#32;&#32;&#32;x&#32;=&#32;<link linkend="_namespaceexamples_1_1spring_1ab4b7a17b6f29a47a16b6e750c9f44b6a">_feasible</link>(ret.x)&#32;<emphasis role="comment">#&#32;make&#32;sure&#32;result&#32;is&#32;_feasible</emphasis>
+<anchor xml:id="_spring_8py_source_1l00063"/>00063 &#32;&#32;&#32;&#32;w&#32;=&#32;<link linkend="_namespaceexamples_1_1spring_1a44581395454773e536a02fcb79378602">weight</link>(x)
+<anchor xml:id="_spring_8py_source_1l00064"/>00064 &#32;&#32;&#32;&#32;val&#32;=&#32;<link linkend="_namespaceexamples_1_1spring_1a39b97ec21efea793b97726fa1bdc4d0b">weight_penalty</link>(x)&#32;<emphasis role="comment">#&#32;add&#32;penalty&#32;for&#32;ineq&#32;constraint&#32;violation</emphasis>
+<anchor xml:id="_spring_8py_source_1l00065"/>00065 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;val&#32;&lt;&#32;best:
+<anchor xml:id="_spring_8py_source_1l00066"/>00066 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pen&#32;=&#32;<link linkend="_namespaceexamples_1_1spring_1ad819bd367024b1a2ff5dcdcf9baf0f26">penalty</link>(x)&#32;<emphasis role="comment">#&#32;check&#32;ineq&#32;constraint</emphasis>
+<anchor xml:id="_spring_8py_source_1l00067"/>00067 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;best&#32;=&#32;min(val,&#32;best)
+<anchor xml:id="_spring_8py_source_1l00068"/>00068 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;print(<emphasis role="stringliteral">&quot;{0}:&#32;time&#32;=&#32;{1:.1f}&#32;best&#32;=&#32;{2:.8f}&#32;f(xmin)&#32;=&#32;{3:.8f}&#32;ineq&#32;=&#32;{4:.5f}&quot;</emphasis>
+<anchor xml:id="_spring_8py_source_1l00069"/>00069 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;.<link linkend="_namespaceexamples_1_1spring_1aeded92414f5c10780704c6973ae03d81">format</link>(i+1,&#32;dtime(t0),&#32;best,&#32;w,&#32;pen))
+<anchor xml:id="_spring_8py_source_1l00070"/>00070 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;best
+<anchor xml:id="_spring_8py_source_1l00071"/>00071 
+<anchor xml:id="_spring_8py_source_1l00072"/><link linkend="_namespaceexamples_1_1spring_1a4f4f0af3100172a2bbc0cb83f41b898b">00072</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1spring_1a4f4f0af3100172a2bbc0cb83f41b898b">test_minimize_SLSQP</link>(fun,&#32;num):
+<anchor xml:id="_spring_8py_source_1l00073"/>00073 &#32;&#32;&#32;&#32;ineq_cons&#32;=&#32;{<emphasis role="stringliteral">&apos;type&apos;</emphasis>:&#32;<emphasis role="stringliteral">&apos;ineq&apos;</emphasis>,&#32;<emphasis role="stringliteral">&apos;fun&apos;</emphasis>&#32;:&#32;constraint_ineq}
+<anchor xml:id="_spring_8py_source_1l00074"/>00074 
+<anchor xml:id="_spring_8py_source_1l00075"/>00075 &#32;&#32;&#32;&#32;best&#32;=&#32;np.inf
+<anchor xml:id="_spring_8py_source_1l00076"/>00076 &#32;&#32;&#32;&#32;t0&#32;=&#32;time.perf_counter();
+<anchor xml:id="_spring_8py_source_1l00077"/>00077 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(num):
+<anchor xml:id="_spring_8py_source_1l00078"/>00078 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;guess&#32;=&#32;random_x(bounds.lb,&#32;bounds.ub)
+<anchor xml:id="_spring_8py_source_1l00079"/>00079 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ret&#32;=&#32;minimize(fun,&#32;x0&#32;=&#32;guess,&#32;bounds&#32;=&#32;bounds,
+<anchor xml:id="_spring_8py_source_1l00080"/>00080 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;method=<emphasis role="stringliteral">&apos;SLSQP&apos;</emphasis>,&#32;constraints=[ineq_cons])
+<anchor xml:id="_spring_8py_source_1l00081"/>00081 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;ret.success:
+<anchor xml:id="_spring_8py_source_1l00082"/>00082 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;best&#32;=&#32;<link linkend="_namespaceexamples_1_1spring_1a5548a6c0d57e91af650b43407f2f1c60">print_result</link>(ret,&#32;best,&#32;t0,&#32;i)
+<anchor xml:id="_spring_8py_source_1l00083"/>00083 
+<anchor xml:id="_spring_8py_source_1l00084"/>00084 <emphasis role="keywordflow">if</emphasis>&#32;__name__&#32;==&#32;<emphasis role="stringliteral">&apos;__main__&apos;</emphasis>:
+<anchor xml:id="_spring_8py_source_1l00085"/>00085 &#32;&#32;&#32;&#32;
+<anchor xml:id="_spring_8py_source_1l00086"/>00086 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;try&#32;as&#32;alternative&#32;</emphasis>
+<anchor xml:id="_spring_8py_source_1l00087"/>00087 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;test_minimize_SLSQP(weight,&#32;10000)</emphasis>
+<anchor xml:id="_spring_8py_source_1l00088"/>00088 &#32;&#32;&#32;&#32;
+<anchor xml:id="_spring_8py_source_1l00089"/><link linkend="_namespaceexamples_1_1spring_1a8e8a7e5d2cdf369ae80b7ff233303f5b">00089</link> &#32;&#32;&#32;&#32;t0&#32;=&#32;time.perf_counter();
+<anchor xml:id="_spring_8py_source_1l00090"/><link linkend="_namespaceexamples_1_1spring_1afc682836ceabbcec865a7a97824dd4ea">00090</link> &#32;&#32;&#32;&#32;ret&#32;=&#32;advretry.minimize(weight_penalty,&#32;bounds,&#32;num_retries&#32;=&#32;320)
+<anchor xml:id="_spring_8py_source_1l00091"/>00091 &#32;&#32;&#32;&#32;<emphasis role="comment">#ret&#32;=&#32;retry.minimize(weight_penalty,&#32;bounds,&#32;num_retries=32)</emphasis>
+<anchor xml:id="_spring_8py_source_1l00092"/>00092 &#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1spring_1a5548a6c0d57e91af650b43407f2f1c60">print_result</link>(ret,&#32;10000,&#32;t0,&#32;0)
+</programlisting></section>

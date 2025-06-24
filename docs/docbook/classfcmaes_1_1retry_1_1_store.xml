@@ -1,0 +1,1355 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_classfcmaes_1_1retry_1_1_store" xml:lang="en-US">
+<title>fcmaes.retry.Store Class Reference</title>
+<indexterm><primary>fcmaes.retry.Store</primary></indexterm>
+Collaboration diagram for fcmaes.retry.Store:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1retry_1_1_store__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Public Member Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1retry_1_1_store_1a12ccf40a561e8b6528ca7eb962ae021a">__init__</link> (self, Callable[[ArrayLike], float] <link linkend="_classfcmaes_1_1retry_1_1_store_1a958dac450efef452d7a6a81864c9ab29">fun</link>, Bounds bounds, Optional[int] <link linkend="_classfcmaes_1_1retry_1_1_store_1aa9efde59322cf2c93aad79a8e24d8d9b">check_interval</link>=10, Optional[int] <link linkend="_classfcmaes_1_1retry_1_1_store_1a2948a743df6a8be2bf2c274341a59997">capacity</link>=500, Optional[int] <link linkend="_classfcmaes_1_1retry_1_1_store_1a8a329ef518cc42000867ae5fa9b854d7">statistic_num</link>=0)</para>
+
+<para>Initializes an instance to manage shared memory for evaluating fitness functions with capabilities for storing results, maintaining statistics, and handling bounds in a multiprocessing environment. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1retry_1_1_store_1aac8eb97e032a0f6c9bd340e6702c642c">wrapper</link> (self, ArrayLike x)</para>
+
+<para>Evaluates a given function with input data, tracks evaluation statistics, and updates the best observed value if applicable. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1retry_1_1_store_1a300771cb56317ceb78cb7cd4a79ce0ec">get_improvements</link> (self)</para>
+
+<para>Generates an array of improvements based on time and value up to a specific index. </para>
+</listitem>
+            <listitem><para>List <link linkend="_classfcmaes_1_1retry_1_1_store_1abd99f307cd4d6cf478e8c8201ee15f59">get_statistics</link> (self, int num)</para>
+
+<para>Calculates statistics for the provided number of samples by segmenting and mapping values based on time intervals. </para>
+</listitem>
+            <listitem><para>int <link linkend="_classfcmaes_1_1retry_1_1_store_1a2f184eeda8d0c62eed36c32161e9b5bb">eval_num</link> (self, int max_evals)</para>
+
+<para>Returns the number of evaluations specified. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1retry_1_1_store_1a42807f223ababda1171ddc055df0bbd1">replace</link> (self, int i, float y, ArrayLike <link linkend="_classfcmaes_1_1retry_1_1_store_1afb813b3455fba516e72fa95f6a7261f7">xs</link>)</para>
+
+<para>Replaces the values at a specified index with new values. </para>
+</listitem>
+            <listitem><para>int <link linkend="_classfcmaes_1_1retry_1_1_store_1ac6ff35da8231cd4aedb488427841aa3b">sort</link> (self)</para>
+
+<para>Sort entries to retain the best ones, thereby optimizing storage for new entries. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1retry_1_1_store_1aed35531d1489fd7b28d69dc3c9794508">add_result</link> (self, float y, ArrayLike x, int evals, limit=np.inf)</para>
+
+<para>Adds a result to the data structure, updating statistical values and recording the given data point. </para>
+</listitem>
+            <listitem><para>np.ndarray <link linkend="_classfcmaes_1_1retry_1_1_store_1ae078fd3c0dfc87aabde92b937cb2fa91">get_x_best</link> (self)</para>
+
+<para>Retrieves a copy of the best_x attribute as a numpy array. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1retry_1_1_store_1a65ac0375e6705dd9e67e253829efd92d">create_xs_view</link> (self)</para>
+
+<para>Creates and initializes a view for the &apos;xs&apos; object. </para>
+</listitem>
+            <listitem><para>np.ndarray <link linkend="_classfcmaes_1_1retry_1_1_store_1ae65b46bea16b6e50a3af24254cf4a2a8">get_xs</link> (self)</para>
+
+<para>Returns a view of the stored elements up to the count specified by <computeroutput>num_stored</computeroutput>. </para>
+</listitem>
+            <listitem><para>float <link linkend="_classfcmaes_1_1retry_1_1_store_1a8ef8c822668e6ddb6da277082513e323">get_y</link> (self, int pid)</para>
+
+<para>Retrieves the y-coordinate value corresponding to a given particle ID. </para>
+</listitem>
+            <listitem><para>float <link linkend="_classfcmaes_1_1retry_1_1_store_1a6f2490b0d579f6766b663fccd8c557b5">get_y_best</link> (self)</para>
+
+<para>Returns the best y-value. </para>
+</listitem>
+            <listitem><para>np.ndarray <link linkend="_classfcmaes_1_1retry_1_1_store_1af199095a120a26f0a77d0a263785d4f3">get_ys</link> (self)</para>
+
+<para>Gets the stored y-values as a NumPy array. </para>
+</listitem>
+            <listitem><para>float <link linkend="_classfcmaes_1_1retry_1_1_store_1a26a39767ca9766302d42f84cd4dd25d6">get_y_mean</link> (self)</para>
+
+<para>Calculates and returns the mean value along the Y-axis. </para>
+</listitem>
+            <listitem><para>float <link linkend="_classfcmaes_1_1retry_1_1_store_1a7ad3659c8d9d66fe34e6e13ec6d9eb69">get_y_standard_dev</link> (self)</para>
+
+<para>Calculates the standard deviation based on the collected statistics. </para>
+</listitem>
+            <listitem><para>int <link linkend="_classfcmaes_1_1retry_1_1_store_1ae2f03d71d58da349826b6d0249a66e61">get_count_evals</link> (self)</para>
+
+<para>Retrieves the current evaluation count value. </para>
+</listitem>
+            <listitem><para>int <link linkend="_classfcmaes_1_1retry_1_1_store_1a1dcbf34a7eb52ea3463469e7e2eaa8bb">get_count_runs</link> (self)</para>
+
+<para>Retrieves the current value of <computeroutput>count_runs</computeroutput>, representing the count of runs. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1retry_1_1_store_1a45f5a4eb953f48b845388d985ccc8737">get_runs_compare_incr</link> (self, float limit)</para>
+
+<para>Compares the current run count with the specified limit and increments the count if it is below the given limit. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1retry_1_1_store_1a440b834ab3066810ed77da1c5093fa49">incr_count_evals</link> (self, evals)</para>
+
+<para>Increases the count of evaluations and performs sorting based on a condition. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1retry_1_1_store_1a0049736307028e256c038d8a8c1723d2">dump</link> (self)</para>
+
+<para>Dumps debugging information if debugging is active. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Public Attributes    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1retry_1_1_store_1a958dac450efef452d7a6a81864c9ab29">fun</link> = fun</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1retry_1_1_store_1a74edea66527f530d09f39b00ab4e8216">lower</link></para>
+
+<para>The lower bounds of the objective function arguments. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1retry_1_1_store_1a4638dbc2eff8a0fb5209513ee112a6d4">upper</link> = <link linkend="_namespacefcmaes_1_1retry_1a35537fa2c742d879961164339775fd72">_convertBounds</link>(bounds)</para>
+
+<para>The upper bounds of the objective function arguments. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1retry_1_1_store_1a2948a743df6a8be2bf2c274341a59997">capacity</link> = capacity</para>
+
+<para>Maximum capacity of the evaluation store. </para>
+</listitem>
+            <listitem><para>int <link linkend="_classfcmaes_1_1retry_1_1_store_1aa9efde59322cf2c93aad79a8e24d8d9b">check_interval</link> = check_interval</para>
+
+<para>Number of iterations after which the evaluation memory is sorted. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1retry_1_1_store_1a051fd56ed3ea2758d70a16e26888e2d6">dim</link> = len(self.lower)</para>
+
+<para>Dimensionality of the problem space. </para>
+</listitem>
+            <listitem><para>list <link linkend="_classfcmaes_1_1retry_1_1_store_1a5e7a47140abfcb59a91b4559eba46d06">delta</link> = []</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1retry_1_1_store_1a5c10a1d4fb385cbdc835ce1360c693d1">add_mutex</link> = mp.Lock()</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1retry_1_1_store_1afb813b3455fba516e72fa95f6a7261f7">xs</link> = <link linkend="_classfcmaes_1_1retry_1_1_shared2d">Shared2d</link>(np.empty((self.capacity, self.dim), dtype = np.float64))</para>
+
+<para>Shared 2D array for storing the evaluated points in the search space. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1retry_1_1_store_1a9da0b3410bcb1d0eab643afe10343135">ys</link> = mp.RawArray(ct.c_double, self.capacity)</para>
+
+<para>Shared array for storing the corresponding function values. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1retry_1_1_store_1a3f6bde5da0736513834d69412b7c61dc">count_evals</link> = mp.RawValue(ct.c_long, 0)</para>
+
+<para>Counter for the total number of evaluations performed. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1retry_1_1_store_1a130c7f2aadec40eb41b24cb0d6dbc425">count_runs</link> = mp.RawValue(ct.c_int, 0)</para>
+
+<para>Counter for the number of optimization runs. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1retry_1_1_store_1ac25eb94e6c607fe3119c19a9fda395fd">num_stored</link> = mp.RawValue(ct.c_int, 0)</para>
+
+<para>Counter for the number of currently stored evaluations. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1retry_1_1_store_1a2be02fdcd227c43fa17eafab835a9efe">count_stat_runs</link> = mp.RawValue(ct.c_int, 0)</para>
+
+<para>Counter for the number of recorded statistics. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1retry_1_1_store_1a4fc40ab16eeca0897e5ea7528dacbf26">t0</link> = time.perf_counter()</para>
+
+<para>Reference time for tracking durations. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1retry_1_1_store_1a93bde352c1ab2614c9e975c2c042f9e1">mean</link> = mp.RawValue(ct.c_double, 0)</para>
+
+<para>Running mean of function values in the store. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1retry_1_1_store_1a3aba1d490d946a3765da95a30732b665">qmean</link> = mp.RawValue(ct.c_double, 0)</para>
+
+<para>Running squared mean difference for standard deviation calculation. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1retry_1_1_store_1abaa0621bb3e9f36e0a97ffe120d6653b">best_y</link> = mp.RawValue(ct.c_double, np.inf)</para>
+
+<para>Best objective function value found so far. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1retry_1_1_store_1a005e34c5baaa20b4169e5da2cc2eaffa">best_x</link> = mp.RawArray(ct.c_double, self.dim)</para>
+
+<para>Coordinates of the point corresponding to the best objective function value. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1retry_1_1_store_1a8a329ef518cc42000867ae5fa9b854d7">statistic_num</link> = statistic_num</para>
+
+<para>Number of statistics points to record. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1retry_1_1_store_1ab62e2aba40d2a934b1cf31bb8e142e27">time</link> = mp.RawArray(ct.c_double, self.statistic_num)</para>
+
+<para>Array for storing timestamps of improvements. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1retry_1_1_store_1ab3305985c51cacaee432b2d93144794a">val</link> = mp.RawArray(ct.c_double, self.statistic_num)</para>
+
+<para>Array for storing values of improvements. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1retry_1_1_store_1af8054c47224cbc0038d74502e002d2af">si</link> = mp.RawValue(ct.c_int, 0)</para>
+
+<para>Index for the next statistic to record. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1retry_1_1_store_1a4c779ed899eabfdc90daab6f0be1b1ec">sevals</link> = mp.RawValue(ct.c_long, 0)</para>
+
+<para>Counter for total evaluations stored for statistics. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1retry_1_1_store_1ac8aae6e25f5f6b3283fce0598a6aecad">bval</link> = mp.RawValue(ct.c_double, np.inf)</para>
+
+<para>Current best value stored for statistics tracking. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1retry_1_1_store_1a35a4f6c361cb2a13c382b95fbbe8dc85">xs_view</link> = self.xs.view()</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00400">400</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+<section>
+<title>Constructor &amp; Destructor Documentation</title>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_store_1a12ccf40a561e8b6528ca7eb962ae021a"/><section>
+    <title>__init__()</title>
+<indexterm><primary>__init__</primary><secondary>fcmaes.retry.Store</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Store</primary><secondary>__init__</secondary></indexterm>
+<para><computeroutput>fcmaes.retry.Store.__init__ ( self, Callable[[ArrayLike], float] fun, Bounds bounds, Optional[int]  check_interval = <computeroutput>10</computeroutput>
+, Optional[int]  capacity = <computeroutput>500</computeroutput>
+, Optional[int]  statistic_num = <computeroutput>0</computeroutput>
+)</computeroutput></para><para>
+
+<para>Initializes an instance to manage shared memory for evaluating fitness functions with capabilities for storing results, maintaining statistics, and handling bounds in a multiprocessing environment. </para>
+</para>
+
+<para><literallayout><computeroutput>       fun (Callable[[ArrayLike], float]): The fitness function to evaluate.
+</computeroutput></literallayout> 
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>bounds</entry><entry>
+<para>The bounds of the objective function arguments. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>check_interval</entry><entry>
+<para>The interval (in iterations) to sort the evaluation memory. Default is 10. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>capacity</entry><entry>
+<para>The maximum capacity of the evaluation store. <literallayout><computeroutput>Default&#32;<emphasis role="keywordflow">is</emphasis>&#32;500.
+</computeroutput></literallayout> statistic_num (Optional[int]): The number of statistics to maintain. If greater than 0, statistics tracking is enabled. Default is 0. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00485">485</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Function Documentation</title>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_store_1aed35531d1489fd7b28d69dc3c9794508"/><section>
+    <title>add_result()</title>
+<indexterm><primary>add_result</primary><secondary>fcmaes.retry.Store</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Store</primary><secondary>add_result</secondary></indexterm>
+<para><computeroutput>fcmaes.retry.Store.add_result ( self, float y, ArrayLike x, int evals,  limit = <computeroutput>np.inf</computeroutput>
+)</computeroutput></para><para>
+
+<para>Adds a result to the data structure, updating statistical values and recording the given data point. </para>
+</para>
+
+<para>It updates attributes like the best value (<computeroutput>best_y</computeroutput>) and associated point (<computeroutput>best_x</computeroutput>), checks storage capacity, and computes statistical measures.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>y</entry><entry>
+<para>The new value to be added. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>x</entry><entry>
+<para>The associated data point corresponding to the value <computeroutput>y</computeroutput>. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>evals</entry><entry>
+<para>Number of evaluations associated with the newly added data. limit (float, optional): The maximum cap for <computeroutput>y</computeroutput> values to be considered. Default is <computeroutput>np.inf</computeroutput>.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>ValueError</entry><entry>
+<para>If the input data is inconsistent or violates preconditions of the data structure. (Error not directly visible in provided code) </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00674">674</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1retry_1_1_store_aed35531d1489fd7b28d69dc3c9794508_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_store_1a65ac0375e6705dd9e67e253829efd92d"/><section>
+    <title>create_xs_view()</title>
+<indexterm><primary>create_xs_view</primary><secondary>fcmaes.retry.Store</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Store</primary><secondary>create_xs_view</secondary></indexterm>
+<para><computeroutput>fcmaes.retry.Store.create_xs_view ( self)</computeroutput></para><para>
+
+<para>Creates and initializes a view for the &apos;xs&apos; object. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method generates a view from the &apos;xs&apos; object and assigns it to the
+   `xs_view` attribute. It is essential to call this method in the target
+   process to properly initialize the `xs_view`.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>AttributeError</entry><entry>
+<para>If &apos;xs&apos; does not have a &apos;view()&apos; method or is not </para>
+</entry>
+                            </row>
+                            <row>
+<entry>initialized.</entry><entry>
+<para></para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00721">721</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_store_1a0049736307028e256c038d8a8c1723d2"/><section>
+    <title>dump()</title>
+<indexterm><primary>dump</primary><secondary>fcmaes.retry.Store</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Store</primary><secondary>dump</secondary></indexterm>
+<para><computeroutput>fcmaes.retry.Store.dump ( self)</computeroutput></para><para>
+
+<para>Dumps debugging information if debugging is active. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method obtains and processes data related to evaluations, computed
+   values (Ys), and other statistics, then logs a formatted message for
+   debugging purposes.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>None</entry><entry></entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>None</entry><entry>
+<para></para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00871">871</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1retry_1_1_store_a0049736307028e256c038d8a8c1723d2_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1retry_1_1_store_a0049736307028e256c038d8a8c1723d2_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_store_1a2f184eeda8d0c62eed36c32161e9b5bb"/><section>
+    <title>eval_num()</title>
+<indexterm><primary>eval_num</primary><secondary>fcmaes.retry.Store</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Store</primary><secondary>eval_num</secondary></indexterm>
+<para><computeroutput> int fcmaes.retry.Store.eval_num ( self, int max_evals)</computeroutput></para><para>
+
+<para>Returns the number of evaluations specified. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method accepts the maximum number of evaluations as an integer input
+   and simply returns it unchanged. It is commonly used to track or specify
+   the number of steps or iterations allowed in a process.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>max_evals</entry><entry>
+<para>The maximum number of evaluations to be returned.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>int The provided maximum evaluations. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00618">618</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_store_1ae2f03d71d58da349826b6d0249a66e61"/><section>
+    <title>get_count_evals()</title>
+<indexterm><primary>get_count_evals</primary><secondary>fcmaes.retry.Store</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Store</primary><secondary>get_count_evals</secondary></indexterm>
+<para><computeroutput> int fcmaes.retry.Store.get_count_evals ( self)</computeroutput></para><para>
+
+<para>Retrieves the current evaluation count value. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method returns the integer value of the current evaluation count, allowing
+   users to access the internal evaluation counter&apos;s value for further processing
+   or inspection.
+</computeroutput></literallayout></para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>int The current count of evaluations. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00813">813</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_store_1a1dcbf34a7eb52ea3463469e7e2eaa8bb"/><section>
+    <title>get_count_runs()</title>
+<indexterm><primary>get_count_runs</primary><secondary>fcmaes.retry.Store</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Store</primary><secondary>get_count_runs</secondary></indexterm>
+<para><computeroutput> int fcmaes.retry.Store.get_count_runs ( self)</computeroutput></para><para>
+
+<para>Retrieves the current value of <computeroutput>count_runs</computeroutput>, representing the count of runs. </para>
+</para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>int The current count of runs. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00822">822</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_store_1a300771cb56317ceb78cb7cd4a79ce0ec"/><section>
+    <title>get_improvements()</title>
+<indexterm><primary>get_improvements</primary><secondary>fcmaes.retry.Store</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Store</primary><secondary>get_improvements</secondary></indexterm>
+<para><computeroutput>fcmaes.retry.Store.get_improvements ( self)</computeroutput></para><para>
+
+<para>Generates an array of improvements based on time and value up to a specific index. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method combines the time and value attributes into a NumPy array of tuples,
+   containing the data up to the si attribute&apos;s value. The method assumes that the
+   attributes `time` and `val` are iterable and contain corresponding elements. The
+   method is useful for analyzing the progression or trend present within the provided
+   values.
+</computeroutput></literallayout></para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>numpy A NumPy array of tuples where each tuple is composed of elements from time and val attributes up to the index indicated by si.</para>
+</formalpara>
+
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>TypeError</entry><entry>
+<para>If `time` or `val` attributes are not iterable or do not contain corresponding elements. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>ValueError</entry><entry>
+<para>If `si.value` exceeds the lengths of `time` or `val` attributes. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00570">570</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_store_1a45f5a4eb953f48b845388d985ccc8737"/><section>
+    <title>get_runs_compare_incr()</title>
+<indexterm><primary>get_runs_compare_incr</primary><secondary>fcmaes.retry.Store</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Store</primary><secondary>get_runs_compare_incr</secondary></indexterm>
+<para><computeroutput>fcmaes.retry.Store.get_runs_compare_incr ( self, float limit)</computeroutput></para><para>
+
+<para>Compares the current run count with the specified limit and increments the count if it is below the given limit. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>limit</entry><entry>
+<para>The maximum limit up to which the run count can be incremented.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>bool True if the run count was incremented, False otherwise. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00835">835</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_store_1abd99f307cd4d6cf478e8c8201ee15f59"/><section>
+    <title>get_statistics()</title>
+<indexterm><primary>get_statistics</primary><secondary>fcmaes.retry.Store</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Store</primary><secondary>get_statistics</secondary></indexterm>
+<para><computeroutput> List fcmaes.retry.Store.get_statistics ( self, int num)</computeroutput></para><para>
+
+<para>Calculates statistics for the provided number of samples by segmenting and mapping values based on time intervals. </para>
+</para>
+
+<para>This method segments a range of time into equal intervals based on the given number of samples. It then maps each interval to the corresponding value at the closest timestamp within that interval.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>num</entry><entry>
+<para>The number of intervals or samples for which statistics are calculated.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>List A list of values corresponding to the calculated statistics for each interval. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00590">590</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_store_1ae078fd3c0dfc87aabde92b937cb2fa91"/><section>
+    <title>get_x_best()</title>
+<indexterm><primary>get_x_best</primary><secondary>fcmaes.retry.Store</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Store</primary><secondary>get_x_best</secondary></indexterm>
+<para><computeroutput> np.ndarray fcmaes.retry.Store.get_x_best ( self)</computeroutput></para><para>
+
+<para>Retrieves a copy of the best_x attribute as a numpy array. </para>
+</para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>np A copy of the current best_x attribute, converted to a numpy array. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00706">706</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_store_1ae65b46bea16b6e50a3af24254cf4a2a8"/><section>
+    <title>get_xs()</title>
+<indexterm><primary>get_xs</primary><secondary>fcmaes.retry.Store</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Store</primary><secondary>get_xs</secondary></indexterm>
+<para><computeroutput> np.ndarray fcmaes.retry.Store.get_xs ( self)</computeroutput></para><para>
+
+<para>Returns a view of the stored elements up to the count specified by <computeroutput>num_stored</computeroutput>. </para>
+</para>
+
+<para><literallayout><computeroutput>   Retrieves a NumPy array with the elements stored up to a set boundary, defined by
+   `num_stored.value`. This method utilizes the array&apos;s view functionality for efficient
+   data access without additional memory allocation.
+</computeroutput></literallayout></para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>np A NumPy array view with elements up to the specified count. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00734">734</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_store_1a8ef8c822668e6ddb6da277082513e323"/><section>
+    <title>get_y()</title>
+<indexterm><primary>get_y</primary><secondary>fcmaes.retry.Store</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Store</primary><secondary>get_y</secondary></indexterm>
+<para><computeroutput> float fcmaes.retry.Store.get_y ( self, int pid)</computeroutput></para><para>
+
+<para>Retrieves the y-coordinate value corresponding to a given particle ID. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>pid</entry><entry>
+<para>The particle ID whose y-coordinate is to be retrieved.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>float The y-coordinate value associated with the specified particle ID. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00746">746</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_store_1a6f2490b0d579f6766b663fccd8c557b5"/><section>
+    <title>get_y_best()</title>
+<indexterm><primary>get_y_best</primary><secondary>fcmaes.retry.Store</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Store</primary><secondary>get_y_best</secondary></indexterm>
+<para><computeroutput> float fcmaes.retry.Store.get_y_best ( self)</computeroutput></para><para>
+
+<para>Returns the best y-value. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method retrieves the best y-value currently stored in the `best_y`
+   attribute. The value is returned as a floating-point number.
+</computeroutput></literallayout></para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>float The best y-value stored in the <computeroutput>best_y</computeroutput> attribute. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00758">758</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_store_1a26a39767ca9766302d42f84cd4dd25d6"/><section>
+    <title>get_y_mean()</title>
+<indexterm><primary>get_y_mean</primary><secondary>fcmaes.retry.Store</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Store</primary><secondary>get_y_mean</secondary></indexterm>
+<para><computeroutput> float fcmaes.retry.Store.get_y_mean ( self)</computeroutput></para><para>
+
+<para>Calculates and returns the mean value along the Y-axis. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method retrieves the precomputed mean value for the Y-axis
+   from the `mean` attribute and returns it.
+</computeroutput></literallayout></para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>float The mean value along the Y-axis. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00782">782</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1retry_1_1_store_a26a39767ca9766302d42f84cd4dd25d6_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_store_1a7ad3659c8d9d66fe34e6e13ec6d9eb69"/><section>
+    <title>get_y_standard_dev()</title>
+<indexterm><primary>get_y_standard_dev</primary><secondary>fcmaes.retry.Store</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Store</primary><secondary>get_y_standard_dev</secondary></indexterm>
+<para><computeroutput> float fcmaes.retry.Store.get_y_standard_dev ( self)</computeroutput></para><para>
+
+<para>Calculates the standard deviation based on the collected statistics. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method calculates the standard deviation for the y-values from
+   statistical data. If no statistical runs have been recorded, it
+   returns 0 to avoid division by zero.
+</computeroutput></literallayout></para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>float The standard deviation of the y-values from the statistical data. Returns 0 if there are no recorded statistical runs.</para>
+</formalpara>
+
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>None</entry><entry>
+<para></para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00799">799</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1retry_1_1_store_a7ad3659c8d9d66fe34e6e13ec6d9eb69_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_store_1af199095a120a26f0a77d0a263785d4f3"/><section>
+    <title>get_ys()</title>
+<indexterm><primary>get_ys</primary><secondary>fcmaes.retry.Store</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Store</primary><secondary>get_ys</secondary></indexterm>
+<para><computeroutput> np.ndarray fcmaes.retry.Store.get_ys ( self)</computeroutput></para><para>
+
+<para>Gets the stored y-values as a NumPy array. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method retrieves the stored y-values up to the current number of
+   stored values and returns them as a NumPy array.
+</computeroutput></literallayout></para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>np A NumPy array containing the y-values. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00770">770</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1retry_1_1_store_af199095a120a26f0a77d0a263785d4f3_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_store_1a440b834ab3066810ed77da1c5093fa49"/><section>
+    <title>incr_count_evals()</title>
+<indexterm><primary>incr_count_evals</primary><secondary>fcmaes.retry.Store</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Store</primary><secondary>incr_count_evals</secondary></indexterm>
+<para><computeroutput>fcmaes.retry.Store.incr_count_evals ( self,  evals)</computeroutput></para><para>
+
+<para>Increases the count of evaluations and performs sorting based on a condition. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method increments the evaluation counter (`count_evals`) by the specified
+   value and performs a sort operation if the current number of runs (`count_runs`)
+   is one less than a multiple of the check interval (`check_interval`).
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>evals</entry><entry>
+<para>The number of evaluations to add to the current count. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00853">853</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1retry_1_1_store_a440b834ab3066810ed77da1c5093fa49_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1retry_1_1_store_a440b834ab3066810ed77da1c5093fa49_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_store_1a42807f223ababda1171ddc055df0bbd1"/><section>
+    <title>replace()</title>
+<indexterm><primary>replace</primary><secondary>fcmaes.retry.Store</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Store</primary><secondary>replace</secondary></indexterm>
+<para><computeroutput>fcmaes.retry.Store.replace ( self, int i, float y, ArrayLike xs)</computeroutput></para><para>
+
+<para>Replaces the values at a specified index with new values. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method updates the y-value and x-values at the specified index by
+   calling internal methods.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>i</entry><entry>
+<para>Index at which the replacement occurs. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>y</entry><entry>
+<para>New y-value to set at the specified index. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>xs</entry><entry>
+<para>New x-values to set at the specified index. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00632">632</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1retry_1_1_store_a42807f223ababda1171ddc055df0bbd1_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_store_1ac6ff35da8231cd4aedb488427841aa3b"/><section>
+    <title>sort()</title>
+<indexterm><primary>sort</primary><secondary>fcmaes.retry.Store</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Store</primary><secondary>sort</secondary></indexterm>
+<para><computeroutput> int fcmaes.retry.Store.sort ( self)</computeroutput></para><para>
+
+<para>Sort entries to retain the best ones, thereby optimizing storage for new entries. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method sorts the stored entries based on their associated values, retains the top
+   90% (as determined by the capacity), and updates the internal data structures to reflect
+   the new ordering and count of retained entries. It subsequently returns the updated
+   number of stored entries.
+</computeroutput></literallayout></para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>int The number of stored entries after sorting and truncating to the top 90%. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00648">648</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1retry_1_1_store_ac6ff35da8231cd4aedb488427841aa3b_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_store_1aac8eb97e032a0f6c9bd340e6702c642c"/><section>
+    <title>wrapper()</title>
+<indexterm><primary>wrapper</primary><secondary>fcmaes.retry.Store</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Store</primary><secondary>wrapper</secondary></indexterm>
+<para><computeroutput>fcmaes.retry.Store.wrapper ( self, ArrayLike x)</computeroutput></para><para>
+
+<para>Evaluates a given function with input data, tracks evaluation statistics, and updates the best observed value if applicable. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>x</entry><entry>
+<para>Input data for the function evaluation.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>float The function output for the given input. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00536">536</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Data Documentation</title>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_store_1a5c10a1d4fb385cbdc835ce1360c693d1"/><section>
+    <title>add_mutex</title>
+<indexterm><primary>add_mutex</primary><secondary>fcmaes.retry.Store</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Store</primary><secondary>add_mutex</secondary></indexterm>
+<para><computeroutput>fcmaes.retry.Store.add_mutex = mp.Lock()</computeroutput></para><para>
+Definition at line <link linkend="_retry_8py_source_1l00502">502</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_store_1a005e34c5baaa20b4169e5da2cc2eaffa"/><section>
+    <title>best_x</title>
+<indexterm><primary>best_x</primary><secondary>fcmaes.retry.Store</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Store</primary><secondary>best_x</secondary></indexterm>
+<para><computeroutput>fcmaes.retry.Store.best_x = mp.RawArray(ct.c_double, self.dim)</computeroutput></para><para>
+
+<para>Coordinates of the point corresponding to the best objective function value. </para>
+</para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00514">514</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_store_1abaa0621bb3e9f36e0a97ffe120d6653b"/><section>
+    <title>best_y</title>
+<indexterm><primary>best_y</primary><secondary>fcmaes.retry.Store</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Store</primary><secondary>best_y</secondary></indexterm>
+<para><computeroutput>fcmaes.retry.Store.best_y = mp.RawValue(ct.c_double, np.inf)</computeroutput></para><para>
+
+<para>Best objective function value found so far. </para>
+</para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00513">513</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_store_1ac8aae6e25f5f6b3283fce0598a6aecad"/><section>
+    <title>bval</title>
+<indexterm><primary>bval</primary><secondary>fcmaes.retry.Store</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Store</primary><secondary>bval</secondary></indexterm>
+<para><computeroutput>fcmaes.retry.Store.bval = mp.RawValue(ct.c_double, np.inf)</computeroutput></para><para>
+
+<para>Current best value stored for statistics tracking. </para>
+</para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00523">523</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_store_1a2948a743df6a8be2bf2c274341a59997"/><section>
+    <title>capacity</title>
+<indexterm><primary>capacity</primary><secondary>fcmaes.retry.Store</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Store</primary><secondary>capacity</secondary></indexterm>
+<para><computeroutput>fcmaes.retry.Store.capacity = capacity</computeroutput></para><para>
+
+<para>Maximum capacity of the evaluation store. </para>
+</para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00494">494</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_store_1aa9efde59322cf2c93aad79a8e24d8d9b"/><section>
+    <title>check_interval</title>
+<indexterm><primary>check_interval</primary><secondary>fcmaes.retry.Store</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Store</primary><secondary>check_interval</secondary></indexterm>
+<para><computeroutput>int fcmaes.retry.Store.check_interval = check_interval</computeroutput></para><para>
+
+<para>Number of iterations after which the evaluation memory is sorted. </para>
+</para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00495">495</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_store_1a3f6bde5da0736513834d69412b7c61dc"/><section>
+    <title>count_evals</title>
+<indexterm><primary>count_evals</primary><secondary>fcmaes.retry.Store</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Store</primary><secondary>count_evals</secondary></indexterm>
+<para><computeroutput>fcmaes.retry.Store.count_evals = mp.RawValue(ct.c_long, 0)</computeroutput></para><para>
+
+<para>Counter for the total number of evaluations performed. </para>
+</para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00506">506</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_store_1a130c7f2aadec40eb41b24cb0d6dbc425"/><section>
+    <title>count_runs</title>
+<indexterm><primary>count_runs</primary><secondary>fcmaes.retry.Store</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Store</primary><secondary>count_runs</secondary></indexterm>
+<para><computeroutput>fcmaes.retry.Store.count_runs = mp.RawValue(ct.c_int, 0)</computeroutput></para><para>
+
+<para>Counter for the number of optimization runs. </para>
+</para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00507">507</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_store_1a2be02fdcd227c43fa17eafab835a9efe"/><section>
+    <title>count_stat_runs</title>
+<indexterm><primary>count_stat_runs</primary><secondary>fcmaes.retry.Store</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Store</primary><secondary>count_stat_runs</secondary></indexterm>
+<para><computeroutput>fcmaes.retry.Store.count_stat_runs = mp.RawValue(ct.c_int, 0)</computeroutput></para><para>
+
+<para>Counter for the number of recorded statistics. </para>
+</para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00509">509</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_store_1a5e7a47140abfcb59a91b4559eba46d06"/><section>
+    <title>delta</title>
+<indexterm><primary>delta</primary><secondary>fcmaes.retry.Store</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Store</primary><secondary>delta</secondary></indexterm>
+<para><computeroutput>list fcmaes.retry.Store.delta = []</computeroutput></para><para>
+Definition at line <link linkend="_retry_8py_source_1l00497">497</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_store_1a051fd56ed3ea2758d70a16e26888e2d6"/><section>
+    <title>dim</title>
+<indexterm><primary>dim</primary><secondary>fcmaes.retry.Store</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Store</primary><secondary>dim</secondary></indexterm>
+<para><computeroutput>fcmaes.retry.Store.dim = len(self.lower)</computeroutput></para><para>
+
+<para>Dimensionality of the problem space. </para>
+</para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00496">496</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_store_1a958dac450efef452d7a6a81864c9ab29"/><section>
+    <title>fun</title>
+<indexterm><primary>fun</primary><secondary>fcmaes.retry.Store</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Store</primary><secondary>fun</secondary></indexterm>
+<para><computeroutput>fcmaes.retry.Store.fun = fun</computeroutput></para><para>
+Definition at line <link linkend="_retry_8py_source_1l00492">492</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_store_1a74edea66527f530d09f39b00ab4e8216"/><section>
+    <title>lower</title>
+<indexterm><primary>lower</primary><secondary>fcmaes.retry.Store</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Store</primary><secondary>lower</secondary></indexterm>
+<para><computeroutput>fcmaes.retry.Store.lower</computeroutput></para><para>
+
+<para>The lower bounds of the objective function arguments. </para>
+</para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00493">493</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_store_1a93bde352c1ab2614c9e975c2c042f9e1"/><section>
+    <title>mean</title>
+<indexterm><primary>mean</primary><secondary>fcmaes.retry.Store</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Store</primary><secondary>mean</secondary></indexterm>
+<para><computeroutput>fcmaes.retry.Store.mean = mp.RawValue(ct.c_double, 0)</computeroutput></para><para>
+
+<para>Running mean of function values in the store. </para>
+</para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00511">511</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_store_1ac25eb94e6c607fe3119c19a9fda395fd"/><section>
+    <title>num_stored</title>
+<indexterm><primary>num_stored</primary><secondary>fcmaes.retry.Store</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Store</primary><secondary>num_stored</secondary></indexterm>
+<para><computeroutput>fcmaes.retry.Store.num_stored = mp.RawValue(ct.c_int, 0)</computeroutput></para><para>
+
+<para>Counter for the number of currently stored evaluations. </para>
+</para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00508">508</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_store_1a3aba1d490d946a3765da95a30732b665"/><section>
+    <title>qmean</title>
+<indexterm><primary>qmean</primary><secondary>fcmaes.retry.Store</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Store</primary><secondary>qmean</secondary></indexterm>
+<para><computeroutput>fcmaes.retry.Store.qmean = mp.RawValue(ct.c_double, 0)</computeroutput></para><para>
+
+<para>Running squared mean difference for standard deviation calculation. </para>
+</para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00512">512</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_store_1a4c779ed899eabfdc90daab6f0be1b1ec"/><section>
+    <title>sevals</title>
+<indexterm><primary>sevals</primary><secondary>fcmaes.retry.Store</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Store</primary><secondary>sevals</secondary></indexterm>
+<para><computeroutput>fcmaes.retry.Store.sevals = mp.RawValue(ct.c_long, 0)</computeroutput></para><para>
+
+<para>Counter for total evaluations stored for statistics. </para>
+</para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00522">522</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_store_1af8054c47224cbc0038d74502e002d2af"/><section>
+    <title>si</title>
+<indexterm><primary>si</primary><secondary>fcmaes.retry.Store</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Store</primary><secondary>si</secondary></indexterm>
+<para><computeroutput>fcmaes.retry.Store.si = mp.RawValue(ct.c_int, 0)</computeroutput></para><para>
+
+<para>Index for the next statistic to record. </para>
+</para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00521">521</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_store_1a8a329ef518cc42000867ae5fa9b854d7"/><section>
+    <title>statistic_num</title>
+<indexterm><primary>statistic_num</primary><secondary>fcmaes.retry.Store</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Store</primary><secondary>statistic_num</secondary></indexterm>
+<para><computeroutput>fcmaes.retry.Store.statistic_num = statistic_num</computeroutput></para><para>
+
+<para>Number of statistics points to record. </para>
+</para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00515">515</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_store_1a4fc40ab16eeca0897e5ea7528dacbf26"/><section>
+    <title>t0</title>
+<indexterm><primary>t0</primary><secondary>fcmaes.retry.Store</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Store</primary><secondary>t0</secondary></indexterm>
+<para><computeroutput>fcmaes.retry.Store.t0 = time.perf_counter()</computeroutput></para><para>
+
+<para>Reference time for tracking durations. </para>
+</para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00510">510</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_store_1ab62e2aba40d2a934b1cf31bb8e142e27"/><section>
+    <title>time</title>
+<indexterm><primary>time</primary><secondary>fcmaes.retry.Store</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Store</primary><secondary>time</secondary></indexterm>
+<para><computeroutput>fcmaes.retry.Store.time = mp.RawArray(ct.c_double, self.statistic_num)</computeroutput></para><para>
+
+<para>Array for storing timestamps of improvements. </para>
+</para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00519">519</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_store_1a4638dbc2eff8a0fb5209513ee112a6d4"/><section>
+    <title>upper</title>
+<indexterm><primary>upper</primary><secondary>fcmaes.retry.Store</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Store</primary><secondary>upper</secondary></indexterm>
+<para><computeroutput>fcmaes.retry.Store.upper = <link linkend="_namespacefcmaes_1_1retry_1a35537fa2c742d879961164339775fd72">_convertBounds</link>(bounds)</computeroutput></para><para>
+
+<para>The upper bounds of the objective function arguments. </para>
+</para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00493">493</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_store_1ab3305985c51cacaee432b2d93144794a"/><section>
+    <title>val</title>
+<indexterm><primary>val</primary><secondary>fcmaes.retry.Store</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Store</primary><secondary>val</secondary></indexterm>
+<para><computeroutput>fcmaes.retry.Store.val = mp.RawArray(ct.c_double, self.statistic_num)</computeroutput></para><para>
+
+<para>Array for storing values of improvements. </para>
+</para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00520">520</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_store_1afb813b3455fba516e72fa95f6a7261f7"/><section>
+    <title>xs</title>
+<indexterm><primary>xs</primary><secondary>fcmaes.retry.Store</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Store</primary><secondary>xs</secondary></indexterm>
+<para><computeroutput>fcmaes.retry.Store.xs = <link linkend="_classfcmaes_1_1retry_1_1_shared2d">Shared2d</link>(np.empty((self.capacity, self.dim), dtype = np.float64))</computeroutput></para><para>
+
+<para>Shared 2D array for storing the evaluated points in the search space. </para>
+</para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00503">503</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_store_1a35a4f6c361cb2a13c382b95fbbe8dc85"/><section>
+    <title>xs_view</title>
+<indexterm><primary>xs_view</primary><secondary>fcmaes.retry.Store</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Store</primary><secondary>xs_view</secondary></indexterm>
+<para><computeroutput>fcmaes.retry.Store.xs_view = self.xs.view()</computeroutput></para><para>
+Definition at line <link linkend="_retry_8py_source_1l00722">722</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_store_1a9da0b3410bcb1d0eab643afe10343135"/><section>
+    <title>ys</title>
+<indexterm><primary>ys</primary><secondary>fcmaes.retry.Store</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Store</primary><secondary>ys</secondary></indexterm>
+<para><computeroutput>fcmaes.retry.Store.ys = mp.RawArray(ct.c_double, self.capacity)</computeroutput></para><para>
+
+<para>Shared array for storing the corresponding function values. </para>
+</para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00505">505</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+<para>
+The documentation for this class was generated from the following file:</para>
+fcmaes/<link linkend="_retry_8py">retry.py</link></section>
+</section>

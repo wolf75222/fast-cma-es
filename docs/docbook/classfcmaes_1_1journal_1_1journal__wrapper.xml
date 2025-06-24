@@ -1,0 +1,548 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_classfcmaes_1_1journal_1_1journal__wrapper" xml:lang="en-US">
+<title>fcmaes.journal.journal_wrapper Class Reference</title>
+<indexterm><primary>fcmaes.journal.journal_wrapper</primary></indexterm>
+Collaboration diagram for fcmaes.journal.journal_wrapper:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1journal_1_1journal__wrapper__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Public Member Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a79c04d53fb0fc834ba1a867d06a7f8a4">__init__</link> (self, <link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a625328e1f0565bf7e8fedc5d2ffbd64a">fit</link>, <link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a6153c4a1a7f4a645d276c3ddaf08b069">bounds</link>, jfname, study_name, <link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a1b7923ef0b7c7a833f78239cea442d87">study_id</link>, <link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a859bf29174f7087cbfe4e1527a651bb9">batch_size</link>)</para>
+
+<para>Initializes the object with the given parameters and sets up the required attributes. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a593c2894a37eb1507db8fbad05539f60">reset</link> (self)</para>
+
+<para>Resets the lists managed by the instance. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1aa7a757ccc4986688a24911071e68e034">store_start</link> (self, worker_id, <link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a1b7923ef0b7c7a833f78239cea442d87">study_id</link>)</para>
+
+<para>Stores the start of a trial by appending the formatted trial start string to the <computeroutput>starts</computeroutput> collection. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a5adc885590326f2a0989cbef083646e2">store_x</link> (self, worker_id, <link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a6d48fc2b71768abc5fd10898d5306431">trial_id</link>, x)</para>
+
+<para>Stores the parameters of a specific trial for a worker. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a36307cef398f9219427d7c4802c7079a">store_y</link> (self, worker_id, <link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a6d48fc2b71768abc5fd10898d5306431">trial_id</link>, y)</para>
+
+<para>Stores the provided <computeroutput>y</computeroutput> value, associated with a worker and trial ID, in the list of <computeroutput>ys</computeroutput>. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1ad219e74b48d4588e84683ec326143a48">__call__</link> (self, x)</para>
+
+<para>Executes the callable functionality, managing and processing a batch of inputs and outputs concurrently, while ensuring proper thread safety and data handling. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Public Attributes    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a625328e1f0565bf7e8fedc5d2ffbd64a">fit</link> = fit</para>
+
+<para>A function that evaluates the input parameters <computeroutput>x</computeroutput> and returns the. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a6153c4a1a7f4a645d276c3ddaf08b069">bounds</link> = bounds</para>
+
+<para>An object that contains lower (<computeroutput>lb</computeroutput>) and upper (<computeroutput>ub</computeroutput>) bounds for. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1aeaae96fabf88febd67162868798561ab">journal</link> = <link linkend="_classfcmaes_1_1journal_1_1_journal">Journal</link>(jfname, study_name, 1)</para>
+
+<para>An instance of the <computeroutput><link linkend="_classfcmaes_1_1journal_1_1_journal">Journal</link></computeroutput> class used for managing and writing. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a1b7923ef0b7c7a833f78239cea442d87">study_id</link> = study_id</para>
+
+<para>A unique identifier for the entire study. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a859bf29174f7087cbfe4e1527a651bb9">batch_size</link> = batch_size</para>
+
+<para>The number of trials to process in a batch. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a6d48fc2b71768abc5fd10898d5306431">trial_id</link> = mp.RawValue(ct.c_int, 0)</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a6da25d7287b3ac5e8b848b4047eeb582">lock</link> = mp.Lock()</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1af36fb00ab5b0b3a2dd393bf914df2f3f">mgr</link> = Manager()</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a793b40cf4389c39186273cd58e6aec68">starts</link> = self.mgr.list()</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a67bba76d67d66bbb648bf957b18e4ed1">xs</link> = self.mgr.list()</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a2b6cb16e9fca08a2a5eb8c9078afa4a5">ys</link> = self.mgr.list()</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+<para>
+Definition at line <link linkend="_journal_8py_source_1l00520">520</link> of file <link linkend="_journal_8py_source">journal.py</link>.</para>
+</section>
+<section>
+<title>Constructor &amp; Destructor Documentation</title>
+<anchor xml:id="_classfcmaes_1_1journal_1_1journal__wrapper_1a79c04d53fb0fc834ba1a867d06a7f8a4"/><section>
+    <title>__init__()</title>
+<indexterm><primary>__init__</primary><secondary>fcmaes.journal.journal_wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.journal.journal_wrapper</primary><secondary>__init__</secondary></indexterm>
+<para><computeroutput>fcmaes.journal.journal_wrapper.__init__ ( self,  fit,  bounds,  jfname,  study_name,  study_id,  batch_size)</computeroutput></para><para>
+
+<para>Initializes the object with the given parameters and sets up the required attributes. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>fit</entry><entry>
+<para>Callable to perform fitting or evaluation tasks. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>bounds</entry><entry>
+<para>Iterable specifying the bounds or constraints for the fitting or evaluation process. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>jfname</entry><entry>
+<para>String specifying the file name for the journal. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>study_name</entry><entry>
+<para>String representing the name of the study. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>study_id</entry><entry>
+<para>Integer representing the identifier of the study. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>batch_size</entry><entry>
+<para>Integer representing the batch size to be used. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_journal_8py_source_1l00555">555</link> of file <link linkend="_journal_8py_source">journal.py</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Function Documentation</title>
+<anchor xml:id="_classfcmaes_1_1journal_1_1journal__wrapper_1ad219e74b48d4588e84683ec326143a48"/><section>
+    <title>__call__()</title>
+<indexterm><primary>__call__</primary><secondary>fcmaes.journal.journal_wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.journal.journal_wrapper</primary><secondary>__call__</secondary></indexterm>
+<para><computeroutput>fcmaes.journal.journal_wrapper.__call__ ( self,  x)</computeroutput></para><para>
+
+<para>Executes the callable functionality, managing and processing a batch of inputs and outputs concurrently, while ensuring proper thread safety and data handling. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>x</entry><entry>
+<para>Input value to process and fit.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>The processed output value as a result of <computeroutput><link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a625328e1f0565bf7e8fedc5d2ffbd64a">fit(x)</link></computeroutput>. If an exception occurs, returns the maximum possible float value as defined in <computeroutput>sys.float_info.max</computeroutput>.</para>
+</formalpara>
+<literallayout><computeroutput>       Not explicitly raised in documentation but exceptions are caught
+       within the method.
+</computeroutput></literallayout> </para>
+<para>
+Definition at line <link linkend="_journal_8py_source_1l00643">643</link> of file <link linkend="_journal_8py_source">journal.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1journal_1_1journal__wrapper_ad219e74b48d4588e84683ec326143a48_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1journal_1_1journal__wrapper_ad219e74b48d4588e84683ec326143a48_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1journal_1_1journal__wrapper_1a593c2894a37eb1507db8fbad05539f60"/><section>
+    <title>reset()</title>
+<indexterm><primary>reset</primary><secondary>fcmaes.journal.journal_wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.journal.journal_wrapper</primary><secondary>reset</secondary></indexterm>
+<para><computeroutput>fcmaes.journal.journal_wrapper.reset ( self)</computeroutput></para><para>
+
+<para>Resets the lists managed by the instance. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method reinitializes the lists `starts`, `xs`, and `ys` using the
+   manager object to ensure they are shared lists in multiprocess scenarios.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>None</entry><entry></entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>None </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_journal_8py_source_1l00578">578</link> of file <link linkend="_journal_8py_source">journal.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1journal_1_1journal__wrapper_a593c2894a37eb1507db8fbad05539f60_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1journal_1_1journal__wrapper_1aa7a757ccc4986688a24911071e68e034"/><section>
+    <title>store_start()</title>
+<indexterm><primary>store_start</primary><secondary>fcmaes.journal.journal_wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.journal.journal_wrapper</primary><secondary>store_start</secondary></indexterm>
+<para><computeroutput>fcmaes.journal.journal_wrapper.store_start ( self,  worker_id,  study_id)</computeroutput></para><para>
+
+<para>Stores the start of a trial by appending the formatted trial start string to the <computeroutput>starts</computeroutput> collection. </para>
+</para>
+
+<para>This function helps track when each trial begins for a given worker and study.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>worker_id</entry><entry>
+<para>Identifier for the worker who starts the trial. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>study_id</entry><entry>
+<para>Identifier for the study associated with the trial. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_journal_8py_source_1l00592">592</link> of file <link linkend="_journal_8py_source">journal.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1journal_1_1journal__wrapper_aa7a757ccc4986688a24911071e68e034_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1journal_1_1journal__wrapper_aa7a757ccc4986688a24911071e68e034_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1journal_1_1journal__wrapper_1a5adc885590326f2a0989cbef083646e2"/><section>
+    <title>store_x()</title>
+<indexterm><primary>store_x</primary><secondary>fcmaes.journal.journal_wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.journal.journal_wrapper</primary><secondary>store_x</secondary></indexterm>
+<para><computeroutput>fcmaes.journal.journal_wrapper.store_x ( self,  worker_id,  trial_id,  x)</computeroutput></para><para>
+
+<para>Stores the parameters of a specific trial for a worker. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method takes the worker ID, trial ID, and a list of parameters, formats
+   them according to the trial&apos;s bounds, and appends the formatted string to the
+   internal storage for later use.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>worker_id</entry><entry>
+<para>The ID of the worker to associate with the parameters. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>trial_id</entry><entry>
+<para>The ID of the trial to associate with the parameters. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>x</entry><entry>
+<para>A list of numerical parameters to be stored for the given worker and </para>
+</entry>
+                            </row>
+                            <row>
+<entry>trial.</entry><entry>
+<para></para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_journal_8py_source_1l00608">608</link> of file <link linkend="_journal_8py_source">journal.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1journal_1_1journal__wrapper_a5adc885590326f2a0989cbef083646e2_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1journal_1_1journal__wrapper_a5adc885590326f2a0989cbef083646e2_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1journal_1_1journal__wrapper_1a36307cef398f9219427d7c4802c7079a"/><section>
+    <title>store_y()</title>
+<indexterm><primary>store_y</primary><secondary>fcmaes.journal.journal_wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.journal.journal_wrapper</primary><secondary>store_y</secondary></indexterm>
+<para><computeroutput>fcmaes.journal.journal_wrapper.store_y ( self,  worker_id,  trial_id,  y)</computeroutput></para><para>
+
+<para>Stores the provided <computeroutput>y</computeroutput> value, associated with a worker and trial ID, in the list of <computeroutput>ys</computeroutput>. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>worker_id</entry><entry>
+<para>The unique identifier of the worker. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>trial_id</entry><entry>
+<para>The unique identifier of the trial. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>y</entry><entry>
+<para>The value to store, associated with the worker and trial. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_journal_8py_source_1l00623">623</link> of file <link linkend="_journal_8py_source">journal.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1journal_1_1journal__wrapper_a36307cef398f9219427d7c4802c7079a_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1journal_1_1journal__wrapper_a36307cef398f9219427d7c4802c7079a_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+<section>
+<title>Member Data Documentation</title>
+<anchor xml:id="_classfcmaes_1_1journal_1_1journal__wrapper_1a859bf29174f7087cbfe4e1527a651bb9"/><section>
+    <title>batch_size</title>
+<indexterm><primary>batch_size</primary><secondary>fcmaes.journal.journal_wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.journal.journal_wrapper</primary><secondary>batch_size</secondary></indexterm>
+<para><computeroutput>fcmaes.journal.journal_wrapper.batch_size = batch_size</computeroutput></para><para>
+
+<para>The number of trials to process in a batch. </para>
+</para>
+<para>
+Definition at line <link linkend="_journal_8py_source_1l00560">560</link> of file <link linkend="_journal_8py_source">journal.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1journal_1_1journal__wrapper_1a6153c4a1a7f4a645d276c3ddaf08b069"/><section>
+    <title>bounds</title>
+<indexterm><primary>bounds</primary><secondary>fcmaes.journal.journal_wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.journal.journal_wrapper</primary><secondary>bounds</secondary></indexterm>
+<para><computeroutput>fcmaes.journal.journal_wrapper.bounds = bounds</computeroutput></para><para>
+
+<para>An object that contains lower (<computeroutput>lb</computeroutput>) and upper (<computeroutput>ub</computeroutput>) bounds for. </para>
+</para>
+<para>
+Definition at line <link linkend="_journal_8py_source_1l00557">557</link> of file <link linkend="_journal_8py_source">journal.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1journal_1_1journal__wrapper_1a625328e1f0565bf7e8fedc5d2ffbd64a"/><section>
+    <title>fit</title>
+<indexterm><primary>fit</primary><secondary>fcmaes.journal.journal_wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.journal.journal_wrapper</primary><secondary>fit</secondary></indexterm>
+<para><computeroutput>fcmaes.journal.journal_wrapper.fit = fit</computeroutput></para><para>
+
+<para>A function that evaluates the input parameters <computeroutput>x</computeroutput> and returns the. </para>
+</para>
+<para>
+Definition at line <link linkend="_journal_8py_source_1l00556">556</link> of file <link linkend="_journal_8py_source">journal.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1journal_1_1journal__wrapper_1aeaae96fabf88febd67162868798561ab"/><section>
+    <title>journal</title>
+<indexterm><primary>journal</primary><secondary>fcmaes.journal.journal_wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.journal.journal_wrapper</primary><secondary>journal</secondary></indexterm>
+<para><computeroutput>fcmaes.journal.journal_wrapper.journal = <link linkend="_classfcmaes_1_1journal_1_1_journal">Journal</link>(jfname, study_name, 1)</computeroutput></para><para>
+
+<para>An instance of the <computeroutput><link linkend="_classfcmaes_1_1journal_1_1_journal">Journal</link></computeroutput> class used for managing and writing. </para>
+</para>
+<para>
+Definition at line <link linkend="_journal_8py_source_1l00558">558</link> of file <link linkend="_journal_8py_source">journal.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1journal_1_1journal__wrapper_1a6da25d7287b3ac5e8b848b4047eeb582"/><section>
+    <title>lock</title>
+<indexterm><primary>lock</primary><secondary>fcmaes.journal.journal_wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.journal.journal_wrapper</primary><secondary>lock</secondary></indexterm>
+<para><computeroutput>fcmaes.journal.journal_wrapper.lock = mp.Lock()</computeroutput></para><para>
+Definition at line <link linkend="_journal_8py_source_1l00562">562</link> of file <link linkend="_journal_8py_source">journal.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1journal_1_1journal__wrapper_1af36fb00ab5b0b3a2dd393bf914df2f3f"/><section>
+    <title>mgr</title>
+<indexterm><primary>mgr</primary><secondary>fcmaes.journal.journal_wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.journal.journal_wrapper</primary><secondary>mgr</secondary></indexterm>
+<para><computeroutput>fcmaes.journal.journal_wrapper.mgr = Manager()</computeroutput></para><para>
+Definition at line <link linkend="_journal_8py_source_1l00563">563</link> of file <link linkend="_journal_8py_source">journal.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1journal_1_1journal__wrapper_1a793b40cf4389c39186273cd58e6aec68"/><section>
+    <title>starts</title>
+<indexterm><primary>starts</primary><secondary>fcmaes.journal.journal_wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.journal.journal_wrapper</primary><secondary>starts</secondary></indexterm>
+<para><computeroutput>fcmaes.journal.journal_wrapper.starts = self.mgr.list()</computeroutput></para><para>
+Definition at line <link linkend="_journal_8py_source_1l00579">579</link> of file <link linkend="_journal_8py_source">journal.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1journal_1_1journal__wrapper_1a1b7923ef0b7c7a833f78239cea442d87"/><section>
+    <title>study_id</title>
+<indexterm><primary>study_id</primary><secondary>fcmaes.journal.journal_wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.journal.journal_wrapper</primary><secondary>study_id</secondary></indexterm>
+<para><computeroutput>fcmaes.journal.journal_wrapper.study_id = study_id</computeroutput></para><para>
+
+<para>A unique identifier for the entire study. </para>
+</para>
+<para>
+Definition at line <link linkend="_journal_8py_source_1l00559">559</link> of file <link linkend="_journal_8py_source">journal.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1journal_1_1journal__wrapper_1a6d48fc2b71768abc5fd10898d5306431"/><section>
+    <title>trial_id</title>
+<indexterm><primary>trial_id</primary><secondary>fcmaes.journal.journal_wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.journal.journal_wrapper</primary><secondary>trial_id</secondary></indexterm>
+<para><computeroutput>fcmaes.journal.journal_wrapper.trial_id = mp.RawValue(ct.c_int, 0)</computeroutput></para><para>
+Definition at line <link linkend="_journal_8py_source_1l00561">561</link> of file <link linkend="_journal_8py_source">journal.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1journal_1_1journal__wrapper_1a67bba76d67d66bbb648bf957b18e4ed1"/><section>
+    <title>xs</title>
+<indexterm><primary>xs</primary><secondary>fcmaes.journal.journal_wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.journal.journal_wrapper</primary><secondary>xs</secondary></indexterm>
+<para><computeroutput>fcmaes.journal.journal_wrapper.xs = self.mgr.list()</computeroutput></para><para>
+Definition at line <link linkend="_journal_8py_source_1l00580">580</link> of file <link linkend="_journal_8py_source">journal.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1journal_1_1journal__wrapper_1a2b6cb16e9fca08a2a5eb8c9078afa4a5"/><section>
+    <title>ys</title>
+<indexterm><primary>ys</primary><secondary>fcmaes.journal.journal_wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.journal.journal_wrapper</primary><secondary>ys</secondary></indexterm>
+<para><computeroutput>fcmaes.journal.journal_wrapper.ys = self.mgr.list()</computeroutput></para><para>
+Definition at line <link linkend="_journal_8py_source_1l00581">581</link> of file <link linkend="_journal_8py_source">journal.py</link>.</para>
+</section>
+<para>
+The documentation for this class was generated from the following file:</para>
+fcmaes/<link linkend="_journal_8py">journal.py</link></section>
+</section>

@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_moretry_8py" xml:lang="en-US">
+<title>fcmaes/moretry.py File Reference</title>
+<indexterm><primary>fcmaes/moretry.py</primary></indexterm>
+<para>
+
+<para>============================================================================= </para>
+ 
+</para>
+<simplesect>
+    <title>Classes    </title>
+        <itemizedlist>
+            <listitem><para>class <link linkend="_classfcmaes_1_1moretry_1_1mo__wrapper">fcmaes.moretry.mo_wrapper</link></para>
+
+<para>Wraps a multi-objective evaluation function with additional functionality. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Namespaces    </title>
+        <itemizedlist>
+            <listitem><para>namespace <link linkend="_namespacefcmaes">fcmaes</link></para>
+</listitem>
+            <listitem><para>namespace <link linkend="_namespacefcmaes_1_1moretry">fcmaes.moretry</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para>Tuple[np.ndarray, np.ndarray] <link linkend="_namespacefcmaes_1_1moretry_1aba66691a21a53975863acf44cac52eda">fcmaes.moretry.minimize</link> (Callable[[ArrayLike], float] fun, Bounds bounds, Bounds weight_bounds, Optional[int] ncon=0, Optional[float] value_exp=2.0, Optional[ArrayLike] value_limits=None, Optional[int] num_retries=1024, Optional[int] workers=mp.cpu_count(), Optional[int] popsize=31, Optional[int] max_evaluations=50000, Optional[int] capacity=None, Optional[<link linkend="_classfcmaes_1_1optimizer_1_1_optimizer">Optimizer</link>] optimizer=None, Optional[int] statistic_num=0, Optional[str] plot_name=None)</para>
+
+<para>Minimization of a multi objective function of one or more variables using parallel optimization retry. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1moretry_1a795e0edbefdcbbf2bc2b0446d59d5903">fcmaes.moretry.mo_retry</link> (Callable[[ArrayLike], float] fun, Bounds weight_bounds, int ncon, float y_exp, store, Callable optimize, int num_retries, ArrayLike value_limits, Optional[int] workers=mp.cpu_count())</para>
+
+<para>Executes a multi-objective optimization with retry functionality by distributing work across multiple processes. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1moretry_1a2015c92ea717d0ce4849a00282a56d96">fcmaes.moretry._retry_loop</link> (pid, rgs, fun, weight_bounds, ncon, y_exp, store, optimize, num_retries, value_limits)</para>
+
+<para>Executes a retry loop strategy for multi-objective optimization. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1moretry_1a76f8b50c1782e6def55706f648e3e819">fcmaes.moretry.pareto</link> (np.ndarray xs, np.ndarray ys)</para>
+
+<para>Filter and sort elements based on Pareto efficiency. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1moretry_1a9afe8f9041254063275650e3dc56b77e">fcmaes.moretry.minimize_plot</link> (str name, <link linkend="_classfcmaes_1_1optimizer_1_1_optimizer">Optimizer</link> optimizer, Callable[[ArrayLike], float] fun, Bounds bounds, weight_bounds, Optional[int] ncon=0, Optional[ArrayLike] value_limits=None, Optional[int] num_retries=1024, Optional[float] exp=2.0, Optional[int] workers=mp.cpu_count(), statistic_num=0, plot_name=None)</para>
+
+<para>Minimizes a given function using a specified optimizer and plots the results. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1moretry_1a47b95fe506257996c19d9189f3f005c5">fcmaes.moretry.plot</link> (name, ncon, xs, ys, eps=1E-2, all=True, interp=False, plot3d=False)</para>
+
+<para>Plots the feasible solution space and Pareto front for a given set of data points. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1moretry_1a6059f5a7788b8fb7273d3e5900426199">fcmaes.moretry.adv_minimize_plot</link> (str name, <link linkend="_classfcmaes_1_1optimizer_1_1_optimizer">Optimizer</link> optimizer, Callable[[ArrayLike], float] fun, Optional[Bounds] bounds, Optional[float] value_limit=np.inf, Optional[int] num_retries=1024, Optional[int] statistic_num=0)</para>
+
+<para>Minimizes a given function using the provided optimizer, retries for better results, plots the outcomes, and saves the results. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1moretry_1ac6f83723e5f5c51274e705d503b7133f">fcmaes.moretry._avg_exp</link> (y, y_exp)</para>
+
+<para>Calculates the generalized mean (also known as the power mean) of a list of numbers. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1moretry_1a6c5d049111477ebbf03ca1dbd174bbbd">fcmaes.moretry._pareto_values</link> (ys)</para>
+
+<para>Determines the Pareto-optimal solutions from a given set of objective values. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1moretry_1a56d8f2ec5777046d87dcd9a79c8168f9">fcmaes.moretry._pareto</link> (ys)</para>
+
+<para>Identifies the Pareto-optimal points from the given set of points. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>============================================================================= </para>
+
+<para>Fast version 1.6.11</para>
+
+<para>(c) 2025 – Dietmar Wolz (c) 2025 – Latitude</para>
+
+<para>License MIT</para>
+
+<para><itemizedlist>
+<listitem>
+<para><link linkend="_moretry_8py">moretry.py</link></para>
+</listitem></itemizedlist>
+</para>
+
+<para><formalpara>
+<title>Description</title>
+<para><itemizedlist>
+<listitem>
+<para>Parallel multi objective optimization retry using CMA-ES and differential evolution.</para>
+</listitem></itemizedlist>
+</para>
+</formalpara>
+<formalpara><title>Author</title>
+
+<para>:<itemizedlist>
+<listitem>
+<para>Dietmar Wolz <literallayout><computeroutput>-&#32;romain.despoullains<emphasis role="preprocessor">@latitude.eu</emphasis>
+-&#32;corentin.generet<emphasis role="preprocessor">@latitude.eu</emphasis>
+</computeroutput></literallayout></para>
+</listitem></itemizedlist>
+</para>
+</formalpara>
+<formalpara>
+<title>References</title>
+<para><itemizedlist>
+<listitem>
+<para>[1] <link xlink:href="https://github.com/dietmarwo/fast-cma-es">https://github.com/dietmarwo/fast-cma-es</link></para>
+</listitem></itemizedlist>
+</para>
+</formalpara>
+<formalpara>
+<title>Documentation</title>
+<para><itemizedlist>
+<listitem>
+<para><informaltable frame='bottom'><tgroup cols='1'><colspec align='center'/><tbody><row><entry align='center'>
+</entry></row></tbody></tgroup></informaltable>
+ </para>
+</listitem></itemizedlist>
+</para>
+</formalpara>
+</para>
+<para>
+Definition in file <link linkend="_moretry_8py_source">moretry.py</link>.</para>
+</section>
+</section>

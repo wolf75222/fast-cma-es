@@ -1,0 +1,436 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_nmsopt_8h_source" xml:lang="en-US">
+<title>nmsopt.h</title>
+<indexterm><primary>_fcmaescpp/include/nmsopt.h</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_nmsopt_8h_source_1l00001"/>00001 <emphasis role="comment">//$&#32;nocpp</emphasis>
+<anchor xml:id="_nmsopt_8h_source_1l00002"/>00002 
+<anchor xml:id="_nmsopt_8h_source_1l00032"/>00032 
+<anchor xml:id="_nmsopt_8h_source_1l00033"/>00033 <emphasis role="preprocessor">#ifndef&#32;NMSOPT_INCLUDED</emphasis>
+<anchor xml:id="_nmsopt_8h_source_1l00034"/>00034 <emphasis role="preprocessor">#define&#32;NMSOPT_INCLUDED</emphasis>
+<anchor xml:id="_nmsopt_8h_source_1l00035"/>00035 
+<anchor xml:id="_nmsopt_8h_source_1l00036"/>00036 <emphasis role="preprocessor">#include&#32;&quot;<link linkend="_biteaux_8h">biteaux.h</link>&quot;</emphasis>
+<anchor xml:id="_nmsopt_8h_source_1l00037"/>00037 
+<anchor xml:id="_nmsopt_8h_source_1l00045"/>00045 
+<anchor xml:id="_nmsopt_8h_source_1l00046"/><link linkend="_class_c_n_m_seq_opt">00046</link> <emphasis role="keyword">class&#32;</emphasis><link linkend="_class_c_n_m_seq_opt_1a71ef10bfb9e6d7c852bb3e96156d3ed8">CNMSeqOpt</link>&#32;:&#32;<emphasis role="keyword">public</emphasis>&#32;<link linkend="_class_c_bite_opt_base_1a424395289a687d98b8d27cbd828dbc6c">CBiteOptBase</link>&lt;&#32;double&#32;&gt;
+<anchor xml:id="_nmsopt_8h_source_1l00047"/>00047 {
+<anchor xml:id="_nmsopt_8h_source_1l00048"/>00048 <emphasis role="keyword">public</emphasis>:
+<anchor xml:id="_nmsopt_8h_source_1l00049"/><link linkend="_class_c_n_m_seq_opt_1a71ef10bfb9e6d7c852bb3e96156d3ed8">00049</link> &#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1a71ef10bfb9e6d7c852bb3e96156d3ed8">CNMSeqOpt</link>()
+<anchor xml:id="_nmsopt_8h_source_1l00050"/>00050 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;:&#32;<link linkend="_class_c_n_m_seq_opt_1a49d787843631379aad7a4e096b4368e3">y</link>(&#32;NULL&#32;)
+<anchor xml:id="_nmsopt_8h_source_1l00051"/>00051 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;,&#32;<link linkend="_class_c_n_m_seq_opt_1a22d3e10bba1fbfa50a458527d285d04b">x2</link>(&#32;NULL&#32;)
+<anchor xml:id="_nmsopt_8h_source_1l00052"/>00052 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00053"/>00053 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00054"/>00054 
+<anchor xml:id="_nmsopt_8h_source_1l00055"/><link linkend="_class_c_n_m_seq_opt_1a91ae0f70b98a4b34c31f86f483d23a31">00055</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">virtual</emphasis>&#32;<link linkend="_class_c_n_m_seq_opt_1a91ae0f70b98a4b34c31f86f483d23a31">~CNMSeqOpt</link>()
+<anchor xml:id="_nmsopt_8h_source_1l00056"/>00056 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00057"/>00057 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">delete</emphasis>[]&#32;<link linkend="_class_c_n_m_seq_opt_1a49d787843631379aad7a4e096b4368e3">y</link>;
+<anchor xml:id="_nmsopt_8h_source_1l00058"/>00058 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">delete</emphasis>[]&#32;<link linkend="_class_c_n_m_seq_opt_1a22d3e10bba1fbfa50a458527d285d04b">x2</link>;
+<anchor xml:id="_nmsopt_8h_source_1l00059"/>00059 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00060"/>00060 
+<anchor xml:id="_nmsopt_8h_source_1l00068"/>00068 
+<anchor xml:id="_nmsopt_8h_source_1l00069"/><link linkend="_class_c_n_m_seq_opt_1a0db683f79e6af131ffd6e59238a6df51">00069</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_class_c_n_m_seq_opt_1a0db683f79e6af131ffd6e59238a6df51">updateDims</link>(&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;aParamCount,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;PopSize0&#32;=&#32;0&#32;)
+<anchor xml:id="_nmsopt_8h_source_1l00070"/>00070 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00071"/>00071 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;aPopSize&#32;=&#32;(&#32;PopSize0&#32;&gt;&#32;0&#32;?&#32;PopSize0&#32;:
+<anchor xml:id="_nmsopt_8h_source_1l00072"/>00072 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;(&#32;aParamCount&#32;+&#32;1&#32;)&#32;*&#32;4&#32;);
+<anchor xml:id="_nmsopt_8h_source_1l00073"/>00073 
+<anchor xml:id="_nmsopt_8h_source_1l00074"/>00074 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;aParamCount&#32;==&#32;<link linkend="_class_c_bite_pop_1a0dc6f7b3a19db513e349e68c3471f9fa">ParamCount</link>&#32;&amp;&amp;&#32;aPopSize&#32;==&#32;<link linkend="_class_c_bite_pop_1a58e3bf5abc2fb4b1e173aa6cb3477bfb">PopSize</link>&#32;)
+<anchor xml:id="_nmsopt_8h_source_1l00075"/>00075 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00076"/>00076 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>;
+<anchor xml:id="_nmsopt_8h_source_1l00077"/>00077 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00078"/>00078 
+<anchor xml:id="_nmsopt_8h_source_1l00079"/>00079 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1a61e71ca1c5282bcfab71d638613f8ff2">N</link>&#32;=&#32;aParamCount;
+<anchor xml:id="_nmsopt_8h_source_1l00080"/>00080 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1a7eae04524ddb0580b4657ab2d74f8837">M</link>&#32;=&#32;aPopSize;
+<anchor xml:id="_nmsopt_8h_source_1l00081"/>00081 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1ac7358629418dff64bb5febd828f64f0e">M1</link>&#32;=&#32;aPopSize&#32;-&#32;1;
+<anchor xml:id="_nmsopt_8h_source_1l00082"/>00082 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1aff51e4e10e5089f3b8a1f8286f83010e">M1i</link>&#32;=&#32;1.0&#32;/&#32;<link linkend="_class_c_n_m_seq_opt_1ac7358629418dff64bb5febd828f64f0e">M1</link>;
+<anchor xml:id="_nmsopt_8h_source_1l00083"/>00083 
+<anchor xml:id="_nmsopt_8h_source_1l00084"/>00084 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1a523bc7d383b7a2cfeef8d2a4edc12b5f">initBuffers</link>(&#32;<link linkend="_class_c_n_m_seq_opt_1a61e71ca1c5282bcfab71d638613f8ff2">N</link>,&#32;<link linkend="_class_c_n_m_seq_opt_1a7eae04524ddb0580b4657ab2d74f8837">M</link>&#32;);
+<anchor xml:id="_nmsopt_8h_source_1l00085"/>00085 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00086"/>00086 
+<anchor xml:id="_nmsopt_8h_source_1l00097"/>00097 
+<anchor xml:id="_nmsopt_8h_source_1l00098"/><link linkend="_class_c_n_m_seq_opt_1aff1efaf9224552ae9a607a60f4ca17fc">00098</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_class_c_n_m_seq_opt_1aff1efaf9224552ae9a607a60f4ca17fc">init</link>(&#32;<link linkend="_class_c_bite_rnd">CBiteRnd</link>&amp;&#32;rnd,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>*&#32;<emphasis role="keyword">const</emphasis>&#32;InitParams&#32;=&#32;NULL,
+<anchor xml:id="_nmsopt_8h_source_1l00099"/>00099 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;InitRadius&#32;=&#32;1.0&#32;)
+<anchor xml:id="_nmsopt_8h_source_1l00100"/>00100 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00101"/>00101 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_opt_base_1a768362da5c773eea5a8649d44676eeed">initCommonVars</link>(&#32;rnd&#32;);
+<anchor xml:id="_nmsopt_8h_source_1l00102"/>00102 
+<anchor xml:id="_nmsopt_8h_source_1l00103"/>00103 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;Initialize&#32;parameter&#32;vectors,&#32;costs&#32;and&#32;centroid.</emphasis>
+<anchor xml:id="_nmsopt_8h_source_1l00104"/>00104 
+<anchor xml:id="_nmsopt_8h_source_1l00105"/>00105 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>*&#32;<emphasis role="keyword">const</emphasis>&#32;xx&#32;=&#32;<link linkend="_class_c_n_m_seq_opt_1a356c7d926e3bc14c441622a19ab12df1">x</link>[&#32;0&#32;];
+<anchor xml:id="_nmsopt_8h_source_1l00106"/>00106 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;i;
+<anchor xml:id="_nmsopt_8h_source_1l00107"/>00107 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;j;
+<anchor xml:id="_nmsopt_8h_source_1l00108"/>00108 
+<anchor xml:id="_nmsopt_8h_source_1l00109"/>00109 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;InitParams&#32;!=&#32;NULL&#32;)
+<anchor xml:id="_nmsopt_8h_source_1l00110"/>00110 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00111"/>00111 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_pop_1a24130fea35014433f142e3b9ed0f8929">copyParams</link>(&#32;xx,&#32;InitParams&#32;);
+<anchor xml:id="_nmsopt_8h_source_1l00112"/>00112 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00113"/>00113 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>
+<anchor xml:id="_nmsopt_8h_source_1l00114"/>00114 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00115"/>00115 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;<link linkend="_class_c_n_m_seq_opt_1a61e71ca1c5282bcfab71d638613f8ff2">N</link>;&#32;i++&#32;)
+<anchor xml:id="_nmsopt_8h_source_1l00116"/>00116 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00117"/>00117 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xx[&#32;i&#32;]&#32;=&#32;<link linkend="_class_c_bite_opt_base_1a07d5b7c3007f79c7dc1f6106d9832dc6">MinValues</link>[&#32;i&#32;]&#32;+&#32;<link linkend="_class_c_bite_opt_base_1a70f5211fb9521491b0e6a336e21dd7bc">DiffValues</link>[&#32;i&#32;]&#32;*&#32;0.5;
+<anchor xml:id="_nmsopt_8h_source_1l00118"/>00118 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00119"/>00119 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00120"/>00120 
+<anchor xml:id="_nmsopt_8h_source_1l00121"/>00121 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1a553e8ff44398fb272de572df3055c8a0">xlo</link>&#32;=&#32;0;
+<anchor xml:id="_nmsopt_8h_source_1l00122"/>00122 
+<anchor xml:id="_nmsopt_8h_source_1l00123"/>00123 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;InitRadius&#32;&lt;=&#32;0.0&#32;)
+<anchor xml:id="_nmsopt_8h_source_1l00124"/>00124 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00125"/>00125 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(&#32;j&#32;=&#32;1;&#32;j&#32;&lt;&#32;<link linkend="_class_c_n_m_seq_opt_1a7eae04524ddb0580b4657ab2d74f8837">M</link>;&#32;j++&#32;)
+<anchor xml:id="_nmsopt_8h_source_1l00126"/>00126 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00127"/>00127 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>*&#32;<emphasis role="keyword">const</emphasis>&#32;xj&#32;=&#32;<link linkend="_class_c_n_m_seq_opt_1a356c7d926e3bc14c441622a19ab12df1">x</link>[&#32;j&#32;];
+<anchor xml:id="_nmsopt_8h_source_1l00128"/>00128 
+<anchor xml:id="_nmsopt_8h_source_1l00129"/>00129 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;<link linkend="_class_c_n_m_seq_opt_1a61e71ca1c5282bcfab71d638613f8ff2">N</link>;&#32;i++&#32;)
+<anchor xml:id="_nmsopt_8h_source_1l00130"/>00130 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00131"/>00131 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xj[&#32;i&#32;]&#32;=&#32;<link linkend="_class_c_bite_opt_base_1a07d5b7c3007f79c7dc1f6106d9832dc6">MinValues</link>[&#32;i&#32;]&#32;+&#32;<link linkend="_class_c_bite_opt_base_1a70f5211fb9521491b0e6a336e21dd7bc">DiffValues</link>[&#32;i&#32;]&#32;*&#32;rnd.<link linkend="_class_c_bite_rnd_1afdb77334884f1a612780def0dec0a326">get</link>();
+<anchor xml:id="_nmsopt_8h_source_1l00132"/>00132 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00133"/>00133 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00134"/>00134 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00135"/>00135 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>
+<anchor xml:id="_nmsopt_8h_source_1l00136"/>00136 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00137"/>00137 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;sd&#32;=&#32;0.25&#32;*&#32;InitRadius;
+<anchor xml:id="_nmsopt_8h_source_1l00138"/>00138 
+<anchor xml:id="_nmsopt_8h_source_1l00139"/>00139 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(&#32;j&#32;=&#32;1;&#32;j&#32;&lt;&#32;<link linkend="_class_c_n_m_seq_opt_1a7eae04524ddb0580b4657ab2d74f8837">M</link>;&#32;j++&#32;)
+<anchor xml:id="_nmsopt_8h_source_1l00140"/>00140 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00141"/>00141 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>*&#32;<emphasis role="keyword">const</emphasis>&#32;xj&#32;=&#32;<link linkend="_class_c_n_m_seq_opt_1a356c7d926e3bc14c441622a19ab12df1">x</link>[&#32;j&#32;];
+<anchor xml:id="_nmsopt_8h_source_1l00142"/>00142 
+<anchor xml:id="_nmsopt_8h_source_1l00143"/>00143 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;<link linkend="_class_c_n_m_seq_opt_1a61e71ca1c5282bcfab71d638613f8ff2">N</link>;&#32;i++&#32;)
+<anchor xml:id="_nmsopt_8h_source_1l00144"/>00144 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00145"/>00145 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xj[&#32;i&#32;]&#32;=&#32;xx[&#32;i&#32;]&#32;+&#32;<link linkend="_class_c_bite_opt_base_1a70f5211fb9521491b0e6a336e21dd7bc">DiffValues</link>[&#32;i&#32;]&#32;*
+<anchor xml:id="_nmsopt_8h_source_1l00146"/>00146 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;rnd.<link linkend="_class_c_bite_rnd_1a3f6c22ff1f6f19de24f7c837530f31c4">getGaussian</link>()&#32;*&#32;sd;
+<anchor xml:id="_nmsopt_8h_source_1l00147"/>00147 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00148"/>00148 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00149"/>00149 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00150"/>00150 
+<anchor xml:id="_nmsopt_8h_source_1l00151"/>00151 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1af55bab09410e2932dc2983c3646fba93">State</link>&#32;=&#32;<link linkend="_class_c_n_m_seq_opt_1a1f81889f90eb0c0e9b5f9ee1b9e1faa7a2882bfaa75c67e68fad7e1b31b752a6e">stReflection</link>;
+<anchor xml:id="_nmsopt_8h_source_1l00152"/>00152 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1af1e9f2a0229d5f931333d2285894434d">DoInitEvals</link>&#32;=&#32;<emphasis role="keyword">true</emphasis>;
+<anchor xml:id="_nmsopt_8h_source_1l00153"/>00153 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00154"/>00154 
+<anchor xml:id="_nmsopt_8h_source_1l00166"/>00166 
+<anchor xml:id="_nmsopt_8h_source_1l00167"/><link linkend="_class_c_n_m_seq_opt_1a7acf8fee1b87f954b19f8a4313e58b7d">00167</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_class_c_n_m_seq_opt_1a7acf8fee1b87f954b19f8a4313e58b7d">optimize</link>(&#32;<link linkend="_class_c_bite_rnd">CBiteRnd</link>&amp;&#32;rnd,&#32;<emphasis role="keywordtype">double</emphasis>*&#32;<emphasis role="keyword">const</emphasis>&#32;OutCost&#32;=&#32;NULL,
+<anchor xml:id="_nmsopt_8h_source_1l00168"/>00168 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>*&#32;<emphasis role="keyword">const</emphasis>&#32;OutValues&#32;=&#32;NULL&#32;)
+<anchor xml:id="_nmsopt_8h_source_1l00169"/>00169 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00170"/>00170 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;i;
+<anchor xml:id="_nmsopt_8h_source_1l00171"/>00171 
+<anchor xml:id="_nmsopt_8h_source_1l00172"/>00172 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;<link linkend="_class_c_n_m_seq_opt_1af1e9f2a0229d5f931333d2285894434d">DoInitEvals</link>&#32;)
+<anchor xml:id="_nmsopt_8h_source_1l00173"/>00173 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00174"/>00174 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1a49d787843631379aad7a4e096b4368e3">y</link>[&#32;<link linkend="_class_c_bite_pop_1aa7c87b9148768d6104f8d3dfb5abebce">CurPopPos</link>&#32;]&#32;=&#32;<link linkend="_class_c_n_m_seq_opt_1a1ef451e7a70db607e096c343dac37bb1">eval</link>(&#32;rnd,&#32;<link linkend="_class_c_n_m_seq_opt_1a356c7d926e3bc14c441622a19ab12df1">x</link>[&#32;<link linkend="_class_c_bite_pop_1aa7c87b9148768d6104f8d3dfb5abebce">CurPopPos</link>&#32;],&#32;OutCost,&#32;OutValues&#32;);
+<anchor xml:id="_nmsopt_8h_source_1l00175"/>00175 
+<anchor xml:id="_nmsopt_8h_source_1l00176"/>00176 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;<link linkend="_class_c_n_m_seq_opt_1a49d787843631379aad7a4e096b4368e3">y</link>[&#32;<link linkend="_class_c_bite_pop_1aa7c87b9148768d6104f8d3dfb5abebce">CurPopPos</link>&#32;]&#32;&lt;&#32;<link linkend="_class_c_n_m_seq_opt_1a49d787843631379aad7a4e096b4368e3">y</link>[&#32;<link linkend="_class_c_n_m_seq_opt_1a553e8ff44398fb272de572df3055c8a0">xlo</link>&#32;])
+<anchor xml:id="_nmsopt_8h_source_1l00177"/>00177 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00178"/>00178 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1a553e8ff44398fb272de572df3055c8a0">xlo</link>&#32;=&#32;<link linkend="_class_c_bite_pop_1aa7c87b9148768d6104f8d3dfb5abebce">CurPopPos</link>;
+<anchor xml:id="_nmsopt_8h_source_1l00179"/>00179 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00180"/>00180 
+<anchor xml:id="_nmsopt_8h_source_1l00181"/>00181 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_pop_1aa7c87b9148768d6104f8d3dfb5abebce">CurPopPos</link>++;
+<anchor xml:id="_nmsopt_8h_source_1l00182"/>00182 
+<anchor xml:id="_nmsopt_8h_source_1l00183"/>00183 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;<link linkend="_class_c_bite_pop_1aa7c87b9148768d6104f8d3dfb5abebce">CurPopPos</link>&#32;==&#32;<link linkend="_class_c_n_m_seq_opt_1a7eae04524ddb0580b4657ab2d74f8837">M</link>&#32;)
+<anchor xml:id="_nmsopt_8h_source_1l00184"/>00184 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00185"/>00185 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1af1e9f2a0229d5f931333d2285894434d">DoInitEvals</link>&#32;=&#32;<emphasis role="keyword">false</emphasis>;
+<anchor xml:id="_nmsopt_8h_source_1l00186"/>00186 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1abe5f0b09856d48eb312d0c3a8701fdcc">calccent</link>();
+<anchor xml:id="_nmsopt_8h_source_1l00187"/>00187 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00188"/>00188 
+<anchor xml:id="_nmsopt_8h_source_1l00189"/>00189 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>(&#32;0&#32;);
+<anchor xml:id="_nmsopt_8h_source_1l00190"/>00190 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00191"/>00191 
+<anchor xml:id="_nmsopt_8h_source_1l00192"/>00192 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_opt_base_1ab756659a8ba09ba42ffa3d207564fdd8">StallCount</link>++;
+<anchor xml:id="_nmsopt_8h_source_1l00193"/>00193 
+<anchor xml:id="_nmsopt_8h_source_1l00194"/>00194 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;sn&#32;=&#32;0.5&#32;*&#32;sqrt(&#32;<link linkend="_class_c_bite_pop_1a884c9ad4c0327aaa0110a23a89f5697a">ParamCountI</link>&#32;);
+<anchor xml:id="_nmsopt_8h_source_1l00195"/>00195 
+<anchor xml:id="_nmsopt_8h_source_1l00196"/>00196 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">static</emphasis>&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;alpha&#32;=&#32;1.0;&#32;<emphasis role="comment">//&#32;Reflection&#32;coeff.</emphasis>
+<anchor xml:id="_nmsopt_8h_source_1l00197"/>00197 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;gamma&#32;=&#32;1.5&#32;+&#32;sn;&#32;<emphasis role="comment">//&#32;Expansion&#32;coeff.</emphasis>
+<anchor xml:id="_nmsopt_8h_source_1l00198"/>00198 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;rho&#32;=&#32;-0.75&#32;+&#32;sn;&#32;<emphasis role="comment">//&#32;Contraction&#32;coeff.</emphasis>
+<anchor xml:id="_nmsopt_8h_source_1l00199"/>00199 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;sigma&#32;=&#32;1.0&#32;-&#32;sn;&#32;<emphasis role="comment">//&#32;Reduction&#32;coeff.</emphasis>
+<anchor xml:id="_nmsopt_8h_source_1l00200"/>00200 
+<anchor xml:id="_nmsopt_8h_source_1l00201"/>00201 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>*&#32;<emphasis role="keyword">const</emphasis>&#32;xH&#32;=&#32;<link linkend="_class_c_n_m_seq_opt_1a356c7d926e3bc14c441622a19ab12df1">x</link>[&#32;<link linkend="_class_c_n_m_seq_opt_1a371cf09612300720f18981ae1e3aec9a">xhi</link>&#32;];&#32;<emphasis role="comment">//&#32;Highest&#32;cost&#32;parameter&#32;vector.</emphasis>
+<anchor xml:id="_nmsopt_8h_source_1l00202"/>00202 
+<anchor xml:id="_nmsopt_8h_source_1l00203"/>00203 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">switch</emphasis>(&#32;<link linkend="_class_c_n_m_seq_opt_1af55bab09410e2932dc2983c3646fba93">State</link>&#32;)
+<anchor xml:id="_nmsopt_8h_source_1l00204"/>00204 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00205"/>00205 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">case</emphasis>&#32;<link linkend="_class_c_n_m_seq_opt_1a1f81889f90eb0c0e9b5f9ee1b9e1faa7a2882bfaa75c67e68fad7e1b31b752a6e">stReflection</link>:
+<anchor xml:id="_nmsopt_8h_source_1l00206"/>00206 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00207"/>00207 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;<link linkend="_class_c_n_m_seq_opt_1a61e71ca1c5282bcfab71d638613f8ff2">N</link>;&#32;i++&#32;)
+<anchor xml:id="_nmsopt_8h_source_1l00208"/>00208 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00209"/>00209 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1ad1d9690201835708ecbf9e639e7a1a84">x1</link>[&#32;i&#32;]&#32;=&#32;<link linkend="_class_c_n_m_seq_opt_1a752068f193d7b65015a3b3b1d34a2c84">x0</link>[&#32;i&#32;]&#32;+&#32;alpha&#32;*&#32;(&#32;<link linkend="_class_c_n_m_seq_opt_1a752068f193d7b65015a3b3b1d34a2c84">x0</link>[&#32;i&#32;]&#32;-&#32;xH[&#32;i&#32;]);
+<anchor xml:id="_nmsopt_8h_source_1l00210"/>00210 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00211"/>00211 
+<anchor xml:id="_nmsopt_8h_source_1l00212"/>00212 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1ac43a76bb5f3f4a5f059f17ad8e54d646">y1</link>&#32;=&#32;<link linkend="_class_c_n_m_seq_opt_1a1ef451e7a70db607e096c343dac37bb1">eval</link>(&#32;rnd,&#32;<link linkend="_class_c_n_m_seq_opt_1ad1d9690201835708ecbf9e639e7a1a84">x1</link>,&#32;OutCost,&#32;OutValues&#32;);
+<anchor xml:id="_nmsopt_8h_source_1l00213"/>00213 
+<anchor xml:id="_nmsopt_8h_source_1l00214"/>00214 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;<link linkend="_class_c_n_m_seq_opt_1ac43a76bb5f3f4a5f059f17ad8e54d646">y1</link>&#32;&gt;&#32;<link linkend="_class_c_n_m_seq_opt_1a49d787843631379aad7a4e096b4368e3">y</link>[&#32;<link linkend="_class_c_n_m_seq_opt_1a553e8ff44398fb272de572df3055c8a0">xlo</link>&#32;]&#32;&amp;&amp;&#32;<link linkend="_class_c_n_m_seq_opt_1ac43a76bb5f3f4a5f059f17ad8e54d646">y1</link>&#32;&lt;&#32;<link linkend="_class_c_n_m_seq_opt_1a49d787843631379aad7a4e096b4368e3">y</link>[&#32;<link linkend="_class_c_n_m_seq_opt_1aa38748f581346e620b42202427ae7fd3">xhi2</link>&#32;])
+<anchor xml:id="_nmsopt_8h_source_1l00215"/>00215 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00216"/>00216 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1a67aa8414c254cfb6a9b442450850987d">copy</link>(&#32;<link linkend="_class_c_n_m_seq_opt_1ad1d9690201835708ecbf9e639e7a1a84">x1</link>,&#32;<link linkend="_class_c_n_m_seq_opt_1ac43a76bb5f3f4a5f059f17ad8e54d646">y1</link>&#32;);
+<anchor xml:id="_nmsopt_8h_source_1l00217"/>00217 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00218"/>00218 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>
+<anchor xml:id="_nmsopt_8h_source_1l00219"/>00219 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00220"/>00220 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;<link linkend="_class_c_n_m_seq_opt_1ac43a76bb5f3f4a5f059f17ad8e54d646">y1</link>&#32;&lt;&#32;<link linkend="_class_c_n_m_seq_opt_1a49d787843631379aad7a4e096b4368e3">y</link>[&#32;<link linkend="_class_c_n_m_seq_opt_1a553e8ff44398fb272de572df3055c8a0">xlo</link>&#32;])
+<anchor xml:id="_nmsopt_8h_source_1l00221"/>00221 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00222"/>00222 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1af55bab09410e2932dc2983c3646fba93">State</link>&#32;=&#32;<link linkend="_class_c_n_m_seq_opt_1a1f81889f90eb0c0e9b5f9ee1b9e1faa7a598ff65bb5323e300f4ba87a2155aac4">stExpansion</link>;
+<anchor xml:id="_nmsopt_8h_source_1l00223"/>00223 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_opt_base_1ab756659a8ba09ba42ffa3d207564fdd8">StallCount</link>--;
+<anchor xml:id="_nmsopt_8h_source_1l00224"/>00224 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00225"/>00225 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>
+<anchor xml:id="_nmsopt_8h_source_1l00226"/>00226 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00227"/>00227 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1af55bab09410e2932dc2983c3646fba93">State</link>&#32;=&#32;<link linkend="_class_c_n_m_seq_opt_1a1f81889f90eb0c0e9b5f9ee1b9e1faa7aa9847544ca4f0a439c38dff1d0f6db0a">stContraction</link>;
+<anchor xml:id="_nmsopt_8h_source_1l00228"/>00228 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00229"/>00229 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00230"/>00230 
+<anchor xml:id="_nmsopt_8h_source_1l00231"/>00231 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+<anchor xml:id="_nmsopt_8h_source_1l00232"/>00232 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00233"/>00233 
+<anchor xml:id="_nmsopt_8h_source_1l00234"/>00234 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">case</emphasis>&#32;<link linkend="_class_c_n_m_seq_opt_1a1f81889f90eb0c0e9b5f9ee1b9e1faa7a598ff65bb5323e300f4ba87a2155aac4">stExpansion</link>:
+<anchor xml:id="_nmsopt_8h_source_1l00235"/>00235 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00236"/>00236 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;<link linkend="_class_c_n_m_seq_opt_1a61e71ca1c5282bcfab71d638613f8ff2">N</link>;&#32;i++&#32;)
+<anchor xml:id="_nmsopt_8h_source_1l00237"/>00237 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00238"/>00238 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1a22d3e10bba1fbfa50a458527d285d04b">x2</link>[&#32;i&#32;]&#32;=&#32;<link linkend="_class_c_n_m_seq_opt_1a752068f193d7b65015a3b3b1d34a2c84">x0</link>[&#32;i&#32;]&#32;+&#32;gamma&#32;*&#32;(&#32;<link linkend="_class_c_n_m_seq_opt_1a752068f193d7b65015a3b3b1d34a2c84">x0</link>[&#32;i&#32;]&#32;-&#32;xH[&#32;i&#32;]);
+<anchor xml:id="_nmsopt_8h_source_1l00239"/>00239 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00240"/>00240 
+<anchor xml:id="_nmsopt_8h_source_1l00241"/>00241 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;y2&#32;=&#32;<link linkend="_class_c_n_m_seq_opt_1a1ef451e7a70db607e096c343dac37bb1">eval</link>(&#32;rnd,&#32;<link linkend="_class_c_n_m_seq_opt_1a22d3e10bba1fbfa50a458527d285d04b">x2</link>,&#32;OutCost,&#32;OutValues&#32;);
+<anchor xml:id="_nmsopt_8h_source_1l00242"/>00242 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1a553e8ff44398fb272de572df3055c8a0">xlo</link>&#32;=&#32;<link linkend="_class_c_n_m_seq_opt_1a371cf09612300720f18981ae1e3aec9a">xhi</link>;
+<anchor xml:id="_nmsopt_8h_source_1l00243"/>00243 
+<anchor xml:id="_nmsopt_8h_source_1l00244"/>00244 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;y2&#32;&lt;&#32;<link linkend="_class_c_n_m_seq_opt_1ac43a76bb5f3f4a5f059f17ad8e54d646">y1</link>&#32;)
+<anchor xml:id="_nmsopt_8h_source_1l00245"/>00245 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00246"/>00246 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1a67aa8414c254cfb6a9b442450850987d">copy</link>(&#32;<link linkend="_class_c_n_m_seq_opt_1a22d3e10bba1fbfa50a458527d285d04b">x2</link>,&#32;y2&#32;);
+<anchor xml:id="_nmsopt_8h_source_1l00247"/>00247 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00248"/>00248 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>
+<anchor xml:id="_nmsopt_8h_source_1l00249"/>00249 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00250"/>00250 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1a67aa8414c254cfb6a9b442450850987d">copy</link>(&#32;<link linkend="_class_c_n_m_seq_opt_1ad1d9690201835708ecbf9e639e7a1a84">x1</link>,&#32;<link linkend="_class_c_n_m_seq_opt_1ac43a76bb5f3f4a5f059f17ad8e54d646">y1</link>&#32;);
+<anchor xml:id="_nmsopt_8h_source_1l00251"/>00251 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00252"/>00252 
+<anchor xml:id="_nmsopt_8h_source_1l00253"/>00253 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1af55bab09410e2932dc2983c3646fba93">State</link>&#32;=&#32;<link linkend="_class_c_n_m_seq_opt_1a1f81889f90eb0c0e9b5f9ee1b9e1faa7a2882bfaa75c67e68fad7e1b31b752a6e">stReflection</link>;
+<anchor xml:id="_nmsopt_8h_source_1l00254"/>00254 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+<anchor xml:id="_nmsopt_8h_source_1l00255"/>00255 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00256"/>00256 
+<anchor xml:id="_nmsopt_8h_source_1l00257"/>00257 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">case</emphasis>&#32;<link linkend="_class_c_n_m_seq_opt_1a1f81889f90eb0c0e9b5f9ee1b9e1faa7aa9847544ca4f0a439c38dff1d0f6db0a">stContraction</link>:
+<anchor xml:id="_nmsopt_8h_source_1l00258"/>00258 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00259"/>00259 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;<link linkend="_class_c_n_m_seq_opt_1a61e71ca1c5282bcfab71d638613f8ff2">N</link>;&#32;i++&#32;)
+<anchor xml:id="_nmsopt_8h_source_1l00260"/>00260 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00261"/>00261 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1a22d3e10bba1fbfa50a458527d285d04b">x2</link>[&#32;i&#32;]&#32;=&#32;<link linkend="_class_c_n_m_seq_opt_1a752068f193d7b65015a3b3b1d34a2c84">x0</link>[&#32;i&#32;]&#32;+&#32;rho&#32;*&#32;(&#32;<link linkend="_class_c_n_m_seq_opt_1a752068f193d7b65015a3b3b1d34a2c84">x0</link>[&#32;i&#32;]&#32;-&#32;xH[&#32;i&#32;]);
+<anchor xml:id="_nmsopt_8h_source_1l00262"/>00262 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00263"/>00263 
+<anchor xml:id="_nmsopt_8h_source_1l00264"/>00264 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;y2&#32;=&#32;<link linkend="_class_c_n_m_seq_opt_1a1ef451e7a70db607e096c343dac37bb1">eval</link>(&#32;rnd,&#32;<link linkend="_class_c_n_m_seq_opt_1a22d3e10bba1fbfa50a458527d285d04b">x2</link>,&#32;OutCost,&#32;OutValues&#32;);
+<anchor xml:id="_nmsopt_8h_source_1l00265"/>00265 
+<anchor xml:id="_nmsopt_8h_source_1l00266"/>00266 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;y2&#32;&lt;&#32;<link linkend="_class_c_n_m_seq_opt_1a49d787843631379aad7a4e096b4368e3">y</link>[&#32;<link linkend="_class_c_n_m_seq_opt_1a371cf09612300720f18981ae1e3aec9a">xhi</link>&#32;])
+<anchor xml:id="_nmsopt_8h_source_1l00267"/>00267 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00268"/>00268 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;y2&#32;&lt;&#32;<link linkend="_class_c_n_m_seq_opt_1a49d787843631379aad7a4e096b4368e3">y</link>[&#32;<link linkend="_class_c_n_m_seq_opt_1a553e8ff44398fb272de572df3055c8a0">xlo</link>&#32;])
+<anchor xml:id="_nmsopt_8h_source_1l00269"/>00269 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00270"/>00270 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1a553e8ff44398fb272de572df3055c8a0">xlo</link>&#32;=&#32;<link linkend="_class_c_n_m_seq_opt_1a371cf09612300720f18981ae1e3aec9a">xhi</link>;
+<anchor xml:id="_nmsopt_8h_source_1l00271"/>00271 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00272"/>00272 
+<anchor xml:id="_nmsopt_8h_source_1l00273"/>00273 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1a67aa8414c254cfb6a9b442450850987d">copy</link>(&#32;<link linkend="_class_c_n_m_seq_opt_1a22d3e10bba1fbfa50a458527d285d04b">x2</link>,&#32;y2&#32;);
+<anchor xml:id="_nmsopt_8h_source_1l00274"/>00274 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1af55bab09410e2932dc2983c3646fba93">State</link>&#32;=&#32;<link linkend="_class_c_n_m_seq_opt_1a1f81889f90eb0c0e9b5f9ee1b9e1faa7a2882bfaa75c67e68fad7e1b31b752a6e">stReflection</link>;
+<anchor xml:id="_nmsopt_8h_source_1l00275"/>00275 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00276"/>00276 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>
+<anchor xml:id="_nmsopt_8h_source_1l00277"/>00277 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00278"/>00278 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1abc45d41e6ba582da381eb4c9999442ad">rx</link>&#32;=&#32;<link linkend="_class_c_n_m_seq_opt_1a356c7d926e3bc14c441622a19ab12df1">x</link>[&#32;<link linkend="_class_c_n_m_seq_opt_1a553e8ff44398fb272de572df3055c8a0">xlo</link>&#32;];
+<anchor xml:id="_nmsopt_8h_source_1l00279"/>00279 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1a71dd7363e56585f44ccf346c31bf031c">rj</link>&#32;=&#32;0;
+<anchor xml:id="_nmsopt_8h_source_1l00280"/>00280 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1af55bab09410e2932dc2983c3646fba93">State</link>&#32;=&#32;<link linkend="_class_c_n_m_seq_opt_1a1f81889f90eb0c0e9b5f9ee1b9e1faa7aeb70e74fc5104ae8c19bad1a162741c7">stReduction</link>;
+<anchor xml:id="_nmsopt_8h_source_1l00281"/>00281 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00282"/>00282 
+<anchor xml:id="_nmsopt_8h_source_1l00283"/>00283 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+<anchor xml:id="_nmsopt_8h_source_1l00284"/>00284 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00285"/>00285 
+<anchor xml:id="_nmsopt_8h_source_1l00286"/>00286 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">case</emphasis>&#32;<link linkend="_class_c_n_m_seq_opt_1a1f81889f90eb0c0e9b5f9ee1b9e1faa7aeb70e74fc5104ae8c19bad1a162741c7">stReduction</link>:
+<anchor xml:id="_nmsopt_8h_source_1l00287"/>00287 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00288"/>00288 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>*&#32;xx&#32;=&#32;<link linkend="_class_c_n_m_seq_opt_1a356c7d926e3bc14c441622a19ab12df1">x</link>[&#32;<link linkend="_class_c_n_m_seq_opt_1a71dd7363e56585f44ccf346c31bf031c">rj</link>&#32;];
+<anchor xml:id="_nmsopt_8h_source_1l00289"/>00289 
+<anchor xml:id="_nmsopt_8h_source_1l00290"/>00290 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;xx&#32;==&#32;<link linkend="_class_c_n_m_seq_opt_1abc45d41e6ba582da381eb4c9999442ad">rx</link>&#32;)
+<anchor xml:id="_nmsopt_8h_source_1l00291"/>00291 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00292"/>00292 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1a71dd7363e56585f44ccf346c31bf031c">rj</link>++;
+<anchor xml:id="_nmsopt_8h_source_1l00293"/>00293 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xx&#32;=&#32;<link linkend="_class_c_n_m_seq_opt_1a356c7d926e3bc14c441622a19ab12df1">x</link>[&#32;<link linkend="_class_c_n_m_seq_opt_1a71dd7363e56585f44ccf346c31bf031c">rj</link>&#32;];
+<anchor xml:id="_nmsopt_8h_source_1l00294"/>00294 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00295"/>00295 
+<anchor xml:id="_nmsopt_8h_source_1l00296"/>00296 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;<link linkend="_class_c_n_m_seq_opt_1a61e71ca1c5282bcfab71d638613f8ff2">N</link>;&#32;i++&#32;)
+<anchor xml:id="_nmsopt_8h_source_1l00297"/>00297 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00298"/>00298 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xx[&#32;i&#32;]&#32;=&#32;<link linkend="_class_c_n_m_seq_opt_1abc45d41e6ba582da381eb4c9999442ad">rx</link>[&#32;i&#32;]&#32;+&#32;sigma&#32;*&#32;(&#32;xx[&#32;i&#32;]&#32;-&#32;<link linkend="_class_c_n_m_seq_opt_1abc45d41e6ba582da381eb4c9999442ad">rx</link>[&#32;i&#32;]);
+<anchor xml:id="_nmsopt_8h_source_1l00299"/>00299 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00300"/>00300 
+<anchor xml:id="_nmsopt_8h_source_1l00301"/>00301 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1a49d787843631379aad7a4e096b4368e3">y</link>[&#32;<link linkend="_class_c_n_m_seq_opt_1a71dd7363e56585f44ccf346c31bf031c">rj</link>&#32;]&#32;=&#32;<link linkend="_class_c_n_m_seq_opt_1a1ef451e7a70db607e096c343dac37bb1">eval</link>(&#32;rnd,&#32;xx,&#32;OutCost,&#32;OutValues&#32;);
+<anchor xml:id="_nmsopt_8h_source_1l00302"/>00302 
+<anchor xml:id="_nmsopt_8h_source_1l00303"/>00303 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;<link linkend="_class_c_n_m_seq_opt_1a49d787843631379aad7a4e096b4368e3">y</link>[&#32;<link linkend="_class_c_n_m_seq_opt_1a71dd7363e56585f44ccf346c31bf031c">rj</link>&#32;]&#32;&lt;&#32;<link linkend="_class_c_n_m_seq_opt_1a49d787843631379aad7a4e096b4368e3">y</link>[&#32;<link linkend="_class_c_n_m_seq_opt_1a553e8ff44398fb272de572df3055c8a0">xlo</link>&#32;])
+<anchor xml:id="_nmsopt_8h_source_1l00304"/>00304 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00305"/>00305 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1a553e8ff44398fb272de572df3055c8a0">xlo</link>&#32;=&#32;<link linkend="_class_c_n_m_seq_opt_1a71dd7363e56585f44ccf346c31bf031c">rj</link>;
+<anchor xml:id="_nmsopt_8h_source_1l00306"/>00306 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_opt_base_1ab756659a8ba09ba42ffa3d207564fdd8">StallCount</link>&#32;=&#32;0;
+<anchor xml:id="_nmsopt_8h_source_1l00307"/>00307 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00308"/>00308 
+<anchor xml:id="_nmsopt_8h_source_1l00309"/>00309 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1a71dd7363e56585f44ccf346c31bf031c">rj</link>++;
+<anchor xml:id="_nmsopt_8h_source_1l00310"/>00310 
+<anchor xml:id="_nmsopt_8h_source_1l00311"/>00311 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;<link linkend="_class_c_n_m_seq_opt_1a71dd7363e56585f44ccf346c31bf031c">rj</link>&#32;==&#32;<link linkend="_class_c_n_m_seq_opt_1a7eae04524ddb0580b4657ab2d74f8837">M</link>&#32;||&#32;(&#32;<link linkend="_class_c_n_m_seq_opt_1a71dd7363e56585f44ccf346c31bf031c">rj</link>&#32;==&#32;<link linkend="_class_c_n_m_seq_opt_1ac7358629418dff64bb5febd828f64f0e">M1</link>&#32;&amp;&amp;&#32;<link linkend="_class_c_n_m_seq_opt_1a356c7d926e3bc14c441622a19ab12df1">x</link>[&#32;<link linkend="_class_c_n_m_seq_opt_1a71dd7363e56585f44ccf346c31bf031c">rj</link>&#32;]&#32;==&#32;<link linkend="_class_c_n_m_seq_opt_1abc45d41e6ba582da381eb4c9999442ad">rx</link>&#32;))
+<anchor xml:id="_nmsopt_8h_source_1l00312"/>00312 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00313"/>00313 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1abe5f0b09856d48eb312d0c3a8701fdcc">calccent</link>();
+<anchor xml:id="_nmsopt_8h_source_1l00314"/>00314 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1af55bab09410e2932dc2983c3646fba93">State</link>&#32;=&#32;<link linkend="_class_c_n_m_seq_opt_1a1f81889f90eb0c0e9b5f9ee1b9e1faa7a2882bfaa75c67e68fad7e1b31b752a6e">stReflection</link>;
+<anchor xml:id="_nmsopt_8h_source_1l00315"/>00315 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00316"/>00316 
+<anchor xml:id="_nmsopt_8h_source_1l00317"/>00317 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+<anchor xml:id="_nmsopt_8h_source_1l00318"/>00318 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00319"/>00319 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00320"/>00320 
+<anchor xml:id="_nmsopt_8h_source_1l00321"/>00321 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>(&#32;<link linkend="_class_c_bite_opt_base_1ab756659a8ba09ba42ffa3d207564fdd8">StallCount</link>&#32;);
+<anchor xml:id="_nmsopt_8h_source_1l00322"/>00322 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00323"/>00323 
+<anchor xml:id="_nmsopt_8h_source_1l00324"/>00324 <emphasis role="keyword">private</emphasis>:
+<anchor xml:id="_nmsopt_8h_source_1l00325"/><link linkend="_class_c_n_m_seq_opt_1a61e71ca1c5282bcfab71d638613f8ff2">00325</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_class_c_n_m_seq_opt_1a61e71ca1c5282bcfab71d638613f8ff2">N</link>;&#32;
+<anchor xml:id="_nmsopt_8h_source_1l00326"/><link linkend="_class_c_n_m_seq_opt_1a7eae04524ddb0580b4657ab2d74f8837">00326</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_class_c_n_m_seq_opt_1a7eae04524ddb0580b4657ab2d74f8837">M</link>;&#32;
+<anchor xml:id="_nmsopt_8h_source_1l00327"/><link linkend="_class_c_n_m_seq_opt_1ac7358629418dff64bb5febd828f64f0e">00327</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_class_c_n_m_seq_opt_1ac7358629418dff64bb5febd828f64f0e">M1</link>;&#32;
+<anchor xml:id="_nmsopt_8h_source_1l00328"/><link linkend="_class_c_n_m_seq_opt_1aff51e4e10e5089f3b8a1f8286f83010e">00328</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_class_c_n_m_seq_opt_1aff51e4e10e5089f3b8a1f8286f83010e">M1i</link>;&#32;
+<anchor xml:id="_nmsopt_8h_source_1l00329"/><link linkend="_class_c_n_m_seq_opt_1a553e8ff44398fb272de572df3055c8a0">00329</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_class_c_n_m_seq_opt_1a553e8ff44398fb272de572df3055c8a0">xlo</link>;&#32;
+<anchor xml:id="_nmsopt_8h_source_1l00330"/><link linkend="_class_c_n_m_seq_opt_1a371cf09612300720f18981ae1e3aec9a">00330</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_class_c_n_m_seq_opt_1a371cf09612300720f18981ae1e3aec9a">xhi</link>;&#32;
+<anchor xml:id="_nmsopt_8h_source_1l00331"/><link linkend="_class_c_n_m_seq_opt_1aa38748f581346e620b42202427ae7fd3">00331</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_class_c_n_m_seq_opt_1aa38748f581346e620b42202427ae7fd3">xhi2</link>;&#32;
+<anchor xml:id="_nmsopt_8h_source_1l00332"/><link linkend="_class_c_n_m_seq_opt_1a356c7d926e3bc14c441622a19ab12df1">00332</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>**&#32;<link linkend="_class_c_n_m_seq_opt_1a356c7d926e3bc14c441622a19ab12df1">x</link>;&#32;
+<anchor xml:id="_nmsopt_8h_source_1l00333"/><link linkend="_class_c_n_m_seq_opt_1a49d787843631379aad7a4e096b4368e3">00333</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>*&#32;<link linkend="_class_c_n_m_seq_opt_1a49d787843631379aad7a4e096b4368e3">y</link>;&#32;
+<anchor xml:id="_nmsopt_8h_source_1l00334"/><link linkend="_class_c_n_m_seq_opt_1a752068f193d7b65015a3b3b1d34a2c84">00334</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>*&#32;<link linkend="_class_c_n_m_seq_opt_1a752068f193d7b65015a3b3b1d34a2c84">x0</link>;&#32;<emphasis role="comment">//&#32;Centroid&#32;parameter&#32;vector.</emphasis>
+<anchor xml:id="_nmsopt_8h_source_1l00335"/><link linkend="_class_c_n_m_seq_opt_1ad1d9690201835708ecbf9e639e7a1a84">00335</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>*&#32;<link linkend="_class_c_n_m_seq_opt_1ad1d9690201835708ecbf9e639e7a1a84">x1</link>;&#32;
+<anchor xml:id="_nmsopt_8h_source_1l00336"/><link linkend="_class_c_n_m_seq_opt_1ac43a76bb5f3f4a5f059f17ad8e54d646">00336</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_class_c_n_m_seq_opt_1ac43a76bb5f3f4a5f059f17ad8e54d646">y1</link>;&#32;
+<anchor xml:id="_nmsopt_8h_source_1l00338"/><link linkend="_class_c_n_m_seq_opt_1a22d3e10bba1fbfa50a458527d285d04b">00338</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>*&#32;<link linkend="_class_c_n_m_seq_opt_1a22d3e10bba1fbfa50a458527d285d04b">x2</link>;&#32;
+<anchor xml:id="_nmsopt_8h_source_1l00339"/><link linkend="_class_c_n_m_seq_opt_1abc45d41e6ba582da381eb4c9999442ad">00339</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>*&#32;<link linkend="_class_c_n_m_seq_opt_1abc45d41e6ba582da381eb4c9999442ad">rx</link>;&#32;
+<anchor xml:id="_nmsopt_8h_source_1l00340"/><link linkend="_class_c_n_m_seq_opt_1a71dd7363e56585f44ccf346c31bf031c">00340</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_class_c_n_m_seq_opt_1a71dd7363e56585f44ccf346c31bf031c">rj</link>;&#32;
+<anchor xml:id="_nmsopt_8h_source_1l00341"/><link linkend="_class_c_n_m_seq_opt_1af1e9f2a0229d5f931333d2285894434d">00341</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">bool</emphasis>&#32;<link linkend="_class_c_n_m_seq_opt_1af1e9f2a0229d5f931333d2285894434d">DoInitEvals</link>;&#32;
+<anchor xml:id="_nmsopt_8h_source_1l00342"/>00342 
+<anchor xml:id="_nmsopt_8h_source_1l00346"/>00346 
+<anchor xml:id="_nmsopt_8h_source_1l00347"/><link linkend="_class_c_n_m_seq_opt_1a1f81889f90eb0c0e9b5f9ee1b9e1faa7">00347</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">enum</emphasis>&#32;<link linkend="_class_c_n_m_seq_opt_1a1f81889f90eb0c0e9b5f9ee1b9e1faa7">EState</link>
+<anchor xml:id="_nmsopt_8h_source_1l00348"/>00348 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00349"/><link linkend="_class_c_n_m_seq_opt_1a1f81889f90eb0c0e9b5f9ee1b9e1faa7a2882bfaa75c67e68fad7e1b31b752a6e">00349</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1a1f81889f90eb0c0e9b5f9ee1b9e1faa7a2882bfaa75c67e68fad7e1b31b752a6e">stReflection</link>,&#32;<emphasis role="comment">//&#32;Reflection.</emphasis>
+<anchor xml:id="_nmsopt_8h_source_1l00350"/><link linkend="_class_c_n_m_seq_opt_1a1f81889f90eb0c0e9b5f9ee1b9e1faa7a598ff65bb5323e300f4ba87a2155aac4">00350</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1a1f81889f90eb0c0e9b5f9ee1b9e1faa7a598ff65bb5323e300f4ba87a2155aac4">stExpansion</link>,&#32;<emphasis role="comment">//&#32;Expansion.</emphasis>
+<anchor xml:id="_nmsopt_8h_source_1l00351"/><link linkend="_class_c_n_m_seq_opt_1a1f81889f90eb0c0e9b5f9ee1b9e1faa7aa9847544ca4f0a439c38dff1d0f6db0a">00351</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1a1f81889f90eb0c0e9b5f9ee1b9e1faa7aa9847544ca4f0a439c38dff1d0f6db0a">stContraction</link>,&#32;<emphasis role="comment">//&#32;Contraction.</emphasis>
+<anchor xml:id="_nmsopt_8h_source_1l00352"/><link linkend="_class_c_n_m_seq_opt_1a1f81889f90eb0c0e9b5f9ee1b9e1faa7aeb70e74fc5104ae8c19bad1a162741c7">00352</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1a1f81889f90eb0c0e9b5f9ee1b9e1faa7aeb70e74fc5104ae8c19bad1a162741c7">stReduction</link>&#32;<emphasis role="comment">//&#32;Reduction.</emphasis>
+<anchor xml:id="_nmsopt_8h_source_1l00353"/>00353 &#32;&#32;&#32;&#32;};
+<anchor xml:id="_nmsopt_8h_source_1l00354"/>00354 
+<anchor xml:id="_nmsopt_8h_source_1l00355"/><link linkend="_class_c_n_m_seq_opt_1af55bab09410e2932dc2983c3646fba93">00355</link> &#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1a1f81889f90eb0c0e9b5f9ee1b9e1faa7">EState</link>&#32;<link linkend="_class_c_n_m_seq_opt_1af55bab09410e2932dc2983c3646fba93">State</link>;&#32;
+<anchor xml:id="_nmsopt_8h_source_1l00356"/>00356 
+<anchor xml:id="_nmsopt_8h_source_1l00357"/><link linkend="_class_c_n_m_seq_opt_1a523bc7d383b7a2cfeef8d2a4edc12b5f">00357</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">virtual</emphasis>&#32;<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_class_c_n_m_seq_opt_1a523bc7d383b7a2cfeef8d2a4edc12b5f">initBuffers</link>(&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;aParamCount,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;aPopSize,
+<anchor xml:id="_nmsopt_8h_source_1l00358"/>00358 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;aCnsCount&#32;=&#32;0,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;aObjCount&#32;=&#32;1&#32;)
+<anchor xml:id="_nmsopt_8h_source_1l00359"/>00359 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00360"/>00360 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;CBiteOptBase&#32;::&#32;initBuffers(&#32;aParamCount,&#32;aPopSize,&#32;aCnsCount,
+<anchor xml:id="_nmsopt_8h_source_1l00361"/>00361 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;aObjCount&#32;);
+<anchor xml:id="_nmsopt_8h_source_1l00362"/>00362 
+<anchor xml:id="_nmsopt_8h_source_1l00363"/>00363 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1a356c7d926e3bc14c441622a19ab12df1">x</link>&#32;=&#32;<link linkend="_class_c_bite_pop_1a0c41790e473b70c5ec37986d0fb1f9a2">PopParams</link>;
+<anchor xml:id="_nmsopt_8h_source_1l00364"/>00364 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1a49d787843631379aad7a4e096b4368e3">y</link>&#32;=&#32;<emphasis role="keyword">new</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>[&#32;<link linkend="_class_c_n_m_seq_opt_1a7eae04524ddb0580b4657ab2d74f8837">M</link>&#32;];
+<anchor xml:id="_nmsopt_8h_source_1l00365"/>00365 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1a752068f193d7b65015a3b3b1d34a2c84">x0</link>&#32;=&#32;<link linkend="_class_c_bite_pop_1ac31d95bc1f383828e72bcf1eb499e949">CentParams</link>;
+<anchor xml:id="_nmsopt_8h_source_1l00366"/>00366 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1ad1d9690201835708ecbf9e639e7a1a84">x1</link>&#32;=&#32;<link linkend="_class_c_bite_pop_1acae90e3584dca8b6c08c70d7bd317729">TmpParams</link>;
+<anchor xml:id="_nmsopt_8h_source_1l00367"/>00367 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1a22d3e10bba1fbfa50a458527d285d04b">x2</link>&#32;=&#32;<emphasis role="keyword">new</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>[&#32;<link linkend="_class_c_n_m_seq_opt_1a61e71ca1c5282bcfab71d638613f8ff2">N</link>&#32;];
+<anchor xml:id="_nmsopt_8h_source_1l00368"/>00368 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00369"/>00369 
+<anchor xml:id="_nmsopt_8h_source_1l00370"/><link linkend="_class_c_n_m_seq_opt_1a76ae39736ff317e9aa048d24872e7084">00370</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">virtual</emphasis>&#32;<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_class_c_n_m_seq_opt_1a76ae39736ff317e9aa048d24872e7084">deleteBuffers</link>()
+<anchor xml:id="_nmsopt_8h_source_1l00371"/>00371 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00372"/>00372 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;CBiteOptBase&#32;::&#32;deleteBuffers();
+<anchor xml:id="_nmsopt_8h_source_1l00373"/>00373 
+<anchor xml:id="_nmsopt_8h_source_1l00374"/>00374 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">delete</emphasis>[]&#32;<link linkend="_class_c_n_m_seq_opt_1a49d787843631379aad7a4e096b4368e3">y</link>;
+<anchor xml:id="_nmsopt_8h_source_1l00375"/>00375 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">delete</emphasis>[]&#32;<link linkend="_class_c_n_m_seq_opt_1a22d3e10bba1fbfa50a458527d285d04b">x2</link>;
+<anchor xml:id="_nmsopt_8h_source_1l00376"/>00376 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00377"/>00377 
+<anchor xml:id="_nmsopt_8h_source_1l00381"/>00381 
+<anchor xml:id="_nmsopt_8h_source_1l00382"/><link linkend="_class_c_n_m_seq_opt_1a2b301caae34520d6495dabb8fcfd5c63">00382</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_class_c_n_m_seq_opt_1a2b301caae34520d6495dabb8fcfd5c63">findhi</link>()
+<anchor xml:id="_nmsopt_8h_source_1l00383"/>00383 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00384"/>00384 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1aa38748f581346e620b42202427ae7fd3">xhi2</link>&#32;=&#32;(&#32;<link linkend="_class_c_n_m_seq_opt_1a49d787843631379aad7a4e096b4368e3">y</link>[&#32;0&#32;]&#32;&gt;&#32;<link linkend="_class_c_n_m_seq_opt_1a49d787843631379aad7a4e096b4368e3">y</link>[&#32;1&#32;]);
+<anchor xml:id="_nmsopt_8h_source_1l00385"/>00385 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1a371cf09612300720f18981ae1e3aec9a">xhi</link>&#32;=&#32;1&#32;-&#32;<link linkend="_class_c_n_m_seq_opt_1aa38748f581346e620b42202427ae7fd3">xhi2</link>;
+<anchor xml:id="_nmsopt_8h_source_1l00386"/>00386 
+<anchor xml:id="_nmsopt_8h_source_1l00387"/>00387 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;j;
+<anchor xml:id="_nmsopt_8h_source_1l00388"/>00388 
+<anchor xml:id="_nmsopt_8h_source_1l00389"/>00389 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(&#32;j&#32;=&#32;2;&#32;j&#32;&lt;&#32;<link linkend="_class_c_n_m_seq_opt_1a7eae04524ddb0580b4657ab2d74f8837">M</link>;&#32;j++&#32;)
+<anchor xml:id="_nmsopt_8h_source_1l00390"/>00390 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00391"/>00391 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;<link linkend="_class_c_n_m_seq_opt_1a49d787843631379aad7a4e096b4368e3">y</link>[&#32;j&#32;]&#32;&gt;&#32;<link linkend="_class_c_n_m_seq_opt_1a49d787843631379aad7a4e096b4368e3">y</link>[&#32;<link linkend="_class_c_n_m_seq_opt_1a371cf09612300720f18981ae1e3aec9a">xhi</link>&#32;])
+<anchor xml:id="_nmsopt_8h_source_1l00392"/>00392 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00393"/>00393 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1aa38748f581346e620b42202427ae7fd3">xhi2</link>&#32;=&#32;<link linkend="_class_c_n_m_seq_opt_1a371cf09612300720f18981ae1e3aec9a">xhi</link>;
+<anchor xml:id="_nmsopt_8h_source_1l00394"/>00394 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1a371cf09612300720f18981ae1e3aec9a">xhi</link>&#32;=&#32;j;
+<anchor xml:id="_nmsopt_8h_source_1l00395"/>00395 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00396"/>00396 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>
+<anchor xml:id="_nmsopt_8h_source_1l00397"/>00397 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;<link linkend="_class_c_n_m_seq_opt_1a49d787843631379aad7a4e096b4368e3">y</link>[&#32;j&#32;]&#32;&gt;&#32;<link linkend="_class_c_n_m_seq_opt_1a49d787843631379aad7a4e096b4368e3">y</link>[&#32;<link linkend="_class_c_n_m_seq_opt_1aa38748f581346e620b42202427ae7fd3">xhi2</link>&#32;])
+<anchor xml:id="_nmsopt_8h_source_1l00398"/>00398 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00399"/>00399 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1aa38748f581346e620b42202427ae7fd3">xhi2</link>&#32;=&#32;j;
+<anchor xml:id="_nmsopt_8h_source_1l00400"/>00400 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00401"/>00401 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00402"/>00402 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00403"/>00403 
+<anchor xml:id="_nmsopt_8h_source_1l00408"/>00408 
+<anchor xml:id="_nmsopt_8h_source_1l00409"/><link linkend="_class_c_n_m_seq_opt_1abe5f0b09856d48eb312d0c3a8701fdcc">00409</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_class_c_n_m_seq_opt_1abe5f0b09856d48eb312d0c3a8701fdcc">calccent</link>()
+<anchor xml:id="_nmsopt_8h_source_1l00410"/>00410 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00411"/>00411 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1a2b301caae34520d6495dabb8fcfd5c63">findhi</link>();
+<anchor xml:id="_nmsopt_8h_source_1l00412"/>00412 
+<anchor xml:id="_nmsopt_8h_source_1l00413"/>00413 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>*&#32;<emphasis role="keyword">const</emphasis>&#32;xc&#32;=&#32;<link linkend="_class_c_n_m_seq_opt_1a752068f193d7b65015a3b3b1d34a2c84">x0</link>;
+<anchor xml:id="_nmsopt_8h_source_1l00414"/>00414 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;j;
+<anchor xml:id="_nmsopt_8h_source_1l00415"/>00415 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;i;
+<anchor xml:id="_nmsopt_8h_source_1l00416"/>00416 
+<anchor xml:id="_nmsopt_8h_source_1l00417"/>00417 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;<link linkend="_class_c_n_m_seq_opt_1a371cf09612300720f18981ae1e3aec9a">xhi</link>&#32;==&#32;0&#32;)
+<anchor xml:id="_nmsopt_8h_source_1l00418"/>00418 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00419"/>00419 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_pop_1a24130fea35014433f142e3b9ed0f8929">copyParams</link>(&#32;xc,&#32;<link linkend="_class_c_n_m_seq_opt_1a356c7d926e3bc14c441622a19ab12df1">x</link>[&#32;1&#32;]);
+<anchor xml:id="_nmsopt_8h_source_1l00420"/>00420 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;j&#32;=&#32;1;
+<anchor xml:id="_nmsopt_8h_source_1l00421"/>00421 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00422"/>00422 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>
+<anchor xml:id="_nmsopt_8h_source_1l00423"/>00423 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00424"/>00424 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_pop_1a24130fea35014433f142e3b9ed0f8929">copyParams</link>(&#32;xc,&#32;<link linkend="_class_c_n_m_seq_opt_1a356c7d926e3bc14c441622a19ab12df1">x</link>[&#32;0&#32;]);
+<anchor xml:id="_nmsopt_8h_source_1l00425"/>00425 
+<anchor xml:id="_nmsopt_8h_source_1l00426"/>00426 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(&#32;j&#32;=&#32;1;&#32;j&#32;&lt;&#32;<link linkend="_class_c_n_m_seq_opt_1a371cf09612300720f18981ae1e3aec9a">xhi</link>;&#32;j++&#32;)
+<anchor xml:id="_nmsopt_8h_source_1l00427"/>00427 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00428"/>00428 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>*&#32;<emphasis role="keyword">const</emphasis>&#32;xx&#32;=&#32;<link linkend="_class_c_n_m_seq_opt_1a356c7d926e3bc14c441622a19ab12df1">x</link>[&#32;j&#32;];
+<anchor xml:id="_nmsopt_8h_source_1l00429"/>00429 
+<anchor xml:id="_nmsopt_8h_source_1l00430"/>00430 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;<link linkend="_class_c_n_m_seq_opt_1a61e71ca1c5282bcfab71d638613f8ff2">N</link>;&#32;i++&#32;)
+<anchor xml:id="_nmsopt_8h_source_1l00431"/>00431 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00432"/>00432 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xc[&#32;i&#32;]&#32;+=&#32;xx[&#32;i&#32;];
+<anchor xml:id="_nmsopt_8h_source_1l00433"/>00433 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00434"/>00434 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00435"/>00435 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00436"/>00436 
+<anchor xml:id="_nmsopt_8h_source_1l00437"/>00437 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(&#32;j&#32;=&#32;j&#32;+&#32;1;&#32;j&#32;&lt;&#32;<link linkend="_class_c_n_m_seq_opt_1a7eae04524ddb0580b4657ab2d74f8837">M</link>;&#32;j++&#32;)
+<anchor xml:id="_nmsopt_8h_source_1l00438"/>00438 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00439"/>00439 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>*&#32;<emphasis role="keyword">const</emphasis>&#32;xx&#32;=&#32;<link linkend="_class_c_n_m_seq_opt_1a356c7d926e3bc14c441622a19ab12df1">x</link>[&#32;j&#32;];
+<anchor xml:id="_nmsopt_8h_source_1l00440"/>00440 
+<anchor xml:id="_nmsopt_8h_source_1l00441"/>00441 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;<link linkend="_class_c_n_m_seq_opt_1a61e71ca1c5282bcfab71d638613f8ff2">N</link>;&#32;i++&#32;)
+<anchor xml:id="_nmsopt_8h_source_1l00442"/>00442 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00443"/>00443 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xc[&#32;i&#32;]&#32;+=&#32;xx[&#32;i&#32;];
+<anchor xml:id="_nmsopt_8h_source_1l00444"/>00444 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00445"/>00445 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00446"/>00446 
+<anchor xml:id="_nmsopt_8h_source_1l00447"/>00447 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;<link linkend="_class_c_n_m_seq_opt_1a61e71ca1c5282bcfab71d638613f8ff2">N</link>;&#32;i++&#32;)
+<anchor xml:id="_nmsopt_8h_source_1l00448"/>00448 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00449"/>00449 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xc[&#32;i&#32;]&#32;*=&#32;<link linkend="_class_c_n_m_seq_opt_1aff51e4e10e5089f3b8a1f8286f83010e">M1i</link>;
+<anchor xml:id="_nmsopt_8h_source_1l00450"/>00450 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00451"/>00451 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00452"/>00452 
+<anchor xml:id="_nmsopt_8h_source_1l00460"/>00460 
+<anchor xml:id="_nmsopt_8h_source_1l00461"/><link linkend="_class_c_n_m_seq_opt_1a67aa8414c254cfb6a9b442450850987d">00461</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_class_c_n_m_seq_opt_1a67aa8414c254cfb6a9b442450850987d">copy</link>(&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>*&#32;<emphasis role="keyword">const</emphasis>&#32;ip,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;Cost&#32;)
+<anchor xml:id="_nmsopt_8h_source_1l00462"/>00462 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00463"/>00463 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1a49d787843631379aad7a4e096b4368e3">y</link>[&#32;<link linkend="_class_c_n_m_seq_opt_1a371cf09612300720f18981ae1e3aec9a">xhi</link>&#32;]&#32;=&#32;Cost;
+<anchor xml:id="_nmsopt_8h_source_1l00464"/>00464 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>*&#32;<emphasis role="keyword">const</emphasis>&#32;xH&#32;=&#32;<link linkend="_class_c_n_m_seq_opt_1a356c7d926e3bc14c441622a19ab12df1">x</link>[&#32;<link linkend="_class_c_n_m_seq_opt_1a371cf09612300720f18981ae1e3aec9a">xhi</link>&#32;];
+<anchor xml:id="_nmsopt_8h_source_1l00465"/>00465 
+<anchor xml:id="_nmsopt_8h_source_1l00466"/>00466 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_pop_1a24130fea35014433f142e3b9ed0f8929">copyParams</link>(&#32;xH,&#32;ip&#32;);
+<anchor xml:id="_nmsopt_8h_source_1l00467"/>00467 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1a2b301caae34520d6495dabb8fcfd5c63">findhi</link>();
+<anchor xml:id="_nmsopt_8h_source_1l00468"/>00468 
+<anchor xml:id="_nmsopt_8h_source_1l00469"/>00469 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>*&#32;<emphasis role="keyword">const</emphasis>&#32;nxH&#32;=&#32;<link linkend="_class_c_n_m_seq_opt_1a356c7d926e3bc14c441622a19ab12df1">x</link>[&#32;<link linkend="_class_c_n_m_seq_opt_1a371cf09612300720f18981ae1e3aec9a">xhi</link>&#32;];
+<anchor xml:id="_nmsopt_8h_source_1l00470"/>00470 
+<anchor xml:id="_nmsopt_8h_source_1l00471"/>00471 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;xH&#32;!=&#32;nxH&#32;)
+<anchor xml:id="_nmsopt_8h_source_1l00472"/>00472 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00473"/>00473 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;i;
+<anchor xml:id="_nmsopt_8h_source_1l00474"/>00474 
+<anchor xml:id="_nmsopt_8h_source_1l00475"/>00475 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;<link linkend="_class_c_n_m_seq_opt_1a61e71ca1c5282bcfab71d638613f8ff2">N</link>;&#32;i++&#32;)
+<anchor xml:id="_nmsopt_8h_source_1l00476"/>00476 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00477"/>00477 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_n_m_seq_opt_1a752068f193d7b65015a3b3b1d34a2c84">x0</link>[&#32;i&#32;]&#32;+=&#32;(&#32;xH[&#32;i&#32;]&#32;-&#32;nxH[&#32;i&#32;])&#32;*&#32;<link linkend="_class_c_n_m_seq_opt_1aff51e4e10e5089f3b8a1f8286f83010e">M1i</link>;
+<anchor xml:id="_nmsopt_8h_source_1l00478"/>00478 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00479"/>00479 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00480"/>00480 
+<anchor xml:id="_nmsopt_8h_source_1l00481"/>00481 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_opt_base_1ab756659a8ba09ba42ffa3d207564fdd8">StallCount</link>&#32;=&#32;0;
+<anchor xml:id="_nmsopt_8h_source_1l00482"/>00482 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00483"/>00483 
+<anchor xml:id="_nmsopt_8h_source_1l00495"/>00495 
+<anchor xml:id="_nmsopt_8h_source_1l00496"/><link linkend="_class_c_n_m_seq_opt_1a1ef451e7a70db607e096c343dac37bb1">00496</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_class_c_n_m_seq_opt_1a1ef451e7a70db607e096c343dac37bb1">eval</link>(&#32;<link linkend="_class_c_bite_rnd">CBiteRnd</link>&amp;&#32;rnd,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>*&#32;<emphasis role="keyword">const</emphasis>&#32;Params,
+<anchor xml:id="_nmsopt_8h_source_1l00497"/>00497 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>*&#32;<emphasis role="keyword">const</emphasis>&#32;OutCost&#32;=&#32;NULL,&#32;<emphasis role="keywordtype">double</emphasis>*&#32;<emphasis role="keyword">const</emphasis>&#32;OutValues&#32;=&#32;NULL&#32;)
+<anchor xml:id="_nmsopt_8h_source_1l00498"/>00498 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00499"/>00499 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;i;
+<anchor xml:id="_nmsopt_8h_source_1l00500"/>00500 
+<anchor xml:id="_nmsopt_8h_source_1l00501"/>00501 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;<link linkend="_class_c_n_m_seq_opt_1a61e71ca1c5282bcfab71d638613f8ff2">N</link>;&#32;i++&#32;)
+<anchor xml:id="_nmsopt_8h_source_1l00502"/>00502 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00503"/>00503 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_opt_base_1a0a97be5c42eed6fbaffba04c8720e6ce">NewValues</link>[&#32;i&#32;]&#32;=&#32;<link linkend="_class_c_bite_opt_base_1a634a498e8ebd71bbf87fd1df02f178e0">wrapParamReal</link>(&#32;rnd,&#32;Params[&#32;i&#32;],&#32;i&#32;);
+<anchor xml:id="_nmsopt_8h_source_1l00504"/>00504 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00505"/>00505 
+<anchor xml:id="_nmsopt_8h_source_1l00506"/>00506 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;Cost&#32;=&#32;<link linkend="_class_c_bite_opt_interface_1a45d7e2c9ea31b6f8bb23758a6879df9d">optcost</link>(&#32;<link linkend="_class_c_bite_opt_base_1a0a97be5c42eed6fbaffba04c8720e6ce">NewValues</link>&#32;);
+<anchor xml:id="_nmsopt_8h_source_1l00507"/>00507 
+<anchor xml:id="_nmsopt_8h_source_1l00508"/>00508 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;OutCost&#32;!=&#32;NULL&#32;)
+<anchor xml:id="_nmsopt_8h_source_1l00509"/>00509 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00510"/>00510 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;*OutCost&#32;=&#32;Cost;
+<anchor xml:id="_nmsopt_8h_source_1l00511"/>00511 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00512"/>00512 
+<anchor xml:id="_nmsopt_8h_source_1l00513"/>00513 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;OutValues&#32;!=&#32;NULL&#32;)
+<anchor xml:id="_nmsopt_8h_source_1l00514"/>00514 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_nmsopt_8h_source_1l00515"/>00515 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_pop_1a57e751582761922bbabff1ddb7af277b">copyValues</link>(&#32;OutValues,&#32;<link linkend="_class_c_bite_opt_base_1a0a97be5c42eed6fbaffba04c8720e6ce">NewValues</link>&#32;);
+<anchor xml:id="_nmsopt_8h_source_1l00516"/>00516 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00517"/>00517 
+<anchor xml:id="_nmsopt_8h_source_1l00518"/>00518 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_opt_base_1a9e49b98f5f6a2470d060282b2fd26a53">updateBestCost</link>(&#32;Cost,&#32;<link linkend="_class_c_bite_opt_base_1a0a97be5c42eed6fbaffba04c8720e6ce">NewValues</link>&#32;);
+<anchor xml:id="_nmsopt_8h_source_1l00519"/>00519 
+<anchor xml:id="_nmsopt_8h_source_1l00520"/>00520 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>(&#32;Cost&#32;);
+<anchor xml:id="_nmsopt_8h_source_1l00521"/>00521 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_nmsopt_8h_source_1l00522"/>00522 };
+<anchor xml:id="_nmsopt_8h_source_1l00523"/>00523 
+<anchor xml:id="_nmsopt_8h_source_1l00524"/>00524 <emphasis role="preprocessor">#endif&#32;</emphasis><emphasis role="comment">//&#32;NMSOPT_INCLUDED</emphasis>
+</programlisting></section>

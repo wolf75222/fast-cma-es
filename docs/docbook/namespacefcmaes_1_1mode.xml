@@ -1,0 +1,980 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_namespacefcmaes_1_1mode" xml:lang="en-US">
+<title>fcmaes.mode Namespace Reference</title>
+<indexterm><primary>fcmaes.mode</primary></indexterm>
+<simplesect>
+    <title>Classes    </title>
+        <itemizedlist>
+            <listitem><para>class <link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e">MODE</link></para>
+
+<para>Multi-Objective Differential Evolution (<link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e">MODE</link>) optimization algorithm. </para>
+</listitem>
+            <listitem><para>class <link linkend="_classfcmaes_1_1mode_1_1store">store</link></para>
+
+<para>Handles the management of shared data storage and processing for multi-objective optimization. </para>
+</listitem>
+            <listitem><para>class <link linkend="_classfcmaes_1_1mode_1_1wrapper">wrapper</link></para>
+
+<para>A wrapper class to manage function calls with additional features such as tracking progress, logging results, and storing or plotting outcomes. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para>Tuple[np.ndarray, np.ndarray] <link linkend="_namespacefcmaes_1_1mode_1a7e76a634ae4563d738ad007097e3c2b4">minimize</link> (Callable[[ArrayLike], ArrayLike] mofun, int nobj, int ncon, Bounds bounds, Optional[np.ndarray] guess=None, Optional[int] popsize=64, Optional[int] max_evaluations=100000, Optional[int] workers=1, Optional[float] f=0.5, Optional[float] cr=0.9, Optional[float] pro_c=0.5, Optional[float] dis_c=15.0, Optional[float] pro_m=0.9, Optional[float] dis_m=20.0, Optional[bool] nsga_update=True, Optional[int] pareto_update=0, Optional[ArrayLike] ints=None, Callable modifier=None, Optional[float] min_mutate=0.1, Optional[float] max_mutate=0.5, Optional[Generator] rg=Generator(PCG64DXSM()), Optional[<link linkend="_classfcmaes_1_1mode_1_1store">store</link>] <link linkend="_classfcmaes_1_1mode_1_1store">store</link>=None)</para>
+
+<para>Minimizes a multi-objective function subject to constraints and bounds using evolutionary algorithms. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1mode_1a7437cac94470387e12001d7f424393af">_check_bounds</link> (bounds, dim)</para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1mode_1a4421a58b8727b0b72ab4aaff9f3494b3">_filter</link> (x, y)</para>
+
+<para>Filters and sorts input arrays based on specific conditions. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1mode_1a64da91b9fe11c4db2c528851fe65f4e4">objranks</link> (objs)</para>
+
+<para>Computes the rank of objects based on their sum of ranks across all columns. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1mode_1af072da864e0f91afc47942de9a8901a5">ranks</link> (cons, <link linkend="_namespacefcmaes_1_1mode_1ad8018519575a155be2d2f4659ce52b0b">feasible</link>, eps)</para>
+
+<para>Computes the ranks of constraint values, adjusted by their feasibility and scaled by the fraction of violations for each constraint. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1mode_1aa9045b5ff7e2451881af650c926cc04c">get_valid</link> (xs, ys, nobj)</para>
+
+<para>Filters the input data based on a validity condition and returns the valid elements. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1mode_1a4648393e4988cb88b634bc6969891383">pareto_sort</link> (x0, y0, nobj, ncon)</para>
+
+<para>Sorts solutions based on Pareto dominance and crowding distance. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1mode_1aee5b0cd4fba6d7edff0afe48a8bc636a">pareto_domination</link> (ys, nobj, ncon, last_ycon=None, last_eps=0)</para>
+
+<para>Determines Pareto domination levels for a set of solutions considering objectives and constraint violations. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1mode_1a2570992dd7d42219e4b1381adff7a710">pareto_levels</link> (ys)</para>
+
+<para>Determines the Pareto levels of a given set of points. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1mode_1a0f27ab476c153a96dba3568003ab075a">crowd_dist</link> (y)</para>
+
+<para>Calculates the crowding distance for the first objective in a multi-objective optimization problem. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1mode_1afba15234474d356adb0ed83aa94f73a6">variation</link> (pop, lower, upper, rg, pro_c=1, dis_c=20, pro_m=1, dis_m=20)</para>
+
+<para>Applies genetic variation operations, including simulated binary crossover (SBX) and polynomial mutation, on a population to produce offspring. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1mode_1ad8018519575a155be2d2f4659ce52b0b">feasible</link> (xs, ys, ncon, eps=1E-2)</para>
+
+<para>Determines feasible solutions based on constraints and filters the input arrays <computeroutput>xs</computeroutput> and <computeroutput>ys</computeroutput> accordingly. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1mode_1afc694697801d4ac2a3e8956987220939">is_feasible</link> (y, nobj, eps=1E-2)</para>
+
+<para>Determines if a given solution is feasible based on constraints and tolerance. </para>
+</listitem>
+            <listitem><para>Tuple[np.ndarray, np.ndarray] <link linkend="_namespacefcmaes_1_1mode_1a0bc11f1e1783869a0b99b01ba75c80eb">minimize_plot</link> (str name, Callable[[ArrayLike], ArrayLike] fun, int nobj, int ncon, Bounds bounds, Optional[int] popsize=64, Optional[int] max_evaluations=100000, Optional[bool] nsga_update=True, Optional[int] pareto_update=0, Optional[ArrayLike] ints=None, Optional[int] workers=mp.cpu_count())</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Function Documentation</title>
+<anchor xml:id="_namespacefcmaes_1_1mode_1a7437cac94470387e12001d7f424393af"/><section>
+    <title>_check_bounds()</title>
+<indexterm><primary>_check_bounds</primary><secondary>fcmaes.mode</secondary></indexterm>
+<indexterm><primary>fcmaes.mode</primary><secondary>_check_bounds</secondary></indexterm>
+<para><computeroutput>fcmaes.mode._check_bounds ( bounds,  dim)<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_mode_8py_source_1l00890">890</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1mode_1a4421a58b8727b0b72ab4aaff9f3494b3"/><section>
+    <title>_filter()</title>
+<indexterm><primary>_filter</primary><secondary>fcmaes.mode</secondary></indexterm>
+<indexterm><primary>fcmaes.mode</primary><secondary>_filter</secondary></indexterm>
+<para><computeroutput>fcmaes.mode._filter ( x,  y)<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+
+<para>Filters and sorts input arrays based on specific conditions. </para>
+</para>
+
+<para>This function processes two input arrays <computeroutput>x</computeroutput> and <computeroutput>y</computeroutput>. It first determines the maximum value along the first axis of <computeroutput>y</computeroutput>, sorts both arrays based on this criterion, and then applies additional filtering conditions on <computeroutput>y</computeroutput> to exclude specific rows.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>x</entry><entry>
+<para>The input array to be processed and filtered. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>y</entry><entry>
+<para>A 2D array whose maximum values along the first axis determine the sorting order, and which is filtered according to additional </para>
+</entry>
+                            </row>
+                            <row>
+<entry>conditions.</entry><entry></entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>A tuple containing:<itemizedlist>
+<listitem>
+<para>The filtered and sorted version of the input array <computeroutput>x</computeroutput>.</para>
+</listitem><listitem>
+<para>The filtered and sorted version of the array <computeroutput>y</computeroutput>. </para>
+</listitem></itemizedlist>
+</para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00919">919</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1mode_1a0f27ab476c153a96dba3568003ab075a"/><section>
+    <title>crowd_dist()</title>
+<indexterm><primary>crowd_dist</primary><secondary>fcmaes.mode</secondary></indexterm>
+<indexterm><primary>fcmaes.mode</primary><secondary>crowd_dist</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.crowd_dist ( y)</computeroutput></para><para>
+
+<para>Calculates the crowding distance for the first objective in a multi-objective optimization problem. </para>
+</para>
+
+<para>This function determines for each solution how dense the neighborhood is based on the distances to its nearest neighbors in the sorted objective space. It assigns a numerical value to each solution reflecting this crowding distance.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>y</entry><entry>
+<para>A list of solutions, where each solution is represented as a list of objective values. This function specifically uses the first objective value for the crowding distance calculation.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>numpy An array of crowding distances for each solution in the input. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l01147">1147</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1mode_a0f27ab476c153a96dba3568003ab075a_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1mode_1ad8018519575a155be2d2f4659ce52b0b"/><section>
+    <title>feasible()</title>
+<indexterm><primary>feasible</primary><secondary>fcmaes.mode</secondary></indexterm>
+<indexterm><primary>fcmaes.mode</primary><secondary>feasible</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.feasible ( xs,  ys,  ncon,  eps = <computeroutput>1E-2</computeroutput>
+)</computeroutput></para><para>
+
+<para>Determines feasible solutions based on constraints and filters the input arrays <computeroutput>xs</computeroutput> and <computeroutput>ys</computeroutput> accordingly. </para>
+</para>
+
+<para>It evaluates constraint violations and ensures that violations are below the threshold (<computeroutput>eps</computeroutput>) for feasibility.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>xs</entry><entry>
+<para>Input array of solutions. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>ys</entry><entry>
+<para>Array of objective and constraint values corresponding to the solutions in <computeroutput>xs</computeroutput>. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>ncon</entry><entry>
+<para>Number of constraints. Constraints are assumed to be the last <computeroutput>ncon</computeroutput> columns of the <computeroutput>ys</computeroutput> array. eps (float, optional): Feasibility threshold. Defaults to 1E-2.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>Tuple[np.ndarray, np.ndarray]: Filtered solutions (<computeroutput>xs</computeroutput>) and their corresponding objective values (<computeroutput>ys</computeroutput>), with infeasible solutions removed. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l01245">1245</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1mode_1aa9045b5ff7e2451881af650c926cc04c"/><section>
+    <title>get_valid()</title>
+<indexterm><primary>get_valid</primary><secondary>fcmaes.mode</secondary></indexterm>
+<indexterm><primary>fcmaes.mode</primary><secondary>get_valid</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.get_valid ( xs,  ys,  nobj)</computeroutput></para><para>
+
+<para>Filters the input data based on a validity condition and returns the valid elements. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>xs</entry><entry>
+<para>Array-like structure containing input data. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>ys</entry><entry>
+<para>Array-like structure, typically associated with <computeroutput>xs</computeroutput>, used for the validity check. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>nobj</entry><entry>
+<para>Integer specifying the number of columns to skip in <computeroutput>ys</computeroutput> for the validity check.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>Tuple containing:<itemizedlist>
+<listitem>
+<para>The filtered elements of <computeroutput>xs</computeroutput> that satisfy the validity condition.</para>
+</listitem><listitem>
+<para>The filtered elements of <computeroutput>ys</computeroutput> that align with the valid <computeroutput>xs</computeroutput>. </para>
+</listitem></itemizedlist>
+</para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00992">992</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1mode_1afc694697801d4ac2a3e8956987220939"/><section>
+    <title>is_feasible()</title>
+<indexterm><primary>is_feasible</primary><secondary>fcmaes.mode</secondary></indexterm>
+<indexterm><primary>fcmaes.mode</primary><secondary>is_feasible</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.is_feasible ( y,  nobj,  eps = <computeroutput>1E-2</computeroutput>
+)</computeroutput></para><para>
+
+<para>Determines if a given solution is feasible based on constraints and tolerance. </para>
+</para>
+
+<para>This function evaluates feasibility by checking whether the sum of violated constraints (if any) is less than the provided tolerance value. If there are no constraints, the solution is automatically considered feasible.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>y</entry><entry>
+<para>List or array-like containing values of both objectives and constraints. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>nobj</entry><entry>
+<para>Integer specifying the number of objectives in the array &apos;y&apos;. The rest are treated as constraints. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>eps</entry><entry>
+<para>Float representing the tolerance level for determining feasibility. Defaults to 1E-2.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>bool True if the solution is feasible (i.e., sum of violated constraints is below the specified tolerance), otherwise False. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l01275">1275</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1mode_afc694697801d4ac2a3e8956987220939_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1mode_1a7e76a634ae4563d738ad007097e3c2b4"/><section>
+    <title>minimize()</title>
+<indexterm><primary>minimize</primary><secondary>fcmaes.mode</secondary></indexterm>
+<indexterm><primary>fcmaes.mode</primary><secondary>minimize</secondary></indexterm>
+<para><computeroutput> Tuple[np.ndarray, np.ndarray] fcmaes.mode.minimize (Callable[[ArrayLike], ArrayLike] mofun, int nobj, int ncon, Bounds bounds, Optional[np.ndarray]  guess = <computeroutput>None</computeroutput>
+, Optional[int]  popsize = <computeroutput>64</computeroutput>
+, Optional[int]  max_evaluations = <computeroutput>100000</computeroutput>
+, Optional[int]  workers = <computeroutput>1</computeroutput>
+, Optional[float]  f = <computeroutput>0.5</computeroutput>
+, Optional[float]  cr = <computeroutput>0.9</computeroutput>
+, Optional[float]  pro_c = <computeroutput>0.5</computeroutput>
+, Optional[float]  dis_c = <computeroutput>15.0</computeroutput>
+, Optional[float]  pro_m = <computeroutput>0.9</computeroutput>
+, Optional[float]  dis_m = <computeroutput>20.0</computeroutput>
+, Optional[bool]  nsga_update = <computeroutput>True</computeroutput>
+, Optional[int]  pareto_update = <computeroutput>0</computeroutput>
+, Optional[ArrayLike]  ints = <computeroutput>None</computeroutput>
+, Callable  modifier = <computeroutput>None</computeroutput>
+, Optional[float]  min_mutate = <computeroutput>0.1</computeroutput>
+, Optional[float]  max_mutate = <computeroutput>0.5</computeroutput>
+, Optional[Generator]  rg = <computeroutput>Generator(PCG64DXSM())</computeroutput>
+, Optional[<link linkend="_classfcmaes_1_1mode_1_1store">store</link>]  store = <computeroutput>None</computeroutput>
+)</computeroutput></para><para>
+
+<para>Minimizes a multi-objective function subject to constraints and bounds using evolutionary algorithms. </para>
+</para>
+
+<para>The function supports parallel computation and allows various configurations to modify the optimization process.</para>
+
+<para><literallayout><computeroutput>   mofun (Callable[[ArrayLike], ArrayLike]): A callable representing the multi-objective
+       function to minimize. It must take an array-like input and return an array-like
+</computeroutput></literallayout> 
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>output.</entry><entry>
+<para></para>
+</entry>
+                            </row>
+                            <row>
+<entry>nobj</entry><entry>
+<para>The number of objective functions. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>ncon</entry><entry>
+<para>The number of constraints. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>bounds</entry><entry>
+<para>The bounds for the decision variables. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>guess</entry><entry>
+<para>Initial guess for the population. If not provided, a random guess will be generated. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>popsize</entry><entry>
+<para>The size of the population for the evolutionary algorithm. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>max_evaluations</entry><entry>
+<para>The maximum number of allowable function evaluations during the optimization process. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>workers</entry><entry>
+<para>The number of workers to use for parallel computation. A value of 1 indicates serial computation. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>f</entry><entry>
+<para>Differential evolution scale factor. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>cr</entry><entry>
+<para>Differential evolution crossover probability. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>pro_c</entry><entry>
+<para>Crossover probability for simulated binary crossover (SBX). </para>
+</entry>
+                            </row>
+                            <row>
+<entry>dis_c</entry><entry>
+<para>Distribution index for simulated binary crossover (SBX). </para>
+</entry>
+                            </row>
+                            <row>
+<entry>pro_m</entry><entry>
+<para>Mutation probability for polynomial mutation. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>dis_m</entry><entry>
+<para>Distribution index for polynomial mutation. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>nsga_update</entry><entry>
+<para>Flag to enable or disable NSGA-II style updates. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>pareto_update</entry><entry>
+<para>The frequency of Pareto front updates. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>ints</entry><entry>
+<para>Specific indices of decision variables that are treated as integers. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>modifier</entry><entry>
+<para>A callable that modifies the process of variable updates. This can be used to apply additional constraints or actions during the optimization </para>
+</entry>
+                            </row>
+                            <row>
+<entry>process.</entry><entry>
+<para></para>
+</entry>
+                            </row>
+                            <row>
+<entry>min_mutate</entry><entry>
+<para>Minimum mutation factor for decision variables. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>max_mutate</entry><entry>
+<para>Maximum mutation factor for decision variables. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>rg</entry><entry>
+<para>An instance of random number generator to ensure repeatability. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>store</entry><entry>
+<para>An optional storage object to store results at the end of </para>
+</entry>
+                            </row>
+                            <row>
+<entry>optimization.</entry><entry></entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>Tuple[np.ndarray, np.ndarray]: A tuple containing the optimal decision variables (x) and the corresponding objective function values (y). If optimization fails, returns (None, None). </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00134">134</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1mode_a7e76a634ae4563d738ad007097e3c2b4_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1mode_1a0bc11f1e1783869a0b99b01ba75c80eb"/><section>
+    <title>minimize_plot()</title>
+<indexterm><primary>minimize_plot</primary><secondary>fcmaes.mode</secondary></indexterm>
+<indexterm><primary>fcmaes.mode</primary><secondary>minimize_plot</secondary></indexterm>
+<para><computeroutput> Tuple[np.ndarray, np.ndarray] fcmaes.mode.minimize_plot (str name, Callable[[ArrayLike], ArrayLike] fun, int nobj, int ncon, Bounds bounds, Optional[int]  popsize = <computeroutput>64</computeroutput>
+, Optional[int]  max_evaluations = <computeroutput>100000</computeroutput>
+, Optional[bool]  nsga_update = <computeroutput>True</computeroutput>
+, Optional[int]  pareto_update = <computeroutput>0</computeroutput>
+, Optional[ArrayLike]  ints = <computeroutput>None</computeroutput>
+, Optional[int]  workers = <computeroutput>mp.cpu_count()</computeroutput>
+)</computeroutput></para><para>
+Definition at line <link linkend="_mode_8py_source_1l01439">1439</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1mode_a0bc11f1e1783869a0b99b01ba75c80eb_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1mode_1a64da91b9fe11c4db2c528851fe65f4e4"/><section>
+    <title>objranks()</title>
+<indexterm><primary>objranks</primary><secondary>fcmaes.mode</secondary></indexterm>
+<indexterm><primary>fcmaes.mode</primary><secondary>objranks</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.objranks ( objs)</computeroutput></para><para>
+
+<para>Computes the rank of objects based on their sum of ranks across all columns. </para>
+</para>
+
+<para>The function calculates the rank of each object in each column, then sums these ranks across the columns to produce a single rank value for each object.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>objs</entry><entry>
+<para>A 2-dimensional numpy array where each row represents an object, and each column represents a category or feature.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>numpy A 1-dimensional numpy array containing the computed rank for each object based on the sum of its ranks across all columns. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00942">942</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1mode_a64da91b9fe11c4db2c528851fe65f4e4_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1mode_1aee5b0cd4fba6d7edff0afe48a8bc636a"/><section>
+    <title>pareto_domination()</title>
+<indexterm><primary>pareto_domination</primary><secondary>fcmaes.mode</secondary></indexterm>
+<indexterm><primary>fcmaes.mode</primary><secondary>pareto_domination</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.pareto_domination ( ys,  nobj,  ncon,  last_ycon = <computeroutput>None</computeroutput>
+,  last_eps = <computeroutput>0</computeroutput>
+)</computeroutput></para><para>
+
+<para>Determines Pareto domination levels for a set of solutions considering objectives and constraint violations. </para>
+</para>
+
+<para>Divides solutions into feasible and infeasible sets, calculates their dominance levels based on objectives and constraints, and returns the relevant rankings.</para>
+
+<para><literallayout><computeroutput>   ys (list or np.ndarray): A list or array of solutions where each solution
+       contains concatenated values of objectives and constraints.
+</computeroutput></literallayout> 
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>nobj</entry><entry>
+<para>Number of objectives in each solution. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>ncon</entry><entry>
+<para>Number of constraints in each solution. last_ycon (np.ndarray, optional): Array representing constraint violations used in the previous iteration for adjusting tolerance to small violations. Defaults to None. last_eps (float, optional): Tolerance level for constraint violations in the last iteration. Defaults to 0.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>tuple A tuple containing:<itemizedlist>
+<listitem>
+<para>np.ndarray: Array of Pareto domination levels for all solutions.</para>
+</listitem><listitem>
+<para>np.ndarray: Array of adjusted constraint violations for each solution.</para>
+</listitem><listitem>
+<para>float: Adjusted tolerance for constraint violations.</para>
+</listitem></itemizedlist>
+</para>
+</formalpara>
+
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>None</entry><entry>
+<para></para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l01064">1064</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1mode_aee5b0cd4fba6d7edff0afe48a8bc636a_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1mode_aee5b0cd4fba6d7edff0afe48a8bc636a_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1mode_1a2570992dd7d42219e4b1381adff7a710"/><section>
+    <title>pareto_levels()</title>
+<indexterm><primary>pareto_levels</primary><secondary>fcmaes.mode</secondary></indexterm>
+<indexterm><primary>fcmaes.mode</primary><secondary>pareto_levels</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.pareto_levels ( ys)</computeroutput></para><para>
+
+<para>Determines the Pareto levels of a given set of points. </para>
+</para>
+
+<para>This function identifies the domination levels of a set of points, where the domination level of a point represents the number of other points dominating it. Domination is determined based on whether one point strictly dominates another in all dimensions.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>ys</entry><entry>
+<para>A 2D array where each row represents a point in a multi-dimensional space, and domination is evaluated across </para>
+</entry>
+                            </row>
+                            <row>
+<entry>dimensions.</entry><entry></entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>numpy A 1D array where each index corresponds to the domination level of the respective point in the input array. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l01118">1118</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1mode_a2570992dd7d42219e4b1381adff7a710_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1mode_1a4648393e4988cb88b634bc6969891383"/><section>
+    <title>pareto_sort()</title>
+<indexterm><primary>pareto_sort</primary><secondary>fcmaes.mode</secondary></indexterm>
+<indexterm><primary>fcmaes.mode</primary><secondary>pareto_sort</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.pareto_sort ( x0,  y0,  nobj,  ncon)</computeroutput></para><para>
+
+<para>Sorts solutions based on Pareto dominance and crowding distance. </para>
+</para>
+
+<para>This function sorts a given set of solutions into levels based on Pareto dominance. Within each level, solutions are further sorted by crowding distance to ensure diversity. The input arrays <computeroutput>x0</computeroutput> and <computeroutput>y0</computeroutput> are reordered accordingly, and the resulting sorted arrays are returned.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>x0</entry><entry>
+<para>Array-like structure representing the original decision variables of the solutions. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>y0</entry><entry>
+<para>Array-like structure representing the objectives of the solutions. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>nobj</entry><entry>
+<para>Integer specifying the number of objectives for each solution. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>ncon</entry><entry>
+<para>Integer specifying the number of constraints for each solution.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>Tuple of two NumPy arrays:<itemizedlist>
+<listitem>
+<para>The reordered <computeroutput>x0</computeroutput> array based on Pareto dominance and crowding </para>
+</listitem></itemizedlist>
+</para>
+
+<para>distance.<itemizedlist>
+<listitem>
+<para>The reordered <computeroutput>y0</computeroutput> array based on Pareto dominance and crowding </para>
+</listitem></itemizedlist>
+</para>
+
+<para>distance. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l01018">1018</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1mode_a4648393e4988cb88b634bc6969891383_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1mode_1af072da864e0f91afc47942de9a8901a5"/><section>
+    <title>ranks()</title>
+<indexterm><primary>ranks</primary><secondary>fcmaes.mode</secondary></indexterm>
+<indexterm><primary>fcmaes.mode</primary><secondary>ranks</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.ranks ( cons,  feasible,  eps)</computeroutput></para><para>
+
+<para>Computes the ranks of constraint values, adjusted by their feasibility and scaled by the fraction of violations for each constraint. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>cons</entry><entry>
+<para>A 2D array of constraint values where rows represent different samples and columns represent different constraints. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>feasible</entry><entry>
+<para>A 1D boolean array indicating whether each row (sample) in <computeroutput>cons</computeroutput> is feasible (True) or not (False). </para>
+</entry>
+                            </row>
+                            <row>
+<entry>eps</entry><entry>
+<para>A scalar threshold value used to determine the violation of constraints.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>numpy A 1D array that contains the computed rank for each sample in <computeroutput>cons</computeroutput>. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00965">965</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1mode_af072da864e0f91afc47942de9a8901a5_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1mode_1afba15234474d356adb0ed83aa94f73a6"/><section>
+    <title>variation()</title>
+<indexterm><primary>variation</primary><secondary>fcmaes.mode</secondary></indexterm>
+<indexterm><primary>fcmaes.mode</primary><secondary>variation</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.variation ( pop,  lower,  upper,  rg,  pro_c = <computeroutput>1</computeroutput>
+,  dis_c = <computeroutput>20</computeroutput>
+,  pro_m = <computeroutput>1</computeroutput>
+,  dis_m = <computeroutput>20</computeroutput>
+)</computeroutput></para><para>
+
+<para>Applies genetic variation operations, including simulated binary crossover (SBX) and polynomial mutation, on a population to produce offspring. </para>
+</para>
+
+<para>The method modifies the population based on crossover and mutation probabilities, as well as distribution control parameters.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>pop</entry><entry>
+<para>numpy.ndarray Input population array, where each row represents an individual and each column represents a design variable. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>lower</entry><entry>
+<para>numpy.ndarray Lower bounds for each design variable. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>upper</entry><entry>
+<para>numpy.ndarray Upper bounds for each design variable. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>rg</entry><entry>
+<para>numpy.random.Generator Random number generator instance. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>pro_c</entry><entry>
+<para>float, optional Probability of performing crossover, default is 1. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>dis_c</entry><entry>
+<para>float, optional Distribution index for crossover, default is 20. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>pro_m</entry><entry>
+<para>float, optional Probability of performing mutation, default is 1. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>dis_m</entry><entry>
+<para>float, optional Distribution index for mutation, default is 20.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>numpy.ndarray Modified population (offspring) after applying crossover and mutation operations. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l01193">1193</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1mode_afba15234474d356adb0ed83aa94f73a6_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+</section>

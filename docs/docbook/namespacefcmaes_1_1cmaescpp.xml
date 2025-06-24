@@ -1,0 +1,241 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_namespacefcmaes_1_1cmaescpp" xml:lang="en-US">
+<title>fcmaes.cmaescpp Namespace Reference</title>
+<indexterm><primary>fcmaes.cmaescpp</primary></indexterm>
+<simplesect>
+    <title>Classes    </title>
+        <itemizedlist>
+            <listitem><para>class <link linkend="_classfcmaes_1_1cmaescpp_1_1_a_c_m_a___c">ACMA_C</link></para>
+
+<para>Implementation of the ACMA-C algorithm for optimization. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para>OptimizeResult <link linkend="_namespacefcmaes_1_1cmaescpp_1a625d259f091b81159e59b47837722d4e">minimize</link> (Callable[[ArrayLike], float] fun, Optional[Bounds] bounds=None, Optional[ArrayLike] x0=None, Optional[Union[float, ArrayLike, Callable]] input_sigma=0.3, Optional[int] popsize=31, Optional[int] max_evaluations=100000, Optional[float] accuracy=1.0, Optional[float] stop_fitness=-np.inf, Optional[float] stop_hist=-1, Optional[Generator] rg=Generator(PCG64DXSM()), Optional[int] runid=0, Optional[int] workers=1, Optional[bool] normalize=True, Optional[bool] delayed_update=True, Optional[int] update_gap=None)</para>
+
+<para>Optimizes a given objective function using an adaptive CMA-ES algorithm under specified constraints and parameters. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Variables    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_namespacefcmaes_1_1cmaescpp_1a869b80a999c8dbaafec9a1e836b441b7">optimizeACMA_C</link> = libcmalib.optimizeACMA_C</para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1cmaescpp_1a4b4bc53bc7ff4a07bc165c3b3ede4e02">argtypes</link></para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1cmaescpp_1a5f13d5d8f530e90f5b93f5bacf82dfef">initACMA_C</link> = libcmalib.initACMA_C</para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1cmaescpp_1a02a0f73f01d725c0440ce1cbe96fc018">restype</link></para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1cmaescpp_1a19d6ee3b1a025b0c87e16121a77e8afa">destroyACMA_C</link> = libcmalib.destroyACMA_C</para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1cmaescpp_1a5d24fbafb1f6010caa637d9318fe88e2">askACMA_C</link> = libcmalib.askACMA_C</para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1cmaescpp_1ae19b39d0288c14daa4d7db903c4285d6">tellACMA_C</link> = libcmalib.tellACMA_C</para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1cmaescpp_1a72633ee9a21ca3a356464d6c570b0237">tellXACMA_C</link> = libcmalib.tellXACMA_C</para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1cmaescpp_1a7f7e4ef0af633235aa443b759dba5ed9">populationACMA_C</link> = libcmalib.populationACMA_C</para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1cmaescpp_1aeecf9aa46c0d9cbb7e56087c5d7f0fef">resultACMA_C</link> = libcmalib.resultACMA_C</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Function Documentation</title>
+<anchor xml:id="_namespacefcmaes_1_1cmaescpp_1a625d259f091b81159e59b47837722d4e"/><section>
+    <title>minimize()</title>
+<indexterm><primary>minimize</primary><secondary>fcmaes.cmaescpp</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaescpp</primary><secondary>minimize</secondary></indexterm>
+<para><computeroutput> OptimizeResult fcmaes.cmaescpp.minimize (Callable[[ArrayLike], float] fun, Optional[Bounds]  bounds = <computeroutput>None</computeroutput>
+, Optional[ArrayLike]  x0 = <computeroutput>None</computeroutput>
+, Optional[Union[float, ArrayLike, Callable]]  input_sigma = <computeroutput>0.3</computeroutput>
+, Optional[int]  popsize = <computeroutput>31</computeroutput>
+, Optional[int]   max_evaluations = <computeroutput>100000</computeroutput>
+, Optional[float]  accuracy = <computeroutput>1.0</computeroutput>
+, Optional[float]  stop_fitness = <computeroutput>-np.inf</computeroutput>
+, Optional[float]  stop_hist = <computeroutput>-1</computeroutput>
+, Optional[Generator]  rg = <computeroutput>Generator(PCG64DXSM())</computeroutput>
+, Optional[int]  runid = <computeroutput>0</computeroutput>
+, Optional[int]  workers = <computeroutput>1</computeroutput>
+, Optional[bool]  normalize = <computeroutput>True</computeroutput>
+, Optional[bool]  delayed_update = <computeroutput>True</computeroutput>
+, Optional[int]  update_gap = <computeroutput>None</computeroutput>
+)</computeroutput></para><para>
+
+<para>Optimizes a given objective function using an adaptive CMA-ES algorithm under specified constraints and parameters. </para>
+</para>
+
+<para>This method allows for advanced customization in algorithm behavior, enabling stochastic optimization of complex, possibly non-linear functions.</para>
+
+<para><literallayout><computeroutput>   fun (Callable[[ArrayLike], float]): The objective function to be minimized. It must accept a
+       single argument, the candidate solution, and return a scalar fitness value.
+</computeroutput></literallayout> 
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>bounds</entry><entry>
+<para>The bounds within which the optimization search is conducted. If None, no boundaries are enforced. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>x0</entry><entry>
+<para>Initial guess for the solution. If None, an initial guess will be randomly generated. input_sigma (Optional[Union[float, ArrayLike, Callable]]): Initial step size for the search, defining strategy parameter for standard deviations. Can also be an array indicating sigma per dimension or a callable returning sigma. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>popsize</entry><entry>
+<para>Size of the population per generation. Affects the sampling process in each iteration. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>max_evaluations</entry><entry>
+<para>Maximum number of function evaluations to perform before termination. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>accuracy</entry><entry>
+<para>Desired accuracy of the solution or tolerance level for convergence checks. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>stop_fitness</entry><entry>
+<para>Threshold fitness value. If reached, the optimization process halts. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>stop_hist</entry><entry>
+<para>Historical improvement-based stopping condition. If None or negative, this criterion is disabled. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>rg</entry><entry>
+<para>Random number generator for stochastic sampling. Provides reproducibility when a specific generator seed is used. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>runid</entry><entry>
+<para>Unique identifier for the optimization run, allowing for comparisons across runs. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>workers</entry><entry>
+<para>Number of worker threads/processes for parallel evaluation of the objective function. If set to 0, it defaults to non-parallel execution. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>normalize</entry><entry>
+<para>Indicates whether solutions are normalized during the optimization process. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>delayed_update</entry><entry>
+<para>Specifies whether the algorithm updates the internal state of the covariance matrix immediately or after a delay. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>update_gap</entry><entry>
+<para>Gap between covariance matrix updates. If None, a default gap is used.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>OptimizeResult An object containing the optimization result, including the best solution <computeroutput>x</computeroutput>, the value of the objective function <computeroutput>fun</computeroutput> at <computeroutput>x</computeroutput>, the number of function evaluations <computeroutput>nfev</computeroutput>, the number of iterations performed <computeroutput>nit</computeroutput>, the optimizer&apos;s termination status <computeroutput>status</computeroutput>, and a boolean <computeroutput>success</computeroutput> indicating whether the optimization was successful. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_cmaescpp_8py_source_1l00089">89</link> of file <link linkend="_cmaescpp_8py_source">cmaescpp.py</link>.</para>
+</section>
+</section>
+<section>
+<title>Variable Documentation</title>
+<anchor xml:id="_namespacefcmaes_1_1cmaescpp_1a4b4bc53bc7ff4a07bc165c3b3ede4e02"/><section>
+    <title>argtypes</title>
+<indexterm><primary>argtypes</primary><secondary>fcmaes.cmaescpp</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaescpp</primary><secondary>argtypes</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaescpp.argtypes</computeroutput></para><para>
+Definition at line <link linkend="_cmaescpp_8py_source_1l00408">408</link> of file <link linkend="_cmaescpp_8py_source">cmaescpp.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1cmaescpp_1a5d24fbafb1f6010caa637d9318fe88e2"/><section>
+    <title>askACMA_C</title>
+<indexterm><primary>askACMA_C</primary><secondary>fcmaes.cmaescpp</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaescpp</primary><secondary>askACMA_C</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaescpp.askACMA_C = libcmalib.askACMA_C</computeroutput></para><para>
+Definition at line <link linkend="_cmaescpp_8py_source_1l00425">425</link> of file <link linkend="_cmaescpp_8py_source">cmaescpp.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1cmaescpp_1a19d6ee3b1a025b0c87e16121a77e8afa"/><section>
+    <title>destroyACMA_C</title>
+<indexterm><primary>destroyACMA_C</primary><secondary>fcmaes.cmaescpp</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaescpp</primary><secondary>destroyACMA_C</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaescpp.destroyACMA_C = libcmalib.destroyACMA_C</computeroutput></para><para>
+Definition at line <link linkend="_cmaescpp_8py_source_1l00422">422</link> of file <link linkend="_cmaescpp_8py_source">cmaescpp.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1cmaescpp_1a5f13d5d8f530e90f5b93f5bacf82dfef"/><section>
+    <title>initACMA_C</title>
+<indexterm><primary>initACMA_C</primary><secondary>fcmaes.cmaescpp</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaescpp</primary><secondary>initACMA_C</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaescpp.initACMA_C = libcmalib.initACMA_C</computeroutput></para><para>
+Definition at line <link linkend="_cmaescpp_8py_source_1l00414">414</link> of file <link linkend="_cmaescpp_8py_source">cmaescpp.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1cmaescpp_1a869b80a999c8dbaafec9a1e836b441b7"/><section>
+    <title>optimizeACMA_C</title>
+<indexterm><primary>optimizeACMA_C</primary><secondary>fcmaes.cmaescpp</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaescpp</primary><secondary>optimizeACMA_C</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaescpp.optimizeACMA_C = libcmalib.optimizeACMA_C</computeroutput></para><para>
+Definition at line <link linkend="_cmaescpp_8py_source_1l00407">407</link> of file <link linkend="_cmaescpp_8py_source">cmaescpp.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1cmaescpp_1a7f7e4ef0af633235aa443b759dba5ed9"/><section>
+    <title>populationACMA_C</title>
+<indexterm><primary>populationACMA_C</primary><secondary>fcmaes.cmaescpp</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaescpp</primary><secondary>populationACMA_C</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaescpp.populationACMA_C = libcmalib.populationACMA_C</computeroutput></para><para>
+Definition at line <link linkend="_cmaescpp_8py_source_1l00436">436</link> of file <link linkend="_cmaescpp_8py_source">cmaescpp.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1cmaescpp_1a02a0f73f01d725c0440ce1cbe96fc018"/><section>
+    <title>restype</title>
+<indexterm><primary>restype</primary><secondary>fcmaes.cmaescpp</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaescpp</primary><secondary>restype</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaescpp.restype</computeroutput></para><para>
+Definition at line <link linkend="_cmaescpp_8py_source_1l00420">420</link> of file <link linkend="_cmaescpp_8py_source">cmaescpp.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1cmaescpp_1aeecf9aa46c0d9cbb7e56087c5d7f0fef"/><section>
+    <title>resultACMA_C</title>
+<indexterm><primary>resultACMA_C</primary><secondary>fcmaes.cmaescpp</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaescpp</primary><secondary>resultACMA_C</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaescpp.resultACMA_C = libcmalib.resultACMA_C</computeroutput></para><para>
+Definition at line <link linkend="_cmaescpp_8py_source_1l00439">439</link> of file <link linkend="_cmaescpp_8py_source">cmaescpp.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1cmaescpp_1ae19b39d0288c14daa4d7db903c4285d6"/><section>
+    <title>tellACMA_C</title>
+<indexterm><primary>tellACMA_C</primary><secondary>fcmaes.cmaescpp</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaescpp</primary><secondary>tellACMA_C</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaescpp.tellACMA_C = libcmalib.tellACMA_C</computeroutput></para><para>
+Definition at line <link linkend="_cmaescpp_8py_source_1l00428">428</link> of file <link linkend="_cmaescpp_8py_source">cmaescpp.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1cmaescpp_1a72633ee9a21ca3a356464d6c570b0237"/><section>
+    <title>tellXACMA_C</title>
+<indexterm><primary>tellXACMA_C</primary><secondary>fcmaes.cmaescpp</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaescpp</primary><secondary>tellXACMA_C</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaescpp.tellXACMA_C = libcmalib.tellXACMA_C</computeroutput></para><para>
+Definition at line <link linkend="_cmaescpp_8py_source_1l00432">432</link> of file <link linkend="_cmaescpp_8py_source">cmaescpp.py</link>.</para>
+</section>
+</section>
+</section>

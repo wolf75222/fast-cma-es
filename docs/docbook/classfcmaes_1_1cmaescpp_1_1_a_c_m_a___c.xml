@@ -1,0 +1,525 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_classfcmaes_1_1cmaescpp_1_1_a_c_m_a___c" xml:lang="en-US">
+<title>fcmaes.cmaescpp.ACMA_C Class Reference</title>
+<indexterm><primary>fcmaes.cmaescpp.ACMA_C</primary></indexterm>
+<para>
+
+<para>Implementation of the ACMA-C algorithm for optimization. </para>
+ 
+</para>
+Collaboration diagram for fcmaes.cmaescpp.ACMA_C:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1cmaescpp_1_1_a_c_m_a___c__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Public Member Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaescpp_1_1_a_c_m_a___c_1a30b1141e99acc21b94e2366bad21dc78">__init__</link> (self, <link linkend="_classfcmaes_1_1cmaescpp_1_1_a_c_m_a___c_1ace85988c36f223610752fe5c5bbfbeef">dim</link>, Optional[Bounds] bounds=None, Optional[ArrayLike] x0=None, Optional[Union[float, ArrayLike, Callable]] input_sigma=0.3, Optional[int] <link linkend="_classfcmaes_1_1cmaescpp_1_1_a_c_m_a___c_1a5eb8c3128844a551ffed31779aa12193">popsize</link>=31, Optional[int] max_evaluations=100000, Optional[float] accuracy=1.0, Optional[float] stop_fitness=-np.inf, Optional[float] stop_hist=-1, Optional[Generator] rg=Generator(PCG64DXSM()), Optional[int] runid=0, Optional[bool] normalize=True, Optional[bool] delayed_update=True, Optional[int] update_gap=None)</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaescpp_1_1_a_c_m_a___c_1ae55112db9f934ddf1d3d01a09b812adb">__del__</link> (self)</para>
+
+<para>Deletes the instance and performs necessary cleanup. </para>
+</listitem>
+            <listitem><para>np.array <link linkend="_classfcmaes_1_1cmaescpp_1_1_a_c_m_a___c_1ad7ca82faa65b471b66977e2f18676025">ask</link> (self)</para>
+
+<para>Generates and retrieves a population of candidate solutions. </para>
+</listitem>
+            <listitem><para>int <link linkend="_classfcmaes_1_1cmaescpp_1_1_a_c_m_a___c_1a4677822852841d0e52baa48fa91cbcb8">tell</link> (self, np.ndarray ys, Optional[np.ndarray] xs=None)</para>
+
+<para>Provides functionality to handle processed arrays and manage operations using the given inputs. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaescpp_1_1_a_c_m_a___c_1a344851d94557ce52f99da907ee61590d">tell_x_</link> (self, np.ndarray ys, np.ndarray xs)</para>
+
+<para>Passes flattened numpy arrays and interacts with an external C function using ctypes. </para>
+</listitem>
+            <listitem><para>np.array <link linkend="_classfcmaes_1_1cmaescpp_1_1_a_c_m_a___c_1a348ca090a0116efc16fce6a4bd180871">population</link> (self)</para>
+
+<para>Retrieve the current population of solutions. </para>
+</listitem>
+            <listitem><para>OptimizeResult <link linkend="_classfcmaes_1_1cmaescpp_1_1_a_c_m_a___c_1aaf2e40c524b9a8b328decb0b798bd695">result</link> (self)</para>
+
+<para>Computes and returns the result of an optimization process. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Public Attributes    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaescpp_1_1_a_c_m_a___c_1a8398ead8fd8f0556d524477a60a8c76c">ptr</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaescpp_1_1_a_c_m_a___c_1a5eb8c3128844a551ffed31779aa12193">popsize</link> = popsize</para>
+
+<para>CMA-ES population size. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaescpp_1_1_a_c_m_a___c_1ace85988c36f223610752fe5c5bbfbeef">dim</link> = dim</para>
+
+<para>Dimensionality of the optimization problem. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>Implementation of the ACMA-C algorithm for optimization. </para>
+
+
+
+<para>This class provides functionalities for using the ACMA-C optimization algorithm, enabling the user to define the problem&apos;s dimensions, bounds, initial guesses, population size, and more. It integrates with ctypes to leverage C-based implementations for efficiency. The algorithm supports customizable stopping criteria such as fitness value thresholds and history-based progress termination limits. </para>
+<para>
+Definition at line <link linkend="_cmaescpp_8py_source_1l00156">156</link> of file <link linkend="_cmaescpp_8py_source">cmaescpp.py</link>.</para>
+</section>
+<section>
+<title>Constructor &amp; Destructor Documentation</title>
+<anchor xml:id="_classfcmaes_1_1cmaescpp_1_1_a_c_m_a___c_1a30b1141e99acc21b94e2366bad21dc78"/><section>
+    <title>__init__()</title>
+<indexterm><primary>__init__</primary><secondary>fcmaes.cmaescpp.ACMA_C</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaescpp.ACMA_C</primary><secondary>__init__</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaescpp.ACMA_C.__init__ ( self,  dim, Optional[Bounds]  bounds = <computeroutput>None</computeroutput>
+, Optional[ArrayLike]  x0 = <computeroutput>None</computeroutput>
+, Optional[Union[float, ArrayLike, Callable]]  input_sigma = <computeroutput>0.3</computeroutput>
+, Optional[int]  popsize = <computeroutput>31</computeroutput>
+, Optional[int]  max_evaluations = <computeroutput>100000</computeroutput>
+, Optional[float]  accuracy = <computeroutput>1.0</computeroutput>
+, Optional[float]  stop_fitness = <computeroutput>-np.inf</computeroutput>
+, Optional[float]  stop_hist = <computeroutput>-1</computeroutput>
+, Optional[Generator]  rg = <computeroutput>Generator(PCG64DXSM())</computeroutput>
+, Optional[int]  runid = <computeroutput>0</computeroutput>
+, Optional[bool]  normalize = <computeroutput>True</computeroutput>
+, Optional[bool]  delayed_update = <computeroutput>True</computeroutput>
+, Optional[int]  update_gap = <computeroutput>None</computeroutput>
+)</computeroutput></para><para>
+Definition at line <link linkend="_cmaescpp_8py_source_1l00203">203</link> of file <link linkend="_cmaescpp_8py_source">cmaescpp.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaescpp_1_1_a_c_m_a___c_1ae55112db9f934ddf1d3d01a09b812adb"/><section>
+    <title>__del__()</title>
+<indexterm><primary>__del__</primary><secondary>fcmaes.cmaescpp.ACMA_C</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaescpp.ACMA_C</primary><secondary>__del__</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaescpp.ACMA_C.__del__ ( self)</computeroutput></para><para>
+
+<para>Deletes the instance and performs necessary cleanup. </para>
+</para>
+
+<para><literallayout><computeroutput>   This destructor method ensures that the resources allocated or managed by the
+   class are properly released. It is automatically invoked when the object is
+   no longer in use or explicitly deleted.
+
+
+       Any exceptions that might be raised during the execution of the cleanup
+       process are dependent on the underlying `destroyACMA_C` function.
+</computeroutput></literallayout> </para>
+<para>
+Definition at line <link linkend="_cmaescpp_8py_source_1l00256">256</link> of file <link linkend="_cmaescpp_8py_source">cmaescpp.py</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Function Documentation</title>
+<anchor xml:id="_classfcmaes_1_1cmaescpp_1_1_a_c_m_a___c_1ad7ca82faa65b471b66977e2f18676025"/><section>
+    <title>ask()</title>
+<indexterm><primary>ask</primary><secondary>fcmaes.cmaescpp.ACMA_C</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaescpp.ACMA_C</primary><secondary>ask</secondary></indexterm>
+<para><computeroutput> np.array fcmaes.cmaescpp.ACMA_C.ask ( self)</computeroutput></para><para>
+
+<para>Generates and retrieves a population of candidate solutions. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method calls a low-level C function to generate new candidate solutions
+   based on the current state of the optimization process. These solutions are
+   returned as a numpy array. If an error occurs during the process, the method
+   prints the exception and returns None.
+</computeroutput></literallayout></para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>np A 2D array of generated candidate solutions with shape (popsize, dim), where <computeroutput>popsize</computeroutput> is the population size and <computeroutput>dim</computeroutput> is the dimensionality of each candidate solution. Returns None if an exception occurs.</para>
+</formalpara>
+
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>Exception</entry><entry>
+<para>Prints the exception message if an error occurs during the </para>
+</entry>
+                            </row>
+                            <row>
+<entry>process.</entry><entry>
+<para></para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_cmaescpp_8py_source_1l00277">277</link> of file <link linkend="_cmaescpp_8py_source">cmaescpp.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1cmaescpp_1_1_a_c_m_a___c_ad7ca82faa65b471b66977e2f18676025_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaescpp_1_1_a_c_m_a___c_1a348ca090a0116efc16fce6a4bd180871"/><section>
+    <title>population()</title>
+<indexterm><primary>population</primary><secondary>fcmaes.cmaescpp.ACMA_C</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaescpp.ACMA_C</primary><secondary>population</secondary></indexterm>
+<para><computeroutput> np.array fcmaes.cmaescpp.ACMA_C.population ( self)</computeroutput></para><para>
+
+<para>Retrieve the current population of solutions. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method fetches the entire population of solutions from the underlying
+   ACMA instance, represented as a 2D numpy array. Each row in the array corresponds
+   to an individual solution in the population.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>Exception</entry><entry>
+<para>If an error occurs in retrieving the population, the exception details are printed and None is returned.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>np A 2D numpy array where each row is an individual solution in the current population. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_cmaescpp_8py_source_1l00361">361</link> of file <link linkend="_cmaescpp_8py_source">cmaescpp.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaescpp_1_1_a_c_m_a___c_1aaf2e40c524b9a8b328decb0b798bd695"/><section>
+    <title>result()</title>
+<indexterm><primary>result</primary><secondary>fcmaes.cmaescpp.ACMA_C</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaescpp.ACMA_C</primary><secondary>result</secondary></indexterm>
+<para><computeroutput> OptimizeResult fcmaes.cmaescpp.ACMA_C.result ( self)</computeroutput></para><para>
+
+<para>Computes and returns the result of an optimization process. </para>
+</para>
+
+<para><literallayout><computeroutput>   This function utilizes a low-level C library function to process optimization
+   results. It retrieves the optimization results, such as the optimized variable,
+   objective function value, evaluation count, iteration count, and stop status,
+   and packages them into an `OptimizeResult` object.
+</computeroutput></literallayout></para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>OptimizeResult An object containing the results of the optimization process, including the optimized variable (<computeroutput>x</computeroutput>), objective function value (<computeroutput>fun</computeroutput>), evaluation count (<computeroutput>nfev</computeroutput>), iteration count (<computeroutput>nit</computeroutput>), stop status (<computeroutput>status</computeroutput>), and a success flag (<computeroutput>success</computeroutput>). </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_cmaescpp_8py_source_1l00390">390</link> of file <link linkend="_cmaescpp_8py_source">cmaescpp.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaescpp_1_1_a_c_m_a___c_1a4677822852841d0e52baa48fa91cbcb8"/><section>
+    <title>tell()</title>
+<indexterm><primary>tell</primary><secondary>fcmaes.cmaescpp.ACMA_C</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaescpp.ACMA_C</primary><secondary>tell</secondary></indexterm>
+<para><computeroutput> int fcmaes.cmaescpp.ACMA_C.tell ( self, np.ndarray ys, Optional[np.ndarray]  xs = <computeroutput>None</computeroutput>
+)</computeroutput></para><para>
+
+<para>Provides functionality to handle processed arrays and manage operations using the given inputs. </para>
+</para>
+
+<para>It determines the execution path based on the presence of optional parameters and interacts with external components.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>ys</entry><entry>
+<para>A numpy array with processed data that serves as the primary input for internal operations. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>xs</entry><entry>
+<para>An optional numpy array that, if provided, modifies the internal operation and enables additional functionality.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>int Represents the status or result of the operation. A successful execution returns a non-negative integer, whereas a failure or exception may result in a negative value. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_cmaescpp_8py_source_1l00308">308</link> of file <link linkend="_cmaescpp_8py_source">cmaescpp.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1cmaescpp_1_1_a_c_m_a___c_a4677822852841d0e52baa48fa91cbcb8_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1cmaescpp_1_1_a_c_m_a___c_a4677822852841d0e52baa48fa91cbcb8_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaescpp_1_1_a_c_m_a___c_1a344851d94557ce52f99da907ee61590d"/><section>
+    <title>tell_x_()</title>
+<indexterm><primary>tell_x_</primary><secondary>fcmaes.cmaescpp.ACMA_C</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaescpp.ACMA_C</primary><secondary>tell_x_</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaescpp.ACMA_C.tell_x_ ( self, np.ndarray ys, np.ndarray xs)</computeroutput></para><para>
+
+<para>Passes flattened numpy arrays and interacts with an external C function using ctypes. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method takes numpy arrays as input, flattens one of them, converts both arrays
+   to ctypes-compatible types, and then passes them to a C function. Any exceptions
+   encountered during this process are handled and logged.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>ys</entry><entry>
+<para>A numpy array representing the first input data. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>xs</entry><entry>
+<para>A numpy array representing the second input data, which gets flattened before being passed to the external C function.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>int The return value from the external C function <computeroutput>tellXACMA_C</computeroutput> or -1 in case of an </para>
+
+<para>exception. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_cmaescpp_8py_source_1l00336">336</link> of file <link linkend="_cmaescpp_8py_source">cmaescpp.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1cmaescpp_1_1_a_c_m_a___c_a344851d94557ce52f99da907ee61590d_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+<section>
+<title>Member Data Documentation</title>
+<anchor xml:id="_classfcmaes_1_1cmaescpp_1_1_a_c_m_a___c_1ace85988c36f223610752fe5c5bbfbeef"/><section>
+    <title>dim</title>
+<indexterm><primary>dim</primary><secondary>fcmaes.cmaescpp.ACMA_C</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaescpp.ACMA_C</primary><secondary>dim</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaescpp.ACMA_C.dim = dim</computeroutput></para><para>
+
+<para>Dimensionality of the optimization problem. </para>
+</para>
+
+<para>Initializes the object with parameters for the Adaptive Covariance Matrix Evolution Strategy (A-CMA). <literallayout><computeroutput>   This initialization method configures the bounds, population size, adaptive mechanisms,
+   termination criteria, and various other parameters essential for the A-CMA optimization process.
+   The initialization sets up the internal configuration and prepares the underlying pointer
+   to interface with the A-CMA C backend.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>dim</entry><entry>
+<para>Dimensionality of the problem. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>bounds</entry><entry>
+<para>The boundary constraints for each dimension. It can be None if no bounds are specified. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>x0</entry><entry>
+<para>The initial guess or starting point for the optimizer. Can be None if a default starting point is desired. input_sigma (Optional[Union[float, ArrayLike, Callable]]): Initial step size for the optimizer. It can be a float, an array of floats (one per dimension), or a callable returning a float. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>popsize</entry><entry>
+<para>Population size for the optimization process. Defaults to 31. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>max_evaluations</entry><entry>
+<para>The maximum number of objective function evaluations allowed for the optimization process. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>accuracy</entry><entry>
+<para>Accuracy level for convergence. A smaller value indicates stricter convergence criteria. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>stop_fitness</entry><entry>
+<para>The fitness value at which the optimization process should stop. Defaults to negative infinity. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>stop_hist</entry><entry>
+<para>Number of historical steps to consider for stagnation checks. Defaults <literallayout><computeroutput>to&#32;-1.
+</computeroutput></literallayout> rg (Optional[Generator]): Random number generator to use for sampling. Defaults to a PCG64DXSM-based </para>
+</entry>
+                            </row>
+                            <row>
+<entry>generator.</entry><entry>
+<para></para>
+</entry>
+                            </row>
+                            <row>
+<entry>runid</entry><entry>
+<para>Unique identifier for the optimization run. Useful for debugging or differentiating among runs. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>normalize</entry><entry>
+<para>Whether or not to normalize the input coordinates. Defaults to True. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>delayed_update</entry><entry>
+<para>Enable or disable delayed covariance matrix updates for computational efficiency. Defaults to True. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>update_gap</entry><entry>
+<para>Number of iterations between updates to the covariance matrix. If None, updates are performed without a fixed gap.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>Exception</entry><entry>
+<para>If there is an error during the initialization of the A-CMA C backend. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_cmaescpp_8py_source_1l00239">239</link> of file <link linkend="_cmaescpp_8py_source">cmaescpp.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaescpp_1_1_a_c_m_a___c_1a5eb8c3128844a551ffed31779aa12193"/><section>
+    <title>popsize</title>
+<indexterm><primary>popsize</primary><secondary>fcmaes.cmaescpp.ACMA_C</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaescpp.ACMA_C</primary><secondary>popsize</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaescpp.ACMA_C.popsize = popsize</computeroutput></para><para>
+
+<para>CMA-ES population size. </para>
+</para>
+<para>
+Definition at line <link linkend="_cmaescpp_8py_source_1l00238">238</link> of file <link linkend="_cmaescpp_8py_source">cmaescpp.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaescpp_1_1_a_c_m_a___c_1a8398ead8fd8f0556d524477a60a8c76c"/><section>
+    <title>ptr</title>
+<indexterm><primary>ptr</primary><secondary>fcmaes.cmaescpp.ACMA_C</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaescpp.ACMA_C</primary><secondary>ptr</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaescpp.ACMA_C.ptr</computeroutput></para><emphasis role="strong">Initial value:</emphasis><programlisting linenumbering="unnumbered">=&#32;&#32;<link linkend="_acmaesoptimizer_8cpp_1ab128d45080b4023edb28550611997afe">initACMA_C</link>(runid,
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dim,&#32;array_type(*guess),
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">None</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>&#32;lower&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>&#32;<emphasis role="keywordflow">else</emphasis>&#32;array_type(*lower),
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">None</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>&#32;upper&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>&#32;<emphasis role="keywordflow">else</emphasis>&#32;array_type(*upper),
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;array_type(*input_sigma),&#32;max_evaluations,&#32;stop_fitness,&#32;stop_hist,&#32;mu,
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;popsize,&#32;accuracy,&#32;int(rg.uniform(0,&#32;2**32&#32;-&#32;1)),
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;normalize,&#32;delayed_update,&#32;-1&#32;<emphasis role="keywordflow">if</emphasis>&#32;update_gap&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>&#32;<emphasis role="keywordflow">else</emphasis>&#32;update_gap)
+</programlisting><para>
+Definition at line <link linkend="_cmaescpp_8py_source_1l00231">231</link> of file <link linkend="_cmaescpp_8py_source">cmaescpp.py</link>.</para>
+</section>
+<para>
+The documentation for this class was generated from the following file:</para>
+fcmaes/<link linkend="_cmaescpp_8py">cmaescpp.py</link></section>
+</section>

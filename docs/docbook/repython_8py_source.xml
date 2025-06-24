@@ -1,0 +1,396 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_repython_8py_source" xml:lang="en-US">
+<title>repython.py</title>
+<indexterm><primary>examples/repython.py</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_repython_8py_source_1l00001"/><link linkend="_namespaceexamples_1_1repython">00001</link> <emphasis role="comment">#&#32;Adapted&#32;from&#32;https://github.com/yunshengtian/DGEMO/blob/master/problems/re.py</emphasis>
+<anchor xml:id="_repython_8py_source_1l00002"/>00002 <emphasis role="comment">#&#32;See&#32;Tanabe,&#32;Ryoji,&#32;and&#32;Hisao&#32;Ishibuchi.&#32;&quot;An&#32;easy-to-use&#32;real-world&#32;multi-objective&#32;optimization&#32;problem&#32;suite.&quot;&#32;Applied&#32;Soft&#32;Computing&#32;(2020):&#32;106078.</emphasis>
+<anchor xml:id="_repython_8py_source_1l00003"/>00003 <emphasis role="comment">#&#32;https://arxiv.org/abs/2009.12867</emphasis>
+<anchor xml:id="_repython_8py_source_1l00004"/>00004 
+<anchor xml:id="_repython_8py_source_1l00005"/>00005 <emphasis role="comment">#&#32;Modified&#32;to&#32;work&#32;with&#32;https://numba.pydata.org/</emphasis>
+<anchor xml:id="_repython_8py_source_1l00006"/>00006 <emphasis role="comment">#&#32;to&#32;measure&#32;algorithm&#32;overhead.&#32;</emphasis>
+<anchor xml:id="_repython_8py_source_1l00007"/>00007 <emphasis role="comment">#&#32;Returns&#32;constraints&#32;unmodified,&#32;not&#32;as&#32;weighted&#32;sum</emphasis>
+<anchor xml:id="_repython_8py_source_1l00008"/>00008 <emphasis role="comment">#&#32;On&#32;an&#32;AMD&#32;5950x&#32;all&#32;problems&#32;are&#32;solved&#32;in&#32;&lt;&#32;2&#32;sec&#32;</emphasis>
+<anchor xml:id="_repython_8py_source_1l00009"/>00009 
+<anchor xml:id="_repython_8py_source_1l00010"/>00010 <emphasis role="comment">#&#32;Tested&#32;using&#32;https://docs.conda.io/en/main/miniconda.html&#32;on&#32;Linux&#32;Mint&#32;21.2</emphasis>
+<anchor xml:id="_repython_8py_source_1l00011"/>00011 
+<anchor xml:id="_repython_8py_source_1l00012"/>00012 <emphasis role="keyword">import</emphasis>&#32;numpy&#32;<emphasis role="keyword">as</emphasis>&#32;np&#32;&#32;&#32;&#32;
+<anchor xml:id="_repython_8py_source_1l00013"/>00013 <emphasis role="keyword">from</emphasis>&#32;fcmaes&#32;<emphasis role="keyword">import</emphasis>&#32;mode,&#32;modecpp,&#32;decpp,&#32;de,&#32;moretry
+<anchor xml:id="_repython_8py_source_1l00014"/>00014 <emphasis role="keyword">from</emphasis>&#32;scipy.optimize&#32;<emphasis role="keyword">import</emphasis>&#32;Bounds
+<anchor xml:id="_repython_8py_source_1l00015"/>00015 <emphasis role="keyword">from</emphasis>&#32;numba&#32;<emphasis role="keyword">import</emphasis>&#32;njit
+<anchor xml:id="_repython_8py_source_1l00016"/>00016 
+<anchor xml:id="_repython_8py_source_1l00017"/>00017 <emphasis role="keyword">import</emphasis>&#32;sys&#32;
+<anchor xml:id="_repython_8py_source_1l00018"/>00018 <emphasis role="keyword">from</emphasis>&#32;loguru&#32;<emphasis role="keyword">import</emphasis>&#32;logger
+<anchor xml:id="_repython_8py_source_1l00019"/>00019 
+<anchor xml:id="_repython_8py_source_1l00020"/>00020 logger.remove()
+<anchor xml:id="_repython_8py_source_1l00021"/><link linkend="_namespaceexamples_1_1repython_1a73c9e19b0adc1569e7497188f2a82e33">00021</link> logger.add(sys.stdout,&#32;format=<emphasis role="stringliteral">&quot;{time:HH:mm:ss.SS}&#32;|&#32;{process}&#32;|&#32;{level}&#32;|&#32;{message}&quot;</emphasis>,&#32;level=<emphasis role="stringliteral">&quot;INFO&quot;</emphasis>)
+<anchor xml:id="_repython_8py_source_1l00022"/>00022 logger.add(<emphasis role="stringliteral">&quot;log_{time}.txt&quot;</emphasis>,&#32;format=<emphasis role="stringliteral">&quot;{time:HH:mm:ss.SS}&#32;|&#32;{process}&#32;|&#32;{level}&#32;|&#32;{message}&quot;</emphasis>,&#32;level=<emphasis role="stringliteral">&quot;INFO&quot;</emphasis>)
+<anchor xml:id="_repython_8py_source_1l00023"/>00023 
+<anchor xml:id="_repython_8py_source_1l00024"/>00024 <emphasis role="preprocessor">@njit(fastmath=True)</emphasis>&#32;&#32;
+<anchor xml:id="_repython_8py_source_1l00025"/>00025 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1repython_1a367ffed537bf279a1b746b412e9284fc">closest_value</link>(arr,&#32;val):
+<anchor xml:id="_repython_8py_source_1l00026"/>00026 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&apos;&apos;&apos;</emphasis>
+<anchor xml:id="_repython_8py_source_1l00027"/>00027 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Get&#32;closest&#32;value&#32;to&#32;val&#32;in&#32;arr</emphasis>
+<anchor xml:id="_repython_8py_source_1l00028"/><link linkend="_namespaceexamples_1_1repython_1a367ffed537bf279a1b746b412e9284fc">00028</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&apos;&apos;&apos;</emphasis>
+<anchor xml:id="_repython_8py_source_1l00029"/>00029 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;arr[np.argmin(np.abs(arr&#32;-&#32;val))]
+<anchor xml:id="_repython_8py_source_1l00030"/>00030 
+<anchor xml:id="_repython_8py_source_1l00031"/>00031 <emphasis role="preprocessor">@njit(fastmath=True)</emphasis>&#32;&#32;
+<anchor xml:id="_repython_8py_source_1l00032"/>00032 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1repython_1a5e91499417ba4e5a4c5da965f07ac2b4">div</link>(x1,&#32;x2):
+<anchor xml:id="_repython_8py_source_1l00033"/>00033 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&apos;&apos;&apos;</emphasis>
+<anchor xml:id="_repython_8py_source_1l00034"/>00034 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Divide&#32;x1&#32;/&#32;x2,&#32;return&#32;0&#32;where&#32;x2&#32;==&#32;0</emphasis>
+<anchor xml:id="_repython_8py_source_1l00035"/><link linkend="_namespaceexamples_1_1repython_1a5e91499417ba4e5a4c5da965f07ac2b4">00035</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&apos;&apos;&apos;</emphasis>
+<anchor xml:id="_repython_8py_source_1l00036"/>00036 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;x1/x2&#32;<emphasis role="keywordflow">if</emphasis>&#32;x2&#32;!=&#32;0&#32;<emphasis role="keywordflow">else</emphasis>&#32;0
+<anchor xml:id="_repython_8py_source_1l00037"/>00037 
+<anchor xml:id="_repython_8py_source_1l00038"/>00038 <emphasis role="preprocessor">@njit(fastmath=True)</emphasis>&#32;&#32;
+<anchor xml:id="_repython_8py_source_1l00039"/><link linkend="_namespaceexamples_1_1repython_1ab0c3b123150d77d0235996369f952c7a">00039</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1repython_1ab0c3b123150d77d0235996369f952c7a">re_1</link>(x):&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_repython_8py_source_1l00040"/>00040 &#32;&#32;&#32;&#32;x1,&#32;x2,&#32;x3,&#32;x4&#32;=&#32;x[0],&#32;x[1],&#32;x[2],&#32;x[3]
+<anchor xml:id="_repython_8py_source_1l00041"/>00041 &#32;&#32;&#32;&#32;
+<anchor xml:id="_repython_8py_source_1l00042"/>00042 &#32;&#32;&#32;&#32;F&#32;=&#32;10
+<anchor xml:id="_repython_8py_source_1l00043"/>00043 &#32;&#32;&#32;&#32;E&#32;=&#32;2e5
+<anchor xml:id="_repython_8py_source_1l00044"/>00044 &#32;&#32;&#32;&#32;L&#32;=&#32;200
+<anchor xml:id="_repython_8py_source_1l00045"/>00045 &#32;&#32;&#32;&#32;
+<anchor xml:id="_repython_8py_source_1l00046"/>00046 &#32;&#32;&#32;&#32;f1&#32;=&#32;L&#32;*&#32;((2&#32;*&#32;x1)&#32;+&#32;np.sqrt(2.0)&#32;*&#32;x2&#32;+&#32;np.sqrt(x3)&#32;+&#32;x4)
+<anchor xml:id="_repython_8py_source_1l00047"/>00047 &#32;&#32;&#32;&#32;f2&#32;=&#32;(F&#32;*&#32;L)&#32;/&#32;E&#32;*&#32;(<link linkend="_namespaceexamples_1_1repython_1a5e91499417ba4e5a4c5da965f07ac2b4">div</link>(2.0,&#32;x1)&#32;+&#32;<link linkend="_namespaceexamples_1_1repython_1a5e91499417ba4e5a4c5da965f07ac2b4">div</link>(2.0&#32;*&#32;np.sqrt(2.0),&#32;x2)&#32;-&#32;<link linkend="_namespaceexamples_1_1repython_1a5e91499417ba4e5a4c5da965f07ac2b4">div</link>(2.0&#32;*&#32;np.sqrt(2.0),&#32;x3)&#32;+&#32;<link linkend="_namespaceexamples_1_1repython_1a5e91499417ba4e5a4c5da965f07ac2b4">div</link>(2.0,&#32;x4))
+<anchor xml:id="_repython_8py_source_1l00048"/>00048 
+<anchor xml:id="_repython_8py_source_1l00049"/>00049 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;np.array([f1,f2])
+<anchor xml:id="_repython_8py_source_1l00050"/>00050 
+<anchor xml:id="_repython_8py_source_1l00051"/>00051 <emphasis role="preprocessor">@njit(fastmath=True)</emphasis>&#32;&#32;
+<anchor xml:id="_repython_8py_source_1l00052"/><link linkend="_namespaceexamples_1_1repython_1aa59bb6e94f8b70a49a0679275692624d">00052</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1repython_1aa59bb6e94f8b70a49a0679275692624d">re_2</link>(x,&#32;feasible_values):&#32;
+<anchor xml:id="_repython_8py_source_1l00053"/>00053 &#32;&#32;&#32;&#32;x1,&#32;x2,&#32;x3&#32;=&#32;x[0],&#32;x[1],&#32;x[2]
+<anchor xml:id="_repython_8py_source_1l00054"/>00054 &#32;&#32;&#32;&#32;x1&#32;=&#32;<link linkend="_namespaceexamples_1_1repython_1a367ffed537bf279a1b746b412e9284fc">closest_value</link>(feasible_values,&#32;x1)
+<anchor xml:id="_repython_8py_source_1l00055"/>00055 
+<anchor xml:id="_repython_8py_source_1l00056"/>00056 &#32;&#32;&#32;&#32;f1&#32;=&#32;(29.4&#32;*&#32;x1)&#32;+&#32;(0.6&#32;*&#32;x2&#32;*&#32;x3)
+<anchor xml:id="_repython_8py_source_1l00057"/>00057 
+<anchor xml:id="_repython_8py_source_1l00058"/>00058 &#32;&#32;&#32;&#32;g&#32;=&#32;np.array(
+<anchor xml:id="_repython_8py_source_1l00059"/>00059 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[(x1&#32;*&#32;x3)&#32;-&#32;7.735&#32;*&#32;<link linkend="_namespaceexamples_1_1repython_1a5e91499417ba4e5a4c5da965f07ac2b4">div</link>((x1&#32;*&#32;x1),&#32;x2)&#32;-&#32;180.0,&#32;
+<anchor xml:id="_repython_8py_source_1l00060"/>00060 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;4.0&#32;-&#32;<link linkend="_namespaceexamples_1_1repython_1a5e91499417ba4e5a4c5da965f07ac2b4">div</link>(x3,&#32;x2)
+<anchor xml:id="_repython_8py_source_1l00061"/>00061 &#32;&#32;&#32;&#32;])
+<anchor xml:id="_repython_8py_source_1l00062"/>00062 &#32;&#32;&#32;&#32;g&#32;=&#32;np.maximum(g*-1,&#32;0)
+<anchor xml:id="_repython_8py_source_1l00063"/>00063 
+<anchor xml:id="_repython_8py_source_1l00064"/>00064 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;np.array([f1]&#32;+&#32;list(g))
+<anchor xml:id="_repython_8py_source_1l00065"/>00065 
+<anchor xml:id="_repython_8py_source_1l00066"/>00066 <emphasis role="preprocessor">@njit(fastmath=True)</emphasis>&#32;&#32;
+<anchor xml:id="_repython_8py_source_1l00067"/><link linkend="_namespaceexamples_1_1repython_1ad37cdaa66ca5a84df03975c4a8c42832">00067</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1repython_1ad37cdaa66ca5a84df03975c4a8c42832">re_3</link>(x):&#32;
+<anchor xml:id="_repython_8py_source_1l00068"/>00068 &#32;&#32;&#32;&#32;x1,&#32;x2&#32;=&#32;x[0],&#32;x[1]
+<anchor xml:id="_repython_8py_source_1l00069"/>00069 
+<anchor xml:id="_repython_8py_source_1l00070"/>00070 &#32;&#32;&#32;&#32;f1&#32;=&#32;x1&#32;+&#32;(120&#32;*&#32;x2)
+<anchor xml:id="_repython_8py_source_1l00071"/>00071 
+<anchor xml:id="_repython_8py_source_1l00072"/>00072 &#32;&#32;&#32;&#32;E&#32;=&#32;700000
+<anchor xml:id="_repython_8py_source_1l00073"/>00073 &#32;&#32;&#32;&#32;sigmaBMax&#32;=&#32;700
+<anchor xml:id="_repython_8py_source_1l00074"/>00074 &#32;&#32;&#32;&#32;tauMax&#32;=&#32;450
+<anchor xml:id="_repython_8py_source_1l00075"/>00075 &#32;&#32;&#32;&#32;deltaMax&#32;=&#32;1.5
+<anchor xml:id="_repython_8py_source_1l00076"/>00076 &#32;&#32;&#32;&#32;sigmaK&#32;=&#32;(E&#32;*&#32;x1&#32;*&#32;x1)&#32;/&#32;100
+<anchor xml:id="_repython_8py_source_1l00077"/>00077 &#32;&#32;&#32;&#32;sigmaB&#32;=&#32;<link linkend="_namespaceexamples_1_1repython_1a5e91499417ba4e5a4c5da965f07ac2b4">div</link>(4500,&#32;(x1&#32;*&#32;x2))
+<anchor xml:id="_repython_8py_source_1l00078"/>00078 &#32;&#32;&#32;&#32;tau&#32;=&#32;<link linkend="_namespaceexamples_1_1repython_1a5e91499417ba4e5a4c5da965f07ac2b4">div</link>(1800,&#32;x2)
+<anchor xml:id="_repython_8py_source_1l00079"/>00079 &#32;&#32;&#32;&#32;delta&#32;=&#32;<link linkend="_namespaceexamples_1_1repython_1a5e91499417ba4e5a4c5da965f07ac2b4">div</link>(56.2&#32;*&#32;10000,&#32;E&#32;*&#32;x1&#32;*&#32;x2&#32;*&#32;x2)
+<anchor xml:id="_repython_8py_source_1l00080"/>00080 
+<anchor xml:id="_repython_8py_source_1l00081"/>00081 &#32;&#32;&#32;&#32;g&#32;=&#32;np.array([
+<anchor xml:id="_repython_8py_source_1l00082"/>00082 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;1&#32;-&#32;(sigmaB&#32;/&#32;sigmaBMax),
+<anchor xml:id="_repython_8py_source_1l00083"/>00083 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;1&#32;-&#32;(tau&#32;/&#32;tauMax),
+<anchor xml:id="_repython_8py_source_1l00084"/>00084 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;1&#32;-&#32;(delta&#32;/&#32;deltaMax),
+<anchor xml:id="_repython_8py_source_1l00085"/>00085 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;1&#32;-&#32;<link linkend="_namespaceexamples_1_1repython_1a5e91499417ba4e5a4c5da965f07ac2b4">div</link>(sigmaB,&#32;sigmaK)
+<anchor xml:id="_repython_8py_source_1l00086"/>00086 &#32;&#32;&#32;&#32;])
+<anchor xml:id="_repython_8py_source_1l00087"/>00087 &#32;&#32;&#32;&#32;g&#32;=&#32;np.maximum(g*-1,&#32;0)
+<anchor xml:id="_repython_8py_source_1l00088"/>00088 &#32;
+<anchor xml:id="_repython_8py_source_1l00089"/>00089 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;np.array([f1]&#32;+&#32;list(g))
+<anchor xml:id="_repython_8py_source_1l00090"/>00090 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_repython_8py_source_1l00091"/>00091 <emphasis role="preprocessor">@njit(fastmath=True)</emphasis>&#32;&#32;
+<anchor xml:id="_repython_8py_source_1l00092"/><link linkend="_namespaceexamples_1_1repython_1ac603d498fc30083478073cb180210714">00092</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1repython_1ac603d498fc30083478073cb180210714">re_4</link>(x):&#32;
+<anchor xml:id="_repython_8py_source_1l00093"/>00093 &#32;&#32;&#32;&#32;x1,&#32;x2,&#32;x3,&#32;x4&#32;=&#32;x[0],&#32;x[1],&#32;x[2],&#32;x[3]
+<anchor xml:id="_repython_8py_source_1l00094"/>00094 &#32;&#32;&#32;&#32;
+<anchor xml:id="_repython_8py_source_1l00095"/>00095 &#32;&#32;&#32;&#32;P&#32;=&#32;6000
+<anchor xml:id="_repython_8py_source_1l00096"/>00096 &#32;&#32;&#32;&#32;L&#32;=&#32;14
+<anchor xml:id="_repython_8py_source_1l00097"/>00097 &#32;&#32;&#32;&#32;E&#32;=&#32;30&#32;*&#32;1e6
+<anchor xml:id="_repython_8py_source_1l00098"/>00098 &#32;&#32;&#32;&#32;G&#32;=&#32;12&#32;*&#32;1e6
+<anchor xml:id="_repython_8py_source_1l00099"/>00099 &#32;&#32;&#32;&#32;tauMax&#32;=&#32;13600
+<anchor xml:id="_repython_8py_source_1l00100"/>00100 &#32;&#32;&#32;&#32;sigmaMax&#32;=&#32;30000
+<anchor xml:id="_repython_8py_source_1l00101"/>00101 
+<anchor xml:id="_repython_8py_source_1l00102"/>00102 &#32;&#32;&#32;&#32;f1&#32;=&#32;(1.10471&#32;*&#32;x1&#32;*&#32;x1&#32;*&#32;x2)&#32;+&#32;(0.04811&#32;*&#32;x3&#32;*&#32;x4)&#32;*&#32;(14.0&#32;+&#32;x2)
+<anchor xml:id="_repython_8py_source_1l00103"/>00103 &#32;&#32;&#32;&#32;f2&#32;=&#32;<link linkend="_namespaceexamples_1_1repython_1a5e91499417ba4e5a4c5da965f07ac2b4">div</link>(4&#32;*&#32;P&#32;*&#32;L&#32;*&#32;L&#32;*&#32;L,&#32;E&#32;*&#32;x4&#32;*&#32;x3&#32;*&#32;x3&#32;*&#32;x3)
+<anchor xml:id="_repython_8py_source_1l00104"/>00104 
+<anchor xml:id="_repython_8py_source_1l00105"/>00105 &#32;&#32;&#32;&#32;M&#32;=&#32;P&#32;*&#32;(L&#32;+&#32;(x2&#32;/&#32;2))
+<anchor xml:id="_repython_8py_source_1l00106"/>00106 &#32;&#32;&#32;&#32;tmpVar&#32;=&#32;((x2&#32;*&#32;x2)&#32;/&#32;4.0)&#32;+&#32;np.power((x1&#32;+&#32;x3)&#32;/&#32;2.0,&#32;2)
+<anchor xml:id="_repython_8py_source_1l00107"/>00107 &#32;&#32;&#32;&#32;R&#32;=&#32;np.sqrt(tmpVar)
+<anchor xml:id="_repython_8py_source_1l00108"/>00108 &#32;&#32;&#32;&#32;tmpVar&#32;=&#32;((x2&#32;*&#32;x2)&#32;/&#32;12.0)&#32;+&#32;np.power((x1&#32;+&#32;x3)&#32;/&#32;2.0,&#32;2)
+<anchor xml:id="_repython_8py_source_1l00109"/>00109 &#32;&#32;&#32;&#32;J&#32;=&#32;2&#32;*&#32;np.sqrt(2)&#32;*&#32;x1&#32;*&#32;x2&#32;*&#32;tmpVar
+<anchor xml:id="_repython_8py_source_1l00110"/>00110 
+<anchor xml:id="_repython_8py_source_1l00111"/>00111 &#32;&#32;&#32;&#32;tauDashDash&#32;=&#32;<link linkend="_namespaceexamples_1_1repython_1a5e91499417ba4e5a4c5da965f07ac2b4">div</link>(M&#32;*&#32;R,&#32;J)
+<anchor xml:id="_repython_8py_source_1l00112"/>00112 &#32;&#32;&#32;&#32;tauDash&#32;=&#32;<link linkend="_namespaceexamples_1_1repython_1a5e91499417ba4e5a4c5da965f07ac2b4">div</link>(P,&#32;np.sqrt(2)&#32;*&#32;x1&#32;*&#32;x2)
+<anchor xml:id="_repython_8py_source_1l00113"/>00113 &#32;&#32;&#32;&#32;tmpVar&#32;=&#32;tauDash&#32;*&#32;tauDash&#32;+&#32;<link linkend="_namespaceexamples_1_1repython_1a5e91499417ba4e5a4c5da965f07ac2b4">div</link>((2&#32;*&#32;tauDash&#32;*&#32;tauDashDash&#32;*&#32;x2),&#32;(2&#32;*&#32;R))&#32;+&#32;(tauDashDash&#32;*&#32;tauDashDash)
+<anchor xml:id="_repython_8py_source_1l00114"/>00114 &#32;&#32;&#32;&#32;tau&#32;=&#32;np.sqrt(tmpVar)
+<anchor xml:id="_repython_8py_source_1l00115"/>00115 &#32;&#32;&#32;&#32;sigma&#32;=&#32;<link linkend="_namespaceexamples_1_1repython_1a5e91499417ba4e5a4c5da965f07ac2b4">div</link>(6&#32;*&#32;P&#32;*&#32;L,&#32;x4&#32;*&#32;x3&#32;*&#32;x3)
+<anchor xml:id="_repython_8py_source_1l00116"/>00116 &#32;&#32;&#32;&#32;tmpVar&#32;=&#32;4.013&#32;*&#32;E&#32;*&#32;np.sqrt((x3&#32;*&#32;x3&#32;*&#32;x4&#32;*&#32;x4&#32;*&#32;x4&#32;*&#32;x4&#32;*&#32;x4&#32;*&#32;x4)&#32;/&#32;36.0)&#32;/&#32;(L&#32;*&#32;L)
+<anchor xml:id="_repython_8py_source_1l00117"/>00117 &#32;&#32;&#32;&#32;tmpVar2&#32;=&#32;(x3&#32;/&#32;(2&#32;*&#32;L))&#32;*&#32;np.sqrt(E&#32;/&#32;(4&#32;*&#32;G))
+<anchor xml:id="_repython_8py_source_1l00118"/>00118 &#32;&#32;&#32;&#32;PC&#32;=&#32;tmpVar&#32;*&#32;(1&#32;-&#32;tmpVar2)
+<anchor xml:id="_repython_8py_source_1l00119"/>00119 
+<anchor xml:id="_repython_8py_source_1l00120"/>00120 &#32;&#32;&#32;&#32;g&#32;=&#32;np.array([
+<anchor xml:id="_repython_8py_source_1l00121"/>00121 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;tauMax&#32;-&#32;tau,
+<anchor xml:id="_repython_8py_source_1l00122"/>00122 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;sigmaMax&#32;-&#32;sigma,
+<anchor xml:id="_repython_8py_source_1l00123"/>00123 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x4&#32;-&#32;x1,
+<anchor xml:id="_repython_8py_source_1l00124"/>00124 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;PC&#32;-&#32;P
+<anchor xml:id="_repython_8py_source_1l00125"/>00125 &#32;&#32;&#32;&#32;])
+<anchor xml:id="_repython_8py_source_1l00126"/>00126 &#32;&#32;&#32;&#32;g&#32;=&#32;np.maximum(g*-1,&#32;0)
+<anchor xml:id="_repython_8py_source_1l00127"/>00127 
+<anchor xml:id="_repython_8py_source_1l00128"/>00128 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;np.array([f1,f2]&#32;+&#32;list(g))
+<anchor xml:id="_repython_8py_source_1l00129"/>00129 
+<anchor xml:id="_repython_8py_source_1l00130"/>00130 <emphasis role="preprocessor">@njit(fastmath=True)</emphasis>&#32;&#32;
+<anchor xml:id="_repython_8py_source_1l00131"/><link linkend="_namespaceexamples_1_1repython_1a000f26546a03c5a3ca895f1d77100808">00131</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1repython_1a000f26546a03c5a3ca895f1d77100808">re_5</link>(x):&#32;
+<anchor xml:id="_repython_8py_source_1l00132"/>00132 &#32;&#32;&#32;&#32;x1,&#32;x2,&#32;x3,&#32;x4&#32;=&#32;x[0],&#32;x[1],&#32;x[2],&#32;x[3]
+<anchor xml:id="_repython_8py_source_1l00133"/>00133 
+<anchor xml:id="_repython_8py_source_1l00134"/>00134 &#32;&#32;&#32;&#32;f1&#32;=&#32;4.9&#32;*&#32;1e-5&#32;*&#32;(x2&#32;*&#32;x2&#32;-&#32;x1&#32;*&#32;x1)&#32;*&#32;(x4&#32;-&#32;1.0)
+<anchor xml:id="_repython_8py_source_1l00135"/>00135 &#32;&#32;&#32;&#32;f2&#32;=&#32;<link linkend="_namespaceexamples_1_1repython_1a5e91499417ba4e5a4c5da965f07ac2b4">div</link>((9.82&#32;*&#32;1e6)&#32;*&#32;(x2&#32;*&#32;x2&#32;-&#32;x1&#32;*&#32;x1),&#32;x3&#32;*&#32;x4&#32;*&#32;(x2&#32;*&#32;x2&#32;*&#32;x2&#32;-&#32;x1&#32;*&#32;x1&#32;*&#32;x1))
+<anchor xml:id="_repython_8py_source_1l00136"/>00136 
+<anchor xml:id="_repython_8py_source_1l00137"/>00137 &#32;&#32;&#32;&#32;g&#32;=&#32;np.array([
+<anchor xml:id="_repython_8py_source_1l00138"/>00138 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;(x2&#32;-&#32;x1)&#32;-&#32;20.0,
+<anchor xml:id="_repython_8py_source_1l00139"/>00139 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;0.4&#32;-&#32;<link linkend="_namespaceexamples_1_1repython_1a5e91499417ba4e5a4c5da965f07ac2b4">div</link>(x3,&#32;(3.14&#32;*&#32;(x2&#32;*&#32;x2&#32;-&#32;x1&#32;*&#32;x1))),
+<anchor xml:id="_repython_8py_source_1l00140"/>00140 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;1.0&#32;-&#32;<link linkend="_namespaceexamples_1_1repython_1a5e91499417ba4e5a4c5da965f07ac2b4">div</link>(2.22&#32;*&#32;1e-3&#32;*&#32;x3&#32;*&#32;(x2&#32;*&#32;x2&#32;*&#32;x2&#32;-&#32;x1&#32;*&#32;x1&#32;*&#32;x1),&#32;np.power((x2&#32;*&#32;x2&#32;-&#32;x1&#32;*&#32;x1),&#32;2)),
+<anchor xml:id="_repython_8py_source_1l00141"/>00141 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1repython_1a5e91499417ba4e5a4c5da965f07ac2b4">div</link>(2.66&#32;*&#32;1e-2&#32;*&#32;x3&#32;*&#32;x4&#32;*&#32;(x2&#32;*&#32;x2&#32;*&#32;x2&#32;-&#32;x1&#32;*&#32;x1&#32;*&#32;x1),&#32;x2&#32;*&#32;x2&#32;-&#32;x1&#32;*&#32;x1)&#32;-&#32;900.0
+<anchor xml:id="_repython_8py_source_1l00142"/>00142 &#32;&#32;&#32;&#32;])
+<anchor xml:id="_repython_8py_source_1l00143"/>00143 &#32;&#32;&#32;&#32;g&#32;=&#32;np.maximum(g*-1,&#32;0)
+<anchor xml:id="_repython_8py_source_1l00144"/>00144 
+<anchor xml:id="_repython_8py_source_1l00145"/>00145 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;np.array([f1,f2]&#32;+&#32;list(g))
+<anchor xml:id="_repython_8py_source_1l00146"/>00146 
+<anchor xml:id="_repython_8py_source_1l00147"/>00147 <emphasis role="preprocessor">@njit(fastmath=True)</emphasis>&#32;&#32;
+<anchor xml:id="_repython_8py_source_1l00148"/><link linkend="_namespaceexamples_1_1repython_1aac7cd61f81d591e151154ba29c9d4c7d">00148</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1repython_1aac7cd61f81d591e151154ba29c9d4c7d">re_6</link>(x):&#32;
+<anchor xml:id="_repython_8py_source_1l00149"/>00149 &#32;&#32;&#32;&#32;x1,&#32;x2,&#32;x3,&#32;x4&#32;=&#32;np.round(x[0]),&#32;np.round(x[1]),&#32;np.round(x[2]),&#32;np.round(x[3])
+<anchor xml:id="_repython_8py_source_1l00150"/>00150 
+<anchor xml:id="_repython_8py_source_1l00151"/>00151 &#32;&#32;&#32;&#32;f1&#32;=&#32;np.abs(6.931&#32;-&#32;(<link linkend="_namespaceexamples_1_1repython_1a5e91499417ba4e5a4c5da965f07ac2b4">div</link>(x3,&#32;x1)&#32;*&#32;<link linkend="_namespaceexamples_1_1repython_1a5e91499417ba4e5a4c5da965f07ac2b4">div</link>(x4,&#32;x2)))
+<anchor xml:id="_repython_8py_source_1l00152"/>00152 &#32;&#32;&#32;&#32;f2&#32;=&#32;np.max(np.array([x1,&#32;x2,&#32;x3,&#32;x4]))
+<anchor xml:id="_repython_8py_source_1l00153"/>00153 &#32;&#32;&#32;&#32;
+<anchor xml:id="_repython_8py_source_1l00154"/>00154 &#32;&#32;&#32;&#32;g&#32;=&#32;np.array([0.5&#32;-&#32;(f1&#32;/&#32;6.931)])
+<anchor xml:id="_repython_8py_source_1l00155"/>00155 &#32;&#32;&#32;&#32;g&#32;=&#32;np.maximum(g*-1,&#32;0)
+<anchor xml:id="_repython_8py_source_1l00156"/>00156 &#32;&#32;&#32;&#32;
+<anchor xml:id="_repython_8py_source_1l00157"/>00157 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;np.array([f1,f2]&#32;+&#32;list(g))
+<anchor xml:id="_repython_8py_source_1l00158"/>00158 
+<anchor xml:id="_repython_8py_source_1l00159"/>00159 <emphasis role="preprocessor">@njit(fastmath=True)</emphasis>&#32;&#32;
+<anchor xml:id="_repython_8py_source_1l00160"/><link linkend="_namespaceexamples_1_1repython_1a93cdbf073e9d13bee2872948f88abb20">00160</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1repython_1a93cdbf073e9d13bee2872948f88abb20">re_7</link>(x):&#32;
+<anchor xml:id="_repython_8py_source_1l00161"/>00161 &#32;&#32;&#32;&#32;xAlpha,&#32;xHA,&#32;xOA,&#32;xOPTT&#32;=&#32;x[0],&#32;x[1],&#32;x[2],&#32;x[3]
+<anchor xml:id="_repython_8py_source_1l00162"/>00162 
+<anchor xml:id="_repython_8py_source_1l00163"/>00163 &#32;&#32;&#32;&#32;f1&#32;=&#32;0.692&#32;+&#32;(0.477&#32;*&#32;xAlpha)&#32;-&#32;(0.687&#32;*&#32;xHA)&#32;-&#32;(0.080&#32;*&#32;xOA)&#32;-&#32;(0.0650&#32;*&#32;xOPTT)&#32;-&#32;(0.167&#32;*&#32;xAlpha&#32;*&#32;xAlpha)&#32;-&#32;(0.0129&#32;*&#32;xHA&#32;*&#32;xAlpha)&#32;+&#32;(0.0796&#32;*&#32;xHA&#32;*&#32;xHA)&#32;-&#32;(0.0634&#32;*&#32;xOA&#32;*&#32;xAlpha)&#32;-&#32;(0.0257&#32;*&#32;xOA&#32;*&#32;xHA)&#32;+&#32;(0.0877&#32;*&#32;xOA&#32;*&#32;xOA)&#32;-&#32;(0.0521&#32;*&#32;xOPTT&#32;*&#32;xAlpha)&#32;+&#32;(0.00156&#32;*&#32;xOPTT&#32;*&#32;xHA)&#32;+&#32;(0.00198&#32;*&#32;xOPTT&#32;*&#32;xOA)&#32;+&#32;(0.0184&#32;*&#32;xOPTT&#32;*&#32;xOPTT)
+<anchor xml:id="_repython_8py_source_1l00164"/>00164 &#32;&#32;&#32;&#32;f2&#32;=&#32;0.153&#32;-&#32;(0.322&#32;*&#32;xAlpha)&#32;+&#32;(0.396&#32;*&#32;xHA)&#32;+&#32;(0.424&#32;*&#32;xOA)&#32;+&#32;(0.0226&#32;*&#32;xOPTT)&#32;+&#32;(0.175&#32;*&#32;xAlpha&#32;*&#32;xAlpha)&#32;+&#32;(0.0185&#32;*&#32;xHA&#32;*&#32;xAlpha)&#32;-&#32;(0.0701&#32;*&#32;xHA&#32;*&#32;xHA)&#32;-&#32;(0.251&#32;*&#32;xOA&#32;*&#32;xAlpha)&#32;+&#32;(0.179&#32;*&#32;xOA&#32;*&#32;xHA)&#32;+&#32;(0.0150&#32;*&#32;xOA&#32;*&#32;xOA)&#32;+&#32;(0.0134&#32;*&#32;xOPTT&#32;*&#32;xAlpha)&#32;+&#32;(0.0296&#32;*&#32;xOPTT&#32;*&#32;xHA)&#32;+&#32;(0.0752&#32;*&#32;xOPTT&#32;*&#32;xOA)&#32;+&#32;(0.0192&#32;*&#32;xOPTT&#32;*&#32;xOPTT)
+<anchor xml:id="_repython_8py_source_1l00165"/>00165 &#32;&#32;&#32;&#32;f3&#32;=&#32;0.370&#32;-&#32;(0.205&#32;*&#32;xAlpha)&#32;+&#32;(0.0307&#32;*&#32;xHA)&#32;+&#32;(0.108&#32;*&#32;xOA)&#32;+&#32;(1.019&#32;*&#32;xOPTT)&#32;-&#32;(0.135&#32;*&#32;xAlpha&#32;*&#32;xAlpha)&#32;+&#32;(0.0141&#32;*&#32;xHA&#32;*&#32;xAlpha)&#32;+&#32;(0.0998&#32;*&#32;xHA&#32;*&#32;xHA)&#32;+&#32;(0.208&#32;*&#32;xOA&#32;*&#32;xAlpha)&#32;-&#32;(0.0301&#32;*&#32;xOA&#32;*&#32;xHA)&#32;-&#32;(0.226&#32;*&#32;xOA&#32;*&#32;xOA)&#32;+&#32;(0.353&#32;*&#32;xOPTT&#32;*&#32;xAlpha)&#32;-&#32;(0.0497&#32;*&#32;xOPTT&#32;*&#32;xOA)&#32;-&#32;(0.423&#32;*&#32;xOPTT&#32;*&#32;xOPTT)&#32;+&#32;(0.202&#32;*&#32;xHA&#32;*&#32;xAlpha&#32;*&#32;xAlpha)&#32;-&#32;(0.281&#32;*&#32;xOA&#32;*&#32;xAlpha&#32;*&#32;xAlpha)&#32;-&#32;(0.342&#32;*&#32;xHA&#32;*&#32;xHA&#32;*&#32;xAlpha)&#32;-&#32;(0.245&#32;*&#32;xHA&#32;*&#32;xHA&#32;*&#32;xOA)&#32;+&#32;(0.281&#32;*&#32;xOA&#32;*&#32;xOA&#32;*&#32;xHA)&#32;-&#32;(0.184&#32;*&#32;xOPTT&#32;*&#32;xOPTT&#32;*&#32;xAlpha)&#32;-&#32;(0.281&#32;*&#32;xHA&#32;*&#32;xAlpha&#32;*&#32;xOA)
+<anchor xml:id="_repython_8py_source_1l00166"/>00166 
+<anchor xml:id="_repython_8py_source_1l00167"/>00167 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;np.array([f1,f2,f3])
+<anchor xml:id="_repython_8py_source_1l00168"/>00168 
+<anchor xml:id="_repython_8py_source_1l00169"/>00169 
+<anchor xml:id="_repython_8py_source_1l00170"/>00170 <emphasis role="keyword">class&#32;</emphasis><link linkend="_classexamples_1_1repython_1_1_r_e1">RE1</link>(object):
+<anchor xml:id="_repython_8py_source_1l00171"/>00171 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&apos;&apos;&apos;</emphasis>
+<anchor xml:id="_repython_8py_source_1l00172"/>00172 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Four&#32;bar&#32;truss&#32;design</emphasis>
+<anchor xml:id="_repython_8py_source_1l00173"/>00173 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;NOTE:&#32;the&#32;provided&#32;true&#32;pareto&#32;front&#32;approximation&#32;of&#32;this&#32;problem&#32;might&#32;be&#32;wrong</emphasis>
+<anchor xml:id="_repython_8py_source_1l00174"/><link linkend="_classexamples_1_1repython_1_1_r_e1">00174</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&apos;&apos;&apos;</emphasis>
+<anchor xml:id="_repython_8py_source_1l00175"/><link linkend="_classexamples_1_1repython_1_1_r_e1_1a347dd0c4f17e9718c0df49fd7c75efd6">00175</link> &#32;&#32;&#32;&#32;n_var&#32;=&#32;4
+<anchor xml:id="_repython_8py_source_1l00176"/><link linkend="_classexamples_1_1repython_1_1_r_e1_1a79007aff52e36b64720c3e09548ebaa1">00176</link> &#32;&#32;&#32;&#32;n_obj&#32;=&#32;2
+<anchor xml:id="_repython_8py_source_1l00177"/><link linkend="_classexamples_1_1repython_1_1_r_e1_1a0425028529633a04ace46c58e1dd1b4e">00177</link> &#32;&#32;&#32;&#32;n_con&#32;=&#32;0
+<anchor xml:id="_repython_8py_source_1l00178"/><link linkend="_classexamples_1_1repython_1_1_r_e1_1a78336c0128f5d17a9c96f78078c1ae17">00178</link> &#32;&#32;&#32;&#32;xl&#32;=&#32;[1,&#32;np.sqrt(2),&#32;np.sqrt(2),&#32;1]
+<anchor xml:id="_repython_8py_source_1l00179"/><link linkend="_classexamples_1_1repython_1_1_r_e1_1a8736d6d0e49d3ee22b26c71f631897e2">00179</link> &#32;&#32;&#32;&#32;xu&#32;=&#32;[3,&#32;3,&#32;3,&#32;3]
+<anchor xml:id="_repython_8py_source_1l00180"/>00180 
+<anchor xml:id="_repython_8py_source_1l00181"/><link linkend="_classexamples_1_1repython_1_1_r_e1_1a62aecf645bd5e046d838fd49c9e6387d">00181</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1repython_1_1_r_e1_1a62aecf645bd5e046d838fd49c9e6387d">__call__</link>(self,&#32;x):
+<anchor xml:id="_repython_8py_source_1l00182"/>00182 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_namespaceexamples_1_1repython_1ab0c3b123150d77d0235996369f952c7a">re_1</link>(x)
+<anchor xml:id="_repython_8py_source_1l00183"/>00183 
+<anchor xml:id="_repython_8py_source_1l00184"/>00184 <emphasis role="keyword">class&#32;</emphasis><link linkend="_classexamples_1_1repython_1_1_r_e2">RE2</link>(object):
+<anchor xml:id="_repython_8py_source_1l00185"/>00185 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&apos;&apos;&apos;</emphasis>
+<anchor xml:id="_repython_8py_source_1l00186"/>00186 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Reinforced&#32;concrete&#32;beam&#32;design</emphasis>
+<anchor xml:id="_repython_8py_source_1l00187"/><link linkend="_classexamples_1_1repython_1_1_r_e2">00187</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&apos;&apos;&apos;</emphasis>
+<anchor xml:id="_repython_8py_source_1l00188"/><link linkend="_classexamples_1_1repython_1_1_r_e2_1ae56908908830809b010390d8984fce5b">00188</link> &#32;&#32;&#32;&#32;n_var&#32;=&#32;3
+<anchor xml:id="_repython_8py_source_1l00189"/><link linkend="_classexamples_1_1repython_1_1_r_e2_1a4451f78ea5a13a6a058bb166b69f7d91">00189</link> &#32;&#32;&#32;&#32;n_obj&#32;=&#32;1
+<anchor xml:id="_repython_8py_source_1l00190"/><link linkend="_classexamples_1_1repython_1_1_r_e2_1ad9066a583ea46c2dd5b11ba2977d105a">00190</link> &#32;&#32;&#32;&#32;n_con&#32;=&#32;2
+<anchor xml:id="_repython_8py_source_1l00191"/><link linkend="_classexamples_1_1repython_1_1_r_e2_1abab8d191714a682c86a251527123b70a">00191</link> &#32;&#32;&#32;&#32;xl&#32;=&#32;[0.2,&#32;0,&#32;0]
+<anchor xml:id="_repython_8py_source_1l00192"/><link linkend="_classexamples_1_1repython_1_1_r_e2_1ad74ec33084f9dc48acc8621924da0918">00192</link> &#32;&#32;&#32;&#32;xu&#32;=&#32;[15,&#32;20,&#32;40]
+<anchor xml:id="_repython_8py_source_1l00193"/>00193 
+<anchor xml:id="_repython_8py_source_1l00194"/><link linkend="_classexamples_1_1repython_1_1_r_e2_1a8cbacbf8223af1e0e73e3b9af4a612b1">00194</link> &#32;&#32;&#32;&#32;feasible_values&#32;=&#32;np.array([0.20,&#32;0.31,&#32;0.40,&#32;0.44,&#32;0.60,&#32;0.62,&#32;0.79,&#32;0.80,&#32;0.88,&#32;0.93,&#32;1.0,&#32;1.20,&#32;1.24,&#32;1.32,&#32;1.40,&#32;1.55,&#32;1.58,&#32;1.60,&#32;1.76,&#32;1.80,&#32;1.86,&#32;2.0,&#32;2.17,&#32;2.20,&#32;2.37,&#32;2.40,&#32;2.48,&#32;2.60,&#32;2.64,&#32;2.79,&#32;2.80,&#32;3.0,&#32;3.08,&#32;3,10,&#32;3.16,&#32;3.41,&#32;3.52,&#32;3.60,&#32;3.72,&#32;3.95,&#32;3.96,&#32;4.0,&#32;4.03,&#32;4.20,&#32;4.34,&#32;4.40,&#32;4.65,&#32;4.74,&#32;4.80,&#32;4.84,&#32;5.0,&#32;5.28,&#32;5.40,&#32;5.53,&#32;5.72,&#32;6.0,&#32;6.16,&#32;6.32,&#32;6.60,&#32;7.11,&#32;7.20,&#32;7.80,&#32;7.90,&#32;8.0,&#32;8.40,&#32;8.69,&#32;9.0,&#32;9.48,&#32;10.27,&#32;11.0,&#32;11.06,&#32;11.85,&#32;12.0,&#32;13.0,&#32;14.0,&#32;15.0])
+<anchor xml:id="_repython_8py_source_1l00195"/>00195 
+<anchor xml:id="_repython_8py_source_1l00196"/><link linkend="_classexamples_1_1repython_1_1_r_e2_1a7b942a0dcfcc17647034a022e4ee8b22">00196</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1repython_1_1_r_e2_1a7b942a0dcfcc17647034a022e4ee8b22">__call__</link>(self,&#32;x):
+<anchor xml:id="_repython_8py_source_1l00197"/>00197 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_namespaceexamples_1_1repython_1aa59bb6e94f8b70a49a0679275692624d">re_2</link>(x,&#32;self.<link linkend="_classexamples_1_1repython_1_1_r_e2_1a8cbacbf8223af1e0e73e3b9af4a612b1">feasible_values</link>)
+<anchor xml:id="_repython_8py_source_1l00198"/>00198 &#32;&#32;&#32;&#32;
+<anchor xml:id="_repython_8py_source_1l00199"/>00199 <emphasis role="keyword">class&#32;</emphasis><link linkend="_classexamples_1_1repython_1_1_r_e3">RE3</link>(object):
+<anchor xml:id="_repython_8py_source_1l00200"/>00200 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&apos;&apos;&apos;</emphasis>
+<anchor xml:id="_repython_8py_source_1l00201"/>00201 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Hatch&#32;cover&#32;design</emphasis>
+<anchor xml:id="_repython_8py_source_1l00202"/><link linkend="_classexamples_1_1repython_1_1_r_e3">00202</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&apos;&apos;&apos;</emphasis>
+<anchor xml:id="_repython_8py_source_1l00203"/><link linkend="_classexamples_1_1repython_1_1_r_e3_1a2164ee3dd3e7ad6e2c9e95d58a79d085">00203</link> &#32;&#32;&#32;&#32;n_var&#32;=&#32;2
+<anchor xml:id="_repython_8py_source_1l00204"/><link linkend="_classexamples_1_1repython_1_1_r_e3_1a2f8741f6d744b59cdb11f079f44f4689">00204</link> &#32;&#32;&#32;&#32;n_obj&#32;=&#32;1
+<anchor xml:id="_repython_8py_source_1l00205"/><link linkend="_classexamples_1_1repython_1_1_r_e3_1a6013e646a05358a4c86fff04f7ea5741">00205</link> &#32;&#32;&#32;&#32;n_con&#32;=&#32;4
+<anchor xml:id="_repython_8py_source_1l00206"/><link linkend="_classexamples_1_1repython_1_1_r_e3_1aa57af065608ff00272105b8619fdada3">00206</link> &#32;&#32;&#32;&#32;xl&#32;=&#32;[0.5,&#32;0.5]
+<anchor xml:id="_repython_8py_source_1l00207"/><link linkend="_classexamples_1_1repython_1_1_r_e3_1a94bf31e30da700f6ee009c0763d9f9f9">00207</link> &#32;&#32;&#32;&#32;xu&#32;=&#32;[4,&#32;50]
+<anchor xml:id="_repython_8py_source_1l00208"/>00208 
+<anchor xml:id="_repython_8py_source_1l00209"/><link linkend="_classexamples_1_1repython_1_1_r_e3_1a08282daa4c00b48d3bea50d8a3a7d34b">00209</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1repython_1_1_r_e3_1a08282daa4c00b48d3bea50d8a3a7d34b">__call__</link>(self,&#32;x):
+<anchor xml:id="_repython_8py_source_1l00210"/>00210 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_namespaceexamples_1_1repython_1ad37cdaa66ca5a84df03975c4a8c42832">re_3</link>(x)
+<anchor xml:id="_repython_8py_source_1l00211"/>00211 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_repython_8py_source_1l00212"/>00212 <emphasis role="keyword">class&#32;</emphasis><link linkend="_classexamples_1_1repython_1_1_r_e4">RE4</link>(object):
+<anchor xml:id="_repython_8py_source_1l00213"/>00213 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&apos;&apos;&apos;</emphasis>
+<anchor xml:id="_repython_8py_source_1l00214"/>00214 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Welded&#32;beam&#32;design</emphasis>
+<anchor xml:id="_repython_8py_source_1l00215"/><link linkend="_classexamples_1_1repython_1_1_r_e4">00215</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&apos;&apos;&apos;</emphasis>
+<anchor xml:id="_repython_8py_source_1l00216"/><link linkend="_classexamples_1_1repython_1_1_r_e4_1a551112350b80d556eacd84625f2180fe">00216</link> &#32;&#32;&#32;&#32;n_var&#32;=&#32;4
+<anchor xml:id="_repython_8py_source_1l00217"/><link linkend="_classexamples_1_1repython_1_1_r_e4_1a1adc041beee161faa2bb0a6a87b6264a">00217</link> &#32;&#32;&#32;&#32;n_obj&#32;=&#32;2
+<anchor xml:id="_repython_8py_source_1l00218"/><link linkend="_classexamples_1_1repython_1_1_r_e4_1aad19b386b02e8452bfca4cb3d3bb7f3b">00218</link> &#32;&#32;&#32;&#32;n_con&#32;=&#32;4
+<anchor xml:id="_repython_8py_source_1l00219"/><link linkend="_classexamples_1_1repython_1_1_r_e4_1a806914bb3c4777f80a0c30c8288dab5d">00219</link> &#32;&#32;&#32;&#32;xl&#32;=&#32;[0.125,&#32;0.1,&#32;0.1,&#32;0.125]
+<anchor xml:id="_repython_8py_source_1l00220"/><link linkend="_classexamples_1_1repython_1_1_r_e4_1a8d6defed2a57e9b5670a91f5f7f91b73">00220</link> &#32;&#32;&#32;&#32;xu&#32;=&#32;[5,&#32;10,&#32;10,&#32;5]
+<anchor xml:id="_repython_8py_source_1l00221"/>00221 
+<anchor xml:id="_repython_8py_source_1l00222"/><link linkend="_classexamples_1_1repython_1_1_r_e4_1a7b8f06f5b59df54411b2d5b578e25e7d">00222</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1repython_1_1_r_e4_1a7b8f06f5b59df54411b2d5b578e25e7d">__call__</link>(self,&#32;x):
+<anchor xml:id="_repython_8py_source_1l00223"/>00223 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_namespaceexamples_1_1repython_1ac603d498fc30083478073cb180210714">re_4</link>(x)
+<anchor xml:id="_repython_8py_source_1l00224"/>00224 
+<anchor xml:id="_repython_8py_source_1l00225"/>00225 <emphasis role="keyword">class&#32;</emphasis><link linkend="_classexamples_1_1repython_1_1_r_e5">RE5</link>(object):
+<anchor xml:id="_repython_8py_source_1l00226"/>00226 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&apos;&apos;&apos;</emphasis>
+<anchor xml:id="_repython_8py_source_1l00227"/>00227 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Disc&#32;brake&#32;design</emphasis>
+<anchor xml:id="_repython_8py_source_1l00228"/><link linkend="_classexamples_1_1repython_1_1_r_e5">00228</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&apos;&apos;&apos;</emphasis>
+<anchor xml:id="_repython_8py_source_1l00229"/><link linkend="_classexamples_1_1repython_1_1_r_e5_1a56780a4909e1285225c77991b9eb7c9c">00229</link> &#32;&#32;&#32;&#32;n_var&#32;=&#32;4
+<anchor xml:id="_repython_8py_source_1l00230"/><link linkend="_classexamples_1_1repython_1_1_r_e5_1aa1a79b1507c5a8bd54f5f0e050c72c59">00230</link> &#32;&#32;&#32;&#32;n_obj&#32;=&#32;2
+<anchor xml:id="_repython_8py_source_1l00231"/><link linkend="_classexamples_1_1repython_1_1_r_e5_1a48cdb33fe0e9857f7a440b39d8b56c08">00231</link> &#32;&#32;&#32;&#32;n_con&#32;=&#32;4
+<anchor xml:id="_repython_8py_source_1l00232"/><link linkend="_classexamples_1_1repython_1_1_r_e5_1a8b5c8a68a4142e3d3f2dc7d4397b23ff">00232</link> &#32;&#32;&#32;&#32;xl&#32;=&#32;[55,&#32;75,&#32;1000,&#32;11]
+<anchor xml:id="_repython_8py_source_1l00233"/><link linkend="_classexamples_1_1repython_1_1_r_e5_1a5cbb56fcf2c8715cc3d2de236c323008">00233</link> &#32;&#32;&#32;&#32;xu&#32;=&#32;[80,&#32;110,&#32;3000,&#32;20]
+<anchor xml:id="_repython_8py_source_1l00234"/>00234 
+<anchor xml:id="_repython_8py_source_1l00235"/><link linkend="_classexamples_1_1repython_1_1_r_e5_1a541c8e896355cdd229f7ba2f4caaa388">00235</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1repython_1_1_r_e5_1a541c8e896355cdd229f7ba2f4caaa388">__call__</link>(self,&#32;x):
+<anchor xml:id="_repython_8py_source_1l00236"/>00236 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_namespaceexamples_1_1repython_1a000f26546a03c5a3ca895f1d77100808">re_5</link>(x)
+<anchor xml:id="_repython_8py_source_1l00237"/>00237 
+<anchor xml:id="_repython_8py_source_1l00238"/>00238 <emphasis role="keyword">class&#32;</emphasis><link linkend="_classexamples_1_1repython_1_1_r_e6">RE6</link>(object):
+<anchor xml:id="_repython_8py_source_1l00239"/>00239 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&apos;&apos;&apos;</emphasis>
+<anchor xml:id="_repython_8py_source_1l00240"/>00240 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Gear&#32;train&#32;design</emphasis>
+<anchor xml:id="_repython_8py_source_1l00241"/><link linkend="_classexamples_1_1repython_1_1_r_e6">00241</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&apos;&apos;&apos;</emphasis>
+<anchor xml:id="_repython_8py_source_1l00242"/><link linkend="_classexamples_1_1repython_1_1_r_e6_1a13e179d59852d16614a861a5db357ae0">00242</link> &#32;&#32;&#32;&#32;n_var&#32;=&#32;4
+<anchor xml:id="_repython_8py_source_1l00243"/><link linkend="_classexamples_1_1repython_1_1_r_e6_1aeb8dfd7f775433fb193507191cec9aa2">00243</link> &#32;&#32;&#32;&#32;n_obj&#32;=&#32;2
+<anchor xml:id="_repython_8py_source_1l00244"/><link linkend="_classexamples_1_1repython_1_1_r_e6_1a84b7b4813483278bc1875622dca09571">00244</link> &#32;&#32;&#32;&#32;n_con&#32;=&#32;1
+<anchor xml:id="_repython_8py_source_1l00245"/><link linkend="_classexamples_1_1repython_1_1_r_e6_1a0bfe48531e0ca23b3185ae456a6e9a99">00245</link> &#32;&#32;&#32;&#32;xl&#32;=&#32;[12]&#32;*&#32;4
+<anchor xml:id="_repython_8py_source_1l00246"/><link linkend="_classexamples_1_1repython_1_1_r_e6_1ae764dfce20e85e127155a9aea9536cf0">00246</link> &#32;&#32;&#32;&#32;xu&#32;=&#32;[60]&#32;*&#32;4
+<anchor xml:id="_repython_8py_source_1l00247"/>00247 
+<anchor xml:id="_repython_8py_source_1l00248"/><link linkend="_classexamples_1_1repython_1_1_r_e6_1a56f855d154ebcc64d04ef7c7fe046491">00248</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1repython_1_1_r_e6_1a56f855d154ebcc64d04ef7c7fe046491">__call__</link>(self,&#32;x):
+<anchor xml:id="_repython_8py_source_1l00249"/>00249 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_namespaceexamples_1_1repython_1aac7cd61f81d591e151154ba29c9d4c7d">re_6</link>(x)
+<anchor xml:id="_repython_8py_source_1l00250"/>00250 
+<anchor xml:id="_repython_8py_source_1l00251"/>00251 <emphasis role="keyword">class&#32;</emphasis><link linkend="_classexamples_1_1repython_1_1_r_e7">RE7</link>(object):
+<anchor xml:id="_repython_8py_source_1l00252"/>00252 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&apos;&apos;&apos;</emphasis>
+<anchor xml:id="_repython_8py_source_1l00253"/>00253 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Rocket&#32;injector&#32;design</emphasis>
+<anchor xml:id="_repython_8py_source_1l00254"/><link linkend="_classexamples_1_1repython_1_1_r_e7">00254</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&apos;&apos;&apos;</emphasis>
+<anchor xml:id="_repython_8py_source_1l00255"/><link linkend="_classexamples_1_1repython_1_1_r_e7_1ad5e59d7e7da2135cfcb0e33a9a898759">00255</link> &#32;&#32;&#32;&#32;n_var&#32;=&#32;4
+<anchor xml:id="_repython_8py_source_1l00256"/><link linkend="_classexamples_1_1repython_1_1_r_e7_1a6d7974d9f2afcb5e87139e51aa4ac000">00256</link> &#32;&#32;&#32;&#32;n_obj&#32;=&#32;3
+<anchor xml:id="_repython_8py_source_1l00257"/><link linkend="_classexamples_1_1repython_1_1_r_e7_1a93ca0e99af0b4795a96e7656b7520272">00257</link> &#32;&#32;&#32;&#32;n_con&#32;=&#32;0
+<anchor xml:id="_repython_8py_source_1l00258"/><link linkend="_classexamples_1_1repython_1_1_r_e7_1a63c3b05227d8c0eb76b286419fb8dff5">00258</link> &#32;&#32;&#32;&#32;xl&#32;=&#32;[0]&#32;*&#32;4
+<anchor xml:id="_repython_8py_source_1l00259"/><link linkend="_classexamples_1_1repython_1_1_r_e7_1a1662a586acbe4c55d880d2ca6c7bdfe9">00259</link> &#32;&#32;&#32;&#32;xu&#32;=&#32;[1]&#32;*&#32;4
+<anchor xml:id="_repython_8py_source_1l00260"/>00260 
+<anchor xml:id="_repython_8py_source_1l00261"/><link linkend="_classexamples_1_1repython_1_1_r_e7_1a1d92fe2e9f2c2106ca6a3fba0bd26caf">00261</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1repython_1_1_r_e7_1a1d92fe2e9f2c2106ca6a3fba0bd26caf">__call__</link>(self,&#32;x):
+<anchor xml:id="_repython_8py_source_1l00262"/>00262 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_namespaceexamples_1_1repython_1a93cdbf073e9d13bee2872948f88abb20">re_7</link>(x)
+<anchor xml:id="_repython_8py_source_1l00263"/>00263 
+<anchor xml:id="_repython_8py_source_1l00264"/>00264 <emphasis role="keyword">from</emphasis>&#32;pymoo.core.problem&#32;<emphasis role="keyword">import</emphasis>&#32;ElementwiseProblem&#32;
+<anchor xml:id="_repython_8py_source_1l00265"/>00265 <emphasis role="keyword">from</emphasis>&#32;pymoo.algorithms.moo.nsga2&#32;<emphasis role="keyword">import</emphasis>&#32;NSGA2
+<anchor xml:id="_repython_8py_source_1l00266"/>00266 <emphasis role="keyword">from</emphasis>&#32;pymoo.factory&#32;<emphasis role="keyword">import</emphasis>&#32;get_sampling,&#32;get_crossover,&#32;get_mutation&#32;&#32;&#32;&#32;
+<anchor xml:id="_repython_8py_source_1l00267"/>00267 <emphasis role="keyword">from</emphasis>&#32;pymoo.factory&#32;<emphasis role="keyword">import</emphasis>&#32;get_termination
+<anchor xml:id="_repython_8py_source_1l00268"/>00268 
+<anchor xml:id="_repython_8py_source_1l00269"/><link linkend="_classexamples_1_1repython_1_1_r_e1__pymoo">00269</link> <emphasis role="keyword">class&#32;</emphasis><link linkend="_classexamples_1_1repython_1_1_r_e1__pymoo">RE1_pymoo</link>(ElementwiseProblem):
+<anchor xml:id="_repython_8py_source_1l00270"/>00270 
+<anchor xml:id="_repython_8py_source_1l00271"/><link linkend="_classexamples_1_1repython_1_1_r_e1__pymoo_1ab314e6a6ce2bfb487d8878d35e185c0a">00271</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1repython_1_1_r_e1__pymoo_1ab314e6a6ce2bfb487d8878d35e185c0a">__init__</link>(self,&#32;**kwargs):
+<anchor xml:id="_repython_8py_source_1l00272"/>00272 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;super().<link linkend="_classexamples_1_1repython_1_1_r_e1__pymoo_1ab314e6a6ce2bfb487d8878d35e185c0a">__init__</link>(n_var=4,
+<anchor xml:id="_repython_8py_source_1l00273"/>00273 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;n_obj=2,
+<anchor xml:id="_repython_8py_source_1l00274"/>00274 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;n_constr=0,
+<anchor xml:id="_repython_8py_source_1l00275"/>00275 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xl=np.array([1,&#32;np.sqrt(2),&#32;np.sqrt(2),&#32;1]),
+<anchor xml:id="_repython_8py_source_1l00276"/>00276 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xu=np.array([3,&#32;3,&#32;3,&#32;3]),&#32;**kwargs)
+<anchor xml:id="_repython_8py_source_1l00277"/>00277 
+<anchor xml:id="_repython_8py_source_1l00278"/><link linkend="_classexamples_1_1repython_1_1_r_e1__pymoo_1aad366e994f5fabef85e0031f3e91fba0">00278</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1repython_1_1_r_e1__pymoo_1aad366e994f5fabef85e0031f3e91fba0">_evaluate</link>(self,&#32;x,&#32;out,&#32;*args,&#32;**kwargs):
+<anchor xml:id="_repython_8py_source_1l00279"/>00279 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;y&#32;=&#32;<link linkend="_namespaceexamples_1_1repython_1ab0c3b123150d77d0235996369f952c7a">re_1</link>(x)
+<anchor xml:id="_repython_8py_source_1l00280"/>00280 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;out[<emphasis role="stringliteral">&quot;F&quot;</emphasis>]&#32;=&#32;[y[0],&#32;y[1]]
+<anchor xml:id="_repython_8py_source_1l00281"/>00281 
+<anchor xml:id="_repython_8py_source_1l00282"/><link linkend="_classexamples_1_1repython_1_1_r_e4__pymoo">00282</link> <emphasis role="keyword">class&#32;</emphasis><link linkend="_classexamples_1_1repython_1_1_r_e4__pymoo">RE4_pymoo</link>(ElementwiseProblem):
+<anchor xml:id="_repython_8py_source_1l00283"/>00283 
+<anchor xml:id="_repython_8py_source_1l00284"/><link linkend="_classexamples_1_1repython_1_1_r_e4__pymoo_1a7b6400b6d3527fcb6fae85bc89abd091">00284</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1repython_1_1_r_e4__pymoo_1a7b6400b6d3527fcb6fae85bc89abd091">__init__</link>(self,&#32;**kwargs):
+<anchor xml:id="_repython_8py_source_1l00285"/>00285 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;super().<link linkend="_classexamples_1_1repython_1_1_r_e4__pymoo_1a7b6400b6d3527fcb6fae85bc89abd091">__init__</link>(n_var=4,
+<anchor xml:id="_repython_8py_source_1l00286"/>00286 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;n_obj=2,
+<anchor xml:id="_repython_8py_source_1l00287"/>00287 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;n_constr=4,
+<anchor xml:id="_repython_8py_source_1l00288"/>00288 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xl=np.array([0.125,&#32;0.1,&#32;0.1,&#32;0.125]),
+<anchor xml:id="_repython_8py_source_1l00289"/>00289 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xu=np.array([5,&#32;10,&#32;10,&#32;5]),&#32;**kwargs)
+<anchor xml:id="_repython_8py_source_1l00290"/>00290 
+<anchor xml:id="_repython_8py_source_1l00291"/><link linkend="_classexamples_1_1repython_1_1_r_e4__pymoo_1ae7a6d3acc7b15ffaa2e242622a1aef31">00291</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1repython_1_1_r_e4__pymoo_1ae7a6d3acc7b15ffaa2e242622a1aef31">_evaluate</link>(self,&#32;x,&#32;out,&#32;*args,&#32;**kwargs):
+<anchor xml:id="_repython_8py_source_1l00292"/>00292 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;y&#32;=&#32;<link linkend="_namespaceexamples_1_1repython_1ac603d498fc30083478073cb180210714">re_4</link>(x)
+<anchor xml:id="_repython_8py_source_1l00293"/>00293 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;out[<emphasis role="stringliteral">&quot;F&quot;</emphasis>]&#32;=&#32;[y[0],&#32;y[1]]
+<anchor xml:id="_repython_8py_source_1l00294"/>00294 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;out[<emphasis role="stringliteral">&quot;G&quot;</emphasis>]&#32;=&#32;[y[2],&#32;y[3],&#32;y[4],&#32;y[5]]
+<anchor xml:id="_repython_8py_source_1l00295"/>00295 
+<anchor xml:id="_repython_8py_source_1l00296"/><link linkend="_classexamples_1_1repython_1_1_r_e5__pymoo">00296</link> <emphasis role="keyword">class&#32;</emphasis><link linkend="_classexamples_1_1repython_1_1_r_e5__pymoo">RE5_pymoo</link>(ElementwiseProblem):
+<anchor xml:id="_repython_8py_source_1l00297"/>00297 
+<anchor xml:id="_repython_8py_source_1l00298"/><link linkend="_classexamples_1_1repython_1_1_r_e5__pymoo_1a3b4c96f8a1cb22e0bc6219a941e6e96f">00298</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1repython_1_1_r_e5__pymoo_1a3b4c96f8a1cb22e0bc6219a941e6e96f">__init__</link>(self,&#32;**kwargs):
+<anchor xml:id="_repython_8py_source_1l00299"/>00299 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;super().<link linkend="_classexamples_1_1repython_1_1_r_e5__pymoo_1a3b4c96f8a1cb22e0bc6219a941e6e96f">__init__</link>(n_var=4,
+<anchor xml:id="_repython_8py_source_1l00300"/>00300 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;n_obj=2,
+<anchor xml:id="_repython_8py_source_1l00301"/>00301 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;n_constr=4,
+<anchor xml:id="_repython_8py_source_1l00302"/>00302 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xl=np.array([55,&#32;75,&#32;1000,&#32;11]),
+<anchor xml:id="_repython_8py_source_1l00303"/>00303 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xu=np.array([80,&#32;110,&#32;3000,&#32;20]),&#32;**kwargs)
+<anchor xml:id="_repython_8py_source_1l00304"/>00304 
+<anchor xml:id="_repython_8py_source_1l00305"/><link linkend="_classexamples_1_1repython_1_1_r_e5__pymoo_1a12ef1c4f5bf91156884a5dbc7ff821ad">00305</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1repython_1_1_r_e5__pymoo_1a12ef1c4f5bf91156884a5dbc7ff821ad">_evaluate</link>(self,&#32;x,&#32;out,&#32;*args,&#32;**kwargs):
+<anchor xml:id="_repython_8py_source_1l00306"/>00306 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;y&#32;=&#32;<link linkend="_namespaceexamples_1_1repython_1a000f26546a03c5a3ca895f1d77100808">re_5</link>(x)
+<anchor xml:id="_repython_8py_source_1l00307"/>00307 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;out[<emphasis role="stringliteral">&quot;F&quot;</emphasis>]&#32;=&#32;[y[0],&#32;y[1]]
+<anchor xml:id="_repython_8py_source_1l00308"/>00308 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;out[<emphasis role="stringliteral">&quot;G&quot;</emphasis>]&#32;=&#32;[y[2],&#32;y[3],&#32;y[4],&#32;y[5]]
+<anchor xml:id="_repython_8py_source_1l00309"/>00309 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_repython_8py_source_1l00310"/><link linkend="_classexamples_1_1repython_1_1_r_e6__pymoo">00310</link> <emphasis role="keyword">class&#32;</emphasis><link linkend="_classexamples_1_1repython_1_1_r_e6__pymoo">RE6_pymoo</link>(ElementwiseProblem):
+<anchor xml:id="_repython_8py_source_1l00311"/>00311 
+<anchor xml:id="_repython_8py_source_1l00312"/><link linkend="_classexamples_1_1repython_1_1_r_e6__pymoo_1aa99df743c9bcb27aa5a6fb452463acc6">00312</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1repython_1_1_r_e6__pymoo_1aa99df743c9bcb27aa5a6fb452463acc6">__init__</link>(self,&#32;**kwargs):
+<anchor xml:id="_repython_8py_source_1l00313"/>00313 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;super().<link linkend="_classexamples_1_1repython_1_1_r_e6__pymoo_1aa99df743c9bcb27aa5a6fb452463acc6">__init__</link>(n_var=4,
+<anchor xml:id="_repython_8py_source_1l00314"/>00314 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;n_obj=2,
+<anchor xml:id="_repython_8py_source_1l00315"/>00315 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;n_constr=1,
+<anchor xml:id="_repython_8py_source_1l00316"/>00316 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xl=np.array([12]&#32;*&#32;4),
+<anchor xml:id="_repython_8py_source_1l00317"/>00317 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xu=np.array([60]&#32;*&#32;4),&#32;**kwargs)
+<anchor xml:id="_repython_8py_source_1l00318"/>00318 
+<anchor xml:id="_repython_8py_source_1l00319"/><link linkend="_classexamples_1_1repython_1_1_r_e6__pymoo_1a0c6a821c85abf0e96e076bc4f93df826">00319</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1repython_1_1_r_e6__pymoo_1a0c6a821c85abf0e96e076bc4f93df826">_evaluate</link>(self,&#32;x,&#32;out,&#32;*args,&#32;**kwargs):
+<anchor xml:id="_repython_8py_source_1l00320"/>00320 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;y&#32;=&#32;<link linkend="_namespaceexamples_1_1repython_1aac7cd61f81d591e151154ba29c9d4c7d">re_6</link>(x)
+<anchor xml:id="_repython_8py_source_1l00321"/>00321 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;out[<emphasis role="stringliteral">&quot;F&quot;</emphasis>]&#32;=&#32;[y[0],&#32;y[1]]
+<anchor xml:id="_repython_8py_source_1l00322"/>00322 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;out[<emphasis role="stringliteral">&quot;G&quot;</emphasis>]&#32;=&#32;[y[2]]
+<anchor xml:id="_repython_8py_source_1l00323"/>00323 
+<anchor xml:id="_repython_8py_source_1l00324"/><link linkend="_namespaceexamples_1_1repython_1a2f2d11f17068d9bc01d73094231e625d">00324</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1repython_1a2f2d11f17068d9bc01d73094231e625d">check_pymoo</link>():
+<anchor xml:id="_repython_8py_source_1l00325"/>00325 &#32;&#32;&#32;&#32;
+<anchor xml:id="_repython_8py_source_1l00326"/>00326 &#32;&#32;&#32;&#32;problem&#32;=&#32;<link linkend="_classexamples_1_1repython_1_1_r_e5__pymoo">RE5_pymoo</link>()
+<anchor xml:id="_repython_8py_source_1l00327"/>00327 
+<anchor xml:id="_repython_8py_source_1l00328"/>00328 &#32;&#32;&#32;&#32;algorithm&#32;=&#32;NSGA2(
+<anchor xml:id="_repython_8py_source_1l00329"/>00329 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pop_size=64,
+<anchor xml:id="_repython_8py_source_1l00330"/>00330 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;n_offsprings=10,
+<anchor xml:id="_repython_8py_source_1l00331"/>00331 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;sampling=get_sampling(<emphasis role="stringliteral">&quot;real_random&quot;</emphasis>),
+<anchor xml:id="_repython_8py_source_1l00332"/>00332 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;crossover=get_crossover(<emphasis role="stringliteral">&quot;real_sbx&quot;</emphasis>,&#32;prob=0.9,&#32;eta=15),
+<anchor xml:id="_repython_8py_source_1l00333"/>00333 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;mutation=get_mutation(<emphasis role="stringliteral">&quot;real_pm&quot;</emphasis>,&#32;eta=20),
+<anchor xml:id="_repython_8py_source_1l00334"/>00334 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;eliminate_duplicates=<emphasis role="keyword">True</emphasis>
+<anchor xml:id="_repython_8py_source_1l00335"/>00335 &#32;&#32;&#32;&#32;)&#32;&#32;&#32;&#32;
+<anchor xml:id="_repython_8py_source_1l00336"/>00336 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_repython_8py_source_1l00337"/>00337 &#32;&#32;&#32;&#32;termination&#32;=&#32;get_termination(<emphasis role="stringliteral">&quot;n_gen&quot;</emphasis>,&#32;5000)
+<anchor xml:id="_repython_8py_source_1l00338"/>00338 &#32;&#32;&#32;&#32;
+<anchor xml:id="_repython_8py_source_1l00339"/>00339 &#32;&#32;&#32;&#32;<emphasis role="keyword">from</emphasis>&#32;pymoo.optimize&#32;<emphasis role="keyword">import</emphasis>&#32;minimize
+<anchor xml:id="_repython_8py_source_1l00340"/>00340 &#32;&#32;&#32;&#32;
+<anchor xml:id="_repython_8py_source_1l00341"/>00341 &#32;&#32;&#32;&#32;res&#32;=&#32;minimize(problem,
+<anchor xml:id="_repython_8py_source_1l00342"/>00342 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;algorithm,
+<anchor xml:id="_repython_8py_source_1l00343"/>00343 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;termination,
+<anchor xml:id="_repython_8py_source_1l00344"/>00344 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;save_history=<emphasis role="keyword">False</emphasis>,
+<anchor xml:id="_repython_8py_source_1l00345"/>00345 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;verbose=<emphasis role="keyword">False</emphasis>)
+<anchor xml:id="_repython_8py_source_1l00346"/>00346 &#32;&#32;&#32;&#32;
+<anchor xml:id="_repython_8py_source_1l00347"/>00347 &#32;&#32;&#32;&#32;X&#32;=&#32;res.X
+<anchor xml:id="_repython_8py_source_1l00348"/>00348 &#32;&#32;&#32;&#32;F&#32;=&#32;res.F
+<anchor xml:id="_repython_8py_source_1l00349"/>00349 &#32;&#32;&#32;&#32;
+<anchor xml:id="_repython_8py_source_1l00350"/>00350 &#32;&#32;&#32;&#32;<emphasis role="keyword">import</emphasis>&#32;matplotlib.pyplot&#32;<emphasis role="keyword">as</emphasis>&#32;plt
+<anchor xml:id="_repython_8py_source_1l00351"/>00351 &#32;&#32;&#32;&#32;xl,&#32;xu&#32;=&#32;problem.bounds()
+<anchor xml:id="_repython_8py_source_1l00352"/>00352 &#32;&#32;&#32;&#32;plt.figure(figsize=(7,&#32;5))
+<anchor xml:id="_repython_8py_source_1l00353"/>00353 &#32;&#32;&#32;&#32;plt.scatter(X[:,&#32;0],&#32;X[:,&#32;1],&#32;s=30,&#32;facecolors=<emphasis role="stringliteral">&apos;none&apos;</emphasis>,&#32;edgecolors=<emphasis role="stringliteral">&apos;r&apos;</emphasis>)
+<anchor xml:id="_repython_8py_source_1l00354"/>00354 &#32;&#32;&#32;&#32;plt.xlim(xl[0],&#32;xu[0])
+<anchor xml:id="_repython_8py_source_1l00355"/>00355 &#32;&#32;&#32;&#32;plt.ylim(xl[1],&#32;xu[1])
+<anchor xml:id="_repython_8py_source_1l00356"/>00356 &#32;&#32;&#32;&#32;plt.title(<emphasis role="stringliteral">&quot;Design&#32;Space&quot;</emphasis>)
+<anchor xml:id="_repython_8py_source_1l00357"/>00357 
+<anchor xml:id="_repython_8py_source_1l00358"/>00358 &#32;&#32;&#32;&#32;plt.figure(figsize=(7,&#32;5))
+<anchor xml:id="_repython_8py_source_1l00359"/>00359 &#32;&#32;&#32;&#32;plt.scatter(F[:,&#32;0],&#32;F[:,&#32;1],&#32;s=30,&#32;facecolors=<emphasis role="stringliteral">&apos;none&apos;</emphasis>,&#32;edgecolors=<emphasis role="stringliteral">&apos;blue&apos;</emphasis>)
+<anchor xml:id="_repython_8py_source_1l00360"/>00360 &#32;&#32;&#32;&#32;plt.title(<emphasis role="stringliteral">&quot;Objective&#32;Space&quot;</emphasis>)
+<anchor xml:id="_repython_8py_source_1l00361"/>00361 &#32;&#32;&#32;&#32;plt.show()
+<anchor xml:id="_repython_8py_source_1l00362"/>00362 
+<anchor xml:id="_repython_8py_source_1l00363"/><link linkend="_namespaceexamples_1_1repython_1a04dd7e0aab879e0f2f8a6a203761d2af">00363</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1repython_1a04dd7e0aab879e0f2f8a6a203761d2af">main</link>():
+<anchor xml:id="_repython_8py_source_1l00364"/>00364 &#32;&#32;&#32;&#32;
+<anchor xml:id="_repython_8py_source_1l00365"/>00365 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;check_pymoo()</emphasis>
+<anchor xml:id="_repython_8py_source_1l00366"/>00366 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;sys.exit()</emphasis>
+<anchor xml:id="_repython_8py_source_1l00367"/>00367 &#32;&#32;&#32;&#32;
+<anchor xml:id="_repython_8py_source_1l00368"/>00368 &#32;&#32;&#32;&#32;problems&#32;=&#32;&#32;[<link linkend="_classexamples_1_1repython_1_1_r_e1">RE1</link>(),<link linkend="_classexamples_1_1repython_1_1_r_e2">RE2</link>(),<link linkend="_classexamples_1_1repython_1_1_r_e3">RE3</link>(),<link linkend="_classexamples_1_1repython_1_1_r_e4">RE4</link>(),<link linkend="_classexamples_1_1repython_1_1_r_e5">RE5</link>(),<link linkend="_classexamples_1_1repython_1_1_r_e6">RE6</link>(),<link linkend="_classexamples_1_1repython_1_1_r_e7">RE7</link>()]&#32;
+<anchor xml:id="_repython_8py_source_1l00369"/>00369 &#32;&#32;&#32;&#32;names&#32;=&#32;&#32;[<emphasis role="stringliteral">&quot;RE1&quot;</emphasis>,<emphasis role="stringliteral">&quot;RE2&quot;</emphasis>,<emphasis role="stringliteral">&quot;RE3&quot;</emphasis>,<emphasis role="stringliteral">&quot;RE4&quot;</emphasis>,<emphasis role="stringliteral">&quot;RE5&quot;</emphasis>,<emphasis role="stringliteral">&quot;RE6&quot;</emphasis>,<emphasis role="stringliteral">&quot;RE7&quot;</emphasis>]&#32;
+<anchor xml:id="_repython_8py_source_1l00370"/>00370 
+<anchor xml:id="_repython_8py_source_1l00371"/>00371 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;p&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(7):
+<anchor xml:id="_repython_8py_source_1l00372"/>00372 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;problem&#32;=&#32;problems[p]
+<anchor xml:id="_repython_8py_source_1l00373"/>00373 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pname&#32;=&#32;<emphasis role="stringliteral">&quot;nsga_on100k_&quot;</emphasis>&#32;+&#32;names[p]
+<anchor xml:id="_repython_8py_source_1l00374"/>00374 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_repython_8py_source_1l00375"/>00375 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;x,&#32;y&#32;=&#32;modecpp.minimize(mode.wrapper(problem,&#32;problem.n_obj),&#32;problem.n_obj,&#32;0,</emphasis>
+<anchor xml:id="_repython_8py_source_1l00376"/>00376 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Bounds(problem.xl,problem.xu),&#32;popsize&#32;=&#32;64,&#32;</emphasis>
+<anchor xml:id="_repython_8py_source_1l00377"/>00377 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_evaluations&#32;=&#32;100000,&#32;</emphasis>
+<anchor xml:id="_repython_8py_source_1l00378"/>00378 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;nsga_update=True,&#32;</emphasis>
+<anchor xml:id="_repython_8py_source_1l00379"/>00379 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;plot_name&#32;=&#32;pname,&#32;workers=16)</emphasis>
+<anchor xml:id="_repython_8py_source_1l00380"/>00380 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_repython_8py_source_1l00381"/>00381 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x,&#32;y&#32;=&#32;modecpp.retry(<link linkend="_classfcmaes_1_1mode_1_1wrapper">mode.wrapper</link>(problem,&#32;problem.n_obj),&#32;problem.n_obj,&#32;problem.n_con,
+<anchor xml:id="_repython_8py_source_1l00382"/>00382 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Bounds(problem.xl,problem.xu),&#32;popsize&#32;=&#32;64,&#32;
+<anchor xml:id="_repython_8py_source_1l00383"/>00383 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_evaluations&#32;=&#32;100000,&#32;
+<anchor xml:id="_repython_8py_source_1l00384"/>00384 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;nsga_update=<emphasis role="keyword">True</emphasis>,&#32;num_retries&#32;=&#32;16,
+<anchor xml:id="_repython_8py_source_1l00385"/>00385 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;workers=16)
+<anchor xml:id="_repython_8py_source_1l00386"/>00386 
+<anchor xml:id="_repython_8py_source_1l00387"/>00387 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;np.savez_compressed(pname,&#32;xs=x,&#32;ys=y)
+<anchor xml:id="_repython_8py_source_1l00388"/>00388 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;moretry.plot(pname,&#32;problem.n_con,&#32;x,&#32;y,&#32;all=<emphasis role="keyword">False</emphasis>,&#32;interp=<emphasis role="keyword">True</emphasis>,&#32;plot3d=<emphasis role="keyword">True</emphasis>)
+<anchor xml:id="_repython_8py_source_1l00389"/>00389 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_repython_8py_source_1l00390"/>00390 <emphasis role="keywordflow">if</emphasis>&#32;__name__&#32;==&#32;<emphasis role="stringliteral">&apos;__main__&apos;</emphasis>:
+<anchor xml:id="_repython_8py_source_1l00391"/>00391 &#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1repython_1a04dd7e0aab879e0f2f8a6a203761d2af">main</link>()
+</programlisting></section>

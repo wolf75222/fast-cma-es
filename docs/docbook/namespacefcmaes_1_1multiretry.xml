@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_namespacefcmaes_1_1multiretry" xml:lang="en-US">
+<title>fcmaes.multiretry Namespace Reference</title>
+<indexterm><primary>fcmaes.multiretry</primary></indexterm>
+<simplesect>
+    <title>Classes    </title>
+        <itemizedlist>
+            <listitem><para>class <link linkend="_classfcmaes_1_1multiretry_1_1multiretry">multiretry</link></para>
+</listitem>
+            <listitem><para>class <link linkend="_classfcmaes_1_1multiretry_1_1problem__stats">problem_stats</link></para>
+
+<para>Represents statistics and operational parameters for a specific problem. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para>List <link linkend="_namespacefcmaes_1_1multiretry_1a622afd956406ccabb7ebebdfdf9715b6">minimize</link> (ArrayLike problems, Optional[ArrayLike] ids=None, Optional[int] retries_inc=min(256, 8 *mp.cpu_count()), Optional[int] num_retries=10000, Optional[float] keep=0.7, Optional[<link linkend="_classfcmaes_1_1optimizer_1_1_optimizer">Optimizer</link>] optimizer=de_cma(1500), datafile=None)</para>
+
+<para>Minimizes the given set of problems by iteratively applying the optimizer and removing the worst-performing solutions until only one remains. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Function Documentation</title>
+<anchor xml:id="_namespacefcmaes_1_1multiretry_1a622afd956406ccabb7ebebdfdf9715b6"/><section>
+    <title>minimize()</title>
+<indexterm><primary>minimize</primary><secondary>fcmaes.multiretry</secondary></indexterm>
+<indexterm><primary>fcmaes.multiretry</primary><secondary>minimize</secondary></indexterm>
+<para><computeroutput> List fcmaes.multiretry.minimize (ArrayLike problems, Optional[ArrayLike]  ids = <computeroutput>None</computeroutput>
+, Optional[int]  retries_inc = <computeroutput>min(256,&#160;8*mp.cpu_count())</computeroutput>
+, Optional[int]  num_retries = <computeroutput>10000</computeroutput>
+, Optional[float]  keep = <computeroutput>0.7</computeroutput>
+, Optional[<link linkend="_classfcmaes_1_1optimizer_1_1_optimizer">Optimizer</link>]  optimizer = <computeroutput>de_cma(1500)</computeroutput>
+,  datafile = <computeroutput>None</computeroutput>
+)</computeroutput></para><para>
+
+<para>Minimizes the given set of problems by iteratively applying the optimizer and removing the worst-performing solutions until only one remains. </para>
+</para>
+
+<para>Supports retries and optional data file usage for saving and loading intermediate results.</para>
+
+<para>Minimization of a list of optimization problems by first applying parallel retry to filter the best ones and then applying coordinated retry to evaluate these further. Can replace mixed integer optimization if the integer variables are narrowly bound. In this case all combinations of these integer values can be enumerated to generate a list of problem instances each representing one combination. See for instance <link xlink:href="https://www.esa.int/gsp/ACT/projects/gtop/tandem">https://www.esa.int/gsp/ACT/projects/gtop/tandem</link> where there is a problem instance for each planet sequence.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>problems</entry><entry>
+<para>List or array-like structure containing the problems to be minimized. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>ids</entry><entry>
+<para>List or array-like structure containing IDs for the problems. Defaults to None, in which case IDs will be auto-generated as strings in ascending order starting from 1. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>retries_inc</entry><entry>
+<para>Number of initial retries increment. Defaults to min(256, 8 times the number of CPU cores). </para>
+</entry>
+                            </row>
+                            <row>
+<entry>num_retries</entry><entry>
+<para>Maximum number of retries for each problem. Defaults to 10000. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>keep</entry><entry>
+<para>Fraction of best-performing problems to retain in each iteration. Defaults to 0.7. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>optimizer</entry><entry>
+<para><link linkend="_classfcmaes_1_1optimizer_1_1_optimizer">Optimizer</link> object used to minimize the problems. Defaults to de_cma(1500). </para>
+</entry>
+                            </row>
+                            <row>
+<entry>datafile</entry><entry>
+<para>Optional parameter representing the file path to load and save intermediate results. Defaults to None.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>List Sorted list of all problem statistics after successful </para>
+
+<para>minimization. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_multiretry_8py_source_1l00083">83</link> of file <link linkend="_multiretry_8py_source">multiretry.py</link>.</para>
+</section>
+</section>
+</section>

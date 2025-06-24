@@ -1,0 +1,138 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_namespacefcmaes_1_1cmaes" xml:lang="en-US">
+<title>fcmaes.cmaes Namespace Reference</title>
+<indexterm><primary>fcmaes.cmaes</primary></indexterm>
+<simplesect>
+    <title>Classes    </title>
+        <itemizedlist>
+            <listitem><para>class <link linkend="_classfcmaes_1_1cmaes_1_1_cmaes">Cmaes</link></para>
+
+<para>Optimization solver implementing the Covariance Matrix Adaptation Evolution Strategy (CMA-ES). </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para>OptimizeResult <link linkend="_namespacefcmaes_1_1cmaes_1ab8082e1fc4bdc2b20f0c1628e2923abd">minimize</link> (Callable[[ArrayLike], float] fun, Optional[Bounds] bounds=None, Optional[ArrayLike] x0=None, Optional[Union[float, ArrayLike, Callable]] input_sigma=0.3, Optional[int] popsize=31, Optional[int] max_evaluations=100000, Optional[int] max_iterations=100000, Optional[int] workers=1, Optional[float] accuracy=1.0, Optional[float] stop_fitness=-np.inf, Optional[Callable[[ArrayLike, float], bool]] is_terminate=None, Optional[Generator] rg=Generator(PCG64DXSM()), Optional[int] runid=0, Optional[bool] normalize=True, Optional[int] update_gap=None)</para>
+
+<para>Minimizes a scalar function using the Covariance Matrix Adaptation Evolution Strategy (CMA-ES) algorithm. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Function Documentation</title>
+<anchor xml:id="_namespacefcmaes_1_1cmaes_1ab8082e1fc4bdc2b20f0c1628e2923abd"/><section>
+    <title>minimize()</title>
+<indexterm><primary>minimize</primary><secondary>fcmaes.cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes</primary><secondary>minimize</secondary></indexterm>
+<para><computeroutput> OptimizeResult fcmaes.cmaes.minimize (Callable[[ArrayLike], float] fun, Optional[Bounds]  bounds = <computeroutput>None</computeroutput>
+, Optional[ArrayLike]  x0 = <computeroutput>None</computeroutput>
+, Optional[Union[float, ArrayLike, Callable]]  input_sigma = <computeroutput>0.3</computeroutput>
+, Optional[int]  popsize = <computeroutput>31</computeroutput>
+, Optional[int]   max_evaluations = <computeroutput>100000</computeroutput>
+, Optional[int]   max_iterations = <computeroutput>100000</computeroutput>
+, Optional[int]   workers = <computeroutput>1</computeroutput>
+, Optional[float]  accuracy = <computeroutput>1.0</computeroutput>
+, Optional[float]  stop_fitness = <computeroutput>-np.inf</computeroutput>
+, Optional[Callable[[ArrayLike, float], bool]]   is_terminate = <computeroutput>None</computeroutput>
+, Optional[Generator]  rg = <computeroutput>Generator(PCG64DXSM())</computeroutput>
+, Optional[int]  runid = <computeroutput>0</computeroutput>
+, Optional[bool]  normalize = <computeroutput>True</computeroutput>
+, Optional[int]  update_gap = <computeroutput>None</computeroutput>
+)</computeroutput></para><para>
+
+<para>Minimizes a scalar function using the Covariance Matrix Adaptation Evolution Strategy (CMA-ES) algorithm. </para>
+</para>
+
+<para>This function is designed to handle optimization tasks for non-linear, non-convex, and possibly noisy objective functions. It supports parallel execution via workers, normalization of the input search space, and adaptive stopping criteria based on given conditions.</para>
+
+<para><literallayout><computeroutput>   fun (Callable[[ArrayLike], float]): The objective function to be minimized.
+       It should take an input array and return a scalar value.
+</computeroutput></literallayout> 
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>bounds</entry><entry>
+<para>The lower and upper bounds for the search space. If None, the search space is considered unbounded. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>x0</entry><entry>
+<para>Initial solution guess. If None, an initial guess will be generated randomly. input_sigma (Optional[Union[float, ArrayLike, Callable]]): The initial standard deviation for the sampling. Can be float, array, or callable. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>popsize</entry><entry>
+<para>The population size for the CMA-ES algorithm. Defaults to 31. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>max_evaluations</entry><entry>
+<para>Maximum number of function evaluations allowed. Defaults to 100,000. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>max_iterations</entry><entry>
+<para>Maximum number of iterations allowed for the algorithm. Defaults to 100,000. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>workers</entry><entry>
+<para>Number of parallel processes to be used. If set to 1 or less, the algorithm will run in serial mode. Defaults to 1. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>accuracy</entry><entry>
+<para>The accuracy tolerance used to adjust the optimization stopping criteria. Defaults to 1.0. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>stop_fitness</entry><entry>
+<para>Objective function value at which the optimization process is terminated if reached. Defaults to -infinity. is_terminate (Optional[Callable[[ArrayLike, float], bool]]): Custom termination condition provided as a callable. Defaults to None. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>rg</entry><entry>
+<para>The random number generator to be used. Defaults to <computeroutput>Generator(PCG64DXSM())</computeroutput>. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>runid</entry><entry>
+<para>Identifier for the optimization run. Defaults to 0. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>normalize</entry><entry>
+<para>Indicates if the search space should be normalized. Defaults to True. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>update_gap</entry><entry>
+<para>Interval for delayed updates in the algorithm. If None, updates are not delayed.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>OptimizeResult Object containing the results of the optimization. Includes the optimized solution (<computeroutput>x</computeroutput>), the minimized function value (<computeroutput>fun</computeroutput>), number of function evaluations (<computeroutput>nfev</computeroutput>), number of iterations (<computeroutput>nit</computeroutput>), algorithm exit status (<computeroutput>status</computeroutput>), and success flag (<computeroutput>success</computeroutput>). </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_cmaes_8py_source_1l00108">108</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+</section>
+</section>

@@ -1,0 +1,1180 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_classquantumcomm_1_1constellation__udp" xml:lang="en-US">
+<title>quantumcomm.constellation_udp Class Reference</title>
+<indexterm><primary>quantumcomm.constellation_udp</primary></indexterm>
+<para>
+
+<para>A Pygmo compatible UDP (User Defined Problem) representing the constellation design problem for SpOC 2023. </para>
+ 
+</para>
+Collaboration diagram for quantumcomm.constellation_udp:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classquantumcomm_1_1constellation__udp__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Public Member Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classquantumcomm_1_1constellation__udp_1a8804eea0d2eaffcea2926f6780aafdf8">__init__</link> (self)</para>
+
+<para>Constructo. </para>
+</listitem>
+            <listitem><para><link linkend="_classquantumcomm_1_1constellation__udp_1ae0a95b68653b5337476415c5f69fb960">get_bounds</link> (self)</para>
+
+<para>Get bounds for the decision variables. </para>
+</listitem>
+            <listitem><para><link linkend="_classquantumcomm_1_1constellation__udp_1aeaefa471acf6233e861c77385d2e9695">get_ints</link> (self)</para>
+</listitem>
+            <listitem><para><link linkend="_classquantumcomm_1_1constellation__udp_1a3bb518a054083acd70ee7d5e884d22bb">get_nix</link> (self)</para>
+
+<para>Get number of integer variables. </para>
+</listitem>
+            <listitem><para><link linkend="_classquantumcomm_1_1constellation__udp_1a37eb35c15c7342a8c31a2f4a0d78c97a">get_nobj</link> (self)</para>
+
+<para>Get number of objectives. </para>
+</listitem>
+            <listitem><para><link linkend="_classquantumcomm_1_1constellation__udp_1a14b241afc0f8cc6ce5203fe8de9e4f7e">get_nic</link> (self)</para>
+
+<para>Get number of inequality constraints. </para>
+</listitem>
+            <listitem><para><link linkend="_classquantumcomm_1_1constellation__udp_1a793f1ab728c23da59e9c59f30396cf73">get_rover_constraint</link> (self, lambda0, phi0)</para>
+
+<para>Evaluate the rover constraint (minimum distance between any two rovers) </para>
+</listitem>
+            <listitem><para><link linkend="_classquantumcomm_1_1constellation__udp_1a228c4f828e7c8261bbeedd69d6d19573">get_sat_constraint</link> (self, d_min)</para>
+
+<para>Evaluate the satellite constraint (minimum distance between any two satellites) </para>
+</listitem>
+            <listitem><para><link linkend="_classquantumcomm_1_1constellation__udp_1a7751ec7ef991c732aeffdb2ac59332e6">generate_walker</link> (self, S, P, F, a, e, incl, w, t0)</para>
+
+<para>Generates a Walker constallation as a SatrecArray. </para>
+</listitem>
+            <listitem><para><link linkend="_classquantumcomm_1_1constellation__udp_1a06e2f7fe5888de4c38d08d4b1f290511">build_graph</link> (self, ep_idx, pos, num_w1_sats, eta)</para>
+
+<para>Builds a networkx graph from the satellite positions. </para>
+</listitem>
+            <listitem><para><link linkend="_classquantumcomm_1_1constellation__udp_1a5827f9a431732de6732e1d7a4d0a5fe5">average_shortest_path</link> (self, G, src, dst)</para>
+
+<para>Computes the average shortest path length between the source and destination <emphasis>partitions</emphasis> of nodes in the graph <emphasis>G</emphasis> (the source is assumed to be the motherships and the destination the rovers) </para>
+</listitem>
+            <listitem><para><link linkend="_classquantumcomm_1_1constellation__udp_1a0488615446771fa666b9fa156ab6627e">construct_walkers</link> (self, x)</para>
+
+<para>Generates two Walker constellations according to specifications. </para>
+</listitem>
+            <listitem><para><link linkend="_classquantumcomm_1_1constellation__udp_1ac050bcb0c45f9e8238563588261417e9">construct_mothership_pos</link> (self, motherships)</para>
+
+<para>Computes the position of the motherships over a predefined time grid. </para>
+</listitem>
+            <listitem><para><link linkend="_classquantumcomm_1_1constellation__udp_1a46cbd774de9aefba3ee882c665072446">construct_pos</link> (self, walker1, walker2, pos_r)</para>
+
+<para>Construct cumulative position of Walker satellites, motherships and rovers. </para>
+</listitem>
+            <listitem><para><link linkend="_classquantumcomm_1_1constellation__udp_1a13abd2e63f36cb79a4c08d96557d3d87">fitness</link> (self, x, verbose=False)</para>
+
+<para>Evaluate the fitness of the decision variables. </para>
+</listitem>
+            <listitem><para><link linkend="_classquantumcomm_1_1constellation__udp_1a8c60ffafb21bc14b969a3f3f4079d24d">pretty</link> (self, x)</para>
+
+<para>A verbose evaluation of the fitness functions. </para>
+</listitem>
+            <listitem><para><link linkend="_classquantumcomm_1_1constellation__udp_1abd7080d6cfab62437f82a825e53f1e53">example</link> (self, verbose=False)</para>
+
+<para>A random chromosome example for the constellation optimization. </para>
+</listitem>
+            <listitem><para><link linkend="_classquantumcomm_1_1constellation__udp_1a055cad3b277eb52218b1926cf1730044">compute_orbit_walker</link> (self, walker, ep0, sma)</para>
+
+<para>Compute one full-orbit of the Walker constellation planes (for plots) </para>
+</listitem>
+            <listitem><para><link linkend="_classquantumcomm_1_1constellation__udp_1a538e6e0a73831c10938e12e9ec73513c">compute_orbit_motherships</link> (self, ep0)</para>
+
+<para>Compute one full-orbit of the motherships from epoch ep0 (for plots) </para>
+</listitem>
+            <listitem><para><link linkend="_classquantumcomm_1_1constellation__udp_1ae7806f788f8f22a8be936a007a8a3deb">plot</link> (self, x, src, dst, ep=1, lims=10000, ax=None, dark_mode=True)</para>
+
+<para>Plot the full constellations with solution path and optional orbits. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Public Attributes    </title>
+        <itemizedlist>
+            <listitem><para>int <link linkend="_classquantumcomm_1_1constellation__udp_1a9d785ce76d7893987af5b9439f8dbf16">n_epochs</link> = 11</para>
+</listitem>
+            <listitem><para><link linkend="_classquantumcomm_1_1constellation__udp_1a6c229d5e6f94a3e1d7847a5cc85a3629">jds</link> = np.linspace(jd0, jd0 + self._duration * 365.25, self.n_epochs)</para>
+</listitem>
+            <listitem><para><link linkend="_classquantumcomm_1_1constellation__udp_1a9e02bb6ac8e8e0aed1249640e1ea4a5d">frs</link> = self.jds * fr</para>
+</listitem>
+            <listitem><para><link linkend="_classquantumcomm_1_1constellation__udp_1aea71bfcc1860bfebd45edf3f50061450">ep_ref</link> = pk.epoch_from_iso_string(&quot;19491231T000000&quot;)</para>
+</listitem>
+            <listitem><para><link linkend="_classquantumcomm_1_1constellation__udp_1a94f4701662430239b3a0df294b8e5121">pos_m</link> = self.construct_mothership_pos(SatrecArray(mothership_satellites))</para>
+</listitem>
+            <listitem><para><link linkend="_classquantumcomm_1_1constellation__udp_1aed45357b9732be28c9301a0da997fbe1">n_motherships</link> = len(mothership_satellites)</para>
+</listitem>
+            <listitem><para><link linkend="_classquantumcomm_1_1constellation__udp_1aaf595a09122ffe6d5db7ab8bc8fb8888">rovers_db</link> = np.loadtxt(rovers_db_path)</para>
+</listitem>
+            <listitem><para><link linkend="_classquantumcomm_1_1constellation__udp_1a92b6079745dcc7e51160f9a6f6e40dd7">lambdas</link> = self.rovers_db[:, 0]</para>
+</listitem>
+            <listitem><para><link linkend="_classquantumcomm_1_1constellation__udp_1a9a86bb566548f702ddc82c688de151c5">phis</link> = self.rovers_db[:, 1]</para>
+</listitem>
+            <listitem><para>int <link linkend="_classquantumcomm_1_1constellation__udp_1a1b50811adb76ab085077e2b1e275d851">n_rovers</link> = 4</para>
+</listitem>
+            <listitem><para>float <link linkend="_classquantumcomm_1_1constellation__udp_1adeb6632a7a453441664f79cfcb9a9c2a">LOS</link> = 1.05 * pk.EARTH_RADIUS / 1000.0</para>
+</listitem>
+            <listitem><para>float <link linkend="_classquantumcomm_1_1constellation__udp_1a9e52ccef528d06e738e4c8479347b334">R_p</link> = pk.EARTH_RADIUS / 1000.0</para>
+</listitem>
+            <listitem><para>float <link linkend="_classquantumcomm_1_1constellation__udp_1a9f5d75bc8ab2658b521fbef7c6ef4475">w_p</link> = 7.29e-5</para>
+</listitem>
+            <listitem><para><link linkend="_classquantumcomm_1_1constellation__udp_1ab9b87fefd4eca71a6ec905ebc2354244">eps_z</link> = np.cos(self._zenith_angle)</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Protected Attributes    </title>
+        <itemizedlist>
+            <listitem><para>int <link linkend="_classquantumcomm_1_1constellation__udp_1ad924507a2abeb0b7bb5e89d5f925b559">_t0</link> = 10000</para>
+</listitem>
+            <listitem><para>int <link linkend="_classquantumcomm_1_1constellation__udp_1af578ab2b4d0d76d74336fd7756fa33bd">_duration</link> = 10</para>
+</listitem>
+            <listitem><para>int <link linkend="_classquantumcomm_1_1constellation__udp_1a8dde60f0189c428a6b1c9b47677b9284">_min_rover_dist</link> = 3000</para>
+</listitem>
+            <listitem><para>int <link linkend="_classquantumcomm_1_1constellation__udp_1af928486a95f4c02e8139a82a5856e74d">_zenith_angle</link> = np.pi / 3</para>
+</listitem>
+            <listitem><para>int <link linkend="_classquantumcomm_1_1constellation__udp_1a02e82edc599f86967503c01d2d7219f0">_min_sat_dist</link> = 50</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>A Pygmo compatible UDP (User Defined Problem) representing the constellation design problem for SpOC 2023. </para>
+
+
+
+<para>Two Walker constellations are defined in a mixint chromosome: <literallayout><computeroutput>x&#32;=&#32;[a1,ei,i1,w1,eta1]&#32;+&#32;[a2,e2,i2,w2,eta2]&#32;+&#32;[S1,P1,F1]&#32;+&#32;[S2,P2,F2]&#32;+&#32;[r1,r2,r3,r4]
+</computeroutput></literallayout> The constellations must relay information between 7 motherships in orbit and 4 rovers on the surface of New Mars </para>
+<para>
+Definition at line <link linkend="_quantumcomm_8py_source_1l00216">216</link> of file <link linkend="_quantumcomm_8py_source">quantumcomm.py</link>.</para>
+</section>
+<section>
+<title>Constructor &amp; Destructor Documentation</title>
+<anchor xml:id="_classquantumcomm_1_1constellation__udp_1a8804eea0d2eaffcea2926f6780aafdf8"/><section>
+    <title>__init__()</title>
+<indexterm><primary>__init__</primary><secondary>quantumcomm.constellation_udp</secondary></indexterm>
+<indexterm><primary>quantumcomm.constellation_udp</primary><secondary>__init__</secondary></indexterm>
+<para><computeroutput>quantumcomm.constellation_udp.__init__ ( self)</computeroutput></para><para>
+
+<para>Constructo. </para>
+</para>
+<para>
+Definition at line <link linkend="_quantumcomm_8py_source_1l00218">218</link> of file <link linkend="_quantumcomm_8py_source">quantumcomm.py</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Function Documentation</title>
+<anchor xml:id="_classquantumcomm_1_1constellation__udp_1a5827f9a431732de6732e1d7a4d0a5fe5"/><section>
+    <title>average_shortest_path()</title>
+<indexterm><primary>average_shortest_path</primary><secondary>quantumcomm.constellation_udp</secondary></indexterm>
+<indexterm><primary>quantumcomm.constellation_udp</primary><secondary>average_shortest_path</secondary></indexterm>
+<para><computeroutput>quantumcomm.constellation_udp.average_shortest_path ( self,  G,  src,  dst)</computeroutput></para><para>
+
+<para>Computes the average shortest path length between the source and destination <emphasis>partitions</emphasis> of nodes in the graph <emphasis>G</emphasis> (the source is assumed to be the motherships and the destination the rovers) </para>
+</para>
+
+<para><literallayout><computeroutput>        G (networkx graph): The graph
+</computeroutput></literallayout> 
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>src</entry><entry>
+<para>the number of motherships (to be used as a negative index in G) </para>
+</entry>
+                            </row>
+                            <row>
+<entry>dst</entry><entry>
+<para>the number of rovers (to be used as a negative index in G)</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>float average shortest path </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_quantumcomm_8py_source_1l00410">410</link> of file <link linkend="_quantumcomm_8py_source">quantumcomm.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classquantumcomm_1_1constellation__udp_a5827f9a431732de6732e1d7a4d0a5fe5_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classquantumcomm_1_1constellation__udp_1a06e2f7fe5888de4c38d08d4b1f290511"/><section>
+    <title>build_graph()</title>
+<indexterm><primary>build_graph</primary><secondary>quantumcomm.constellation_udp</secondary></indexterm>
+<indexterm><primary>quantumcomm.constellation_udp</primary><secondary>build_graph</secondary></indexterm>
+<para><computeroutput>quantumcomm.constellation_udp.build_graph ( self,  ep_idx,  pos,  num_w1_sats,  eta)</computeroutput></para><para>
+
+<para>Builds a networkx graph from the satellite positions. </para>
+</para>
+
+<para>Links are weighted via a &quot;QKD-inspired metric and only exist when motherships/constellation satellites/rovers have line-of-sight</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>ep_idx</entry><entry>
+<para>idx of the epoch in the time grid pos (numpy array 3xN): position vector of the satellites </para>
+</entry>
+                            </row>
+                            <row>
+<entry>num_w1_sats</entry><entry>
+<para>number of satellites in the first Walker constellation </para>
+</entry>
+                            </row>
+                            <row>
+<entry>eta</entry><entry>
+<para>satellite quality indicator for each Walker constellation</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>igraph nodes are motherships/Walker satellites/rovers; links are distances when there is LOS </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_quantumcomm_8py_source_1l00392">392</link> of file <link linkend="_quantumcomm_8py_source">quantumcomm.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classquantumcomm_1_1constellation__udp_a06e2f7fe5888de4c38d08d4b1f290511_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classquantumcomm_1_1constellation__udp_a06e2f7fe5888de4c38d08d4b1f290511_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classquantumcomm_1_1constellation__udp_1a538e6e0a73831c10938e12e9ec73513c"/><section>
+    <title>compute_orbit_motherships()</title>
+<indexterm><primary>compute_orbit_motherships</primary><secondary>quantumcomm.constellation_udp</secondary></indexterm>
+<indexterm><primary>quantumcomm.constellation_udp</primary><secondary>compute_orbit_motherships</secondary></indexterm>
+<para><computeroutput>quantumcomm.constellation_udp.compute_orbit_motherships ( self,  ep0)</computeroutput></para><para>
+
+<para>Compute one full-orbit of the motherships from epoch ep0 (for plots) </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>ep0</entry><entry>
+<para>Julian date denoting starting epoch</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>orbits (numpy array, S x N x 3): N orbital x, y, z positions for S satellites </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_quantumcomm_8py_source_1l00634">634</link> of file <link linkend="_quantumcomm_8py_source">quantumcomm.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classquantumcomm_1_1constellation__udp_a538e6e0a73831c10938e12e9ec73513c_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classquantumcomm_1_1constellation__udp_a538e6e0a73831c10938e12e9ec73513c_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classquantumcomm_1_1constellation__udp_1a055cad3b277eb52218b1926cf1730044"/><section>
+    <title>compute_orbit_walker()</title>
+<indexterm><primary>compute_orbit_walker</primary><secondary>quantumcomm.constellation_udp</secondary></indexterm>
+<indexterm><primary>quantumcomm.constellation_udp</primary><secondary>compute_orbit_walker</secondary></indexterm>
+<para><computeroutput>quantumcomm.constellation_udp.compute_orbit_walker ( self,  walker,  ep0,  sma)</computeroutput></para><para>
+
+<para>Compute one full-orbit of the Walker constellation planes (for plots) </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>walker</entry><entry>
+<para>the array of Walker satellites to plot </para>
+</entry>
+                            </row>
+                            <row>
+<entry>ep0</entry><entry>
+<para>Julian date denoting starting epoch </para>
+</entry>
+                            </row>
+                            <row>
+<entry>sma</entry><entry>
+<para>semi-major axis of orbit</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>pos (numpy array, P x N x 3): N orbital x, y, z positions for P planes </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_quantumcomm_8py_source_1l00612">612</link> of file <link linkend="_quantumcomm_8py_source">quantumcomm.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classquantumcomm_1_1constellation__udp_a055cad3b277eb52218b1926cf1730044_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classquantumcomm_1_1constellation__udp_1ac050bcb0c45f9e8238563588261417e9"/><section>
+    <title>construct_mothership_pos()</title>
+<indexterm><primary>construct_mothership_pos</primary><secondary>quantumcomm.constellation_udp</secondary></indexterm>
+<indexterm><primary>quantumcomm.constellation_udp</primary><secondary>construct_mothership_pos</secondary></indexterm>
+<para><computeroutput>quantumcomm.constellation_udp.construct_mothership_pos ( self,  motherships)</computeroutput></para><para>
+
+<para>Computes the position of the motherships over a predefined time grid. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>motherships</entry><entry>
+<para>mothership satellites ready to be SGP4 propagated</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>float, n_motherships x n_epochs x 3: mothership x, y, z positions </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_quantumcomm_8py_source_1l00444">444</link> of file <link linkend="_quantumcomm_8py_source">quantumcomm.py</link>.</para>
+</section>
+<anchor xml:id="_classquantumcomm_1_1constellation__udp_1a46cbd774de9aefba3ee882c665072446"/><section>
+    <title>construct_pos()</title>
+<indexterm><primary>construct_pos</primary><secondary>quantumcomm.constellation_udp</secondary></indexterm>
+<indexterm><primary>quantumcomm.constellation_udp</primary><secondary>construct_pos</secondary></indexterm>
+<para><computeroutput>quantumcomm.constellation_udp.construct_pos ( self,  walker1,  walker2,  pos_r)</computeroutput></para><para>
+
+<para>Construct cumulative position of Walker satellites, motherships and rovers. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>walker1</entry><entry>
+<para>Walker1 constellation satellites ready to be SGP4 propagated </para>
+</entry>
+                            </row>
+                            <row>
+<entry>walker2</entry><entry>
+<para>Walker2 constellation satellites ready to be SGP4 propagated pos_r (float, n_rovers x n_epochs x 3): rover x, y, z positions</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>float, (S1xP1 + S2xP2 + n_motherships + n_rovers) x n_epochs x 3: overall position vector </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_quantumcomm_8py_source_1l00462">462</link> of file <link linkend="_quantumcomm_8py_source">quantumcomm.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classquantumcomm_1_1constellation__udp_a46cbd774de9aefba3ee882c665072446_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classquantumcomm_1_1constellation__udp_1a0488615446771fa666b9fa156ab6627e"/><section>
+    <title>construct_walkers()</title>
+<indexterm><primary>construct_walkers</primary><secondary>quantumcomm.constellation_udp</secondary></indexterm>
+<indexterm><primary>quantumcomm.constellation_udp</primary><secondary>construct_walkers</secondary></indexterm>
+<para><computeroutput>quantumcomm.constellation_udp.construct_walkers ( self,  x)</computeroutput></para><para>
+
+<para>Generates two Walker constellations according to specifications. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>x</entry><entry>
+<para>chromosome describing the New Mars communications infrastructure</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>SatrecArray Walker1 constellation satellites ready to be SGP4 propagated </para>
+
+<para>SatrecArray Walker2 constellation satellites ready to be SGP4 propagated </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_quantumcomm_8py_source_1l00427">427</link> of file <link linkend="_quantumcomm_8py_source">quantumcomm.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classquantumcomm_1_1constellation__udp_a0488615446771fa666b9fa156ab6627e_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classquantumcomm_1_1constellation__udp_a0488615446771fa666b9fa156ab6627e_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classquantumcomm_1_1constellation__udp_1abd7080d6cfab62437f82a825e53f1e53"/><section>
+    <title>example()</title>
+<indexterm><primary>example</primary><secondary>quantumcomm.constellation_udp</secondary></indexterm>
+<indexterm><primary>quantumcomm.constellation_udp</primary><secondary>example</secondary></indexterm>
+<para><computeroutput>quantumcomm.constellation_udp.example ( self,  verbose = <computeroutput>False</computeroutput>
+)</computeroutput></para><para>
+
+<para>A random chromosome example for the constellation optimization. </para>
+</para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>list a valid chromosome representing a possible constellation design </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_quantumcomm_8py_source_1l00569">569</link> of file <link linkend="_quantumcomm_8py_source">quantumcomm.py</link>.</para>
+</section>
+<anchor xml:id="_classquantumcomm_1_1constellation__udp_1a13abd2e63f36cb79a4c08d96557d3d87"/><section>
+    <title>fitness()</title>
+<indexterm><primary>fitness</primary><secondary>quantumcomm.constellation_udp</secondary></indexterm>
+<indexterm><primary>quantumcomm.constellation_udp</primary><secondary>fitness</secondary></indexterm>
+<para><computeroutput>quantumcomm.constellation_udp.fitness ( self,  x,  verbose = <computeroutput>False</computeroutput>
+)</computeroutput></para><para>
+
+<para>Evaluate the fitness of the decision variables. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>x</entry><entry>
+<para>chromosome describing the New Mars communications infrastructure </para>
+</entry>
+                            </row>
+                            <row>
+<entry>verbose</entry><entry>
+<para>If True, print some info.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>float fitness for average shortest path </para>
+
+<para>float fitness for total number of satellites </para>
+
+<para>float constraint for rover positioning </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_quantumcomm_8py_source_1l00485">485</link> of file <link linkend="_quantumcomm_8py_source">quantumcomm.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classquantumcomm_1_1constellation__udp_a13abd2e63f36cb79a4c08d96557d3d87_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classquantumcomm_1_1constellation__udp_a13abd2e63f36cb79a4c08d96557d3d87_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classquantumcomm_1_1constellation__udp_1a7751ec7ef991c732aeffdb2ac59332e6"/><section>
+    <title>generate_walker()</title>
+<indexterm><primary>generate_walker</primary><secondary>quantumcomm.constellation_udp</secondary></indexterm>
+<indexterm><primary>quantumcomm.constellation_udp</primary><secondary>generate_walker</secondary></indexterm>
+<para><computeroutput>quantumcomm.constellation_udp.generate_walker ( self,  S,  P,  F,  a,  e,  incl,  w,  t0)</computeroutput></para><para>
+
+<para>Generates a Walker constallation as a SatrecArray. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>S</entry><entry>
+<para>number of satellites per plane </para>
+</entry>
+                            </row>
+                            <row>
+<entry>P</entry><entry>
+<para>number of planes </para>
+</entry>
+                            </row>
+                            <row>
+<entry>F</entry><entry>
+<para>spacing parameter (i.e. if 2 phasing repeats each 2 planes) </para>
+</entry>
+                            </row>
+                            <row>
+<entry>a</entry><entry>
+<para>semi-major axis </para>
+</entry>
+                            </row>
+                            <row>
+<entry>e</entry><entry>
+<para>eccentricity </para>
+</entry>
+                            </row>
+                            <row>
+<entry>incl</entry><entry>
+<para>inclination </para>
+</entry>
+                            </row>
+                            <row>
+<entry>w</entry><entry>
+<para>argument of perigee </para>
+</entry>
+                            </row>
+                            <row>
+<entry>t0</entry><entry>
+<para>epoch</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>SatrecArray satellites ready to be SGP4 propagated </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_quantumcomm_8py_source_1l00353">353</link> of file <link linkend="_quantumcomm_8py_source">quantumcomm.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classquantumcomm_1_1constellation__udp_a7751ec7ef991c732aeffdb2ac59332e6_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classquantumcomm_1_1constellation__udp_1ae0a95b68653b5337476415c5f69fb960"/><section>
+    <title>get_bounds()</title>
+<indexterm><primary>get_bounds</primary><secondary>quantumcomm.constellation_udp</secondary></indexterm>
+<indexterm><primary>quantumcomm.constellation_udp</primary><secondary>get_bounds</secondary></indexterm>
+<para><computeroutput>quantumcomm.constellation_udp.get_bounds ( self)</computeroutput></para><para>
+
+<para>Get bounds for the decision variables. </para>
+</para>
+
+<para><formalpara><title>Returns</title>
+
+<para>Tuple of lists: bounds for the decision variables. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_quantumcomm_8py_source_1l00262">262</link> of file <link linkend="_quantumcomm_8py_source">quantumcomm.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classquantumcomm_1_1constellation__udp_ae0a95b68653b5337476415c5f69fb960_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classquantumcomm_1_1constellation__udp_1aeaefa471acf6233e861c77385d2e9695"/><section>
+    <title>get_ints()</title>
+<indexterm><primary>get_ints</primary><secondary>quantumcomm.constellation_udp</secondary></indexterm>
+<indexterm><primary>quantumcomm.constellation_udp</primary><secondary>get_ints</secondary></indexterm>
+<para><computeroutput>quantumcomm.constellation_udp.get_ints ( self)</computeroutput></para><para>
+Definition at line <link linkend="_quantumcomm_8py_source_1l00270">270</link> of file <link linkend="_quantumcomm_8py_source">quantumcomm.py</link>.</para>
+</section>
+<anchor xml:id="_classquantumcomm_1_1constellation__udp_1a14b241afc0f8cc6ce5203fe8de9e4f7e"/><section>
+    <title>get_nic()</title>
+<indexterm><primary>get_nic</primary><secondary>quantumcomm.constellation_udp</secondary></indexterm>
+<indexterm><primary>quantumcomm.constellation_udp</primary><secondary>get_nic</secondary></indexterm>
+<para><computeroutput>quantumcomm.constellation_udp.get_nic ( self)</computeroutput></para><para>
+
+<para>Get number of inequality constraints. </para>
+</para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>int the number of constraints </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_quantumcomm_8py_source_1l00294">294</link> of file <link linkend="_quantumcomm_8py_source">quantumcomm.py</link>.</para>
+</section>
+<anchor xml:id="_classquantumcomm_1_1constellation__udp_1a3bb518a054083acd70ee7d5e884d22bb"/><section>
+    <title>get_nix()</title>
+<indexterm><primary>get_nix</primary><secondary>quantumcomm.constellation_udp</secondary></indexterm>
+<indexterm><primary>quantumcomm.constellation_udp</primary><secondary>get_nix</secondary></indexterm>
+<para><computeroutput>quantumcomm.constellation_udp.get_nix ( self)</computeroutput></para><para>
+
+<para>Get number of integer variables. </para>
+</para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>int number of integer variables. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_quantumcomm_8py_source_1l00278">278</link> of file <link linkend="_quantumcomm_8py_source">quantumcomm.py</link>.</para>
+</section>
+<anchor xml:id="_classquantumcomm_1_1constellation__udp_1a37eb35c15c7342a8c31a2f4a0d78c97a"/><section>
+    <title>get_nobj()</title>
+<indexterm><primary>get_nobj</primary><secondary>quantumcomm.constellation_udp</secondary></indexterm>
+<indexterm><primary>quantumcomm.constellation_udp</primary><secondary>get_nobj</secondary></indexterm>
+<para><computeroutput>quantumcomm.constellation_udp.get_nobj ( self)</computeroutput></para><para>
+
+<para>Get number of objectives. </para>
+</para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>int the number of objectives </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_quantumcomm_8py_source_1l00286">286</link> of file <link linkend="_quantumcomm_8py_source">quantumcomm.py</link>.</para>
+</section>
+<anchor xml:id="_classquantumcomm_1_1constellation__udp_1a793f1ab728c23da59e9c59f30396cf73"/><section>
+    <title>get_rover_constraint()</title>
+<indexterm><primary>get_rover_constraint</primary><secondary>quantumcomm.constellation_udp</secondary></indexterm>
+<indexterm><primary>quantumcomm.constellation_udp</primary><secondary>get_rover_constraint</secondary></indexterm>
+<para><computeroutput>quantumcomm.constellation_udp.get_rover_constraint ( self,  lambda0,  phi0)</computeroutput></para><para>
+
+<para>Evaluate the rover constraint (minimum distance between any two rovers) </para>
+</para>
+
+<para><literallayout><computeroutput>       lambda0 (float, N_r x 1): latitudes of the rovers
+       phi0 (float, N_r x 1): longitudes of the rovers
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>Returns</entry><entry>
+<para></para>
+</entry>
+                            </row>
+                            <row>
+<entry>float</entry><entry>
+<para>the difference between the actual and allowable minimum distance between rovers </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_quantumcomm_8py_source_1l00306">306</link> of file <link linkend="_quantumcomm_8py_source">quantumcomm.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classquantumcomm_1_1constellation__udp_a793f1ab728c23da59e9c59f30396cf73_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classquantumcomm_1_1constellation__udp_1a228c4f828e7c8261bbeedd69d6d19573"/><section>
+    <title>get_sat_constraint()</title>
+<indexterm><primary>get_sat_constraint</primary><secondary>quantumcomm.constellation_udp</secondary></indexterm>
+<indexterm><primary>quantumcomm.constellation_udp</primary><secondary>get_sat_constraint</secondary></indexterm>
+<para><computeroutput>quantumcomm.constellation_udp.get_sat_constraint ( self,  d_min)</computeroutput></para><para>
+
+<para>Evaluate the satellite constraint (minimum distance between any two satellites) </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>d_min</entry><entry>
+<para>the minimum distance between any two satellites at any epoch</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>float the difference between the actual and allowable minimum distance between satellites </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_quantumcomm_8py_source_1l00333">333</link> of file <link linkend="_quantumcomm_8py_source">quantumcomm.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classquantumcomm_1_1constellation__udp_a228c4f828e7c8261bbeedd69d6d19573_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classquantumcomm_1_1constellation__udp_1ae7806f788f8f22a8be936a007a8a3deb"/><section>
+    <title>plot()</title>
+<indexterm><primary>plot</primary><secondary>quantumcomm.constellation_udp</secondary></indexterm>
+<indexterm><primary>quantumcomm.constellation_udp</primary><secondary>plot</secondary></indexterm>
+<para><computeroutput>quantumcomm.constellation_udp.plot ( self,  x,  src,  dst,  ep = <computeroutput>1</computeroutput>
+,  lims = <computeroutput>10000</computeroutput>
+,  ax = <computeroutput>None</computeroutput>
+,  dark_mode = <computeroutput>True</computeroutput>
+)</computeroutput></para><para>
+
+<para>Plot the full constellations with solution path and optional orbits. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>x</entry><entry>
+<para>chromosome describing the communications network </para>
+</entry>
+                            </row>
+                            <row>
+<entry>src</entry><entry>
+<para>mothership index denoting path source </para>
+</entry>
+                            </row>
+                            <row>
+<entry>dst</entry><entry>
+<para>rover index denoting path destination </para>
+</entry>
+                            </row>
+                            <row>
+<entry>ep</entry><entry>
+<para>index of the epoch in the predefined time grid lims (float, optional): plot limits. Defaults to 10000. ax (matplotlib 3D axis, optional): plot axis. dark_mode (bool, optional): dark background for plot (recommended)</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>matplotlib the 3D plot axes </para>
+
+<para>list indices of the graph nodes on the communications path (if one is found, otherwise []) </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_quantumcomm_8py_source_1l00670">670</link> of file <link linkend="_quantumcomm_8py_source">quantumcomm.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classquantumcomm_1_1constellation__udp_ae7806f788f8f22a8be936a007a8a3deb_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classquantumcomm_1_1constellation__udp_1a8c60ffafb21bc14b969a3f3f4079d24d"/><section>
+    <title>pretty()</title>
+<indexterm><primary>pretty</primary><secondary>quantumcomm.constellation_udp</secondary></indexterm>
+<indexterm><primary>quantumcomm.constellation_udp</primary><secondary>pretty</secondary></indexterm>
+<para><computeroutput>quantumcomm.constellation_udp.pretty ( self,  x)</computeroutput></para><para>
+
+<para>A verbose evaluation of the fitness functions. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>x</entry><entry>
+<para>chromosome describing the New Mars communications infrastructure</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>float fitness for average shortest path </para>
+
+<para>float fitness for total number of satellites </para>
+
+<para>float constraint for rover positioning </para>
+
+<para>float constraint for satellite positioning </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_quantumcomm_8py_source_1l00560">560</link> of file <link linkend="_quantumcomm_8py_source">quantumcomm.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classquantumcomm_1_1constellation__udp_a8c60ffafb21bc14b969a3f3f4079d24d_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+<section>
+<title>Member Data Documentation</title>
+<anchor xml:id="_classquantumcomm_1_1constellation__udp_1af578ab2b4d0d76d74336fd7756fa33bd"/><section>
+    <title>_duration</title>
+<indexterm><primary>_duration</primary><secondary>quantumcomm.constellation_udp</secondary></indexterm>
+<indexterm><primary>quantumcomm.constellation_udp</primary><secondary>_duration</secondary></indexterm>
+<para><computeroutput>int quantumcomm.constellation_udp._duration = 10<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_quantumcomm_8py_source_1l00223">223</link> of file <link linkend="_quantumcomm_8py_source">quantumcomm.py</link>.</para>
+</section>
+<anchor xml:id="_classquantumcomm_1_1constellation__udp_1a8dde60f0189c428a6b1c9b47677b9284"/><section>
+    <title>_min_rover_dist</title>
+<indexterm><primary>_min_rover_dist</primary><secondary>quantumcomm.constellation_udp</secondary></indexterm>
+<indexterm><primary>quantumcomm.constellation_udp</primary><secondary>_min_rover_dist</secondary></indexterm>
+<para><computeroutput>int quantumcomm.constellation_udp._min_rover_dist = 3000<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_quantumcomm_8py_source_1l00241">241</link> of file <link linkend="_quantumcomm_8py_source">quantumcomm.py</link>.</para>
+</section>
+<anchor xml:id="_classquantumcomm_1_1constellation__udp_1a02e82edc599f86967503c01d2d7219f0"/><section>
+    <title>_min_sat_dist</title>
+<indexterm><primary>_min_sat_dist</primary><secondary>quantumcomm.constellation_udp</secondary></indexterm>
+<indexterm><primary>quantumcomm.constellation_udp</primary><secondary>_min_sat_dist</secondary></indexterm>
+<para><computeroutput>int quantumcomm.constellation_udp._min_sat_dist = 50<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_quantumcomm_8py_source_1l00255">255</link> of file <link linkend="_quantumcomm_8py_source">quantumcomm.py</link>.</para>
+</section>
+<anchor xml:id="_classquantumcomm_1_1constellation__udp_1ad924507a2abeb0b7bb5e89d5f925b559"/><section>
+    <title>_t0</title>
+<indexterm><primary>_t0</primary><secondary>quantumcomm.constellation_udp</secondary></indexterm>
+<indexterm><primary>quantumcomm.constellation_udp</primary><secondary>_t0</secondary></indexterm>
+<para><computeroutput>int quantumcomm.constellation_udp._t0 = 10000<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_quantumcomm_8py_source_1l00221">221</link> of file <link linkend="_quantumcomm_8py_source">quantumcomm.py</link>.</para>
+</section>
+<anchor xml:id="_classquantumcomm_1_1constellation__udp_1af928486a95f4c02e8139a82a5856e74d"/><section>
+    <title>_zenith_angle</title>
+<indexterm><primary>_zenith_angle</primary><secondary>quantumcomm.constellation_udp</secondary></indexterm>
+<indexterm><primary>quantumcomm.constellation_udp</primary><secondary>_zenith_angle</secondary></indexterm>
+<para><computeroutput>int quantumcomm.constellation_udp._zenith_angle = np.pi / 3<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_quantumcomm_8py_source_1l00252">252</link> of file <link linkend="_quantumcomm_8py_source">quantumcomm.py</link>.</para>
+</section>
+<anchor xml:id="_classquantumcomm_1_1constellation__udp_1aea71bfcc1860bfebd45edf3f50061450"/><section>
+    <title>ep_ref</title>
+<indexterm><primary>ep_ref</primary><secondary>quantumcomm.constellation_udp</secondary></indexterm>
+<indexterm><primary>quantumcomm.constellation_udp</primary><secondary>ep_ref</secondary></indexterm>
+<para><computeroutput>quantumcomm.constellation_udp.ep_ref = pk.epoch_from_iso_string(&quot;19491231T000000&quot;)</computeroutput></para><para>
+Definition at line <link linkend="_quantumcomm_8py_source_1l00229">229</link> of file <link linkend="_quantumcomm_8py_source">quantumcomm.py</link>.</para>
+</section>
+<anchor xml:id="_classquantumcomm_1_1constellation__udp_1ab9b87fefd4eca71a6ec905ebc2354244"/><section>
+    <title>eps_z</title>
+<indexterm><primary>eps_z</primary><secondary>quantumcomm.constellation_udp</secondary></indexterm>
+<indexterm><primary>quantumcomm.constellation_udp</primary><secondary>eps_z</secondary></indexterm>
+<para><computeroutput>quantumcomm.constellation_udp.eps_z = np.cos(self._zenith_angle)</computeroutput></para><para>
+Definition at line <link linkend="_quantumcomm_8py_source_1l00253">253</link> of file <link linkend="_quantumcomm_8py_source">quantumcomm.py</link>.</para>
+</section>
+<anchor xml:id="_classquantumcomm_1_1constellation__udp_1a9e02bb6ac8e8e0aed1249640e1ea4a5d"/><section>
+    <title>frs</title>
+<indexterm><primary>frs</primary><secondary>quantumcomm.constellation_udp</secondary></indexterm>
+<indexterm><primary>quantumcomm.constellation_udp</primary><secondary>frs</secondary></indexterm>
+<para><computeroutput>quantumcomm.constellation_udp.frs = self.jds * fr</computeroutput></para><para>
+Definition at line <link linkend="_quantumcomm_8py_source_1l00226">226</link> of file <link linkend="_quantumcomm_8py_source">quantumcomm.py</link>.</para>
+</section>
+<anchor xml:id="_classquantumcomm_1_1constellation__udp_1a6c229d5e6f94a3e1d7847a5cc85a3629"/><section>
+    <title>jds</title>
+<indexterm><primary>jds</primary><secondary>quantumcomm.constellation_udp</secondary></indexterm>
+<indexterm><primary>quantumcomm.constellation_udp</primary><secondary>jds</secondary></indexterm>
+<para><computeroutput>quantumcomm.constellation_udp.jds = np.linspace(jd0, jd0 + self._duration * 365.25, self.n_epochs)</computeroutput></para><para>
+Definition at line <link linkend="_quantumcomm_8py_source_1l00225">225</link> of file <link linkend="_quantumcomm_8py_source">quantumcomm.py</link>.</para>
+</section>
+<anchor xml:id="_classquantumcomm_1_1constellation__udp_1a92b6079745dcc7e51160f9a6f6e40dd7"/><section>
+    <title>lambdas</title>
+<indexterm><primary>lambdas</primary><secondary>quantumcomm.constellation_udp</secondary></indexterm>
+<indexterm><primary>quantumcomm.constellation_udp</primary><secondary>lambdas</secondary></indexterm>
+<para><computeroutput>quantumcomm.constellation_udp.lambdas = self.rovers_db[:, 0]</computeroutput></para><para>
+Definition at line <link linkend="_quantumcomm_8py_source_1l00239">239</link> of file <link linkend="_quantumcomm_8py_source">quantumcomm.py</link>.</para>
+</section>
+<anchor xml:id="_classquantumcomm_1_1constellation__udp_1adeb6632a7a453441664f79cfcb9a9c2a"/><section>
+    <title>LOS</title>
+<indexterm><primary>LOS</primary><secondary>quantumcomm.constellation_udp</secondary></indexterm>
+<indexterm><primary>quantumcomm.constellation_udp</primary><secondary>LOS</secondary></indexterm>
+<para><computeroutput>float quantumcomm.constellation_udp.LOS = 1.05 * pk.EARTH_RADIUS / 1000.0</computeroutput></para><para>
+Definition at line <link linkend="_quantumcomm_8py_source_1l00246">246</link> of file <link linkend="_quantumcomm_8py_source">quantumcomm.py</link>.</para>
+</section>
+<anchor xml:id="_classquantumcomm_1_1constellation__udp_1a9d785ce76d7893987af5b9439f8dbf16"/><section>
+    <title>n_epochs</title>
+<indexterm><primary>n_epochs</primary><secondary>quantumcomm.constellation_udp</secondary></indexterm>
+<indexterm><primary>quantumcomm.constellation_udp</primary><secondary>n_epochs</secondary></indexterm>
+<para><computeroutput>quantumcomm.constellation_udp.n_epochs = 11</computeroutput></para><para>
+Definition at line <link linkend="_quantumcomm_8py_source_1l00222">222</link> of file <link linkend="_quantumcomm_8py_source">quantumcomm.py</link>.</para>
+</section>
+<anchor xml:id="_classquantumcomm_1_1constellation__udp_1aed45357b9732be28c9301a0da997fbe1"/><section>
+    <title>n_motherships</title>
+<indexterm><primary>n_motherships</primary><secondary>quantumcomm.constellation_udp</secondary></indexterm>
+<indexterm><primary>quantumcomm.constellation_udp</primary><secondary>n_motherships</secondary></indexterm>
+<para><computeroutput>quantumcomm.constellation_udp.n_motherships = len(mothership_satellites)</computeroutput></para><para>
+Definition at line <link linkend="_quantumcomm_8py_source_1l00234">234</link> of file <link linkend="_quantumcomm_8py_source">quantumcomm.py</link>.</para>
+</section>
+<anchor xml:id="_classquantumcomm_1_1constellation__udp_1a1b50811adb76ab085077e2b1e275d851"/><section>
+    <title>n_rovers</title>
+<indexterm><primary>n_rovers</primary><secondary>quantumcomm.constellation_udp</secondary></indexterm>
+<indexterm><primary>quantumcomm.constellation_udp</primary><secondary>n_rovers</secondary></indexterm>
+<para><computeroutput>quantumcomm.constellation_udp.n_rovers = 4</computeroutput></para><para>
+Definition at line <link linkend="_quantumcomm_8py_source_1l00242">242</link> of file <link linkend="_quantumcomm_8py_source">quantumcomm.py</link>.</para>
+</section>
+<anchor xml:id="_classquantumcomm_1_1constellation__udp_1a9a86bb566548f702ddc82c688de151c5"/><section>
+    <title>phis</title>
+<indexterm><primary>phis</primary><secondary>quantumcomm.constellation_udp</secondary></indexterm>
+<indexterm><primary>quantumcomm.constellation_udp</primary><secondary>phis</secondary></indexterm>
+<para><computeroutput>quantumcomm.constellation_udp.phis = self.rovers_db[:, 1]</computeroutput></para><para>
+Definition at line <link linkend="_quantumcomm_8py_source_1l00240">240</link> of file <link linkend="_quantumcomm_8py_source">quantumcomm.py</link>.</para>
+</section>
+<anchor xml:id="_classquantumcomm_1_1constellation__udp_1a94f4701662430239b3a0df294b8e5121"/><section>
+    <title>pos_m</title>
+<indexterm><primary>pos_m</primary><secondary>quantumcomm.constellation_udp</secondary></indexterm>
+<indexterm><primary>quantumcomm.constellation_udp</primary><secondary>pos_m</secondary></indexterm>
+<para><computeroutput>quantumcomm.constellation_udp.pos_m = self.construct_mothership_pos(SatrecArray(mothership_satellites))</computeroutput></para><para>
+Definition at line <link linkend="_quantumcomm_8py_source_1l00233">233</link> of file <link linkend="_quantumcomm_8py_source">quantumcomm.py</link>.</para>
+</section>
+<anchor xml:id="_classquantumcomm_1_1constellation__udp_1a9e52ccef528d06e738e4c8479347b334"/><section>
+    <title>R_p</title>
+<indexterm><primary>R_p</primary><secondary>quantumcomm.constellation_udp</secondary></indexterm>
+<indexterm><primary>quantumcomm.constellation_udp</primary><secondary>R_p</secondary></indexterm>
+<para><computeroutput>float quantumcomm.constellation_udp.R_p = pk.EARTH_RADIUS / 1000.0</computeroutput></para><para>
+Definition at line <link linkend="_quantumcomm_8py_source_1l00248">248</link> of file <link linkend="_quantumcomm_8py_source">quantumcomm.py</link>.</para>
+</section>
+<anchor xml:id="_classquantumcomm_1_1constellation__udp_1aaf595a09122ffe6d5db7ab8bc8fb8888"/><section>
+    <title>rovers_db</title>
+<indexterm><primary>rovers_db</primary><secondary>quantumcomm.constellation_udp</secondary></indexterm>
+<indexterm><primary>quantumcomm.constellation_udp</primary><secondary>rovers_db</secondary></indexterm>
+<para><computeroutput>quantumcomm.constellation_udp.rovers_db = np.loadtxt(rovers_db_path)</computeroutput></para><para>
+Definition at line <link linkend="_quantumcomm_8py_source_1l00238">238</link> of file <link linkend="_quantumcomm_8py_source">quantumcomm.py</link>.</para>
+</section>
+<anchor xml:id="_classquantumcomm_1_1constellation__udp_1a9f5d75bc8ab2658b521fbef7c6ef4475"/><section>
+    <title>w_p</title>
+<indexterm><primary>w_p</primary><secondary>quantumcomm.constellation_udp</secondary></indexterm>
+<indexterm><primary>quantumcomm.constellation_udp</primary><secondary>w_p</secondary></indexterm>
+<para><computeroutput>float quantumcomm.constellation_udp.w_p = 7.29e-5</computeroutput></para><para>
+Definition at line <link linkend="_quantumcomm_8py_source_1l00250">250</link> of file <link linkend="_quantumcomm_8py_source">quantumcomm.py</link>.</para>
+</section>
+<para>
+The documentation for this class was generated from the following file:</para>
+examples/esa2/<link linkend="_quantumcomm_8py">quantumcomm.py</link></section>
+</section>

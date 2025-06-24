@@ -1,0 +1,166 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_acmaesoptimizer_8cpp" xml:lang="en-US">
+<title>_fcmaescpp/acmaesoptimizer.cpp File Reference</title>
+<indexterm><primary>_fcmaescpp/acmaesoptimizer.cpp</primary></indexterm>
+<programlisting linenumbering="unnumbered">#include &lt;Eigen/Core&gt;<?linebreak?>#include &lt;Eigen/Eigenvalues&gt;<?linebreak?>#include &lt;iostream&gt;<?linebreak?>#include &lt;random&gt;<?linebreak?>#include &lt;float.h&gt;<?linebreak?>#include &lt;stdint.h&gt;<?linebreak?>#include &lt;ctime&gt;<?linebreak?>#include &quot;evaluator.h&quot;<?linebreak?></programlisting>Include dependency graph for acmaesoptimizer.cpp:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="acmaesoptimizer_8cpp__incl.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Classes    </title>
+        <itemizedlist>
+            <listitem><para>class <link linkend="_classacmaes_1_1_acmaes_optimizer">acmaes::AcmaesOptimizer</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Namespaces    </title>
+        <itemizedlist>
+            <listitem><para>namespace <link linkend="_namespaceacmaes">acmaes</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para>static <link linkend="_daoptimizer_8cpp_1aa45a218a6a9d424e78898121d21f082d">ivec</link> <link linkend="_namespaceacmaes_1a8f3b844e07e4684f10852956288758de">acmaes::inverse</link> (const <link linkend="_daoptimizer_8cpp_1aa45a218a6a9d424e78898121d21f082d">ivec</link> &amp;indices)</para>
+</listitem>
+            <listitem><para>static <link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> <link linkend="_namespaceacmaes_1aa2100c3aed4c265a18c551b1c748a588">acmaes::sequence</link> (double start, double end, double step)</para>
+</listitem>
+            <listitem><para>void <link linkend="_acmaesoptimizer_8cpp_1afc81c91b36bdd348c03d272ec53f027a">optimizeACMA_C</link> (long runid, <link linkend="_evaluator_8h_1af419da391481d5e767cbe038009da309">callback_type</link> func, <link linkend="_evaluator_8h_1a1adc681c70e547867358d25d5cf7eedc">callback_parallel</link> func_par, int dim, double *init, double *lower, double *upper, double *sigma, int maxEvals, double stopfitness, double stopTolHistFun, int mu, int popsize, double accuracy, long seed, bool normalize, bool use_delayed_update, int update_gap, int workers, double *res)</para>
+</listitem>
+            <listitem><para>uintptr_t <link linkend="_acmaesoptimizer_8cpp_1ab128d45080b4023edb28550611997afe">initACMA_C</link> (long runid, int dim, double *init, double *lower, double *upper, double *sigma, int maxEvals, double stopfitness, double stopTolHistFun, int mu, int popsize, double accuracy, long seed, bool normalize, bool use_delayed_update, int update_gap)</para>
+</listitem>
+            <listitem><para>void <link linkend="_acmaesoptimizer_8cpp_1a7b2394fc01d8d5612733f943d54a8982">destroyACMA_C</link> (uintptr_t ptr)</para>
+</listitem>
+            <listitem><para>void <link linkend="_acmaesoptimizer_8cpp_1afd9ea227572135d9dd02fe7ec9d489e4">askACMA_C</link> (uintptr_t ptr, double *xs)</para>
+</listitem>
+            <listitem><para>int <link linkend="_acmaesoptimizer_8cpp_1a2cb3fdf36ee5dee68f436f1efa6be820">tellACMA_C</link> (uintptr_t ptr, double *ys)</para>
+</listitem>
+            <listitem><para>int <link linkend="_acmaesoptimizer_8cpp_1ac4c1234b83df26634971a6707db1809d">tellXACMA_C</link> (uintptr_t ptr, double *ys, double *xs)</para>
+</listitem>
+            <listitem><para>int <link linkend="_acmaesoptimizer_8cpp_1a76a358e67b1d48a0f0f7813dd201efdf">populationACMA_C</link> (uintptr_t ptr, double *xs)</para>
+</listitem>
+            <listitem><para>int <link linkend="_acmaesoptimizer_8cpp_1abe96370a07bb4c8fff0bc6e13e105c29">resultACMA_C</link> (uintptr_t ptr, double *res)</para>
+</listitem>
+            <listitem><para>int <link linkend="_acmaesoptimizer_8cpp_1a679cc7980203dbcbbe97d11014fdb5bf">testACMA_C</link> (int n, double *res)</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Function Documentation</title>
+<anchor xml:id="_acmaesoptimizer_8cpp_1afd9ea227572135d9dd02fe7ec9d489e4"/><section>
+    <title>askACMA_C()</title>
+<indexterm><primary>askACMA_C</primary><secondary>acmaesoptimizer.cpp</secondary></indexterm>
+<indexterm><primary>acmaesoptimizer.cpp</primary><secondary>askACMA_C</secondary></indexterm>
+<para><computeroutput>void askACMA_C (uintptr_t ptr, double * xs)</computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00643">643</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="acmaesoptimizer_8cpp_afd9ea227572135d9dd02fe7ec9d489e4_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_acmaesoptimizer_8cpp_1a7b2394fc01d8d5612733f943d54a8982"/><section>
+    <title>destroyACMA_C()</title>
+<indexterm><primary>destroyACMA_C</primary><secondary>acmaesoptimizer.cpp</secondary></indexterm>
+<indexterm><primary>acmaesoptimizer.cpp</primary><secondary>destroyACMA_C</secondary></indexterm>
+<para><computeroutput>void destroyACMA_C (uintptr_t ptr)</computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00636">636</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_acmaesoptimizer_8cpp_1ab128d45080b4023edb28550611997afe"/><section>
+    <title>initACMA_C()</title>
+<indexterm><primary>initACMA_C</primary><secondary>acmaesoptimizer.cpp</secondary></indexterm>
+<indexterm><primary>acmaesoptimizer.cpp</primary><secondary>initACMA_C</secondary></indexterm>
+<para><computeroutput>uintptr_t initACMA_C (long runid, int dim, double * init, double * lower, double * upper, double * sigma, int maxEvals, double stopfitness, double stopTolHistFun, int mu, int popsize, double accuracy, long seed, bool normalize, bool use_delayed_update, int update_gap)</computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00606">606</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="acmaesoptimizer_8cpp_ab128d45080b4023edb28550611997afe_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_acmaesoptimizer_8cpp_1afc81c91b36bdd348c03d272ec53f027a"/><section>
+    <title>optimizeACMA_C()</title>
+<indexterm><primary>optimizeACMA_C</primary><secondary>acmaesoptimizer.cpp</secondary></indexterm>
+<indexterm><primary>acmaesoptimizer.cpp</primary><secondary>optimizeACMA_C</secondary></indexterm>
+<para><computeroutput>void optimizeACMA_C (long runid, <link linkend="_evaluator_8h_1af419da391481d5e767cbe038009da309">callback_type</link> func, <link linkend="_evaluator_8h_1a1adc681c70e547867358d25d5cf7eedc">callback_parallel</link> func_par, int dim, double * init, double * lower, double * upper, double * sigma, int maxEvals, double stopfitness, double stopTolHistFun, int mu, int popsize, double accuracy, long seed, bool normalize, bool use_delayed_update, int update_gap, int workers, double * res)</computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00560">560</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="acmaesoptimizer_8cpp_afc81c91b36bdd348c03d272ec53f027a_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_acmaesoptimizer_8cpp_1a76a358e67b1d48a0f0f7813dd201efdf"/><section>
+    <title>populationACMA_C()</title>
+<indexterm><primary>populationACMA_C</primary><secondary>acmaesoptimizer.cpp</secondary></indexterm>
+<indexterm><primary>acmaesoptimizer.cpp</primary><secondary>populationACMA_C</secondary></indexterm>
+<para><computeroutput>int populationACMA_C (uintptr_t ptr, double * xs)</computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00685">685</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_acmaesoptimizer_8cpp_1abe96370a07bb4c8fff0bc6e13e105c29"/><section>
+    <title>resultACMA_C()</title>
+<indexterm><primary>resultACMA_C</primary><secondary>acmaesoptimizer.cpp</secondary></indexterm>
+<indexterm><primary>acmaesoptimizer.cpp</primary><secondary>resultACMA_C</secondary></indexterm>
+<para><computeroutput>int resultACMA_C (uintptr_t ptr, double * res)</computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00698">698</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="acmaesoptimizer_8cpp_abe96370a07bb4c8fff0bc6e13e105c29_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_acmaesoptimizer_8cpp_1a2cb3fdf36ee5dee68f436f1efa6be820"/><section>
+    <title>tellACMA_C()</title>
+<indexterm><primary>tellACMA_C</primary><secondary>acmaesoptimizer.cpp</secondary></indexterm>
+<indexterm><primary>acmaesoptimizer.cpp</primary><secondary>tellACMA_C</secondary></indexterm>
+<para><computeroutput>int tellACMA_C (uintptr_t ptr, double * ys)</computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00656">656</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_acmaesoptimizer_8cpp_1ac4c1234b83df26634971a6707db1809d"/><section>
+    <title>tellXACMA_C()</title>
+<indexterm><primary>tellXACMA_C</primary><secondary>acmaesoptimizer.cpp</secondary></indexterm>
+<indexterm><primary>acmaesoptimizer.cpp</primary><secondary>tellXACMA_C</secondary></indexterm>
+<para><computeroutput>int tellXACMA_C (uintptr_t ptr, double * ys, double * xs)</computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00666">666</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="acmaesoptimizer_8cpp_ac4c1234b83df26634971a6707db1809d_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_acmaesoptimizer_8cpp_1a679cc7980203dbcbbe97d11014fdb5bf"/><section>
+    <title>testACMA_C()</title>
+<indexterm><primary>testACMA_C</primary><secondary>acmaesoptimizer.cpp</secondary></indexterm>
+<indexterm><primary>acmaesoptimizer.cpp</primary><secondary>testACMA_C</secondary></indexterm>
+<para><computeroutput>int testACMA_C (int n, double * res)</computeroutput></para><para>
+Definition at line <link linkend="_acmaesoptimizer_8cpp_source_1l00713">713</link> of file <link linkend="_acmaesoptimizer_8cpp_source">acmaesoptimizer.cpp</link>.</para>
+</section>
+</section>
+</section>

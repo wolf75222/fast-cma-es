@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_examples_8py_source" xml:lang="en-US">
+<title>examples.py</title>
+<indexterm><primary>examples/examples.py</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_examples_8py_source_1l00001"/><link linkend="_namespaceexamples_1_1examples">00001</link> <emphasis role="comment">#&#32;Copyright&#32;(c)&#32;Dietmar&#32;Wolz.</emphasis>
+<anchor xml:id="_examples_8py_source_1l00002"/>00002 <emphasis role="comment">#</emphasis>
+<anchor xml:id="_examples_8py_source_1l00003"/>00003 <emphasis role="comment">#&#32;This&#32;source&#32;code&#32;is&#32;licensed&#32;under&#32;the&#32;MIT&#32;license&#32;found&#32;in&#32;the</emphasis>
+<anchor xml:id="_examples_8py_source_1l00004"/>00004 <emphasis role="comment">#&#32;LICENSE&#32;file&#32;in&#32;the&#32;root&#32;directory.</emphasis>
+<anchor xml:id="_examples_8py_source_1l00005"/>00005 
+<anchor xml:id="_examples_8py_source_1l00006"/>00006 <emphasis role="comment">#&#32;Examples&#32;for&#32;fcmaes&#32;parallel&#32;retry&#32;from&#32;https://www.esa.int/gsp/ACT/projects/gtop/</emphasis>
+<anchor xml:id="_examples_8py_source_1l00007"/>00007 <emphasis role="comment">#&#32;Used&#32;to&#32;generate&#32;the&#32;results&#32;in&#32;https://github.com/dietmarwo/fast-cma-es/blob/master/tutorials/Results.adoc</emphasis>
+<anchor xml:id="_examples_8py_source_1l00008"/>00008 
+<anchor xml:id="_examples_8py_source_1l00009"/>00009 <emphasis role="comment">#&#32;Tested&#32;using&#32;https://docs.conda.io/en/main/miniconda.html&#32;on&#32;Linux&#32;Mint&#32;21.2</emphasis>
+<anchor xml:id="_examples_8py_source_1l00010"/>00010 
+<anchor xml:id="_examples_8py_source_1l00011"/>00011 <emphasis role="keyword">import</emphasis>&#32;math
+<anchor xml:id="_examples_8py_source_1l00012"/>00012 <emphasis role="keyword">import</emphasis>&#32;numpy&#32;<emphasis role="keyword">as</emphasis>&#32;np
+<anchor xml:id="_examples_8py_source_1l00013"/>00013 <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1astro">fcmaes.astro</link>&#32;<emphasis role="keyword">import</emphasis>&#32;MessFull,&#32;Messenger,&#32;Gtoc1,&#32;Cassini1,&#32;Cassini2,&#32;Rosetta,&#32;Tandem,&#32;Sagas,&#32;Cassini1minlp
+<anchor xml:id="_examples_8py_source_1l00014"/>00014 <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1optimizer">fcmaes.optimizer</link>&#32;<emphasis role="keyword">import</emphasis>&#32;De_python,&#32;De_ask_tell,&#32;de_cma,&#32;da_cma,&#32;Cma_cpp,&#32;Cma_python,&#32;De_cpp,&#32;Da_cpp,&#32;Bite_cpp,&#32;Crfmnes,&#32;Crfmnes_cpp,&#32;Pgpe_cpp,&#32;de_crfmnes,&#32;crfmnes_bite,&#32;Dual_annealing,&#32;Differential_evolution
+<anchor xml:id="_examples_8py_source_1l00015"/>00015 <emphasis role="keyword">from</emphasis>&#32;fcmaes&#32;<emphasis role="keyword">import</emphasis>&#32;retry
+<anchor xml:id="_examples_8py_source_1l00016"/>00016 
+<anchor xml:id="_examples_8py_source_1l00017"/>00017 <emphasis role="keyword">import</emphasis>&#32;sys&#32;
+<anchor xml:id="_examples_8py_source_1l00018"/>00018 <emphasis role="keyword">from</emphasis>&#32;loguru&#32;<emphasis role="keyword">import</emphasis>&#32;logger
+<anchor xml:id="_examples_8py_source_1l00019"/>00019 
+<anchor xml:id="_examples_8py_source_1l00020"/>00020 logger.remove()
+<anchor xml:id="_examples_8py_source_1l00021"/><link linkend="_namespaceexamples_1_1examples_1a565e0290b45197b1fc7638ead21bba6f">00021</link> logger.add(sys.stdout,&#32;format=<emphasis role="stringliteral">&quot;{time:HH:mm:ss.SS}&#32;|&#32;{process}&#32;|&#32;{level}&#32;|&#32;{message}&quot;</emphasis>,&#32;level=<emphasis role="stringliteral">&quot;INFO&quot;</emphasis>)
+<anchor xml:id="_examples_8py_source_1l00022"/>00022 logger.add(<emphasis role="stringliteral">&quot;log_{time}.txt&quot;</emphasis>,&#32;format=<emphasis role="stringliteral">&quot;{time:HH:mm:ss.SS}&#32;|&#32;{process}&#32;|&#32;{level}&#32;|&#32;{message}&quot;</emphasis>,&#32;level=<emphasis role="stringliteral">&quot;INFO&quot;</emphasis>)
+<anchor xml:id="_examples_8py_source_1l00023"/>00023 
+<anchor xml:id="_examples_8py_source_1l00024"/><link linkend="_namespaceexamples_1_1examples_1a8b61d476c2c5fc57441de80202fc9be7">00024</link> problems&#32;=&#32;[<link linkend="_classfcmaes_1_1astro_1_1_cassini1">Cassini1</link>(),&#32;<link linkend="_classfcmaes_1_1astro_1_1_cassini2">Cassini2</link>(),&#32;<link linkend="_classfcmaes_1_1astro_1_1_rosetta">Rosetta</link>(),&#32;<link linkend="_classfcmaes_1_1astro_1_1_tandem">Tandem</link>(5),&#32;<link linkend="_classfcmaes_1_1astro_1_1_messenger">Messenger</link>(),&#32;<link linkend="_classfcmaes_1_1astro_1_1_gtoc1">Gtoc1</link>(),&#32;<link linkend="_classfcmaes_1_1astro_1_1_mess_full">MessFull</link>(),&#32;<link linkend="_classfcmaes_1_1astro_1_1_sagas">Sagas</link>(),&#32;<link linkend="_classfcmaes_1_1astro_1_1_cassini1minlp">Cassini1minlp</link>()]
+<anchor xml:id="_examples_8py_source_1l00025"/>00025 
+<anchor xml:id="_examples_8py_source_1l00026"/><link linkend="_namespaceexamples_1_1examples_1aa42696fc3de024f11015d9bcf9e3ff7b">00026</link> max_evals&#32;=&#32;50000
+<anchor xml:id="_examples_8py_source_1l00027"/>00027 
+<anchor xml:id="_examples_8py_source_1l00028"/><link linkend="_namespaceexamples_1_1examples_1ae14817ef6a8b1bd0a154a0375cefda61">00028</link> algos&#32;=&#32;[&#32;de_cma(max_evals),&#32;crfmnes_bite(max_evals),&#32;de_crfmnes(max_evals),&#32;da_cma(max_evals),&#32;<link linkend="_classfcmaes_1_1optimizer_1_1_cma__cpp">Cma_cpp</link>(max_evals),&#32;<link linkend="_classfcmaes_1_1optimizer_1_1_de__cpp">De_cpp</link>(max_evals),
+<anchor xml:id="_examples_8py_source_1l00029"/>00029 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classfcmaes_1_1optimizer_1_1_da__cpp">Da_cpp</link>(max_evals),&#32;<link linkend="_classfcmaes_1_1optimizer_1_1_bite__cpp">Bite_cpp</link>(max_evals),&#32;<link linkend="_classfcmaes_1_1optimizer_1_1_dual__annealing">Dual_annealing</link>(max_evals),&#32;<link linkend="_classfcmaes_1_1optimizer_1_1_differential__evolution">Differential_evolution</link>(max_evals)]
+<anchor xml:id="_examples_8py_source_1l00030"/>00030 
+<anchor xml:id="_examples_8py_source_1l00031"/>00031 <emphasis role="comment">#algos&#32;=&#32;[&#32;Cma_python(max_evals)]</emphasis>
+<anchor xml:id="_examples_8py_source_1l00032"/>00032 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_examples_8py_source_1l00033"/><link linkend="_namespaceexamples_1_1examples_1a89bf5fd91d6193ce7f87fd23624ccbda">00033</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1examples_1a89bf5fd91d6193ce7f87fd23624ccbda">test_all</link>(num_retries&#32;=&#32;320,&#32;num&#32;=&#32;1):
+<anchor xml:id="_examples_8py_source_1l00034"/>00034 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;problem&#32;<emphasis role="keywordflow">in</emphasis>&#32;problems:
+<anchor xml:id="_examples_8py_source_1l00035"/>00035 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;algo&#32;<emphasis role="keywordflow">in</emphasis>&#32;algos:
+<anchor xml:id="_examples_8py_source_1l00036"/>00036 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1examples_1aa1b20c9243f3ec91c6265811bb3dd8a8">_test_optimizer</link>(algo,&#32;problem,&#32;num_retries,&#32;num)&#32;
+<anchor xml:id="_examples_8py_source_1l00037"/>00037 &#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_examples_8py_source_1l00038"/><link linkend="_namespaceexamples_1_1examples_1aa1b20c9243f3ec91c6265811bb3dd8a8">00038</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1examples_1aa1b20c9243f3ec91c6265811bb3dd8a8">_test_optimizer</link>(opt,&#32;problem,&#32;num_retries&#32;=&#32;32,&#32;num&#32;=&#32;1):
+<anchor xml:id="_examples_8py_source_1l00039"/>00039 &#32;&#32;&#32;&#32;logger.info(problem.name&#32;+&#32;<emphasis role="stringliteral">&apos;&#32;&apos;</emphasis>&#32;+&#32;opt.name)
+<anchor xml:id="_examples_8py_source_1l00040"/>00040 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(num):
+<anchor xml:id="_examples_8py_source_1l00041"/>00041 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;name&#32;=&#32;str(i+1)&#32;+&#32;<emphasis role="stringliteral">&apos;&#32;&apos;</emphasis>&#32;+&#32;problem.name&#32;<emphasis role="keywordflow">if</emphasis>&#32;num&#32;&gt;&#32;1&#32;<emphasis role="keywordflow">else</emphasis>&#32;problem.name
+<anchor xml:id="_examples_8py_source_1l00042"/>00042 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;retry.minimize_plot(name,&#32;opt,&#32;problem.fun,&#32;problem.bounds,&#32;
+<anchor xml:id="_examples_8py_source_1l00043"/>00043 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;np.inf,&#32;10.0,&#32;num_retries)
+<anchor xml:id="_examples_8py_source_1l00044"/>00044 
+<anchor xml:id="_examples_8py_source_1l00045"/><link linkend="_namespaceexamples_1_1examples_1ac7178a19ba2e34dfe2f03d3165a9a84e">00045</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1examples_1ac7178a19ba2e34dfe2f03d3165a9a84e">main</link>():
+<anchor xml:id="_examples_8py_source_1l00046"/>00046 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_examples_8py_source_1l00047"/>00047 &#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1examples_1a89bf5fd91d6193ce7f87fd23624ccbda">test_all</link>()
+<anchor xml:id="_examples_8py_source_1l00048"/>00048 
+<anchor xml:id="_examples_8py_source_1l00049"/>00049 <emphasis role="keywordflow">if</emphasis>&#32;__name__&#32;==&#32;<emphasis role="stringliteral">&apos;__main__&apos;</emphasis>:
+<anchor xml:id="_examples_8py_source_1l00050"/>00050 &#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1examples_1ac7178a19ba2e34dfe2f03d3165a9a84e">main</link>()
+<anchor xml:id="_examples_8py_source_1l00051"/>00051 &#32;&#32;&#32;&#32;
+</programlisting></section>

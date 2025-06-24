@@ -1,0 +1,386 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_classfcmaes_1_1decpp_1_1_d_e___c" xml:lang="en-US">
+<title>fcmaes.decpp.DE_C Class Reference</title>
+<indexterm><primary>fcmaes.decpp.DE_C</primary></indexterm>
+<para>
+
+<para>A class to perform Differential Evolution (DE) algorithm using a C implementation backend. </para>
+ 
+</para>
+Collaboration diagram for fcmaes.decpp.DE_C:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1decpp_1_1_d_e___c__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Public Member Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1decpp_1_1_d_e___c_1afcd3a8216d55e778558eada4cdf9c6dc">__init__</link> (self, Optional[int] <link linkend="_classfcmaes_1_1decpp_1_1_d_e___c_1a174ff7e79ef1f1d187dc0197e95256e8">dim</link>=None, Optional[Bounds] bounds=None, Optional[int] <link linkend="_classfcmaes_1_1decpp_1_1_d_e___c_1ad122a7d34bd51afeb06228ad811f85ce">popsize</link>=31, Optional[int] keep=200, Optional[float] f=0.5, Optional[float] cr=0.9, Optional[Generator] rg=Generator(PCG64DXSM()), Optional[ArrayLike] ints=None, Optional[float] min_mutate=0.1, Optional[float] max_mutate=0.5, Optional[ArrayLike] x0=None, Optional[Union[float, ArrayLike, Callable]] input_sigma=0.3, Optional[float] min_sigma=0)</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1decpp_1_1_d_e___c_1ab22d38f2f4822b861fa7217725d8db1a">__del__</link> (self)</para>
+
+<para>Deletes the object and performs cleanup by invoking the corresponding native method. </para>
+</listitem>
+            <listitem><para>np.array <link linkend="_classfcmaes_1_1decpp_1_1_d_e___c_1ac938731f80bce720692af9b7b84e41d0">ask</link> (self)</para>
+
+<para>Generates a new population of candidate solutions using the DE (Differential Evolution) algorithm. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1decpp_1_1_d_e___c_1ad53cc4b5553a819096b47115e1f49b42">tell</link> (self, np.ndarray ys)</para>
+
+<para>Updates the object with input data and performs a specific operation using the provided numerical array. </para>
+</listitem>
+            <listitem><para>np.array <link linkend="_classfcmaes_1_1decpp_1_1_d_e___c_1ae6321ea6313c6ef9bf44d492aaa619f8">population</link> (self)</para>
+
+<para>Generates and retrieves the population of individuals in a multi-dimensional optimization context. </para>
+</listitem>
+            <listitem><para>OptimizeResult <link linkend="_classfcmaes_1_1decpp_1_1_d_e___c_1a2f794b6d8709f5b14d5f56695bb8d8ff">result</link> (self)</para>
+
+<para>Executes the optimization process and returns the result as an OptimizeResult object. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Public Attributes    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1decpp_1_1_d_e___c_1ad9095931be109c4c732f10d7791c54fc">ptr</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1decpp_1_1_d_e___c_1ad122a7d34bd51afeb06228ad811f85ce">popsize</link> = popsize</para>
+
+<para>Size of the population used in the DE optimization. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1decpp_1_1_d_e___c_1a174ff7e79ef1f1d187dc0197e95256e8">dim</link> = dim</para>
+
+<para>Dimension of the optimization problem. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>A class to perform Differential Evolution (DE) algorithm using a C implementation backend. </para>
+
+
+
+<para>This class provides an interface to perform Differential Evolution optimization. The underlying algorithms are implemented in C for performance. Users can configure the optimization parameters such as population size, mutation factors, bounds, and constraints. It also provides methods to query results, manage population and perform optimization steps using an ask-tell interface for iterative optimization processes. </para>
+<para>
+Definition at line <link linkend="_decpp_8py_source_1l00188">188</link> of file <link linkend="_decpp_8py_source">decpp.py</link>.</para>
+</section>
+<section>
+<title>Constructor &amp; Destructor Documentation</title>
+<anchor xml:id="_classfcmaes_1_1decpp_1_1_d_e___c_1afcd3a8216d55e778558eada4cdf9c6dc"/><section>
+    <title>__init__()</title>
+<indexterm><primary>__init__</primary><secondary>fcmaes.decpp.DE_C</secondary></indexterm>
+<indexterm><primary>fcmaes.decpp.DE_C</primary><secondary>__init__</secondary></indexterm>
+<para><computeroutput>fcmaes.decpp.DE_C.__init__ ( self, Optional[int]  dim = <computeroutput>None</computeroutput>
+, Optional[Bounds]  bounds = <computeroutput>None</computeroutput>
+, Optional[int]  popsize = <computeroutput>31</computeroutput>
+, Optional[int]  keep = <computeroutput>200</computeroutput>
+, Optional[float]  f = <computeroutput>0.5</computeroutput>
+, Optional[float]  cr = <computeroutput>0.9</computeroutput>
+, Optional[Generator]  rg = <computeroutput>Generator(PCG64DXSM())</computeroutput>
+, Optional[ArrayLike]  ints = <computeroutput>None</computeroutput>
+, Optional[float]  min_mutate = <computeroutput>0.1</computeroutput>
+, Optional[float]  max_mutate = <computeroutput>0.5</computeroutput>
+, Optional[ArrayLike]  x0 = <computeroutput>None</computeroutput>
+, Optional[Union[float, ArrayLike, Callable]]  input_sigma = <computeroutput>0.3</computeroutput>
+, Optional[float]  min_sigma = <computeroutput>0</computeroutput>
+)</computeroutput></para><para>
+Definition at line <link linkend="_decpp_8py_source_1l00259">259</link> of file <link linkend="_decpp_8py_source">decpp.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1decpp_1_1_d_e___c_1ab22d38f2f4822b861fa7217725d8db1a"/><section>
+    <title>__del__()</title>
+<indexterm><primary>__del__</primary><secondary>fcmaes.decpp.DE_C</secondary></indexterm>
+<indexterm><primary>fcmaes.decpp.DE_C</primary><secondary>__del__</secondary></indexterm>
+<para><computeroutput>fcmaes.decpp.DE_C.__del__ ( self)</computeroutput></para><para>
+
+<para>Deletes the object and performs cleanup by invoking the corresponding native method. </para>
+</para>
+
+<para><literallayout><computeroutput>   The destructor is responsible for freeing any resources or performing
+   necessary cleanup operations associated with the object when it is
+   deallocated.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>Exception</entry><entry>
+<para>If there is an issue during the cleanup process, it may raise an exception. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_decpp_8py_source_1l00310">310</link> of file <link linkend="_decpp_8py_source">decpp.py</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Function Documentation</title>
+<anchor xml:id="_classfcmaes_1_1decpp_1_1_d_e___c_1ac938731f80bce720692af9b7b84e41d0"/><section>
+    <title>ask()</title>
+<indexterm><primary>ask</primary><secondary>fcmaes.decpp.DE_C</secondary></indexterm>
+<indexterm><primary>fcmaes.decpp.DE_C</primary><secondary>ask</secondary></indexterm>
+<para><computeroutput> np.array fcmaes.decpp.DE_C.ask ( self)</computeroutput></para><para>
+
+<para>Generates a new population of candidate solutions using the DE (Differential Evolution) algorithm. </para>
+</para>
+
+<para>The <computeroutput>ask</computeroutput> method retrieves a set of candidate solutions generated by the DE algorithm from a C extension. The solutions are returned as a NumPy array with dimensions corresponding to the population size and the dimensionality of the search space.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>Exception</entry><entry>
+<para>If the underlying procedure fails, an exception is raised and handled </para>
+</entry>
+                            </row>
+                            <row>
+<entry>internally.</entry><entry></entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>np A NumPy array where each row represents a candidate solution. Returns <computeroutput>None</computeroutput> if an exception occurs during the process. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_decpp_8py_source_1l00329">329</link> of file <link linkend="_decpp_8py_source">decpp.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1decpp_1_1_d_e___c_ac938731f80bce720692af9b7b84e41d0_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1decpp_1_1_d_e___c_1ae6321ea6313c6ef9bf44d492aaa619f8"/><section>
+    <title>population()</title>
+<indexterm><primary>population</primary><secondary>fcmaes.decpp.DE_C</secondary></indexterm>
+<indexterm><primary>fcmaes.decpp.DE_C</primary><secondary>population</secondary></indexterm>
+<para><computeroutput> np.array fcmaes.decpp.DE_C.population ( self)</computeroutput></para><para>
+
+<para>Generates and retrieves the population of individuals in a multi-dimensional optimization context. </para>
+</para>
+
+<para>This function interacts with a native library to populate a numpy array representing the population in a given algorithm. It processes the results returned from the library and organizes them into a structured numpy array to return to the caller.</para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>np A 2D numpy array where each row represents an individual in the population, and each column corresponds to an individual&apos;s </para>
+
+<para>dimension.</para>
+</formalpara>
+
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>Exception</entry><entry>
+<para>If an error occurs during population retrieval or processing. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_decpp_8py_source_1l00385">385</link> of file <link linkend="_decpp_8py_source">decpp.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1decpp_1_1_d_e___c_1a2f794b6d8709f5b14d5f56695bb8d8ff"/><section>
+    <title>result()</title>
+<indexterm><primary>result</primary><secondary>fcmaes.decpp.DE_C</secondary></indexterm>
+<indexterm><primary>fcmaes.decpp.DE_C</primary><secondary>result</secondary></indexterm>
+<para><computeroutput> OptimizeResult fcmaes.decpp.DE_C.result ( self)</computeroutput></para><para>
+
+<para>Executes the optimization process and returns the result as an OptimizeResult object. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method carries out the computation for the given optimization problem,
+   wraps the results into an OptimizeResult object, and handles exceptions by
+   providing a default failure result.
+</computeroutput></literallayout></para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>OptimizeResult An object containing the results of the optimization process, including the solution vector, function value at the solution, number of function evaluations, number of iterations, stopping status, and success flag.</para>
+</formalpara>
+
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>Exception</entry><entry>
+<para>If an error occurs during the optimization computation, it returns a default OptimizeResult indicating failure. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_decpp_8py_source_1l00416">416</link> of file <link linkend="_decpp_8py_source">decpp.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1decpp_1_1_d_e___c_1ad53cc4b5553a819096b47115e1f49b42"/><section>
+    <title>tell()</title>
+<indexterm><primary>tell</primary><secondary>fcmaes.decpp.DE_C</secondary></indexterm>
+<indexterm><primary>fcmaes.decpp.DE_C</primary><secondary>tell</secondary></indexterm>
+<para><computeroutput>fcmaes.decpp.DE_C.tell ( self, np.ndarray ys)</computeroutput></para><para>
+
+<para>Updates the object with input data and performs a specific operation using the provided numerical array. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>ys</entry><entry>
+<para>A NumPy array of numerical data used as input for the operation.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>int Returns an integer value indicating the result of the operation or -1 in case of an exception.</para>
+</formalpara>
+
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>Exception</entry><entry>
+<para>Catches and prints any exceptions that occur during the execution process. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_decpp_8py_source_1l00360">360</link> of file <link linkend="_decpp_8py_source">decpp.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1decpp_1_1_d_e___c_ad53cc4b5553a819096b47115e1f49b42_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+<section>
+<title>Member Data Documentation</title>
+<anchor xml:id="_classfcmaes_1_1decpp_1_1_d_e___c_1a174ff7e79ef1f1d187dc0197e95256e8"/><section>
+    <title>dim</title>
+<indexterm><primary>dim</primary><secondary>fcmaes.decpp.DE_C</secondary></indexterm>
+<indexterm><primary>fcmaes.decpp.DE_C</primary><secondary>dim</secondary></indexterm>
+<para><computeroutput>fcmaes.decpp.DE_C.dim = dim</computeroutput></para><para>
+
+<para>Dimension of the optimization problem. </para>
+</para>
+<para>
+Definition at line <link linkend="_decpp_8py_source_1l00294">294</link> of file <link linkend="_decpp_8py_source">decpp.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1decpp_1_1_d_e___c_1ad122a7d34bd51afeb06228ad811f85ce"/><section>
+    <title>popsize</title>
+<indexterm><primary>popsize</primary><secondary>fcmaes.decpp.DE_C</secondary></indexterm>
+<indexterm><primary>fcmaes.decpp.DE_C</primary><secondary>popsize</secondary></indexterm>
+<para><computeroutput>fcmaes.decpp.DE_C.popsize = popsize</computeroutput></para><para>
+
+<para>Size of the population used in the DE optimization. </para>
+</para>
+<para>
+Definition at line <link linkend="_decpp_8py_source_1l00293">293</link> of file <link linkend="_decpp_8py_source">decpp.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1decpp_1_1_d_e___c_1ad9095931be109c4c732f10d7791c54fc"/><section>
+    <title>ptr</title>
+<indexterm><primary>ptr</primary><secondary>fcmaes.decpp.DE_C</secondary></indexterm>
+<indexterm><primary>fcmaes.decpp.DE_C</primary><secondary>ptr</secondary></indexterm>
+<para><computeroutput>fcmaes.decpp.DE_C.ptr</computeroutput></para><emphasis role="strong">Initial value:</emphasis><programlisting linenumbering="unnumbered">=&#32;&#32;<link linkend="_deoptimizer_8cpp_1a8af4088f11fb8bc902b5a17f4b3c67f4">initDE_C</link>(0,&#32;dim,&#32;seed,
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">None</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>&#32;lower&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>&#32;<emphasis role="keywordflow">else</emphasis>&#32;array_type(*lower),
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">None</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>&#32;upper&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>&#32;<emphasis role="keywordflow">else</emphasis>&#32;array_type(*upper),
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">None</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>&#32;x0&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>&#32;<emphasis role="keywordflow">else</emphasis>&#32;array_type(*x0),
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">None</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>&#32;input_sigma&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>&#32;<emphasis role="keywordflow">else</emphasis>&#32;array_type(*input_sigma),
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;min_sigma,
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">None</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>&#32;ints&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>&#32;<emphasis role="keywordflow">else</emphasis>&#32;bool_array_type(*ints),
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;keep,&#32;popsize,&#32;f,&#32;cr,&#32;min_mutate,&#32;max_mutate)
+</programlisting><para>
+Definition at line <link linkend="_decpp_8py_source_1l00285">285</link> of file <link linkend="_decpp_8py_source">decpp.py</link>.</para>
+</section>
+<para>
+The documentation for this class was generated from the following file:</para>
+fcmaes/<link linkend="_decpp_8py">decpp.py</link></section>
+</section>

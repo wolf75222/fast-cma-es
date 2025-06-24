@@ -1,0 +1,184 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_fbcover_8py_source" xml:lang="en-US">
+<title>fbcover.py</title>
+<indexterm><primary>examples/fb/fbcover.py</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_fbcover_8py_source_1l00001"/><link linkend="_namespacefbcover">00001</link> <emphasis role="comment">#&#32;Copyright&#32;(c)&#32;Dietmar&#32;Wolz.</emphasis>
+<anchor xml:id="_fbcover_8py_source_1l00002"/>00002 <emphasis role="comment">#</emphasis>
+<anchor xml:id="_fbcover_8py_source_1l00003"/>00003 <emphasis role="comment">#&#32;This&#32;source&#32;code&#32;is&#32;licensed&#32;under&#32;the&#32;MIT&#32;license&#32;found&#32;in&#32;the</emphasis>
+<anchor xml:id="_fbcover_8py_source_1l00004"/>00004 <emphasis role="comment">#&#32;LICENSE&#32;file&#32;in&#32;the&#32;root&#32;directory.</emphasis>
+<anchor xml:id="_fbcover_8py_source_1l00005"/>00005 
+<anchor xml:id="_fbcover_8py_source_1l00006"/>00006 <emphasis role="comment">#&#32;See&#32;https://github.com/dietmarwo/fast-cma-es/blob/master/tutorials/Media.adoc&#32;for&#32;a&#32;detailed&#32;description.</emphasis>
+<anchor xml:id="_fbcover_8py_source_1l00007"/>00007 
+<anchor xml:id="_fbcover_8py_source_1l00008"/>00008 <emphasis role="comment">#&#32;Tested&#32;using&#32;https://docs.conda.io/en/main/miniconda.html&#32;on&#32;Linux&#32;Mint&#32;21.2</emphasis>
+<anchor xml:id="_fbcover_8py_source_1l00009"/>00009 
+<anchor xml:id="_fbcover_8py_source_1l00010"/>00010 <emphasis role="keyword">import</emphasis>&#32;numpy&#32;<emphasis role="keyword">as</emphasis>&#32;np
+<anchor xml:id="_fbcover_8py_source_1l00011"/>00011 <emphasis role="keyword">from</emphasis>&#32;numba&#32;<emphasis role="keyword">import</emphasis>&#32;njit
+<anchor xml:id="_fbcover_8py_source_1l00012"/>00012 <emphasis role="keyword">import</emphasis>&#32;numba
+<anchor xml:id="_fbcover_8py_source_1l00013"/>00013 <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1optimizer">fcmaes.optimizer</link>&#32;<emphasis role="keyword">import</emphasis>&#32;De_cpp,&#32;wrapper
+<anchor xml:id="_fbcover_8py_source_1l00014"/>00014 <emphasis role="keyword">from</emphasis>&#32;fcmaes&#32;<emphasis role="keyword">import</emphasis>&#32;retry,&#32;moretry,&#32;modecpp,&#32;mode
+<anchor xml:id="_fbcover_8py_source_1l00015"/>00015 <emphasis role="keyword">from</emphasis>&#32;scipy.optimize&#32;<emphasis role="keyword">import</emphasis>&#32;Bounds&#32;&#32;&#32;&#32;
+<anchor xml:id="_fbcover_8py_source_1l00016"/>00016 <emphasis role="keyword">import</emphasis>&#32;math
+<anchor xml:id="_fbcover_8py_source_1l00017"/>00017 <emphasis role="keyword">from</emphasis>&#32;multiprocessing&#32;<emphasis role="keyword">import</emphasis>&#32;Pool
+<anchor xml:id="_fbcover_8py_source_1l00018"/>00018 <emphasis role="keyword">import</emphasis>&#32;multiprocessing&#32;<emphasis role="keyword">as</emphasis>&#32;mp
+<anchor xml:id="_fbcover_8py_source_1l00019"/>00019 <emphasis role="keyword">import</emphasis>&#32;ctypes&#32;<emphasis role="keyword">as</emphasis>&#32;ct
+<anchor xml:id="_fbcover_8py_source_1l00020"/>00020 
+<anchor xml:id="_fbcover_8py_source_1l00021"/>00021 <emphasis role="keyword">import</emphasis>&#32;sys&#32;
+<anchor xml:id="_fbcover_8py_source_1l00022"/>00022 <emphasis role="keyword">from</emphasis>&#32;loguru&#32;<emphasis role="keyword">import</emphasis>&#32;logger
+<anchor xml:id="_fbcover_8py_source_1l00023"/>00023 
+<anchor xml:id="_fbcover_8py_source_1l00024"/>00024 logger.remove()
+<anchor xml:id="_fbcover_8py_source_1l00025"/><link linkend="_namespacefbcover_1ade1a6852398323e88dbb93b4ed1a39c6">00025</link> logger.add(sys.stdout,&#32;format=<emphasis role="stringliteral">&quot;{time:HH:mm:ss.SS}&#32;|&#32;{process}&#32;|&#32;{level}&#32;|&#32;{message}&quot;</emphasis>,&#32;level=<emphasis role="stringliteral">&quot;INFO&quot;</emphasis>)
+<anchor xml:id="_fbcover_8py_source_1l00026"/>00026 logger.add(<emphasis role="stringliteral">&quot;log_{time}.txt&quot;</emphasis>,&#32;format=<emphasis role="stringliteral">&quot;{time:HH:mm:ss.SS}&#32;|&#32;{process}&#32;|&#32;{level}&#32;|&#32;{message}&quot;</emphasis>,&#32;level=<emphasis role="stringliteral">&quot;INFO&quot;</emphasis>)
+<anchor xml:id="_fbcover_8py_source_1l00027"/>00027 
+<anchor xml:id="_fbcover_8py_source_1l00028"/>00028 <emphasis role="preprocessor">@njit(fastmath=True)</emphasis>
+<anchor xml:id="_fbcover_8py_source_1l00029"/><link linkend="_namespacefbcover_1a6e0f66764bcc9b581187a2526b81dc3d">00029</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefbcover_1a6e0f66764bcc9b581187a2526b81dc3d">num_true</link>(nodes):
+<anchor xml:id="_fbcover_8py_source_1l00030"/>00030 &#32;&#32;&#32;&#32;n&#32;=&#32;0
+<anchor xml:id="_fbcover_8py_source_1l00031"/>00031 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;b&#32;<emphasis role="keywordflow">in</emphasis>&#32;nodes:
+<anchor xml:id="_fbcover_8py_source_1l00032"/>00032 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;b:
+<anchor xml:id="_fbcover_8py_source_1l00033"/>00033 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;n&#32;+=&#32;1
+<anchor xml:id="_fbcover_8py_source_1l00034"/>00034 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;n
+<anchor xml:id="_fbcover_8py_source_1l00035"/>00035 
+<anchor xml:id="_fbcover_8py_source_1l00036"/>00036 <emphasis role="preprocessor">@njit(fastmath=True)</emphasis>
+<anchor xml:id="_fbcover_8py_source_1l00037"/><link linkend="_namespacefbcover_1a8588994a104cf05c867efc5ad768ada4">00037</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefbcover_1a8588994a104cf05c867efc5ad768ada4">sum_weights</link>(nodes,&#32;weights):
+<anchor xml:id="_fbcover_8py_source_1l00038"/>00038 &#32;&#32;&#32;&#32;sum&#32;=&#32;0
+<anchor xml:id="_fbcover_8py_source_1l00039"/>00039 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(len(nodes)):
+<anchor xml:id="_fbcover_8py_source_1l00040"/>00040 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;nodes[i]:
+<anchor xml:id="_fbcover_8py_source_1l00041"/>00041 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;sum&#32;+=&#32;weights[i]
+<anchor xml:id="_fbcover_8py_source_1l00042"/>00042 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;sum
+<anchor xml:id="_fbcover_8py_source_1l00043"/>00043 
+<anchor xml:id="_fbcover_8py_source_1l00044"/><link linkend="_namespacefbcover_1ae2eb6efa5043c4651cf81eba28f9459f">00044</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefbcover_1ae2eb6efa5043c4651cf81eba28f9459f">add_vertice</link>(v,&#32;vmap):
+<anchor xml:id="_fbcover_8py_source_1l00045"/>00045 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;v&#32;<emphasis role="keywordflow">in</emphasis>&#32;vmap:
+<anchor xml:id="_fbcover_8py_source_1l00046"/>00046 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;vmap[v]
+<anchor xml:id="_fbcover_8py_source_1l00047"/>00047 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>:
+<anchor xml:id="_fbcover_8py_source_1l00048"/>00048 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;i&#32;=&#32;len(vmap)
+<anchor xml:id="_fbcover_8py_source_1l00049"/>00049 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;vmap[v]&#32;=&#32;i
+<anchor xml:id="_fbcover_8py_source_1l00050"/>00050 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;i
+<anchor xml:id="_fbcover_8py_source_1l00051"/>00051 
+<anchor xml:id="_fbcover_8py_source_1l00052"/><link linkend="_namespacefbcover_1a45600a27fa97dcb1f89854158921ef04">00052</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefbcover_1a45600a27fa97dcb1f89854158921ef04">circles_arr</link>(circs):
+<anchor xml:id="_fbcover_8py_source_1l00053"/>00053 &#32;&#32;&#32;&#32;max_circ&#32;=&#32;max([len(c)&#32;<emphasis role="keywordflow">for</emphasis>&#32;c&#32;<emphasis role="keywordflow">in</emphasis>&#32;circs])
+<anchor xml:id="_fbcover_8py_source_1l00054"/>00054 &#32;&#32;&#32;&#32;acircs&#32;=&#32;np.empty((len(circs),&#32;max_circ),&#32;dtype=int)&#32;
+<anchor xml:id="_fbcover_8py_source_1l00055"/>00055 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;c&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(len(circs)):
+<anchor xml:id="_fbcover_8py_source_1l00056"/>00056 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;circ&#32;=&#32;circs[c]
+<anchor xml:id="_fbcover_8py_source_1l00057"/>00057 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(len(circ)):
+<anchor xml:id="_fbcover_8py_source_1l00058"/>00058 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;acircs[c,&#32;i]&#32;=&#32;circ[i]
+<anchor xml:id="_fbcover_8py_source_1l00059"/>00059 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;acircs
+<anchor xml:id="_fbcover_8py_source_1l00060"/>00060 &#32;&#32;&#32;
+<anchor xml:id="_fbcover_8py_source_1l00061"/><link linkend="_classfbcover_1_1fb__graph">00061</link> <emphasis role="keyword">class&#32;</emphasis><link linkend="_classfbcover_1_1fb__graph">fb_graph</link>():
+<anchor xml:id="_fbcover_8py_source_1l00062"/>00062 &#32;&#32;&#32;&#32;
+<anchor xml:id="_fbcover_8py_source_1l00063"/><link linkend="_classfbcover_1_1fb__graph_1ac9f413e30a964761b7ee73619535824e">00063</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfbcover_1_1fb__graph_1ac9f413e30a964761b7ee73619535824e">__init__</link>(self,&#32;vmap,&#32;source,&#32;target,&#32;circs):
+<anchor xml:id="_fbcover_8py_source_1l00064"/><link linkend="_classfbcover_1_1fb__graph_1a571cc96c0169cd09090ae239e72a91ee">00064</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfbcover_1_1fb__graph_1a571cc96c0169cd09090ae239e72a91ee">nodes</link>&#32;=&#32;np.array(list(vmap.values()),&#32;dtype=int)
+<anchor xml:id="_fbcover_8py_source_1l00065"/><link linkend="_classfbcover_1_1fb__graph_1a8bf663c203943e8da53d605d8cb48ee4">00065</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfbcover_1_1fb__graph_1a8bf663c203943e8da53d605d8cb48ee4">source</link>&#32;=&#32;source
+<anchor xml:id="_fbcover_8py_source_1l00066"/><link linkend="_classfbcover_1_1fb__graph_1a130c542b8575e6137bf833f673c39fac">00066</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfbcover_1_1fb__graph_1a130c542b8575e6137bf833f673c39fac">target</link>&#32;=&#32;target&#32;&#32;&#32;&#32;
+<anchor xml:id="_fbcover_8py_source_1l00067"/><link linkend="_classfbcover_1_1fb__graph_1a159b30e89ef87e5d336319a75a10ca1f">00067</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfbcover_1_1fb__graph_1a159b30e89ef87e5d336319a75a10ca1f">nnodes</link>&#32;=&#32;len(vmap)
+<anchor xml:id="_fbcover_8py_source_1l00068"/><link linkend="_classfbcover_1_1fb__graph_1ab1a35bba6549551618f52ec5323a193a">00068</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfbcover_1_1fb__graph_1ab1a35bba6549551618f52ec5323a193a">ncircles</link>&#32;=&#32;len(circs)
+<anchor xml:id="_fbcover_8py_source_1l00069"/><link linkend="_classfbcover_1_1fb__graph_1ae9237286301dd0588cede06eee394312">00069</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfbcover_1_1fb__graph_1ae9237286301dd0588cede06eee394312">circs</link>&#32;=&#32;circs
+<anchor xml:id="_fbcover_8py_source_1l00070"/><link linkend="_classfbcover_1_1fb__graph_1a1e745c777619e839bd9a65a8dbcf29f4">00070</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfbcover_1_1fb__graph_1a1e745c777619e839bd9a65a8dbcf29f4">acircles</link>&#32;=&#32;<link linkend="_namespacefbcover_1a45600a27fa97dcb1f89854158921ef04">circles_arr</link>(circs)
+<anchor xml:id="_fbcover_8py_source_1l00071"/><link linkend="_classfbcover_1_1fb__graph_1a7652a24a76570690972a83f262c3efeb">00071</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfbcover_1_1fb__graph_1a7652a24a76570690972a83f262c3efeb">circle_size</link>&#32;=&#32;np.array([len(circ)&#32;<emphasis role="keywordflow">for</emphasis>&#32;circ&#32;<emphasis role="keywordflow">in</emphasis>&#32;circs])
+<anchor xml:id="_fbcover_8py_source_1l00072"/>00072 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;rng&#32;=&#32;np.random.default_rng(601)&#32;<emphasis role="comment">#&#32;use&#32;seeded&#32;random&#32;weights</emphasis>
+<anchor xml:id="_fbcover_8py_source_1l00073"/><link linkend="_classfbcover_1_1fb__graph_1a82843813051418f329b0241c14a45dcb">00073</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfbcover_1_1fb__graph_1a82843813051418f329b0241c14a45dcb">weights</link>&#32;=&#32;rng.random(self.<link linkend="_classfbcover_1_1fb__graph_1a159b30e89ef87e5d336319a75a10ca1f">nnodes</link>)
+<anchor xml:id="_fbcover_8py_source_1l00074"/>00074 
+<anchor xml:id="_fbcover_8py_source_1l00075"/><link linkend="_namespacefbcover_1aea05a7e0ef43a61707f165fddb3ee1ce">00075</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefbcover_1aea05a7e0ef43a61707f165fddb3ee1ce">parse_fb</link>(edge_file,&#32;circle_file):
+<anchor xml:id="_fbcover_8py_source_1l00076"/>00076 &#32;&#32;&#32;&#32;lines&#32;=&#32;open(edge_file,&#32;<emphasis role="stringliteral">&apos;r&apos;</emphasis>).readlines()
+<anchor xml:id="_fbcover_8py_source_1l00077"/>00077 &#32;&#32;&#32;&#32;source&#32;=&#32;[]
+<anchor xml:id="_fbcover_8py_source_1l00078"/>00078 &#32;&#32;&#32;&#32;target&#32;=&#32;[]
+<anchor xml:id="_fbcover_8py_source_1l00079"/>00079 &#32;&#32;&#32;&#32;vmap&#32;=&#32;{}
+<anchor xml:id="_fbcover_8py_source_1l00080"/>00080 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;line&#32;<emphasis role="keywordflow">in</emphasis>&#32;lines:
+<anchor xml:id="_fbcover_8py_source_1l00081"/>00081 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;vs&#32;=&#32;line.split()
+<anchor xml:id="_fbcover_8py_source_1l00082"/>00082 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;source.append(<link linkend="_namespacefbcover_1ae2eb6efa5043c4651cf81eba28f9459f">add_vertice</link>(vs[0],&#32;vmap))
+<anchor xml:id="_fbcover_8py_source_1l00083"/>00083 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;target.append(<link linkend="_namespacefbcover_1ae2eb6efa5043c4651cf81eba28f9459f">add_vertice</link>(vs[1],&#32;vmap))
+<anchor xml:id="_fbcover_8py_source_1l00084"/>00084 &#32;&#32;&#32;&#32;lines&#32;=&#32;open(circle_file,&#32;<emphasis role="stringliteral">&apos;r&apos;</emphasis>).readlines()&#32;&#32;
+<anchor xml:id="_fbcover_8py_source_1l00085"/>00085 &#32;&#32;&#32;&#32;circs&#32;=&#32;[]
+<anchor xml:id="_fbcover_8py_source_1l00086"/>00086 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;line&#32;<emphasis role="keywordflow">in</emphasis>&#32;lines:
+<anchor xml:id="_fbcover_8py_source_1l00087"/>00087 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;vs&#32;=&#32;line.split()[1:]
+<anchor xml:id="_fbcover_8py_source_1l00088"/>00088 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;len(vs)&#32;&gt;&#32;1:&#32;<emphasis role="comment">#drop&#32;circles&#32;of&#32;1</emphasis>
+<anchor xml:id="_fbcover_8py_source_1l00089"/>00089 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;v&#32;<emphasis role="keywordflow">in</emphasis>&#32;vs:&#32;<emphasis role="comment">#&#32;add&#32;circ&#32;nodes&#32;to&#32;vmap</emphasis>
+<anchor xml:id="_fbcover_8py_source_1l00090"/>00090 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_namespacefbcover_1ae2eb6efa5043c4651cf81eba28f9459f">add_vertice</link>(v,&#32;vmap)
+<anchor xml:id="_fbcover_8py_source_1l00091"/>00091 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;circs.append([vmap[v]&#32;<emphasis role="keywordflow">for</emphasis>&#32;v&#32;<emphasis role="keywordflow">in</emphasis>&#32;vs])
+<anchor xml:id="_fbcover_8py_source_1l00092"/>00092 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_classfbcover_1_1fb__graph">fb_graph</link>(vmap,&#32;np.array(source,&#32;dtype=int),&#32;np.array(target,&#32;dtype=int),&#32;&#32;
+<anchor xml:id="_fbcover_8py_source_1l00093"/>00093 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;circs)
+<anchor xml:id="_fbcover_8py_source_1l00094"/>00094 
+<anchor xml:id="_fbcover_8py_source_1l00095"/>00095 <emphasis role="preprocessor">@njit(fastmath=True)</emphasis>
+<anchor xml:id="_fbcover_8py_source_1l00096"/><link linkend="_namespacefbcover_1a1d37d0da59730aab39af8760119dc8c8">00096</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefbcover_1a1d37d0da59730aab39af8760119dc8c8">fb_covered</link>(source,&#32;target,&#32;circles,&#32;circle_size,&#32;nds):
+<anchor xml:id="_fbcover_8py_source_1l00097"/>00097 &#32;&#32;&#32;&#32;num&#32;=&#32;0
+<anchor xml:id="_fbcover_8py_source_1l00098"/>00098 &#32;&#32;&#32;&#32;nedges&#32;=&#32;len(source)
+<anchor xml:id="_fbcover_8py_source_1l00099"/>00099 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(nedges):&#32;<emphasis role="comment">#&#32;check&#32;all&#32;edges</emphasis>
+<anchor xml:id="_fbcover_8py_source_1l00100"/>00100 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;nds[source[i]]&#32;<emphasis role="keywordflow">or</emphasis>&#32;nds[target[i]]:
+<anchor xml:id="_fbcover_8py_source_1l00101"/>00101 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;num&#32;+=&#32;1&#32;&#32;&#32;
+<anchor xml:id="_fbcover_8py_source_1l00102"/>00102 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(len(circle_size)):
+<anchor xml:id="_fbcover_8py_source_1l00103"/>00103 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;circle&#32;=&#32;circles[i]&#32;<emphasis role="comment">#&#32;check&#32;all&#32;circle&#32;pairs</emphasis>
+<anchor xml:id="_fbcover_8py_source_1l00104"/>00104 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;size&#32;=&#32;circle_size[i]
+<anchor xml:id="_fbcover_8py_source_1l00105"/>00105 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;j&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(size-1):
+<anchor xml:id="_fbcover_8py_source_1l00106"/>00106 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;k&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(j+1,&#32;size):&#32;<emphasis role="comment">#&#32;add&#32;if&#32;both&#32;are&#32;covered</emphasis>
+<anchor xml:id="_fbcover_8py_source_1l00107"/>00107 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;nds[circle[j]]&#32;<emphasis role="keywordflow">and</emphasis>&#32;nds[circle[k]]:
+<anchor xml:id="_fbcover_8py_source_1l00108"/>00108 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;num&#32;+=&#32;1.0/math.sqrt(size)
+<anchor xml:id="_fbcover_8py_source_1l00109"/>00109 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;num&#32;
+<anchor xml:id="_fbcover_8py_source_1l00110"/>00110 
+<anchor xml:id="_fbcover_8py_source_1l00111"/>00111 <emphasis role="preprocessor">@njit(fastmath=True)</emphasis>
+<anchor xml:id="_fbcover_8py_source_1l00112"/><link linkend="_namespacefbcover_1aef0e4896abc75b367cfae486326fd280">00112</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefbcover_1aef0e4896abc75b367cfae486326fd280">nodes</link>(x):&#32;&#32;
+<anchor xml:id="_fbcover_8py_source_1l00113"/>00113 &#32;&#32;&#32;&#32;nds&#32;=&#32;np.empty(len(x),&#32;dtype=numba.boolean)
+<anchor xml:id="_fbcover_8py_source_1l00114"/>00114 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(len(x)):
+<anchor xml:id="_fbcover_8py_source_1l00115"/>00115 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;nds[i]&#32;=&#32;<emphasis role="keyword">True</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>&#32;x[i]&#32;&gt;&#32;0.5&#32;<emphasis role="keywordflow">else</emphasis>&#32;<emphasis role="keyword">False</emphasis>&#32;
+<anchor xml:id="_fbcover_8py_source_1l00116"/>00116 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;nds
+<anchor xml:id="_fbcover_8py_source_1l00117"/>00117 
+<anchor xml:id="_fbcover_8py_source_1l00118"/><link linkend="_classfbcover_1_1problem__fb">00118</link> <emphasis role="keyword">class&#32;</emphasis><link linkend="_classfbcover_1_1problem__fb">problem_fb</link>():
+<anchor xml:id="_fbcover_8py_source_1l00119"/>00119 &#32;&#32;&#32;&#32;
+<anchor xml:id="_fbcover_8py_source_1l00120"/><link linkend="_classfbcover_1_1problem__fb_1a738fdebee24a1ec0993b28d2f447d61e">00120</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfbcover_1_1problem__fb_1a738fdebee24a1ec0993b28d2f447d61e">__init__</link>(self,&#32;g):
+<anchor xml:id="_fbcover_8py_source_1l00121"/><link linkend="_classfbcover_1_1problem__fb_1a38bb90d353f1dcd4e045e2dd55870909">00121</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfbcover_1_1problem__fb_1a38bb90d353f1dcd4e045e2dd55870909">dim</link>&#32;=&#32;g.nnodes
+<anchor xml:id="_fbcover_8py_source_1l00122"/><link linkend="_classfbcover_1_1problem__fb_1a6da63b58d421497ed5f538e9ab9ae1a0">00122</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfbcover_1_1problem__fb_1a6da63b58d421497ed5f538e9ab9ae1a0">bounds</link>&#32;=&#32;Bounds([0]*self.<link linkend="_classfbcover_1_1problem__fb_1a38bb90d353f1dcd4e045e2dd55870909">dim</link>,&#32;[1.99999]*self.<link linkend="_classfbcover_1_1problem__fb_1a38bb90d353f1dcd4e045e2dd55870909">dim</link>)&#32;&#32;
+<anchor xml:id="_fbcover_8py_source_1l00123"/><link linkend="_classfbcover_1_1problem__fb_1a7f470e8c99d290e4c199ca78f3f850f2">00123</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfbcover_1_1problem__fb_1a7f470e8c99d290e4c199ca78f3f850f2">g</link>&#32;=&#32;g&#32;&#32;&#32;
+<anchor xml:id="_fbcover_8py_source_1l00124"/><link linkend="_classfbcover_1_1problem__fb_1afc7ab8dcb02a6c186221899a0cc09ebd">00124</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfbcover_1_1problem__fb_1afc7ab8dcb02a6c186221899a0cc09ebd">best_y</link>&#32;=&#32;mp.RawValue(ct.c_double,&#32;np.inf)&#32;
+<anchor xml:id="_fbcover_8py_source_1l00125"/><link linkend="_classfbcover_1_1problem__fb_1aebceee07ffeaa078cc29aca5d20e1971">00125</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfbcover_1_1problem__fb_1aebceee07ffeaa078cc29aca5d20e1971">max_cost</link>,&#32;self.<link linkend="_classfbcover_1_1problem__fb_1a1fca4ef0d827ce916d4b4ab58037567c">max_cov</link>&#32;=&#32;self.<link linkend="_classfbcover_1_1problem__fb_1afdb76f1a3d3d8545c2190561bd1905e4">cost</link>(np.array([1]*self.<link linkend="_classfbcover_1_1problem__fb_1a38bb90d353f1dcd4e045e2dd55870909">dim</link>))&#32;
+<anchor xml:id="_fbcover_8py_source_1l00126"/>00126 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_fbcover_8py_source_1l00127"/><link linkend="_classfbcover_1_1problem__fb_1afdb76f1a3d3d8545c2190561bd1905e4">00127</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfbcover_1_1problem__fb_1afdb76f1a3d3d8545c2190561bd1905e4">cost</link>(self,&#32;x):
+<anchor xml:id="_fbcover_8py_source_1l00128"/>00128 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;nds&#32;=&#32;<link linkend="_namespacefbcover_1aef0e4896abc75b367cfae486326fd280">nodes</link>(x.astype(int))
+<anchor xml:id="_fbcover_8py_source_1l00129"/>00129 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cov&#32;=&#32;<link linkend="_namespacefbcover_1a1d37d0da59730aab39af8760119dc8c8">fb_covered</link>(self.<link linkend="_classfbcover_1_1problem__fb_1a7f470e8c99d290e4c199ca78f3f850f2">g</link>.source,&#32;self.<link linkend="_classfbcover_1_1problem__fb_1a7f470e8c99d290e4c199ca78f3f850f2">g</link>.target,&#32;self.<link linkend="_classfbcover_1_1problem__fb_1a7f470e8c99d290e4c199ca78f3f850f2">g</link>.acircles,&#32;
+<anchor xml:id="_fbcover_8py_source_1l00130"/>00130 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfbcover_1_1problem__fb_1a7f470e8c99d290e4c199ca78f3f850f2">g</link>.circle_size,&#32;nds)
+<anchor xml:id="_fbcover_8py_source_1l00131"/>00131 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cost&#32;=&#32;<link linkend="_namespacefbcover_1a8588994a104cf05c867efc5ad768ada4">sum_weights</link>(nds,&#32;self.<link linkend="_classfbcover_1_1problem__fb_1a7f470e8c99d290e4c199ca78f3f850f2">g</link>.weights)
+<anchor xml:id="_fbcover_8py_source_1l00132"/>00132 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;cost,&#32;cov&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_fbcover_8py_source_1l00133"/>00133 &#32;&#32;&#32;&#32;
+<anchor xml:id="_fbcover_8py_source_1l00134"/><link linkend="_classfbcover_1_1problem__fb_1aaee0bd1064a102d1c0b08531a924bebc">00134</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfbcover_1_1problem__fb_1aaee0bd1064a102d1c0b08531a924bebc">fitness</link>(self,&#32;x):
+<anchor xml:id="_fbcover_8py_source_1l00135"/>00135 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cost,&#32;cov&#32;=&#32;self.<link linkend="_classfbcover_1_1problem__fb_1afdb76f1a3d3d8545c2190561bd1905e4">cost</link>(x)
+<anchor xml:id="_fbcover_8py_source_1l00136"/>00136 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cost&#32;/=&#32;self.<link linkend="_classfbcover_1_1problem__fb_1aebceee07ffeaa078cc29aca5d20e1971">max_cost</link>&#32;<emphasis role="comment">#&#32;to&#32;be&#32;minimized</emphasis>
+<anchor xml:id="_fbcover_8py_source_1l00137"/>00137 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cov&#32;/=&#32;-self.<link linkend="_classfbcover_1_1problem__fb_1a1fca4ef0d827ce916d4b4ab58037567c">max_cov</link>&#32;<emphasis role="comment">#&#32;to&#32;be&#32;maximized</emphasis>
+<anchor xml:id="_fbcover_8py_source_1l00138"/>00138 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;[cost,&#32;cov]
+<anchor xml:id="_fbcover_8py_source_1l00139"/>00139 
+<anchor xml:id="_fbcover_8py_source_1l00140"/><link linkend="_classfbcover_1_1problem__fb_1aafca7fa77a778148b4e8f81fc10f5607">00140</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfbcover_1_1problem__fb_1aafca7fa77a778148b4e8f81fc10f5607">fitness_so</link>(self,&#32;x):
+<anchor xml:id="_fbcover_8py_source_1l00141"/>00141 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cost,&#32;cov&#32;=&#32;self.<link linkend="_classfbcover_1_1problem__fb_1afdb76f1a3d3d8545c2190561bd1905e4">cost</link>(x)
+<anchor xml:id="_fbcover_8py_source_1l00142"/>00142 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cost&#32;/=&#32;self.<link linkend="_classfbcover_1_1problem__fb_1aebceee07ffeaa078cc29aca5d20e1971">max_cost</link>&#32;<emphasis role="comment">#&#32;to&#32;be&#32;minimized</emphasis>
+<anchor xml:id="_fbcover_8py_source_1l00143"/>00143 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cov&#32;/=&#32;-self.<link linkend="_classfbcover_1_1problem__fb_1a1fca4ef0d827ce916d4b4ab58037567c">max_cov</link>&#32;<emphasis role="comment">#&#32;to&#32;be&#32;maximized</emphasis>
+<anchor xml:id="_fbcover_8py_source_1l00144"/>00144 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cost&#32;=&#32;max(0.3,&#32;cost)&#32;<emphasis role="comment">#&#32;target&#32;30%&#32;cost</emphasis>
+<anchor xml:id="_fbcover_8py_source_1l00145"/>00145 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;y&#32;=&#32;2*cost&#32;+&#32;cov
+<anchor xml:id="_fbcover_8py_source_1l00146"/>00146 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;y&#32;&lt;&#32;self.<link linkend="_classfbcover_1_1problem__fb_1afc7ab8dcb02a6c186221899a0cc09ebd">best_y</link>.value:
+<anchor xml:id="_fbcover_8py_source_1l00147"/>00147 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfbcover_1_1problem__fb_1afc7ab8dcb02a6c186221899a0cc09ebd">best_y</link>.value&#32;=&#32;y
+<anchor xml:id="_fbcover_8py_source_1l00148"/>00148 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;nds&#32;=&#32;<link linkend="_namespacefbcover_1aef0e4896abc75b367cfae486326fd280">nodes</link>(x.astype(int))
+<anchor xml:id="_fbcover_8py_source_1l00149"/>00149 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;print(<emphasis role="stringliteral">&quot;n,cov&quot;</emphasis>,&#32;cost,&#32;cov,&#32;<link linkend="_namespacefbcover_1a6e0f66764bcc9b581187a2526b81dc3d">num_true</link>(nds),&#32;len(nds))
+<anchor xml:id="_fbcover_8py_source_1l00150"/>00150 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;y
+<anchor xml:id="_fbcover_8py_source_1l00151"/>00151 &#32;&#32;&#32;&#32;
+<anchor xml:id="_fbcover_8py_source_1l00152"/><link linkend="_namespacefbcover_1a96d70e845cfb879830051d512a70da2a">00152</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefbcover_1a96d70e845cfb879830051d512a70da2a">opt_mo</link>(g):&#32;
+<anchor xml:id="_fbcover_8py_source_1l00153"/>00153 &#32;&#32;&#32;&#32;prob&#32;=&#32;<link linkend="_classfbcover_1_1problem__fb">problem_fb</link>(g)&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_fbcover_8py_source_1l00154"/>00154 &#32;&#32;&#32;&#32;pname&#32;=&#32;<emphasis role="stringliteral">&quot;fb1912_mo500k.256.32.de&quot;</emphasis>&#32;&#32;&#32;&#32;
+<anchor xml:id="_fbcover_8py_source_1l00155"/>00155 &#32;&#32;&#32;&#32;x,&#32;y&#32;=&#32;modecpp.retry(<link linkend="_classfcmaes_1_1mode_1_1wrapper">mode.wrapper</link>(prob.fitness,&#32;2),&#32;
+<anchor xml:id="_fbcover_8py_source_1l00156"/>00156 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;2,&#32;0,&#32;prob.bounds,&#32;popsize&#32;=&#32;256,&#32;
+<anchor xml:id="_fbcover_8py_source_1l00157"/>00157 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_evaluations&#32;=&#32;500000,&#32;ints&#32;=&#32;[<emphasis role="keyword">True</emphasis>]*prob.dim,
+<anchor xml:id="_fbcover_8py_source_1l00158"/>00158 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;nsga_update=<emphasis role="keyword">False</emphasis>,&#32;num_retries&#32;=&#32;32,
+<anchor xml:id="_fbcover_8py_source_1l00159"/>00159 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;workers=32)
+<anchor xml:id="_fbcover_8py_source_1l00160"/>00160 &#32;&#32;&#32;&#32;np.savez_compressed(pname,&#32;xs=x,&#32;ys=y)
+<anchor xml:id="_fbcover_8py_source_1l00161"/>00161 &#32;&#32;&#32;&#32;moretry.plot(pname,&#32;0,&#32;x,&#32;y,&#32;all=<emphasis role="keyword">False</emphasis>)
+<anchor xml:id="_fbcover_8py_source_1l00162"/>00162 &#32;&#32;&#32;
+<anchor xml:id="_fbcover_8py_source_1l00163"/><link linkend="_namespacefbcover_1ac30f20ffc7b04c1a995b554b5b960d5c">00163</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefbcover_1ac30f20ffc7b04c1a995b554b5b960d5c">opt_so</link>(g):&#32;
+<anchor xml:id="_fbcover_8py_source_1l00164"/>00164 &#32;&#32;&#32;&#32;prob&#32;=&#32;<link linkend="_classfbcover_1_1problem__fb">problem_fb</link>(g)&#32;&#32;
+<anchor xml:id="_fbcover_8py_source_1l00165"/>00165 &#32;&#32;&#32;&#32;pname&#32;=&#32;<emphasis role="stringliteral">&quot;fb1912_so3000k.512.32.de&quot;</emphasis>&#32;
+<anchor xml:id="_fbcover_8py_source_1l00166"/>00166 &#32;&#32;&#32;&#32;res&#32;=&#32;retry.minimize_plot(pname,&#32;<link linkend="_classfcmaes_1_1optimizer_1_1_de__cpp">De_cpp</link>(3000000,&#32;
+<anchor xml:id="_fbcover_8py_source_1l00167"/>00167 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;popsize&#32;=&#32;512,&#32;ints&#32;=&#32;[<emphasis role="keyword">True</emphasis>]*prob.dim),&#32;
+<anchor xml:id="_fbcover_8py_source_1l00168"/>00168 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classfcmaes_1_1optimizer_1_1wrapper">wrapper</link>(prob.fitness_so),&#32;
+<anchor xml:id="_fbcover_8py_source_1l00169"/>00169 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;prob.bounds,&#32;
+<anchor xml:id="_fbcover_8py_source_1l00170"/>00170 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;num_retries=32)&#32;&#32;&#32;
+<anchor xml:id="_fbcover_8py_source_1l00171"/>00171 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">print</emphasis>&#32;(<link linkend="_namespacefbcover_1aef0e4896abc75b367cfae486326fd280">nodes</link>(res.x.astype(int)))
+<anchor xml:id="_fbcover_8py_source_1l00172"/>00172 
+<anchor xml:id="_fbcover_8py_source_1l00173"/>00173 
+<anchor xml:id="_fbcover_8py_source_1l00174"/>00174 <emphasis role="keywordflow">if</emphasis>&#32;__name__&#32;==&#32;<emphasis role="stringliteral">&apos;__main__&apos;</emphasis>:
+<anchor xml:id="_fbcover_8py_source_1l00175"/><link linkend="_namespacefbcover_1aed8dd649424e36ced41d00ad9b7c8128">00175</link> &#32;&#32;&#32;&#32;g&#32;=&#32;<link linkend="_namespacefbcover_1aea05a7e0ef43a61707f165fddb3ee1ce">parse_fb</link>(<emphasis role="stringliteral">&quot;1912.edges&quot;</emphasis>,&#32;<emphasis role="stringliteral">&quot;1912.circles&quot;</emphasis>)
+<anchor xml:id="_fbcover_8py_source_1l00176"/>00176 
+<anchor xml:id="_fbcover_8py_source_1l00177"/>00177 &#32;&#32;&#32;&#32;<emphasis role="comment">#opt_so(g)</emphasis>
+<anchor xml:id="_fbcover_8py_source_1l00178"/>00178 &#32;&#32;&#32;&#32;<link linkend="_namespacefbcover_1a96d70e845cfb879830051d512a70da2a">opt_mo</link>(g)
+<anchor xml:id="_fbcover_8py_source_1l00179"/>00179 &#32;&#32;&#32;&#32;
+</programlisting></section>

@@ -1,0 +1,316 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_classfcmaes_1_1optimizer_1_1_crfmnes" xml:lang="en-US">
+<title>fcmaes.optimizer.Crfmnes Class Reference</title>
+<indexterm><primary>fcmaes.optimizer.Crfmnes</primary></indexterm>
+<para>
+
+<para>Implements the CR-FM-NES (Covariance Matrix Adaptation Evolution Strategy with Full Matrix) optimization algorithm. </para>
+ 
+</para>
+Inheritance diagram for fcmaes.optimizer.Crfmnes:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1optimizer_1_1_crfmnes__inherit__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Collaboration diagram for fcmaes.optimizer.Crfmnes:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1optimizer_1_1_crfmnes__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Public Member Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1optimizer_1_1_crfmnes_1a7aa38ceaaa7ce8a91a9932d1d893217e">__init__</link> (self, Optional[int] <link linkend="_classfcmaes_1_1optimizer_1_1_optimizer_1a434f96f307e1bf0b0196933945d518e6">max_evaluations</link>=50000, Optional[int] <link linkend="_classfcmaes_1_1optimizer_1_1_crfmnes_1abf110ededa79f1101d0acefadef018f8">popsize</link>=32, Optional[ArrayLike] <link linkend="_classfcmaes_1_1optimizer_1_1_crfmnes_1af4d308e51cb40add76e8a257dc54e634">guess</link>=None, Optional[float] <link linkend="_classfcmaes_1_1optimizer_1_1_crfmnes_1a784caafbf6afcebd51d20067ead7aaae">stop_fitness</link>=-np.inf, Optional[float] <link linkend="_classfcmaes_1_1optimizer_1_1_crfmnes_1ac325129f209caae80b300744683acf34">sdevs</link>=None, Optional[int] <link linkend="_classfcmaes_1_1optimizer_1_1_crfmnes_1a3dbb8d59213de71c0f3b5b9b74c3751b">workers</link>=None)</para>
+
+<para>Initializes the optimizer with specific parameters for the CR-FM-NES algorithm. </para>
+</listitem>
+            <listitem><para>Tuple[np.ndarray, float, int] <link linkend="_classfcmaes_1_1optimizer_1_1_crfmnes_1aeaf53b0b1cef69245496384c9c5569fb">minimize</link> (self, Callable[[ArrayLike], float] fun, Optional[Bounds] bounds, Optional[ArrayLike] <link linkend="_classfcmaes_1_1optimizer_1_1_crfmnes_1af4d308e51cb40add76e8a257dc54e634">guess</link>=None, Optional[float] <link linkend="_classfcmaes_1_1optimizer_1_1_crfmnes_1ac325129f209caae80b300744683acf34">sdevs</link>=0.3, Optional[Generator] rg=Generator(PCG64DXSM()), store=None)</para>
+
+<para>Minimizes a given objective function using a specific optimization strategy. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+Public Member Functions inherited from <link linkend="_classfcmaes_1_1optimizer_1_1_optimizer">fcmaes.optimizer.Optimizer</link>        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1optimizer_1_1_optimizer_1a51efe265d8e041b095d8210878d7d7c1">__init__</link> (self, Optional[int] <link linkend="_classfcmaes_1_1optimizer_1_1_optimizer_1a434f96f307e1bf0b0196933945d518e6">max_evaluations</link>=50000, Optional[str] <link linkend="_classfcmaes_1_1optimizer_1_1_optimizer_1ae0423ec54db7b25862e01d7863ab4708">name</link>=&apos;&apos;)</para>
+
+<para>Initializes the class with specific parameters including the maximum number of evaluations and the name. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1optimizer_1_1_optimizer_1adfc4b7f5b36503f186c68d521a9ede8a">max_eval_num</link> (self, store=None)</para>
+
+<para>Evaluates and returns the maximum number of evaluations based on the provided store or the object&apos;s default value. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1optimizer_1_1_optimizer_1acf09b9b314cc4faf25c9935e76ae1821">get_count_runs</link> (self, store=None)</para>
+
+<para>Gets the count of runs from the provided store. </para>
+</listitem>
+        </itemizedlist>
+<simplesect>
+    <title>Public Attributes    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1optimizer_1_1_crfmnes_1abf110ededa79f1101d0acefadef018f8">popsize</link> = popsize</para>
+
+<para>Size of the population used in each generation. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1optimizer_1_1_crfmnes_1a784caafbf6afcebd51d20067ead7aaae">stop_fitness</link> = stop_fitness</para>
+
+<para><link linkend="_class_fitness">Fitness</link> threshold for stopping the optimization process. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1optimizer_1_1_crfmnes_1af4d308e51cb40add76e8a257dc54e634">guess</link> = guess</para>
+
+<para>Initial guess for the starting position of the optimization. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1optimizer_1_1_crfmnes_1ac325129f209caae80b300744683acf34">sdevs</link> = sdevs</para>
+
+<para>Initial standard deviation for the covariance matrix in the. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1optimizer_1_1_crfmnes_1a3dbb8d59213de71c0f3b5b9b74c3751b">workers</link> = workers</para>
+
+<para>Number of parallel workers used for function evaluations. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+Public Attributes inherited from <link linkend="_classfcmaes_1_1optimizer_1_1_optimizer">fcmaes.optimizer.Optimizer</link>        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1optimizer_1_1_optimizer_1a434f96f307e1bf0b0196933945d518e6">max_evaluations</link> = max_evaluations</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1optimizer_1_1_optimizer_1ae0423ec54db7b25862e01d7863ab4708">name</link> = name</para>
+</listitem>
+        </itemizedlist>
+<section>
+<title>Detailed Description</title>
+
+<para>Implements the CR-FM-NES (Covariance Matrix Adaptation Evolution Strategy with Full Matrix) optimization algorithm. </para>
+
+
+
+<para>This class provides functionality to perform constrained function minimization using the CR-FM-NES optimization approach. It supports features such as population-based search, optional fitness stopping criteria, and multi-threaded evaluations. The optimizer is designed for use in scenarios requiring efficient searching in complex objective functions with optional boundary constraints.</para>
+
+<para><literallayout><computeroutput>    number can speed up optimization for computationally intensive objective functions.
+</computeroutput></literallayout> </para>
+<para>
+Definition at line <link linkend="_optimizer_8py_source_1l00844">844</link> of file <link linkend="_optimizer_8py_source">optimizer.py</link>.</para>
+</section>
+<section>
+<title>Constructor &amp; Destructor Documentation</title>
+<anchor xml:id="_classfcmaes_1_1optimizer_1_1_crfmnes_1a7aa38ceaaa7ce8a91a9932d1d893217e"/><section>
+    <title>__init__()</title>
+<indexterm><primary>__init__</primary><secondary>fcmaes.optimizer.Crfmnes</secondary></indexterm>
+<indexterm><primary>fcmaes.optimizer.Crfmnes</primary><secondary>__init__</secondary></indexterm>
+<para><computeroutput>fcmaes.optimizer.Crfmnes.__init__ ( self, Optional[int]  max_evaluations = <computeroutput>50000</computeroutput>
+, Optional[int]  popsize = <computeroutput>32</computeroutput>
+, Optional[ArrayLike]  guess = <computeroutput>None</computeroutput>
+, Optional[float]  stop_fitness = <computeroutput>-np.inf</computeroutput>
+, Optional[float]  sdevs = <computeroutput>None</computeroutput>
+, Optional[int]  workers = <computeroutput>None</computeroutput>
+)</computeroutput></para><para>
+
+<para>Initializes the optimizer with specific parameters for the CR-FM-NES algorithm. </para>
+</para>
+
+<para><literallayout><computeroutput>   This constructor sets up the configuration for the optimizer, including
+   maximum evaluations, population size, initial guess, stopping fitness,
+   standard deviations, and the number of workers for parallel evaluations.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>max_evaluations</entry><entry>
+<para>Optional[int] Maximum number of evaluations allowed for the optimization process. Defaults to 50000. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>popsize</entry><entry>
+<para>Optional[int] Size of the population for each generation in the optimization. Defaults to 32. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>guess</entry><entry>
+<para>Optional[ArrayLike] Initial guess or starting point for the optimization process. Defaults to None. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>stop_fitness</entry><entry>
+<para>Optional[float] Target fitness value at which the optimization stops. Defaults to negative infinity. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>sdevs</entry><entry>
+<para>Optional[float] Standard deviations used in the search distribution. Defaults to None. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>workers</entry><entry>
+<para>Optional[int] Number of workers to use for parallel evaluations. Defaults to None. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_optimizer_8py_source_1l00892">892</link> of file <link linkend="_optimizer_8py_source">optimizer.py</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Function Documentation</title>
+<anchor xml:id="_classfcmaes_1_1optimizer_1_1_crfmnes_1aeaf53b0b1cef69245496384c9c5569fb"/><section>
+    <title>minimize()</title>
+<indexterm><primary>minimize</primary><secondary>fcmaes.optimizer.Crfmnes</secondary></indexterm>
+<indexterm><primary>fcmaes.optimizer.Crfmnes</primary><secondary>minimize</secondary></indexterm>
+<para><computeroutput> Tuple[np.ndarray, float, int] fcmaes.optimizer.Crfmnes.minimize ( self, Callable[[ArrayLike], float] fun, Optional[Bounds] bounds, Optional[ArrayLike]  guess = <computeroutput>None</computeroutput>
+, Optional[float]  sdevs = <computeroutput>0.3</computeroutput>
+, Optional[Generator]  rg = <computeroutput>Generator(PCG64DXSM())</computeroutput>
+,  store = <computeroutput>None</computeroutput>
+)</computeroutput></para><para>
+
+<para>Minimizes a given objective function using a specific optimization strategy. </para>
+</para>
+
+<para><literallayout><computeroutput>   This function executes a constrained optimization method to find the minimum value
+   of the provided objective function within explicit boundaries.
+
+
+       fun (Callable[[ArrayLike], float]): The objective function to be minimized.
+           It takes an input of type ArrayLike and returns a float representing the
+           scalar value of the objective.
+</computeroutput></literallayout> 
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>bounds</entry><entry>
+<para>Constraints on the optimization variables defined as lower and upper bounds. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>guess</entry><entry>
+<para>Initial guess for the optimization. If not provided, the class&apos;s internal guess attribute is used. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>sdevs</entry><entry>
+<para>Initial standard deviation for the optimization. Defaults to 0.3 if not specified and overrides the class&apos;s internal sdevs attribute if provided. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>rg</entry><entry>
+<para>Random number generator used during optimization. Defaults to a Generator instance of PCG64DXSM. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>store</entry><entry>
+<para>An optional argument for storing optimization-related data. The usage depends on the implementation of the optimization method.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>Tuple[np.ndarray, float, int]: A tuple containing the best solution found (as a NumPy array), the corresponding function value, and the number of function evaluations performed. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_optimizer_8py_source_1l00933">933</link> of file <link linkend="_optimizer_8py_source">optimizer.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1optimizer_1_1_crfmnes_aeaf53b0b1cef69245496384c9c5569fb_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+<section>
+<title>Member Data Documentation</title>
+<anchor xml:id="_classfcmaes_1_1optimizer_1_1_crfmnes_1af4d308e51cb40add76e8a257dc54e634"/><section>
+    <title>guess</title>
+<indexterm><primary>guess</primary><secondary>fcmaes.optimizer.Crfmnes</secondary></indexterm>
+<indexterm><primary>fcmaes.optimizer.Crfmnes</primary><secondary>guess</secondary></indexterm>
+<para><computeroutput>fcmaes.optimizer.Crfmnes.guess = guess</computeroutput></para><para>
+
+<para>Initial guess for the starting position of the optimization. </para>
+</para>
+<para>
+Definition at line <link linkend="_optimizer_8py_source_1l00902">902</link> of file <link linkend="_optimizer_8py_source">optimizer.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1optimizer_1_1_crfmnes_1abf110ededa79f1101d0acefadef018f8"/><section>
+    <title>popsize</title>
+<indexterm><primary>popsize</primary><secondary>fcmaes.optimizer.Crfmnes</secondary></indexterm>
+<indexterm><primary>fcmaes.optimizer.Crfmnes</primary><secondary>popsize</secondary></indexterm>
+<para><computeroutput>fcmaes.optimizer.Crfmnes.popsize = popsize</computeroutput></para><para>
+
+<para>Size of the population used in each generation. </para>
+</para>
+<para>
+Definition at line <link linkend="_optimizer_8py_source_1l00900">900</link> of file <link linkend="_optimizer_8py_source">optimizer.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1optimizer_1_1_crfmnes_1ac325129f209caae80b300744683acf34"/><section>
+    <title>sdevs</title>
+<indexterm><primary>sdevs</primary><secondary>fcmaes.optimizer.Crfmnes</secondary></indexterm>
+<indexterm><primary>fcmaes.optimizer.Crfmnes</primary><secondary>sdevs</secondary></indexterm>
+<para><computeroutput>fcmaes.optimizer.Crfmnes.sdevs = sdevs</computeroutput></para><para>
+
+<para>Initial standard deviation for the covariance matrix in the. </para>
+</para>
+<para>
+Definition at line <link linkend="_optimizer_8py_source_1l00903">903</link> of file <link linkend="_optimizer_8py_source">optimizer.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1optimizer_1_1_crfmnes_1a784caafbf6afcebd51d20067ead7aaae"/><section>
+    <title>stop_fitness</title>
+<indexterm><primary>stop_fitness</primary><secondary>fcmaes.optimizer.Crfmnes</secondary></indexterm>
+<indexterm><primary>fcmaes.optimizer.Crfmnes</primary><secondary>stop_fitness</secondary></indexterm>
+<para><computeroutput>fcmaes.optimizer.Crfmnes.stop_fitness = stop_fitness</computeroutput></para><para>
+
+<para><link linkend="_class_fitness">Fitness</link> threshold for stopping the optimization process. </para>
+</para>
+
+<para>The </para>
+<para>
+Definition at line <link linkend="_optimizer_8py_source_1l00901">901</link> of file <link linkend="_optimizer_8py_source">optimizer.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1optimizer_1_1_crfmnes_1a3dbb8d59213de71c0f3b5b9b74c3751b"/><section>
+    <title>workers</title>
+<indexterm><primary>workers</primary><secondary>fcmaes.optimizer.Crfmnes</secondary></indexterm>
+<indexterm><primary>fcmaes.optimizer.Crfmnes</primary><secondary>workers</secondary></indexterm>
+<para><computeroutput>fcmaes.optimizer.Crfmnes.workers = workers</computeroutput></para><para>
+
+<para>Number of parallel workers used for function evaluations. </para>
+</para>
+
+<para>A higher </para>
+<para>
+Definition at line <link linkend="_optimizer_8py_source_1l00904">904</link> of file <link linkend="_optimizer_8py_source">optimizer.py</link>.</para>
+</section>
+<para>
+The documentation for this class was generated from the following file:</para>
+fcmaes/<link linkend="_optimizer_8py">optimizer.py</link></section>
+</section>

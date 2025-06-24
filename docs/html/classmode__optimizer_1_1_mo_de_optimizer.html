@@ -1,0 +1,2242 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>Fast CMA-ES: mode_optimizer::MoDeOptimizer Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/TeX/AMSmath','[tex]/TeX/AMSsymbols']
+  },
+  tex: {
+    macros: {},
+    packages: ['base','configmacros','TeX/AMSmath','TeX/AMSsymbols']
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/jothepro/doxygen-awesome-css" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="fcames.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Fast CMA-ES
+   &#160;<span id="projectnumber">1.6.11</span>
+   </div>
+   <div id="projectbrief">Fast Covariance Matrix Adaptation Evolution Strategy (CMA-ES) implementation in C++ and Python</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.13.2 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('classmode__optimizer_1_1_mo_de_optimizer.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="classmode__optimizer_1_1_mo_de_optimizer-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">mode_optimizer::MoDeOptimizer Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for mode_optimizer::MoDeOptimizer:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classmode__optimizer_1_1_mo_de_optimizer__coll__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a163da18af0bf36f7d599a5ab0b0915b6" id="r_a163da18af0bf36f7d599a5ab0b0915b6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a163da18af0bf36f7d599a5ab0b0915b6">MoDeOptimizer</a> (long runid_, <a class="el" href="class_fitness.html">Fitness</a> *fitfun_, int dim_, int nobj_, int ncon_, int seed_, int popsize_, double F_, double CR_, double pro_c_, double dis_c_, double pro_m_, double dis_m_, bool nsga_update_, double pareto_update_, double min_mutate_, double max_mutate_, bool *isInt_)</td></tr>
+<tr class="separator:a163da18af0bf36f7d599a5ab0b0915b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa809e16cec26180884d0762dff1283ec" id="r_aa809e16cec26180884d0762dff1283ec"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa809e16cec26180884d0762dff1283ec">~MoDeOptimizer</a> ()</td></tr>
+<tr class="separator:aa809e16cec26180884d0762dff1283ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0455034273652829d554dd3858b4b6e1" id="r_a0455034273652829d554dd3858b4b6e1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="daoptimizer_8cpp.html#af0f7533253586ad2aba962e9537d90bc">mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0455034273652829d554dd3858b4b6e1">variation</a> (const <a class="el" href="daoptimizer_8cpp.html#af0f7533253586ad2aba962e9537d90bc">mat</a> &amp;x)</td></tr>
+<tr class="separator:a0455034273652829d554dd3858b4b6e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae0edab6fb47d84a669d402f893ff4b6f" id="r_ae0edab6fb47d84a669d402f893ff4b6f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae0edab6fb47d84a669d402f893ff4b6f">nextX</a> (int p)</td></tr>
+<tr class="separator:ae0edab6fb47d84a669d402f893ff4b6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3c43901c39d8ee6f6ec5fb1d02f327e" id="r_af3c43901c39d8ee6f6ec5fb1d02f327e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af3c43901c39d8ee6f6ec5fb1d02f327e">modify</a> (<a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a> &amp;x)</td></tr>
+<tr class="separator:af3c43901c39d8ee6f6ec5fb1d02f327e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ef6cfaa4da734c923fcdbf8692875f5" id="r_a6ef6cfaa4da734c923fcdbf8692875f5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6ef6cfaa4da734c923fcdbf8692875f5">crowd_dist</a> (<a class="el" href="daoptimizer_8cpp.html#af0f7533253586ad2aba962e9537d90bc">mat</a> &amp;y)</td></tr>
+<tr class="separator:a6ef6cfaa4da734c923fcdbf8692875f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5f89faff00f2714a594e1d60cd2d6e3" id="r_af5f89faff00f2714a594e1d60cd2d6e3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af5f89faff00f2714a594e1d60cd2d6e3">is_dominated</a> (const <a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a> &amp;y, int p)</td></tr>
+<tr class="separator:af5f89faff00f2714a594e1d60cd2d6e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e6806c59a545b96460af0bdbb3bfe27" id="r_a5e6806c59a545b96460af0bdbb3bfe27"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5e6806c59a545b96460af0bdbb3bfe27">is_dominated</a> (const <a class="el" href="daoptimizer_8cpp.html#af0f7533253586ad2aba962e9537d90bc">mat</a> &amp;y, int i, int index)</td></tr>
+<tr class="separator:a5e6806c59a545b96460af0bdbb3bfe27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10363d0716952c74500da8ca679dc95b" id="r_a10363d0716952c74500da8ca679dc95b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a10363d0716952c74500da8ca679dc95b">pareto_levels</a> (const <a class="el" href="daoptimizer_8cpp.html#af0f7533253586ad2aba962e9537d90bc">mat</a> &amp;y)</td></tr>
+<tr class="separator:a10363d0716952c74500da8ca679dc95b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d4ce60e415e141efaef2728d9952933" id="r_a1d4ce60e415e141efaef2728d9952933"><td class="memItemLeft" align="right" valign="top"><a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1d4ce60e415e141efaef2728d9952933">objranks</a> (<a class="el" href="daoptimizer_8cpp.html#af0f7533253586ad2aba962e9537d90bc">mat</a> objs)</td></tr>
+<tr class="separator:a1d4ce60e415e141efaef2728d9952933"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d415b38158a793f2a2d666e921d838b" id="r_a7d415b38158a793f2a2d666e921d838b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7d415b38158a793f2a2d666e921d838b">ranks</a> (<a class="el" href="daoptimizer_8cpp.html#af0f7533253586ad2aba962e9537d90bc">mat</a> cons, <a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a> eps)</td></tr>
+<tr class="separator:a7d415b38158a793f2a2d666e921d838b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3762607fa33f7bb558fd7aae9690fc37" id="r_a3762607fa33f7bb558fd7aae9690fc37"><td class="memItemLeft" align="right" valign="top"><a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3762607fa33f7bb558fd7aae9690fc37">pareto</a> (const <a class="el" href="daoptimizer_8cpp.html#af0f7533253586ad2aba962e9537d90bc">mat</a> &amp;ys)</td></tr>
+<tr class="separator:a3762607fa33f7bb558fd7aae9690fc37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed65680ebd6f773bab2c475fbb527827" id="r_aed65680ebd6f773bab2c475fbb527827"><td class="memItemLeft" align="right" valign="top"><a class="el" href="daoptimizer_8cpp.html#aa45a218a6a9d424e78898121d21f082d">ivec</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aed65680ebd6f773bab2c475fbb527827">random_int_vector</a> (int size)</td></tr>
+<tr class="separator:aed65680ebd6f773bab2c475fbb527827"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8941e256d6ff3843da336b4473513363" id="r_a8941e256d6ff3843da336b4473513363"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8941e256d6ff3843da336b4473513363">pop_update</a> ()</td></tr>
+<tr class="separator:a8941e256d6ff3843da336b4473513363"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5abdc69324e8a71cfdebde3f5692e2ca" id="r_a5abdc69324e8a71cfdebde3f5692e2ca"><td class="memItemLeft" align="right" valign="top"><a class="el" href="daoptimizer_8cpp.html#af0f7533253586ad2aba962e9537d90bc">mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5abdc69324e8a71cfdebde3f5692e2ca">ask</a> ()</td></tr>
+<tr class="separator:a5abdc69324e8a71cfdebde3f5692e2ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae75b13be3336c20b675886b7e0f0bb11" id="r_ae75b13be3336c20b675886b7e0f0bb11"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae75b13be3336c20b675886b7e0f0bb11">setX</a> (<a class="el" href="daoptimizer_8cpp.html#af0f7533253586ad2aba962e9537d90bc">mat</a> xs)</td></tr>
+<tr class="separator:ae75b13be3336c20b675886b7e0f0bb11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe30b3010caaf8d4648b31adfa127fd2" id="r_abe30b3010caaf8d4648b31adfa127fd2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abe30b3010caaf8d4648b31adfa127fd2">tell</a> (<a class="el" href="daoptimizer_8cpp.html#af0f7533253586ad2aba962e9537d90bc">mat</a> ys)</td></tr>
+<tr class="separator:abe30b3010caaf8d4648b31adfa127fd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d11baa8f5e4d3e4f68fe678918eb09a" id="r_a9d11baa8f5e4d3e4f68fe678918eb09a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9d11baa8f5e4d3e4f68fe678918eb09a">tell</a> (<a class="el" href="daoptimizer_8cpp.html#af0f7533253586ad2aba962e9537d90bc">mat</a> ys, bool nsga_update_, double pareto_update_)</td></tr>
+<tr class="separator:a9d11baa8f5e4d3e4f68fe678918eb09a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0ac96eb437da4896667a45d11d37d17" id="r_ac0ac96eb437da4896667a45d11d37d17"><td class="memItemLeft" align="right" valign="top"><a class="el" href="daoptimizer_8cpp.html#af0f7533253586ad2aba962e9537d90bc">mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac0ac96eb437da4896667a45d11d37d17">getPopulation</a> ()</td></tr>
+<tr class="separator:ac0ac96eb437da4896667a45d11d37d17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e864a8ba16fb9f3ab38260f7cbfa773" id="r_a5e864a8ba16fb9f3ab38260f7cbfa773"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5e864a8ba16fb9f3ab38260f7cbfa773">init</a> ()</td></tr>
+<tr class="separator:a5e864a8ba16fb9f3ab38260f7cbfa773"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adbc432704310adeeade48f55cc1ecb63" id="r_adbc432704310adeeade48f55cc1ecb63"><td class="memItemLeft" align="right" valign="top"><a class="el" href="daoptimizer_8cpp.html#af0f7533253586ad2aba962e9537d90bc">mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adbc432704310adeeade48f55cc1ecb63">getX</a> ()</td></tr>
+<tr class="separator:adbc432704310adeeade48f55cc1ecb63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52df4b6d8bd56e5aa89a775338ad4e2f" id="r_a52df4b6d8bd56e5aa89a775338ad4e2f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="daoptimizer_8cpp.html#af0f7533253586ad2aba962e9537d90bc">mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a52df4b6d8bd56e5aa89a775338ad4e2f">getY</a> ()</td></tr>
+<tr class="separator:a52df4b6d8bd56e5aa89a775338ad4e2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a626ae2567fef61822eaa0cc6aaa6e4" id="r_a5a626ae2567fef61822eaa0cc6aaa6e4"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5a626ae2567fef61822eaa0cc6aaa6e4">getIterations</a> ()</td></tr>
+<tr class="separator:a5a626ae2567fef61822eaa0cc6aaa6e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4022efa7d51865ed4d97931bf611e914" id="r_a4022efa7d51865ed4d97931bf611e914"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4022efa7d51865ed4d97931bf611e914">getStop</a> ()</td></tr>
+<tr class="separator:a4022efa7d51865ed4d97931bf611e914"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51327e372807cc0ef7de27dae144fbe2" id="r_a51327e372807cc0ef7de27dae144fbe2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_fitness.html">Fitness</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a51327e372807cc0ef7de27dae144fbe2">getFitfun</a> ()</td></tr>
+<tr class="separator:a51327e372807cc0ef7de27dae144fbe2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b3ff868b5d9f398ac048f02cdeddd7c" id="r_a9b3ff868b5d9f398ac048f02cdeddd7c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9b3ff868b5d9f398ac048f02cdeddd7c">getDim</a> ()</td></tr>
+<tr class="separator:a9b3ff868b5d9f398ac048f02cdeddd7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a403d7134c1c92e24818df5a8d00c0cc3" id="r_a403d7134c1c92e24818df5a8d00c0cc3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a403d7134c1c92e24818df5a8d00c0cc3">getNobj</a> ()</td></tr>
+<tr class="separator:a403d7134c1c92e24818df5a8d00c0cc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b4870b045748a2ad502f9788e4771be" id="r_a9b4870b045748a2ad502f9788e4771be"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9b4870b045748a2ad502f9788e4771be">getNcon</a> ()</td></tr>
+<tr class="separator:a9b4870b045748a2ad502f9788e4771be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:accd38c8a40e0b6a43c195941f7ce5c8b" id="r_accd38c8a40e0b6a43c195941f7ce5c8b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#accd38c8a40e0b6a43c195941f7ce5c8b">getPopsize</a> ()</td></tr>
+<tr class="separator:accd38c8a40e0b6a43c195941f7ce5c8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7983bac3697e7bc3f1972876b7dc6409" id="r_a7983bac3697e7bc3f1972876b7dc6409"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7983bac3697e7bc3f1972876b7dc6409">setPopsize</a> (int size)</td></tr>
+<tr class="separator:a7983bac3697e7bc3f1972876b7dc6409"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:aa80910f343eea5e7a618f3fe7b2caf25" id="r_aa80910f343eea5e7a618f3fe7b2caf25"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa80910f343eea5e7a618f3fe7b2caf25">runid</a></td></tr>
+<tr class="separator:aa80910f343eea5e7a618f3fe7b2caf25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e170e8649f89ff648eff4bf8e12be82" id="r_a1e170e8649f89ff648eff4bf8e12be82"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_fitness.html">Fitness</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1e170e8649f89ff648eff4bf8e12be82">fitfun</a></td></tr>
+<tr class="separator:a1e170e8649f89ff648eff4bf8e12be82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a049b95e05389fa43cf9824e2c9f74738" id="r_a049b95e05389fa43cf9824e2c9f74738"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a049b95e05389fa43cf9824e2c9f74738">popsize</a></td></tr>
+<tr class="separator:a049b95e05389fa43cf9824e2c9f74738"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a525d3ef2687b848cf441d5fa6fc603c3" id="r_a525d3ef2687b848cf441d5fa6fc603c3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a525d3ef2687b848cf441d5fa6fc603c3">dim</a></td></tr>
+<tr class="separator:a525d3ef2687b848cf441d5fa6fc603c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0fac3538c85110c074c67b42af91b63d" id="r_a0fac3538c85110c074c67b42af91b63d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0fac3538c85110c074c67b42af91b63d">nobj</a></td></tr>
+<tr class="separator:a0fac3538c85110c074c67b42af91b63d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adbdd68d58d539c3c06852139e73c50a7" id="r_adbdd68d58d539c3c06852139e73c50a7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adbdd68d58d539c3c06852139e73c50a7">ncon</a></td></tr>
+<tr class="separator:adbdd68d58d539c3c06852139e73c50a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1293cf70abda945e279153f492a7ac93" id="r_a1293cf70abda945e279153f492a7ac93"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1293cf70abda945e279153f492a7ac93">keep</a></td></tr>
+<tr class="separator:a1293cf70abda945e279153f492a7ac93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8735c5c9b8d7403db83dacd167622428" id="r_a8735c5c9b8d7403db83dacd167622428"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8735c5c9b8d7403db83dacd167622428">stopfitness</a></td></tr>
+<tr class="separator:a8735c5c9b8d7403db83dacd167622428"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8d87c510901036d807bbd312e5b652b" id="r_aa8d87c510901036d807bbd312e5b652b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa8d87c510901036d807bbd312e5b652b">iterations</a></td></tr>
+<tr class="separator:aa8d87c510901036d807bbd312e5b652b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52b577c15bc193cdf3f61e0c270184e8" id="r_a52b577c15bc193cdf3f61e0c270184e8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a52b577c15bc193cdf3f61e0c270184e8">n_evals</a></td></tr>
+<tr class="separator:a52b577c15bc193cdf3f61e0c270184e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09b8202d4c500c4a51410eeb48e79103" id="r_a09b8202d4c500c4a51410eeb48e79103"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a09b8202d4c500c4a51410eeb48e79103">stop</a></td></tr>
+<tr class="separator:a09b8202d4c500c4a51410eeb48e79103"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa08b5b7d015ba33ad43f3a6fe11869f4" id="r_aa08b5b7d015ba33ad43f3a6fe11869f4"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa08b5b7d015ba33ad43f3a6fe11869f4">F0</a></td></tr>
+<tr class="separator:aa08b5b7d015ba33ad43f3a6fe11869f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e19fae27d9ed4687096dd8426b4cbeb" id="r_a2e19fae27d9ed4687096dd8426b4cbeb"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2e19fae27d9ed4687096dd8426b4cbeb">CR0</a></td></tr>
+<tr class="separator:a2e19fae27d9ed4687096dd8426b4cbeb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21094b0a99aaed9a1e16ebde53afe8cc" id="r_a21094b0a99aaed9a1e16ebde53afe8cc"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a21094b0a99aaed9a1e16ebde53afe8cc">F</a></td></tr>
+<tr class="separator:a21094b0a99aaed9a1e16ebde53afe8cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e089b2926237332790e44bbb4cda41f" id="r_a8e089b2926237332790e44bbb4cda41f"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8e089b2926237332790e44bbb4cda41f">CR</a></td></tr>
+<tr class="separator:a8e089b2926237332790e44bbb4cda41f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26c43b21cd840f3d8edfab54602c8088" id="r_a26c43b21cd840f3d8edfab54602c8088"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a26c43b21cd840f3d8edfab54602c8088">pro_c</a></td></tr>
+<tr class="separator:a26c43b21cd840f3d8edfab54602c8088"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2629e1f2c634bf07a9606516515b6d3c" id="r_a2629e1f2c634bf07a9606516515b6d3c"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2629e1f2c634bf07a9606516515b6d3c">dis_c</a></td></tr>
+<tr class="separator:a2629e1f2c634bf07a9606516515b6d3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48225933ba93cf9b72b6dd748672944f" id="r_a48225933ba93cf9b72b6dd748672944f"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a48225933ba93cf9b72b6dd748672944f">pro_m</a></td></tr>
+<tr class="separator:a48225933ba93cf9b72b6dd748672944f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ae0187b26f0dce18fe523e9ad13ac6e" id="r_a1ae0187b26f0dce18fe523e9ad13ac6e"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1ae0187b26f0dce18fe523e9ad13ac6e">dis_m</a></td></tr>
+<tr class="separator:a1ae0187b26f0dce18fe523e9ad13ac6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab85bddd76c7d99e1d39993ce774ca622" id="r_ab85bddd76c7d99e1d39993ce774ca622"><td class="memItemLeft" align="right" valign="top">pcg64 *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab85bddd76c7d99e1d39993ce774ca622">rs</a></td></tr>
+<tr class="separator:ab85bddd76c7d99e1d39993ce774ca622"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8117860be738d75f79e7c0359baf64c5" id="r_a8117860be738d75f79e7c0359baf64c5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="daoptimizer_8cpp.html#af0f7533253586ad2aba962e9537d90bc">mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8117860be738d75f79e7c0359baf64c5">popX</a></td></tr>
+<tr class="separator:a8117860be738d75f79e7c0359baf64c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4f57bd08638b2779afe68ddc7214d3e" id="r_ae4f57bd08638b2779afe68ddc7214d3e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="daoptimizer_8cpp.html#af0f7533253586ad2aba962e9537d90bc">mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae4f57bd08638b2779afe68ddc7214d3e">popY</a></td></tr>
+<tr class="separator:ae4f57bd08638b2779afe68ddc7214d3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6659d6638b70e97c73ef9dc81b1e0d2" id="r_ae6659d6638b70e97c73ef9dc81b1e0d2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="daoptimizer_8cpp.html#af0f7533253586ad2aba962e9537d90bc">mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae6659d6638b70e97c73ef9dc81b1e0d2">vX</a></td></tr>
+<tr class="separator:ae6659d6638b70e97c73ef9dc81b1e0d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6725ac2fbfde7aa80f031f69b0567a7" id="r_ad6725ac2fbfde7aa80f031f69b0567a7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad6725ac2fbfde7aa80f031f69b0567a7">vp</a></td></tr>
+<tr class="separator:ad6725ac2fbfde7aa80f031f69b0567a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b2332ae4d4347e6c2fbe7c361a3f4ac" id="r_a5b2332ae4d4347e6c2fbe7c361a3f4ac"><td class="memItemLeft" align="right" valign="top"><a class="el" href="daoptimizer_8cpp.html#af0f7533253586ad2aba962e9537d90bc">mat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5b2332ae4d4347e6c2fbe7c361a3f4ac">lastCon</a></td></tr>
+<tr class="separator:a5b2332ae4d4347e6c2fbe7c361a3f4ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a160a04578fb2ae6512edc6cb5cd642f3" id="r_a160a04578fb2ae6512edc6cb5cd642f3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a160a04578fb2ae6512edc6cb5cd642f3">lastEps</a></td></tr>
+<tr class="separator:a160a04578fb2ae6512edc6cb5cd642f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2360670fdb71a5da25b70d0ba66ef6e4" id="r_a2360670fdb71a5da25b70d0ba66ef6e4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2360670fdb71a5da25b70d0ba66ef6e4">next_size</a></td></tr>
+<tr class="separator:a2360670fdb71a5da25b70d0ba66ef6e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60d056b89031e6b391d95b679b713f2b" id="r_a60d056b89031e6b391d95b679b713f2b"><td class="memItemLeft" align="right" valign="top">std::vector&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a60d056b89031e6b391d95b679b713f2b">vdone</a></td></tr>
+<tr class="separator:a60d056b89031e6b391d95b679b713f2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac06b17efdd21d372c4487f50dbfaf11b" id="r_ac06b17efdd21d372c4487f50dbfaf11b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac06b17efdd21d372c4487f50dbfaf11b">pos</a></td></tr>
+<tr class="separator:ac06b17efdd21d372c4487f50dbfaf11b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a378d36d73b3efdb1d9b6b5dbbedb130f" id="r_a378d36d73b3efdb1d9b6b5dbbedb130f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a378d36d73b3efdb1d9b6b5dbbedb130f">nsga_update</a></td></tr>
+<tr class="separator:a378d36d73b3efdb1d9b6b5dbbedb130f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7aaf6cbec2a38894382d79c0453b089f" id="r_a7aaf6cbec2a38894382d79c0453b089f"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7aaf6cbec2a38894382d79c0453b089f">pareto_update</a></td></tr>
+<tr class="separator:a7aaf6cbec2a38894382d79c0453b089f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c98f5bff98f17a004b99fb3430f9e55" id="r_a6c98f5bff98f17a004b99fb3430f9e55"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6c98f5bff98f17a004b99fb3430f9e55">min_mutate</a></td></tr>
+<tr class="separator:a6c98f5bff98f17a004b99fb3430f9e55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a953467de91810e549f4bc0117ec73ad9" id="r_a953467de91810e549f4bc0117ec73ad9"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a953467de91810e549f4bc0117ec73ad9">max_mutate</a></td></tr>
+<tr class="separator:a953467de91810e549f4bc0117ec73ad9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afded42264dc1897c870e496adbd18dc5" id="r_afded42264dc1897c870e496adbd18dc5"><td class="memItemLeft" align="right" valign="top">bool *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afded42264dc1897c870e496adbd18dc5">isInt</a></td></tr>
+<tr class="separator:afded42264dc1897c870e496adbd18dc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00054">54</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a163da18af0bf36f7d599a5ab0b0915b6" name="a163da18af0bf36f7d599a5ab0b0915b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a163da18af0bf36f7d599a5ab0b0915b6">&#9670;&#160;</a></span>MoDeOptimizer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">mode_optimizer::MoDeOptimizer::MoDeOptimizer </td>
+          <td>(</td>
+          <td class="paramtype">long</td>          <td class="paramname"><span class="paramname"><em>runid_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_fitness.html">Fitness</a> *</td>          <td class="paramname"><span class="paramname"><em>fitfun_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>dim_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>nobj_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>ncon_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>seed_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>popsize_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>F_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>CR_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>pro_c_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>dis_c_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>pro_m_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>dis_m_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>nsga_update_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>pareto_update_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>min_mutate_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>max_mutate_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool *</td>          <td class="paramname"><span class="paramname"><em>isInt_</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00058">58</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+<div id="dynsection-1" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classmode__optimizer_1_1_mo_de_optimizer_a163da18af0bf36f7d599a5ab0b0915b6_cgraph.svg" width="603" height="54"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="aa809e16cec26180884d0762dff1283ec" name="aa809e16cec26180884d0762dff1283ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa809e16cec26180884d0762dff1283ec">&#9670;&#160;</a></span>~MoDeOptimizer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">mode_optimizer::MoDeOptimizer::~MoDeOptimizer </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00111">111</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a5abdc69324e8a71cfdebde3f5692e2ca" name="a5abdc69324e8a71cfdebde3f5692e2ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5abdc69324e8a71cfdebde3f5692e2ca">&#9670;&#160;</a></span>ask()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="daoptimizer_8cpp.html#af0f7533253586ad2aba962e9537d90bc">mat</a> mode_optimizer::MoDeOptimizer::ask </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00453">453</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+<div id="dynsection-2" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classmode__optimizer_1_1_mo_de_optimizer_a5abdc69324e8a71cfdebde3f5692e2ca_cgraph.svg" width="100%" height="416"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a6ef6cfaa4da734c923fcdbf8692875f5" name="a6ef6cfaa4da734c923fcdbf8692875f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ef6cfaa4da734c923fcdbf8692875f5">&#9670;&#160;</a></span>crowd_dist()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a> mode_optimizer::MoDeOptimizer::crowd_dist </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="daoptimizer_8cpp.html#af0f7533253586ad2aba962e9537d90bc">mat</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>y</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00226">226</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+<div id="dynsection-3" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-3-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classmode__optimizer_1_1_mo_de_optimizer_a6ef6cfaa4da734c923fcdbf8692875f5_cgraph.svg" width="522" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-4" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-4-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-4-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classmode__optimizer_1_1_mo_de_optimizer_a6ef6cfaa4da734c923fcdbf8692875f5_icgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a9b3ff868b5d9f398ac048f02cdeddd7c" name="a9b3ff868b5d9f398ac048f02cdeddd7c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b3ff868b5d9f398ac048f02cdeddd7c">&#9670;&#160;</a></span>getDim()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int mode_optimizer::MoDeOptimizer::getDim </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00520">520</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a51327e372807cc0ef7de27dae144fbe2" name="a51327e372807cc0ef7de27dae144fbe2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51327e372807cc0ef7de27dae144fbe2">&#9670;&#160;</a></span>getFitfun()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_fitness.html">Fitness</a> * mode_optimizer::MoDeOptimizer::getFitfun </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00516">516</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a5a626ae2567fef61822eaa0cc6aaa6e4" name="a5a626ae2567fef61822eaa0cc6aaa6e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a626ae2567fef61822eaa0cc6aaa6e4">&#9670;&#160;</a></span>getIterations()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double mode_optimizer::MoDeOptimizer::getIterations </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00508">508</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a9b4870b045748a2ad502f9788e4771be" name="a9b4870b045748a2ad502f9788e4771be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b4870b045748a2ad502f9788e4771be">&#9670;&#160;</a></span>getNcon()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int mode_optimizer::MoDeOptimizer::getNcon </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00528">528</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a403d7134c1c92e24818df5a8d00c0cc3" name="a403d7134c1c92e24818df5a8d00c0cc3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a403d7134c1c92e24818df5a8d00c0cc3">&#9670;&#160;</a></span>getNobj()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int mode_optimizer::MoDeOptimizer::getNobj </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00524">524</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="accd38c8a40e0b6a43c195941f7ce5c8b" name="accd38c8a40e0b6a43c195941f7ce5c8b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#accd38c8a40e0b6a43c195941f7ce5c8b">&#9670;&#160;</a></span>getPopsize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int mode_optimizer::MoDeOptimizer::getPopsize </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00532">532</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ac0ac96eb437da4896667a45d11d37d17" name="ac0ac96eb437da4896667a45d11d37d17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0ac96eb437da4896667a45d11d37d17">&#9670;&#160;</a></span>getPopulation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="daoptimizer_8cpp.html#af0f7533253586ad2aba962e9537d90bc">mat</a> mode_optimizer::MoDeOptimizer::getPopulation </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00483">483</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a4022efa7d51865ed4d97931bf611e914" name="a4022efa7d51865ed4d97931bf611e914"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4022efa7d51865ed4d97931bf611e914">&#9670;&#160;</a></span>getStop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double mode_optimizer::MoDeOptimizer::getStop </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00512">512</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="adbc432704310adeeade48f55cc1ecb63" name="adbc432704310adeeade48f55cc1ecb63"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adbc432704310adeeade48f55cc1ecb63">&#9670;&#160;</a></span>getX()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="daoptimizer_8cpp.html#af0f7533253586ad2aba962e9537d90bc">mat</a> mode_optimizer::MoDeOptimizer::getX </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00500">500</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a52df4b6d8bd56e5aa89a775338ad4e2f" name="a52df4b6d8bd56e5aa89a775338ad4e2f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52df4b6d8bd56e5aa89a775338ad4e2f">&#9670;&#160;</a></span>getY()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="daoptimizer_8cpp.html#af0f7533253586ad2aba962e9537d90bc">mat</a> mode_optimizer::MoDeOptimizer::getY </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00504">504</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a5e864a8ba16fb9f3ab38260f7cbfa773" name="a5e864a8ba16fb9f3ab38260f7cbfa773"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e864a8ba16fb9f3ab38260f7cbfa773">&#9670;&#160;</a></span>init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mode_optimizer::MoDeOptimizer::init </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00487">487</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+<div id="dynsection-5" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-5-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-5-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classmode__optimizer_1_1_mo_de_optimizer_a5e864a8ba16fb9f3ab38260f7cbfa773_cgraph.svg" width="343" height="54"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-6" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-6-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-6-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classmode__optimizer_1_1_mo_de_optimizer_a5e864a8ba16fb9f3ab38260f7cbfa773_icgraph.svg" width="484" height="120"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a5e6806c59a545b96460af0bdbb3bfe27" name="a5e6806c59a545b96460af0bdbb3bfe27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e6806c59a545b96460af0bdbb3bfe27">&#9670;&#160;</a></span>is_dominated() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool mode_optimizer::MoDeOptimizer::is_dominated </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="daoptimizer_8cpp.html#af0f7533253586ad2aba962e9537d90bc">mat</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>i</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>index</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00257">257</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="af5f89faff00f2714a594e1d60cd2d6e3" name="af5f89faff00f2714a594e1d60cd2d6e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5f89faff00f2714a594e1d60cd2d6e3">&#9670;&#160;</a></span>is_dominated() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool mode_optimizer::MoDeOptimizer::is_dominated </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>p</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00250">250</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+<div id="dynsection-7" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-7-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-7-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-7-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classmode__optimizer_1_1_mo_de_optimizer_af5f89faff00f2714a594e1d60cd2d6e3_icgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="af3c43901c39d8ee6f6ec5fb1d02f327e" name="af3c43901c39d8ee6f6ec5fb1d02f327e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3c43901c39d8ee6f6ec5fb1d02f327e">&#9670;&#160;</a></span>modify()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mode_optimizer::MoDeOptimizer::modify </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00210">210</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+<div id="dynsection-8" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-8-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-8-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-8-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classmode__optimizer_1_1_mo_de_optimizer_af3c43901c39d8ee6f6ec5fb1d02f327e_cgraph.svg" width="332" height="54"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-9" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-9-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-9-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-9-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classmode__optimizer_1_1_mo_de_optimizer_af3c43901c39d8ee6f6ec5fb1d02f327e_icgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="ae0edab6fb47d84a669d402f893ff4b6f" name="ae0edab6fb47d84a669d402f893ff4b6f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0edab6fb47d84a669d402f893ff4b6f">&#9670;&#160;</a></span>nextX()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a> mode_optimizer::MoDeOptimizer::nextX </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>p</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00171">171</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+<div id="dynsection-10" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-10-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-10-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-10-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classmode__optimizer_1_1_mo_de_optimizer_ae0edab6fb47d84a669d402f893ff4b6f_cgraph.svg" width="592" height="155"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-11" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-11-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-11-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-11-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classmode__optimizer_1_1_mo_de_optimizer_ae0edab6fb47d84a669d402f893ff4b6f_icgraph.svg" width="512" height="54"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a1d4ce60e415e141efaef2728d9952933" name="a1d4ce60e415e141efaef2728d9952933"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d4ce60e415e141efaef2728d9952933">&#9670;&#160;</a></span>objranks()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a> mode_optimizer::MoDeOptimizer::objranks </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="daoptimizer_8cpp.html#af0f7533253586ad2aba962e9537d90bc">mat</a></td>          <td class="paramname"><span class="paramname"><em>objs</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00290">290</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+<div id="dynsection-12" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-12-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-12-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-12-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classmode__optimizer_1_1_mo_de_optimizer_a1d4ce60e415e141efaef2728d9952933_cgraph.svg" width="522" height="54"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-13" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-13-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-13-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-13-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classmode__optimizer_1_1_mo_de_optimizer_a1d4ce60e415e141efaef2728d9952933_icgraph.svg" width="100%" height="390"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a3762607fa33f7bb558fd7aae9690fc37" name="a3762607fa33f7bb558fd7aae9690fc37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3762607fa33f7bb558fd7aae9690fc37">&#9670;&#160;</a></span>pareto()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a> mode_optimizer::MoDeOptimizer::pareto </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="daoptimizer_8cpp.html#af0f7533253586ad2aba962e9537d90bc">mat</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>ys</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00326">326</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+<div id="dynsection-14" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-14-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-14-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-14-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classmode__optimizer_1_1_mo_de_optimizer_a3762607fa33f7bb558fd7aae9690fc37_cgraph.svg" width="100%" height="516"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-15" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-15-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-15-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-15-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classmode__optimizer_1_1_mo_de_optimizer_a3762607fa33f7bb558fd7aae9690fc37_icgraph.svg" width="100%" height="390"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a10363d0716952c74500da8ca679dc95b" name="a10363d0716952c74500da8ca679dc95b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10363d0716952c74500da8ca679dc95b">&#9670;&#160;</a></span>pareto_levels()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a> mode_optimizer::MoDeOptimizer::pareto_levels </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="daoptimizer_8cpp.html#af0f7533253586ad2aba962e9537d90bc">mat</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>y</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00264">264</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+<div id="dynsection-16" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-16-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-16-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-16-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classmode__optimizer_1_1_mo_de_optimizer_a10363d0716952c74500da8ca679dc95b_cgraph.svg" width="100%" height="466"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-17" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-17-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-17-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-17-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classmode__optimizer_1_1_mo_de_optimizer_a10363d0716952c74500da8ca679dc95b_icgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a8941e256d6ff3843da336b4473513363" name="a8941e256d6ff3843da336b4473513363"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8941e256d6ff3843da336b4473513363">&#9670;&#160;</a></span>pop_update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mode_optimizer::MoDeOptimizer::pop_update </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00397">397</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+<div id="dynsection-18" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-18-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-18-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-18-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classmode__optimizer_1_1_mo_de_optimizer_a8941e256d6ff3843da336b4473513363_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-19" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-19-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-19-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-19-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classmode__optimizer_1_1_mo_de_optimizer_a8941e256d6ff3843da336b4473513363_icgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="aed65680ebd6f773bab2c475fbb527827" name="aed65680ebd6f773bab2c475fbb527827"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed65680ebd6f773bab2c475fbb527827">&#9670;&#160;</a></span>random_int_vector()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="daoptimizer_8cpp.html#aa45a218a6a9d424e78898121d21f082d">ivec</a> mode_optimizer::MoDeOptimizer::random_int_vector </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>size</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00388">388</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a7d415b38158a793f2a2d666e921d838b" name="a7d415b38158a793f2a2d666e921d838b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d415b38158a793f2a2d666e921d838b">&#9670;&#160;</a></span>ranks()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a> mode_optimizer::MoDeOptimizer::ranks </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="daoptimizer_8cpp.html#af0f7533253586ad2aba962e9537d90bc">mat</a></td>          <td class="paramname"><span class="paramname"><em>cons</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a></td>          <td class="paramname"><span class="paramname"><em>eps</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00302">302</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+<div id="dynsection-20" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-20-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-20-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-20-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classmode__optimizer_1_1_mo_de_optimizer_a7d415b38158a793f2a2d666e921d838b_cgraph.svg" width="522" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-21" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-21-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-21-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-21-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classmode__optimizer_1_1_mo_de_optimizer_a7d415b38158a793f2a2d666e921d838b_icgraph.svg" width="100%" height="390"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a7983bac3697e7bc3f1972876b7dc6409" name="a7983bac3697e7bc3f1972876b7dc6409"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7983bac3697e7bc3f1972876b7dc6409">&#9670;&#160;</a></span>setPopsize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mode_optimizer::MoDeOptimizer::setPopsize </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>size</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00536">536</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+<div id="dynsection-22" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-22-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-22-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-22-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classmode__optimizer_1_1_mo_de_optimizer_a7983bac3697e7bc3f1972876b7dc6409_cgraph.svg" width="603" height="54"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ae75b13be3336c20b675886b7e0f0bb11" name="ae75b13be3336c20b675886b7e0f0bb11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae75b13be3336c20b675886b7e0f0bb11">&#9670;&#160;</a></span>setX()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mode_optimizer::MoDeOptimizer::setX </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="daoptimizer_8cpp.html#af0f7533253586ad2aba962e9537d90bc">mat</a></td>          <td class="paramname"><span class="paramname"><em>xs</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00461">461</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="abe30b3010caaf8d4648b31adfa127fd2" name="abe30b3010caaf8d4648b31adfa127fd2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe30b3010caaf8d4648b31adfa127fd2">&#9670;&#160;</a></span>tell() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int mode_optimizer::MoDeOptimizer::tell </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="daoptimizer_8cpp.html#af0f7533253586ad2aba962e9537d90bc">mat</a></td>          <td class="paramname"><span class="paramname"><em>ys</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00468">468</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+<div id="dynsection-23" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-23-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-23-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-23-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classmode__optimizer_1_1_mo_de_optimizer_abe30b3010caaf8d4648b31adfa127fd2_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-24" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-24-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-24-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-24-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classmode__optimizer_1_1_mo_de_optimizer_abe30b3010caaf8d4648b31adfa127fd2_icgraph.svg" width="484" height="54"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a9d11baa8f5e4d3e4f68fe678918eb09a" name="a9d11baa8f5e4d3e4f68fe678918eb09a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d11baa8f5e4d3e4f68fe678918eb09a">&#9670;&#160;</a></span>tell() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int mode_optimizer::MoDeOptimizer::tell </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="daoptimizer_8cpp.html#af0f7533253586ad2aba962e9537d90bc">mat</a></td>          <td class="paramname"><span class="paramname"><em>ys</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>nsga_update_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>pareto_update_</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00477">477</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+<div id="dynsection-25" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-25-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-25-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-25-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classmode__optimizer_1_1_mo_de_optimizer_a9d11baa8f5e4d3e4f68fe678918eb09a_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a0455034273652829d554dd3858b4b6e1" name="a0455034273652829d554dd3858b4b6e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0455034273652829d554dd3858b4b6e1">&#9670;&#160;</a></span>variation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="daoptimizer_8cpp.html#af0f7533253586ad2aba962e9537d90bc">mat</a> mode_optimizer::MoDeOptimizer::variation </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="daoptimizer_8cpp.html#af0f7533253586ad2aba962e9537d90bc">mat</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00115">115</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+<div id="dynsection-26" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-26-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-26-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-26-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classmode__optimizer_1_1_mo_de_optimizer_a0455034273652829d554dd3858b4b6e1_cgraph.svg" width="358" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-27" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-27-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-27-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-27-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classmode__optimizer_1_1_mo_de_optimizer_a0455034273652829d554dd3858b4b6e1_icgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a8e089b2926237332790e44bbb4cda41f" name="a8e089b2926237332790e44bbb4cda41f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e089b2926237332790e44bbb4cda41f">&#9670;&#160;</a></span>CR</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double mode_optimizer::MoDeOptimizer::CR</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00556">556</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a2e19fae27d9ed4687096dd8426b4cbeb" name="a2e19fae27d9ed4687096dd8426b4cbeb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e19fae27d9ed4687096dd8426b4cbeb">&#9670;&#160;</a></span>CR0</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double mode_optimizer::MoDeOptimizer::CR0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00554">554</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a525d3ef2687b848cf441d5fa6fc603c3" name="a525d3ef2687b848cf441d5fa6fc603c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a525d3ef2687b848cf441d5fa6fc603c3">&#9670;&#160;</a></span>dim</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int mode_optimizer::MoDeOptimizer::dim</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00545">545</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a2629e1f2c634bf07a9606516515b6d3c" name="a2629e1f2c634bf07a9606516515b6d3c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2629e1f2c634bf07a9606516515b6d3c">&#9670;&#160;</a></span>dis_c</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double mode_optimizer::MoDeOptimizer::dis_c</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00558">558</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a1ae0187b26f0dce18fe523e9ad13ac6e" name="a1ae0187b26f0dce18fe523e9ad13ac6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ae0187b26f0dce18fe523e9ad13ac6e">&#9670;&#160;</a></span>dis_m</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double mode_optimizer::MoDeOptimizer::dis_m</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00560">560</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a21094b0a99aaed9a1e16ebde53afe8cc" name="a21094b0a99aaed9a1e16ebde53afe8cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a21094b0a99aaed9a1e16ebde53afe8cc">&#9670;&#160;</a></span>F</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double mode_optimizer::MoDeOptimizer::F</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00555">555</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa08b5b7d015ba33ad43f3a6fe11869f4" name="aa08b5b7d015ba33ad43f3a6fe11869f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa08b5b7d015ba33ad43f3a6fe11869f4">&#9670;&#160;</a></span>F0</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double mode_optimizer::MoDeOptimizer::F0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00553">553</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a1e170e8649f89ff648eff4bf8e12be82" name="a1e170e8649f89ff648eff4bf8e12be82"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e170e8649f89ff648eff4bf8e12be82">&#9670;&#160;</a></span>fitfun</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_fitness.html">Fitness</a>* mode_optimizer::MoDeOptimizer::fitfun</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00543">543</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="afded42264dc1897c870e496adbd18dc5" name="afded42264dc1897c870e496adbd18dc5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afded42264dc1897c870e496adbd18dc5">&#9670;&#160;</a></span>isInt</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool* mode_optimizer::MoDeOptimizer::isInt</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00575">575</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa8d87c510901036d807bbd312e5b652b" name="aa8d87c510901036d807bbd312e5b652b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8d87c510901036d807bbd312e5b652b">&#9670;&#160;</a></span>iterations</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int mode_optimizer::MoDeOptimizer::iterations</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00550">550</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a1293cf70abda945e279153f492a7ac93" name="a1293cf70abda945e279153f492a7ac93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1293cf70abda945e279153f492a7ac93">&#9670;&#160;</a></span>keep</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double mode_optimizer::MoDeOptimizer::keep</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00548">548</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a5b2332ae4d4347e6c2fbe7c361a3f4ac" name="a5b2332ae4d4347e6c2fbe7c361a3f4ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b2332ae4d4347e6c2fbe7c361a3f4ac">&#9670;&#160;</a></span>lastCon</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="daoptimizer_8cpp.html#af0f7533253586ad2aba962e9537d90bc">mat</a> mode_optimizer::MoDeOptimizer::lastCon</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00566">566</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a160a04578fb2ae6512edc6cb5cd642f3" name="a160a04578fb2ae6512edc6cb5cd642f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a160a04578fb2ae6512edc6cb5cd642f3">&#9670;&#160;</a></span>lastEps</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a> mode_optimizer::MoDeOptimizer::lastEps</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00567">567</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a953467de91810e549f4bc0117ec73ad9" name="a953467de91810e549f4bc0117ec73ad9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a953467de91810e549f4bc0117ec73ad9">&#9670;&#160;</a></span>max_mutate</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double mode_optimizer::MoDeOptimizer::max_mutate</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00574">574</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a6c98f5bff98f17a004b99fb3430f9e55" name="a6c98f5bff98f17a004b99fb3430f9e55"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c98f5bff98f17a004b99fb3430f9e55">&#9670;&#160;</a></span>min_mutate</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double mode_optimizer::MoDeOptimizer::min_mutate</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00573">573</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a52b577c15bc193cdf3f61e0c270184e8" name="a52b577c15bc193cdf3f61e0c270184e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52b577c15bc193cdf3f61e0c270184e8">&#9670;&#160;</a></span>n_evals</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int mode_optimizer::MoDeOptimizer::n_evals</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00551">551</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="adbdd68d58d539c3c06852139e73c50a7" name="adbdd68d58d539c3c06852139e73c50a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adbdd68d58d539c3c06852139e73c50a7">&#9670;&#160;</a></span>ncon</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int mode_optimizer::MoDeOptimizer::ncon</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00547">547</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a2360670fdb71a5da25b70d0ba66ef6e4" name="a2360670fdb71a5da25b70d0ba66ef6e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2360670fdb71a5da25b70d0ba66ef6e4">&#9670;&#160;</a></span>next_size</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int mode_optimizer::MoDeOptimizer::next_size</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00568">568</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a0fac3538c85110c074c67b42af91b63d" name="a0fac3538c85110c074c67b42af91b63d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0fac3538c85110c074c67b42af91b63d">&#9670;&#160;</a></span>nobj</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int mode_optimizer::MoDeOptimizer::nobj</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00546">546</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a378d36d73b3efdb1d9b6b5dbbedb130f" name="a378d36d73b3efdb1d9b6b5dbbedb130f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a378d36d73b3efdb1d9b6b5dbbedb130f">&#9670;&#160;</a></span>nsga_update</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool mode_optimizer::MoDeOptimizer::nsga_update</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00571">571</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a7aaf6cbec2a38894382d79c0453b089f" name="a7aaf6cbec2a38894382d79c0453b089f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7aaf6cbec2a38894382d79c0453b089f">&#9670;&#160;</a></span>pareto_update</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double mode_optimizer::MoDeOptimizer::pareto_update</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00572">572</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a049b95e05389fa43cf9824e2c9f74738" name="a049b95e05389fa43cf9824e2c9f74738"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a049b95e05389fa43cf9824e2c9f74738">&#9670;&#160;</a></span>popsize</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int mode_optimizer::MoDeOptimizer::popsize</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00544">544</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a8117860be738d75f79e7c0359baf64c5" name="a8117860be738d75f79e7c0359baf64c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8117860be738d75f79e7c0359baf64c5">&#9670;&#160;</a></span>popX</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="daoptimizer_8cpp.html#af0f7533253586ad2aba962e9537d90bc">mat</a> mode_optimizer::MoDeOptimizer::popX</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00562">562</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ae4f57bd08638b2779afe68ddc7214d3e" name="ae4f57bd08638b2779afe68ddc7214d3e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4f57bd08638b2779afe68ddc7214d3e">&#9670;&#160;</a></span>popY</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="daoptimizer_8cpp.html#af0f7533253586ad2aba962e9537d90bc">mat</a> mode_optimizer::MoDeOptimizer::popY</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00563">563</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ac06b17efdd21d372c4487f50dbfaf11b" name="ac06b17efdd21d372c4487f50dbfaf11b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac06b17efdd21d372c4487f50dbfaf11b">&#9670;&#160;</a></span>pos</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int mode_optimizer::MoDeOptimizer::pos</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00570">570</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a26c43b21cd840f3d8edfab54602c8088" name="a26c43b21cd840f3d8edfab54602c8088"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26c43b21cd840f3d8edfab54602c8088">&#9670;&#160;</a></span>pro_c</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double mode_optimizer::MoDeOptimizer::pro_c</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00557">557</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a48225933ba93cf9b72b6dd748672944f" name="a48225933ba93cf9b72b6dd748672944f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a48225933ba93cf9b72b6dd748672944f">&#9670;&#160;</a></span>pro_m</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double mode_optimizer::MoDeOptimizer::pro_m</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00559">559</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ab85bddd76c7d99e1d39993ce774ca622" name="ab85bddd76c7d99e1d39993ce774ca622"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab85bddd76c7d99e1d39993ce774ca622">&#9670;&#160;</a></span>rs</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">pcg64* mode_optimizer::MoDeOptimizer::rs</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00561">561</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa80910f343eea5e7a618f3fe7b2caf25" name="aa80910f343eea5e7a618f3fe7b2caf25"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa80910f343eea5e7a618f3fe7b2caf25">&#9670;&#160;</a></span>runid</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">long mode_optimizer::MoDeOptimizer::runid</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00542">542</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a09b8202d4c500c4a51410eeb48e79103" name="a09b8202d4c500c4a51410eeb48e79103"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09b8202d4c500c4a51410eeb48e79103">&#9670;&#160;</a></span>stop</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int mode_optimizer::MoDeOptimizer::stop</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00552">552</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a8735c5c9b8d7403db83dacd167622428" name="a8735c5c9b8d7403db83dacd167622428"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8735c5c9b8d7403db83dacd167622428">&#9670;&#160;</a></span>stopfitness</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double mode_optimizer::MoDeOptimizer::stopfitness</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00549">549</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a60d056b89031e6b391d95b679b713f2b" name="a60d056b89031e6b391d95b679b713f2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60d056b89031e6b391d95b679b713f2b">&#9670;&#160;</a></span>vdone</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;bool&gt; mode_optimizer::MoDeOptimizer::vdone</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00569">569</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad6725ac2fbfde7aa80f031f69b0567a7" name="ad6725ac2fbfde7aa80f031f69b0567a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6725ac2fbfde7aa80f031f69b0567a7">&#9670;&#160;</a></span>vp</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int mode_optimizer::MoDeOptimizer::vp</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00565">565</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ae6659d6638b70e97c73ef9dc81b1e0d2" name="ae6659d6638b70e97c73ef9dc81b1e0d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6659d6638b70e97c73ef9dc81b1e0d2">&#9670;&#160;</a></span>vX</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="daoptimizer_8cpp.html#af0f7533253586ad2aba962e9537d90bc">mat</a> mode_optimizer::MoDeOptimizer::vX</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="modeoptimizer_8cpp_source.html#l00564">564</a> of file <a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>_fcmaescpp/<a class="el" href="modeoptimizer_8cpp_source.html">modeoptimizer.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespacemode__optimizer.html">mode_optimizer</a></li><li class="navelem"><a class="el" href="classmode__optimizer_1_1_mo_de_optimizer.html">MoDeOptimizer</a></li>
+    <li class="footer">Generated on Tue Jun 24 2025 15:37:37 for Fast CMA-ES by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+  </ul>
+</div>
+</body>
+</html>

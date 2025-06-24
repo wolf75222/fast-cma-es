@@ -1,0 +1,2452 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>Fast CMA-ES: fcmaes.cmaes.Cmaes Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/TeX/AMSmath','[tex]/TeX/AMSsymbols']
+  },
+  tex: {
+    macros: {},
+    packages: ['base','configmacros','TeX/AMSmath','TeX/AMSsymbols']
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/jothepro/doxygen-awesome-css" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="fcames.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Fast CMA-ES
+   &#160;<span id="projectnumber">1.6.11</span>
+   </div>
+   <div id="projectbrief">Fast Covariance Matrix Adaptation Evolution Strategy (CMA-ES) implementation in C++ and Python</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.13.2 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('classfcmaes_1_1cmaes_1_1_cmaes.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
+<a href="classfcmaes_1_1cmaes_1_1_cmaes-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">fcmaes.cmaes.Cmaes Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Optimization solver implementing the Covariance Matrix Adaptation Evolution Strategy (CMA-ES).  
+ <a href="#details">More...</a></p>
+<div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for fcmaes.cmaes.Cmaes:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfcmaes_1_1cmaes_1_1_cmaes__coll__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a081d9143661974676245efab12c318cb" id="r_a081d9143661974676245efab12c318cb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a081d9143661974676245efab12c318cb">__init__</a> (self, Optional[Bounds] bounds=None, Optional[ArrayLike] x0=None, Optional[Union[float, ArrayLike, Callable]] <a class="el" href="#abfb4fec954b64eec89f44d931515ed48">input_sigma</a>=0.3, Optional[int] <a class="el" href="#a761c0d9f4dee80eeede32decb57c33df">popsize</a>=31, Optional[int] <a class="el" href="#ae9bf236b9972f1dbb22e45c0938591b3">max_evaluations</a>=100000, Optional[int] <a class="el" href="#aa7a7a3eb4886eedbfa5e3b46c35adede">max_iterations</a>=100000, Optional[int] <a class="el" href="#ae977d12b9b7f088beb9df50d43936122">accuracy</a>=1.0, Optional[float] <a class="el" href="#ab77d778b85b64826f6a8e7c004387f35">stop_fitness</a>=-np.inf, Optional[bool] <a class="el" href="#a53ccd69a742fb33d4a8c783cdcd2b51a">is_terminate</a>=None, Optional[Generator] <a class="el" href="#a472913cd6e65e99db64b742fc0b348f8">rg</a>=Generator(PCG64DXSM()), Optional[Callable] <a class="el" href="#abc49c506631c8deb58566ce95a1b3069">randn</a>=np.random.randn, Optional[int] <a class="el" href="#aaf84ee8e2f184fa2e5b5b49f681fb5ed">runid</a>=0, Optional[bool] normalize=True, Optional[int] update_gap=None, Optional[Callable[[ArrayLike], float]] fun=None)</td></tr>
+<tr class="memdesc:a081d9143661974676245efab12c318cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the optimizer with user-defined or default parameters.  <br /></td></tr>
+<tr class="separator:a081d9143661974676245efab12c318cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56c7e2c2ad921a3fc6263e5be6a873f8" id="r_a56c7e2c2ad921a3fc6263e5be6a873f8"><td class="memItemLeft" align="right" valign="top">np.array&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a56c7e2c2ad921a3fc6263e5be6a873f8">ask</a> (self)</td></tr>
+<tr class="memdesc:a56c7e2c2ad921a3fc6263e5be6a873f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates a NumPy array by decoding elements in the current data structure.  <br /></td></tr>
+<tr class="separator:a56c7e2c2ad921a3fc6263e5be6a873f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a398738e6fcf7fe101cce3257fb0d579d" id="r_a398738e6fcf7fe101cce3257fb0d579d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a398738e6fcf7fe101cce3257fb0d579d">tell</a> (self, np.ndarray ys, Optional[np.ndarray] xs=None)</td></tr>
+<tr class="memdesc:a398738e6fcf7fe101cce3257fb0d579d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes the input function values and updates the internal state of the CMA-ES algorithm.  <br /></td></tr>
+<tr class="separator:a398738e6fcf7fe101cce3257fb0d579d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d18b1bc7ca57941c7ca07bde288c8f5" id="r_a7d18b1bc7ca57941c7ca07bde288c8f5"><td class="memItemLeft" align="right" valign="top">np.array&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7d18b1bc7ca57941c7ca07bde288c8f5">population</a> (self)</td></tr>
+<tr class="memdesc:a7d18b1bc7ca57941c7ca07bde288c8f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decodes the given array of representations into their respective solutions.  <br /></td></tr>
+<tr class="separator:a7d18b1bc7ca57941c7ca07bde288c8f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c6955cf059c16dfea867a214b485501" id="r_a5c6955cf059c16dfea867a214b485501"><td class="memItemLeft" align="right" valign="top">OptimizeResult&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5c6955cf059c16dfea867a214b485501">result</a> (self)</td></tr>
+<tr class="memdesc:a5c6955cf059c16dfea867a214b485501"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the optimization result containing the details of the optimization process.  <br /></td></tr>
+<tr class="separator:a5c6955cf059c16dfea867a214b485501"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab89a6f59ef9aafbe855a9547c80669f5" id="r_ab89a6f59ef9aafbe855a9547c80669f5"><td class="memItemLeft" align="right" valign="top">np.array&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab89a6f59ef9aafbe855a9547c80669f5">ask_one</a> (self)</td></tr>
+<tr class="memdesc:ab89a6f59ef9aafbe855a9547c80669f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates a single decoded solution vector based on the current distribution.  <br /></td></tr>
+<tr class="separator:ab89a6f59ef9aafbe855a9547c80669f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7cbecf8b29fb1048bd4cc7ec900692c" id="r_ac7cbecf8b29fb1048bd4cc7ec900692c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac7cbecf8b29fb1048bd4cc7ec900692c">tell_one</a> (self, float y, np.array x)</td></tr>
+<tr class="memdesc:ac7cbecf8b29fb1048bd4cc7ec900692c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes the given fitness value and solution vector, performs updates to internal data structures, and logs progress during optimization.  <br /></td></tr>
+<tr class="separator:ac7cbecf8b29fb1048bd4cc7ec900692c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff1c6aff205dfd66b677b1237f3566e7" id="r_aff1c6aff205dfd66b677b1237f3566e7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aff1c6aff205dfd66b677b1237f3566e7">newArgs</a> (self)</td></tr>
+<tr class="memdesc:aff1c6aff205dfd66b677b1237f3566e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates a new population of candidate solutions for optimization.  <br /></td></tr>
+<tr class="separator:aff1c6aff205dfd66b677b1237f3566e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae86966099ee875815394d69b087738f4" id="r_ae86966099ee875815394d69b087738f4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae86966099ee875815394d69b087738f4">do_optimize_delayed_update</a> (self, fun, max_evals=None, workers=mp.cpu_count())</td></tr>
+<tr class="memdesc:ae86966099ee875815394d69b087738f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Optimizes a given function asynchronously with delayed updates.  <br /></td></tr>
+<tr class="separator:ae86966099ee875815394d69b087738f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a974188898932b9c2ecacb33387c08fd8" id="r_a974188898932b9c2ecacb33387c08fd8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a974188898932b9c2ecacb33387c08fd8">doOptimize</a> (self)</td></tr>
+<tr class="memdesc:a974188898932b9c2ecacb33387c08fd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs an optimization process within a generation loop until termination conditions are met.  <br /></td></tr>
+<tr class="separator:a974188898932b9c2ecacb33387c08fd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7dada2c399890feafb59c01d1f424ee5" id="r_a7dada2c399890feafb59c01d1f424ee5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7dada2c399890feafb59c01d1f424ee5">updateCMA</a> (self)</td></tr>
+<tr class="memdesc:a7dada2c399890feafb59c01d1f424ee5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the evolutionary process using the Covariance Matrix Adaptation (CMA) strategy.  <br /></td></tr>
+<tr class="separator:a7dada2c399890feafb59c01d1f424ee5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3fd3fbe79efd9509bb8462382d63bdd" id="r_ae3fd3fbe79efd9509bb8462382d63bdd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae3fd3fbe79efd9509bb8462382d63bdd">updateEvolutionPaths</a> (self, zmean, xold)</td></tr>
+<tr class="memdesc:ae3fd3fbe79efd9509bb8462382d63bdd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the evolution paths required for generating new samples in the covariance matrix adaptation evolution strategy (CMA-ES).  <br /></td></tr>
+<tr class="separator:ae3fd3fbe79efd9509bb8462382d63bdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd8b8665d87f14c53cd60da16c932336" id="r_afd8b8665d87f14c53cd60da16c932336"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afd8b8665d87f14c53cd60da16c932336">updateCovariance</a> (self, hsig, bestArx, <a class="el" href="#a219b889766de63a8dcca256df781a0e5">arz</a>, arindex, xold)</td></tr>
+<tr class="memdesc:afd8b8665d87f14c53cd60da16c932336"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the covariance matrix and returns the negative covariance scaling factor.  <br /></td></tr>
+<tr class="separator:afd8b8665d87f14c53cd60da16c932336"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae26e42639fa8cb28b64c1fe1bcd7109c" id="r_ae26e42639fa8cb28b64c1fe1bcd7109c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae26e42639fa8cb28b64c1fe1bcd7109c">updateBD</a> (self, negccov)</td></tr>
+<tr class="memdesc:ae26e42639fa8cb28b64c1fe1bcd7109c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the internal state of the covariance matrix and its derived attributes, such as eigenvalues, eigenvectors, and transformations for sampling scaled isotropic Gaussian distributions.  <br /></td></tr>
+<tr class="separator:ae26e42639fa8cb28b64c1fe1bcd7109c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a84f0007d9d933264673eb08e17e2bc8a" id="r_a84f0007d9d933264673eb08e17e2bc8a"><td class="memItemLeft" align="right" valign="top">list&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a84f0007d9d933264673eb08e17e2bc8a">arx</a> = np.array([self.fitfun.encode(x) for x in xs])</td></tr>
+<tr class="separator:a84f0007d9d933264673eb08e17e2bc8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94c7703c8ab62c0696018a9dec53e7ac" id="r_a94c7703c8ab62c0696018a9dec53e7ac"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a94c7703c8ab62c0696018a9dec53e7ac">evals</a> = 0;</td></tr>
+<tr class="separator:a94c7703c8ab62c0696018a9dec53e7ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:aaf84ee8e2f184fa2e5b5b49f681fb5ed" id="r_aaf84ee8e2f184fa2e5b5b49f681fb5ed"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaf84ee8e2f184fa2e5b5b49f681fb5ed">runid</a> = 6</td></tr>
+<tr class="separator:aaf84ee8e2f184fa2e5b5b49f681fb5ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81bf83c8277ff8319a7c2ee4c4189669" id="r_a81bf83c8277ff8319a7c2ee4c4189669"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a81bf83c8277ff8319a7c2ee4c4189669">lower</a></td></tr>
+<tr class="separator:a81bf83c8277ff8319a7c2ee4c4189669"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee7e5c28fcdad6c41c9589f49d05a56a" id="r_aee7e5c28fcdad6c41c9589f49d05a56a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aee7e5c28fcdad6c41c9589f49d05a56a">upper</a></td></tr>
+<tr class="separator:aee7e5c28fcdad6c41c9589f49d05a56a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad60e13f5cfc1f2c51e12bc24507708e9" id="r_ad60e13f5cfc1f2c51e12bc24507708e9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad60e13f5cfc1f2c51e12bc24507708e9">guess</a></td></tr>
+<tr class="separator:ad60e13f5cfc1f2c51e12bc24507708e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab6158b518a6657e69010bb347c9d72f" id="r_aab6158b518a6657e69010bb347c9d72f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aab6158b518a6657e69010bb347c9d72f">fitfun</a></td></tr>
+<tr class="separator:aab6158b518a6657e69010bb347c9d72f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a472913cd6e65e99db64b742fc0b348f8" id="r_a472913cd6e65e99db64b742fc0b348f8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a472913cd6e65e99db64b742fc0b348f8">rg</a></td></tr>
+<tr class="separator:a472913cd6e65e99db64b742fc0b348f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc49c506631c8deb58566ce95a1b3069" id="r_abc49c506631c8deb58566ce95a1b3069"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abc49c506631c8deb58566ce95a1b3069">randn</a></td></tr>
+<tr class="separator:abc49c506631c8deb58566ce95a1b3069"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae977d12b9b7f088beb9df50d43936122" id="r_ae977d12b9b7f088beb9df50d43936122"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae977d12b9b7f088beb9df50d43936122">accuracy</a></td></tr>
+<tr class="separator:ae977d12b9b7f088beb9df50d43936122"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53ccd69a742fb33d4a8c783cdcd2b51a" id="r_a53ccd69a742fb33d4a8c783cdcd2b51a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a53ccd69a742fb33d4a8c783cdcd2b51a">is_terminate</a></td></tr>
+<tr class="separator:a53ccd69a742fb33d4a8c783cdcd2b51a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e2ca07b4daef2f2ad49d42d3220f268" id="r_a2e2ca07b4daef2f2ad49d42d3220f268"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2e2ca07b4daef2f2ad49d42d3220f268">dim</a> = self.pc</td></tr>
+<tr class="separator:a2e2ca07b4daef2f2ad49d42d3220f268"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a761c0d9f4dee80eeede32decb57c33df" id="r_a761c0d9f4dee80eeede32decb57c33df"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a761c0d9f4dee80eeede32decb57c33df">popsize</a></td></tr>
+<tr class="separator:a761c0d9f4dee80eeede32decb57c33df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abfb4fec954b64eec89f44d931515ed48" id="r_abfb4fec954b64eec89f44d931515ed48"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abfb4fec954b64eec89f44d931515ed48">input_sigma</a> = input_sigma()</td></tr>
+<tr class="separator:abfb4fec954b64eec89f44d931515ed48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a255bb1d29dc205cf8a37e794bb7fa209" id="r_a255bb1d29dc205cf8a37e794bb7fa209"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a255bb1d29dc205cf8a37e794bb7fa209">insigma</a></td></tr>
+<tr class="separator:a255bb1d29dc205cf8a37e794bb7fa209"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c1c9cf3e185d2a6d4e8d64db0a2f256" id="r_a0c1c9cf3e185d2a6d4e8d64db0a2f256"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0c1c9cf3e185d2a6d4e8d64db0a2f256">sigma</a></td></tr>
+<tr class="separator:a0c1c9cf3e185d2a6d4e8d64db0a2f256"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9bf236b9972f1dbb22e45c0938591b3" id="r_ae9bf236b9972f1dbb22e45c0938591b3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae9bf236b9972f1dbb22e45c0938591b3">max_evaluations</a></td></tr>
+<tr class="separator:ae9bf236b9972f1dbb22e45c0938591b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7a7a3eb4886eedbfa5e3b46c35adede" id="r_aa7a7a3eb4886eedbfa5e3b46c35adede"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa7a7a3eb4886eedbfa5e3b46c35adede">max_iterations</a></td></tr>
+<tr class="separator:aa7a7a3eb4886eedbfa5e3b46c35adede"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab77d778b85b64826f6a8e7c004387f35" id="r_ab77d778b85b64826f6a8e7c004387f35"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab77d778b85b64826f6a8e7c004387f35">stop_fitness</a></td></tr>
+<tr class="separator:ab77d778b85b64826f6a8e7c004387f35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afaa10b55e67589d51b3781645d801da2" id="r_afaa10b55e67589d51b3781645d801da2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afaa10b55e67589d51b3781645d801da2">stopTolUpX</a></td></tr>
+<tr class="separator:afaa10b55e67589d51b3781645d801da2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abebaeee4cae9bad0d9ea507610aad62a" id="r_abebaeee4cae9bad0d9ea507610aad62a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abebaeee4cae9bad0d9ea507610aad62a">stopTolX</a></td></tr>
+<tr class="separator:abebaeee4cae9bad0d9ea507610aad62a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87a139a9830d96524ee8cac362cc03a0" id="r_a87a139a9830d96524ee8cac362cc03a0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a87a139a9830d96524ee8cac362cc03a0">stopTolFun</a></td></tr>
+<tr class="separator:a87a139a9830d96524ee8cac362cc03a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa66313795089b51ff1f38a62e2664fd" id="r_aaa66313795089b51ff1f38a62e2664fd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaa66313795089b51ff1f38a62e2664fd">stopTolHistFun</a></td></tr>
+<tr class="separator:aaa66313795089b51ff1f38a62e2664fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d8d08495e9ebae0cc1e8164f92bbda0" id="r_a3d8d08495e9ebae0cc1e8164f92bbda0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3d8d08495e9ebae0cc1e8164f92bbda0">mu</a></td></tr>
+<tr class="separator:a3d8d08495e9ebae0cc1e8164f92bbda0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7dc4517b21d000a43313255dd7f7b5ee" id="r_a7dc4517b21d000a43313255dd7f7b5ee"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7dc4517b21d000a43313255dd7f7b5ee">best_y</a></td></tr>
+<tr class="separator:a7dc4517b21d000a43313255dd7f7b5ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13f1cc130df08ee63adedf73d9bb0d45" id="r_a13f1cc130df08ee63adedf73d9bb0d45"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a13f1cc130df08ee63adedf73d9bb0d45">n_evals</a></td></tr>
+<tr class="separator:a13f1cc130df08ee63adedf73d9bb0d45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83af54c38e948804ee8aceba231d25ab" id="r_a83af54c38e948804ee8aceba231d25ab"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a83af54c38e948804ee8aceba231d25ab">time_0</a></td></tr>
+<tr class="separator:a83af54c38e948804ee8aceba231d25ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa1dbc74053584467bcd74d4d7cbcf4c" id="r_afa1dbc74053584467bcd74d4d7cbcf4c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afa1dbc74053584467bcd74d4d7cbcf4c">weights</a></td></tr>
+<tr class="separator:afa1dbc74053584467bcd74d4d7cbcf4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88afdde6c2904cd36c827facfb43e8a9" id="r_a88afdde6c2904cd36c827facfb43e8a9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a88afdde6c2904cd36c827facfb43e8a9">sumw</a> = np.sum(self.weights)</td></tr>
+<tr class="separator:a88afdde6c2904cd36c827facfb43e8a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ca9e07a6a38eba18c3370262eb550fd" id="r_a2ca9e07a6a38eba18c3370262eb550fd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2ca9e07a6a38eba18c3370262eb550fd">sumwq</a> = np.einsum('i,i-&gt;', self.weights, self.weights)</td></tr>
+<tr class="separator:a2ca9e07a6a38eba18c3370262eb550fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87b45423cf6e89e57e4682ff318a5c88" id="r_a87b45423cf6e89e57e4682ff318a5c88"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a87b45423cf6e89e57e4682ff318a5c88">mueff</a></td></tr>
+<tr class="separator:a87b45423cf6e89e57e4682ff318a5c88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a896dcfff9b45acea10fdf6f918ca8329" id="r_a896dcfff9b45acea10fdf6f918ca8329"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a896dcfff9b45acea10fdf6f918ca8329">cc</a></td></tr>
+<tr class="separator:a896dcfff9b45acea10fdf6f918ca8329"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c15e41b9f3e7d6eb11ff2112109cd52" id="r_a8c15e41b9f3e7d6eb11ff2112109cd52"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8c15e41b9f3e7d6eb11ff2112109cd52">cs</a></td></tr>
+<tr class="separator:a8c15e41b9f3e7d6eb11ff2112109cd52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa86568b2e35fa0abc9c44441370001b6" id="r_aa86568b2e35fa0abc9c44441370001b6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa86568b2e35fa0abc9c44441370001b6">damps</a></td></tr>
+<tr class="separator:aa86568b2e35fa0abc9c44441370001b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64138cc1569696378f425b77a1133c55" id="r_a64138cc1569696378f425b77a1133c55"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a64138cc1569696378f425b77a1133c55">ccov1</a></td></tr>
+<tr class="separator:a64138cc1569696378f425b77a1133c55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4f76391f5b24411336fd43932b1f32d" id="r_ac4f76391f5b24411336fd43932b1f32d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac4f76391f5b24411336fd43932b1f32d">ccovmu</a></td></tr>
+<tr class="separator:ac4f76391f5b24411336fd43932b1f32d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af748707b894a344fc39d3d933ddd6875" id="r_af748707b894a344fc39d3d933ddd6875"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af748707b894a344fc39d3d933ddd6875">chiN</a></td></tr>
+<tr class="separator:af748707b894a344fc39d3d933ddd6875"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad83a90d453bf38c57926596aab31f741" id="r_ad83a90d453bf38c57926596aab31f741"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad83a90d453bf38c57926596aab31f741">ccov1Sep</a></td></tr>
+<tr class="separator:ad83a90d453bf38c57926596aab31f741"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad28c8205ed7b2094888c758757511eea" id="r_ad28c8205ed7b2094888c758757511eea"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad28c8205ed7b2094888c758757511eea">ccovmuSep</a></td></tr>
+<tr class="separator:ad28c8205ed7b2094888c758757511eea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd695ddec4028c73504ddc1e56d9ddbb" id="r_abd695ddec4028c73504ddc1e56d9ddbb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abd695ddec4028c73504ddc1e56d9ddbb">lazy_update_gap</a></td></tr>
+<tr class="separator:abd695ddec4028c73504ddc1e56d9ddbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab23d2436d1c72f54ab99839058c1adf3" id="r_ab23d2436d1c72f54ab99839058c1adf3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab23d2436d1c72f54ab99839058c1adf3">xmean</a></td></tr>
+<tr class="separator:ab23d2436d1c72f54ab99839058c1adf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72279ffee64f7ce0014f5a6f2a5dcbe2" id="r_a72279ffee64f7ce0014f5a6f2a5dcbe2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a72279ffee64f7ce0014f5a6f2a5dcbe2">pc</a></td></tr>
+<tr class="separator:a72279ffee64f7ce0014f5a6f2a5dcbe2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf10f8059a83dd6d1d02c17f8c9317b0" id="r_abf10f8059a83dd6d1d02c17f8c9317b0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abf10f8059a83dd6d1d02c17f8c9317b0">ps</a></td></tr>
+<tr class="separator:abf10f8059a83dd6d1d02c17f8c9317b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c0ece7221cef9045ab5c872974c78fc" id="r_a6c0ece7221cef9045ab5c872974c78fc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6c0ece7221cef9045ab5c872974c78fc">normps</a></td></tr>
+<tr class="separator:a6c0ece7221cef9045ab5c872974c78fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa02345ac78df378d92478bf7bb17362e" id="r_aa02345ac78df378d92478bf7bb17362e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa02345ac78df378d92478bf7bb17362e">B</a></td></tr>
+<tr class="separator:aa02345ac78df378d92478bf7bb17362e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7da80a6a1a85ca8df878d8d205b21d25" id="r_a7da80a6a1a85ca8df878d8d205b21d25"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7da80a6a1a85ca8df878d8d205b21d25">diagD</a> = 5</td></tr>
+<tr class="separator:a7da80a6a1a85ca8df878d8d205b21d25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02064e035283dd8a57de4869703c8977" id="r_a02064e035283dd8a57de4869703c8977"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a02064e035283dd8a57de4869703c8977">diagC</a></td></tr>
+<tr class="separator:a02064e035283dd8a57de4869703c8977"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:addeb9c3f1881d703fcbdab203a81e8ba" id="r_addeb9c3f1881d703fcbdab203a81e8ba"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#addeb9c3f1881d703fcbdab203a81e8ba">BD</a></td></tr>
+<tr class="separator:addeb9c3f1881d703fcbdab203a81e8ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69e5ed885bebdebca4855961f2a3c4cb" id="r_a69e5ed885bebdebca4855961f2a3c4cb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a69e5ed885bebdebca4855961f2a3c4cb">C</a></td></tr>
+<tr class="separator:a69e5ed885bebdebca4855961f2a3c4cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7581432fe2911ae409ec703de2cbc13" id="r_af7581432fe2911ae409ec703de2cbc13"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af7581432fe2911ae409ec703de2cbc13">iterations</a></td></tr>
+<tr class="separator:af7581432fe2911ae409ec703de2cbc13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91dd0137d82524d5c7f82d0992ca823c" id="r_a91dd0137d82524d5c7f82d0992ca823c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a91dd0137d82524d5c7f82d0992ca823c">historySize</a></td></tr>
+<tr class="separator:a91dd0137d82524d5c7f82d0992ca823c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afada885234491b531340c56405686608" id="r_afada885234491b531340c56405686608"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afada885234491b531340c56405686608">last_update</a></td></tr>
+<tr class="separator:afada885234491b531340c56405686608"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc278543fe1ef34927806184e59ad84c" id="r_acc278543fe1ef34927806184e59ad84c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acc278543fe1ef34927806184e59ad84c">stop</a></td></tr>
+<tr class="separator:acc278543fe1ef34927806184e59ad84c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe14f6b9326248e7d16f17edd05660c4" id="r_abe14f6b9326248e7d16f17edd05660c4"><td class="memItemLeft" align="right" valign="top">list&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abe14f6b9326248e7d16f17edd05660c4">best_value</a></td></tr>
+<tr class="separator:abe14f6b9326248e7d16f17edd05660c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a180e3a8a1099625f1d089209c93a6d85" id="r_a180e3a8a1099625f1d089209c93a6d85"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a180e3a8a1099625f1d089209c93a6d85">best_x</a> = 1</td></tr>
+<tr class="separator:a180e3a8a1099625f1d089209c93a6d85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37fe790f8441da81e8e25dd57ebe5e38" id="r_a37fe790f8441da81e8e25dd57ebe5e38"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a37fe790f8441da81e8e25dd57ebe5e38">fitness_history</a></td></tr>
+<tr class="separator:a37fe790f8441da81e8e25dd57ebe5e38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a219b889766de63a8dcca256df781a0e5" id="r_a219b889766de63a8dcca256df781a0e5"><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a219b889766de63a8dcca256df781a0e5">arz</a></td></tr>
+<tr class="separator:a219b889766de63a8dcca256df781a0e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a777ec51b23b513f06524b1d0a73e47ef" id="r_a777ec51b23b513f06524b1d0a73e47ef"><td class="memItemLeft" align="right" valign="top">list&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a777ec51b23b513f06524b1d0a73e47ef">fitness</a> = []</td></tr>
+<tr class="separator:a777ec51b23b513f06524b1d0a73e47ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Optimization solver implementing the Covariance Matrix Adaptation Evolution Strategy (CMA-ES). </p>
+<p>The CMA-ES algorithm is an evolutionary strategy for solving complex optimization problems. This class is used to configure and execute the </p>
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00144">144</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a081d9143661974676245efab12c318cb" name="a081d9143661974676245efab12c318cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a081d9143661974676245efab12c318cb">&#9670;&#160;</a></span>__init__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.__init__ </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[Bounds] </td>          <td class="paramname"><span class="paramname"><em>bounds</em></span><span class="paramdefsep"> = </span><span class="paramdefval">None</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[ArrayLike] </td>          <td class="paramname"><span class="paramname"><em>x0</em></span><span class="paramdefsep"> = </span><span class="paramdefval">None</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[Union[float, ArrayLike, Callable]] </td>          <td class="paramname"><span class="paramname"><em>input_sigma</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0.3</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[int] </td>          <td class="paramname"><span class="paramname"><em>popsize</em></span><span class="paramdefsep"> = </span><span class="paramdefval">31</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[int] </td>          <td class="paramname"><span class="paramname"><em>max_evaluations</em></span><span class="paramdefsep"> = </span><span class="paramdefval">100000</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[int] </td>          <td class="paramname"><span class="paramname"><em>max_iterations</em></span><span class="paramdefsep"> = </span><span class="paramdefval">100000</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[int] </td>          <td class="paramname"><span class="paramname"><em>accuracy</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1.0</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[float] </td>          <td class="paramname"><span class="paramname"><em>stop_fitness</em></span><span class="paramdefsep"> = </span><span class="paramdefval">-np.inf</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[bool] </td>          <td class="paramname"><span class="paramname"><em>is_terminate</em></span><span class="paramdefsep"> = </span><span class="paramdefval">None</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[Generator] </td>          <td class="paramname"><span class="paramname"><em>rg</em></span><span class="paramdefsep"> = </span><span class="paramdefval">Generator(PCG64DXSM())</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[Callable] </td>          <td class="paramname"><span class="paramname"><em>randn</em></span><span class="paramdefsep"> = </span><span class="paramdefval">np.random.randn</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[int] </td>          <td class="paramname"><span class="paramname"><em>runid</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[bool] </td>          <td class="paramname"><span class="paramname"><em>normalize</em></span><span class="paramdefsep"> = </span><span class="paramdefval">True</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[int] </td>          <td class="paramname"><span class="paramname"><em>update_gap</em></span><span class="paramdefsep"> = </span><span class="paramdefval">None</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[Callable[[ArrayLike], float]] </td>          <td class="paramname"><span class="paramname"><em>fun</em></span><span class="paramdefsep"> = </span><span class="paramdefval">None</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initializes the optimizer with user-defined or default parameters. </p>
+<pre class="fragment">   This constructor sets up the configuration for the optimization process. Users can customize the
+   initial state, population size, termination criteria, and other critical parameters to tune the
+   algorithm's behavior. The initialization process also ensures that random generation settings are
+   appropriately defined or defaulted.
+</pre><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bounds</td><td>Specifies the boundaries within which the optimization will occur. </td></tr>
+    <tr><td class="paramname">x0</td><td>Initial guess or starting point for optimization. input_sigma (Optional[Union[float, ArrayLike, Callable]]): Initial standard deviation of the distribution used in the optimization process, with a default value of 0.3. </td></tr>
+    <tr><td class="paramname">popsize</td><td>Population size for the evolutionary algorithm; default is 31. </td></tr>
+    <tr><td class="paramname">max_evaluations</td><td>Maximum number of function evaluations allowed during the optimization process; default is 100000. </td></tr>
+    <tr><td class="paramname">max_iterations</td><td>Maximum number of optimization iterations; default is 100000. </td></tr>
+    <tr><td class="paramname">accuracy</td><td>Desired accuracy or precision level for the optimization process, with a default value of 1.0. </td></tr>
+    <tr><td class="paramname">stop_fitness</td><td><a class="el" href="class_fitness.html">Fitness</a> value at which the optimization terminates early. The default is negative infinity (-np.inf), implying no fitness-based stopping criterion. </td></tr>
+    <tr><td class="paramname">is_terminate</td><td>Flag indicating whether early termination criteria are defined. </td></tr>
+    <tr><td class="paramname">rg</td><td>A generator object for random number generation, used if x0 is undefined; the default is Generator(PCG64DXSM()). </td></tr>
+    <tr><td class="paramname">randn</td><td>Function for generating random offspring during the optimization process; default is <code>np.random.randn</code>. </td></tr>
+    <tr><td class="paramname">runid</td><td>Identifier for the optimization run, useful for tracking multiple runs; <div class="fragment"><div class="line">default <span class="keywordflow">is</span> 0.</div>
+</div><!-- fragment --> normalize (Optional[bool]): Flag indicating whether inputs should be normalized during the process; default is True. </td></tr>
+    <tr><td class="paramname">update_gap</td><td>Frequency of updating certain parameters or values in the optimization process. fun (Optional[Callable[[ArrayLike], float]]): Objective function to be minimized or maximized. This function should accept an array-like input and return a float value representing the objective value. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00184">184</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a56c7e2c2ad921a3fc6263e5be6a873f8" name="a56c7e2c2ad921a3fc6263e5be6a873f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56c7e2c2ad921a3fc6263e5be6a873f8">&#9670;&#160;</a></span>ask()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> np.array fcmaes.cmaes.Cmaes.ask </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Generates a NumPy array by decoding elements in the current data structure. </p>
+<pre class="fragment">   The method processes elements stored in the internal structure, applies a decoding
+   mechanism via the fitfun's decode method, and produces an array containing the results.
+</pre><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">self</td><td>Instance of the class containing necessary properties and methods to execute the decoding logic.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd>
+<dd>
+np A NumPy array containing the decoded elements. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00338">338</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+<div id="dynsection-1" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classfcmaes_1_1cmaes_1_1_cmaes_a56c7e2c2ad921a3fc6263e5be6a873f8_cgraph.svg" width="446" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-2" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classfcmaes_1_1cmaes_1_1_cmaes_a56c7e2c2ad921a3fc6263e5be6a873f8_icgraph.svg" width="463" height="272"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ab89a6f59ef9aafbe855a9547c80669f5" name="ab89a6f59ef9aafbe855a9547c80669f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab89a6f59ef9aafbe855a9547c80669f5">&#9670;&#160;</a></span>ask_one()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> np.array fcmaes.cmaes.Cmaes.ask_one </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Generates a single decoded solution vector based on the current distribution. </p>
+<pre class="fragment">   This method utilizes the generated random numbers and transformation matrices to
+   produce a candidate solution vector that adheres to feasibility constraints, while
+   decoding it through the associated objective function.
+</pre><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">self</td><td>Instance of the class containing current state for generating a feasible and decoded solution vector.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd>
+<dd>
+np A decoded feasible solution vector. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00432">432</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+<div id="dynsection-3" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-3-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classfcmaes_1_1cmaes_1_1_cmaes_ab89a6f59ef9aafbe855a9547c80669f5_icgraph.svg" width="444" height="54"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ae86966099ee875815394d69b087738f4" name="ae86966099ee875815394d69b087738f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae86966099ee875815394d69b087738f4">&#9670;&#160;</a></span>do_optimize_delayed_update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.do_optimize_delayed_update </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>fun</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>max_evals</em></span><span class="paramdefsep"> = </span><span class="paramdefval">None</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>workers</em></span><span class="paramdefsep"> = </span><span class="paramdefval">mp.cpu_count()</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Optimizes a given function asynchronously with delayed updates. </p>
+<pre class="fragment">   This method performs optimization by evaluating the function in parallel.
+   It uses a worker-based approach where several evaluations of `fun` are
+   performed simultaneously to explore the parameter space. The results
+   are processed iteratively to determine the best solution based on the given
+   optimization criteria.
+</pre><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">self</td><td>Represents the instance of the class in which this function is </td></tr>
+    <tr><td class="paramname">defined.</td><td></td></tr>
+    <tr><td class="paramname">fun</td><td>Callable optimization objective function to be minimized or maximized. </td></tr>
+    <tr><td class="paramname">max_evals</td><td>Optional; Maximum number of evaluations to perform. If not provided, the default value of <code>self.max_evaluations</code> is used. </td></tr>
+    <tr><td class="paramname">workers</td><td>Optional; The number of parallel workers to use for evaluating the objective function. Defaults to the number of CPU cores.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd>
+<dd>
+tuple A tuple containing:<ul>
+<li>best_x: The best solution found for the input function.</li>
+<li>best_value: The best function value found.</li>
+<li>evals: The total number of evaluations performed.</li>
+<li>iterations: The number of iterations completed during optimization.</li>
+<li>stop: The stop condition or code signaling the termination reason. </li>
+</ul>
+</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00530">530</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="a974188898932b9c2ecacb33387c08fd8" name="a974188898932b9c2ecacb33387c08fd8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a974188898932b9c2ecacb33387c08fd8">&#9670;&#160;</a></span>doOptimize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.doOptimize </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Performs an optimization process within a generation loop until termination conditions are met. </p>
+<p>This method repeatedly generates candidate solutions, evaluates them using the objective function, updates the optimization state, and checks for stopping criteria.</p>
+<pre class="fragment">       self:
+</pre><dl class="section return"><dt>Returns</dt><dd></dd>
+<dd>
+tuple A tuple containing the following elements:<ul>
+<li>best_x: The best solution found during the optimization process.</li>
+<li>best_value: The objective function value of the best solution.</li>
+<li>fitfun.evaluation_counter: Total number of evaluations performed.</li>
+<li>iterations: Total number of iterations executed.</li>
+<li>stop: Stop flag indicating the reason for termination. </li>
+</ul>
+</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00576">576</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+<div id="dynsection-4" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-4-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-4-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfcmaes_1_1cmaes_1_1_cmaes_a974188898932b9c2ecacb33387c08fd8_cgraph.svg" width="100%" height="366"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="aff1c6aff205dfd66b677b1237f3566e7" name="aff1c6aff205dfd66b677b1237f3566e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff1c6aff205dfd66b677b1237f3566e7">&#9670;&#160;</a></span>newArgs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.newArgs </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Generates a new population of candidate solutions for optimization. </p>
+<pre class="fragment">   The method produces random offspring solutions based on the current mean and the
+   covariance matrix of the search distribution. These offspring are then adjusted
+   to ensure they are closest to feasible solutions within the search space.
+</pre><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">self</td><td>The instance of the class invoking this method. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00498">498</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+<div id="dynsection-5" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-5-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-5-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfcmaes_1_1cmaes_1_1_cmaes_aff1c6aff205dfd66b677b1237f3566e7_icgraph.svg" width="100%" height="504"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a7d18b1bc7ca57941c7ca07bde288c8f5" name="a7d18b1bc7ca57941c7ca07bde288c8f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d18b1bc7ca57941c7ca07bde288c8f5">&#9670;&#160;</a></span>population()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> np.array fcmaes.cmaes.Cmaes.population </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Decodes the given array of representations into their respective solutions. </p>
+<pre class="fragment">   This method utilizes the decoding function defined by the `fitfun` attribute to
+   convert the input array `arx` into a population of solutions. The returned value
+   is the decoded representation of the input data.
+</pre><dl class="section return"><dt>Returns</dt><dd></dd>
+<dd>
+np Decoded population solutions. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00389">389</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="a5c6955cf059c16dfea867a214b485501" name="a5c6955cf059c16dfea867a214b485501"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c6955cf059c16dfea867a214b485501">&#9670;&#160;</a></span>result()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> OptimizeResult fcmaes.cmaes.Cmaes.result </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the optimization result containing the details of the optimization process. </p>
+<pre class="fragment">   The result is an instance of `OptimizeResult`, which summarizes the outcome
+   of the optimization, including the final optimum, function values, and
+   additional side information.
+</pre><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">self</td><td>The instance of the class containing the optimization process data.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd>
+<dd>
+OptimizeResult A dataclass containing the following attributes:<ul>
+<li>x: The best solution found during the optimization process.</li>
+<li>fun: The value of the function at the best solution.</li>
+<li>nfev: The number of function evaluations performed.</li>
+<li>nit: The total number of iterations performed.</li>
+<li>status: The status code indicating the stopping condition.</li>
+<li>success: A boolean value indicating if the optimization was </li>
+</ul>
+</dd>
+<dd>
+successful. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00413">413</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="a398738e6fcf7fe101cce3257fb0d579d" name="a398738e6fcf7fe101cce3257fb0d579d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a398738e6fcf7fe101cce3257fb0d579d">&#9670;&#160;</a></span>tell()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> int fcmaes.cmaes.Cmaes.tell </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">np.ndarray</td>          <td class="paramname"><span class="paramname"><em>ys</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Optional[np.ndarray] </td>          <td class="paramname"><span class="paramname"><em>xs</em></span><span class="paramdefsep"> = </span><span class="paramdefval">None</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Processes the input function values and updates the internal state of the CMA-ES algorithm. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ys</td><td>An array of objective function values corresponding to the solutions. </td></tr>
+    <tr><td class="paramname">xs</td><td>An optional array of candidate solutions. If not provided, must have <code>arz</code> defined or <code>ask</code> must have been called prior.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd>
+<dd>
+int The stop condition value indicating the status of the CMA-ES run.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">ValueError</td><td>If `xs` is None and `arz` is not defined or `ask` has not been previously </td></tr>
+    <tr><td class="paramname">called.</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00358">358</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+<div id="dynsection-6" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-6-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-6-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classfcmaes_1_1cmaes_1_1_cmaes_a398738e6fcf7fe101cce3257fb0d579d_icgraph.svg" width="459" height="406"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ac7cbecf8b29fb1048bd4cc7ec900692c" name="ac7cbecf8b29fb1048bd4cc7ec900692c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7cbecf8b29fb1048bd4cc7ec900692c">&#9670;&#160;</a></span>tell_one()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> int fcmaes.cmaes.Cmaes.tell_one </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">np.array</td>          <td class="paramname"><span class="paramname"><em>x</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Processes the given fitness value and solution vector, performs updates to internal data structures, and logs progress during optimization. </p>
+<p>This function evaluates and integrates a solution (x) and its corresponding fitness value (y), updating the CMA-ES optimization state when the required population size is reached.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">y</td><td>A float representing the fitness value of the solution. </td></tr>
+    <tr><td class="paramname">x</td><td>A numpy array containing the solution.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>An integer indicating whether the optimization process should stop. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00453">453</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+<div id="dynsection-7" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-7-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-7-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-7-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfcmaes_1_1cmaes_1_1_cmaes_ac7cbecf8b29fb1048bd4cc7ec900692c_cgraph.svg" width="100%" height="428"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-8" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-8-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-8-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-8-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfcmaes_1_1cmaes_1_1_cmaes_ac7cbecf8b29fb1048bd4cc7ec900692c_icgraph.svg" width="100%" height="566"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="ae26e42639fa8cb28b64c1fe1bcd7109c" name="ae26e42639fa8cb28b64c1fe1bcd7109c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae26e42639fa8cb28b64c1fe1bcd7109c">&#9670;&#160;</a></span>updateBD()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.updateBD </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>negccov</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Updates the internal state of the covariance matrix and its derived attributes, such as eigenvalues, eigenvectors, and transformations for sampling scaled isotropic Gaussian distributions. </p>
+<p>The method ensures numerical stability by handling edge cases like non-positive eigenvalues or large differences between eigenvalues.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">self</td><td>Instance of the class. </td></tr>
+    <tr><td class="paramname">negccov</td><td>The covariance matrix adjustment parameter used for updating. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00776">776</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+<div id="dynsection-9" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-9-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-9-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-9-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfcmaes_1_1cmaes_1_1_cmaes_ae26e42639fa8cb28b64c1fe1bcd7109c_icgraph.svg" width="100%" height="566"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a7dada2c399890feafb59c01d1f424ee5" name="a7dada2c399890feafb59c01d1f424ee5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7dada2c399890feafb59c01d1f424ee5">&#9670;&#160;</a></span>updateCMA()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.updateCMA </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Updates the evolutionary process using the Covariance Matrix Adaptation (CMA) strategy. </p>
+<p>This method handles the main operational logic for adaptive step-size control, selection, recombination, fitness evaluation, constraint checking, and diverse termination criteria during the optimization.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">self</td><td>Instance of the class to which this method belongs.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd>
+<dd>
+int Returns -1 if the fitness values contain NaN or infinite entries; otherwise, returns nothing. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00604">604</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+<div id="dynsection-10" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-10-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-10-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-10-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classfcmaes_1_1cmaes_1_1_cmaes_a7dada2c399890feafb59c01d1f424ee5_cgraph.svg" width="500" height="171"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-11" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-11-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-11-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-11-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfcmaes_1_1cmaes_1_1_cmaes_a7dada2c399890feafb59c01d1f424ee5_icgraph.svg" width="100%" height="566"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="afd8b8665d87f14c53cd60da16c932336" name="afd8b8665d87f14c53cd60da16c932336"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd8b8665d87f14c53cd60da16c932336">&#9670;&#160;</a></span>updateCovariance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.updateCovariance </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>hsig</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>bestArx</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>arz</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>arindex</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>xold</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Updates the covariance matrix and returns the negative covariance scaling factor. </p>
+<pre class="fragment">   This method adjusts the covariance matrix based on the current best solution, the
+   distribution of previous samples, and other adaptations. It incorporates mechanisms
+   to adaptively handle both positive and negative covariance contributions and ensures
+   that minimal residual variance is maintained for better exploration capabilities.
+</pre><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">self</td><td>Instance of the class calling this method. </td></tr>
+    <tr><td class="paramname">hsig</td><td>Indicates the success of the covariance step size adaptation. </td></tr>
+    <tr><td class="paramname">bestArx</td><td>Array containing the best solutions in the current iteration. </td></tr>
+    <tr><td class="paramname">arz</td><td>Array of normalized random vectors representing candidate solutions. </td></tr>
+    <tr><td class="paramname">arindex</td><td>Array containing sorted indices corresponding to ranked solutions. </td></tr>
+    <tr><td class="paramname">xold</td><td>Centroid of the previous population.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd>
+<dd>
+float The negative covariance scaling factor (negccov), which indicates the adaptation strength for negative covariance components. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00726">726</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+<div id="dynsection-12" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-12-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-12-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-12-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfcmaes_1_1cmaes_1_1_cmaes_afd8b8665d87f14c53cd60da16c932336_icgraph.svg" width="100%" height="566"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="ae3fd3fbe79efd9509bb8462382d63bdd" name="ae3fd3fbe79efd9509bb8462382d63bdd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3fd3fbe79efd9509bb8462382d63bdd">&#9670;&#160;</a></span>updateEvolutionPaths()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.updateEvolutionPaths </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>zmean</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>xold</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Updates the evolution paths required for generating new samples in the covariance matrix adaptation evolution strategy (CMA-ES). </p>
+<p>This method modifies the evolution paths <code>ps</code> and <code>pc</code> based on the weighted mean of new samples (<code>zmean</code>) and the previous solution (<code>xold</code>). Additionally, it computes a flag (<code>hsig</code>) indicating whether the evolution path <code>ps</code> satisfies specific conditions, which is used to adapt the covariance matrix of the algorithm.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">zmean</td><td>Weighted mean of new samples in the search space. </td></tr>
+    <tr><td class="paramname">xold</td><td>Previous solution in the search space.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd>
+<dd>
+bool A flag indicating whether the evolution path <code>ps</code> satisfies the computed conditions. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00695">695</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+<div id="dynsection-13" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-13-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-13-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-13-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classfcmaes_1_1cmaes_1_1_cmaes_ae3fd3fbe79efd9509bb8462382d63bdd_icgraph.svg" width="100%" height="566"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="ae977d12b9b7f088beb9df50d43936122" name="ae977d12b9b7f088beb9df50d43936122"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae977d12b9b7f088beb9df50d43936122">&#9670;&#160;</a></span>accuracy</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.accuracy</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00212">212</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="a84f0007d9d933264673eb08e17e2bc8a" name="a84f0007d9d933264673eb08e17e2bc8a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a84f0007d9d933264673eb08e17e2bc8a">&#9670;&#160;</a></span>arx</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.arx = np.array([self.fitfun.encode(x) for x in xs])</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00366">366</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="a219b889766de63a8dcca256df781a0e5" name="a219b889766de63a8dcca256df781a0e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a219b889766de63a8dcca256df781a0e5">&#9670;&#160;</a></span>arz</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">tuple fcmaes.cmaes.Cmaes.arz</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00322">322</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="aa02345ac78df378d92478bf7bb17362e" name="aa02345ac78df378d92478bf7bb17362e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa02345ac78df378d92478bf7bb17362e">&#9670;&#160;</a></span>B</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.B</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00301">301</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="addeb9c3f1881d703fcbdab203a81e8ba" name="addeb9c3f1881d703fcbdab203a81e8ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#addeb9c3f1881d703fcbdab203a81e8ba">&#9670;&#160;</a></span>BD</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.BD</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00306">306</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="abe14f6b9326248e7d16f17edd05660c4" name="abe14f6b9326248e7d16f17edd05660c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe14f6b9326248e7d16f17edd05660c4">&#9670;&#160;</a></span>best_value</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.best_value</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00317">317</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="a180e3a8a1099625f1d089209c93a6d85" name="a180e3a8a1099625f1d089209c93a6d85"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a180e3a8a1099625f1d089209c93a6d85">&#9670;&#160;</a></span>best_x</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.best_x = 1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00318">318</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="a7dc4517b21d000a43313255dd7f7b5ee" name="a7dc4517b21d000a43313255dd7f7b5ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7dc4517b21d000a43313255dd7f7b5ee">&#9670;&#160;</a></span>best_y</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.best_y</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00258">258</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="a69e5ed885bebdebca4855961f2a3c4cb" name="a69e5ed885bebdebca4855961f2a3c4cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69e5ed885bebdebca4855961f2a3c4cb">&#9670;&#160;</a></span>C</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.C</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00308">308</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="a896dcfff9b45acea10fdf6f918ca8329" name="a896dcfff9b45acea10fdf6f918ca8329"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a896dcfff9b45acea10fdf6f918ca8329">&#9670;&#160;</a></span>cc</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.cc</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00272">272</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="a64138cc1569696378f425b77a1133c55" name="a64138cc1569696378f425b77a1133c55"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64138cc1569696378f425b77a1133c55">&#9670;&#160;</a></span>ccov1</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.ccov1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00279">279</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="ad83a90d453bf38c57926596aab31f741" name="ad83a90d453bf38c57926596aab31f741"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad83a90d453bf38c57926596aab31f741">&#9670;&#160;</a></span>ccov1Sep</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.ccov1Sep</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00285">285</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="ac4f76391f5b24411336fd43932b1f32d" name="ac4f76391f5b24411336fd43932b1f32d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4f76391f5b24411336fd43932b1f32d">&#9670;&#160;</a></span>ccovmu</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.ccovmu</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00281">281</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="ad28c8205ed7b2094888c758757511eea" name="ad28c8205ed7b2094888c758757511eea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad28c8205ed7b2094888c758757511eea">&#9670;&#160;</a></span>ccovmuSep</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.ccovmuSep</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00286">286</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="af748707b894a344fc39d3d933ddd6875" name="af748707b894a344fc39d3d933ddd6875"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af748707b894a344fc39d3d933ddd6875">&#9670;&#160;</a></span>chiN</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.chiN</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00284">284</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="a8c15e41b9f3e7d6eb11ff2112109cd52" name="a8c15e41b9f3e7d6eb11ff2112109cd52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c15e41b9f3e7d6eb11ff2112109cd52">&#9670;&#160;</a></span>cs</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.cs</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00274">274</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="aa86568b2e35fa0abc9c44441370001b6" name="aa86568b2e35fa0abc9c44441370001b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa86568b2e35fa0abc9c44441370001b6">&#9670;&#160;</a></span>damps</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.damps</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00276">276</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="a02064e035283dd8a57de4869703c8977" name="a02064e035283dd8a57de4869703c8977"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02064e035283dd8a57de4869703c8977">&#9670;&#160;</a></span>diagC</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.diagC</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00304">304</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="a7da80a6a1a85ca8df878d8d205b21d25" name="a7da80a6a1a85ca8df878d8d205b21d25"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7da80a6a1a85ca8df878d8d205b21d25">&#9670;&#160;</a></span>diagD</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.diagD = 5</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00303">303</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="a2e2ca07b4daef2f2ad49d42d3220f268" name="a2e2ca07b4daef2f2ad49d42d3220f268"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e2ca07b4daef2f2ad49d42d3220f268">&#9670;&#160;</a></span>dim</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.dim = self.pc</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00216">216</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="a94c7703c8ab62c0696018a9dec53e7ac" name="a94c7703c8ab62c0696018a9dec53e7ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94c7703c8ab62c0696018a9dec53e7ac">&#9670;&#160;</a></span>evals</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.evals = 0;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00536">536</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="aab6158b518a6657e69010bb347c9d72f" name="aab6158b518a6657e69010bb347c9d72f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab6158b518a6657e69010bb347c9d72f">&#9670;&#160;</a></span>fitfun</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.fitfun</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00205">205</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="a777ec51b23b513f06524b1d0a73e47ef" name="a777ec51b23b513f06524b1d0a73e47ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a777ec51b23b513f06524b1d0a73e47ef">&#9670;&#160;</a></span>fitness</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.fitness = []</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00323">323</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="a37fe790f8441da81e8e25dd57ebe5e38" name="a37fe790f8441da81e8e25dd57ebe5e38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37fe790f8441da81e8e25dd57ebe5e38">&#9670;&#160;</a></span>fitness_history</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.fitness_history</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00320">320</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="ad60e13f5cfc1f2c51e12bc24507708e9" name="ad60e13f5cfc1f2c51e12bc24507708e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad60e13f5cfc1f2c51e12bc24507708e9">&#9670;&#160;</a></span>guess</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.guess</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00204">204</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="a91dd0137d82524d5c7f82d0992ca823c" name="a91dd0137d82524d5c7f82d0992ca823c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91dd0137d82524d5c7f82d0992ca823c">&#9670;&#160;</a></span>historySize</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.historySize</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00312">312</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="abfb4fec954b64eec89f44d931515ed48" name="abfb4fec954b64eec89f44d931515ed48"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abfb4fec954b64eec89f44d931515ed48">&#9670;&#160;</a></span>input_sigma</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.input_sigma = input_sigma()</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00230">230</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="a255bb1d29dc205cf8a37e794bb7fa209" name="a255bb1d29dc205cf8a37e794bb7fa209"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a255bb1d29dc205cf8a37e794bb7fa209">&#9670;&#160;</a></span>insigma</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.insigma</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00232">232</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="a53ccd69a742fb33d4a8c783cdcd2b51a" name="a53ccd69a742fb33d4a8c783cdcd2b51a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53ccd69a742fb33d4a8c783cdcd2b51a">&#9670;&#160;</a></span>is_terminate</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.is_terminate</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00214">214</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="af7581432fe2911ae409ec703de2cbc13" name="af7581432fe2911ae409ec703de2cbc13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af7581432fe2911ae409ec703de2cbc13">&#9670;&#160;</a></span>iterations</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.iterations</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00310">310</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="afada885234491b531340c56405686608" name="afada885234491b531340c56405686608"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afada885234491b531340c56405686608">&#9670;&#160;</a></span>last_update</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.last_update</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00315">315</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="abd695ddec4028c73504ddc1e56d9ddbb" name="abd695ddec4028c73504ddc1e56d9ddbb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd695ddec4028c73504ddc1e56d9ddbb">&#9670;&#160;</a></span>lazy_update_gap</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.lazy_update_gap</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00288">288</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="a81bf83c8277ff8319a7c2ee4c4189669" name="a81bf83c8277ff8319a7c2ee4c4189669"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81bf83c8277ff8319a7c2ee4c4189669">&#9670;&#160;</a></span>lower</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.lower</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00204">204</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="ae9bf236b9972f1dbb22e45c0938591b3" name="ae9bf236b9972f1dbb22e45c0938591b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9bf236b9972f1dbb22e45c0938591b3">&#9670;&#160;</a></span>max_evaluations</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.max_evaluations</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00241">241</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="aa7a7a3eb4886eedbfa5e3b46c35adede" name="aa7a7a3eb4886eedbfa5e3b46c35adede"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7a7a3eb4886eedbfa5e3b46c35adede">&#9670;&#160;</a></span>max_iterations</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.max_iterations</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00242">242</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="a3d8d08495e9ebae0cc1e8164f92bbda0" name="a3d8d08495e9ebae0cc1e8164f92bbda0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d8d08495e9ebae0cc1e8164f92bbda0">&#9670;&#160;</a></span>mu</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.mu</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00255">255</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="a87b45423cf6e89e57e4682ff318a5c88" name="a87b45423cf6e89e57e4682ff318a5c88"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87b45423cf6e89e57e4682ff318a5c88">&#9670;&#160;</a></span>mueff</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.mueff</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00268">268</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="a13f1cc130df08ee63adedf73d9bb0d45" name="a13f1cc130df08ee63adedf73d9bb0d45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13f1cc130df08ee63adedf73d9bb0d45">&#9670;&#160;</a></span>n_evals</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.n_evals</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00259">259</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="a6c0ece7221cef9045ab5c872974c78fc" name="a6c0ece7221cef9045ab5c872974c78fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c0ece7221cef9045ab5c872974c78fc">&#9670;&#160;</a></span>normps</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.normps</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00299">299</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="a72279ffee64f7ce0014f5a6f2a5dcbe2" name="a72279ffee64f7ce0014f5a6f2a5dcbe2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72279ffee64f7ce0014f5a6f2a5dcbe2">&#9670;&#160;</a></span>pc</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.pc</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00295">295</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="a761c0d9f4dee80eeede32decb57c33df" name="a761c0d9f4dee80eeede32decb57c33df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a761c0d9f4dee80eeede32decb57c33df">&#9670;&#160;</a></span>popsize</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.popsize</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00223">223</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="abf10f8059a83dd6d1d02c17f8c9317b0" name="abf10f8059a83dd6d1d02c17f8c9317b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf10f8059a83dd6d1d02c17f8c9317b0">&#9670;&#160;</a></span>ps</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.ps</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00297">297</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="abc49c506631c8deb58566ce95a1b3069" name="abc49c506631c8deb58566ce95a1b3069"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc49c506631c8deb58566ce95a1b3069">&#9670;&#160;</a></span>randn</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.randn</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00210">210</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="a472913cd6e65e99db64b742fc0b348f8" name="a472913cd6e65e99db64b742fc0b348f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a472913cd6e65e99db64b742fc0b348f8">&#9670;&#160;</a></span>rg</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.rg</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00209">209</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="aaf84ee8e2f184fa2e5b5b49f681fb5ed" name="aaf84ee8e2f184fa2e5b5b49f681fb5ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf84ee8e2f184fa2e5b5b49f681fb5ed">&#9670;&#160;</a></span>runid</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.runid = 6</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00202">202</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="a0c1c9cf3e185d2a6d4e8d64db0a2f256" name="a0c1c9cf3e185d2a6d4e8d64db0a2f256"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c1c9cf3e185d2a6d4e8d64db0a2f256">&#9670;&#160;</a></span>sigma</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.sigma</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00238">238</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="acc278543fe1ef34927806184e59ad84c" name="acc278543fe1ef34927806184e59ad84c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc278543fe1ef34927806184e59ad84c">&#9670;&#160;</a></span>stop</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int fcmaes.cmaes.Cmaes.stop</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00316">316</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="ab77d778b85b64826f6a8e7c004387f35" name="ab77d778b85b64826f6a8e7c004387f35"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab77d778b85b64826f6a8e7c004387f35">&#9670;&#160;</a></span>stop_fitness</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.stop_fitness</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00244">244</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="a87a139a9830d96524ee8cac362cc03a0" name="a87a139a9830d96524ee8cac362cc03a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87a139a9830d96524ee8cac362cc03a0">&#9670;&#160;</a></span>stopTolFun</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.stopTolFun</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00250">250</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="aaa66313795089b51ff1f38a62e2664fd" name="aaa66313795089b51ff1f38a62e2664fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa66313795089b51ff1f38a62e2664fd">&#9670;&#160;</a></span>stopTolHistFun</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.stopTolHistFun</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00252">252</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="afaa10b55e67589d51b3781645d801da2" name="afaa10b55e67589d51b3781645d801da2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afaa10b55e67589d51b3781645d801da2">&#9670;&#160;</a></span>stopTolUpX</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.stopTolUpX</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00246">246</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="abebaeee4cae9bad0d9ea507610aad62a" name="abebaeee4cae9bad0d9ea507610aad62a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abebaeee4cae9bad0d9ea507610aad62a">&#9670;&#160;</a></span>stopTolX</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.stopTolX</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00248">248</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="a88afdde6c2904cd36c827facfb43e8a9" name="a88afdde6c2904cd36c827facfb43e8a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88afdde6c2904cd36c827facfb43e8a9">&#9670;&#160;</a></span>sumw</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.sumw = np.sum(self.weights)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00264">264</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="a2ca9e07a6a38eba18c3370262eb550fd" name="a2ca9e07a6a38eba18c3370262eb550fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ca9e07a6a38eba18c3370262eb550fd">&#9670;&#160;</a></span>sumwq</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.sumwq = np.einsum('i,i-&gt;', self.weights, self.weights)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00265">265</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="a83af54c38e948804ee8aceba231d25ab" name="a83af54c38e948804ee8aceba231d25ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83af54c38e948804ee8aceba231d25ab">&#9670;&#160;</a></span>time_0</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.time_0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00260">260</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="aee7e5c28fcdad6c41c9589f49d05a56a" name="aee7e5c28fcdad6c41c9589f49d05a56a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee7e5c28fcdad6c41c9589f49d05a56a">&#9670;&#160;</a></span>upper</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.upper</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00204">204</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="afa1dbc74053584467bcd74d4d7cbcf4c" name="afa1dbc74053584467bcd74d4d7cbcf4c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa1dbc74053584467bcd74d4d7cbcf4c">&#9670;&#160;</a></span>weights</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.weights</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00263">263</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<a id="ab23d2436d1c72f54ab99839058c1adf3" name="ab23d2436d1c72f54ab99839058c1adf3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab23d2436d1c72f54ab99839058c1adf3">&#9670;&#160;</a></span>xmean</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fcmaes.cmaes.Cmaes.xmean</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cmaes_8py_source.html#l00293">293</a> of file <a class="el" href="cmaes_8py_source.html">cmaes.py</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>fcmaes/<a class="el" href="cmaes_8py_source.html">cmaes.py</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespacefcmaes.html">fcmaes</a></li><li class="navelem"><a class="el" href="namespacefcmaes_1_1cmaes.html">cmaes</a></li><li class="navelem"><a class="el" href="classfcmaes_1_1cmaes_1_1_cmaes.html">Cmaes</a></li>
+    <li class="footer">Generated on Tue Jun 24 2025 15:37:20 for Fast CMA-ES by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+  </ul>
+</div>
+</body>
+</html>

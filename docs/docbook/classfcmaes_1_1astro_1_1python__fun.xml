@@ -1,0 +1,173 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_classfcmaes_1_1astro_1_1python__fun" xml:lang="en-US">
+<title>fcmaes.astro.python_fun Class Reference</title>
+<indexterm><primary>fcmaes.astro.python_fun</primary></indexterm>
+<para>
+
+<para>Represents a callable Python function object that interfaces with external C functions and enforces boundary restrictions on the input. </para>
+ 
+</para>
+Collaboration diagram for fcmaes.astro.python_fun:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1astro_1_1python__fun__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Public Member Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1astro_1_1python__fun_1abf06eb12ce6525e9243940a84c73d94c">__init__</link> (self, <link linkend="_classfcmaes_1_1astro_1_1python__fun_1a4e336bc9e7096b1fffe9576915a2230c">cfun</link>, <link linkend="_classfcmaes_1_1astro_1_1python__fun_1a120709c7a954843ad0f8bb32da5a6658">bounds</link>)</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1astro_1_1python__fun_1a192073cb4d9c99ce7078bc4600bb2d7f">__call__</link> (self, x)</para>
+
+<para>Evaluates the given callable function mapped to <computeroutput>astro_map</computeroutput> using the input array <computeroutput>x</computeroutput>. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Public Attributes    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1astro_1_1python__fun_1a4e336bc9e7096b1fffe9576915a2230c">cfun</link> = cfun</para>
+
+<para>The name of the function as defined in the external <computeroutput>astro_map</computeroutput> dictionary. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1astro_1_1python__fun_1a120709c7a954843ad0f8bb32da5a6658">bounds</link> = bounds</para>
+
+<para>An object specifying the lower and upper bounds for valid input values. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>Represents a callable Python function object that interfaces with external C functions and enforces boundary restrictions on the input. </para>
+
+
+
+<para>This class is used to evaluate functions defined by external mappings, ensuring values remain valid within specified constraints. </para>
+<para>
+Definition at line <link linkend="_astro_8py_source_1l00793">793</link> of file <link linkend="_astro_8py_source">astro.py</link>.</para>
+</section>
+<section>
+<title>Constructor &amp; Destructor Documentation</title>
+<anchor xml:id="_classfcmaes_1_1astro_1_1python__fun_1abf06eb12ce6525e9243940a84c73d94c"/><section>
+    <title>__init__()</title>
+<indexterm><primary>__init__</primary><secondary>fcmaes.astro.python_fun</secondary></indexterm>
+<indexterm><primary>fcmaes.astro.python_fun</primary><secondary>__init__</secondary></indexterm>
+<para><computeroutput>fcmaes.astro.python_fun.__init__ ( self,  cfun,  bounds)</computeroutput></para><para>
+Definition at line <link linkend="_astro_8py_source_1l00807">807</link> of file <link linkend="_astro_8py_source">astro.py</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Function Documentation</title>
+<anchor xml:id="_classfcmaes_1_1astro_1_1python__fun_1a192073cb4d9c99ce7078bc4600bb2d7f"/><section>
+    <title>__call__()</title>
+<indexterm><primary>__call__</primary><secondary>fcmaes.astro.python_fun</secondary></indexterm>
+<indexterm><primary>fcmaes.astro.python_fun</primary><secondary>__call__</secondary></indexterm>
+<para><computeroutput>fcmaes.astro.python_fun.__call__ ( self,  x)</computeroutput></para><para>
+
+<para>Evaluates the given callable function mapped to <computeroutput>astro_map</computeroutput> using the input array <computeroutput>x</computeroutput>. </para>
+</para>
+
+<para>The function validates the input array&apos;s size before performing the calculation and ensures the result is finite. In case of an exception or invalid output, a default value of 1E10 is returned.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>x</entry><entry>
+<para>An array of floating-point numbers to be evaluated by the callable function in <computeroutput>astro_map</computeroutput>.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>float The computed value from the callable function. If an error occurs during computation or the output is not finite, returns 1E10. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_astro_8py_source_1l00825">825</link> of file <link linkend="_astro_8py_source">astro.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1astro_1_1python__fun_a192073cb4d9c99ce7078bc4600bb2d7f_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+<section>
+<title>Member Data Documentation</title>
+<anchor xml:id="_classfcmaes_1_1astro_1_1python__fun_1a120709c7a954843ad0f8bb32da5a6658"/><section>
+    <title>bounds</title>
+<indexterm><primary>bounds</primary><secondary>fcmaes.astro.python_fun</secondary></indexterm>
+<indexterm><primary>fcmaes.astro.python_fun</primary><secondary>bounds</secondary></indexterm>
+<para><computeroutput>fcmaes.astro.python_fun.bounds = bounds</computeroutput></para><para>
+
+<para>An object specifying the lower and upper bounds for valid input values. </para>
+</para>
+
+<para>Initializes an instance of the class with the provided callable function and bounds.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>cfun</entry><entry>
+<para>A callable function to be used in the implementation. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>bounds</entry><entry>
+<para>A list or tuple representing the bounds associated with the object. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_astro_8py_source_1l00809">809</link> of file <link linkend="_astro_8py_source">astro.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1astro_1_1python__fun_1a4e336bc9e7096b1fffe9576915a2230c"/><section>
+    <title>cfun</title>
+<indexterm><primary>cfun</primary><secondary>fcmaes.astro.python_fun</secondary></indexterm>
+<indexterm><primary>fcmaes.astro.python_fun</primary><secondary>cfun</secondary></indexterm>
+<para><computeroutput>fcmaes.astro.python_fun.cfun = cfun</computeroutput></para><para>
+
+<para>The name of the function as defined in the external <computeroutput>astro_map</computeroutput> dictionary. </para>
+</para>
+<para>
+Definition at line <link linkend="_astro_8py_source_1l00808">808</link> of file <link linkend="_astro_8py_source">astro.py</link>.</para>
+</section>
+<para>
+The documentation for this class was generated from the following file:</para>
+fcmaes/<link linkend="_astro_8py">astro.py</link></section>
+</section>

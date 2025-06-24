@@ -1,0 +1,135 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.13.2" xml:lang="en-US">
+  <compounddef id="namespacefcmaes_1_1multiretry" kind="namespace" language="Python">
+    <compoundname>fcmaes::multiretry</compoundname>
+    <innerclass refid="classfcmaes_1_1multiretry_1_1multiretry" prot="public">fcmaes::multiretry::multiretry</innerclass>
+    <innerclass refid="classfcmaes_1_1multiretry_1_1problem__stats" prot="public">fcmaes::multiretry::problem_stats</innerclass>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="namespacefcmaes_1_1multiretry_1a622afd956406ccabb7ebebdfdf9715b6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>List</type>
+        <definition> List fcmaes.multiretry.minimize</definition>
+        <argsstring>(ArrayLike problems, Optional[ArrayLike] ids=None, Optional[int] retries_inc=min(256, 8 *mp.cpu_count()), Optional[int] num_retries=10000, Optional[float] keep=0.7, Optional[Optimizer] optimizer=de_cma(1500), datafile=None)</argsstring>
+        <name>minimize</name>
+        <qualifiedname>fcmaes.multiretry.minimize</qualifiedname>
+        <param>
+          <type>ArrayLike</type>
+          <declname>problems</declname>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>ids</declname>
+          <array>[ArrayLike]</array>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>retries_inc</declname>
+          <array>[int]</array>
+          <defval>min(256, 8 *mp.cpu_count())</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>num_retries</declname>
+          <array>[int]</array>
+          <defval>10000</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>keep</declname>
+          <array>[float]</array>
+          <defval>0.7</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>optimizer</declname>
+          <array>[Optimizer]</array>
+          <defval>de_cma(1500)</defval>
+        </param>
+        <param>
+          <type>datafile</type>
+          <defname>datafile</defname>
+          <defval>None</defval>
+        </param>
+        <briefdescription>
+<para>Minimizes the given set of problems by iteratively applying the optimizer and removing the worst-performing solutions until only one remains. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Supports retries and optional data file usage for saving and loading intermediate results.</para>
+<para>Minimization of a list of optimization problems by first applying parallel retry to filter the best ones and then applying coordinated retry to evaluate these further. Can replace mixed integer optimization if the integer variables are narrowly bound. In this case all combinations of these integer values can be enumerated to generate a list of problem instances each representing one combination. See for instance <ulink url="https://www.esa.int/gsp/ACT/projects/gtop/tandem">https://www.esa.int/gsp/ACT/projects/gtop/tandem</ulink> where there is a problem instance for each planet sequence.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>problems</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>List or array-like structure containing the problems to be minimized. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ids</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>List or array-like structure containing IDs for the problems. Defaults to None, in which case IDs will be auto-generated as strings in ascending order starting from 1. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>retries_inc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of initial retries increment. Defaults to min(256, 8 times the number of CPU cores). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>num_retries</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Maximum number of retries for each problem. Defaults to 10000. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>keep</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Fraction of best-performing problems to retain in each iteration. Defaults to 0.7. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>optimizer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classfcmaes_1_1optimizer_1_1_optimizer" kindref="compound">Optimizer</ref> object used to minimize the problems. Defaults to de_cma(1500). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>datafile</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional parameter representing the file path to load and save intermediate results. Defaults to None.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para></para>
+</simplesect>
+<simplesect kind="return"><para>List Sorted list of all problem statistics after successful </para>
+</simplesect>
+<simplesect kind="return"><para>minimization. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="fcmaes/multiretry.py" line="83" column="1" bodyfile="fcmaes/multiretry.py" bodystart="89" bodyend="114"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="fcmaes/multiretry.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

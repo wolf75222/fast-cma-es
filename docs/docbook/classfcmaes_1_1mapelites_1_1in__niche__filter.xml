@@ -1,0 +1,189 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_classfcmaes_1_1mapelites_1_1in__niche__filter" xml:lang="en-US">
+<title>fcmaes.mapelites.in_niche_filter Class Reference</title>
+<indexterm><primary>fcmaes.mapelites.in_niche_filter</primary></indexterm>
+<para>
+
+<para>Filters and evaluates data based on niche and fitness criteria. </para>
+ 
+</para>
+Collaboration diagram for fcmaes.mapelites.in_niche_filter:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mapelites_1_1in__niche__filter__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Public Member Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1in__niche__filter_1ae359024a8d9321fa9435b80d4f1c68b5">__init__</link> (self, Callable[[ArrayLike], Tuple[float, np.ndarray]] <link linkend="_classfcmaes_1_1mapelites_1_1in__niche__filter_1a92398321d5c000aad5ddad54cd92a349">fit</link>, int <link linkend="_classfcmaes_1_1mapelites_1_1in__niche__filter_1abefaec57e0e3215cd40bdcf1dc42f0e6">index</link>, Callable[[ArrayLike], np.ndarray] <link linkend="_classfcmaes_1_1mapelites_1_1in__niche__filter_1ac6c721121ac09bd043d9d5bc141f79ff">index_of_niches</link>)</para>
+
+<para>Initializes an instance of a class to manage niche-based functionality and fitness evaluation. </para>
+</listitem>
+            <listitem><para>float <link linkend="_classfcmaes_1_1mapelites_1_1in__niche__filter_1a488d9065cc360b95c707fcd92793ff31">__call__</link> (self, ArrayLike x)</para>
+
+<para>Evaluates the input by fitting it and checking against a specific index. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Public Attributes    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1in__niche__filter_1a92398321d5c000aad5ddad54cd92a349">fit</link> = fit</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1in__niche__filter_1ac6c721121ac09bd043d9d5bc141f79ff">index_of_niches</link> = index_of_niches</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1in__niche__filter_1abefaec57e0e3215cd40bdcf1dc42f0e6">index</link> = index</para>
+
+<para>Index representing the specific niche to evaluate against. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>Filters and evaluates data based on niche and fitness criteria. </para>
+
+
+
+<para>This class determines whether a given data point belongs to a specific niche and evaluates it based on a fitness function. If the data point does not belong to the specified niche, it assigns an infinite fitness value to indicate that the point is not relevant to the niche being evaluated.</para>
+
+<para><literallayout><computeroutput>   fit (Callable[[ArrayLike], Tuple[float, np.ndarray]]): A fitness evaluation
+       function that takes an input of type ArrayLike and returns a tuple with a
+       fitness value and a descriptor.
+   index_of_niches (Callable[[ArrayLike], np.ndarray]): A function that determines
+       the niche index for a given input based on its descriptor.
+</computeroutput></literallayout> </para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l01393">1393</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+<section>
+<title>Constructor &amp; Destructor Documentation</title>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1in__niche__filter_1ae359024a8d9321fa9435b80d4f1c68b5"/><section>
+    <title>__init__()</title>
+<indexterm><primary>__init__</primary><secondary>fcmaes.mapelites.in_niche_filter</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.in_niche_filter</primary><secondary>__init__</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.in_niche_filter.__init__ ( self, Callable[[ArrayLike], Tuple[float, np.ndarray]] fit, int index, Callable[[ArrayLike], np.ndarray] index_of_niches)</computeroutput></para><para>
+
+<para>Initializes an instance of a class to manage niche-based functionality and fitness evaluation. </para>
+</para>
+
+<para><literallayout><computeroutput>   This constructor sets up the necessary components to evaluate fitness and handle niche-related
+   computations.
+
+
+       fit (Callable[[ArrayLike], Tuple[float, np.ndarray]]): A function that takes an array-like
+           input and returns a tuple containing a float representing the fitness value and a
+           numpy.ndarray for additional fitness-related data.
+</computeroutput></literallayout> 
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>index</entry><entry>
+<para>An integer representing the index or identifier for this instance. index_of_niches (Callable[[ArrayLike], np.ndarray]): A function that takes an array-like input and returns a numpy.ndarray corresponding to the indices of niches associated with the input. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l01413">1413</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Function Documentation</title>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1in__niche__filter_1a488d9065cc360b95c707fcd92793ff31"/><section>
+    <title>__call__()</title>
+<indexterm><primary>__call__</primary><secondary>fcmaes.mapelites.in_niche_filter</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.in_niche_filter</primary><secondary>__call__</secondary></indexterm>
+<para><computeroutput> float fcmaes.mapelites.in_niche_filter.__call__ ( self, ArrayLike x)</computeroutput></para><para>
+
+<para>Evaluates the input by fitting it and checking against a specific index. </para>
+</para>
+
+<para>Returns the computed result if the index matches; otherwise, returns infinity.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>x</entry><entry>
+<para>Input array to be evaluated.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>float Computed result <computeroutput>y</computeroutput> if the index matches; otherwise, infinity (np.inf). </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l01431">1431</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mapelites_1_1in__niche__filter_a488d9065cc360b95c707fcd92793ff31_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+<section>
+<title>Member Data Documentation</title>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1in__niche__filter_1a92398321d5c000aad5ddad54cd92a349"/><section>
+    <title>fit</title>
+<indexterm><primary>fit</primary><secondary>fcmaes.mapelites.in_niche_filter</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.in_niche_filter</primary><secondary>fit</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.in_niche_filter.fit = fit</computeroutput></para><para>
+Definition at line <link linkend="_mapelites_8py_source_1l01417">1417</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1in__niche__filter_1abefaec57e0e3215cd40bdcf1dc42f0e6"/><section>
+    <title>index</title>
+<indexterm><primary>index</primary><secondary>fcmaes.mapelites.in_niche_filter</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.in_niche_filter</primary><secondary>index</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.in_niche_filter.index = index</computeroutput></para><para>
+
+<para>Index representing the specific niche to evaluate against. </para>
+</para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l01419">1419</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1in__niche__filter_1ac6c721121ac09bd043d9d5bc141f79ff"/><section>
+    <title>index_of_niches</title>
+<indexterm><primary>index_of_niches</primary><secondary>fcmaes.mapelites.in_niche_filter</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.in_niche_filter</primary><secondary>index_of_niches</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.in_niche_filter.index_of_niches = index_of_niches</computeroutput></para><para>
+Definition at line <link linkend="_mapelites_8py_source_1l01418">1418</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+<para>
+The documentation for this class was generated from the following file:</para>
+fcmaes/<link linkend="_mapelites_8py">mapelites.py</link></section>
+</section>

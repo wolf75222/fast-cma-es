@@ -1,0 +1,144 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="__l_b_f_g_s_8h_source" xml:lang="en-US">
+<title>LBFGS.h</title>
+<indexterm><primary>_fcmaescpp/include/LBFGS.h</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="__l_b_f_g_s_8h_source_1l00001"/>00001 <emphasis role="comment">//&#32;Copyright&#32;(C)&#32;2016-2020&#32;Yixuan&#32;Qiu&#32;&lt;yixuan.qiu@cos.name&gt;</emphasis>
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00002"/>00002 <emphasis role="comment">//&#32;Under&#32;MIT&#32;license</emphasis>
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00003"/>00003 
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00004"/>00004 <emphasis role="preprocessor">#ifndef&#32;LBFGS_H</emphasis>
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00005"/>00005 <emphasis role="preprocessor">#define&#32;LBFGS_H</emphasis>
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00006"/>00006 
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00007"/>00007 <emphasis role="preprocessor">#include&#32;&lt;Eigen/Core&gt;</emphasis>
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00008"/>00008 <emphasis role="preprocessor">#include&#32;&quot;LBFGSpp/Param.h&quot;</emphasis>
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00009"/>00009 <emphasis role="preprocessor">#include&#32;&quot;LBFGSpp/BFGSMat.h&quot;</emphasis>
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00010"/>00010 <emphasis role="preprocessor">#include&#32;&quot;LBFGSpp/LineSearchBacktracking.h&quot;</emphasis>
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00011"/>00011 <emphasis role="preprocessor">#include&#32;&quot;LBFGSpp/LineSearchBracketing.h&quot;</emphasis>
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00012"/>00012 <emphasis role="preprocessor">#include&#32;&quot;LBFGSpp/LineSearchNocedalWright.h&quot;</emphasis>
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00013"/>00013 
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00014"/>00014 
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00015"/><link linkend="_namespace_l_b_f_g_spp">00015</link> <emphasis role="keyword">namespace&#32;</emphasis><link linkend="_namespace_l_b_f_g_spp">LBFGSpp</link>&#32;{
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00016"/>00016 
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00017"/>00017 
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00021"/>00021 <emphasis role="keyword">template</emphasis>&#32;&lt;&#32;<emphasis role="keyword">typename</emphasis>&#32;Scalar,
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00022"/>00022 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">template</emphasis>&lt;<emphasis role="keyword">class</emphasis>&gt;&#32;<emphasis role="keyword">class&#32;</emphasis>LineSearch&#32;=&#32;LineSearchBacktracking&#32;&gt;
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00023"/><link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver">00023</link> <emphasis role="keyword">class&#32;</emphasis><link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1a2a7734277fde68058fb37f73150e196e">LBFGSSolver</link>
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00024"/>00024 {
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00025"/>00025 <emphasis role="keyword">private</emphasis>:
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00026"/><link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1ab4864e0f16be346e255182c27b2fbaf4">00026</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">typedef</emphasis>&#32;Eigen::Matrix&lt;Scalar,&#32;Eigen::Dynamic,&#32;1&gt;&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1ab4864e0f16be346e255182c27b2fbaf4">Vector</link>;
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00027"/><link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1a8a3350487e293b79093a0d6ffecd7dee">00027</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">typedef</emphasis>&#32;Eigen::Matrix&lt;Scalar,&#32;Eigen::Dynamic,&#32;Eigen::Dynamic&gt;&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1a8a3350487e293b79093a0d6ffecd7dee">Matrix</link>;
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00028"/><link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1a3f994e546dc2db71eba2117253b2ab4f">00028</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">typedef</emphasis>&#32;Eigen::Map&lt;Vector&gt;&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1a3f994e546dc2db71eba2117253b2ab4f">MapVec</link>;
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00029"/>00029 
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00030"/><link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1aab9105ff5975bdc987b4244bf9c05853">00030</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;LBFGSParam&lt;Scalar&gt;&amp;&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1aab9105ff5975bdc987b4244bf9c05853">m_param</link>;&#32;&#32;<emphasis role="comment">//&#32;Parameters&#32;to&#32;control&#32;the&#32;LBFGS&#32;algorithm</emphasis>
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00031"/><link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1a8f0425e17cbff685c1bcd98fd9d3d5ab">00031</link> &#32;&#32;&#32;&#32;BFGSMat&lt;Scalar&gt;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1a8f0425e17cbff685c1bcd98fd9d3d5ab">m_bfgs</link>;&#32;&#32;&#32;<emphasis role="comment">//&#32;Approximation&#32;to&#32;the&#32;Hessian&#32;matrix</emphasis>
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00032"/><link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1aaa38eeb856f1382cbc539209a3bd719b">00032</link> &#32;&#32;&#32;&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1ab4864e0f16be346e255182c27b2fbaf4">Vector</link>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1aaa38eeb856f1382cbc539209a3bd719b">m_fx</link>;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;History&#32;of&#32;the&#32;objective&#32;function&#32;values</emphasis>
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00033"/><link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1afd36125de4b725d1ace591491c2de97f">00033</link> &#32;&#32;&#32;&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1ab4864e0f16be346e255182c27b2fbaf4">Vector</link>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1afd36125de4b725d1ace591491c2de97f">m_xp</link>;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;Old&#32;x</emphasis>
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00034"/><link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1ab2915f454f2b84d3e049ab1e30a15634">00034</link> &#32;&#32;&#32;&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1ab4864e0f16be346e255182c27b2fbaf4">Vector</link>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1ab2915f454f2b84d3e049ab1e30a15634">m_grad</link>;&#32;&#32;&#32;<emphasis role="comment">//&#32;New&#32;gradient</emphasis>
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00035"/><link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1a57928834c3e888a053c7bfc621ebded0">00035</link> &#32;&#32;&#32;&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1ab4864e0f16be346e255182c27b2fbaf4">Vector</link>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1a57928834c3e888a053c7bfc621ebded0">m_gradp</link>;&#32;&#32;<emphasis role="comment">//&#32;Old&#32;gradient</emphasis>
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00036"/><link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1a9cecd4bcdb0ec5573c4f41f391f9d39d">00036</link> &#32;&#32;&#32;&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1ab4864e0f16be346e255182c27b2fbaf4">Vector</link>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1a9cecd4bcdb0ec5573c4f41f391f9d39d">m_drt</link>;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;Moving&#32;direction</emphasis>
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00037"/>00037 
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00038"/>00038 &#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;Reset&#32;internal&#32;variables</emphasis>
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00039"/>00039 &#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;n:&#32;dimension&#32;of&#32;the&#32;vector&#32;to&#32;be&#32;optimized</emphasis>
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00040"/><link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1a160bdb91edc2c2063ea8398eca3b6e98">00040</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">inline</emphasis>&#32;<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1a160bdb91edc2c2063ea8398eca3b6e98">reset</link>(<emphasis role="keywordtype">int</emphasis>&#32;n)
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00041"/>00041 &#32;&#32;&#32;&#32;{
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00042"/>00042 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;m&#32;=&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1aab9105ff5975bdc987b4244bf9c05853">m_param</link>.m;
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00043"/>00043 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1a8f0425e17cbff685c1bcd98fd9d3d5ab">m_bfgs</link>.reset(n,&#32;m);
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00044"/>00044 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1afd36125de4b725d1ace591491c2de97f">m_xp</link>.resize(n);
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00045"/>00045 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1ab2915f454f2b84d3e049ab1e30a15634">m_grad</link>.resize(n);
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00046"/>00046 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1a57928834c3e888a053c7bfc621ebded0">m_gradp</link>.resize(n);
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00047"/>00047 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1a9cecd4bcdb0ec5573c4f41f391f9d39d">m_drt</link>.resize(n);
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00048"/>00048 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1aab9105ff5975bdc987b4244bf9c05853">m_param</link>.past&#32;&gt;&#32;0)
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00049"/>00049 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1aaa38eeb856f1382cbc539209a3bd719b">m_fx</link>.resize(<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1aab9105ff5975bdc987b4244bf9c05853">m_param</link>.past);
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00050"/>00050 &#32;&#32;&#32;&#32;}
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00051"/>00051 
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00052"/>00052 <emphasis role="keyword">public</emphasis>:
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00059"/><link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1a2a7734277fde68058fb37f73150e196e">00059</link> &#32;&#32;&#32;&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1a2a7734277fde68058fb37f73150e196e">LBFGSSolver</link>(<emphasis role="keyword">const</emphasis>&#32;LBFGSParam&lt;Scalar&gt;&amp;&#32;param)&#32;:
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00060"/>00060 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1aab9105ff5975bdc987b4244bf9c05853">m_param</link>(param)
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00061"/>00061 &#32;&#32;&#32;&#32;{
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00062"/>00062 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1aab9105ff5975bdc987b4244bf9c05853">m_param</link>.check_param();
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00063"/>00063 &#32;&#32;&#32;&#32;}
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00064"/>00064 
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00078"/>00078 &#32;&#32;&#32;&#32;<emphasis role="keyword">template</emphasis>&#32;&lt;<emphasis role="keyword">typename</emphasis>&#32;Foo&gt;
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00079"/><link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1aa1961dc72e480cb35e7831ad18d772f8">00079</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">inline</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1aa1961dc72e480cb35e7831ad18d772f8">minimize</link>(Foo&amp;&#32;f,&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1ab4864e0f16be346e255182c27b2fbaf4">Vector</link>&amp;&#32;x,&#32;Scalar&amp;&#32;fx)
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00080"/>00080 &#32;&#32;&#32;&#32;{
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00081"/>00081 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">using&#32;</emphasis>std::abs;
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00082"/>00082 
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00083"/>00083 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;Dimension&#32;of&#32;the&#32;vector</emphasis>
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00084"/>00084 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;n&#32;=&#32;x.size();
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00085"/>00085 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1a160bdb91edc2c2063ea8398eca3b6e98">reset</link>(n);
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00086"/>00086 
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00087"/>00087 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;The&#32;length&#32;of&#32;lag&#32;for&#32;objective&#32;function&#32;value&#32;to&#32;test&#32;convergence</emphasis>
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00088"/>00088 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;fpast&#32;=&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1aab9105ff5975bdc987b4244bf9c05853">m_param</link>.past;
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00089"/>00089 
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00090"/>00090 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;Evaluate&#32;function&#32;and&#32;compute&#32;gradient</emphasis>
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00091"/>00091 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fx&#32;=&#32;f(x,&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1ab2915f454f2b84d3e049ab1e30a15634">m_grad</link>);
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00092"/>00092 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Scalar&#32;gnorm&#32;=&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1ab2915f454f2b84d3e049ab1e30a15634">m_grad</link>.norm();
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00093"/>00093 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(fpast&#32;&gt;&#32;0)
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00094"/>00094 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1aaa38eeb856f1382cbc539209a3bd719b">m_fx</link>[0]&#32;=&#32;fx;
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00095"/>00095 
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00096"/>00096 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;Early&#32;exit&#32;if&#32;the&#32;initial&#32;x&#32;is&#32;already&#32;a&#32;minimizer</emphasis>
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00097"/>00097 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(gnorm&#32;&lt;=&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1aab9105ff5975bdc987b4244bf9c05853">m_param</link>.epsilon&#32;||&#32;gnorm&#32;&lt;=&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1aab9105ff5975bdc987b4244bf9c05853">m_param</link>.epsilon_rel&#32;*&#32;x.norm())
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00098"/>00098 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00099"/>00099 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;1;
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00100"/>00100 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00101"/>00101 
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00102"/>00102 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;Initial&#32;direction</emphasis>
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00103"/>00103 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1a9cecd4bcdb0ec5573c4f41f391f9d39d">m_drt</link>.noalias()&#32;=&#32;-<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1ab2915f454f2b84d3e049ab1e30a15634">m_grad</link>;
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00104"/>00104 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;Initial&#32;step&#32;size</emphasis>
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00105"/>00105 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Scalar&#32;step&#32;=&#32;Scalar(1)&#32;/&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1a9cecd4bcdb0ec5573c4f41f391f9d39d">m_drt</link>.norm();
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00106"/>00106 
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00107"/>00107 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;Number&#32;of&#32;iterations&#32;used</emphasis>
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00108"/>00108 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;k&#32;=&#32;1;
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00109"/>00109 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(&#32;;&#32;;&#32;)
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00110"/>00110 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00111"/>00111 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;Save&#32;the&#32;curent&#32;x&#32;and&#32;gradient</emphasis>
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00112"/>00112 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1afd36125de4b725d1ace591491c2de97f">m_xp</link>.noalias()&#32;=&#32;x;
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00113"/>00113 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1a57928834c3e888a053c7bfc621ebded0">m_gradp</link>.noalias()&#32;=&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1ab2915f454f2b84d3e049ab1e30a15634">m_grad</link>;
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00114"/>00114 
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00115"/>00115 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;Line&#32;search&#32;to&#32;update&#32;x,&#32;fx&#32;and&#32;gradient</emphasis>
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00116"/>00116 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;LineSearch&lt;Scalar&gt;::LineSearch(f,&#32;fx,&#32;x,&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1ab2915f454f2b84d3e049ab1e30a15634">m_grad</link>,&#32;step,&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1a9cecd4bcdb0ec5573c4f41f391f9d39d">m_drt</link>,&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1afd36125de4b725d1ace591491c2de97f">m_xp</link>,&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1aab9105ff5975bdc987b4244bf9c05853">m_param</link>);
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00117"/>00117 
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00118"/>00118 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;New&#32;gradient&#32;norm</emphasis>
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00119"/>00119 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;gnorm&#32;=&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1ab2915f454f2b84d3e049ab1e30a15634">m_grad</link>.norm();
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00120"/>00120 
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00121"/>00121 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;Convergence&#32;test&#32;--&#32;gradient</emphasis>
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00122"/>00122 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(gnorm&#32;&lt;=&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1aab9105ff5975bdc987b4244bf9c05853">m_param</link>.epsilon&#32;||&#32;gnorm&#32;&lt;=&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1aab9105ff5975bdc987b4244bf9c05853">m_param</link>.epsilon_rel&#32;*&#32;x.norm())
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00123"/>00123 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00124"/>00124 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;k;
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00125"/>00125 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00126"/>00126 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;Convergence&#32;test&#32;--&#32;objective&#32;function&#32;value</emphasis>
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00127"/>00127 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(fpast&#32;&gt;&#32;0)
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00128"/>00128 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00129"/>00129 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;Scalar&#32;fxd&#32;=&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1aaa38eeb856f1382cbc539209a3bd719b">m_fx</link>[k&#32;%&#32;fpast];
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00130"/>00130 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(k&#32;&gt;=&#32;fpast&#32;&amp;&amp;&#32;abs(fxd&#32;-&#32;fx)&#32;&lt;=&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1aab9105ff5975bdc987b4244bf9c05853">m_param</link>.delta&#32;*&#32;std::max(std::max(abs(fx),&#32;abs(fxd)),&#32;Scalar(1)))
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00131"/>00131 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;k;
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00132"/>00132 
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00133"/>00133 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1aaa38eeb856f1382cbc539209a3bd719b">m_fx</link>[k&#32;%&#32;fpast]&#32;=&#32;fx;
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00134"/>00134 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00135"/>00135 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;Maximum&#32;number&#32;of&#32;iterations</emphasis>
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00136"/>00136 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1aab9105ff5975bdc987b4244bf9c05853">m_param</link>.max_iterations&#32;!=&#32;0&#32;&amp;&amp;&#32;k&#32;&gt;=&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1aab9105ff5975bdc987b4244bf9c05853">m_param</link>.max_iterations)
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00137"/>00137 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00138"/>00138 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;k;
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00139"/>00139 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00140"/>00140 
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00141"/>00141 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;Update&#32;s&#32;and&#32;y</emphasis>
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00142"/>00142 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;s_{k+1}&#32;=&#32;x_{k+1}&#32;-&#32;x_k</emphasis>
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00143"/>00143 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;y_{k+1}&#32;=&#32;g_{k+1}&#32;-&#32;g_k</emphasis>
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00144"/>00144 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1a8f0425e17cbff685c1bcd98fd9d3d5ab">m_bfgs</link>.add_correction(x&#32;-&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1afd36125de4b725d1ace591491c2de97f">m_xp</link>,&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1ab2915f454f2b84d3e049ab1e30a15634">m_grad</link>&#32;-&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1a57928834c3e888a053c7bfc621ebded0">m_gradp</link>);
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00145"/>00145 
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00146"/>00146 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;Recursive&#32;formula&#32;to&#32;compute&#32;d&#32;=&#32;-H&#32;*&#32;g</emphasis>
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00147"/>00147 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1a8f0425e17cbff685c1bcd98fd9d3d5ab">m_bfgs</link>.apply_Hv(<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1ab2915f454f2b84d3e049ab1e30a15634">m_grad</link>,&#32;-Scalar(1),&#32;<link linkend="_class_l_b_f_g_spp_1_1_l_b_f_g_s_solver_1a9cecd4bcdb0ec5573c4f41f391f9d39d">m_drt</link>);
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00148"/>00148 
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00149"/>00149 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;Reset&#32;step&#32;=&#32;1.0&#32;as&#32;initial&#32;guess&#32;for&#32;the&#32;next&#32;line&#32;search</emphasis>
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00150"/>00150 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;step&#32;=&#32;Scalar(1);
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00151"/>00151 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;k++;
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00152"/>00152 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00153"/>00153 
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00154"/>00154 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;k;
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00155"/>00155 &#32;&#32;&#32;&#32;}
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00156"/>00156 };
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00157"/>00157 
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00158"/>00158 
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00159"/>00159 }&#32;<emphasis role="comment">//&#32;namespace&#32;LBFGSpp</emphasis>
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00160"/>00160 
+<anchor xml:id="__l_b_f_g_s_8h_source_1l00161"/>00161 <emphasis role="preprocessor">#endif&#32;</emphasis><emphasis role="comment">//&#32;LBFGS_H</emphasis>
+</programlisting></section>

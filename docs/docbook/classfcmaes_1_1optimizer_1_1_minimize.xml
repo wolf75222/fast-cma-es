@@ -1,0 +1,204 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_classfcmaes_1_1optimizer_1_1_minimize" xml:lang="en-US">
+<title>fcmaes.optimizer.Minimize Class Reference</title>
+<indexterm><primary>fcmaes.optimizer.Minimize</primary></indexterm>
+<para>
+
+<para>Optimization utilizing the scipy minimize function. </para>
+ 
+</para>
+Inheritance diagram for fcmaes.optimizer.Minimize:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1optimizer_1_1_minimize__inherit__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Collaboration diagram for fcmaes.optimizer.Minimize:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1optimizer_1_1_minimize__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Public Member Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1optimizer_1_1_minimize_1a1d0c22f3f65fc79861e54f90424f0203">__init__</link> (self, <link linkend="_classfcmaes_1_1optimizer_1_1_optimizer_1a434f96f307e1bf0b0196933945d518e6">max_evaluations</link>=50000, store=None)</para>
+
+<para>Initializes an optimizer using the scipy minimize method with a specified maximum number of evaluations and an optional store for collected data. </para>
+</listitem>
+            <listitem><para>Tuple[np.ndarray, float, int] <link linkend="_classfcmaes_1_1optimizer_1_1_minimize_1a58bfab5556bb4969d88c7905361515ab">minimize</link> (self, Callable[[ArrayLike], float] fun, Optional[Bounds] bounds, Optional[ArrayLike] guess=None, Optional[float] sdevs=None, rg=Generator(PCG64DXSM()), store=None)</para>
+
+<para>Minimizes a given function within specified bounds and optionally using an initial guess. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+Public Member Functions inherited from <link linkend="_classfcmaes_1_1optimizer_1_1_optimizer">fcmaes.optimizer.Optimizer</link>        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1optimizer_1_1_optimizer_1a51efe265d8e041b095d8210878d7d7c1">__init__</link> (self, Optional[int] <link linkend="_classfcmaes_1_1optimizer_1_1_optimizer_1a434f96f307e1bf0b0196933945d518e6">max_evaluations</link>=50000, Optional[str] <link linkend="_classfcmaes_1_1optimizer_1_1_optimizer_1ae0423ec54db7b25862e01d7863ab4708">name</link>=&apos;&apos;)</para>
+
+<para>Initializes the class with specific parameters including the maximum number of evaluations and the name. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1optimizer_1_1_optimizer_1adfc4b7f5b36503f186c68d521a9ede8a">max_eval_num</link> (self, store=None)</para>
+
+<para>Evaluates and returns the maximum number of evaluations based on the provided store or the object&apos;s default value. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1optimizer_1_1_optimizer_1acf09b9b314cc4faf25c9935e76ae1821">get_count_runs</link> (self, store=None)</para>
+
+<para>Gets the count of runs from the provided store. </para>
+</listitem>
+        </itemizedlist>
+<simplesect>
+    <title>Additional Inherited Members    </title>
+Public Attributes inherited from <link linkend="_classfcmaes_1_1optimizer_1_1_optimizer">fcmaes.optimizer.Optimizer</link>        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1optimizer_1_1_optimizer_1a434f96f307e1bf0b0196933945d518e6">max_evaluations</link> = max_evaluations</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1optimizer_1_1_optimizer_1ae0423ec54db7b25862e01d7863ab4708">name</link> = name</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>Optimization utilizing the scipy minimize function. </para>
+
+
+
+<para>This class is designed to perform optimization tasks using the scipy minimize method. It allows for specifying bounds, initial guesses, and handles optimization with lower-level control. </para>
+<para>
+Definition at line <link linkend="_optimizer_8py_source_1l03008">3008</link> of file <link linkend="_optimizer_8py_source">optimizer.py</link>.</para>
+</section>
+<section>
+<title>Constructor &amp; Destructor Documentation</title>
+<anchor xml:id="_classfcmaes_1_1optimizer_1_1_minimize_1a1d0c22f3f65fc79861e54f90424f0203"/><section>
+    <title>__init__()</title>
+<indexterm><primary>__init__</primary><secondary>fcmaes.optimizer.Minimize</secondary></indexterm>
+<indexterm><primary>fcmaes.optimizer.Minimize</primary><secondary>__init__</secondary></indexterm>
+<para><computeroutput>fcmaes.optimizer.Minimize.__init__ ( self,  max_evaluations = <computeroutput>50000</computeroutput>
+,  store = <computeroutput>None</computeroutput>
+)</computeroutput></para><para>
+
+<para>Initializes an optimizer using the scipy minimize method with a specified maximum number of evaluations and an optional store for collected data. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>max_evaluations</entry><entry>
+<para>int, optional The maximum number of evaluations allowed during optimization. Defaults to 50000. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>store</entry><entry>
+<para>Any, optional Optional storage for collected data during optimization. Defaults to None. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_optimizer_8py_source_1l03028">3028</link> of file <link linkend="_optimizer_8py_source">optimizer.py</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Function Documentation</title>
+<anchor xml:id="_classfcmaes_1_1optimizer_1_1_minimize_1a58bfab5556bb4969d88c7905361515ab"/><section>
+    <title>minimize()</title>
+<indexterm><primary>minimize</primary><secondary>fcmaes.optimizer.Minimize</secondary></indexterm>
+<indexterm><primary>fcmaes.optimizer.Minimize</primary><secondary>minimize</secondary></indexterm>
+<para><computeroutput> Tuple[np.ndarray, float, int] fcmaes.optimizer.Minimize.minimize ( self, Callable[[ArrayLike], float] fun, Optional[Bounds] bounds, Optional[ArrayLike]  guess = <computeroutput>None</computeroutput>
+, Optional[float]  sdevs = <computeroutput>None</computeroutput>
+,  rg = <computeroutput>Generator(PCG64DXSM())</computeroutput>
+,  store = <computeroutput>None</computeroutput>
+)</computeroutput></para><para>
+
+<para>Minimizes a given function within specified bounds and optionally using an initial guess. </para>
+</para>
+
+<para>This method uses a specified random generator to generate an initial guess if none is provided. The optimization process is carried out within the provided bounds, and the optimal solution, objective function value at the optimum, and the number of function evaluations are returned.</para>
+
+<para><literallayout><computeroutput>       fun (Callable[[ArrayLike], float]): The objective function to be minimized.
+           Accepts an array-like input and returns a floating-point value.
+</computeroutput></literallayout> 
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>bounds</entry><entry>
+<para>The boundary constraints for the optimization variables in the form of lower and upper bounds. guess (Optional[ArrayLike], optional): The initial guess for the optimization, if provided. If None, a random value within bounds will be generated. Defaults to None. sdevs (Optional[float], optional): Ignored. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>rg</entry><entry>
+<para>A random generator for creating random numbers, used if no guess is provided. Defaults to Generator(PCG64DXSM()). </para>
+</entry>
+                            </row>
+                            <row>
+<entry>store</entry><entry>
+<para>Reserved for potential future usage. Defaults to None.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>Tuple[np.ndarray, float, int]: A tuple containing:<itemizedlist>
+<listitem>
+<para>The optimal solution as a NumPy array.</para>
+</listitem><listitem>
+<para>The objective function value at the optimum.</para>
+</listitem><listitem>
+<para>The number of function evaluations during the optimization. </para>
+</listitem></itemizedlist>
+</para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_optimizer_8py_source_1l03059">3059</link> of file <link linkend="_optimizer_8py_source">optimizer.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1optimizer_1_1_minimize_a58bfab5556bb4969d88c7905361515ab_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1optimizer_1_1_minimize_a58bfab5556bb4969d88c7905361515ab_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<para>
+The documentation for this class was generated from the following file:</para>
+fcmaes/<link linkend="_optimizer_8py">optimizer.py</link></section>
+</section>

@@ -1,0 +1,304 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_classfcmaes_1_1testfun_1_1_wrapper" xml:lang="en-US">
+<title>fcmaes.testfun.Wrapper Class Reference</title>
+<indexterm><primary>fcmaes.testfun.Wrapper</primary></indexterm>
+<para>
+
+<para><link linkend="_classfcmaes_1_1testfun_1_1_wrapper">Wrapper</link> for parallel computation with shared state. </para>
+ 
+</para>
+Collaboration diagram for fcmaes.testfun.Wrapper:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1testfun_1_1_wrapper__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Public Member Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1testfun_1_1_wrapper_1ae106b1f604bdb6e24937cee17b03e2d1">__init__</link> (self, fun, dim)</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1testfun_1_1_wrapper_1a45ea4439b3b149098ed57d810656de38">eval</link> (self, x)</para>
+
+<para>Evaluates a given input <computeroutput>x</computeroutput> using the function <computeroutput>func</computeroutput>, updates the best observed value and corresponding input if applicable, and increments the evaluation counter. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1testfun_1_1_wrapper_1ad0135b00f2c165118000017b25b3bfa4">get_best_x</link> (self)</para>
+
+<para>Returns a copy of the best_x attribute. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1testfun_1_1_wrapper_1ab86f2d8e5df54c431b95a8dac9eb7c80">get_best_y</link> (self)</para>
+
+<para>Retrieves the value of the best_y attribute. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1testfun_1_1_wrapper_1a4441f7cb86d2ff083093521f22c72784">get_count</link> (self)</para>
+
+<para>Fetches the current value of the count. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Public Attributes    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1testfun_1_1_wrapper_1a672784c241ae3b65b49297a7e5669b3f">func</link> = fun</para>
+
+<para>The function to be evaluated. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1testfun_1_1_wrapper_1a3dfee5cd0eb8f872c25bedf57ca02cf5">statMutex</link> = mp.Lock()</para>
+
+<para>multiprocessing.Lock. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1testfun_1_1_wrapper_1a150ab1471fdda3ff21e3f4e29adf1225">best_x</link> = mp.RawArray(ct.c_double, dim)</para>
+
+<para>Shared memory array to store the inputs. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1testfun_1_1_wrapper_1a676b9c1af1cf8c2b284854e792637541">best_y</link> = mp.RawValue(ct.c_double, sys.float_info.max)</para>
+
+<para>Shared memory value to store the best function. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1testfun_1_1_wrapper_1af9bf5ba50b9b5c1e6a147711b56f9218">count</link> = mp.RawValue(ct.c_int, 0)</para>
+
+<para>Shared memory counter to track the number. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para><link linkend="_classfcmaes_1_1testfun_1_1_wrapper">Wrapper</link> for parallel computation with shared state. </para>
+
+
+
+<para>This class acts as a wrapper to provide thread/process-safe management of shared variables during multiprocessing operations. It enables evaluation of a function and maintains the best result (minimum value of function output) along with a counter of evaluations.</para>
+
+<para><literallayout><computeroutput>       of function evaluations.
+</computeroutput></literallayout> </para>
+<para>
+Definition at line <link linkend="_testfun_8py_source_1l00053">53</link> of file <link linkend="_testfun_8py_source">testfun.py</link>.</para>
+</section>
+<section>
+<title>Constructor &amp; Destructor Documentation</title>
+<anchor xml:id="_classfcmaes_1_1testfun_1_1_wrapper_1ae106b1f604bdb6e24937cee17b03e2d1"/><section>
+    <title>__init__()</title>
+<indexterm><primary>__init__</primary><secondary>fcmaes.testfun.Wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.testfun.Wrapper</primary><secondary>__init__</secondary></indexterm>
+<para><computeroutput>fcmaes.testfun.Wrapper.__init__ ( self,  fun,  dim)</computeroutput></para><para>
+Definition at line <link linkend="_testfun_8py_source_1l00093">93</link> of file <link linkend="_testfun_8py_source">testfun.py</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Function Documentation</title>
+<anchor xml:id="_classfcmaes_1_1testfun_1_1_wrapper_1a45ea4439b3b149098ed57d810656de38"/><section>
+    <title>eval()</title>
+<indexterm><primary>eval</primary><secondary>fcmaes.testfun.Wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.testfun.Wrapper</primary><secondary>eval</secondary></indexterm>
+<para><computeroutput>fcmaes.testfun.Wrapper.eval ( self,  x)</computeroutput></para><para>
+
+<para>Evaluates a given input <computeroutput>x</computeroutput> using the function <computeroutput>func</computeroutput>, updates the best observed value and corresponding input if applicable, and increments the evaluation counter. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>x</entry><entry>
+<para>Input data to be evaluated by the function <computeroutput>func</computeroutput>.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>The result of evaluating <computeroutput>x</computeroutput> using the function <computeroutput>func</computeroutput>. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_testfun_8py_source_1l00111">111</link> of file <link linkend="_testfun_8py_source">testfun.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1testfun_1_1_wrapper_1ad0135b00f2c165118000017b25b3bfa4"/><section>
+    <title>get_best_x()</title>
+<indexterm><primary>get_best_x</primary><secondary>fcmaes.testfun.Wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.testfun.Wrapper</primary><secondary>get_best_x</secondary></indexterm>
+<para><computeroutput>fcmaes.testfun.Wrapper.get_best_x ( self)</computeroutput></para><para>
+
+<para>Returns a copy of the best_x attribute. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method provides a copy of the `best_x` attribute to ensure the original
+   data remains unaltered and secure from unintended modifications.
+</computeroutput></literallayout></para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>list A copy of the best_x attribute. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_testfun_8py_source_1l00130">130</link> of file <link linkend="_testfun_8py_source">testfun.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1testfun_1_1_wrapper_1ab86f2d8e5df54c431b95a8dac9eb7c80"/><section>
+    <title>get_best_y()</title>
+<indexterm><primary>get_best_y</primary><secondary>fcmaes.testfun.Wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.testfun.Wrapper</primary><secondary>get_best_y</secondary></indexterm>
+<para><computeroutput>fcmaes.testfun.Wrapper.get_best_y ( self)</computeroutput></para><para>
+
+<para>Retrieves the value of the best_y attribute. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method returns the current value of the `best_y` attribute, which is likely
+   used as a part of an optimization process or to represent the best-known value
+   achieved during a computation.
+</computeroutput></literallayout></para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>Any The value of the <computeroutput>best_y</computeroutput> attribute. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_testfun_8py_source_1l00143">143</link> of file <link linkend="_testfun_8py_source">testfun.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1testfun_1_1_wrapper_1a4441f7cb86d2ff083093521f22c72784"/><section>
+    <title>get_count()</title>
+<indexterm><primary>get_count</primary><secondary>fcmaes.testfun.Wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.testfun.Wrapper</primary><secondary>get_count</secondary></indexterm>
+<para><computeroutput>fcmaes.testfun.Wrapper.get_count ( self)</computeroutput></para><para>
+
+<para>Fetches the current value of the count. </para>
+</para>
+
+<para><literallayout><computeroutput>   The method retrieves the current value associated with the `count` attribute. The returned
+   value represents the current count stored within the object.
+</computeroutput></literallayout></para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>int The current value of the count. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_testfun_8py_source_1l00155">155</link> of file <link linkend="_testfun_8py_source">testfun.py</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Data Documentation</title>
+<anchor xml:id="_classfcmaes_1_1testfun_1_1_wrapper_1a150ab1471fdda3ff21e3f4e29adf1225"/><section>
+    <title>best_x</title>
+<indexterm><primary>best_x</primary><secondary>fcmaes.testfun.Wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.testfun.Wrapper</primary><secondary>best_x</secondary></indexterm>
+<para><computeroutput>fcmaes.testfun.Wrapper.best_x = mp.RawArray(ct.c_double, dim)</computeroutput></para><para>
+
+<para>Shared memory array to store the inputs. </para>
+</para>
+
+<para>multiprocessing.Array.</para>
+
+<para>Shared array storing the best optimization solution found so far. </para>
+<para>
+Definition at line <link linkend="_testfun_8py_source_1l00096">96</link> of file <link linkend="_testfun_8py_source">testfun.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1testfun_1_1_wrapper_1a676b9c1af1cf8c2b284854e792637541"/><section>
+    <title>best_y</title>
+<indexterm><primary>best_y</primary><secondary>fcmaes.testfun.Wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.testfun.Wrapper</primary><secondary>best_y</secondary></indexterm>
+<para><computeroutput>fcmaes.testfun.Wrapper.best_y = mp.RawValue(ct.c_double, sys.float_info.max)</computeroutput></para><para>
+
+<para>Shared memory value to store the best function. </para>
+</para>
+
+<para>multiprocessing.Value.</para>
+
+<para>Shared value storing the best objective value found so far. </para>
+<para>
+Definition at line <link linkend="_testfun_8py_source_1l00097">97</link> of file <link linkend="_testfun_8py_source">testfun.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1testfun_1_1_wrapper_1af9bf5ba50b9b5c1e6a147711b56f9218"/><section>
+    <title>count</title>
+<indexterm><primary>count</primary><secondary>fcmaes.testfun.Wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.testfun.Wrapper</primary><secondary>count</secondary></indexterm>
+<para><computeroutput>fcmaes.testfun.Wrapper.count = mp.RawValue(ct.c_int, 0)</computeroutput></para><para>
+
+<para>Shared memory counter to track the number. </para>
+</para>
+
+<para>multiprocessing.Value.</para>
+
+<para>Shared value counting the number of function </para>
+<para>
+Definition at line <link linkend="_testfun_8py_source_1l00098">98</link> of file <link linkend="_testfun_8py_source">testfun.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1testfun_1_1_wrapper_1a672784c241ae3b65b49297a7e5669b3f"/><section>
+    <title>func</title>
+<indexterm><primary>func</primary><secondary>fcmaes.testfun.Wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.testfun.Wrapper</primary><secondary>func</secondary></indexterm>
+<para><computeroutput>fcmaes.testfun.Wrapper.func = fun</computeroutput></para><para>
+
+<para>The function to be evaluated. </para>
+</para>
+
+<para>Initializes the instance with function to optimize and dimension of the problem.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>fun</entry><entry>
+<para>Callable function to optimize. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>dim</entry><entry>
+<para>int. The dimensionality of the optimization problem.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                Callable. The function to optimize. </para>
+<para>
+Definition at line <link linkend="_testfun_8py_source_1l00094">94</link> of file <link linkend="_testfun_8py_source">testfun.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1testfun_1_1_wrapper_1a3dfee5cd0eb8f872c25bedf57ca02cf5"/><section>
+    <title>statMutex</title>
+<indexterm><primary>statMutex</primary><secondary>fcmaes.testfun.Wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.testfun.Wrapper</primary><secondary>statMutex</secondary></indexterm>
+<para><computeroutput>fcmaes.testfun.Wrapper.statMutex = mp.Lock()</computeroutput></para><para>
+
+<para>multiprocessing.Lock. </para>
+</para>
+
+<para>A lock to ensure thread safety. </para>
+<para>
+Definition at line <link linkend="_testfun_8py_source_1l00095">95</link> of file <link linkend="_testfun_8py_source">testfun.py</link>.</para>
+</section>
+<para>
+The documentation for this class was generated from the following file:</para>
+fcmaes/<link linkend="_testfun_8py">testfun.py</link></section>
+</section>

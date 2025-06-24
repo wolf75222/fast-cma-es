@@ -1,0 +1,253 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_deopt_8h_source" xml:lang="en-US">
+<title>deopt.h</title>
+<indexterm><primary>_fcmaescpp/include/deopt.h</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_deopt_8h_source_1l00001"/>00001 <emphasis role="comment">//$&#32;nocpp</emphasis>
+<anchor xml:id="_deopt_8h_source_1l00002"/>00002 
+<anchor xml:id="_deopt_8h_source_1l00032"/>00032 
+<anchor xml:id="_deopt_8h_source_1l00033"/>00033 <emphasis role="preprocessor">#ifndef&#32;DEOPT_INCLUDED</emphasis>
+<anchor xml:id="_deopt_8h_source_1l00034"/>00034 <emphasis role="preprocessor">#define&#32;DEOPT_INCLUDED</emphasis>
+<anchor xml:id="_deopt_8h_source_1l00035"/>00035 
+<anchor xml:id="_deopt_8h_source_1l00036"/>00036 <emphasis role="preprocessor">#include&#32;&quot;<link linkend="_biteaux_8h">biteaux.h</link>&quot;</emphasis>
+<anchor xml:id="_deopt_8h_source_1l00037"/>00037 
+<anchor xml:id="_deopt_8h_source_1l00043"/>00043 
+<anchor xml:id="_deopt_8h_source_1l00044"/><link linkend="_class_c_d_e_opt">00044</link> <emphasis role="keyword">class&#32;</emphasis><link linkend="_class_c_d_e_opt">CDEOpt</link>&#32;:&#32;<emphasis role="keyword">public</emphasis>&#32;<link linkend="_class_c_bite_opt_base_1a424395289a687d98b8d27cbd828dbc6c">CBiteOptBase</link>&lt;&#32;int64_t&#32;&gt;
+<anchor xml:id="_deopt_8h_source_1l00045"/>00045 {
+<anchor xml:id="_deopt_8h_source_1l00046"/>00046 <emphasis role="keyword">public</emphasis>:
+<anchor xml:id="_deopt_8h_source_1l00047"/><link linkend="_class_c_d_e_opt_1a5aab4771da4fe59a157f702840b8ac49">00047</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">typedef</emphasis>&#32;int64_t&#32;<link linkend="_class_c_d_e_opt_1a5aab4771da4fe59a157f702840b8ac49">ptype</link>;&#32;
+<anchor xml:id="_deopt_8h_source_1l00049"/>00049 
+<anchor xml:id="_deopt_8h_source_1l00057"/>00057 
+<anchor xml:id="_deopt_8h_source_1l00058"/><link linkend="_class_c_d_e_opt_1a226dd5b6af6c70e994012958e41eb550">00058</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_class_c_d_e_opt_1a226dd5b6af6c70e994012958e41eb550">updateDims</link>(&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;aParamCount,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;PopSize0&#32;=&#32;0&#32;)
+<anchor xml:id="_deopt_8h_source_1l00059"/>00059 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_deopt_8h_source_1l00060"/>00060 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;aPopSize&#32;=&#32;(&#32;PopSize0&#32;&gt;&#32;0&#32;?&#32;PopSize0&#32;:&#32;30&#32;*&#32;aParamCount&#32;);
+<anchor xml:id="_deopt_8h_source_1l00061"/>00061 
+<anchor xml:id="_deopt_8h_source_1l00062"/>00062 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;aParamCount&#32;==&#32;<link linkend="_class_c_bite_pop_1a0dc6f7b3a19db513e349e68c3471f9fa">ParamCount</link>&#32;&amp;&amp;&#32;aPopSize&#32;==&#32;<link linkend="_class_c_bite_pop_1a58e3bf5abc2fb4b1e173aa6cb3477bfb">PopSize</link>&#32;)
+<anchor xml:id="_deopt_8h_source_1l00063"/>00063 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_deopt_8h_source_1l00064"/>00064 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>;
+<anchor xml:id="_deopt_8h_source_1l00065"/>00065 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_deopt_8h_source_1l00066"/>00066 
+<anchor xml:id="_deopt_8h_source_1l00067"/>00067 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_opt_base_1a5c53a8eb3a4269a746d990282452d71e">initBuffers</link>(&#32;aParamCount,&#32;aPopSize&#32;);
+<anchor xml:id="_deopt_8h_source_1l00068"/>00068 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_deopt_8h_source_1l00069"/>00069 
+<anchor xml:id="_deopt_8h_source_1l00079"/>00079 
+<anchor xml:id="_deopt_8h_source_1l00080"/><link linkend="_class_c_d_e_opt_1a36a626e15e143c668c8c94417a7e9d20">00080</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_class_c_d_e_opt_1a36a626e15e143c668c8c94417a7e9d20">init</link>(&#32;<link linkend="_class_c_bite_rnd">CBiteRnd</link>&amp;&#32;rnd,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>*&#32;<emphasis role="keyword">const</emphasis>&#32;InitParams&#32;=&#32;NULL,
+<anchor xml:id="_deopt_8h_source_1l00081"/>00081 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;InitRadius&#32;=&#32;1.0&#32;)
+<anchor xml:id="_deopt_8h_source_1l00082"/>00082 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_deopt_8h_source_1l00083"/>00083 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_opt_base_1a768362da5c773eea5a8649d44676eeed">initCommonVars</link>(&#32;rnd&#32;);
+<anchor xml:id="_deopt_8h_source_1l00084"/>00084 
+<anchor xml:id="_deopt_8h_source_1l00085"/>00085 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;sd&#32;=&#32;0x1p-4&#32;*&#32;InitRadius;
+<anchor xml:id="_deopt_8h_source_1l00086"/>00086 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;i;
+<anchor xml:id="_deopt_8h_source_1l00087"/>00087 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;j;
+<anchor xml:id="_deopt_8h_source_1l00088"/>00088 
+<anchor xml:id="_deopt_8h_source_1l00089"/>00089 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;InitParams&#32;==&#32;NULL&#32;)
+<anchor xml:id="_deopt_8h_source_1l00090"/>00090 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_deopt_8h_source_1l00091"/>00091 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(&#32;j&#32;=&#32;0;&#32;j&#32;&lt;&#32;<link linkend="_class_c_bite_pop_1a58e3bf5abc2fb4b1e173aa6cb3477bfb">PopSize</link>;&#32;j++&#32;)
+<anchor xml:id="_deopt_8h_source_1l00092"/>00092 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_deopt_8h_source_1l00093"/>00093 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_d_e_opt_1a5aab4771da4fe59a157f702840b8ac49">ptype</link>*&#32;<emphasis role="keyword">const</emphasis>&#32;p&#32;=&#32;<link linkend="_class_c_bite_pop_1a0c41790e473b70c5ec37986d0fb1f9a2">PopParams</link>[&#32;j&#32;];
+<anchor xml:id="_deopt_8h_source_1l00094"/>00094 
+<anchor xml:id="_deopt_8h_source_1l00095"/>00095 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;<link linkend="_class_c_bite_pop_1a0dc6f7b3a19db513e349e68c3471f9fa">ParamCount</link>;&#32;i++&#32;)
+<anchor xml:id="_deopt_8h_source_1l00096"/>00096 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_deopt_8h_source_1l00097"/>00097 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;p[&#32;i&#32;]&#32;=&#32;<link linkend="_class_c_bite_pop_1a3b7e8d2276455475bd761e29c8c72ac6">wrapParam</link>(&#32;rnd,&#32;<link linkend="_class_c_bite_pop_1aecaac61269e65bda93cb2dc1a3a26091">getGaussianInt</link>(
+<anchor xml:id="_deopt_8h_source_1l00098"/>00098 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;rnd,&#32;sd,&#32;<link linkend="_class_c_bite_pop_1a1302e3c2e578dd650aedb57e18645092">IntMantMult</link>&#32;&gt;&gt;&#32;1&#32;));
+<anchor xml:id="_deopt_8h_source_1l00099"/>00099 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_deopt_8h_source_1l00100"/>00100 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_deopt_8h_source_1l00101"/>00101 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_deopt_8h_source_1l00102"/>00102 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>
+<anchor xml:id="_deopt_8h_source_1l00103"/>00103 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_deopt_8h_source_1l00104"/>00104 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_d_e_opt_1a5aab4771da4fe59a157f702840b8ac49">ptype</link>*&#32;<emphasis role="keyword">const</emphasis>&#32;p0&#32;=&#32;<link linkend="_class_c_bite_pop_1a0c41790e473b70c5ec37986d0fb1f9a2">PopParams</link>[&#32;0&#32;];
+<anchor xml:id="_deopt_8h_source_1l00105"/>00105 
+<anchor xml:id="_deopt_8h_source_1l00106"/>00106 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;<link linkend="_class_c_bite_pop_1a0dc6f7b3a19db513e349e68c3471f9fa">ParamCount</link>;&#32;i++&#32;)
+<anchor xml:id="_deopt_8h_source_1l00107"/>00107 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_deopt_8h_source_1l00108"/>00108 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;p0[&#32;i&#32;]&#32;=&#32;<link linkend="_class_c_bite_pop_1a3b7e8d2276455475bd761e29c8c72ac6">wrapParam</link>(&#32;rnd,
+<anchor xml:id="_deopt_8h_source_1l00109"/>00109 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;(<link linkend="_class_c_d_e_opt_1a5aab4771da4fe59a157f702840b8ac49">ptype</link>)&#32;((&#32;InitParams[&#32;i&#32;]&#32;-&#32;<link linkend="_class_c_bite_opt_base_1a07d5b7c3007f79c7dc1f6106d9832dc6">MinValues</link>[&#32;i&#32;])&#32;/
+<anchor xml:id="_deopt_8h_source_1l00110"/>00110 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_opt_base_1a70f5211fb9521491b0e6a336e21dd7bc">DiffValues</link>[&#32;i&#32;]));
+<anchor xml:id="_deopt_8h_source_1l00111"/>00111 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_deopt_8h_source_1l00112"/>00112 
+<anchor xml:id="_deopt_8h_source_1l00113"/>00113 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(&#32;j&#32;=&#32;1;&#32;j&#32;&lt;&#32;<link linkend="_class_c_bite_pop_1a58e3bf5abc2fb4b1e173aa6cb3477bfb">PopSize</link>;&#32;j++&#32;)
+<anchor xml:id="_deopt_8h_source_1l00114"/>00114 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_deopt_8h_source_1l00115"/>00115 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_d_e_opt_1a5aab4771da4fe59a157f702840b8ac49">ptype</link>*&#32;<emphasis role="keyword">const</emphasis>&#32;p&#32;=&#32;<link linkend="_class_c_bite_pop_1a0c41790e473b70c5ec37986d0fb1f9a2">PopParams</link>[&#32;j&#32;];
+<anchor xml:id="_deopt_8h_source_1l00116"/>00116 
+<anchor xml:id="_deopt_8h_source_1l00117"/>00117 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;<link linkend="_class_c_bite_pop_1a0dc6f7b3a19db513e349e68c3471f9fa">ParamCount</link>;&#32;i++&#32;)
+<anchor xml:id="_deopt_8h_source_1l00118"/>00118 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_deopt_8h_source_1l00119"/>00119 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;p[&#32;i&#32;]&#32;=&#32;<link linkend="_class_c_bite_pop_1a3b7e8d2276455475bd761e29c8c72ac6">wrapParam</link>(&#32;rnd,
+<anchor xml:id="_deopt_8h_source_1l00120"/>00120 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_pop_1aecaac61269e65bda93cb2dc1a3a26091">getGaussianInt</link>(&#32;rnd,&#32;sd,&#32;p0[&#32;i&#32;]));
+<anchor xml:id="_deopt_8h_source_1l00121"/>00121 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_deopt_8h_source_1l00122"/>00122 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_deopt_8h_source_1l00123"/>00123 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_deopt_8h_source_1l00124"/>00124 
+<anchor xml:id="_deopt_8h_source_1l00125"/>00125 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_d_e_opt_1a7bd6d1e27282a8b4eee07da8ef5fae2d">DoInitEvals</link>&#32;=&#32;<emphasis role="keyword">true</emphasis>;
+<anchor xml:id="_deopt_8h_source_1l00126"/>00126 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_deopt_8h_source_1l00127"/>00127 
+<anchor xml:id="_deopt_8h_source_1l00139"/>00139 
+<anchor xml:id="_deopt_8h_source_1l00140"/><link linkend="_class_c_d_e_opt_1a819e3692005dd630f7bc83d4444e23ee">00140</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_class_c_d_e_opt_1a819e3692005dd630f7bc83d4444e23ee">optimize</link>(&#32;<link linkend="_class_c_bite_rnd">CBiteRnd</link>&amp;&#32;rnd,&#32;<emphasis role="keywordtype">double</emphasis>*&#32;<emphasis role="keyword">const</emphasis>&#32;OutCost&#32;=&#32;NULL,
+<anchor xml:id="_deopt_8h_source_1l00141"/>00141 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>*&#32;<emphasis role="keyword">const</emphasis>&#32;OutValues&#32;=&#32;NULL&#32;)
+<anchor xml:id="_deopt_8h_source_1l00142"/>00142 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_deopt_8h_source_1l00143"/>00143 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;i;
+<anchor xml:id="_deopt_8h_source_1l00144"/>00144 
+<anchor xml:id="_deopt_8h_source_1l00145"/>00145 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;<link linkend="_class_c_d_e_opt_1a7bd6d1e27282a8b4eee07da8ef5fae2d">DoInitEvals</link>&#32;)
+<anchor xml:id="_deopt_8h_source_1l00146"/>00146 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_deopt_8h_source_1l00147"/>00147 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<link linkend="_class_c_d_e_opt_1a5aab4771da4fe59a157f702840b8ac49">ptype</link>*&#32;<emphasis role="keyword">const</emphasis>&#32;Params&#32;=&#32;<link linkend="_class_c_bite_pop_1a0053ae41c70babe967c5931f491ea865">getCurParams</link>();
+<anchor xml:id="_deopt_8h_source_1l00148"/>00148 
+<anchor xml:id="_deopt_8h_source_1l00149"/>00149 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;<link linkend="_class_c_bite_pop_1a0dc6f7b3a19db513e349e68c3471f9fa">ParamCount</link>;&#32;i++&#32;)
+<anchor xml:id="_deopt_8h_source_1l00150"/>00150 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_deopt_8h_source_1l00151"/>00151 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_opt_base_1a0a97be5c42eed6fbaffba04c8720e6ce">NewValues</link>[&#32;i&#32;]&#32;=&#32;<link linkend="_class_c_bite_opt_base_1a7b849dbede3dc6be555a4197541fad51">getRealValue</link>(&#32;Params,&#32;i&#32;);
+<anchor xml:id="_deopt_8h_source_1l00152"/>00152 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_deopt_8h_source_1l00153"/>00153 
+<anchor xml:id="_deopt_8h_source_1l00154"/>00154 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;NewCost&#32;=&#32;<link linkend="_class_c_bite_opt_interface_1a45d7e2c9ea31b6f8bb23758a6879df9d">optcost</link>(&#32;<link linkend="_class_c_bite_opt_base_1a0a97be5c42eed6fbaffba04c8720e6ce">NewValues</link>&#32;);
+<anchor xml:id="_deopt_8h_source_1l00155"/>00155 
+<anchor xml:id="_deopt_8h_source_1l00156"/>00156 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;OutCost&#32;!=&#32;NULL&#32;)
+<anchor xml:id="_deopt_8h_source_1l00157"/>00157 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_deopt_8h_source_1l00158"/>00158 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;*OutCost&#32;=&#32;NewCost;
+<anchor xml:id="_deopt_8h_source_1l00159"/>00159 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_deopt_8h_source_1l00160"/>00160 
+<anchor xml:id="_deopt_8h_source_1l00161"/>00161 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;OutValues&#32;!=&#32;NULL&#32;)
+<anchor xml:id="_deopt_8h_source_1l00162"/>00162 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_deopt_8h_source_1l00163"/>00163 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_pop_1a57e751582761922bbabff1ddb7af277b">copyValues</link>(&#32;OutValues,&#32;<link linkend="_class_c_bite_opt_base_1a0a97be5c42eed6fbaffba04c8720e6ce">NewValues</link>&#32;);
+<anchor xml:id="_deopt_8h_source_1l00164"/>00164 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_deopt_8h_source_1l00165"/>00165 
+<anchor xml:id="_deopt_8h_source_1l00166"/>00166 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_opt_base_1a9e49b98f5f6a2470d060282b2fd26a53">updateBestCost</link>(&#32;NewCost,&#32;<link linkend="_class_c_bite_opt_base_1a0a97be5c42eed6fbaffba04c8720e6ce">NewValues</link>,
+<anchor xml:id="_deopt_8h_source_1l00167"/>00167 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_pop_1aad999ddc8a2ed72ffaee0db7732c9f76">updatePop</link>(&#32;NewCost,&#32;Params,&#32;<emphasis role="keyword">false</emphasis>&#32;));
+<anchor xml:id="_deopt_8h_source_1l00168"/>00168 
+<anchor xml:id="_deopt_8h_source_1l00169"/>00169 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;<link linkend="_class_c_bite_pop_1aa7c87b9148768d6104f8d3dfb5abebce">CurPopPos</link>&#32;==&#32;<link linkend="_class_c_bite_pop_1a58e3bf5abc2fb4b1e173aa6cb3477bfb">PopSize</link>&#32;)
+<anchor xml:id="_deopt_8h_source_1l00170"/>00170 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_deopt_8h_source_1l00171"/>00171 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_d_e_opt_1a7bd6d1e27282a8b4eee07da8ef5fae2d">DoInitEvals</link>&#32;=&#32;<emphasis role="keyword">false</emphasis>;
+<anchor xml:id="_deopt_8h_source_1l00172"/>00172 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_deopt_8h_source_1l00173"/>00173 
+<anchor xml:id="_deopt_8h_source_1l00174"/>00174 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>(&#32;0&#32;);
+<anchor xml:id="_deopt_8h_source_1l00175"/>00175 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_deopt_8h_source_1l00176"/>00176 
+<anchor xml:id="_deopt_8h_source_1l00177"/>00177 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;si1&#32;=&#32;rnd.<link linkend="_class_c_bite_rnd_1adca97316ecce595b9175815493f7a3a2">getPowInt</link>(&#32;4.0,&#32;<link linkend="_class_c_bite_pop_1adc98fbdebc2671ef0826245d8c472cc5">CurPopSize</link>&#32;/&#32;2&#32;);
+<anchor xml:id="_deopt_8h_source_1l00178"/>00178 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<link linkend="_class_c_d_e_opt_1a5aab4771da4fe59a157f702840b8ac49">ptype</link>*&#32;<emphasis role="keyword">const</emphasis>&#32;rp1&#32;=&#32;<link linkend="_class_c_bite_pop_1aaa8e3f180accfedf21218cbed8ffbb79">getParamsOrdered</link>(&#32;si1&#32;);
+<anchor xml:id="_deopt_8h_source_1l00179"/>00179 
+<anchor xml:id="_deopt_8h_source_1l00180"/>00180 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;PairCount&#32;=&#32;3;
+<anchor xml:id="_deopt_8h_source_1l00181"/>00181 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;pc&#32;=&#32;1&#32;+&#32;2&#32;*&#32;PairCount;
+<anchor xml:id="_deopt_8h_source_1l00182"/>00182 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;PopIdx[&#32;pc&#32;];
+<anchor xml:id="_deopt_8h_source_1l00183"/>00183 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;PopIdx[&#32;0&#32;]&#32;=&#32;si1;
+<anchor xml:id="_deopt_8h_source_1l00184"/>00184 
+<anchor xml:id="_deopt_8h_source_1l00185"/>00185 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;pp&#32;=&#32;1;
+<anchor xml:id="_deopt_8h_source_1l00186"/>00186 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;j;
+<anchor xml:id="_deopt_8h_source_1l00187"/>00187 
+<anchor xml:id="_deopt_8h_source_1l00188"/>00188 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;<link linkend="_class_c_bite_pop_1a26b81c70200085e410cf83258e139f9b">CurPopSize1</link>&#32;&lt;=&#32;pc&#32;)
+<anchor xml:id="_deopt_8h_source_1l00189"/>00189 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_deopt_8h_source_1l00190"/>00190 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">while</emphasis>(&#32;pp&#32;&lt;&#32;pc&#32;)
+<anchor xml:id="_deopt_8h_source_1l00191"/>00191 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_deopt_8h_source_1l00192"/>00192 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;PopIdx[&#32;pp&#32;]&#32;=&#32;rnd.<link linkend="_class_c_bite_rnd_1a4e9ad0a5c5e09149a60f849736d8d7ce">getInt</link>(&#32;<link linkend="_class_c_bite_pop_1adc98fbdebc2671ef0826245d8c472cc5">CurPopSize</link>&#32;);
+<anchor xml:id="_deopt_8h_source_1l00193"/>00193 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pp++;
+<anchor xml:id="_deopt_8h_source_1l00194"/>00194 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_deopt_8h_source_1l00195"/>00195 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_deopt_8h_source_1l00196"/>00196 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>
+<anchor xml:id="_deopt_8h_source_1l00197"/>00197 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_deopt_8h_source_1l00198"/>00198 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">while</emphasis>(&#32;pp&#32;&lt;&#32;pc&#32;)
+<anchor xml:id="_deopt_8h_source_1l00199"/>00199 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_deopt_8h_source_1l00200"/>00200 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;sii&#32;=&#32;rnd.<link linkend="_class_c_bite_rnd_1a4e9ad0a5c5e09149a60f849736d8d7ce">getInt</link>(&#32;<link linkend="_class_c_bite_pop_1adc98fbdebc2671ef0826245d8c472cc5">CurPopSize</link>&#32;);
+<anchor xml:id="_deopt_8h_source_1l00201"/>00201 
+<anchor xml:id="_deopt_8h_source_1l00202"/>00202 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(&#32;j&#32;=&#32;0;&#32;j&#32;&lt;&#32;pp;&#32;j++&#32;)
+<anchor xml:id="_deopt_8h_source_1l00203"/>00203 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_deopt_8h_source_1l00204"/>00204 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;PopIdx[&#32;j&#32;]&#32;==&#32;sii&#32;)
+<anchor xml:id="_deopt_8h_source_1l00205"/>00205 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_deopt_8h_source_1l00206"/>00206 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+<anchor xml:id="_deopt_8h_source_1l00207"/>00207 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_deopt_8h_source_1l00208"/>00208 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_deopt_8h_source_1l00209"/>00209 
+<anchor xml:id="_deopt_8h_source_1l00210"/>00210 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;j&#32;&gt;=&#32;pp&#32;)
+<anchor xml:id="_deopt_8h_source_1l00211"/>00211 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_deopt_8h_source_1l00212"/>00212 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;PopIdx[&#32;pp&#32;]&#32;=&#32;sii;
+<anchor xml:id="_deopt_8h_source_1l00213"/>00213 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pp++;
+<anchor xml:id="_deopt_8h_source_1l00214"/>00214 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_deopt_8h_source_1l00215"/>00215 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_deopt_8h_source_1l00216"/>00216 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_deopt_8h_source_1l00217"/>00217 
+<anchor xml:id="_deopt_8h_source_1l00218"/>00218 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<link linkend="_class_c_d_e_opt_1a5aab4771da4fe59a157f702840b8ac49">ptype</link>*&#32;<emphasis role="keyword">const</emphasis>&#32;rp2&#32;=&#32;<link linkend="_class_c_bite_pop_1aaa8e3f180accfedf21218cbed8ffbb79">getParamsOrdered</link>(&#32;PopIdx[&#32;1&#32;]);
+<anchor xml:id="_deopt_8h_source_1l00219"/>00219 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<link linkend="_class_c_d_e_opt_1a5aab4771da4fe59a157f702840b8ac49">ptype</link>*&#32;<emphasis role="keyword">const</emphasis>&#32;rp3&#32;=&#32;<link linkend="_class_c_bite_pop_1aaa8e3f180accfedf21218cbed8ffbb79">getParamsOrdered</link>(&#32;PopIdx[&#32;2&#32;]);
+<anchor xml:id="_deopt_8h_source_1l00220"/>00220 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<link linkend="_class_c_d_e_opt_1a5aab4771da4fe59a157f702840b8ac49">ptype</link>*&#32;<emphasis role="keyword">const</emphasis>&#32;rp4&#32;=&#32;<link linkend="_class_c_bite_pop_1aaa8e3f180accfedf21218cbed8ffbb79">getParamsOrdered</link>(&#32;PopIdx[&#32;3&#32;]);
+<anchor xml:id="_deopt_8h_source_1l00221"/>00221 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<link linkend="_class_c_d_e_opt_1a5aab4771da4fe59a157f702840b8ac49">ptype</link>*&#32;<emphasis role="keyword">const</emphasis>&#32;rp5&#32;=&#32;<link linkend="_class_c_bite_pop_1aaa8e3f180accfedf21218cbed8ffbb79">getParamsOrdered</link>(&#32;PopIdx[&#32;4&#32;]);
+<anchor xml:id="_deopt_8h_source_1l00222"/>00222 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<link linkend="_class_c_d_e_opt_1a5aab4771da4fe59a157f702840b8ac49">ptype</link>*&#32;<emphasis role="keyword">const</emphasis>&#32;rp6&#32;=&#32;<link linkend="_class_c_bite_pop_1aaa8e3f180accfedf21218cbed8ffbb79">getParamsOrdered</link>(&#32;PopIdx[&#32;5&#32;]);
+<anchor xml:id="_deopt_8h_source_1l00223"/>00223 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<link linkend="_class_c_d_e_opt_1a5aab4771da4fe59a157f702840b8ac49">ptype</link>*&#32;<emphasis role="keyword">const</emphasis>&#32;rp7&#32;=&#32;<link linkend="_class_c_bite_pop_1aaa8e3f180accfedf21218cbed8ffbb79">getParamsOrdered</link>(&#32;PopIdx[&#32;6&#32;]);
+<anchor xml:id="_deopt_8h_source_1l00224"/>00224 
+<anchor xml:id="_deopt_8h_source_1l00225"/>00225 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;<link linkend="_class_c_bite_pop_1a0dc6f7b3a19db513e349e68c3471f9fa">ParamCount</link>;&#32;i++&#32;)
+<anchor xml:id="_deopt_8h_source_1l00226"/>00226 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_deopt_8h_source_1l00227"/>00227 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_pop_1acae90e3584dca8b6c08c70d7bd317729">TmpParams</link>[&#32;i&#32;]&#32;=&#32;(&#32;rp2[&#32;i&#32;]&#32;-&#32;rp3[&#32;i&#32;])&#32;+&#32;(&#32;rp4[&#32;i&#32;]&#32;-&#32;rp5[&#32;i&#32;])&#32;+
+<anchor xml:id="_deopt_8h_source_1l00228"/>00228 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;(&#32;rp6[&#32;i&#32;]&#32;-&#32;rp7[&#32;i&#32;]);
+<anchor xml:id="_deopt_8h_source_1l00229"/>00229 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_deopt_8h_source_1l00230"/>00230 
+<anchor xml:id="_deopt_8h_source_1l00231"/>00231 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;TPDF&#32;bit&#32;randomization.</emphasis>
+<anchor xml:id="_deopt_8h_source_1l00232"/>00232 
+<anchor xml:id="_deopt_8h_source_1l00233"/>00233 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;rnd.<link linkend="_class_c_bite_rnd_1a6ccc0608cbc9080d9509a0e4c483adfe">getBit</link>()&#32;&amp;&amp;&#32;rnd.<link linkend="_class_c_bite_rnd_1a6ccc0608cbc9080d9509a0e4c483adfe">getBit</link>()&#32;)
+<anchor xml:id="_deopt_8h_source_1l00234"/>00234 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_deopt_8h_source_1l00235"/>00235 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;k&#32;=&#32;rnd.<link linkend="_class_c_bite_rnd_1a4e9ad0a5c5e09149a60f849736d8d7ce">getInt</link>(&#32;<link linkend="_class_c_bite_pop_1a0dc6f7b3a19db513e349e68c3471f9fa">ParamCount</link>&#32;);
+<anchor xml:id="_deopt_8h_source_1l00236"/>00236 
+<anchor xml:id="_deopt_8h_source_1l00237"/>00237 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;Produce&#32;sparsely-random&#32;bit-strings.</emphasis>
+<anchor xml:id="_deopt_8h_source_1l00238"/>00238 
+<anchor xml:id="_deopt_8h_source_1l00239"/>00239 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<link linkend="_class_c_d_e_opt_1a5aab4771da4fe59a157f702840b8ac49">ptype</link>&#32;v1&#32;=&#32;(<link linkend="_class_c_d_e_opt_1a5aab4771da4fe59a157f702840b8ac49">ptype</link>)&#32;(&#32;rnd.<link linkend="_class_c_bite_rnd_1a6e9234ff0489b0d3d38ef71be159b34d">getRaw</link>()&#32;&amp;&#32;rnd.<link linkend="_class_c_bite_rnd_1a6e9234ff0489b0d3d38ef71be159b34d">getRaw</link>()&#32;&amp;
+<anchor xml:id="_deopt_8h_source_1l00240"/>00240 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;rnd.<link linkend="_class_c_bite_rnd_1a6e9234ff0489b0d3d38ef71be159b34d">getRaw</link>()&#32;&amp;&#32;rnd.<link linkend="_class_c_bite_rnd_1a6e9234ff0489b0d3d38ef71be159b34d">getRaw</link>()&#32;&amp;&#32;rnd.<link linkend="_class_c_bite_rnd_1a6e9234ff0489b0d3d38ef71be159b34d">getRaw</link>()&#32;&amp;&#32;<link linkend="_class_c_bite_pop_1a27448c9be1bed517e4a48aa656ca4f76">IntMantMask</link>&#32;);
+<anchor xml:id="_deopt_8h_source_1l00241"/>00241 
+<anchor xml:id="_deopt_8h_source_1l00242"/>00242 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<link linkend="_class_c_d_e_opt_1a5aab4771da4fe59a157f702840b8ac49">ptype</link>&#32;v2&#32;=&#32;(<link linkend="_class_c_d_e_opt_1a5aab4771da4fe59a157f702840b8ac49">ptype</link>)&#32;(&#32;rnd.<link linkend="_class_c_bite_rnd_1a6e9234ff0489b0d3d38ef71be159b34d">getRaw</link>()&#32;&amp;&#32;rnd.<link linkend="_class_c_bite_rnd_1a6e9234ff0489b0d3d38ef71be159b34d">getRaw</link>()&#32;&amp;
+<anchor xml:id="_deopt_8h_source_1l00243"/>00243 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;rnd.<link linkend="_class_c_bite_rnd_1a6e9234ff0489b0d3d38ef71be159b34d">getRaw</link>()&#32;&amp;&#32;rnd.<link linkend="_class_c_bite_rnd_1a6e9234ff0489b0d3d38ef71be159b34d">getRaw</link>()&#32;&amp;&#32;rnd.<link linkend="_class_c_bite_rnd_1a6e9234ff0489b0d3d38ef71be159b34d">getRaw</link>()&#32;&amp;&#32;<link linkend="_class_c_bite_pop_1a27448c9be1bed517e4a48aa656ca4f76">IntMantMask</link>&#32;);
+<anchor xml:id="_deopt_8h_source_1l00244"/>00244 
+<anchor xml:id="_deopt_8h_source_1l00245"/>00245 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_pop_1acae90e3584dca8b6c08c70d7bd317729">TmpParams</link>[&#32;k&#32;]&#32;+=&#32;v1&#32;-&#32;v2;&#32;<emphasis role="comment">//&#32;Apply&#32;in&#32;TPDF&#32;manner.</emphasis>
+<anchor xml:id="_deopt_8h_source_1l00246"/>00246 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_deopt_8h_source_1l00247"/>00247 
+<anchor xml:id="_deopt_8h_source_1l00248"/>00248 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;rnd.<link linkend="_class_c_bite_rnd_1a6ccc0608cbc9080d9509a0e4c483adfe">getBit</link>()&#32;)
+<anchor xml:id="_deopt_8h_source_1l00249"/>00249 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_deopt_8h_source_1l00250"/>00250 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;si2&#32;=&#32;si1&#32;+&#32;rnd.<link linkend="_class_c_bite_rnd_1a6ccc0608cbc9080d9509a0e4c483adfe">getBit</link>()&#32;*&#32;2&#32;-&#32;1;
+<anchor xml:id="_deopt_8h_source_1l00251"/>00251 
+<anchor xml:id="_deopt_8h_source_1l00252"/>00252 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;si2&#32;&lt;&#32;0&#32;)
+<anchor xml:id="_deopt_8h_source_1l00253"/>00253 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_deopt_8h_source_1l00254"/>00254 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;si2&#32;=&#32;1;
+<anchor xml:id="_deopt_8h_source_1l00255"/>00255 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_deopt_8h_source_1l00256"/>00256 
+<anchor xml:id="_deopt_8h_source_1l00257"/>00257 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<link linkend="_class_c_d_e_opt_1a5aab4771da4fe59a157f702840b8ac49">ptype</link>*&#32;<emphasis role="keyword">const</emphasis>&#32;rp1b&#32;=&#32;<link linkend="_class_c_bite_pop_1aaa8e3f180accfedf21218cbed8ffbb79">getParamsOrdered</link>(&#32;si2&#32;);
+<anchor xml:id="_deopt_8h_source_1l00258"/>00258 
+<anchor xml:id="_deopt_8h_source_1l00259"/>00259 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;<link linkend="_class_c_bite_pop_1a0dc6f7b3a19db513e349e68c3471f9fa">ParamCount</link>;&#32;i++&#32;)
+<anchor xml:id="_deopt_8h_source_1l00260"/>00260 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_deopt_8h_source_1l00261"/>00261 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_pop_1acae90e3584dca8b6c08c70d7bd317729">TmpParams</link>[&#32;i&#32;]&#32;=&#32;((&#32;rp1[&#32;i&#32;]&#32;+&#32;rp1b[&#32;i&#32;])&#32;&gt;&gt;&#32;1&#32;)&#32;+
+<anchor xml:id="_deopt_8h_source_1l00262"/>00262 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;(&#32;<link linkend="_class_c_bite_pop_1acae90e3584dca8b6c08c70d7bd317729">TmpParams</link>[&#32;i&#32;]&#32;&gt;&gt;&#32;2&#32;);
+<anchor xml:id="_deopt_8h_source_1l00263"/>00263 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_deopt_8h_source_1l00264"/>00264 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_deopt_8h_source_1l00265"/>00265 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>
+<anchor xml:id="_deopt_8h_source_1l00266"/>00266 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_deopt_8h_source_1l00267"/>00267 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;<link linkend="_class_c_bite_pop_1a0dc6f7b3a19db513e349e68c3471f9fa">ParamCount</link>;&#32;i++&#32;)
+<anchor xml:id="_deopt_8h_source_1l00268"/>00268 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_deopt_8h_source_1l00269"/>00269 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_pop_1acae90e3584dca8b6c08c70d7bd317729">TmpParams</link>[&#32;i&#32;]&#32;=&#32;rp1[&#32;i&#32;]&#32;+&#32;(&#32;<link linkend="_class_c_bite_pop_1acae90e3584dca8b6c08c70d7bd317729">TmpParams</link>[&#32;i&#32;]&#32;&gt;&gt;&#32;2&#32;);
+<anchor xml:id="_deopt_8h_source_1l00270"/>00270 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_deopt_8h_source_1l00271"/>00271 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_deopt_8h_source_1l00272"/>00272 
+<anchor xml:id="_deopt_8h_source_1l00273"/>00273 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>(&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;<link linkend="_class_c_bite_pop_1a0dc6f7b3a19db513e349e68c3471f9fa">ParamCount</link>;&#32;i++&#32;)
+<anchor xml:id="_deopt_8h_source_1l00274"/>00274 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_deopt_8h_source_1l00275"/>00275 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_pop_1acae90e3584dca8b6c08c70d7bd317729">TmpParams</link>[&#32;i&#32;]&#32;=&#32;<link linkend="_class_c_bite_pop_1a3b7e8d2276455475bd761e29c8c72ac6">wrapParam</link>(&#32;rnd,&#32;<link linkend="_class_c_bite_pop_1acae90e3584dca8b6c08c70d7bd317729">TmpParams</link>[&#32;i&#32;]);
+<anchor xml:id="_deopt_8h_source_1l00276"/>00276 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_opt_base_1a0a97be5c42eed6fbaffba04c8720e6ce">NewValues</link>[&#32;i&#32;]&#32;=&#32;<link linkend="_class_c_bite_opt_base_1a7b849dbede3dc6be555a4197541fad51">getRealValue</link>(&#32;<link linkend="_class_c_bite_pop_1acae90e3584dca8b6c08c70d7bd317729">TmpParams</link>,&#32;i&#32;);
+<anchor xml:id="_deopt_8h_source_1l00277"/>00277 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_deopt_8h_source_1l00278"/>00278 
+<anchor xml:id="_deopt_8h_source_1l00279"/>00279 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;NewCost&#32;=&#32;<link linkend="_class_c_bite_opt_interface_1a45d7e2c9ea31b6f8bb23758a6879df9d">optcost</link>(&#32;<link linkend="_class_c_bite_opt_base_1a0a97be5c42eed6fbaffba04c8720e6ce">NewValues</link>&#32;);
+<anchor xml:id="_deopt_8h_source_1l00280"/>00280 
+<anchor xml:id="_deopt_8h_source_1l00281"/>00281 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;OutCost&#32;!=&#32;NULL&#32;)
+<anchor xml:id="_deopt_8h_source_1l00282"/>00282 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_deopt_8h_source_1l00283"/>00283 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;*OutCost&#32;=&#32;NewCost;
+<anchor xml:id="_deopt_8h_source_1l00284"/>00284 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_deopt_8h_source_1l00285"/>00285 
+<anchor xml:id="_deopt_8h_source_1l00286"/>00286 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;OutValues&#32;!=&#32;NULL&#32;)
+<anchor xml:id="_deopt_8h_source_1l00287"/>00287 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_deopt_8h_source_1l00288"/>00288 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_pop_1a57e751582761922bbabff1ddb7af277b">copyValues</link>(&#32;OutValues,&#32;<link linkend="_class_c_bite_opt_base_1a0a97be5c42eed6fbaffba04c8720e6ce">NewValues</link>&#32;);
+<anchor xml:id="_deopt_8h_source_1l00289"/>00289 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_deopt_8h_source_1l00290"/>00290 
+<anchor xml:id="_deopt_8h_source_1l00291"/>00291 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;p&#32;=&#32;<link linkend="_class_c_bite_pop_1aad999ddc8a2ed72ffaee0db7732c9f76">updatePop</link>(&#32;NewCost,&#32;<link linkend="_class_c_bite_pop_1acae90e3584dca8b6c08c70d7bd317729">TmpParams</link>,&#32;<emphasis role="keyword">false</emphasis>,&#32;<emphasis role="keyword">false</emphasis>&#32;);
+<anchor xml:id="_deopt_8h_source_1l00292"/>00292 
+<anchor xml:id="_deopt_8h_source_1l00293"/>00293 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;p&#32;&lt;&#32;<link linkend="_class_c_bite_pop_1adc98fbdebc2671ef0826245d8c472cc5">CurPopSize</link>&#32;)
+<anchor xml:id="_deopt_8h_source_1l00294"/>00294 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_deopt_8h_source_1l00295"/>00295 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_opt_base_1a9e49b98f5f6a2470d060282b2fd26a53">updateBestCost</link>(&#32;NewCost,&#32;<link linkend="_class_c_bite_opt_base_1a0a97be5c42eed6fbaffba04c8720e6ce">NewValues</link>,&#32;p&#32;);
+<anchor xml:id="_deopt_8h_source_1l00296"/>00296 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_opt_base_1ab756659a8ba09ba42ffa3d207564fdd8">StallCount</link>&#32;=&#32;0;
+<anchor xml:id="_deopt_8h_source_1l00297"/>00297 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_deopt_8h_source_1l00298"/>00298 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>
+<anchor xml:id="_deopt_8h_source_1l00299"/>00299 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_deopt_8h_source_1l00300"/>00300 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_c_bite_opt_base_1ab756659a8ba09ba42ffa3d207564fdd8">StallCount</link>++;
+<anchor xml:id="_deopt_8h_source_1l00301"/>00301 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_deopt_8h_source_1l00302"/>00302 
+<anchor xml:id="_deopt_8h_source_1l00303"/>00303 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>(&#32;<link linkend="_class_c_bite_opt_base_1ab756659a8ba09ba42ffa3d207564fdd8">StallCount</link>&#32;);
+<anchor xml:id="_deopt_8h_source_1l00304"/>00304 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_deopt_8h_source_1l00305"/>00305 
+<anchor xml:id="_deopt_8h_source_1l00306"/>00306 <emphasis role="keyword">protected</emphasis>:
+<anchor xml:id="_deopt_8h_source_1l00307"/><link linkend="_class_c_d_e_opt_1a7bd6d1e27282a8b4eee07da8ef5fae2d">00307</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">bool</emphasis>&#32;<link linkend="_class_c_d_e_opt_1a7bd6d1e27282a8b4eee07da8ef5fae2d">DoInitEvals</link>;&#32;
+<anchor xml:id="_deopt_8h_source_1l00308"/>00308 };
+<anchor xml:id="_deopt_8h_source_1l00309"/>00309 
+<anchor xml:id="_deopt_8h_source_1l00310"/>00310 <emphasis role="preprocessor">#endif&#32;</emphasis><emphasis role="comment">//&#32;DEOPT_INCLUDED</emphasis>
+</programlisting></section>

@@ -1,0 +1,338 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.13.2" xml:lang="en-US">
+  <compounddef id="dacpp_8py" kind="file" language="Python">
+    <compoundname>dacpp.py</compoundname>
+    <innernamespace refid="namespacefcmaes">fcmaes</innernamespace>
+    <innernamespace refid="namespacefcmaes_1_1dacpp">fcmaes::dacpp</innernamespace>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="namespacefcmaes_1_1dacpp_1a51548e77349fcaa0963fafeed727cc3c" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>fcmaes::dacpp.optimizeDA_C</definition>
+        <argsstring></argsstring>
+        <name>optimizeDA_C</name>
+        <qualifiedname>fcmaes.dacpp.optimizeDA_C</qualifiedname>
+        <initializer>=  libcmalib.optimizeDA_C</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="fcmaes/dacpp.py" line="114" column="1" bodyfile="fcmaes/dacpp.py" bodystart="114" bodyend="-1"/>
+        <referencedby refid="namespacefcmaes_1_1dacpp_1aa5ad4244fa09713fa980fb5229adc4c1" compoundref="dacpp_8py" startline="87" endline="111">fcmaes.dacpp.minimize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="namespacefcmaes_1_1dacpp_1a9d643e00b79952e37ee44d2b7bf23b19" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>fcmaes::dacpp.argtypes</definition>
+        <argsstring></argsstring>
+        <name>argtypes</name>
+        <qualifiedname>fcmaes.dacpp.argtypes</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="fcmaes/dacpp.py" line="115" column="1" bodyfile="fcmaes/dacpp.py" bodystart="115" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="namespacefcmaes_1_1dacpp_1aa5ad4244fa09713fa980fb5229adc4c1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>OptimizeResult</type>
+        <definition> OptimizeResult fcmaes.dacpp.minimize</definition>
+        <argsstring>(Callable[[ArrayLike], float] fun, Optional[Bounds] bounds=None, Optional[ArrayLike] x0=None, Optional[int] max_evaluations=100000, Optional[bool] use_local_search=True, Optional[Generator] rg=Generator(PCG64DXSM()), Optional[int] runid=0)</argsstring>
+        <name>minimize</name>
+        <qualifiedname>fcmaes.dacpp.minimize</qualifiedname>
+        <param>
+          <type>Callable</type>
+          <defname>fun</defname>
+          <array>[[ArrayLike]</array>
+        </param>
+        <param>
+          <type>float]</type>
+          <declname>fun</declname>
+          <defname>bounds</defname>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>bounds</declname>
+          <defname>x0</defname>
+          <array>[Bounds]</array>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>x0</declname>
+          <defname>max_evaluations</defname>
+          <array>[ArrayLike]</array>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>max_evaluations</declname>
+          <defname>use_local_search</defname>
+          <array>[int]</array>
+          <defval>100000</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>use_local_search</declname>
+          <defname>rg</defname>
+          <array>[bool]</array>
+          <defval>True</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>rg</declname>
+          <defname>runid</defname>
+          <array>[Generator]</array>
+          <defval>Generator(PCG64DXSM())</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>runid</declname>
+          <array>[int]</array>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+<para>Minimizes a given function using Differential Annealing (DA) algorithm with optional local search. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function is a Python interface to an underlying C implementation.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>fun</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The objective function to be minimized. It should accept a 1-D array-like object as input and return a float. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bounds</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional bounds for the variables as an instance of <computeroutput>scipy.optimize.Bounds</computeroutput>. This defines the lower and upper bounds of the search space. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>x0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional initial guess for the solution as a 1-D array-like object. If not provided, it will be generated randomly within the bounds. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max_evaluations</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Maximum number of function evaluations allowed. Default is 100000. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>use_local_search</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Whether to perform local search after the main optimization (True) or not (False). Default is True. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Random number generator instance for reproducibility. Defaults to <computeroutput>numpy.random.Generator(PCG64DXSM())</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>runid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional identifier for the optimization run. Defaults to 0.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para></para>
+</simplesect>
+<simplesect kind="return"><para>OptimizeResult The optimization result represented as a <computeroutput>scipy.optimize.OptimizeResult</computeroutput> object. This object includes the found solution, function value at the solution, number of function evaluations (nfev), number of iterations (nit), the status of the optimization, and a success flag.</para>
+</simplesect>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>Exception</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If an unexpected error occurs during the optimization process. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="fcmaes/dacpp.py" line="81" column="1" bodyfile="fcmaes/dacpp.py" bodystart="87" bodyend="111"/>
+        <references refid="namespacefcmaes_1_1dacpp_1a51548e77349fcaa0963fafeed727cc3c" compoundref="dacpp_8py" startline="114">fcmaes.dacpp.optimizeDA_C</references>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>============================================================================= </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Fast version 1.6.11</para>
+<para>(c) 2025 – Dietmar Wolz (c) 2025 – Latitude</para>
+<para>License MIT</para>
+<para><itemizedlist>
+<listitem><para><ref refid="dacpp_8py" kindref="compound">dacpp.py</ref></para>
+</listitem></itemizedlist>
+</para>
+<para><simplesect kind="par"><title>Description</title><para><itemizedlist>
+<listitem><para>Eigen based implementation of dual annealing.</para>
+</listitem><listitem><para>Derived from [2].</para>
+</listitem><listitem><para>Local search is fixed to LBFGS-B.</para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+<simplesect kind="author"><para>:<itemizedlist>
+<listitem><para>Dietmar Wolz <programlisting><codeline><highlight class="normal">-<sp/>romain.despoullains</highlight><highlight class="preprocessor">@latitude.eu</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal">-<sp/>corentin.generet</highlight><highlight class="preprocessor">@latitude.eu</highlight></codeline>
+</programlisting></para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+<simplesect kind="par"><title>References</title><para><itemizedlist>
+<listitem><para>[1] <ulink url="https://github.com/dietmarwo/fast-cma-es">https://github.com/dietmarwo/fast-cma-es</ulink></para>
+</listitem><listitem><para>[2] <ulink url="https://github.com/scipy/scipy/blob/master/scipy/optimize/_dual_annealing.py">https://github.com/scipy/scipy/blob/master/scipy/optimize/_dual_annealing.py</ulink></para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+<simplesect kind="par"><title>Documentation</title><para><itemizedlist>
+<listitem></listitem></itemizedlist>
+</para>
+</simplesect>
+<hruler/>
+ </para>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1" refid="namespacefcmaes_1_1dacpp" refkind="compound"><highlight class="comment">#<sp/>-*-<sp/>coding:<sp/>utf-8<sp/>-*-</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="3"><highlight class="stringliteral">=============================================================================</highlight></codeline>
+<codeline lineno="4"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="5"><highlight class="stringliteral"><sp/>Fast<sp/>CMA-ES<sp/>-<sp/>version<sp/>1.6.11</highlight></codeline>
+<codeline lineno="6"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="7"><highlight class="stringliteral"><sp/>(c)<sp/>2025<sp/>–<sp/>Dietmar<sp/>Wolz</highlight></codeline>
+<codeline lineno="8"><highlight class="stringliteral"><sp/>(c)<sp/>2025<sp/>–<sp/>Latitude</highlight></codeline>
+<codeline lineno="9"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="10"><highlight class="stringliteral"><sp/>License:<sp/>MIT</highlight></codeline>
+<codeline lineno="11"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="12"><highlight class="stringliteral"><sp/>File:</highlight></codeline>
+<codeline lineno="13"><highlight class="stringliteral"><sp/><sp/>-<sp/>dacpp.py</highlight></codeline>
+<codeline lineno="14"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="15"><highlight class="stringliteral"><sp/>Description:</highlight></codeline>
+<codeline lineno="16"><highlight class="stringliteral"><sp/><sp/>-<sp/>Eigen<sp/>based<sp/>implementation<sp/>of<sp/>dual<sp/>annealing.</highlight></codeline>
+<codeline lineno="17"><highlight class="stringliteral"><sp/><sp/>-<sp/>Derived<sp/>from<sp/>[2].</highlight></codeline>
+<codeline lineno="18"><highlight class="stringliteral"><sp/><sp/>-<sp/>Local<sp/>search<sp/>is<sp/>fixed<sp/>to<sp/>LBFGS-B.</highlight></codeline>
+<codeline lineno="19"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="20"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="21"><highlight class="stringliteral"><sp/>Authors:</highlight></codeline>
+<codeline lineno="22"><highlight class="stringliteral"><sp/><sp/>-<sp/>Dietmar<sp/>Wolz</highlight></codeline>
+<codeline lineno="23"><highlight class="stringliteral"><sp/><sp/>-<sp/>romain.despoullains@latitude.eu</highlight></codeline>
+<codeline lineno="24"><highlight class="stringliteral"><sp/><sp/>-<sp/>corentin.generet@latitude.eu</highlight></codeline>
+<codeline lineno="25"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="26"><highlight class="stringliteral"><sp/>References:</highlight></codeline>
+<codeline lineno="27"><highlight class="stringliteral"><sp/><sp/>-<sp/>[1]<sp/>https://github.com/dietmarwo/fast-cma-es</highlight></codeline>
+<codeline lineno="28"><highlight class="stringliteral"><sp/><sp/>-<sp/>[2]<sp/>https://github.com/scipy/scipy/blob/master/scipy/optimize/_dual_annealing.py</highlight></codeline>
+<codeline lineno="29"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="30"><highlight class="stringliteral"><sp/>Documentation:</highlight></codeline>
+<codeline lineno="31"><highlight class="stringliteral"><sp/><sp/>-</highlight></codeline>
+<codeline lineno="32"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="33"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="34"><highlight class="stringliteral">=============================================================================</highlight></codeline>
+<codeline lineno="35"><highlight class="stringliteral">&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>sys</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>os</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>ctypes<sp/></highlight><highlight class="keyword">as</highlight><highlight class="normal"><sp/>ct</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>numpy<sp/></highlight><highlight class="keyword">as</highlight><highlight class="normal"><sp/>np</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>numpy.random<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>PCG64DXSM,<sp/>Generator</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>scipy.optimize<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>OptimizeResult,<sp/>Bounds</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/><ref refid="namespacefcmaes_1_1evaluator" kindref="compound">fcmaes.evaluator</ref><sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>_check_bounds,<sp/>call_back_type,<sp/>callback,<sp/>libcmalib</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>typing<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>Optional,<sp/>Callable,<sp/>Union</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>numpy.typing<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>ArrayLike</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal">os.environ[</highlight><highlight class="stringliteral">&apos;MKL_DEBUG_CPU_TYPE&apos;</highlight><highlight class="normal">]<sp/>=<sp/></highlight><highlight class="stringliteral">&apos;5&apos;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="namespacefcmaes_1_1dacpp_1aa5ad4244fa09713fa980fb5229adc4c1" kindref="member">minimize</ref>(fun:<sp/>Callable[[ArrayLike],<sp/>float],<sp/></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bounds:<sp/>Optional[Bounds]<sp/>=<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">,<sp/></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>x0:<sp/>Optional[ArrayLike]<sp/>=<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>max_evaluations:<sp/>Optional[int]<sp/>=<sp/>100000,<sp/></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>use_local_search:<sp/>Optional[bool]<sp/>=<sp/></highlight><highlight class="keyword">True</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rg:<sp/>Optional[Generator]<sp/>=<sp/>Generator(PCG64DXSM()),</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>runid:<sp/>Optional[int]<sp/>=<sp/>0)<sp/>-&gt;<sp/>OptimizeResult:</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="61"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>Minimizes<sp/>a<sp/>given<sp/>function<sp/>using<sp/>Differential<sp/>Annealing<sp/>(DA)<sp/>algorithm<sp/>with<sp/>optional</highlight></codeline>
+<codeline lineno="62"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>local<sp/>search.<sp/>This<sp/>function<sp/>is<sp/>a<sp/>Python<sp/>interface<sp/>to<sp/>an<sp/>underlying<sp/>C<sp/>implementation.</highlight></codeline>
+<codeline lineno="63"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="64"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>Args:</highlight></codeline>
+<codeline lineno="65"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fun:<sp/>The<sp/>objective<sp/>function<sp/>to<sp/>be<sp/>minimized.<sp/>It<sp/>should<sp/>accept<sp/>a<sp/>1-D<sp/>array-like</highlight></codeline>
+<codeline lineno="66"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>object<sp/>as<sp/>input<sp/>and<sp/>return<sp/>a<sp/>float.</highlight></codeline>
+<codeline lineno="67"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bounds:<sp/>Optional<sp/>bounds<sp/>for<sp/>the<sp/>variables<sp/>as<sp/>an<sp/>instance<sp/>of<sp/>`scipy.optimize.Bounds`.</highlight></codeline>
+<codeline lineno="68"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>This<sp/>defines<sp/>the<sp/>lower<sp/>and<sp/>upper<sp/>bounds<sp/>of<sp/>the<sp/>search<sp/>space.</highlight></codeline>
+<codeline lineno="69"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>x0:<sp/>Optional<sp/>initial<sp/>guess<sp/>for<sp/>the<sp/>solution<sp/>as<sp/>a<sp/>1-D<sp/>array-like<sp/>object.</highlight></codeline>
+<codeline lineno="70"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>If<sp/>not<sp/>provided,<sp/>it<sp/>will<sp/>be<sp/>generated<sp/>randomly<sp/>within<sp/>the<sp/>bounds.</highlight></codeline>
+<codeline lineno="71"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>max_evaluations:<sp/>Maximum<sp/>number<sp/>of<sp/>function<sp/>evaluations<sp/>allowed.<sp/>Default<sp/>is<sp/>100000.</highlight></codeline>
+<codeline lineno="72"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>use_local_search:<sp/>Whether<sp/>to<sp/>perform<sp/>local<sp/>search<sp/>after<sp/>the<sp/>main<sp/>optimization</highlight></codeline>
+<codeline lineno="73"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(True)<sp/>or<sp/>not<sp/>(False).<sp/>Default<sp/>is<sp/>True.</highlight></codeline>
+<codeline lineno="74"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rg:<sp/>Random<sp/>number<sp/>generator<sp/>instance<sp/>for<sp/>reproducibility.<sp/>Defaults<sp/>to</highlight></codeline>
+<codeline lineno="75"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>`numpy.random.Generator(PCG64DXSM())`.</highlight></codeline>
+<codeline lineno="76"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>runid:<sp/>Optional<sp/>identifier<sp/>for<sp/>the<sp/>optimization<sp/>run.<sp/>Defaults<sp/>to<sp/>0.</highlight></codeline>
+<codeline lineno="77"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="78"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>Returns:</highlight></codeline>
+<codeline lineno="79"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OptimizeResult:<sp/>The<sp/>optimization<sp/>result<sp/>represented<sp/>as<sp/>a<sp/>`scipy.optimize.OptimizeResult`<sp/>object.</highlight></codeline>
+<codeline lineno="80"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>This<sp/>object<sp/>includes<sp/>the<sp/>found<sp/>solution,<sp/>function<sp/>value<sp/>at<sp/>the<sp/>solution,<sp/>number<sp/>of</highlight></codeline>
+<codeline lineno="81" refid="namespacefcmaes_1_1dacpp_1aa5ad4244fa09713fa980fb5229adc4c1" refkind="member"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>function<sp/>evaluations<sp/>(nfev),<sp/>number<sp/>of<sp/>iterations<sp/>(nit),<sp/>the<sp/>status<sp/>of<sp/>the<sp/>optimization,</highlight></codeline>
+<codeline lineno="82"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>and<sp/>a<sp/>success<sp/>flag.</highlight></codeline>
+<codeline lineno="83"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="84"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>Raises:</highlight></codeline>
+<codeline lineno="85"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Exception:<sp/>If<sp/>an<sp/>unexpected<sp/>error<sp/>occurs<sp/>during<sp/>the<sp/>optimization<sp/>process.</highlight></codeline>
+<codeline lineno="86"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/>lower,<sp/>upper,<sp/>guess<sp/>=<sp/>_check_bounds(bounds,<sp/>x0,<sp/>rg)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/>dim<sp/>=<sp/>guess.size</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/>array_type<sp/>=<sp/>ct.c_double<sp/>*<sp/>dim<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/>c_callback<sp/>=<sp/>call_back_type(<ref refid="classfcmaes_1_1evaluator_1_1callback" kindref="compound">callback</ref>(fun))</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/>seed<sp/>=<sp/>int(rg.uniform(0,<sp/>2**32<sp/>-<sp/>1))</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/>res<sp/>=<sp/>np.empty(dim+4)</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/>res_p<sp/>=<sp/>res.ctypes.data_as(ct.POINTER(ct.c_double))</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">try</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacefcmaes_1_1dacpp_1a51548e77349fcaa0963fafeed727cc3c" kindref="member">optimizeDA_C</ref>(runid,<sp/>c_callback,<sp/>dim,<sp/>seed,</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>array_type(*guess),<sp/></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>lower<sp/></highlight><highlight class="keywordflow">is</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>array_type(*lower),<sp/></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>upper<sp/></highlight><highlight class="keywordflow">is</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>array_type(*upper),<sp/></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>max_evaluations,<sp/>use_local_search,<sp/>res_p)</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>x<sp/>=<sp/>res[:dim]</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>val<sp/>=<sp/>res[dim]</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>evals<sp/>=<sp/>int(res[dim+1])</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>iterations<sp/>=<sp/>int(res[dim+2])</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>stop<sp/>=<sp/>int(res[dim+3])</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>OptimizeResult(x=x,<sp/>fun=val,<sp/>nfev=evals,<sp/>nit=iterations,<sp/>status=stop,<sp/>success=</highlight><highlight class="keyword">True</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">except</highlight><highlight class="normal"><sp/>Exception<sp/></highlight><highlight class="keyword">as</highlight><highlight class="normal"><sp/>ex:</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>OptimizeResult(x=</highlight><highlight class="keywordtype">None</highlight><highlight class="normal">,<sp/>fun=sys.float_info.max,<sp/>nfev=0,<sp/>nit=0,<sp/>status=-1,<sp/>success=</highlight><highlight class="keyword">False</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">not</highlight><highlight class="normal"><sp/>libcmalib<sp/></highlight><highlight class="keywordflow">is</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:<sp/></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/>optimizeDA_C<sp/>=<sp/>libcmalib.optimizeDA_C</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/>optimizeDA_C.argtypes<sp/>=<sp/>[ct.c_long,<sp/>call_back_type,<sp/>ct.c_int,<sp/>ct.c_int,<sp/>\</highlight></codeline>
+<codeline lineno="114" refid="namespacefcmaes_1_1dacpp_1a51548e77349fcaa0963fafeed727cc3c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ct.POINTER(ct.c_double),<sp/>ct.POINTER(ct.c_double),<sp/>ct.POINTER(ct.c_double),<sp/>\</highlight></codeline>
+<codeline lineno="115" refid="namespacefcmaes_1_1dacpp_1a9d643e00b79952e37ee44d2b7bf23b19" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ct.c_int,<sp/>ct.c_bool,<sp/>ct.POINTER(ct.c_double)]</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="fcmaes/dacpp.py"/>
+  </compounddef>
+</doxygen>

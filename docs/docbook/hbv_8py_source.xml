@@ -1,0 +1,233 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_hbv_8py_source" xml:lang="en-US">
+<title>hbv.py</title>
+<indexterm><primary>examples/hbv/hbv.py</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_hbv_8py_source_1l00001"/><link linkend="_namespacehbv">00001</link> <emphasis role="comment">#&#32;HBV&#32;Rainfall-Runoff&#32;Model&#32;</emphasis>
+<anchor xml:id="_hbv_8py_source_1l00002"/>00002 <emphasis role="comment">#&#32;See&#32;https://github.com/dietmarwo/fast-cma-es/blob/master/tutorials/Water.adoc</emphasis>
+<anchor xml:id="_hbv_8py_source_1l00003"/>00003 <emphasis role="comment">#&#32;See&#32;http://www.sciencedirect.com/science/article/pii/S0309170812000073</emphasis>
+<anchor xml:id="_hbv_8py_source_1l00004"/>00004 <emphasis role="comment">#&#32;See&#32;https://github.com/jdherman/awr-hbv-benchmark</emphasis>
+<anchor xml:id="_hbv_8py_source_1l00005"/>00005 <emphasis role="comment">#&#32;See&#32;also&#32;https://github.com/dietmarwo/fast-cma-es/blob/master/tutorials/Diversity.adoc</emphasis>
+<anchor xml:id="_hbv_8py_source_1l00006"/>00006 
+<anchor xml:id="_hbv_8py_source_1l00007"/>00007 <emphasis role="comment">#&#32;Tested&#32;using&#32;https://docs.conda.io/en/main/miniconda.html&#32;on&#32;Linux&#32;Mint&#32;21.2</emphasis>
+<anchor xml:id="_hbv_8py_source_1l00008"/>00008 
+<anchor xml:id="_hbv_8py_source_1l00009"/>00009 <emphasis role="keyword">import</emphasis>&#32;numpy&#32;<emphasis role="keyword">as</emphasis>&#32;np
+<anchor xml:id="_hbv_8py_source_1l00010"/>00010 <emphasis role="keyword">import</emphasis>&#32;os,&#32;sys,&#32;time
+<anchor xml:id="_hbv_8py_source_1l00011"/>00011 <emphasis role="keyword">import</emphasis>&#32;ctypes&#32;<emphasis role="keyword">as</emphasis>&#32;ct
+<anchor xml:id="_hbv_8py_source_1l00012"/>00012 <emphasis role="keyword">from</emphasis>&#32;numpy.random&#32;<emphasis role="keyword">import</emphasis>&#32;Generator,&#32;MT19937
+<anchor xml:id="_hbv_8py_source_1l00013"/>00013 <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1evaluator">fcmaes.evaluator</link>&#32;<emphasis role="keyword">import</emphasis>&#32;Evaluator
+<anchor xml:id="_hbv_8py_source_1l00014"/>00014 <emphasis role="keyword">from</emphasis>&#32;fcmaes&#32;<emphasis role="keyword">import</emphasis>&#32;moretry
+<anchor xml:id="_hbv_8py_source_1l00015"/>00015 <emphasis role="keyword">import</emphasis>&#32;multiprocessing&#32;<emphasis role="keyword">as</emphasis>&#32;mp
+<anchor xml:id="_hbv_8py_source_1l00016"/>00016 <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1optimizer">fcmaes.optimizer</link>&#32;<emphasis role="keyword">import</emphasis>&#32;dtime
+<anchor xml:id="_hbv_8py_source_1l00017"/>00017 <emphasis role="keyword">from</emphasis>&#32;scipy.optimize&#32;<emphasis role="keyword">import</emphasis>&#32;Bounds
+<anchor xml:id="_hbv_8py_source_1l00018"/>00018 <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1optimizer">fcmaes.optimizer</link>&#32;<emphasis role="keyword">import</emphasis>&#32;de_cma,&#32;Bite_cpp,&#32;Cma_cpp,&#32;LDe_cpp,&#32;dtime,&#32;&#32;De_cpp,&#32;random_search,&#32;wrapper,&#32;logger
+<anchor xml:id="_hbv_8py_source_1l00019"/>00019 <emphasis role="keyword">from</emphasis>&#32;fcmaes&#32;<emphasis role="keyword">import</emphasis>&#32;moretry,&#32;retry,&#32;mode,&#32;modecpp,&#32;decpp,&#32;de,&#32;moretry<emphasis role="comment">#,&#32;modec&#32;</emphasis>
+<anchor xml:id="_hbv_8py_source_1l00020"/>00020 <emphasis role="keyword">from</emphasis>&#32;fcmaes&#32;<emphasis role="keyword">import</emphasis>&#32;diversifier,&#32;mapelites
+<anchor xml:id="_hbv_8py_source_1l00021"/>00021 <emphasis role="keyword">from</emphasis>&#32;scipy.optimize&#32;<emphasis role="keyword">import</emphasis>&#32;Bounds
+<anchor xml:id="_hbv_8py_source_1l00022"/>00022 
+<anchor xml:id="_hbv_8py_source_1l00023"/>00023 <emphasis role="keyword">import</emphasis>&#32;sys&#32;
+<anchor xml:id="_hbv_8py_source_1l00024"/>00024 <emphasis role="keyword">from</emphasis>&#32;loguru&#32;<emphasis role="keyword">import</emphasis>&#32;logger
+<anchor xml:id="_hbv_8py_source_1l00025"/>00025 
+<anchor xml:id="_hbv_8py_source_1l00026"/>00026 logger.remove()
+<anchor xml:id="_hbv_8py_source_1l00027"/><link linkend="_namespacehbv_1a8ed61252b87568105a6825dbbc8400a4">00027</link> logger.add(sys.stdout,&#32;format=<emphasis role="stringliteral">&quot;{time:HH:mm:ss.SS}&#32;|&#32;{process}&#32;|&#32;{level}&#32;|&#32;{message}&quot;</emphasis>,&#32;level=<emphasis role="stringliteral">&quot;INFO&quot;</emphasis>)
+<anchor xml:id="_hbv_8py_source_1l00028"/>00028 logger.add(<emphasis role="stringliteral">&quot;log_{time}.txt&quot;</emphasis>,&#32;format=<emphasis role="stringliteral">&quot;{time:HH:mm:ss.SS}&#32;|&#32;{process}&#32;|&#32;{level}&#32;|&#32;{message}&quot;</emphasis>,&#32;level=<emphasis role="stringliteral">&quot;INFO&quot;</emphasis>)
+<anchor xml:id="_hbv_8py_source_1l00029"/>00029 
+<anchor xml:id="_hbv_8py_source_1l00030"/><link linkend="_namespacehbv_1a00404bedc5447ca26bd54d928e700a0a">00030</link> basepath&#32;=&#32;os.path.dirname(os.path.abspath(__file__))
+<anchor xml:id="_hbv_8py_source_1l00031"/><link linkend="_namespacehbv_1a4647b0f6ace18e5556b93f8cb071f77b">00031</link> libhbv&#32;=&#32;ct.cdll.LoadLibrary(basepath&#32;+&#32;<emphasis role="stringliteral">&apos;/../../fcmaes/lib/libhbv.so&apos;</emphasis>)&#32;&#32;
+<anchor xml:id="_hbv_8py_source_1l00032"/>00032 
+<anchor xml:id="_hbv_8py_source_1l00033"/>00033 &#32;&#32;&#32;&#32;
+<anchor xml:id="_hbv_8py_source_1l00034"/><link linkend="_namespacehbv_1ae439426f8c05b2209aebcd1fb6bbf4d6">00034</link> hbv_C&#32;=&#32;libhbv.hbv_C
+<anchor xml:id="_hbv_8py_source_1l00035"/><link linkend="_namespacehbv_1a8944e04035637d967db8c57ffc1f254f">00035</link> hbv_C.argtypes&#32;=&#32;[]
+<anchor xml:id="_hbv_8py_source_1l00036"/><link linkend="_namespacehbv_1a5b25c774b87cf013880075d1080628dd">00036</link> hbv_C.restype&#32;=&#32;ct.c_long
+<anchor xml:id="_hbv_8py_source_1l00037"/>00037 
+<anchor xml:id="_hbv_8py_source_1l00038"/><link linkend="_namespacehbv_1a0e4d56699fe475c27c22f9b8163b2d32">00038</link> fitness_hbv_C&#32;=&#32;libhbv.fitness_hbv_C
+<anchor xml:id="_hbv_8py_source_1l00039"/>00039 fitness_hbv_C.argtypes&#32;=&#32;[ct.c_long,&#32;ct.POINTER(ct.c_double),&#32;ct.POINTER(ct.c_double)]
+<anchor xml:id="_hbv_8py_source_1l00040"/>00040 &#32;
+<anchor xml:id="_hbv_8py_source_1l00041"/><link linkend="_namespacehbv_1a21be01c67f722a84e886f22bca6d0d39">00041</link> nobj&#32;=&#32;4
+<anchor xml:id="_hbv_8py_source_1l00042"/>00042 
+<anchor xml:id="_hbv_8py_source_1l00043"/><link linkend="_namespacehbv_1a085e628fbdd8f3fb78fd6ce1645e9521">00043</link> bounds&#32;=&#32;[
+<anchor xml:id="_hbv_8py_source_1l00044"/>00044 &#32;&#32;&#32;&#32;&#32;&#32;&#32;(0.0,&#32;100.0),&#32;<emphasis role="comment">#L&#32;(mm)&#32;</emphasis>
+<anchor xml:id="_hbv_8py_source_1l00045"/>00045 &#32;&#32;&#32;&#32;&#32;&#32;&#32;(0.5,&#32;20.0),&#32;<emphasis role="comment">#K0&#32;(d)</emphasis>
+<anchor xml:id="_hbv_8py_source_1l00046"/>00046 &#32;&#32;&#32;&#32;&#32;&#32;&#32;(1.0,&#32;100.0),&#32;<emphasis role="comment">#K1&#32;(d)</emphasis>
+<anchor xml:id="_hbv_8py_source_1l00047"/>00047 &#32;&#32;&#32;&#32;&#32;&#32;&#32;(10.0,&#32;20000.0),&#32;<emphasis role="comment">#K2&#32;(d)</emphasis>
+<anchor xml:id="_hbv_8py_source_1l00048"/>00048 &#32;&#32;&#32;&#32;&#32;&#32;&#32;(0.0,&#32;100.0),&#32;<emphasis role="comment">#Perc&#32;(mm/d)</emphasis>
+<anchor xml:id="_hbv_8py_source_1l00049"/>00049 &#32;&#32;&#32;&#32;&#32;&#32;&#32;(0.3,&#32;1.0),&#32;<emphasis role="comment">#LP&#32;(-)</emphasis>
+<anchor xml:id="_hbv_8py_source_1l00050"/>00050 &#32;&#32;&#32;&#32;&#32;&#32;&#32;(0.0,&#32;2000.0),&#32;<emphasis role="comment">#Fcap&#32;(mm)</emphasis>
+<anchor xml:id="_hbv_8py_source_1l00051"/>00051 &#32;&#32;&#32;&#32;&#32;&#32;&#32;(0.0,&#32;7.0),&#32;<emphasis role="comment">#B&#32;(-)</emphasis>
+<anchor xml:id="_hbv_8py_source_1l00052"/>00052 &#32;&#32;&#32;&#32;&#32;&#32;&#32;(24.0,&#32;120.0),&#32;<emphasis role="comment">#MaxBas&#32;(d)</emphasis>
+<anchor xml:id="_hbv_8py_source_1l00053"/>00053 &#32;&#32;&#32;&#32;&#32;&#32;&#32;(-3.0,&#32;3.0),&#32;<emphasis role="comment">#TT&#32;(C)</emphasis>
+<anchor xml:id="_hbv_8py_source_1l00054"/>00054 &#32;&#32;&#32;&#32;&#32;&#32;&#32;(0.0,&#32;20.0),&#32;<emphasis role="comment">#DDF&#32;(mm/C*d)</emphasis>
+<anchor xml:id="_hbv_8py_source_1l00055"/>00055 &#32;&#32;&#32;&#32;&#32;&#32;&#32;(0.0,&#32;1.0),&#32;<emphasis role="comment">#CFR&#32;(-)</emphasis>
+<anchor xml:id="_hbv_8py_source_1l00056"/>00056 &#32;&#32;&#32;&#32;&#32;&#32;&#32;(0.0,&#32;0.8),&#32;<emphasis role="comment">#CWH&#32;(-)</emphasis>
+<anchor xml:id="_hbv_8py_source_1l00057"/>00057 &#32;&#32;&#32;&#32;&#32;&#32;&#32;(0.0,&#32;7.0),&#32;<emphasis role="comment">#TTI&#32;(C)&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_hbv_8py_source_1l00058"/>00058 &#32;&#32;&#32;&#32;]
+<anchor xml:id="_hbv_8py_source_1l00059"/>00059 
+<anchor xml:id="_hbv_8py_source_1l00060"/><link linkend="_namespacehbv_1adefdcf86299ec8bacaa2343da556df0e">00060</link> dim&#32;=&#32;len(bounds)
+<anchor xml:id="_hbv_8py_source_1l00061"/><link linkend="_namespacehbv_1a0ba6e3603d8d7832067bcc79338a3f83">00061</link> lb&#32;=&#32;np.array([b[0]&#32;<emphasis role="keywordflow">for</emphasis>&#32;b&#32;<emphasis role="keywordflow">in</emphasis>&#32;bounds])
+<anchor xml:id="_hbv_8py_source_1l00062"/><link linkend="_namespacehbv_1a85af41e7e854710f0f339749ecd29ca2">00062</link> ub&#32;=&#32;np.array([b[1]&#32;<emphasis role="keywordflow">for</emphasis>&#32;b&#32;<emphasis role="keywordflow">in</emphasis>&#32;bounds])
+<anchor xml:id="_hbv_8py_source_1l00063"/>00063 
+<anchor xml:id="_hbv_8py_source_1l00064"/><link linkend="_classhbv_1_1hbv">00064</link> <emphasis role="keyword">class&#32;</emphasis><link linkend="_classhbv_1_1hbv">hbv</link>(object):
+<anchor xml:id="_hbv_8py_source_1l00065"/>00065 &#32;&#32;&#32;&#32;
+<anchor xml:id="_hbv_8py_source_1l00066"/><link linkend="_classhbv_1_1hbv_1a018b2b26a4e6f1b37de09375347b11df">00066</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classhbv_1_1hbv_1a018b2b26a4e6f1b37de09375347b11df">__init__</link>(self):
+<anchor xml:id="_hbv_8py_source_1l00067"/><link linkend="_classhbv_1_1hbv_1a092a863432753cc15dba7848e7c421d7">00067</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classhbv_1_1hbv_1a092a863432753cc15dba7848e7c421d7">bounds</link>&#32;=&#32;Bounds(lb,&#32;ub)
+<anchor xml:id="_hbv_8py_source_1l00068"/><link linkend="_classhbv_1_1hbv_1ae4c85c60e063bfd11874ddfd8daf2d85">00068</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classhbv_1_1hbv_1ae4c85c60e063bfd11874ddfd8daf2d85">hbv</link>&#32;=&#32;<emphasis role="keywordtype">None</emphasis>
+<anchor xml:id="_hbv_8py_source_1l00069"/><link linkend="_classhbv_1_1hbv_1a215bc24a3f9ff6ae0e74d3260429abcd">00069</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classhbv_1_1hbv_1a215bc24a3f9ff6ae0e74d3260429abcd">best_y</link>&#32;=&#32;mp.RawValue(ct.c_double,&#32;np.inf)&#32;
+<anchor xml:id="_hbv_8py_source_1l00070"/>00070 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_hbv_8py_source_1l00071"/><link linkend="_classhbv_1_1hbv_1af5f8604b9c3d15a55b152cee78d56e39">00071</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classhbv_1_1hbv_1af5f8604b9c3d15a55b152cee78d56e39">__call__</link>(self,&#32;x):
+<anchor xml:id="_hbv_8py_source_1l00072"/>00072 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x&#32;=&#32;np.array(x)
+<anchor xml:id="_hbv_8py_source_1l00073"/>00073 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;y&#32;=&#32;np.empty(nobj)
+<anchor xml:id="_hbv_8py_source_1l00074"/>00074 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x_p&#32;=&#32;x.ctypes.data_as(ct.POINTER(ct.c_double))
+<anchor xml:id="_hbv_8py_source_1l00075"/>00075 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;y_p&#32;=&#32;y.ctypes.data_as(ct.POINTER(ct.c_double))&#32;&#32;
+<anchor xml:id="_hbv_8py_source_1l00076"/>00076 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;self.<link linkend="_classhbv_1_1hbv_1ae4c85c60e063bfd11874ddfd8daf2d85">hbv</link>&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>:
+<anchor xml:id="_hbv_8py_source_1l00077"/>00077 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classhbv_1_1hbv_1ae4c85c60e063bfd11874ddfd8daf2d85">hbv</link>&#32;=&#32;<link linkend="_namespacehbv_1ae439426f8c05b2209aebcd1fb6bbf4d6">hbv_C</link>()&#32;&#32;&#32;
+<anchor xml:id="_hbv_8py_source_1l00078"/>00078 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_namespacehbv_1a0e4d56699fe475c27c22f9b8163b2d32">fitness_hbv_C</link>(self.<link linkend="_classhbv_1_1hbv_1ae4c85c60e063bfd11874ddfd8daf2d85">hbv</link>,&#32;x_p,&#32;y_p)
+<anchor xml:id="_hbv_8py_source_1l00079"/>00079 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;np.array(y)
+<anchor xml:id="_hbv_8py_source_1l00080"/>00080 &#32;&#32;&#32;&#32;
+<anchor xml:id="_hbv_8py_source_1l00081"/><link linkend="_classhbv_1_1hbv_1a89aea998d9546dc3465bf46fbee95689">00081</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classhbv_1_1hbv_1a89aea998d9546dc3465bf46fbee95689">qd_fitness</link>(self,&#32;x):&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_hbv_8py_source_1l00082"/>00082 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;y&#32;=&#32;self.<link linkend="_classhbv_1_1hbv_1af5f8604b9c3d15a55b152cee78d56e39">__call__</link>(x)
+<anchor xml:id="_hbv_8py_source_1l00083"/>00083 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;b&#32;=&#32;y.copy()
+<anchor xml:id="_hbv_8py_source_1l00084"/>00084 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;y&#32;=&#32;(y&#32;-&#32;self.qd_bounds.lb)&#32;/&#32;(self.qd_bounds.ub&#32;-&#32;self.qd_bounds.lb)
+<anchor xml:id="_hbv_8py_source_1l00085"/>00085 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ws&#32;=&#32;sum(y)
+<anchor xml:id="_hbv_8py_source_1l00086"/>00086 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;ws&#32;&lt;&#32;self.<link linkend="_classhbv_1_1hbv_1a215bc24a3f9ff6ae0e74d3260429abcd">best_y</link>.value:
+<anchor xml:id="_hbv_8py_source_1l00087"/>00087 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classhbv_1_1hbv_1a215bc24a3f9ff6ae0e74d3260429abcd">best_y</link>.value&#32;=&#32;ws
+<anchor xml:id="_hbv_8py_source_1l00088"/>00088 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;print(f<emphasis role="stringliteral">&apos;{ws:.3f}&#32;{&#32;list(b)&#32;}&apos;</emphasis>)&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_hbv_8py_source_1l00089"/>00089 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;ws,&#32;b&#32;&#32;
+<anchor xml:id="_hbv_8py_source_1l00090"/>00090 &#32;&#32;&#32;&#32;
+<anchor xml:id="_hbv_8py_source_1l00091"/><link linkend="_namespacehbv_1ac472b577264065e672297bacbf97cb7b">00091</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacehbv_1ac472b577264065e672297bacbf97cb7b">check_pymoo</link>(index):
+<anchor xml:id="_hbv_8py_source_1l00092"/>00092 
+<anchor xml:id="_hbv_8py_source_1l00093"/>00093 &#32;&#32;&#32;&#32;<emphasis role="keyword">from</emphasis>&#32;pymoo.core.problem&#32;<emphasis role="keyword">import</emphasis>&#32;ElementwiseProblem&#32;
+<anchor xml:id="_hbv_8py_source_1l00094"/>00094 &#32;&#32;&#32;&#32;<emphasis role="keyword">from</emphasis>&#32;pymoo.algorithms.moo.nsga2&#32;<emphasis role="keyword">import</emphasis>&#32;NSGA2
+<anchor xml:id="_hbv_8py_source_1l00095"/>00095 &#32;&#32;&#32;&#32;<emphasis role="keyword">from</emphasis>&#32;pymoo.algorithms.moo.age&#32;<emphasis role="keyword">import</emphasis>&#32;AGEMOEA
+<anchor xml:id="_hbv_8py_source_1l00096"/>00096 &#32;&#32;&#32;&#32;<emphasis role="keyword">from</emphasis>&#32;pymoo.algorithms.moo.ctaea&#32;<emphasis role="keyword">import</emphasis>&#32;CTAEA
+<anchor xml:id="_hbv_8py_source_1l00097"/>00097 &#32;&#32;&#32;&#32;<emphasis role="keyword">from</emphasis>&#32;pymoo.algorithms.soo.nonconvex.de&#32;<emphasis role="keyword">import</emphasis>&#32;DE
+<anchor xml:id="_hbv_8py_source_1l00098"/>00098 &#32;&#32;&#32;&#32;<emphasis role="keyword">from</emphasis>&#32;pymoo.factory&#32;<emphasis role="keyword">import</emphasis>&#32;get_sampling,&#32;get_crossover,&#32;get_mutation&#32;&#32;&#32;&#32;
+<anchor xml:id="_hbv_8py_source_1l00099"/>00099 &#32;&#32;&#32;&#32;<emphasis role="keyword">from</emphasis>&#32;pymoo.factory&#32;<emphasis role="keyword">import</emphasis>&#32;get_termination
+<anchor xml:id="_hbv_8py_source_1l00100"/>00100 &#32;&#32;&#32;&#32;<emphasis role="keyword">from</emphasis>&#32;multiprocessing.pool&#32;<emphasis role="keyword">import</emphasis>&#32;ThreadPool
+<anchor xml:id="_hbv_8py_source_1l00101"/>00101 &#32;&#32;&#32;&#32;<emphasis role="keyword">from</emphasis>&#32;pymoo.operators.sampling.lhs&#32;<emphasis role="keyword">import</emphasis>&#32;LHS
+<anchor xml:id="_hbv_8py_source_1l00102"/>00102 &#32;&#32;&#32;&#32;
+<anchor xml:id="_hbv_8py_source_1l00103"/>00103 &#32;&#32;&#32;&#32;store&#32;=&#32;<link linkend="_classfcmaes_1_1mode_1_1store">mode.store</link>(dim,&#32;nobj,&#32;2048)
+<anchor xml:id="_hbv_8py_source_1l00104"/>00104 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_hbv_8py_source_1l00105"/>00105 &#32;&#32;&#32;&#32;wrapped&#32;=&#32;<link linkend="_classfcmaes_1_1mode_1_1wrapper">mode.wrapper</link>(<link linkend="_classhbv_1_1hbv">hbv</link>(),&#32;nobj,&#32;store,&#32;plot=<emphasis role="keyword">True</emphasis>,&#32;interval&#32;=&#32;10000,&#32;
+<anchor xml:id="_hbv_8py_source_1l00106"/>00106 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;name=<emphasis role="stringliteral">&apos;nsga256_&apos;</emphasis>&#32;+&#32;str(index))&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_hbv_8py_source_1l00107"/>00107 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_hbv_8py_source_1l00108"/>00108 &#32;&#32;&#32;&#32;<emphasis role="keyword">class&#32;</emphasis>MyProblem(ElementwiseProblem):
+<anchor xml:id="_hbv_8py_source_1l00109"/>00109 &#32;&#32;&#32;&#32;
+<anchor xml:id="_hbv_8py_source_1l00110"/>00110 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis>__init__(self,&#32;**kwargs):
+<anchor xml:id="_hbv_8py_source_1l00111"/>00111 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;super().__init__(n_var=dim,
+<anchor xml:id="_hbv_8py_source_1l00112"/>00112 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;n_obj=nobj,
+<anchor xml:id="_hbv_8py_source_1l00113"/>00113 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;n_constr=0,
+<anchor xml:id="_hbv_8py_source_1l00114"/>00114 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xl=np.array(lb),
+<anchor xml:id="_hbv_8py_source_1l00115"/>00115 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xu=np.array(ub),&#32;**kwargs)
+<anchor xml:id="_hbv_8py_source_1l00116"/>00116 &#32;&#32;&#32;&#32;
+<anchor xml:id="_hbv_8py_source_1l00117"/>00117 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis>_evaluate(self,&#32;x,&#32;out,&#32;*args,&#32;**kwargs):&#32;&#32;&#32;
+<anchor xml:id="_hbv_8py_source_1l00118"/>00118 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;y&#32;=&#32;wrapped(x)
+<anchor xml:id="_hbv_8py_source_1l00119"/>00119 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;out[<emphasis role="stringliteral">&quot;F&quot;</emphasis>]&#32;=&#32;y[:nobj]
+<anchor xml:id="_hbv_8py_source_1l00120"/>00120 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;out[<emphasis role="stringliteral">&quot;G&quot;</emphasis>]&#32;=&#32;y[nobj:]
+<anchor xml:id="_hbv_8py_source_1l00121"/>00121 
+<anchor xml:id="_hbv_8py_source_1l00122"/>00122 &#32;&#32;&#32;&#32;pool&#32;=&#32;ThreadPool(8)
+<anchor xml:id="_hbv_8py_source_1l00123"/>00123 &#32;&#32;&#32;&#32;<emphasis role="comment">#pool&#32;=&#32;multiprocessing.Pool(32)</emphasis>
+<anchor xml:id="_hbv_8py_source_1l00124"/>00124 &#32;&#32;&#32;&#32;problem&#32;=&#32;MyProblem()
+<anchor xml:id="_hbv_8py_source_1l00125"/>00125 
+<anchor xml:id="_hbv_8py_source_1l00126"/>00126 &#32;&#32;&#32;&#32;algorithm&#32;=&#32;NSGA2(
+<anchor xml:id="_hbv_8py_source_1l00127"/>00127 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pop_size=256,
+<anchor xml:id="_hbv_8py_source_1l00128"/>00128 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;n_offsprings=10,
+<anchor xml:id="_hbv_8py_source_1l00129"/>00129 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;sampling=get_sampling(<emphasis role="stringliteral">&quot;real_random&quot;</emphasis>),
+<anchor xml:id="_hbv_8py_source_1l00130"/>00130 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;crossover=get_crossover(<emphasis role="stringliteral">&quot;real_sbx&quot;</emphasis>,&#32;prob=0.9,&#32;eta=15),
+<anchor xml:id="_hbv_8py_source_1l00131"/>00131 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;mutation=get_mutation(<emphasis role="stringliteral">&quot;real_pm&quot;</emphasis>,&#32;eta=20),&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_hbv_8py_source_1l00132"/>00132 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;eliminate_duplicates=<emphasis role="keyword">True</emphasis>
+<anchor xml:id="_hbv_8py_source_1l00133"/>00133 &#32;&#32;&#32;&#32;)&#32;&#32;&#32;&#32;
+<anchor xml:id="_hbv_8py_source_1l00134"/>00134 &#32;&#32;&#32;&#32;
+<anchor xml:id="_hbv_8py_source_1l00135"/>00135 &#32;&#32;&#32;&#32;<emphasis role="keyword">from</emphasis>&#32;pymoo.optimize&#32;<emphasis role="keyword">import</emphasis>&#32;minimize
+<anchor xml:id="_hbv_8py_source_1l00136"/>00136 &#32;&#32;&#32;&#32;<emphasis role="keyword">import</emphasis>&#32;matplotlib.pyplot&#32;<emphasis role="keyword">as</emphasis>&#32;plt
+<anchor xml:id="_hbv_8py_source_1l00137"/>00137 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_hbv_8py_source_1l00138"/>00138 &#32;&#32;&#32;&#32;res&#32;=&#32;minimize(problem,
+<anchor xml:id="_hbv_8py_source_1l00139"/>00139 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;algorithm,
+<anchor xml:id="_hbv_8py_source_1l00140"/>00140 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;get_termination(<emphasis role="stringliteral">&quot;n_gen&quot;</emphasis>,&#32;10000),
+<anchor xml:id="_hbv_8py_source_1l00141"/>00141 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;save_history=<emphasis role="keyword">True</emphasis>,
+<anchor xml:id="_hbv_8py_source_1l00142"/>00142 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;verbose=<emphasis role="keyword">False</emphasis>)
+<anchor xml:id="_hbv_8py_source_1l00143"/>00143 
+<anchor xml:id="_hbv_8py_source_1l00144"/>00144 &#32;&#32;&#32;&#32;X&#32;=&#32;res.X
+<anchor xml:id="_hbv_8py_source_1l00145"/>00145 &#32;&#32;&#32;&#32;F&#32;=&#32;res.F
+<anchor xml:id="_hbv_8py_source_1l00146"/>00146 &#32;&#32;&#32;&#32;plt.figure(figsize=(7,&#32;5))
+<anchor xml:id="_hbv_8py_source_1l00147"/>00147 &#32;&#32;&#32;&#32;plt.scatter(X[:,&#32;0],&#32;X[:,&#32;1],&#32;s=30,&#32;facecolors=<emphasis role="stringliteral">&apos;none&apos;</emphasis>,&#32;edgecolors=<emphasis role="stringliteral">&apos;r&apos;</emphasis>)
+<anchor xml:id="_hbv_8py_source_1l00148"/>00148 &#32;&#32;&#32;&#32;plt.figure(figsize=(7,&#32;5))
+<anchor xml:id="_hbv_8py_source_1l00149"/>00149 &#32;&#32;&#32;&#32;plt.scatter(F[:,&#32;0],&#32;F[:,&#32;1],&#32;s=30,&#32;facecolors=<emphasis role="stringliteral">&apos;none&apos;</emphasis>,&#32;edgecolors=<emphasis role="stringliteral">&apos;blue&apos;</emphasis>)
+<anchor xml:id="_hbv_8py_source_1l00150"/>00150 &#32;&#32;&#32;&#32;plt.title(<emphasis role="stringliteral">&quot;Objective&#32;Space&quot;</emphasis>)
+<anchor xml:id="_hbv_8py_source_1l00151"/>00151 &#32;&#32;&#32;&#32;<emphasis role="comment">#plt.show()</emphasis>
+<anchor xml:id="_hbv_8py_source_1l00152"/>00152 &#32;&#32;&#32;&#32;plt.savefig(<emphasis role="stringliteral">&apos;NSGSII256-objective-space&apos;</emphasis>+&#32;str(index)&#32;+&#32;<emphasis role="stringliteral">&apos;.png&apos;</emphasis>)
+<anchor xml:id="_hbv_8py_source_1l00153"/>00153 &#32;&#32;&#32;&#32;plt.clf()&#32;
+<anchor xml:id="_hbv_8py_source_1l00154"/>00154 &#32;&#32;&#32;&#32;sys.exit()
+<anchor xml:id="_hbv_8py_source_1l00155"/>00155 &#32;&#32;&#32;&#32;
+<anchor xml:id="_hbv_8py_source_1l00156"/><link linkend="_namespacehbv_1a6ee72909084ab4c1484abbfd15e60994">00156</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacehbv_1a6ee72909084ab4c1484abbfd15e60994">optimize_mo</link>():
+<anchor xml:id="_hbv_8py_source_1l00157"/>00157 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">try</emphasis>:&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_hbv_8py_source_1l00158"/>00158 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;problem&#32;=&#32;<link linkend="_classhbv_1_1hbv">hbv</link>()
+<anchor xml:id="_hbv_8py_source_1l00159"/>00159 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_hbv_8py_source_1l00160"/>00160 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;store&#32;=&#32;<link linkend="_classfcmaes_1_1mode_1_1store">mode.store</link>(dim,&#32;nobj,&#32;2048)
+<anchor xml:id="_hbv_8py_source_1l00161"/>00161 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fun&#32;=&#32;<link linkend="_classfcmaes_1_1mode_1_1wrapper">mode.wrapper</link>(problem,&#32;nobj,&#32;store,&#32;plot=<emphasis role="keyword">True</emphasis>,&#32;interval&#32;=&#32;1000000,&#32;name=<emphasis role="stringliteral">&apos;mode256.16&apos;</emphasis>)
+<anchor xml:id="_hbv_8py_source_1l00162"/>00162 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_hbv_8py_source_1l00163"/>00163 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;parallel&#32;function&#32;evaluation</emphasis>
+<anchor xml:id="_hbv_8py_source_1l00164"/>00164 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;modecpp.minimize,&#32;the&#32;C++&#32;variant,&#32;works&#32;only&#32;with&#32;workers=1&#32;because&#32;of&#32;limitations&#32;of&#32;the</emphasis>
+<anchor xml:id="_hbv_8py_source_1l00165"/>00165 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;used&#32;parallelization&#32;mechanism&#32;in&#32;combination&#32;with&#32;the&#32;way&#32;the&#32;objective&#32;function&#32;is&#32;initialized.</emphasis>
+<anchor xml:id="_hbv_8py_source_1l00166"/>00166 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_hbv_8py_source_1l00167"/>00167 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;mode.minimize(fun,&#32;nobj,&#32;0,&#32;problem.bounds,&#32;popsize&#32;=&#32;256,&#32;</emphasis>
+<anchor xml:id="_hbv_8py_source_1l00168"/>00168 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_evaluations&#32;=&#32;2000000,&#32;nsga_update=True,&#32;workers=16)</emphasis>
+<anchor xml:id="_hbv_8py_source_1l00169"/>00169 
+<anchor xml:id="_hbv_8py_source_1l00170"/>00170 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;parallel&#32;optimization&#32;retry</emphasis>
+<anchor xml:id="_hbv_8py_source_1l00171"/>00171 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_hbv_8py_source_1l00172"/>00172 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;modecpp.retry(fun,&#32;nobj,&#32;0,&#32;
+<anchor xml:id="_hbv_8py_source_1l00173"/>00173 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;problem.bounds,&#32;num_retries=32,&#32;popsize&#32;=&#32;256,&#32;
+<anchor xml:id="_hbv_8py_source_1l00174"/>00174 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_evaluations&#32;=&#32;500000,&#32;nsga_update&#32;=&#32;<emphasis role="keyword">True</emphasis>,&#32;workers=32)
+<anchor xml:id="_hbv_8py_source_1l00175"/>00175 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_hbv_8py_source_1l00176"/>00176 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_hbv_8py_source_1l00177"/>00177 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">except</emphasis>&#32;Exception&#32;<emphasis role="keyword">as</emphasis>&#32;ex:
+<anchor xml:id="_hbv_8py_source_1l00178"/>00178 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;print(str(ex))&#32;&#32;
+<anchor xml:id="_hbv_8py_source_1l00179"/>00179 
+<anchor xml:id="_hbv_8py_source_1l00180"/><link linkend="_namespacehbv_1a3a4f2f6019a427da618eb1b4826876da">00180</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacehbv_1a3a4f2f6019a427da618eb1b4826876da">plot3d</link>(ys,&#32;name,&#32;xlabel=&apos;&apos;,&#32;ylabel=&apos;&apos;,&#32;zlabel=&apos;&apos;):
+<anchor xml:id="_hbv_8py_source_1l00181"/>00181 &#32;&#32;&#32;&#32;<emphasis role="keyword">import</emphasis>&#32;matplotlib.pyplot&#32;<emphasis role="keyword">as</emphasis>&#32;plt
+<anchor xml:id="_hbv_8py_source_1l00182"/>00182 &#32;&#32;&#32;&#32;x&#32;=&#32;ys[:,&#32;0];&#32;y&#32;=&#32;ys[:,&#32;2];&#32;z&#32;=&#32;ys[:,&#32;1]
+<anchor xml:id="_hbv_8py_source_1l00183"/>00183 &#32;&#32;&#32;&#32;fig&#32;=&#32;plt.figure()
+<anchor xml:id="_hbv_8py_source_1l00184"/>00184 &#32;&#32;&#32;&#32;ax&#32;=&#32;fig.add_subplot()&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_hbv_8py_source_1l00185"/>00185 &#32;&#32;&#32;&#32;img&#32;=&#32;ax.scatter(x,&#32;y,&#32;s=4,&#32;c=z,&#32;cmap=<emphasis role="stringliteral">&apos;rainbow&apos;</emphasis>)
+<anchor xml:id="_hbv_8py_source_1l00186"/>00186 &#32;&#32;&#32;&#32;cbar&#32;=&#32;fig.colorbar(img)
+<anchor xml:id="_hbv_8py_source_1l00187"/>00187 &#32;&#32;&#32;&#32;plt.xlabel(xlabel)&#32;&#32;&#32;&#32;
+<anchor xml:id="_hbv_8py_source_1l00188"/>00188 &#32;&#32;&#32;&#32;plt.ylabel(ylabel)
+<anchor xml:id="_hbv_8py_source_1l00189"/>00189 &#32;&#32;&#32;&#32;cbar.set_label(zlabel)
+<anchor xml:id="_hbv_8py_source_1l00190"/>00190 &#32;&#32;&#32;&#32;fig.set_figheight(8)
+<anchor xml:id="_hbv_8py_source_1l00191"/>00191 &#32;&#32;&#32;&#32;fig.set_figwidth(8)
+<anchor xml:id="_hbv_8py_source_1l00192"/>00192 &#32;&#32;&#32;&#32;fig.savefig(name,&#32;dpi=300)
+<anchor xml:id="_hbv_8py_source_1l00193"/>00193 
+<anchor xml:id="_hbv_8py_source_1l00194"/><link linkend="_namespacehbv_1a9517c57f4d7c2b62d429da020f8213ad">00194</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacehbv_1a9517c57f4d7c2b62d429da020f8213ad">plot_archive</link>(archive,&#32;problem):
+<anchor xml:id="_hbv_8py_source_1l00195"/>00195 &#32;&#32;&#32;&#32;si&#32;=&#32;archive.argsort()
+<anchor xml:id="_hbv_8py_source_1l00196"/>00196 &#32;&#32;&#32;&#32;ysp&#32;=&#32;[]
+<anchor xml:id="_hbv_8py_source_1l00197"/>00197 &#32;&#32;&#32;&#32;descriptions&#32;=&#32;archive.get_ds()[si]
+<anchor xml:id="_hbv_8py_source_1l00198"/>00198 &#32;&#32;&#32;&#32;ys&#32;=&#32;archive.get_ys()[si]
+<anchor xml:id="_hbv_8py_source_1l00199"/>00199 &#32;&#32;&#32;&#32;xs&#32;=&#32;archive.get_xs()[si]
+<anchor xml:id="_hbv_8py_source_1l00200"/>00200 &#32;&#32;&#32;&#32;yall&#32;=&#32;[]
+<anchor xml:id="_hbv_8py_source_1l00201"/>00201 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(len(si)):
+<anchor xml:id="_hbv_8py_source_1l00202"/>00202 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;ys[i]&#32;&lt;&#32;np.inf:&#32;<emphasis role="comment">#&#32;throw&#32;out&#32;invalid</emphasis>
+<anchor xml:id="_hbv_8py_source_1l00203"/>00203 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ysp.append(descriptions[i])
+<anchor xml:id="_hbv_8py_source_1l00204"/>00204 &#32;&#32;&#32;&#32;ysp&#32;=&#32;np.array(ysp)
+<anchor xml:id="_hbv_8py_source_1l00205"/>00205 &#32;&#32;&#32;&#32;<link linkend="_namespacehbv_1a3a4f2f6019a427da618eb1b4826876da">plot3d</link>(ysp,&#32;<emphasis role="stringliteral">&quot;hbv_nd&quot;</emphasis>,&#32;<emphasis role="stringliteral">&apos;f1&apos;</emphasis>,&#32;<emphasis role="stringliteral">&apos;f3&apos;</emphasis>,&#32;<emphasis role="stringliteral">&apos;f2&apos;</emphasis>)
+<anchor xml:id="_hbv_8py_source_1l00206"/>00206 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_hbv_8py_source_1l00207"/><link linkend="_namespacehbv_1ab4adfe2a468412f8ef0d14c6b70285eb">00207</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacehbv_1ab4adfe2a468412f8ef0d14c6b70285eb">optimize_qd</link>():
+<anchor xml:id="_hbv_8py_source_1l00208"/>00208 &#32;&#32;&#32;&#32;problem&#32;=&#32;<link linkend="_classhbv_1_1hbv">hbv</link>()
+<anchor xml:id="_hbv_8py_source_1l00209"/>00209 &#32;&#32;&#32;&#32;problem.qd_dim&#32;=&#32;4
+<anchor xml:id="_hbv_8py_source_1l00210"/>00210 &#32;&#32;&#32;&#32;problem.qd_bounds&#32;=&#32;Bounds(np.array([0.2,&#32;0.7,&#32;0,&#32;0]),&#32;
+<anchor xml:id="_hbv_8py_source_1l00211"/>00211 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;np.array([0.6,&#32;1.3,&#32;0.18,&#32;0.6]))&#32;
+<anchor xml:id="_hbv_8py_source_1l00212"/>00212 &#32;&#32;&#32;&#32;name&#32;=&#32;<emphasis role="stringliteral">&apos;hbv_nd&apos;</emphasis>
+<anchor xml:id="_hbv_8py_source_1l00213"/>00213 &#32;&#32;&#32;&#32;opt_params0&#32;=&#32;{<emphasis role="stringliteral">&apos;solver&apos;</emphasis>:<emphasis role="stringliteral">&apos;elites&apos;</emphasis>,&#32;<emphasis role="stringliteral">&apos;popsize&apos;</emphasis>:64}
+<anchor xml:id="_hbv_8py_source_1l00214"/>00214 &#32;&#32;&#32;&#32;
+<anchor xml:id="_hbv_8py_source_1l00215"/>00215 &#32;&#32;&#32;&#32;<emphasis role="comment">#opt_params1&#32;=&#32;{&apos;solver&apos;:&apos;CMA_CPP&apos;,&#32;&apos;max_evals&apos;:4000,&#32;&apos;popsize&apos;:32,&#32;&apos;stall_criterion&apos;:3}</emphasis>
+<anchor xml:id="_hbv_8py_source_1l00216"/>00216 &#32;&#32;&#32;&#32;opt_params1&#32;=&#32;{<emphasis role="stringliteral">&apos;solver&apos;</emphasis>:<emphasis role="stringliteral">&apos;CRMFNES_CPP&apos;</emphasis>,&#32;<emphasis role="stringliteral">&apos;max_evals&apos;</emphasis>:4000,&#32;<emphasis role="stringliteral">&apos;popsize&apos;</emphasis>:32,&#32;<emphasis role="stringliteral">&apos;stall_criterion&apos;</emphasis>:3}
+<anchor xml:id="_hbv_8py_source_1l00217"/>00217 &#32;&#32;&#32;&#32;archive&#32;=&#32;diversifier.minimize(
+<anchor xml:id="_hbv_8py_source_1l00218"/>00218 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classfcmaes_1_1mapelites_1_1wrapper">mapelites.wrapper</link>(problem.qd_fitness,&#32;problem.qd_dim,&#32;interval=200000,&#32;save_interval=5000000),&#32;
+<anchor xml:id="_hbv_8py_source_1l00219"/>00219 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;problem.bounds,&#32;problem.qd_bounds,&#32;opt_params=[opt_params0,&#32;opt_params1],&#32;max_evals=12000000)
+<anchor xml:id="_hbv_8py_source_1l00220"/>00220 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;archive&#32;=&#32;mapelites.load_archive(name,&#32;problem.bounds,&#32;problem.qd_bounds)&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_hbv_8py_source_1l00221"/>00221 &#32;&#32;&#32;&#32;print(<emphasis role="stringliteral">&apos;final&#32;archive:&apos;</emphasis>,&#32;archive.info())
+<anchor xml:id="_hbv_8py_source_1l00222"/>00222 &#32;&#32;&#32;&#32;archive.save(name)
+<anchor xml:id="_hbv_8py_source_1l00223"/>00223 &#32;&#32;&#32;&#32;<link linkend="_namespacehbv_1a9517c57f4d7c2b62d429da020f8213ad">plot_archive</link>(archive,&#32;problem)
+<anchor xml:id="_hbv_8py_source_1l00224"/>00224 
+<anchor xml:id="_hbv_8py_source_1l00225"/>00225 <emphasis role="keywordflow">if</emphasis>&#32;__name__&#32;==&#32;<emphasis role="stringliteral">&apos;__main__&apos;</emphasis>:
+<anchor xml:id="_hbv_8py_source_1l00226"/>00226 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;optimize_mo()</emphasis>
+<anchor xml:id="_hbv_8py_source_1l00227"/>00227 &#32;&#32;&#32;&#32;<link linkend="_namespacehbv_1ab4adfe2a468412f8ef0d14c6b70285eb">optimize_qd</link>()
+<anchor xml:id="_hbv_8py_source_1l00228"/>00228 &#32;&#32;&#32;&#32;&#32;
+</programlisting></section>

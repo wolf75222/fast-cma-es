@@ -1,0 +1,268 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_classfcmaes_1_1mapelites_1_1wrapper" xml:lang="en-US">
+<title>fcmaes.mapelites.wrapper Class Reference</title>
+<indexterm><primary>fcmaes.mapelites.wrapper</primary></indexterm>
+<para>
+
+<para>A callable class designed to fit and evaluate a function with given inputs. </para>
+ 
+</para>
+Collaboration diagram for fcmaes.mapelites.wrapper:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mapelites_1_1wrapper__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Public Member Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1wrapper_1aabff3459c811afa2fde70139254db138">__init__</link> (self, Callable[[ArrayLike], Tuple[float, np.ndarray]] <link linkend="_classfcmaes_1_1mapelites_1_1wrapper_1a3dcdc7f9a349494aad1b493a11cd42af">fit</link>, int <link linkend="_classfcmaes_1_1mapelites_1_1wrapper_1a02e60134786bef32dc1cc014911d00f8">qd_dim</link>, Optional[int] <link linkend="_classfcmaes_1_1mapelites_1_1wrapper_1a56117fe62174acee95b94c3635fc3b0b">interval</link>=1000000, Optional[int] <link linkend="_classfcmaes_1_1mapelites_1_1wrapper_1a7550f0855e16b0f05f68bfe285d9960c">save_interval</link>=1E20)</para>
+
+<para>Initializes a new instance of the class. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1wrapper_1aef447c485c8dad313f64e3df4768218e">__call__</link> (self, ArrayLike x)</para>
+
+<para>Handles the evaluation of input data, including logging and archiving results, while maintaining the state of evaluations, the best observed outcome, and potential exceptions during execution. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Public Attributes    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1wrapper_1a3dcdc7f9a349494aad1b493a11cd42af">fit</link> = fit</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1wrapper_1a8ea76006dbf24383642dea6e049cbf21">evals</link> = mp.RawValue(ct.c_int, 0)</para>
+
+<para>A counter for the number of evaluations performed. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1wrapper_1ab23032c564e05c9cd76c2040c1ed9ac3">best_y</link> = mp.RawValue(ct.c_double, np.inf)</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1wrapper_1a93873c0c4890d0bed1501c112c96cd3a">t0</link> = perf_counter()</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1wrapper_1a02e60134786bef32dc1cc014911d00f8">qd_dim</link> = qd_dim</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1wrapper_1a56117fe62174acee95b94c3635fc3b0b">interval</link> = interval</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1wrapper_1a7550f0855e16b0f05f68bfe285d9960c">save_interval</link> = save_interval</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1wrapper_1ac4dfd1c8307fa5f6c607ff70ac71f3ee">lock</link> = mp.Lock()</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>A callable class designed to fit and evaluate a function with given inputs. </para>
+
+
+
+<para>This class acts as a wrapper that integrates a user-defined fitness function. It manages the evaluation count, best fitness values, and optional logging and saving mechanisms for performance monitoring. It is particularly useful for optimization tasks that leverage multi-processing for concurrent evaluations.</para>
+
+<para><literallayout><computeroutput>   fit (Callable[[ArrayLike], Tuple[float, np.ndarray]]): The user-defined function
+       that computes the fitness value and its associated descriptors for a given input.
+</computeroutput></literallayout> </para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l01301">1301</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+<section>
+<title>Constructor &amp; Destructor Documentation</title>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1wrapper_1aabff3459c811afa2fde70139254db138"/><section>
+    <title>__init__()</title>
+<indexterm><primary>__init__</primary><secondary>fcmaes.mapelites.wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.wrapper</primary><secondary>__init__</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.wrapper.__init__ ( self, Callable[[ArrayLike], Tuple[float, np.ndarray]] fit, int qd_dim, Optional[int]  interval = <computeroutput>1000000</computeroutput>
+, Optional[int]  save_interval = <computeroutput>1E20</computeroutput>
+)</computeroutput></para><para>
+
+<para>Initializes a new instance of the class. </para>
+</para>
+
+<para><literallayout><computeroutput>   This constructor sets up the main attributes required for the class, including
+   the fitness function, dimensionality of the optimization problem, evaluation
+   intervals, and other related parameters.
+
+
+       fit (Callable[[ArrayLike], Tuple[float, np.ndarray]]): Fitness function used
+           to evaluate solutions. It should take an input of type ArrayLike and
+           return a tuple containing a float and an np.ndarray.
+</computeroutput></literallayout> 
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>qd_dim</entry><entry>
+<para>Dimensionality of the search/solution space to be optimized. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>interval</entry><entry>
+<para>Interval for certain operations during optimization. Defaults to 1,000,000 if not specified. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>save_interval</entry><entry>
+<para>Interval for saving checkpoints. Defaults to an extremely high value (1E20) if not specified. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l01323">1323</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Function Documentation</title>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1wrapper_1aef447c485c8dad313f64e3df4768218e"/><section>
+    <title>__call__()</title>
+<indexterm><primary>__call__</primary><secondary>fcmaes.mapelites.wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.wrapper</primary><secondary>__call__</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.wrapper.__call__ ( self, ArrayLike x)</computeroutput></para><para>
+
+<para>Handles the evaluation of input data, including logging and archiving results, while maintaining the state of evaluations, the best observed outcome, and potential exceptions during execution. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>x</entry><entry>
+<para>Input data array to be evaluated.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>tuple A tuple containing:<itemizedlist>
+<listitem>
+<para>A float value representing the evaluation result or <computeroutput>np.inf</computeroutput> if the result is invalid.</para>
+</listitem><listitem>
+<para>A numpy array representing the descriptor or a zero array if the result is invalid.</para>
+</listitem></itemizedlist>
+</para>
+</formalpara>
+
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>Exception</entry><entry>
+<para>Logs the exception details if execution fails. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l01352">1352</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mapelites_1_1wrapper_aef447c485c8dad313f64e3df4768218e_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+<section>
+<title>Member Data Documentation</title>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1wrapper_1ab23032c564e05c9cd76c2040c1ed9ac3"/><section>
+    <title>best_y</title>
+<indexterm><primary>best_y</primary><secondary>fcmaes.mapelites.wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.wrapper</primary><secondary>best_y</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.wrapper.best_y = mp.RawValue(ct.c_double, np.inf)</computeroutput></para><para>
+Definition at line <link linkend="_mapelites_8py_source_1l01330">1330</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1wrapper_1a8ea76006dbf24383642dea6e049cbf21"/><section>
+    <title>evals</title>
+<indexterm><primary>evals</primary><secondary>fcmaes.mapelites.wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.wrapper</primary><secondary>evals</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.wrapper.evals = mp.RawValue(ct.c_int, 0)</computeroutput></para><para>
+
+<para>A counter for the number of evaluations performed. </para>
+</para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l01329">1329</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1wrapper_1a3dcdc7f9a349494aad1b493a11cd42af"/><section>
+    <title>fit</title>
+<indexterm><primary>fit</primary><secondary>fcmaes.mapelites.wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.wrapper</primary><secondary>fit</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.wrapper.fit = fit</computeroutput></para><para>
+Definition at line <link linkend="_mapelites_8py_source_1l01328">1328</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1wrapper_1a56117fe62174acee95b94c3635fc3b0b"/><section>
+    <title>interval</title>
+<indexterm><primary>interval</primary><secondary>fcmaes.mapelites.wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.wrapper</primary><secondary>interval</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.wrapper.interval = interval</computeroutput></para><para>
+Definition at line <link linkend="_mapelites_8py_source_1l01333">1333</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1wrapper_1ac4dfd1c8307fa5f6c607ff70ac71f3ee"/><section>
+    <title>lock</title>
+<indexterm><primary>lock</primary><secondary>fcmaes.mapelites.wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.wrapper</primary><secondary>lock</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.wrapper.lock = mp.Lock()</computeroutput></para><para>
+Definition at line <link linkend="_mapelites_8py_source_1l01335">1335</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1wrapper_1a02e60134786bef32dc1cc014911d00f8"/><section>
+    <title>qd_dim</title>
+<indexterm><primary>qd_dim</primary><secondary>fcmaes.mapelites.wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.wrapper</primary><secondary>qd_dim</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.wrapper.qd_dim = qd_dim</computeroutput></para><para>
+Definition at line <link linkend="_mapelites_8py_source_1l01332">1332</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1wrapper_1a7550f0855e16b0f05f68bfe285d9960c"/><section>
+    <title>save_interval</title>
+<indexterm><primary>save_interval</primary><secondary>fcmaes.mapelites.wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.wrapper</primary><secondary>save_interval</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.wrapper.save_interval = save_interval</computeroutput></para><para>
+Definition at line <link linkend="_mapelites_8py_source_1l01334">1334</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mapelites_1_1wrapper_1a93873c0c4890d0bed1501c112c96cd3a"/><section>
+    <title>t0</title>
+<indexterm><primary>t0</primary><secondary>fcmaes.mapelites.wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites.wrapper</primary><secondary>t0</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.wrapper.t0 = perf_counter()</computeroutput></para><para>
+Definition at line <link linkend="_mapelites_8py_source_1l01331">1331</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+<para>
+The documentation for this class was generated from the following file:</para>
+fcmaes/<link linkend="_mapelites_8py">mapelites.py</link></section>
+</section>

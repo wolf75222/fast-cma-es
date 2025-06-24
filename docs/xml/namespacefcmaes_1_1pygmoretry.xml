@@ -1,0 +1,372 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.13.2" xml:lang="en-US">
+  <compounddef id="namespacefcmaes_1_1pygmoretry" kind="namespace" language="Python">
+    <compoundname>fcmaes::pygmoretry</compoundname>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="namespacefcmaes_1_1pygmoretry_1a328972de17ce781527987b521bc1d1bf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>OptimizeResult</type>
+        <definition> OptimizeResult fcmaes.pygmoretry.minimize</definition>
+        <argsstring>(prob, algo, value_limit=np.inf, num_retries=100 *mp.cpu_count(), workers=mp.cpu_count(), popsize=1)</argsstring>
+        <name>minimize</name>
+        <qualifiedname>fcmaes.pygmoretry.minimize</qualifiedname>
+        <param>
+          <type>prob</type>
+          <defname>prob</defname>
+        </param>
+        <param>
+          <type>algo</type>
+          <defname>algo</defname>
+        </param>
+        <param>
+          <type>value_limit</type>
+          <defname>value_limit</defname>
+          <defval>np.inf</defval>
+        </param>
+        <param>
+          <type>num_retries</type>
+          <defname>num_retries</defname>
+          <defval>100 *mp.cpu_count()</defval>
+        </param>
+        <param>
+          <type>workers</type>
+          <defname>workers</defname>
+          <defval>mp.cpu_count()</defval>
+        </param>
+        <param>
+          <type>popsize</type>
+          <defname>popsize</defname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+<para>Minimizes an optimization problem using given algorithm and configurations. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function attempts to find the minimum of the given problem by applying the specified algorithm. It retries the operation a specified number of times with multiple workers and uses given population size for optimization.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>prob</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The optimization problem that defines the objective function and </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>constraints.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>algo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The optimization algorithm to be applied. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>value_limit</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>An optional upper limit on the value of the objective function. Defaults to positive infinity. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>num_retries</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of retries allowed for the optimization process. Defaults to 100 times the number of CPU cores available. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>workers</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of worker processes to use for parallel computation. Defaults to the number of CPU cores available. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>popsize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The size of the population for optimization. Defaults to 1.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para></para>
+</simplesect>
+<simplesect kind="return"><para>OptimizeResult The result of the optimization process, including the solution and other relevant information about the optimization. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="fcmaes/pygmoretry.py" line="76" column="1" bodyfile="fcmaes/pygmoretry.py" bodystart="82" bodyend="88"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacefcmaes_1_1pygmoretry_1a81cd046316826e2601d9f2510b44f629" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>fcmaes.pygmoretry.retry</definition>
+        <argsstring>(store, prob, algo, num_retries, value_limit=np.inf, popsize=1, workers=mp.cpu_count())</argsstring>
+        <name>retry</name>
+        <qualifiedname>fcmaes.pygmoretry.retry</qualifiedname>
+        <param>
+          <type>store</type>
+          <defname>store</defname>
+        </param>
+        <param>
+          <type>prob</type>
+          <defname>prob</defname>
+        </param>
+        <param>
+          <type>algo</type>
+          <defname>algo</defname>
+        </param>
+        <param>
+          <type>num_retries</type>
+          <defname>num_retries</defname>
+        </param>
+        <param>
+          <type>value_limit</type>
+          <defname>value_limit</defname>
+          <defval>np.inf</defval>
+        </param>
+        <param>
+          <type>popsize</type>
+          <defname>popsize</defname>
+          <defval>1</defval>
+        </param>
+        <param>
+          <type>workers</type>
+          <defname>workers</defname>
+          <defval>mp.cpu_count()</defval>
+        </param>
+        <briefdescription>
+<para>Retries optimization over multiple attempts across parallel workers to find the best result. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The function orchestrates the parallel execution, manages random number generators for each worker, and aggregates the results.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>store</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>An object responsible for storing and managing the optimization </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>results.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>prob</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The optimization problem to be solved. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>algo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The algorithm used to perform optimization. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>num_retries</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of retries to attempt for the optimization process. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>value_limit</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The upper limit for the values considered valid in the optimization result (default is np.inf). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>popsize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The population size used in the optimization process (default is 1). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>workers</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of parallel workers to use for the optimization (default is the number of CPU cores available).</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para></para>
+</simplesect>
+<simplesect kind="return"><para>OptimizeResult An object containing the best solution (<computeroutput>x</computeroutput>), the best objective value (<computeroutput>fun</computeroutput>), the number of function evaluations performed (<computeroutput>nfev</computeroutput>), and the success status of the optimization (<computeroutput>success</computeroutput>).</para>
+</simplesect>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>ImportError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If the Pygmo library is not installed. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="fcmaes/pygmoretry.py" line="115" column="1" bodyfile="fcmaes/pygmoretry.py" bodystart="115" bodyend="130"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacefcmaes_1_1pygmoretry_1a9ee4304fb34177166a0d9bcfd176c179" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>fcmaes.pygmoretry._retry_loop</definition>
+        <argsstring>(pid, rgs, store, prob, algo, num_retries, value_limit, popsize, pg)</argsstring>
+        <name>_retry_loop</name>
+        <qualifiedname>fcmaes.pygmoretry._retry_loop</qualifiedname>
+        <param>
+          <type>pid</type>
+          <defname>pid</defname>
+        </param>
+        <param>
+          <type>rgs</type>
+          <defname>rgs</defname>
+        </param>
+        <param>
+          <type>store</type>
+          <defname>store</defname>
+        </param>
+        <param>
+          <type>prob</type>
+          <defname>prob</defname>
+        </param>
+        <param>
+          <type>algo</type>
+          <defname>algo</defname>
+        </param>
+        <param>
+          <type>num_retries</type>
+          <defname>num_retries</defname>
+        </param>
+        <param>
+          <type>value_limit</type>
+          <defname>value_limit</defname>
+        </param>
+        <param>
+          <type>popsize</type>
+          <defname>popsize</defname>
+        </param>
+        <param>
+          <type>pg</type>
+          <defname>pg</defname>
+        </param>
+        <briefdescription>
+<para>Executes a retry loop for a given probabilistic algorithm to attempt finding a feasible solution. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The function runs multiple attempts to generate solutions using a probabilistic algorithm. It retrieves a random seed, evolves a population, and evaluates the best solution. Feasible solutions meeting specified criteria are added to a result store.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Identifier for the process or individual task. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rgs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>List of random generators corresponding to each identifier. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>store</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Object responsible for storing results and managing retries. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>prob</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Problem object defining the optimization problem. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>algo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Algorithm used to evolve populations. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>num_retries</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Maximum number of retries to evolve a solution. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>value_limit</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Feasibility threshold for solutions. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>popsize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of the population used in each evolutionary attempt. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>External module used for handling evolutionary population and problem definition. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="fcmaes/pygmoretry.py" line="151" column="1" bodyfile="fcmaes/pygmoretry.py" bodystart="151" bodyend="170"/>
+        <references refid="evaluator_8h_1ad408c1ac0c479863b2d1291c483c5593" compoundref="evaluator_8h" startline="110" endline="114">uniform</references>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="fcmaes/pygmoretry.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

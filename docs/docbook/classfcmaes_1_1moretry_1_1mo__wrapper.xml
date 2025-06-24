@@ -1,0 +1,292 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_classfcmaes_1_1moretry_1_1mo__wrapper" xml:lang="en-US">
+<title>fcmaes.moretry.mo_wrapper Class Reference</title>
+<indexterm><primary>fcmaes.moretry.mo_wrapper</primary></indexterm>
+<para>
+
+<para>Wraps a multi-objective evaluation function with additional functionality. </para>
+ 
+</para>
+Collaboration diagram for fcmaes.moretry.mo_wrapper:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1moretry_1_1mo__wrapper__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Public Member Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1moretry_1_1mo__wrapper_1a38adbadd49e6b9145e3c04944c3269b6">__init__</link> (self, <link linkend="_classfcmaes_1_1moretry_1_1mo__wrapper_1a28cf58191f93203c9fea6eeddb561b73">fun</link>, <link linkend="_classfcmaes_1_1moretry_1_1mo__wrapper_1a9e4376ef1f3111acff67bd2636e87369">weights</link>, <link linkend="_classfcmaes_1_1moretry_1_1mo__wrapper_1a415eabee422272fc9ae0f0d91374af55">ncon</link>, <link linkend="_classfcmaes_1_1moretry_1_1mo__wrapper_1a0ed665adf5fc723417110f0ca3fbe297">y_exp</link>=2)</para>
+
+<para>Initializes an object with specified function, weights, constraints, and an optional exponent parameter. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1moretry_1_1mo__wrapper_1a9f091a54dc6f2c2fefb4c6a90ab108a2">eval</link> (self, x)</para>
+
+<para>Evaluates the provided function and computes a weighted result. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1moretry_1_1mo__wrapper_1a9dbf1252c03ebe42925abe561e556598">mo_eval</link> (self, x)</para>
+
+<para>Evaluates a given function on the input after converting it to a NumPy array. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Public Attributes    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1moretry_1_1mo__wrapper_1a28cf58191f93203c9fea6eeddb561b73">fun</link> = fun</para>
+
+<para>The multi-objective evaluation function to be wrapped and. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1moretry_1_1mo__wrapper_1a9e4376ef1f3111acff67bd2636e87369">weights</link> = weights</para>
+
+<para>List of weights, where the first set applies to. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1moretry_1_1mo__wrapper_1a49583ed387d697b327640f4e537f8e19">ny</link> = len(<link linkend="_classfcmaes_1_1moretry_1_1mo__wrapper_1a9e4376ef1f3111acff67bd2636e87369">weights</link>)</para>
+
+<para>Total number of weights, corresponding to the number of. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1moretry_1_1mo__wrapper_1a56aa5cba0d3f3415eb314363a1d0b649">nobj</link> = self.ny - <link linkend="_classfcmaes_1_1moretry_1_1mo__wrapper_1a415eabee422272fc9ae0f0d91374af55">ncon</link></para>
+
+<para>The number of objective components in the evaluation. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1moretry_1_1mo__wrapper_1a415eabee422272fc9ae0f0d91374af55">ncon</link> = ncon</para>
+
+<para>The number of constraint components in the evaluation. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1moretry_1_1mo__wrapper_1a0ed665adf5fc723417110f0ca3fbe297">y_exp</link> = y_exp</para>
+
+<para>The exponential factor for averaging the weighted evaluation. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>Wraps a multi-objective evaluation function with additional functionality. </para>
+
+
+
+<para>This class encapsulates a multi-objective evaluation function, integrating weights for objectives and constraints, and provides methods to evaluate the function with weight-driven adjustments and constraints handling. It is intended for use in scenarios requiring objective evaluations with flexible weighting and constraint violations. </para>
+<para>
+Definition at line <link linkend="_moretry_8py_source_1l00271">271</link> of file <link linkend="_moretry_8py_source">moretry.py</link>.</para>
+</section>
+<section>
+<title>Constructor &amp; Destructor Documentation</title>
+<anchor xml:id="_classfcmaes_1_1moretry_1_1mo__wrapper_1a38adbadd49e6b9145e3c04944c3269b6"/><section>
+    <title>__init__()</title>
+<indexterm><primary>__init__</primary><secondary>fcmaes.moretry.mo_wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.moretry.mo_wrapper</primary><secondary>__init__</secondary></indexterm>
+<para><computeroutput>fcmaes.moretry.mo_wrapper.__init__ ( self,  fun,  weights,  ncon,  y_exp = <computeroutput>2</computeroutput>
+)</computeroutput></para><para>
+
+<para>Initializes an object with specified function, weights, constraints, and an optional exponent parameter. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>fun</entry><entry>
+<para>Callable. The function to be evaluated. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>weights</entry><entry>
+<para>List[float]. The weights associated with the objectives. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>ncon</entry><entry>
+<para>int. The number of constraints. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>y_exp</entry><entry>
+<para>int, optional. The exponent for the calculations, default is 2. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_moretry_8py_source_1l00308">308</link> of file <link linkend="_moretry_8py_source">moretry.py</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Function Documentation</title>
+<anchor xml:id="_classfcmaes_1_1moretry_1_1mo__wrapper_1a9f091a54dc6f2c2fefb4c6a90ab108a2"/><section>
+    <title>eval()</title>
+<indexterm><primary>eval</primary><secondary>fcmaes.moretry.mo_wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.moretry.mo_wrapper</primary><secondary>eval</secondary></indexterm>
+<para><computeroutput>fcmaes.moretry.mo_wrapper.eval ( self,  x)</computeroutput></para><para>
+
+<para>Evaluates the provided function and computes a weighted result. </para>
+</para>
+
+<para>If there are violations in the constraints, their contribution to the result is added.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>x</entry><entry>
+<para>Array-like, input to the function to be evaluated.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>float Weighted result of the evaluation including contributions from constraints, if any. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_moretry_8py_source_1l00327">327</link> of file <link linkend="_moretry_8py_source">moretry.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1moretry_1_1mo__wrapper_a9f091a54dc6f2c2fefb4c6a90ab108a2_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1moretry_1_1mo__wrapper_1a9dbf1252c03ebe42925abe561e556598"/><section>
+    <title>mo_eval()</title>
+<indexterm><primary>mo_eval</primary><secondary>fcmaes.moretry.mo_wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.moretry.mo_wrapper</primary><secondary>mo_eval</secondary></indexterm>
+<para><computeroutput>fcmaes.moretry.mo_wrapper.mo_eval ( self,  x)</computeroutput></para><para>
+
+<para>Evaluates a given function on the input after converting it to a NumPy array. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>x</entry><entry>
+<para>The input value to be evaluated. Should be compatible with NumPy array </para>
+</entry>
+                            </row>
+                            <row>
+<entry>operations.</entry><entry></entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>The result of the function evaluation after processing the input. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_moretry_8py_source_1l00346">346</link> of file <link linkend="_moretry_8py_source">moretry.py</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Data Documentation</title>
+<anchor xml:id="_classfcmaes_1_1moretry_1_1mo__wrapper_1a28cf58191f93203c9fea6eeddb561b73"/><section>
+    <title>fun</title>
+<indexterm><primary>fun</primary><secondary>fcmaes.moretry.mo_wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.moretry.mo_wrapper</primary><secondary>fun</secondary></indexterm>
+<para><computeroutput>fcmaes.moretry.mo_wrapper.fun = fun</computeroutput></para><para>
+
+<para>The multi-objective evaluation function to be wrapped and. </para>
+</para>
+<para>
+Definition at line <link linkend="_moretry_8py_source_1l00309">309</link> of file <link linkend="_moretry_8py_source">moretry.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1moretry_1_1mo__wrapper_1a415eabee422272fc9ae0f0d91374af55"/><section>
+    <title>ncon</title>
+<indexterm><primary>ncon</primary><secondary>fcmaes.moretry.mo_wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.moretry.mo_wrapper</primary><secondary>ncon</secondary></indexterm>
+<para><computeroutput>fcmaes.moretry.mo_wrapper.ncon = ncon</computeroutput></para><para>
+
+<para>The number of constraint components in the evaluation. </para>
+</para>
+<para>
+Definition at line <link linkend="_moretry_8py_source_1l00313">313</link> of file <link linkend="_moretry_8py_source">moretry.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1moretry_1_1mo__wrapper_1a56aa5cba0d3f3415eb314363a1d0b649"/><section>
+    <title>nobj</title>
+<indexterm><primary>nobj</primary><secondary>fcmaes.moretry.mo_wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.moretry.mo_wrapper</primary><secondary>nobj</secondary></indexterm>
+<para><computeroutput>fcmaes.moretry.mo_wrapper.nobj = self.ny - <link linkend="_classfcmaes_1_1moretry_1_1mo__wrapper_1a415eabee422272fc9ae0f0d91374af55">ncon</link></computeroutput></para><para>
+
+<para>The number of objective components in the evaluation. </para>
+</para>
+<para>
+Definition at line <link linkend="_moretry_8py_source_1l00312">312</link> of file <link linkend="_moretry_8py_source">moretry.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1moretry_1_1mo__wrapper_1a49583ed387d697b327640f4e537f8e19"/><section>
+    <title>ny</title>
+<indexterm><primary>ny</primary><secondary>fcmaes.moretry.mo_wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.moretry.mo_wrapper</primary><secondary>ny</secondary></indexterm>
+<para><computeroutput>fcmaes.moretry.mo_wrapper.ny = len(<link linkend="_classfcmaes_1_1moretry_1_1mo__wrapper_1a9e4376ef1f3111acff67bd2636e87369">weights</link>)</computeroutput></para><para>
+
+<para>Total number of weights, corresponding to the number of. </para>
+</para>
+<para>
+Definition at line <link linkend="_moretry_8py_source_1l00311">311</link> of file <link linkend="_moretry_8py_source">moretry.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1moretry_1_1mo__wrapper_1a9e4376ef1f3111acff67bd2636e87369"/><section>
+    <title>weights</title>
+<indexterm><primary>weights</primary><secondary>fcmaes.moretry.mo_wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.moretry.mo_wrapper</primary><secondary>weights</secondary></indexterm>
+<para><computeroutput>fcmaes.moretry.mo_wrapper.weights = weights</computeroutput></para><para>
+
+<para>List of weights, where the first set applies to. </para>
+</para>
+<para>
+Definition at line <link linkend="_moretry_8py_source_1l00310">310</link> of file <link linkend="_moretry_8py_source">moretry.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1moretry_1_1mo__wrapper_1a0ed665adf5fc723417110f0ca3fbe297"/><section>
+    <title>y_exp</title>
+<indexterm><primary>y_exp</primary><secondary>fcmaes.moretry.mo_wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.moretry.mo_wrapper</primary><secondary>y_exp</secondary></indexterm>
+<para><computeroutput>fcmaes.moretry.mo_wrapper.y_exp = y_exp</computeroutput></para><para>
+
+<para>The exponential factor for averaging the weighted evaluation. </para>
+</para>
+<para>
+Definition at line <link linkend="_moretry_8py_source_1l00314">314</link> of file <link linkend="_moretry_8py_source">moretry.py</link>.</para>
+</section>
+<para>
+The documentation for this class was generated from the following file:</para>
+fcmaes/<link linkend="_moretry_8py">moretry.py</link></section>
+</section>

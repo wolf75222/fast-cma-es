@@ -1,0 +1,440 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_decpp_8py_source" xml:lang="en-US">
+<title>decpp.py</title>
+<indexterm><primary>fcmaes/decpp.py</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_decpp_8py_source_1l00001"/><link linkend="_namespacefcmaes_1_1decpp">00001</link> <emphasis role="comment">#&#32;-*-&#32;coding:&#32;utf-8&#32;-*-</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00002"/>00002 <emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00003"/>00003 <emphasis role="stringliteral">=============================================================================</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00004"/>00004 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_decpp_8py_source_1l00005"/>00005 <emphasis role="stringliteral">&#32;Fast&#32;CMA-ES&#32;-&#32;version&#32;1.6.11</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00006"/>00006 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_decpp_8py_source_1l00007"/>00007 <emphasis role="stringliteral">&#32;(c)&#32;2025&#32;–&#32;Dietmar&#32;Wolz</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00008"/>00008 <emphasis role="stringliteral">&#32;(c)&#32;2025&#32;–&#32;Latitude</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00009"/>00009 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_decpp_8py_source_1l00010"/>00010 <emphasis role="stringliteral">&#32;License:&#32;MIT</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00011"/>00011 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_decpp_8py_source_1l00012"/>00012 <emphasis role="stringliteral">&#32;File:</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00013"/>00013 <emphasis role="stringliteral">&#32;&#32;-&#32;decpp.py</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00014"/>00014 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_decpp_8py_source_1l00015"/>00015 <emphasis role="stringliteral">&#32;Description:</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00016"/>00016 <emphasis role="stringliteral">&#32;&#32;-&#32;Eigen&#32;based&#32;implementation&#32;of&#32;differential&#32;evolution&#32;using&#32;the&#32;DE/best/1&#32;strategy.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00017"/>00017 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Uses&#32;three&#32;deviations&#32;from&#32;the&#32;standard&#32;DE&#32;algorithm:</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00018"/>00018 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;a)&#32;temporal&#32;locality&#32;introduced&#32;in&#32;[2].</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00019"/>00019 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;b)&#32;reinitialization&#32;of&#32;individuals&#32;based&#32;on&#32;their&#32;age.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00020"/>00020 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;c)&#32;oscillating&#32;CR/F&#32;parameters.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00021"/>00021 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_decpp_8py_source_1l00022"/>00022 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;The&#32;ints&#32;parameter&#32;is&#32;a&#32;boolean&#32;array&#32;indicating&#32;which&#32;parameters&#32;are&#32;discrete&#32;integer&#32;values.&#32;This</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00023"/>00023 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;parameter&#32;was&#32;introduced&#32;after&#32;observing&#32;non&#32;optimal&#32;results&#32;for&#32;the&#32;ESP2&#32;benchmark&#32;problem:</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00024"/>00024 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;[3]</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00025"/>00025 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;If&#32;defined&#32;it&#32;causes&#32;a&#32;&quot;special&#32;treatment&quot;&#32;for&#32;discrete&#32;variables:&#32;They&#32;are&#32;rounded&#32;to&#32;the&#32;next&#32;integer&#32;value&#32;and</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00026"/>00026 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;there&#32;is&#32;an&#32;additional&#32;mutation&#32;to&#32;avoid&#32;getting&#32;stuck&#32;to&#32;local&#32;minima.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00027"/>00027 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_decpp_8py_source_1l00028"/>00028 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_decpp_8py_source_1l00029"/>00029 <emphasis role="stringliteral">&#32;Authors:</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00030"/>00030 <emphasis role="stringliteral">&#32;&#32;-&#32;Dietmar&#32;Wolz</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00031"/>00031 <emphasis role="stringliteral">&#32;&#32;-&#32;romain.despoullains@latitude.eu</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00032"/>00032 <emphasis role="stringliteral">&#32;&#32;-&#32;corentin.generet@latitude.eu</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00033"/>00033 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_decpp_8py_source_1l00034"/>00034 <emphasis role="stringliteral">&#32;References:</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00035"/>00035 <emphasis role="stringliteral">&#32;&#32;-&#32;[1]&#32;https://github.com/dietmarwo/fast-cma-es</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00036"/>00036 <emphasis role="stringliteral">&#32;&#32;-&#32;[2]&#32;https://www.researchgate.net/publication/309179699_Differential_evolution_for_protein_folding_optimization_based_on_a_three-dimensional_AB_off-lattice_model</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00037"/>00037 <emphasis role="stringliteral">&#32;&#32;-&#32;[3]&#32;https://github.com/AlgTUDelft/ExpensiveOptimBenchmark/blob/master/expensiveoptimbenchmark/problems/DockerCFDBenchmark.py</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00038"/>00038 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_decpp_8py_source_1l00039"/>00039 <emphasis role="stringliteral">&#32;Documentation:</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00040"/>00040 <emphasis role="stringliteral">&#32;&#32;-</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00041"/>00041 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_decpp_8py_source_1l00042"/>00042 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_decpp_8py_source_1l00043"/>00043 <emphasis role="stringliteral">=============================================================================</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00044"/>00044 <emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00045"/>00045 
+<anchor xml:id="_decpp_8py_source_1l00046"/>00046 
+<anchor xml:id="_decpp_8py_source_1l00047"/>00047 &#32;&#32;&#32;&#32;
+<anchor xml:id="_decpp_8py_source_1l00048"/>00048 <emphasis role="keyword">import</emphasis>&#32;sys
+<anchor xml:id="_decpp_8py_source_1l00049"/>00049 <emphasis role="keyword">import</emphasis>&#32;os
+<anchor xml:id="_decpp_8py_source_1l00050"/>00050 <emphasis role="keyword">import</emphasis>&#32;ctypes&#32;<emphasis role="keyword">as</emphasis>&#32;ct
+<anchor xml:id="_decpp_8py_source_1l00051"/>00051 <emphasis role="keyword">import</emphasis>&#32;numpy&#32;<emphasis role="keyword">as</emphasis>&#32;np
+<anchor xml:id="_decpp_8py_source_1l00052"/>00052 <emphasis role="keyword">from</emphasis>&#32;numpy.random&#32;<emphasis role="keyword">import</emphasis>&#32;PCG64DXSM,&#32;Generator
+<anchor xml:id="_decpp_8py_source_1l00053"/>00053 <emphasis role="keyword">from</emphasis>&#32;scipy.optimize&#32;<emphasis role="keyword">import</emphasis>&#32;OptimizeResult,&#32;Bounds
+<anchor xml:id="_decpp_8py_source_1l00054"/>00054 <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1evaluator">fcmaes.evaluator</link>&#32;<emphasis role="keyword">import</emphasis>&#32;mo_call_back_type,&#32;callback_so,&#32;libcmalib
+<anchor xml:id="_decpp_8py_source_1l00055"/>00055 <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1de">fcmaes.de</link>&#32;<emphasis role="keyword">import</emphasis>&#32;_check_bounds
+<anchor xml:id="_decpp_8py_source_1l00056"/>00056 
+<anchor xml:id="_decpp_8py_source_1l00057"/>00057 <emphasis role="keyword">from</emphasis>&#32;typing&#32;<emphasis role="keyword">import</emphasis>&#32;Optional,&#32;Callable,&#32;Tuple,&#32;Union
+<anchor xml:id="_decpp_8py_source_1l00058"/>00058 <emphasis role="keyword">from</emphasis>&#32;numpy.typing&#32;<emphasis role="keyword">import</emphasis>&#32;ArrayLike
+<anchor xml:id="_decpp_8py_source_1l00059"/>00059 
+<anchor xml:id="_decpp_8py_source_1l00060"/>00060 os.environ[<emphasis role="stringliteral">&apos;MKL_DEBUG_CPU_TYPE&apos;</emphasis>]&#32;=&#32;<emphasis role="stringliteral">&apos;5&apos;</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00061"/>00061 
+<anchor xml:id="_decpp_8py_source_1l00062"/>00062 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefcmaes_1_1decpp_1a5f109c8aa67919ea612f518860268ea3">minimize</link>(fun:&#32;Callable[[ArrayLike],&#32;float],
+<anchor xml:id="_decpp_8py_source_1l00063"/>00063 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dim:&#32;Optional[int]&#32;=&#32;<emphasis role="keywordtype">None</emphasis>,
+<anchor xml:id="_decpp_8py_source_1l00064"/>00064 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;bounds:&#32;Optional[Bounds]&#32;=&#32;<emphasis role="keywordtype">None</emphasis>,
+<anchor xml:id="_decpp_8py_source_1l00065"/>00065 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;popsize:&#32;Optional[int]&#32;=&#32;31,
+<anchor xml:id="_decpp_8py_source_1l00066"/>00066 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_evaluations:&#32;Optional[int]&#32;=&#32;100000,
+<anchor xml:id="_decpp_8py_source_1l00067"/>00067 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;stop_fitness:&#32;Optional[float]&#32;=&#32;-np.inf,
+<anchor xml:id="_decpp_8py_source_1l00068"/>00068 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;keep:&#32;Optional[int]&#32;=&#32;200,
+<anchor xml:id="_decpp_8py_source_1l00069"/>00069 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;f:&#32;Optional[float]&#32;=&#32;0.5,
+<anchor xml:id="_decpp_8py_source_1l00070"/>00070 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cr:&#32;Optional[float]&#32;=&#32;0.9,
+<anchor xml:id="_decpp_8py_source_1l00071"/>00071 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;rg:&#32;Optional[Generator]&#32;=&#32;Generator(PCG64DXSM()),
+<anchor xml:id="_decpp_8py_source_1l00072"/>00072 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ints:&#32;Optional[ArrayLike]&#32;=&#32;<emphasis role="keywordtype">None</emphasis>,
+<anchor xml:id="_decpp_8py_source_1l00073"/>00073 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;min_mutate:&#32;Optional[float]&#32;=&#32;0.1,
+<anchor xml:id="_decpp_8py_source_1l00074"/>00074 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_mutate:&#32;Optional[float]&#32;=&#32;0.5,
+<anchor xml:id="_decpp_8py_source_1l00075"/>00075 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;workers:&#32;Optional[int]&#32;=&#32;1,
+<anchor xml:id="_decpp_8py_source_1l00076"/>00076 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;is_terminate:&#32;Optional[Callable[[ArrayLike,&#32;float],&#32;bool]]&#32;=&#32;<emphasis role="keywordtype">None</emphasis>,
+<anchor xml:id="_decpp_8py_source_1l00077"/>00077 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x0:&#32;Optional[ArrayLike]&#32;=&#32;<emphasis role="keywordtype">None</emphasis>,
+<anchor xml:id="_decpp_8py_source_1l00078"/>00078 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;input_sigma:&#32;Optional[Union[float,&#32;ArrayLike,&#32;Callable]]&#32;=&#32;<emphasis role="keywordtype">None</emphasis>,
+<anchor xml:id="_decpp_8py_source_1l00079"/>00079 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;min_sigma:&#32;Optional[float]&#32;=&#32;0,
+<anchor xml:id="_decpp_8py_source_1l00080"/>00080 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;runid:&#32;Optional[int]&#32;=&#32;0)&#32;-&gt;&#32;OptimizeResult:
+<anchor xml:id="_decpp_8py_source_1l00081"/>00081 
+<anchor xml:id="_decpp_8py_source_1l00082"/>00082 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00083"/>00083 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Performs&#32;optimization&#32;using&#32;the&#32;Differential&#32;Evolution&#32;algorithm.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00084"/>00084 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_decpp_8py_source_1l00085"/>00085 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;This&#32;function&#32;seeks&#32;to&#32;find&#32;the&#32;global&#32;minimum&#32;of&#32;a&#32;given&#32;objective&#32;function</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00086"/>00086 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;by&#32;employing&#32;the&#32;Differential&#32;Evolution&#32;strategy.&#32;It&#32;supports&#32;various</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00087"/>00087 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;configurable&#32;parameters,&#32;including&#32;bounds,&#32;population&#32;size,&#32;mutation&#32;factors,</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00088"/>00088 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;and&#32;customization&#32;of&#32;the&#32;optimization&#32;process&#32;through&#32;callbacks&#32;and&#32;other</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00089"/>00089 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;options.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00090"/>00090 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_decpp_8py_source_1l00091"/>00091 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00092"/>00092 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fun&#32;(Callable[[ArrayLike],&#32;float]):&#32;The&#32;objective&#32;function&#32;to&#32;minimize.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00093"/>00093 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Must&#32;take&#32;an&#32;array-like&#32;input&#32;and&#32;return&#32;a&#32;scalar&#32;float&#32;value.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00094"/>00094 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dim&#32;(Optional[int]):&#32;Dimensionality&#32;of&#32;the&#32;input&#32;space.&#32;If&#32;bounds&#32;are</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00095"/>00095 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;provided,&#32;this&#32;should&#32;match&#32;the&#32;bounds&apos;&#32;dimensionality.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00096"/>00096 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;bounds&#32;(Optional[Bounds]):&#32;Bounds&#32;on&#32;the&#32;input&#32;parameters.&#32;Should&#32;be</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00097"/>00097 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;provided&#32;as&#32;a&#32;sequence&#32;of&#32;tuples&#32;(min,&#32;max)&#32;or&#32;equivalent.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00098"/>00098 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;popsize&#32;(Optional[int]):&#32;Size&#32;of&#32;the&#32;population&#32;for&#32;evolution.&#32;Defaults</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00099"/>00099 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;to&#32;31.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00100"/>00100 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_evaluations&#32;(Optional[int]):&#32;Maximum&#32;number&#32;of&#32;function&#32;evaluations</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00101"/>00101 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;allowed.&#32;Defaults&#32;to&#32;100000.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00102"/>00102 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;stop_fitness&#32;(Optional[float]):&#32;Fitness&#32;threshold&#32;at&#32;which&#32;optimization</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00103"/>00103 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;stops.&#32;Defaults&#32;to&#32;-infinity.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00104"/>00104 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;keep&#32;(Optional[int]):&#32;Number&#32;of&#32;best&#32;individuals&#32;to&#32;retain&#32;in&#32;the&#32;current</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00105"/>00105 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;population&#32;for&#32;elitism&#32;purposes.&#32;Defaults&#32;to&#32;200.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00106"/>00106 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;f&#32;(Optional[float]):&#32;Differential&#32;weight&#32;for&#32;mutation&#32;[0,&#32;2].&#32;Defaults&#32;to</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00107"/>00107 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;0.5.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00108"/>00108 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cr&#32;(Optional[float]):&#32;Crossover&#32;probability&#32;in&#32;the&#32;range&#32;[0,&#32;1].</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00109"/>00109 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Defaults&#32;to&#32;0.9.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00110"/>00110 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;rg&#32;(Optional[Generator]):&#32;Random&#32;number&#32;generator&#32;instance.&#32;Defaults</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00111"/>00111 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;to&#32;Generator(PCG64DXSM()).</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00112"/>00112 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ints&#32;(Optional[ArrayLike]):&#32;Boolean&#32;array&#32;indicating&#32;which&#32;dimensions</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00113"/>00113 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;should&#32;be&#32;treated&#32;as&#32;integers&#32;during&#32;optimization.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00114"/>00114 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;min_mutate&#32;(Optional[float]):&#32;Minimum&#32;mutation&#32;factor.&#32;Defaults&#32;to&#32;0.1.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00115"/>00115 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_mutate&#32;(Optional[float]):&#32;Maximum&#32;mutation&#32;factor.&#32;Defaults&#32;to&#32;0.5.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00116"/>00116 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;workers&#32;(Optional[int]):&#32;Number&#32;of&#32;parallel&#32;threads&#32;for&#32;evaluation.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00117"/>00117 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Defaults&#32;to&#32;1.&#32;Use&#32;0&#32;for&#32;single-threaded&#32;execution.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00118"/>00118 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;is_terminate&#32;(Optional[Callable[[ArrayLike,&#32;float],&#32;bool]]):&#32;Callback&#32;to</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00119"/>00119 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;determine&#32;whether&#32;to&#32;terminate&#32;the&#32;optimization&#32;early.&#32;Takes&#32;the&#32;best</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00120"/>00120 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;solution&#32;and&#32;its&#32;fitness&#32;as&#32;input.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00121"/><link linkend="_namespacefcmaes_1_1decpp_1a5f109c8aa67919ea612f518860268ea3">00121</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x0&#32;(Optional[ArrayLike]):&#32;Initial&#32;positions&#32;of&#32;the&#32;population.&#32;If&#32;not</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00122"/>00122 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;provided,&#32;it&#32;is&#32;randomly&#32;initialized&#32;within&#32;bounds.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00123"/>00123 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;input_sigma&#32;(Optional[Union[float,&#32;ArrayLike,&#32;Callable]]):&#32;Standard</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00124"/>00124 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;deviation&#32;for&#32;initializing&#32;the&#32;population.&#32;If&#32;scalar,&#32;applies&#32;to&#32;all</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00125"/>00125 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dimensions.&#32;If&#32;callable,&#32;it&#32;should&#32;generate&#32;the&#32;array.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00126"/>00126 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;min_sigma&#32;(Optional[float]):&#32;Minimum&#32;allowable&#32;standard&#32;deviation&#32;for&#32;the</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00127"/>00127 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;population.&#32;Defaults&#32;to&#32;0.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00128"/>00128 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;runid&#32;(Optional[int]):&#32;Identifier&#32;for&#32;this&#32;particular&#32;optimization&#32;run.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00129"/>00129 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Defaults&#32;to&#32;0.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00130"/>00130 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_decpp_8py_source_1l00131"/>00131 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Returns:</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00132"/>00132 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;OptimizeResult:&#32;Object&#32;containing&#32;optimization&#32;results&#32;such&#32;as&#32;the&#32;best</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00133"/>00133 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;solution&#32;(`x`),&#32;function&#32;value&#32;(`fun`),&#32;number&#32;of&#32;evaluations&#32;(`nfev`),</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00134"/>00134 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;number&#32;of&#32;iterations&#32;(`nit`),&#32;exit&#32;status&#32;(`status`),&#32;and&#32;success&#32;flag</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00135"/>00135 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;(`success`).</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00136"/>00136 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00137"/>00137 &#32;&#32;&#32;&#32;
+<anchor xml:id="_decpp_8py_source_1l00138"/>00138 &#32;&#32;&#32;&#32;dim,&#32;lower,&#32;upper&#32;=&#32;_check_bounds(bounds,&#32;dim)
+<anchor xml:id="_decpp_8py_source_1l00139"/>00139 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;popsize&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>:
+<anchor xml:id="_decpp_8py_source_1l00140"/>00140 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;popsize&#32;=&#32;31
+<anchor xml:id="_decpp_8py_source_1l00141"/>00141 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;<emphasis role="keywordflow">not</emphasis>&#32;input_sigma&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>:&#32;
+<anchor xml:id="_decpp_8py_source_1l00142"/>00142 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;callable(input_sigma):
+<anchor xml:id="_decpp_8py_source_1l00143"/>00143 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;input_sigma=input_sigma()
+<anchor xml:id="_decpp_8py_source_1l00144"/>00144 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;np.ndim(input_sigma)&#32;==&#32;0:
+<anchor xml:id="_decpp_8py_source_1l00145"/>00145 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;input_sigma&#32;=&#32;[input_sigma]&#32;*&#32;dim
+<anchor xml:id="_decpp_8py_source_1l00146"/>00146 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;workers&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>:
+<anchor xml:id="_decpp_8py_source_1l00147"/>00147 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;workers&#32;=&#32;0&#32;
+<anchor xml:id="_decpp_8py_source_1l00148"/>00148 &#32;&#32;&#32;&#32;array_type&#32;=&#32;ct.c_double&#32;*&#32;dim&#32;&#32;&#32;
+<anchor xml:id="_decpp_8py_source_1l00149"/>00149 &#32;&#32;&#32;&#32;bool_array_type&#32;=&#32;ct.c_bool&#32;*&#32;dim&#32;
+<anchor xml:id="_decpp_8py_source_1l00150"/>00150 &#32;&#32;&#32;&#32;c_callback&#32;=&#32;mo_call_back_type(<link linkend="_classfcmaes_1_1evaluator_1_1callback__so">callback_so</link>(fun,&#32;dim,&#32;is_terminate))
+<anchor xml:id="_decpp_8py_source_1l00151"/>00151 &#32;&#32;&#32;&#32;seed&#32;=&#32;int(rg.uniform(0,&#32;2**32&#32;-&#32;1))
+<anchor xml:id="_decpp_8py_source_1l00152"/>00152 &#32;&#32;&#32;&#32;res&#32;=&#32;np.empty(dim+4)
+<anchor xml:id="_decpp_8py_source_1l00153"/>00153 &#32;&#32;&#32;&#32;res_p&#32;=&#32;res.ctypes.data_as(ct.POINTER(ct.c_double))
+<anchor xml:id="_decpp_8py_source_1l00154"/>00154 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">try</emphasis>:
+<anchor xml:id="_decpp_8py_source_1l00155"/>00155 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_namespacefcmaes_1_1decpp_1a890d0db67042ae71d4c7df9adec2d3ec">optimizeDE_C</link>(runid,&#32;c_callback,&#32;dim,&#32;seed,
+<anchor xml:id="_decpp_8py_source_1l00156"/>00156 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">None</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>&#32;lower&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>&#32;<emphasis role="keywordflow">else</emphasis>&#32;array_type(*lower),&#32;
+<anchor xml:id="_decpp_8py_source_1l00157"/>00157 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">None</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>&#32;upper&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>&#32;<emphasis role="keywordflow">else</emphasis>&#32;array_type(*upper),&#32;
+<anchor xml:id="_decpp_8py_source_1l00158"/>00158 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">None</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>&#32;x0&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>&#32;<emphasis role="keywordflow">else</emphasis>&#32;array_type(*x0),&#32;
+<anchor xml:id="_decpp_8py_source_1l00159"/>00159 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">None</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>&#32;input_sigma&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>&#32;<emphasis role="keywordflow">else</emphasis>&#32;array_type(*input_sigma),&#32;
+<anchor xml:id="_decpp_8py_source_1l00160"/>00160 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;min_sigma,
+<anchor xml:id="_decpp_8py_source_1l00161"/>00161 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">None</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>&#32;ints&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>&#32;<emphasis role="keywordflow">else</emphasis>&#32;bool_array_type(*ints),&#32;
+<anchor xml:id="_decpp_8py_source_1l00162"/>00162 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_evaluations,&#32;keep,&#32;stop_fitness,&#32;&#32;
+<anchor xml:id="_decpp_8py_source_1l00163"/>00163 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;popsize,&#32;f,&#32;cr,&#32;min_mutate,&#32;max_mutate,&#32;workers,&#32;res_p)
+<anchor xml:id="_decpp_8py_source_1l00164"/>00164 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x&#32;=&#32;res[:dim]
+<anchor xml:id="_decpp_8py_source_1l00165"/>00165 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;val&#32;=&#32;res[dim]
+<anchor xml:id="_decpp_8py_source_1l00166"/>00166 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;evals&#32;=&#32;int(res[dim+1])
+<anchor xml:id="_decpp_8py_source_1l00167"/>00167 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;iterations&#32;=&#32;int(res[dim+2])
+<anchor xml:id="_decpp_8py_source_1l00168"/>00168 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;stop&#32;=&#32;int(res[dim+3])
+<anchor xml:id="_decpp_8py_source_1l00169"/>00169 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;OptimizeResult(x=x,&#32;fun=val,&#32;nfev=evals,&#32;nit=iterations,&#32;status=stop,&#32;success=<emphasis role="keyword">True</emphasis>)
+<anchor xml:id="_decpp_8py_source_1l00170"/>00170 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">except</emphasis>&#32;Exception&#32;<emphasis role="keyword">as</emphasis>&#32;ex:
+<anchor xml:id="_decpp_8py_source_1l00171"/>00171 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;OptimizeResult(x=<emphasis role="keywordtype">None</emphasis>,&#32;fun=sys.float_info.max,&#32;nfev=0,&#32;nit=0,&#32;status=-1,&#32;success=<emphasis role="keyword">False</emphasis>)&#32;&#32;
+<anchor xml:id="_decpp_8py_source_1l00172"/>00172 &#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_decpp_8py_source_1l00173"/>00173 <emphasis role="keyword">class&#32;</emphasis><link linkend="_classfcmaes_1_1decpp_1_1_d_e___c">DE_C</link>:
+<anchor xml:id="_decpp_8py_source_1l00174"/>00174 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00175"/>00175 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;A&#32;class&#32;to&#32;perform&#32;Differential&#32;Evolution&#32;(DE)&#32;algorithm&#32;using&#32;a&#32;C&#32;implementation&#32;backend.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00176"/>00176 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_decpp_8py_source_1l00177"/>00177 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;This&#32;class&#32;provides&#32;an&#32;interface&#32;to&#32;perform&#32;Differential&#32;Evolution&#32;optimization.&#32;The</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00178"/>00178 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;underlying&#32;algorithms&#32;are&#32;implemented&#32;in&#32;C&#32;for&#32;performance.&#32;Users&#32;can&#32;configure&#32;the</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00179"/>00179 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;optimization&#32;parameters&#32;such&#32;as&#32;population&#32;size,&#32;mutation&#32;factors,&#32;bounds,&#32;and</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00180"/>00180 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;constraints.&#32;It&#32;also&#32;provides&#32;methods&#32;to&#32;query&#32;results,&#32;manage&#32;population&#32;and&#32;perform</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00181"/>00181 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;optimization&#32;steps&#32;using&#32;an&#32;ask-tell&#32;interface&#32;for&#32;iterative&#32;optimization&#32;processes.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00182"/>00182 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_decpp_8py_source_1l00183"/>00183 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Attributes:</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00184"/>00184 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dim&#32;(int):&#32;Dimension&#32;of&#32;the&#32;optimization&#32;problem.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00185"/>00185 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;bounds&#32;(Bounds):&#32;Bounds&#32;for&#32;each&#32;dimension&#32;of&#32;the&#32;search&#32;space.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00186"/>00186 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;popsize&#32;(int):&#32;Size&#32;of&#32;the&#32;population&#32;used&#32;in&#32;the&#32;DE&#32;optimization.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00187"/>00187 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;keep&#32;(int):&#32;Number&#32;of&#32;individuals&#32;to&#32;keep&#32;across&#32;generations.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00188"/><link linkend="_classfcmaes_1_1decpp_1_1_d_e___c">00188</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;f&#32;(float):&#32;Mutation&#32;factor&#32;used&#32;in&#32;the&#32;DE&#32;optimization.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00189"/>00189 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cr&#32;(float):&#32;Crossover&#32;probability&#32;used&#32;in&#32;the&#32;DE&#32;optimization.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00190"/>00190 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;rg&#32;(Generator):&#32;Random&#32;number&#32;generator&#32;for&#32;initializing&#32;the&#32;DE&#32;process.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00191"/>00191 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ints&#32;(ArrayLike):&#32;Array&#32;specifying&#32;whether&#32;each&#32;dimension&#32;is&#32;integer-constrained.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00192"/>00192 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;min_mutate&#32;(float):&#32;Minimum&#32;mutation&#32;factor&#32;during&#32;the&#32;DE&#32;process.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00193"/>00193 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_mutate&#32;(float):&#32;Maximum&#32;mutation&#32;factor&#32;during&#32;the&#32;DE&#32;process.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00194"/>00194 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x0&#32;(ArrayLike):&#32;Initial&#32;guess&#32;for&#32;the&#32;solution&#32;to&#32;the&#32;optimization&#32;problem.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00195"/>00195 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;input_sigma&#32;(Union[float,&#32;ArrayLike,&#32;Callable]):&#32;Standard&#32;deviation&#32;for&#32;generating</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00196"/>00196 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;the&#32;initial&#32;population.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00197"/>00197 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;min_sigma&#32;(float):&#32;Minimum&#32;standard&#32;deviation&#32;allowed&#32;during&#32;initialization.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00198"/>00198 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00199"/>00199 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1decpp_1_1_d_e___c_1afcd3a8216d55e778558eada4cdf9c6dc">__init__</link>(self,&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_decpp_8py_source_1l00200"/>00200 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dim:&#32;Optional[int]&#32;=&#32;<emphasis role="keywordtype">None</emphasis>,
+<anchor xml:id="_decpp_8py_source_1l00201"/>00201 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;bounds:&#32;Optional[Bounds]&#32;=&#32;<emphasis role="keywordtype">None</emphasis>,
+<anchor xml:id="_decpp_8py_source_1l00202"/>00202 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;popsize:&#32;Optional[int]&#32;=&#32;31,
+<anchor xml:id="_decpp_8py_source_1l00203"/>00203 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;keep:&#32;Optional[int]&#32;=&#32;200,
+<anchor xml:id="_decpp_8py_source_1l00204"/>00204 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;f:&#32;Optional[float]&#32;=&#32;0.5,
+<anchor xml:id="_decpp_8py_source_1l00205"/>00205 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cr:&#32;Optional[float]&#32;=&#32;0.9,
+<anchor xml:id="_decpp_8py_source_1l00206"/>00206 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;rg:&#32;Optional[Generator]&#32;=&#32;Generator(PCG64DXSM()),
+<anchor xml:id="_decpp_8py_source_1l00207"/>00207 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ints:&#32;Optional[ArrayLike]&#32;=&#32;<emphasis role="keywordtype">None</emphasis>,
+<anchor xml:id="_decpp_8py_source_1l00208"/>00208 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;min_mutate:&#32;Optional[float]&#32;=&#32;0.1,
+<anchor xml:id="_decpp_8py_source_1l00209"/>00209 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_mutate:&#32;Optional[float]&#32;=&#32;0.5,
+<anchor xml:id="_decpp_8py_source_1l00210"/>00210 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x0:&#32;Optional[ArrayLike]&#32;=&#32;<emphasis role="keywordtype">None</emphasis>,
+<anchor xml:id="_decpp_8py_source_1l00211"/>00211 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;input_sigma:&#32;Optional[Union[float,&#32;ArrayLike,&#32;Callable]]&#32;=&#32;0.3,
+<anchor xml:id="_decpp_8py_source_1l00212"/>00212 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;min_sigma:&#32;Optional[float]&#32;=&#32;0,
+<anchor xml:id="_decpp_8py_source_1l00213"/>00213 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;):
+<anchor xml:id="_decpp_8py_source_1l00214"/>00214 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00215"/>00215 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Initializes&#32;an&#32;object&#32;for&#32;Differential&#32;Evolution-based&#32;optimization.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00216"/>00216 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_decpp_8py_source_1l00217"/>00217 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;This&#32;implementation&#32;is&#32;designed&#32;to&#32;manage&#32;optimization&#32;parameters&#32;such&#32;as</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00218"/>00218 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dimensionality,&#32;bounds,&#32;population&#32;size,&#32;mutation&#32;rates,&#32;and&#32;crossover</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00219"/>00219 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;probabilities,&#32;as&#32;well&#32;as&#32;additional&#32;customization&#32;options&#32;including&#32;random</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00220"/>00220 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;number&#32;generation,&#32;variable&#32;constraints,&#32;and&#32;initial&#32;starting&#32;points.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00221"/>00221 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_decpp_8py_source_1l00222"/>00222 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00223"/>00223 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dim&#32;(Optional[int]):&#32;Dimensionality&#32;of&#32;the&#32;optimization&#32;problem.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00224"/>00224 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;bounds&#32;(Optional[Bounds]):&#32;Bounds&#32;of&#32;the&#32;variables&#32;for&#32;the&#32;optimization.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00225"/>00225 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;popsize&#32;(Optional[int]):&#32;Population&#32;size&#32;of&#32;the&#32;Differential&#32;Evolution</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00226"/>00226 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;algorithm.&#32;Default&#32;is&#32;31.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00227"/>00227 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;keep&#32;(Optional[int]):&#32;Number&#32;of&#32;iterations&#32;to&#32;retain&#32;historical&#32;data.&#32;Default&#32;is&#32;200.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00228"/>00228 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;f&#32;(Optional[float]):&#32;Mutation&#32;factor,&#32;which&#32;determines&#32;the&#32;amplitude&#32;of</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00229"/>00229 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;the&#32;differential&#32;variation.&#32;Default&#32;is&#32;0.5.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00230"/>00230 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cr&#32;(Optional[float]):&#32;Crossover&#32;probability,&#32;controlling&#32;the&#32;level&#32;of&#32;blending</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00231"/>00231 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;among&#32;individuals.&#32;Default&#32;is&#32;0.9.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00232"/>00232 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;rg&#32;(Optional[Generator]):&#32;Random&#32;number&#32;generator&#32;for&#32;initialization</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00233"/>00233 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;and&#32;stochastic&#32;operations.&#32;Default&#32;generator&#32;uses&#32;the&#32;PCG64DXSM&#32;algorithm.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00234"/>00234 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ints&#32;(Optional[ArrayLike]):&#32;Indicates&#32;which&#32;variables&#32;are&#32;integers.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00235"/>00235 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;min_mutate&#32;(Optional[float]):&#32;Minimum&#32;mutation&#32;rate&#32;for&#32;the&#32;algorithm.&#32;Default&#32;is&#32;0.1.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00236"/>00236 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_mutate&#32;(Optional[float]):&#32;Maximum&#32;mutation&#32;rate&#32;for&#32;the&#32;algorithm.&#32;Default&#32;is&#32;0.5.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00237"/>00237 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x0&#32;(Optional[ArrayLike]):&#32;Initial&#32;guess&#32;or&#32;starting&#32;point&#32;for&#32;the&#32;optimization.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00238"/>00238 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;input_sigma&#32;(Optional[Union[float,&#32;ArrayLike,&#32;Callable]]):&#32;Standard&#32;deviation</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00239"/>00239 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;for&#32;initialization.&#32;Could&#32;be&#32;a&#32;constant,&#32;array,&#32;or&#32;callable&#32;function.&#32;Default&#32;is&#32;0.3.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00240"/>00240 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;min_sigma&#32;(Optional[float]):&#32;Minimum&#32;limit&#32;for&#32;the&#32;standard&#32;deviation.&#32;Default&#32;is&#32;0.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00241"/>00241 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00242"/>00242 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dim,&#32;lower,&#32;upper&#32;=&#32;_check_bounds(bounds,&#32;dim)&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_decpp_8py_source_1l00243"/>00243 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;popsize&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>:
+<anchor xml:id="_decpp_8py_source_1l00244"/>00244 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;popsize&#32;=&#32;31
+<anchor xml:id="_decpp_8py_source_1l00245"/>00245 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;callable(input_sigma):
+<anchor xml:id="_decpp_8py_source_1l00246"/>00246 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;input_sigma=input_sigma()
+<anchor xml:id="_decpp_8py_source_1l00247"/>00247 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;np.ndim(input_sigma)&#32;==&#32;0:
+<anchor xml:id="_decpp_8py_source_1l00248"/>00248 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;input_sigma&#32;=&#32;[input_sigma]&#32;*&#32;dim
+<anchor xml:id="_decpp_8py_source_1l00249"/>00249 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;array_type&#32;=&#32;ct.c_double&#32;*&#32;dim&#32;&#32;&#32;
+<anchor xml:id="_decpp_8py_source_1l00250"/>00250 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;bool_array_type&#32;=&#32;ct.c_bool&#32;*&#32;dim&#32;
+<anchor xml:id="_decpp_8py_source_1l00251"/>00251 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;seed&#32;=&#32;int(rg.uniform(0,&#32;2**32&#32;-&#32;1))
+<anchor xml:id="_decpp_8py_source_1l00252"/>00252 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">try</emphasis>:
+<anchor xml:id="_decpp_8py_source_1l00253"/>00253 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1decpp_1_1_d_e___c_1ad9095931be109c4c732f10d7791c54fc">ptr</link>&#32;=&#32;<link linkend="_namespacefcmaes_1_1decpp_1ae77a3d487fdde3b54015c3fcb4758e17">initDE_C</link>(0,&#32;dim,&#32;seed,
+<anchor xml:id="_decpp_8py_source_1l00254"/>00254 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">None</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>&#32;lower&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>&#32;<emphasis role="keywordflow">else</emphasis>&#32;array_type(*lower),&#32;
+<anchor xml:id="_decpp_8py_source_1l00255"/>00255 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">None</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>&#32;upper&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>&#32;<emphasis role="keywordflow">else</emphasis>&#32;array_type(*upper),&#32;
+<anchor xml:id="_decpp_8py_source_1l00256"/>00256 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">None</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>&#32;x0&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>&#32;<emphasis role="keywordflow">else</emphasis>&#32;array_type(*x0),&#32;
+<anchor xml:id="_decpp_8py_source_1l00257"/>00257 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">None</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>&#32;input_sigma&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>&#32;<emphasis role="keywordflow">else</emphasis>&#32;array_type(*input_sigma),&#32;
+<anchor xml:id="_decpp_8py_source_1l00258"/>00258 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;min_sigma,
+<anchor xml:id="_decpp_8py_source_1l00259"/><link linkend="_classfcmaes_1_1decpp_1_1_d_e___c_1afcd3a8216d55e778558eada4cdf9c6dc">00259</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">None</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>&#32;ints&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>&#32;<emphasis role="keywordflow">else</emphasis>&#32;bool_array_type(*ints),
+<anchor xml:id="_decpp_8py_source_1l00260"/>00260 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;keep,&#32;popsize,&#32;f,&#32;cr,&#32;min_mutate,&#32;max_mutate)
+<anchor xml:id="_decpp_8py_source_1l00261"/>00261 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1decpp_1_1_d_e___c_1ad122a7d34bd51afeb06228ad811f85ce">popsize</link>&#32;=&#32;popsize
+<anchor xml:id="_decpp_8py_source_1l00262"/>00262 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1decpp_1_1_d_e___c_1a174ff7e79ef1f1d187dc0197e95256e8">dim</link>&#32;=&#32;dim&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_decpp_8py_source_1l00263"/>00263 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">except</emphasis>&#32;Exception&#32;<emphasis role="keyword">as</emphasis>&#32;ex:
+<anchor xml:id="_decpp_8py_source_1l00264"/>00264 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">print</emphasis>&#32;(ex)
+<anchor xml:id="_decpp_8py_source_1l00265"/>00265 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">pass</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00266"/>00266 &#32;
+<anchor xml:id="_decpp_8py_source_1l00267"/>00267 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1decpp_1_1_d_e___c_1ab22d38f2f4822b861fa7217725d8db1a">__del__</link>(self):
+<anchor xml:id="_decpp_8py_source_1l00268"/>00268 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00269"/>00269 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Deletes&#32;the&#32;object&#32;and&#32;performs&#32;cleanup&#32;by&#32;invoking&#32;the&#32;corresponding&#32;native&#32;method.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00270"/>00270 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_decpp_8py_source_1l00271"/>00271 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;The&#32;destructor&#32;is&#32;responsible&#32;for&#32;freeing&#32;any&#32;resources&#32;or&#32;performing</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00272"/>00272 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;necessary&#32;cleanup&#32;operations&#32;associated&#32;with&#32;the&#32;object&#32;when&#32;it&#32;is</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00273"/>00273 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;deallocated.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00274"/>00274 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_decpp_8py_source_1l00275"/>00275 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Raises:</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00276"/>00276 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Exception:&#32;If&#32;there&#32;is&#32;an&#32;issue&#32;during&#32;the&#32;cleanup&#32;process,&#32;it&#32;may</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00277"/>00277 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;raise&#32;an&#32;exception.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00278"/>00278 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00279"/>00279 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_namespacefcmaes_1_1decpp_1adecb8709958be364970da9957340521a">destroyDE_C</link>(self.<link linkend="_classfcmaes_1_1decpp_1_1_d_e___c_1ad9095931be109c4c732f10d7791c54fc">ptr</link>)
+<anchor xml:id="_decpp_8py_source_1l00280"/>00280 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_decpp_8py_source_1l00281"/>00281 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1decpp_1_1_d_e___c_1ac938731f80bce720692af9b7b84e41d0">ask</link>(self)&#32;-&gt;&#32;np.array:
+<anchor xml:id="_decpp_8py_source_1l00282"/>00282 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00283"/>00283 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Generates&#32;a&#32;new&#32;population&#32;of&#32;candidate&#32;solutions&#32;using&#32;the&#32;DE&#32;(Differential&#32;Evolution)</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00284"/>00284 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;algorithm.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00285"/><link linkend="_classfcmaes_1_1decpp_1_1_d_e___c_1ad9095931be109c4c732f10d7791c54fc">00285</link> <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_decpp_8py_source_1l00286"/>00286 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;The&#32;`ask`&#32;method&#32;retrieves&#32;a&#32;set&#32;of&#32;candidate&#32;solutions&#32;generated&#32;by&#32;the&#32;DE&#32;algorithm&#32;from</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00287"/>00287 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;a&#32;C&#32;extension.&#32;The&#32;solutions&#32;are&#32;returned&#32;as&#32;a&#32;NumPy&#32;array&#32;with&#32;dimensions&#32;corresponding&#32;to</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00288"/>00288 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;the&#32;population&#32;size&#32;and&#32;the&#32;dimensionality&#32;of&#32;the&#32;search&#32;space.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00289"/>00289 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_decpp_8py_source_1l00290"/>00290 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Raises:</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00291"/>00291 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Exception:&#32;If&#32;the&#32;underlying&#32;procedure&#32;fails,&#32;an&#32;exception&#32;is&#32;raised&#32;and&#32;handled</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00292"/>00292 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;internally.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00293"/><link linkend="_classfcmaes_1_1decpp_1_1_d_e___c_1ad122a7d34bd51afeb06228ad811f85ce">00293</link> <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_decpp_8py_source_1l00294"/><link linkend="_classfcmaes_1_1decpp_1_1_d_e___c_1a174ff7e79ef1f1d187dc0197e95256e8">00294</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Returns:</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00295"/>00295 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;np.array:&#32;A&#32;NumPy&#32;array&#32;where&#32;each&#32;row&#32;represents&#32;a&#32;candidate&#32;solution.&#32;Returns</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00296"/>00296 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;`None`&#32;if&#32;an&#32;exception&#32;occurs&#32;during&#32;the&#32;process.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00297"/>00297 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00298"/>00298 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">try</emphasis>:
+<anchor xml:id="_decpp_8py_source_1l00299"/>00299 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;popsize&#32;=&#32;self.<link linkend="_classfcmaes_1_1decpp_1_1_d_e___c_1ad122a7d34bd51afeb06228ad811f85ce">popsize</link>
+<anchor xml:id="_decpp_8py_source_1l00300"/>00300 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;n&#32;=&#32;self.<link linkend="_classfcmaes_1_1decpp_1_1_d_e___c_1a174ff7e79ef1f1d187dc0197e95256e8">dim</link>
+<anchor xml:id="_decpp_8py_source_1l00301"/>00301 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;res&#32;=&#32;np.empty(popsize*n)
+<anchor xml:id="_decpp_8py_source_1l00302"/>00302 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;res_p&#32;=&#32;res.ctypes.data_as(ct.POINTER(ct.c_double))
+<anchor xml:id="_decpp_8py_source_1l00303"/>00303 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_namespacefcmaes_1_1decpp_1a63c8f68ce2fc471736fe8dbf0a9c297e">askDE_C</link>(self.<link linkend="_classfcmaes_1_1decpp_1_1_d_e___c_1ad9095931be109c4c732f10d7791c54fc">ptr</link>,&#32;res_p)
+<anchor xml:id="_decpp_8py_source_1l00304"/>00304 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xs&#32;=&#32;np.empty((popsize,&#32;n))
+<anchor xml:id="_decpp_8py_source_1l00305"/>00305 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;p&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(popsize):
+<anchor xml:id="_decpp_8py_source_1l00306"/>00306 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xs[p,:]&#32;=&#32;res[p*n&#32;:&#32;(p+1)*n]
+<anchor xml:id="_decpp_8py_source_1l00307"/>00307 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;xs
+<anchor xml:id="_decpp_8py_source_1l00308"/>00308 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">except</emphasis>&#32;Exception&#32;<emphasis role="keyword">as</emphasis>&#32;ex:
+<anchor xml:id="_decpp_8py_source_1l00309"/>00309 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">print</emphasis>&#32;(ex)
+<anchor xml:id="_decpp_8py_source_1l00310"/><link linkend="_classfcmaes_1_1decpp_1_1_d_e___c_1ab22d38f2f4822b861fa7217725d8db1a">00310</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00311"/>00311 
+<anchor xml:id="_decpp_8py_source_1l00312"/>00312 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1decpp_1_1_d_e___c_1ad53cc4b5553a819096b47115e1f49b42">tell</link>(self,&#32;ys:&#32;np.ndarray):
+<anchor xml:id="_decpp_8py_source_1l00313"/>00313 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00314"/>00314 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Updates&#32;the&#32;object&#32;with&#32;input&#32;data&#32;and&#32;performs&#32;a&#32;specific&#32;operation&#32;using</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00315"/>00315 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;the&#32;provided&#32;numerical&#32;array.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00316"/>00316 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_decpp_8py_source_1l00317"/>00317 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00318"/>00318 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ys&#32;(np.ndarray):&#32;A&#32;NumPy&#32;array&#32;of&#32;numerical&#32;data&#32;used&#32;as&#32;input&#32;for</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00319"/>00319 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;the&#32;operation.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00320"/>00320 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_decpp_8py_source_1l00321"/>00321 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Returns:</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00322"/>00322 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;int:&#32;Returns&#32;an&#32;integer&#32;value&#32;indicating&#32;the&#32;result&#32;of&#32;the&#32;operation</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00323"/>00323 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;or&#32;-1&#32;in&#32;case&#32;of&#32;an&#32;exception.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00324"/>00324 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_decpp_8py_source_1l00325"/>00325 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Raises:</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00326"/>00326 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Exception:&#32;Catches&#32;and&#32;prints&#32;any&#32;exceptions&#32;that&#32;occur&#32;during&#32;the</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00327"/>00327 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;execution&#32;process.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00328"/>00328 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00329"/><link linkend="_classfcmaes_1_1decpp_1_1_d_e___c_1ac938731f80bce720692af9b7b84e41d0">00329</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">try</emphasis>:
+<anchor xml:id="_decpp_8py_source_1l00330"/>00330 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;array_type_ys&#32;=&#32;ct.c_double&#32;*&#32;len(ys)
+<anchor xml:id="_decpp_8py_source_1l00331"/>00331 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_namespacefcmaes_1_1decpp_1a42e7c91ec427be0aca79ecf4bec8319f">tellDE_C</link>(self.<link linkend="_classfcmaes_1_1decpp_1_1_d_e___c_1ad9095931be109c4c732f10d7791c54fc">ptr</link>,&#32;array_type_ys(*ys))
+<anchor xml:id="_decpp_8py_source_1l00332"/>00332 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">except</emphasis>&#32;Exception&#32;<emphasis role="keyword">as</emphasis>&#32;ex:
+<anchor xml:id="_decpp_8py_source_1l00333"/>00333 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">print</emphasis>&#32;(ex)
+<anchor xml:id="_decpp_8py_source_1l00334"/>00334 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;-1&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_decpp_8py_source_1l00335"/>00335 
+<anchor xml:id="_decpp_8py_source_1l00336"/>00336 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1decpp_1_1_d_e___c_1ae6321ea6313c6ef9bf44d492aaa619f8">population</link>(self)&#32;-&gt;&#32;np.array:
+<anchor xml:id="_decpp_8py_source_1l00337"/>00337 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00338"/>00338 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Generates&#32;and&#32;retrieves&#32;the&#32;population&#32;of&#32;individuals&#32;in&#32;a&#32;multi-dimensional</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00339"/>00339 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;optimization&#32;context.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00340"/>00340 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_decpp_8py_source_1l00341"/>00341 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;This&#32;function&#32;interacts&#32;with&#32;a&#32;native&#32;library&#32;to&#32;populate&#32;a&#32;numpy&#32;array</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00342"/>00342 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;representing&#32;the&#32;population&#32;in&#32;a&#32;given&#32;algorithm.&#32;It&#32;processes&#32;the</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00343"/>00343 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;results&#32;returned&#32;from&#32;the&#32;library&#32;and&#32;organizes&#32;them&#32;into&#32;a&#32;structured</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00344"/>00344 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;numpy&#32;array&#32;to&#32;return&#32;to&#32;the&#32;caller.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00345"/>00345 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_decpp_8py_source_1l00346"/>00346 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Returns:</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00347"/>00347 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;np.array:&#32;A&#32;2D&#32;numpy&#32;array&#32;where&#32;each&#32;row&#32;represents&#32;an&#32;individual&#32;in</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00348"/>00348 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;the&#32;population,&#32;and&#32;each&#32;column&#32;corresponds&#32;to&#32;an&#32;individual&apos;s</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00349"/>00349 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dimension.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00350"/>00350 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_decpp_8py_source_1l00351"/>00351 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Raises:</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00352"/>00352 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Exception:&#32;If&#32;an&#32;error&#32;occurs&#32;during&#32;population&#32;retrieval&#32;or&#32;processing.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00353"/>00353 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00354"/>00354 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">try</emphasis>:
+<anchor xml:id="_decpp_8py_source_1l00355"/>00355 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;popsize&#32;=&#32;self.<link linkend="_classfcmaes_1_1decpp_1_1_d_e___c_1ad122a7d34bd51afeb06228ad811f85ce">popsize</link>
+<anchor xml:id="_decpp_8py_source_1l00356"/>00356 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;n&#32;=&#32;self.<link linkend="_classfcmaes_1_1decpp_1_1_d_e___c_1a174ff7e79ef1f1d187dc0197e95256e8">dim</link>
+<anchor xml:id="_decpp_8py_source_1l00357"/>00357 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;res&#32;=&#32;np.empty(popsize*n)
+<anchor xml:id="_decpp_8py_source_1l00358"/>00358 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;res_p&#32;=&#32;res.ctypes.data_as(ct.POINTER(ct.c_double))
+<anchor xml:id="_decpp_8py_source_1l00359"/>00359 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_namespacefcmaes_1_1decpp_1a83480897deb0e4a967b6de51edd57f3e">populationDE_C</link>(self.<link linkend="_classfcmaes_1_1decpp_1_1_d_e___c_1ad9095931be109c4c732f10d7791c54fc">ptr</link>,&#32;res_p)
+<anchor xml:id="_decpp_8py_source_1l00360"/><link linkend="_classfcmaes_1_1decpp_1_1_d_e___c_1ad53cc4b5553a819096b47115e1f49b42">00360</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xs&#32;=&#32;np.array(popsize,&#32;n)
+<anchor xml:id="_decpp_8py_source_1l00361"/>00361 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;p&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(popsize):
+<anchor xml:id="_decpp_8py_source_1l00362"/>00362 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xs[p]&#32;=&#32;res[p*n&#32;:&#32;(p+1)*n]
+<anchor xml:id="_decpp_8py_source_1l00363"/>00363 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;xs
+<anchor xml:id="_decpp_8py_source_1l00364"/>00364 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">except</emphasis>&#32;Exception&#32;<emphasis role="keyword">as</emphasis>&#32;ex:
+<anchor xml:id="_decpp_8py_source_1l00365"/>00365 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">print</emphasis>&#32;(ex)
+<anchor xml:id="_decpp_8py_source_1l00366"/>00366 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00367"/>00367 
+<anchor xml:id="_decpp_8py_source_1l00368"/>00368 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1decpp_1_1_d_e___c_1a2f794b6d8709f5b14d5f56695bb8d8ff">result</link>(self)&#32;-&gt;&#32;OptimizeResult:
+<anchor xml:id="_decpp_8py_source_1l00369"/>00369 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00370"/>00370 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Executes&#32;the&#32;optimization&#32;process&#32;and&#32;returns&#32;the&#32;result&#32;as&#32;an&#32;OptimizeResult&#32;object.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00371"/>00371 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_decpp_8py_source_1l00372"/>00372 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;This&#32;method&#32;carries&#32;out&#32;the&#32;computation&#32;for&#32;the&#32;given&#32;optimization&#32;problem,</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00373"/>00373 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;wraps&#32;the&#32;results&#32;into&#32;an&#32;OptimizeResult&#32;object,&#32;and&#32;handles&#32;exceptions&#32;by</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00374"/>00374 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;providing&#32;a&#32;default&#32;failure&#32;result.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00375"/>00375 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_decpp_8py_source_1l00376"/>00376 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Returns:</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00377"/>00377 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;OptimizeResult:&#32;An&#32;object&#32;containing&#32;the&#32;results&#32;of&#32;the&#32;optimization&#32;process,</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00378"/>00378 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;including&#32;the&#32;solution&#32;vector,&#32;function&#32;value&#32;at&#32;the&#32;solution,&#32;number&#32;of</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00379"/>00379 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;function&#32;evaluations,&#32;number&#32;of&#32;iterations,&#32;stopping&#32;status,&#32;and&#32;success&#32;flag.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00380"/>00380 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_decpp_8py_source_1l00381"/>00381 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Raises:</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00382"/>00382 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Exception:&#32;If&#32;an&#32;error&#32;occurs&#32;during&#32;the&#32;optimization&#32;computation,&#32;it&#32;returns&#32;a</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00383"/>00383 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;default&#32;OptimizeResult&#32;indicating&#32;failure.</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00384"/>00384 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_decpp_8py_source_1l00385"/><link linkend="_classfcmaes_1_1decpp_1_1_d_e___c_1ae6321ea6313c6ef9bf44d492aaa619f8">00385</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;res&#32;=&#32;np.empty(self.<link linkend="_classfcmaes_1_1decpp_1_1_d_e___c_1a174ff7e79ef1f1d187dc0197e95256e8">dim</link>+4)
+<anchor xml:id="_decpp_8py_source_1l00386"/>00386 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;res_p&#32;=&#32;res.ctypes.data_as(ct.POINTER(ct.c_double))
+<anchor xml:id="_decpp_8py_source_1l00387"/>00387 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">try</emphasis>:
+<anchor xml:id="_decpp_8py_source_1l00388"/>00388 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_namespacefcmaes_1_1decpp_1af82bf7db3d2be348a9dbec6a24087b14">resultDE_C</link>(self.<link linkend="_classfcmaes_1_1decpp_1_1_d_e___c_1ad9095931be109c4c732f10d7791c54fc">ptr</link>,&#32;res_p)
+<anchor xml:id="_decpp_8py_source_1l00389"/>00389 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x&#32;=&#32;res[:self.<link linkend="_classfcmaes_1_1decpp_1_1_d_e___c_1a174ff7e79ef1f1d187dc0197e95256e8">dim</link>]
+<anchor xml:id="_decpp_8py_source_1l00390"/>00390 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;val&#32;=&#32;res[self.<link linkend="_classfcmaes_1_1decpp_1_1_d_e___c_1a174ff7e79ef1f1d187dc0197e95256e8">dim</link>]
+<anchor xml:id="_decpp_8py_source_1l00391"/>00391 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;evals&#32;=&#32;int(res[self.<link linkend="_classfcmaes_1_1decpp_1_1_d_e___c_1a174ff7e79ef1f1d187dc0197e95256e8">dim</link>+1])
+<anchor xml:id="_decpp_8py_source_1l00392"/>00392 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;iterations&#32;=&#32;int(res[self.<link linkend="_classfcmaes_1_1decpp_1_1_d_e___c_1a174ff7e79ef1f1d187dc0197e95256e8">dim</link>+2])
+<anchor xml:id="_decpp_8py_source_1l00393"/>00393 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;stop&#32;=&#32;int(res[self.<link linkend="_classfcmaes_1_1decpp_1_1_d_e___c_1a174ff7e79ef1f1d187dc0197e95256e8">dim</link>+3])
+<anchor xml:id="_decpp_8py_source_1l00394"/>00394 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;res&#32;=&#32;OptimizeResult(x=x,&#32;fun=val,&#32;nfev=evals,&#32;nit=iterations,&#32;status=stop,&#32;success=<emphasis role="keyword">True</emphasis>)
+<anchor xml:id="_decpp_8py_source_1l00395"/>00395 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">except</emphasis>&#32;Exception&#32;<emphasis role="keyword">as</emphasis>&#32;ex:
+<anchor xml:id="_decpp_8py_source_1l00396"/>00396 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;res&#32;=&#32;OptimizeResult(x=<emphasis role="keywordtype">None</emphasis>,&#32;fun=sys.float_info.max,&#32;nfev=0,&#32;nit=0,&#32;status=-1,&#32;success=<emphasis role="keyword">False</emphasis>)
+<anchor xml:id="_decpp_8py_source_1l00397"/>00397 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;res
+<anchor xml:id="_decpp_8py_source_1l00398"/>00398 
+<anchor xml:id="_decpp_8py_source_1l00399"/>00399 <emphasis role="keywordflow">if</emphasis>&#32;<emphasis role="keywordflow">not</emphasis>&#32;libcmalib&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>:&#32;
+<anchor xml:id="_decpp_8py_source_1l00400"/>00400 &#32;&#32;&#32;&#32;
+<anchor xml:id="_decpp_8py_source_1l00401"/>00401 &#32;&#32;&#32;&#32;optimizeDE_C&#32;=&#32;libcmalib.optimizeDE_C
+<anchor xml:id="_decpp_8py_source_1l00402"/>00402 &#32;&#32;&#32;&#32;optimizeDE_C.argtypes&#32;=&#32;[ct.c_long,&#32;mo_call_back_type,&#32;ct.c_int,&#32;ct.c_int,&#32;\
+<anchor xml:id="_decpp_8py_source_1l00403"/>00403 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ct.POINTER(ct.c_double),&#32;ct.POINTER(ct.c_double),&#32;\
+<anchor xml:id="_decpp_8py_source_1l00404"/>00404 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ct.POINTER(ct.c_double),&#32;ct.POINTER(ct.c_double),&#32;ct.c_double,&#32;\
+<anchor xml:id="_decpp_8py_source_1l00405"/>00405 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ct.POINTER(ct.c_bool),&#32;\
+<anchor xml:id="_decpp_8py_source_1l00406"/>00406 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ct.c_int,&#32;ct.c_double,&#32;ct.c_double,&#32;ct.c_int,&#32;\
+<anchor xml:id="_decpp_8py_source_1l00407"/>00407 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ct.c_double,&#32;ct.c_double,&#32;ct.c_double,&#32;ct.c_double,&#32;
+<anchor xml:id="_decpp_8py_source_1l00408"/>00408 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ct.c_int,&#32;ct.POINTER(ct.c_double)]
+<anchor xml:id="_decpp_8py_source_1l00409"/>00409 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_decpp_8py_source_1l00410"/>00410 &#32;&#32;&#32;&#32;initDE_C&#32;=&#32;libcmalib.initDE_C
+<anchor xml:id="_decpp_8py_source_1l00411"/>00411 &#32;&#32;&#32;&#32;initDE_C.argtypes&#32;=&#32;[ct.c_long,&#32;ct.c_int,&#32;ct.c_int,&#32;\
+<anchor xml:id="_decpp_8py_source_1l00412"/>00412 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ct.POINTER(ct.c_double),&#32;ct.POINTER(ct.c_double),&#32;\
+<anchor xml:id="_decpp_8py_source_1l00413"/>00413 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ct.POINTER(ct.c_double),&#32;ct.POINTER(ct.c_double),&#32;ct.c_double,&#32;\
+<anchor xml:id="_decpp_8py_source_1l00414"/>00414 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ct.POINTER(ct.c_bool),&#32;\
+<anchor xml:id="_decpp_8py_source_1l00415"/>00415 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ct.c_double,&#32;ct.c_int,&#32;\
+<anchor xml:id="_decpp_8py_source_1l00416"/><link linkend="_classfcmaes_1_1decpp_1_1_d_e___c_1a2f794b6d8709f5b14d5f56695bb8d8ff">00416</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ct.c_double,&#32;ct.c_double,&#32;ct.c_double,&#32;ct.c_double]
+<anchor xml:id="_decpp_8py_source_1l00417"/>00417 &#32;&#32;&#32;&#32;
+<anchor xml:id="_decpp_8py_source_1l00418"/>00418 &#32;&#32;&#32;&#32;initDE_C.restype&#32;=&#32;ct.c_void_p&#32;&#32;&#32;
+<anchor xml:id="_decpp_8py_source_1l00419"/>00419 &#32;&#32;&#32;&#32;
+<anchor xml:id="_decpp_8py_source_1l00420"/>00420 &#32;&#32;&#32;&#32;destroyDE_C&#32;=&#32;libcmalib.destroyDE_C
+<anchor xml:id="_decpp_8py_source_1l00421"/>00421 &#32;&#32;&#32;&#32;destroyDE_C.argtypes&#32;=&#32;[ct.c_void_p]
+<anchor xml:id="_decpp_8py_source_1l00422"/>00422 &#32;&#32;&#32;&#32;
+<anchor xml:id="_decpp_8py_source_1l00423"/>00423 &#32;&#32;&#32;&#32;askDE_C&#32;=&#32;libcmalib.askDE_C
+<anchor xml:id="_decpp_8py_source_1l00424"/>00424 &#32;&#32;&#32;&#32;askDE_C.argtypes&#32;=&#32;[ct.c_void_p,&#32;ct.POINTER(ct.c_double)]
+<anchor xml:id="_decpp_8py_source_1l00425"/>00425 &#32;&#32;&#32;&#32;
+<anchor xml:id="_decpp_8py_source_1l00426"/>00426 &#32;&#32;&#32;&#32;tellDE_C&#32;=&#32;libcmalib.tellDE_C
+<anchor xml:id="_decpp_8py_source_1l00427"/>00427 &#32;&#32;&#32;&#32;tellDE_C.argtypes&#32;=&#32;[ct.c_void_p,&#32;ct.POINTER(ct.c_double)]
+<anchor xml:id="_decpp_8py_source_1l00428"/>00428 &#32;&#32;&#32;&#32;tellDE_C.restype&#32;=&#32;ct.c_int
+<anchor xml:id="_decpp_8py_source_1l00429"/>00429 &#32;&#32;&#32;&#32;
+<anchor xml:id="_decpp_8py_source_1l00430"/>00430 &#32;&#32;&#32;&#32;populationDE_C&#32;=&#32;libcmalib.populationDE_C
+<anchor xml:id="_decpp_8py_source_1l00431"/>00431 &#32;&#32;&#32;&#32;populationDE_C.argtypes&#32;=&#32;[ct.c_void_p,&#32;ct.POINTER(ct.c_double)]
+<anchor xml:id="_decpp_8py_source_1l00432"/>00432 &#32;&#32;&#32;&#32;
+<anchor xml:id="_decpp_8py_source_1l00433"/><link linkend="_namespacefcmaes_1_1decpp_1a890d0db67042ae71d4c7df9adec2d3ec">00433</link> &#32;&#32;&#32;&#32;resultDE_C&#32;=&#32;libcmalib.resultDE_C
+<anchor xml:id="_decpp_8py_source_1l00434"/><link linkend="_namespacefcmaes_1_1decpp_1a6f58a442e0eb6c6c1ec1396e794faf04">00434</link> &#32;&#32;&#32;&#32;resultDE_C.argtypes&#32;=&#32;[ct.c_void_p,&#32;ct.POINTER(ct.c_double)]
+<anchor xml:id="_decpp_8py_source_1l00435"/>00435 
+</programlisting></section>

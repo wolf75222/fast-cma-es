@@ -1,0 +1,747 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_astro_8py_source" xml:lang="en-US">
+<title>astro.py</title>
+<indexterm><primary>fcmaes/astro.py</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_astro_8py_source_1l00001"/><link linkend="_namespacefcmaes_1_1astro">00001</link> <emphasis role="comment">#&#32;-*-&#32;coding:&#32;utf-8&#32;-*-</emphasis>
+<anchor xml:id="_astro_8py_source_1l00002"/>00002 <emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00003"/>00003 <emphasis role="stringliteral">=============================================================================</emphasis>
+<anchor xml:id="_astro_8py_source_1l00004"/>00004 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00005"/>00005 <emphasis role="stringliteral">&#32;Fast&#32;CMA-ES&#32;-&#32;version&#32;1.6.11</emphasis>
+<anchor xml:id="_astro_8py_source_1l00006"/>00006 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00007"/>00007 <emphasis role="stringliteral">&#32;(c)&#32;2025&#32;–&#32;Dietmar&#32;Wolz</emphasis>
+<anchor xml:id="_astro_8py_source_1l00008"/>00008 <emphasis role="stringliteral">&#32;(c)&#32;2025&#32;–&#32;Latitude</emphasis>
+<anchor xml:id="_astro_8py_source_1l00009"/>00009 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00010"/>00010 <emphasis role="stringliteral">&#32;License:&#32;MIT</emphasis>
+<anchor xml:id="_astro_8py_source_1l00011"/>00011 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00012"/>00012 <emphasis role="stringliteral">&#32;File:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00013"/>00013 <emphasis role="stringliteral">&#32;&#32;-&#32;astro.py</emphasis>
+<anchor xml:id="_astro_8py_source_1l00014"/>00014 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00015"/>00015 <emphasis role="stringliteral">&#32;Description:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00016"/>00016 <emphasis role="stringliteral">&#32;&#32;-&#32;This&#32;module&#32;provides&#32;implementations&#32;of&#32;various&#32;astronomical&#32;functions</emphasis>
+<anchor xml:id="_astro_8py_source_1l00017"/>00017 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;and&#32;optimization&#32;problems,&#32;including&#32;the&#32;Messenger,&#32;GTOC1,&#32;Cassini,</emphasis>
+<anchor xml:id="_astro_8py_source_1l00018"/>00018 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Rosetta,&#32;Sagas,&#32;Tandem,&#32;and&#32;their&#32;respective&#32;configurations.&#32;It&#32;allows</emphasis>
+<anchor xml:id="_astro_8py_source_1l00019"/>00019 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;for&#32;the&#32;evaluation&#32;of&#32;these&#32;functions&#32;with&#32;specified&#32;bounds&#32;and&#32;sequences.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00020"/>00020 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;-&#32;The&#32;functions&#32;are&#32;designed&#32;to&#32;be&#32;used&#32;with&#32;the&#32;Fast&#32;CMA-ES&#32;optimization</emphasis>
+<anchor xml:id="_astro_8py_source_1l00021"/>00021 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;algorithm,&#32;providing&#32;a&#32;way&#32;to&#32;optimize&#32;trajectories&#32;and&#32;parameters&#32;for</emphasis>
+<anchor xml:id="_astro_8py_source_1l00022"/>00022 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;space&#32;missions.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00023"/>00023 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00024"/>00024 <emphasis role="stringliteral">&#32;Authors:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00025"/>00025 <emphasis role="stringliteral">&#32;&#32;-&#32;Dietmar&#32;Wolz</emphasis>
+<anchor xml:id="_astro_8py_source_1l00026"/>00026 <emphasis role="stringliteral">&#32;&#32;-&#32;romain.despoullains@latitude.eu</emphasis>
+<anchor xml:id="_astro_8py_source_1l00027"/>00027 <emphasis role="stringliteral">&#32;&#32;-&#32;corentin.generet@latitude.eu</emphasis>
+<anchor xml:id="_astro_8py_source_1l00028"/>00028 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00029"/>00029 <emphasis role="stringliteral">&#32;References:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00030"/>00030 <emphasis role="stringliteral">&#32;&#32;-&#32;[1]&#32;https://github.com/dietmarwo/fast-cma-es</emphasis>
+<anchor xml:id="_astro_8py_source_1l00031"/>00031 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00032"/>00032 <emphasis role="stringliteral">&#32;Documentation:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00033"/>00033 <emphasis role="stringliteral">&#32;&#32;-</emphasis>
+<anchor xml:id="_astro_8py_source_1l00034"/>00034 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00035"/>00035 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00036"/>00036 <emphasis role="stringliteral">=============================================================================</emphasis>
+<anchor xml:id="_astro_8py_source_1l00037"/>00037 <emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00038"/>00038 
+<anchor xml:id="_astro_8py_source_1l00039"/>00039 <emphasis role="keyword">import</emphasis>&#32;sys
+<anchor xml:id="_astro_8py_source_1l00040"/>00040 <emphasis role="keyword">import</emphasis>&#32;math
+<anchor xml:id="_astro_8py_source_1l00041"/>00041 <emphasis role="keyword">import</emphasis>&#32;os
+<anchor xml:id="_astro_8py_source_1l00042"/>00042 <emphasis role="keyword">import</emphasis>&#32;ctypes&#32;<emphasis role="keyword">as</emphasis>&#32;ct
+<anchor xml:id="_astro_8py_source_1l00043"/>00043 <emphasis role="keyword">from</emphasis>&#32;scipy.optimize&#32;<emphasis role="keyword">import</emphasis>&#32;Bounds
+<anchor xml:id="_astro_8py_source_1l00044"/>00044 <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1decpp">fcmaes.decpp</link>&#32;<emphasis role="keyword">import</emphasis>&#32;libcmalib
+<anchor xml:id="_astro_8py_source_1l00045"/>00045 
+<anchor xml:id="_astro_8py_source_1l00046"/>00046 <emphasis role="keywordflow">if</emphasis>&#32;<emphasis role="keywordflow">not</emphasis>&#32;libcmalib&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>:&#32;
+<anchor xml:id="_astro_8py_source_1l00047"/>00047 &#32;&#32;&#32;&#32;
+<anchor xml:id="_astro_8py_source_1l00048"/>00048 &#32;&#32;&#32;&#32;astro_map&#32;=&#32;{&#32;&#32;
+<anchor xml:id="_astro_8py_source_1l00049"/>00049 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;messengerfullC&quot;</emphasis>:&#32;libcmalib.messengerfullC,
+<anchor xml:id="_astro_8py_source_1l00050"/><link linkend="_namespacefcmaes_1_1astro_1a2f99dd1e432eff41347fcf1ab23c3226">00050</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;messengerC&quot;</emphasis>:&#32;libcmalib.messengerC,
+<anchor xml:id="_astro_8py_source_1l00051"/>00051 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;gtoc1C&quot;</emphasis>:&#32;libcmalib.gtoc1C,
+<anchor xml:id="_astro_8py_source_1l00052"/>00052 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;cassini1C&quot;</emphasis>:&#32;libcmalib.cassini1C,
+<anchor xml:id="_astro_8py_source_1l00053"/>00053 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;cassini1minlpC&quot;</emphasis>:&#32;libcmalib.cassini1minlpC,
+<anchor xml:id="_astro_8py_source_1l00054"/>00054 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;cassini2C&quot;</emphasis>:&#32;libcmalib.cassini2C,
+<anchor xml:id="_astro_8py_source_1l00055"/>00055 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;rosettaC&quot;</emphasis>:&#32;libcmalib.rosettaC,
+<anchor xml:id="_astro_8py_source_1l00056"/>00056 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;sagasC&quot;</emphasis>:&#32;libcmalib.sagasC,
+<anchor xml:id="_astro_8py_source_1l00057"/>00057 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;tandemC&quot;</emphasis>:&#32;libcmalib.tandemC,
+<anchor xml:id="_astro_8py_source_1l00058"/>00058 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;tandemCu&quot;</emphasis>:&#32;libcmalib.tandemCu,
+<anchor xml:id="_astro_8py_source_1l00059"/>00059 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;cassini2minlpC&quot;</emphasis>:&#32;libcmalib.cassini2minlpC,
+<anchor xml:id="_astro_8py_source_1l00060"/>00060 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_astro_8py_source_1l00061"/>00061 
+<anchor xml:id="_astro_8py_source_1l00062"/>00062 &#32;&#32;&#32;&#32;freemem&#32;=&#32;libcmalib.free_mem
+<anchor xml:id="_astro_8py_source_1l00063"/>00063 &#32;&#32;&#32;&#32;freemem.argtypes&#32;=&#32;[ct.POINTER(ct.c_double)]&#32;&#32;&#32;&#32;
+<anchor xml:id="_astro_8py_source_1l00064"/><link linkend="_namespacefcmaes_1_1astro_1ae7ed2a3e77f9b7bc33f0db1f11050369">00064</link> &#32;&#32;&#32;&#32;
+<anchor xml:id="_astro_8py_source_1l00065"/><link linkend="_namespacefcmaes_1_1astro_1a5050977f7260bed3428fdd3a21c5559f">00065</link> <emphasis role="keyword">class&#32;</emphasis><link linkend="_classfcmaes_1_1astro_1_1_astrofun">Astrofun</link>(object):
+<anchor xml:id="_astro_8py_source_1l00066"/>00066 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00067"/>00067 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Represents&#32;an&#32;astronomical&#32;function&#32;with&#32;associated&#32;properties&#32;and&#32;constraints.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00068"/>00068 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00069"/>00069 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;This&#32;class&#32;encapsulates&#32;the&#32;details&#32;of&#32;a&#32;mathematical&#32;function&#32;with&#32;defined</emphasis>
+<anchor xml:id="_astro_8py_source_1l00070"/>00070 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;bounds&#32;and&#32;provides&#32;the&#32;ability&#32;to&#32;manage&#32;and&#32;evaluate&#32;functions&#32;within&#32;specified</emphasis>
+<anchor xml:id="_astro_8py_source_1l00071"/>00071 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;limits.&#32;It&#32;is&#32;designed&#32;for&#32;scenarios&#32;where&#32;certain&#32;constraints&#32;are&#32;imposed&#32;on</emphasis>
+<anchor xml:id="_astro_8py_source_1l00072"/>00072 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;a&#32;function&apos;s&#32;operational&#32;range.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00073"/>00073 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00074"/>00074 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Attributes:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00075"/>00075 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;name&#32;(str):&#32;Name&#32;of&#32;the&#32;astronomical&#32;function.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00076"/>00076 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fun_c&#32;(callable):&#32;The&#32;core&#32;callable&#32;function&#32;that&#32;represents&#32;the</emphasis>
+<anchor xml:id="_astro_8py_source_1l00077"/><link linkend="_classfcmaes_1_1astro_1_1_astrofun">00077</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;astronomical&#32;functionality.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00078"/>00078 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;bounds&#32;(Bounds):&#32;An&#32;object&#32;representing&#32;the&#32;lower&#32;and&#32;upper&#32;bounds</emphasis>
+<anchor xml:id="_astro_8py_source_1l00079"/>00079 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;for&#32;the&#32;function&apos;s&#32;operation.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00080"/>00080 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fun&#32;(callable):&#32;The&#32;processed&#32;function&#32;wrapped&#32;with&#32;bounds&#32;constraints.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00081"/>00081 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00082"/>00082 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1astro_1_1_astrofun_1a32e7dcf292ed5d1c20a02ae5c52f846b">__init__</link>(self,&#32;name,&#32;fun_c,&#32;lower,&#32;upper):
+<anchor xml:id="_astro_8py_source_1l00083"/>00083 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00084"/>00084 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Initializes&#32;an&#32;instance&#32;of&#32;the&#32;class.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00085"/>00085 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00086"/>00086 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00087"/>00087 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;name:&#32;The&#32;name&#32;identifier&#32;associated&#32;with&#32;the&#32;instance.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00088"/>00088 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fun_c:&#32;The&#32;function&#32;to&#32;be&#32;computed,&#32;provided&#32;as&#32;a&#32;callable.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00089"/>00089 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;lower:&#32;The&#32;lower&#32;boundary&#32;for&#32;the&#32;input&#32;domain.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00090"/>00090 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;upper:&#32;The&#32;upper&#32;boundary&#32;for&#32;the&#32;input&#32;domain.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00091"/>00091 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00092"/>00092 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1astro_1_1_astrofun_1ab2194f7eab95e34d0592b5f77143549a">name</link>&#32;=&#32;name&#32;
+<anchor xml:id="_astro_8py_source_1l00093"/>00093 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1astro_1_1_astrofun_1a5ce1bafb6bcb8c199b249bda95cc1f5e">fun_c</link>&#32;=&#32;fun_c&#32;
+<anchor xml:id="_astro_8py_source_1l00094"/>00094 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1astro_1_1_astrofun_1a7304b3306a33a7e8b5dc8780a8b18e27">bounds</link>&#32;=&#32;Bounds(lower,&#32;upper)
+<anchor xml:id="_astro_8py_source_1l00095"/>00095 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1astro_1_1_astrofun_1a09c240962ab5a0efcdc4bd91487fae2a">fun</link>&#32;=&#32;<link linkend="_classfcmaes_1_1astro_1_1python__fun">python_fun</link>(fun_c,&#32;self.<link linkend="_classfcmaes_1_1astro_1_1_astrofun_1a7304b3306a33a7e8b5dc8780a8b18e27">bounds</link>)
+<anchor xml:id="_astro_8py_source_1l00096"/>00096 
+<anchor xml:id="_astro_8py_source_1l00097"/>00097 <emphasis role="keywordflow">for</emphasis>&#32;func&#32;<emphasis role="keywordflow">in</emphasis>&#32;astro_map:
+<anchor xml:id="_astro_8py_source_1l00098"/>00098 &#32;&#32;&#32;&#32;astro_map[func].argtypes&#32;=&#32;[ct.c_int,&#32;ct.POINTER(ct.c_double)]&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_astro_8py_source_1l00099"/>00099 &#32;&#32;&#32;&#32;astro_map[func].restype&#32;=&#32;ct.c_double&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_astro_8py_source_1l00100"/>00100 
+<anchor xml:id="_astro_8py_source_1l00101"/>00101 <emphasis role="keyword">class&#32;</emphasis><link linkend="_classfcmaes_1_1astro_1_1_mess_full">MessFull</link>(object):
+<anchor xml:id="_astro_8py_source_1l00102"/>00102 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;Represents&#32;a&#32;specific&#32;type&#32;of&#32;&apos;messenger&#32;full&apos;&#32;configuration.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00103"/><link linkend="_classfcmaes_1_1astro_1_1_astrofun_1a32e7dcf292ed5d1c20a02ae5c52f846b">00103</link> <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00104"/><link linkend="_classfcmaes_1_1astro_1_1_astrofun_1ab2194f7eab95e34d0592b5f77143549a">00104</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;This&#32;class&#32;inherits&#32;from&#32;Astrofun&#32;and&#32;initializes&#32;parameters&#32;for&#32;the</emphasis>
+<anchor xml:id="_astro_8py_source_1l00105"/><link linkend="_classfcmaes_1_1astro_1_1_astrofun_1a5ce1bafb6bcb8c199b249bda95cc1f5e">00105</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&apos;messenger&#32;full&apos;&#32;subsystem.&#32;The&#32;parameters&#32;define&#32;operational&#32;ranges</emphasis>
+<anchor xml:id="_astro_8py_source_1l00106"/><link linkend="_classfcmaes_1_1astro_1_1_astrofun_1a7304b3306a33a7e8b5dc8780a8b18e27">00106</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;essential&#32;for&#32;the&#32;subsystem&#32;to&#32;function&#32;properly.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00107"/><link linkend="_classfcmaes_1_1astro_1_1_astrofun_1a09c240962ab5a0efcdc4bd91487fae2a">00107</link> <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00108"/>00108 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Attributes:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00109"/>00109 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;None</emphasis>
+<anchor xml:id="_astro_8py_source_1l00110"/>00110 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00111"/><link linkend="_namespacefcmaes_1_1astro_1af36476b2491da3e045a5972ff0baca7d">00111</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis>__init__(self):
+<anchor xml:id="_astro_8py_source_1l00112"/>00112 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00113"/>00113 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Initializes&#32;an&#32;object&#32;of&#32;the&#32;`messenger&#32;full`&#32;class,&#32;inheriting&#32;from&#32;Astrofun.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00114"/>00114 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00115"/>00115 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;The&#32;initialization&#32;sets&#32;up&#32;the&#32;parameters&#32;and&#32;properties&#32;specific&#32;for&#32;the</emphasis>
+<anchor xml:id="_astro_8py_source_1l00116"/>00116 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;`messenger&#32;full`&#32;configuration&#32;by&#32;invoking&#32;the&#32;parent&#32;class&#32;constructor</emphasis>
+<anchor xml:id="_astro_8py_source_1l00117"/>00117 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;with&#32;specific&#32;initialized&#32;values.&#32;The&#32;class&#32;defines&#32;ranges&#32;and&#32;bounds</emphasis>
+<anchor xml:id="_astro_8py_source_1l00118"/>00118 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;necessary&#32;for&#32;the&#32;system.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00119"/>00119 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00120"/>00120 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00121"/><link linkend="_classfcmaes_1_1astro_1_1_mess_full">00121</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;None</emphasis>
+<anchor xml:id="_astro_8py_source_1l00122"/>00122 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00123"/>00123 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Astrofun.__init__(self,&#32;<emphasis role="stringliteral">&apos;messenger&#32;full&apos;</emphasis>,&#32;<emphasis role="stringliteral">&quot;messengerfullC&quot;</emphasis>,&#32;
+<anchor xml:id="_astro_8py_source_1l00124"/>00124 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[1900.0,&#32;3.0,&#32;&#32;&#32;&#32;0.0,&#32;0.0,&#32;&#32;100.0,&#32;100.0,&#32;100.0,&#32;100.0,&#32;100.0,&#32;100.0,&#32;&#32;0.01,&#32;0.01,&#32;0.01,&#32;0.01,&#32;0.01,&#32;0.01,&#32;&#32;1.1,&#32;1.1,&#32;1.05,&#32;1.05,&#32;1.05,&#32;&#32;-math.pi,&#32;-math.pi,&#32;-math.pi,&#32;-math.pi,&#32;-math.pi],
+<anchor xml:id="_astro_8py_source_1l00125"/>00125 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[2200.0,&#32;4.05,&#32;1.0,&#32;1.0,&#32;&#32;500.0,&#32;500.0,&#32;500.0,&#32;500.0,&#32;500.0,&#32;550.0,&#32;&#32;0.99,&#32;0.99,&#32;0.99,&#32;0.99,&#32;0.99,&#32;0.99,&#32;&#32;6.0,&#32;&#32;&#32;6.0,&#32;&#32;&#32;&#32;6.0,&#32;&#32;&#32;&#32;6.0,&#32;&#32;&#32;&#32;6.0,&#32;&#32;math.pi,&#32;&#32;math.pi,&#32;&#32;math.pi,&#32;&#32;math.pi,&#32;&#32;math.pi]
+<anchor xml:id="_astro_8py_source_1l00126"/>00126 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;)
+<anchor xml:id="_astro_8py_source_1l00127"/>00127 &#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_astro_8py_source_1l00128"/>00128 <emphasis role="keyword">class&#32;</emphasis><link linkend="_classfcmaes_1_1astro_1_1_messenger">Messenger</link>(object):
+<anchor xml:id="_astro_8py_source_1l00129"/>00129 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00130"/>00130 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Messenger&#32;class&#32;initialization&#32;and&#32;management.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00131"/>00131 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00132"/>00132 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;This&#32;class&#32;is&#32;a&#32;specialized&#32;implementation&#32;of&#32;the&#32;Astrofun&#32;class&#32;to&#32;initialize</emphasis>
+<anchor xml:id="_astro_8py_source_1l00133"/>00133 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;a&#32;&quot;messenger&#32;reduced&quot;&#32;instance&#32;with&#32;preset&#32;parameters.&#32;Its&#32;primary&#32;purpose&#32;is</emphasis>
+<anchor xml:id="_astro_8py_source_1l00134"/>00134 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;to&#32;provide&#32;customized&#32;functionality&#32;built&#32;upon&#32;the&#32;base&#32;Astrofun&#32;class&#32;and</emphasis>
+<anchor xml:id="_astro_8py_source_1l00135"/><link linkend="_classfcmaes_1_1astro_1_1_mess_full_1a47a2b886613a8f91b65ff97414ce8f04">00135</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;facilitate&#32;specific&#32;operations&#32;associated&#32;with&#32;the&#32;predefined&#32;configuration.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00136"/>00136 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00137"/>00137 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Attributes:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00138"/>00138 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;name&#32;(str):&#32;Name&#32;of&#32;the&#32;instance.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00139"/>00139 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;identifier&#32;(str):&#32;Identifier&#32;for&#32;categorizing&#32;the&#32;instance.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00140"/>00140 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;lower_bounds&#32;(list):&#32;Lower&#32;bound&#32;constraints&#32;for&#32;the&#32;instance&#32;configuration.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00141"/>00141 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;upper_bounds&#32;(list):&#32;Upper&#32;bound&#32;constraints&#32;for&#32;the&#32;instance&#32;configuration.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00142"/>00142 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00143"/>00143 
+<anchor xml:id="_astro_8py_source_1l00144"/>00144 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1astro_1_1_mess_full_1a47a2b886613a8f91b65ff97414ce8f04">__init__</link>(self):
+<anchor xml:id="_astro_8py_source_1l00145"/>00145 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00146"/>00146 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Initializes&#32;an&#32;instance&#32;of&#32;the&#32;class&#32;with&#32;predefined&#32;parameters.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00147"/>00147 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00148"/>00148 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;This&#32;constructor&#32;method&#32;initializes&#32;an&#32;object&#32;by&#32;calling&#32;the&#32;`Astrofun`</emphasis>
+<anchor xml:id="_astro_8py_source_1l00149"/>00149 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;constructor&#32;with&#32;specific&#32;parameters&#32;suitable&#32;for&#32;a&#32;&quot;messenger&#32;reduced&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00150"/>00150 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;context.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00151"/><link linkend="_classfcmaes_1_1astro_1_1_messenger">00151</link> <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00152"/>00152 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00153"/>00153 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;None</emphasis>
+<anchor xml:id="_astro_8py_source_1l00154"/>00154 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00155"/>00155 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Astrofun.__init__(self,&#32;<emphasis role="stringliteral">&apos;messenger&#32;reduced&apos;</emphasis>,&#32;<emphasis role="stringliteral">&quot;messengerC&quot;</emphasis>,&#32;
+<anchor xml:id="_astro_8py_source_1l00156"/>00156 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[1000.,1.,0.,0.,200.,30.,30.,30.,0.01,0.01,0.01,0.01,1.1,1.1,1.1,-math.pi,-math.pi,-math.pi],
+<anchor xml:id="_astro_8py_source_1l00157"/>00157 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[4000.,5.,1.,1.,400.,400.,400.,400.,0.99,0.99,0.99,0.99,6,6,6,math.pi,math.pi,math.pi]&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_astro_8py_source_1l00158"/>00158 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;)
+<anchor xml:id="_astro_8py_source_1l00159"/>00159 &#32;&#32;&#32;&#32;
+<anchor xml:id="_astro_8py_source_1l00160"/>00160 <emphasis role="keyword">class&#32;</emphasis><link linkend="_classfcmaes_1_1astro_1_1_gtoc1">Gtoc1</link>(object):
+<anchor xml:id="_astro_8py_source_1l00161"/>00161 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00162"/>00162 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Represents&#32;the&#32;GTOC1&#32;class,&#32;which&#32;is&#32;a&#32;specialized&#32;subclass&#32;of&#32;Astrofun.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00163"/>00163 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00164"/>00164 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;This&#32;class&#32;is&#32;designed&#32;to&#32;override&#32;and&#32;customize&#32;certain&#32;methods&#32;and&#32;behaviors&#32;of&#32;its&#32;parent</emphasis>
+<anchor xml:id="_astro_8py_source_1l00165"/>00165 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;class&#32;for&#32;specific&#32;use&#32;cases.&#32;It&#32;modifies&#32;the&#32;behavior&#32;of&#32;the&#32;`fun`&#32;method&#32;by&#32;replacing&#32;it</emphasis>
+<anchor xml:id="_astro_8py_source_1l00166"/>00166 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;with&#32;a&#32;new&#32;implementation&#32;provided&#32;by&#32;the&#32;`gtoc1`&#32;method.&#32;The&#32;class&#32;also&#32;initializes</emphasis>
+<anchor xml:id="_astro_8py_source_1l00167"/>00167 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Astrofun&#32;with&#32;pre-defined&#32;lower&#32;and&#32;upper&#32;bounds&#32;for&#32;specific&#32;purposes.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00168"/>00168 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00169"/>00169 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Attributes:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00170"/>00170 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;gfun&#32;(Callable):&#32;The&#32;original&#32;function&#32;inherited&#32;from&#32;the&#32;Astrofun&#32;class</emphasis>
+<anchor xml:id="_astro_8py_source_1l00171"/>00171 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;available&#32;for&#32;internal&#32;use&#32;within&#32;the&#32;class.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00172"/>00172 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fun&#32;(Callable):&#32;The&#32;customizable&#32;function&#32;to&#32;use&#32;in&#32;place&#32;of&#32;the&#32;original</emphasis>
+<anchor xml:id="_astro_8py_source_1l00173"/>00173 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;inherited&#32;`fun`&#32;method.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00174"/>00174 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00175"/><link linkend="_classfcmaes_1_1astro_1_1_messenger_1a91119f29cff0a60beda79e7ce156563b">00175</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00176"/>00176 &#32;&#32;&#32;&#32;
+<anchor xml:id="_astro_8py_source_1l00177"/>00177 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1astro_1_1_messenger_1a91119f29cff0a60beda79e7ce156563b">__init__</link>(self):
+<anchor xml:id="_astro_8py_source_1l00178"/>00178 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00179"/>00179 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Initializes&#32;an&#32;instance&#32;of&#32;a&#32;class&#32;and&#32;sets&#32;up&#32;attributes&#32;specific&#32;to</emphasis>
+<anchor xml:id="_astro_8py_source_1l00180"/>00180 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;the&#32;object&apos;s&#32;initialization,&#32;including&#32;some&#32;properties&#32;and&#32;method</emphasis>
+<anchor xml:id="_astro_8py_source_1l00181"/>00181 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;assignments.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00182"/>00182 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00183"/>00183 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00184"/>00184 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;None</emphasis>
+<anchor xml:id="_astro_8py_source_1l00185"/>00185 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00186"/>00186 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Attributes:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00187"/>00187 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;gfun:&#32;A&#32;reference&#32;to&#32;the&#32;`fun`&#32;method&#32;stored&#32;in&#32;a&#32;separate</emphasis>
+<anchor xml:id="_astro_8py_source_1l00188"/>00188 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;attribute.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00189"/>00189 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fun:&#32;A&#32;specific&#32;functionality&#32;assigned&#32;to&#32;the&#32;`gtoc1`&#32;method.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00190"/>00190 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00191"/>00191 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Astrofun.__init__(self,&#32;<emphasis role="stringliteral">&apos;GTOC1&apos;</emphasis>,&#32;<emphasis role="stringliteral">&quot;gtoc1C&quot;</emphasis>,&#32;
+<anchor xml:id="_astro_8py_source_1l00192"/>00192 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[3000.,14.,14.,14.,14.,100.,366.,300.],
+<anchor xml:id="_astro_8py_source_1l00193"/><link linkend="_classfcmaes_1_1astro_1_1_gtoc1">00193</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[10000.,2000.,2000.,2000.,2000.,9000.,9000.,9000.]&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_astro_8py_source_1l00194"/>00194 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;)
+<anchor xml:id="_astro_8py_source_1l00195"/>00195 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1astro_1_1_gtoc1_1a82fab81ef2b07029b3e9e0a252b10a7c">gfun</link>&#32;=&#32;self.<link linkend="_classfcmaes_1_1astro_1_1_gtoc1_1a144ad84d1ad2a646e794e87808f1f6b9">fun</link>
+<anchor xml:id="_astro_8py_source_1l00196"/>00196 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1astro_1_1_gtoc1_1a144ad84d1ad2a646e794e87808f1f6b9">fun</link>&#32;=&#32;self.<link linkend="_classfcmaes_1_1astro_1_1_gtoc1_1ad6d6c8c25643c873077f9716d2fb36b1">gtoc1</link>&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_astro_8py_source_1l00197"/>00197 &#32;&#32;&#32;&#32;
+<anchor xml:id="_astro_8py_source_1l00198"/>00198 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1astro_1_1_gtoc1_1ad6d6c8c25643c873077f9716d2fb36b1">gtoc1</link>(self,&#32;x):
+<anchor xml:id="_astro_8py_source_1l00199"/>00199 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00200"/>00200 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Calculates&#32;the&#32;result&#32;of&#32;subtracting&#32;a&#32;constant&#32;from&#32;the&#32;output&#32;of&#32;`gfun`.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00201"/>00201 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00202"/>00202 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00203"/>00203 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x:&#32;Input&#32;value&#32;passed&#32;to&#32;the&#32;`gfun`&#32;method.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00204"/>00204 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00205"/>00205 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Returns:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00206"/>00206 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;The&#32;result&#32;of&#32;`gfun(x)&#32;-&#32;2000000`.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00207"/>00207 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00208"/>00208 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;self.<link linkend="_classfcmaes_1_1astro_1_1_gtoc1_1a82fab81ef2b07029b3e9e0a252b10a7c">gfun</link>(x)&#32;-&#32;2000000
+<anchor xml:id="_astro_8py_source_1l00209"/>00209 
+<anchor xml:id="_astro_8py_source_1l00210"/>00210 <emphasis role="keyword">class&#32;</emphasis><link linkend="_classfcmaes_1_1astro_1_1_cassini1">Cassini1</link>(object):
+<anchor xml:id="_astro_8py_source_1l00211"/>00211 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00212"/>00212 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Cassini1&#32;class&#32;that&#32;represents&#32;a&#32;specific&#32;astronomical&#32;function&#32;configuration.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00213"/>00213 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00214"/>00214 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;This&#32;class&#32;initializes&#32;and&#32;configures&#32;a&#32;function&#32;used&#32;for&#32;astronomical</emphasis>
+<anchor xml:id="_astro_8py_source_1l00215"/>00215 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;computations.&#32;Inherits&#32;from&#32;the&#32;Astrofun&#32;class&#32;and&#32;sets&#32;specific&#32;parameters</emphasis>
+<anchor xml:id="_astro_8py_source_1l00216"/>00216 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;required&#32;for&#32;the&#32;Cassini1&#32;configuration.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00217"/>00217 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00218"/><link linkend="_classfcmaes_1_1astro_1_1_gtoc1_1a4283ab873bea376c32af02854e2f024e">00218</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Attributes:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00219"/>00219 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;name&#32;(str):&#32;The&#32;name&#32;of&#32;the&#32;configuration.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00220"/>00220 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;identifier&#32;(str):&#32;A&#32;unique&#32;identifier&#32;for&#32;the&#32;configuration.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00221"/>00221 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x_params&#32;(list&#32;of&#32;float):&#32;A&#32;list&#32;representing&#32;parameters&#32;on&#32;the&#32;x-axis.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00222"/>00222 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;y_params&#32;(list&#32;of&#32;float):&#32;A&#32;list&#32;representing&#32;parameters&#32;on&#32;the&#32;y-axis.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00223"/><link linkend="_classfcmaes_1_1astro_1_1_gtoc1_1a82fab81ef2b07029b3e9e0a252b10a7c">00223</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00224"/><link linkend="_classfcmaes_1_1astro_1_1_gtoc1_1a144ad84d1ad2a646e794e87808f1f6b9">00224</link> &#32;&#32;&#32;&#32;
+<anchor xml:id="_astro_8py_source_1l00225"/>00225 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1astro_1_1_gtoc1_1a4283ab873bea376c32af02854e2f024e">__init__</link>(self):
+<anchor xml:id="_astro_8py_source_1l00226"/>00226 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00227"/>00227 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Initializes&#32;a&#32;Cassini1&#32;object&#32;with&#32;specified&#32;settings&#32;and&#32;parameters.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00228"/>00228 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00229"/>00229 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00230"/>00230 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;None</emphasis>
+<anchor xml:id="_astro_8py_source_1l00231"/>00231 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00232"/>00232 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Astrofun.__init__(self,&#32;<emphasis role="stringliteral">&apos;Cassini1&apos;</emphasis>,&#32;<emphasis role="stringliteral">&quot;cassini1C&quot;</emphasis>,&#32;
+<anchor xml:id="_astro_8py_source_1l00233"/>00233 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[-1000.,30.,100.,30.,400.,1000.],
+<anchor xml:id="_astro_8py_source_1l00234"/>00234 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.,400.,470.,400.,2000.,6000.]&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_astro_8py_source_1l00235"/><link linkend="_classfcmaes_1_1astro_1_1_gtoc1_1ad6d6c8c25643c873077f9716d2fb36b1">00235</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;)
+<anchor xml:id="_astro_8py_source_1l00236"/>00236 
+<anchor xml:id="_astro_8py_source_1l00237"/>00237 <emphasis role="keyword">class&#32;</emphasis><link linkend="_classfcmaes_1_1astro_1_1_cassini2">Cassini2</link>(object):
+<anchor xml:id="_astro_8py_source_1l00238"/>00238 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00239"/>00239 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Represents&#32;the&#32;Cassini2&#32;optimization&#32;problem.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00240"/>00240 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00241"/>00241 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;This&#32;class&#32;is&#32;designed&#32;to&#32;model&#32;the&#32;Cassini2&#32;optimization&#32;problem.&#32;It</emphasis>
+<anchor xml:id="_astro_8py_source_1l00242"/>00242 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;inherits&#32;from&#32;the&#32;Astrofun&#32;base&#32;class&#32;and&#32;initializes&#32;the&#32;problem&apos;s</emphasis>
+<anchor xml:id="_astro_8py_source_1l00243"/>00243 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;parameters&#32;and&#32;constraints.&#32;Specifically,&#32;the&#32;class&#32;sets&#32;up&#32;the&#32;bounds</emphasis>
+<anchor xml:id="_astro_8py_source_1l00244"/>00244 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;and&#32;constants&#32;necessary&#32;to&#32;define&#32;the&#32;problem&apos;s&#32;search&#32;space.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00245"/>00245 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00246"/>00246 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Attributes:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00247"/>00247 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;name&#32;(str):&#32;The&#32;name&#32;of&#32;the&#32;problem&#32;instance.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00248"/>00248 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;problem_code&#32;(str):&#32;A&#32;short&#32;problem&#32;code&#32;identifier.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00249"/><link linkend="_classfcmaes_1_1astro_1_1_cassini1">00249</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;lower_bounds&#32;(list):&#32;List&#32;of&#32;lower&#32;bounds&#32;for&#32;the&#32;problem&apos;s&#32;variables.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00250"/>00250 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;upper_bounds&#32;(list):&#32;List&#32;of&#32;upper&#32;bounds&#32;for&#32;the&#32;problem&apos;s&#32;variables.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00251"/>00251 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00252"/>00252 &#32;&#32;&#32;&#32;
+<anchor xml:id="_astro_8py_source_1l00253"/>00253 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1astro_1_1_cassini1_1ac279d6a982d7e67f0ca5af0b8b48f4d1">__init__</link>(self):
+<anchor xml:id="_astro_8py_source_1l00254"/>00254 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00255"/>00255 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Initializes&#32;the&#32;Cassini2&#32;object&#32;with&#32;specific&#32;parameters&#32;for&#32;simulation.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00256"/>00256 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00257"/>00257 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;This&#32;constructor&#32;sets&#32;up&#32;the&#32;Cassini2&#32;object&#32;by&#32;calling&#32;the&#32;parent</emphasis>
+<anchor xml:id="_astro_8py_source_1l00258"/>00258 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;class&#32;Astrofun&apos;s&#32;initializer&#32;and&#32;providing&#32;it&#32;with&#32;specific&#32;values</emphasis>
+<anchor xml:id="_astro_8py_source_1l00259"/>00259 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;for&#32;simulation&#32;parameters&#32;and&#32;boundaries.&#32;These&#32;parameters&#32;include</emphasis>
+<anchor xml:id="_astro_8py_source_1l00260"/>00260 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;values&#32;associated&#32;with&#32;limits,&#32;constants,&#32;and&#32;other&#32;factors</emphasis>
+<anchor xml:id="_astro_8py_source_1l00261"/>00261 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;required&#32;for&#32;the&#32;simulation.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00262"/>00262 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00263"/><link linkend="_classfcmaes_1_1astro_1_1_cassini1_1ac279d6a982d7e67f0ca5af0b8b48f4d1">00263</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00264"/>00264 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;No&#32;direct&#32;arguments&#32;as&#32;all&#32;required&#32;values&#32;are&#32;hardcoded&#32;within</emphasis>
+<anchor xml:id="_astro_8py_source_1l00265"/>00265 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;the&#32;constructor&#32;definition.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00266"/>00266 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00267"/>00267 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Raises:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00268"/>00268 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;No&#32;explicit&#32;error&#32;or&#32;exception&#32;handling&#32;is&#32;documented&#32;for</emphasis>
+<anchor xml:id="_astro_8py_source_1l00269"/>00269 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;this&#32;constructor.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00270"/>00270 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00271"/>00271 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Astrofun.__init__(self,&#32;<emphasis role="stringliteral">&apos;Cassini2&apos;</emphasis>,&#32;<emphasis role="stringliteral">&quot;cassini2C&quot;</emphasis>,&#32;
+<anchor xml:id="_astro_8py_source_1l00272"/>00272 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[-1000,3,0,0,100,100,30,400,800,0.01,0.01,0.01,0.01,0.01,1.05,1.05,1.15,1.7,&#32;-math.pi,&#32;-math.pi,&#32;-math.pi,&#32;-math.pi],
+<anchor xml:id="_astro_8py_source_1l00273"/>00273 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0,5,1,1,400,500,300,1600,2200,0.9,0.9,0.9,0.9,0.9,6,6,6.5,291,math.pi,&#32;&#32;math.pi,&#32;&#32;math.pi,&#32;&#32;math.pi]
+<anchor xml:id="_astro_8py_source_1l00274"/>00274 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;)
+<anchor xml:id="_astro_8py_source_1l00275"/>00275 
+<anchor xml:id="_astro_8py_source_1l00276"/>00276 <emphasis role="keyword">class&#32;</emphasis><link linkend="_classfcmaes_1_1astro_1_1_rosetta">Rosetta</link>(object):
+<anchor xml:id="_astro_8py_source_1l00277"/>00277 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00278"/>00278 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Represents&#32;the&#32;Rosetta&#32;class.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00279"/><link linkend="_classfcmaes_1_1astro_1_1_cassini2">00279</link> <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00280"/>00280 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;This&#32;class&#32;serves&#32;as&#32;an&#32;implementation&#32;of&#32;the&#32;Rosetta&#32;spacecraft&#32;within&#32;the</emphasis>
+<anchor xml:id="_astro_8py_source_1l00281"/>00281 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;context&#32;of&#32;the&#32;Astrofun&#32;model.&#32;It&#32;includes&#32;initialization&#32;parameters&#32;and&#32;data</emphasis>
+<anchor xml:id="_astro_8py_source_1l00282"/>00282 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;related&#32;to&#32;its&#32;functionality&#32;within&#32;the&#32;model.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00283"/>00283 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00284"/>00284 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Attributes:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00285"/>00285 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;name&#32;(str):&#32;Name&#32;of&#32;the&#32;model.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00286"/>00286 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;model_id&#32;(str):&#32;Identifier&#32;for&#32;the&#32;specific&#32;Rosetta&#32;configuration.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00287"/>00287 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;init_params&#32;(list):&#32;Initial&#32;parameters&#32;relevant&#32;to&#32;the&#32;Rosetta&#32;model&apos;s</emphasis>
+<anchor xml:id="_astro_8py_source_1l00288"/>00288 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;setup&#32;and&#32;operation.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00289"/>00289 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_params&#32;(list):&#32;Maximum&#32;constraint&#32;parameters&#32;for&#32;the&#32;Rosetta&#32;model</emphasis>
+<anchor xml:id="_astro_8py_source_1l00290"/>00290 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;within&#32;the&#32;system.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00291"/>00291 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00292"/>00292 &#32;&#32;&#32;&#32;
+<anchor xml:id="_astro_8py_source_1l00293"/>00293 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1astro_1_1_cassini2_1a7eac7e729908efd4c4dada53b3b52cfb">__init__</link>(self):
+<anchor xml:id="_astro_8py_source_1l00294"/>00294 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00295"/>00295 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Initializes&#32;the&#32;Rosetta&#32;class&#32;instance&#32;with&#32;specific&#32;parameters&#32;for</emphasis>
+<anchor xml:id="_astro_8py_source_1l00296"/>00296 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;a&#32;celestial&#32;computation&#32;context&#32;based&#32;on&#32;Astrofun.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00297"/>00297 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00298"/>00298 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00299"/>00299 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;None</emphasis>
+<anchor xml:id="_astro_8py_source_1l00300"/>00300 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00301"/>00301 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Astrofun.__init__(self,&#32;<emphasis role="stringliteral">&apos;Rosetta&apos;</emphasis>,&#32;<emphasis role="stringliteral">&quot;rosettaC&quot;</emphasis>,&#32;
+<anchor xml:id="_astro_8py_source_1l00302"/>00302 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[1460,3,0,0,300,150,150,300,700,0.01,0.01,0.01,0.01,0.01,1.05,1.05,1.05,1.05,&#32;-math.pi,&#32;-math.pi,&#32;-math.pi,&#32;-math.pi],
+<anchor xml:id="_astro_8py_source_1l00303"/>00303 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[1825,5,1,1,500,800,800,800,1850,0.9,0.9,0.9,0.9,0.9,9,9,9,9,math.pi,&#32;&#32;math.pi,&#32;&#32;math.pi,&#32;&#32;math.pi]
+<anchor xml:id="_astro_8py_source_1l00304"/>00304 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;)
+<anchor xml:id="_astro_8py_source_1l00305"/>00305 
+<anchor xml:id="_astro_8py_source_1l00306"/>00306 <emphasis role="keyword">class&#32;</emphasis><link linkend="_classfcmaes_1_1astro_1_1_sagas">Sagas</link>(object):
+<anchor xml:id="_astro_8py_source_1l00307"/>00307 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00308"/>00308 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Represents&#32;the&#32;Sagas&#32;class,&#32;which&#32;initializes&#32;specific&#32;parameters</emphasis>
+<anchor xml:id="_astro_8py_source_1l00309"/>00309 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;and&#32;configurations&#32;for&#32;astronomical&#32;functionalities.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00310"/><link linkend="_classfcmaes_1_1astro_1_1_cassini2_1a7eac7e729908efd4c4dada53b3b52cfb">00310</link> <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00311"/>00311 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;The&#32;Sagas&#32;class&#32;is&#32;a&#32;specialized&#32;implementation&#32;used&#32;for&#32;configuring</emphasis>
+<anchor xml:id="_astro_8py_source_1l00312"/>00312 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;parameters&#32;and&#32;invoking&#32;functionality&#32;related&#32;to&#32;astronomical&#32;data</emphasis>
+<anchor xml:id="_astro_8py_source_1l00313"/>00313 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;processing.&#32;It&#32;extends&#32;or&#32;derives&#32;the&#32;initialization&#32;properties</emphasis>
+<anchor xml:id="_astro_8py_source_1l00314"/>00314 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;from&#32;the&#32;Astrofun&#32;class&#32;and&#32;sets&#32;predefined&#32;attributes&#32;for&#32;data</emphasis>
+<anchor xml:id="_astro_8py_source_1l00315"/>00315 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;calibration,&#32;computation,&#32;or&#32;interactions&#32;within&#32;the&#32;specific</emphasis>
+<anchor xml:id="_astro_8py_source_1l00316"/>00316 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;context&#32;of&#32;astronomical&#32;studies.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00317"/>00317 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00318"/>00318 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Attributes:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00319"/>00319 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;attribute1&#32;(float):&#32;Initial&#32;condition&#32;value&#32;for&#32;computation.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00320"/>00320 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;attribute2&#32;(list[float]):&#32;Array&#32;of&#32;configuration&#32;parameters</emphasis>
+<anchor xml:id="_astro_8py_source_1l00321"/>00321 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;that&#32;outline&#32;the&#32;behavior&#32;of&#32;the&#32;instance.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00322"/>00322 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;attribute3&#32;(float):&#32;Maximum&#32;allowable&#32;computation&#32;threshold.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00323"/>00323 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00324"/>00324 &#32;&#32;&#32;&#32;
+<anchor xml:id="_astro_8py_source_1l00325"/>00325 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1astro_1_1_cassini2_1a7eac7e729908efd4c4dada53b3b52cfb">__init__</link>(self):
+<anchor xml:id="_astro_8py_source_1l00326"/><link linkend="_classfcmaes_1_1astro_1_1_rosetta">00326</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00327"/>00327 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Initializes&#32;an&#32;instance&#32;of&#32;the&#32;Astrofun&#32;class&#32;with&#32;pre-defined&#32;parameters&#32;for</emphasis>
+<anchor xml:id="_astro_8py_source_1l00328"/>00328 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;the&#32;&apos;Sagas&apos;&#32;configuration.&#32;The&#32;initialization&#32;process&#32;involves&#32;setting&#32;up&#32;the</emphasis>
+<anchor xml:id="_astro_8py_source_1l00329"/>00329 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;class&#32;with&#32;the&#32;provided&#32;name,&#32;identifier,&#32;and&#32;two&#32;lists&#32;of&#32;numerical&#32;values</emphasis>
+<anchor xml:id="_astro_8py_source_1l00330"/>00330 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;that&#32;determine&#32;its&#32;properties&#32;and&#32;behavior.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00331"/>00331 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00332"/>00332 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00333"/>00333 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;None</emphasis>
+<anchor xml:id="_astro_8py_source_1l00334"/>00334 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00335"/>00335 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Astrofun.__init__(self,&#32;<emphasis role="stringliteral">&apos;Sagas&apos;</emphasis>,&#32;<emphasis role="stringliteral">&quot;sagasC&quot;</emphasis>,&#32;
+<anchor xml:id="_astro_8py_source_1l00336"/>00336 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[7000,0,0,0,50,300,0.01,0.01,1.05,8,&#32;-math.pi,&#32;-math.pi],
+<anchor xml:id="_astro_8py_source_1l00337"/>00337 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[9100,7,1,1,2000,2000,0.9,0.9,7,500,&#32;math.pi,&#32;&#32;math.pi]
+<anchor xml:id="_astro_8py_source_1l00338"/>00338 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;)
+<anchor xml:id="_astro_8py_source_1l00339"/>00339 
+<anchor xml:id="_astro_8py_source_1l00340"/>00340 <emphasis role="keyword">class&#32;</emphasis><link linkend="_classfcmaes_1_1astro_1_1_tandem">Tandem</link>(object):
+<anchor xml:id="_astro_8py_source_1l00341"/>00341 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;Represents&#32;a&#32;Tandem&#32;configuration&#32;with&#32;specific&#32;bounds,&#32;sequences,&#32;and&#32;functionalities.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00342"/>00342 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00343"/>00343 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;This&#32;class&#32;is&#32;designed&#32;to&#32;create&#32;and&#32;manage&#32;a&#32;tandem&#32;object,&#32;where&#32;each&#32;tandem</emphasis>
+<anchor xml:id="_astro_8py_source_1l00344"/>00344 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;is&#32;characterized&#32;by&#32;specific&#32;constraints,&#32;bounds,&#32;sequences,&#32;and&#32;a&#32;function</emphasis>
+<anchor xml:id="_astro_8py_source_1l00345"/>00345 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;that&#32;calculates&#32;a&#32;value&#32;based&#32;on&#32;given&#32;inputs.&#32;It&#32;allows&#32;the&#32;classification</emphasis>
+<anchor xml:id="_astro_8py_source_1l00346"/>00346 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;of&#32;tandems&#32;as&#32;constrained&#32;or&#32;unconstrained&#32;and&#32;associates&#32;them&#32;with&#32;specific</emphasis>
+<anchor xml:id="_astro_8py_source_1l00347"/>00347 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;functionality.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00348"/>00348 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00349"/><link linkend="_classfcmaes_1_1astro_1_1_rosetta_1ad37e8e95d1e2611a4217d78af56ccdb6">00349</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Attributes:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00350"/>00350 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;name&#32;(str):&#32;The&#32;name&#32;of&#32;the&#32;tandem,&#32;which&#32;includes&#32;an&#32;indication&#32;of</emphasis>
+<anchor xml:id="_astro_8py_source_1l00351"/>00351 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;whether&#32;it&#32;is&#32;constrained&#32;or&#32;unconstrained&#32;and&#32;its&#32;identifier.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00352"/>00352 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fun_c&#32;(str):&#32;The&#32;string&#32;identifier&#32;of&#32;the&#32;function&#32;in&#32;the&#32;external&#32;library,</emphasis>
+<anchor xml:id="_astro_8py_source_1l00353"/>00353 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;which&#32;varies&#32;based&#32;on&#32;whether&#32;the&#32;tandem&#32;is&#32;constrained&#32;or&#32;unconstrained.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00354"/>00354 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fun&#32;(Callable):&#32;The&#32;main&#32;function&#32;of&#32;the&#32;class&#32;implemented&#32;as&#32;`tandem`,</emphasis>
+<anchor xml:id="_astro_8py_source_1l00355"/>00355 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;which&#32;calculates&#32;a&#32;specific&#32;value&#32;using&#32;external&#32;library&#32;logic.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00356"/>00356 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;bounds&#32;(Bounds):&#32;The&#32;lower&#32;and&#32;upper&#32;bounds&#32;for&#32;input&#32;parameters&#32;associated</emphasis>
+<anchor xml:id="_astro_8py_source_1l00357"/>00357 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;with&#32;the&#32;tandem.&#32;It&#32;defines&#32;acceptable&#32;operational&#32;limits.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00358"/>00358 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;seqs&#32;(list[list[int]]):&#32;Predefined&#32;list&#32;of&#32;sequences&#32;available&#32;for</emphasis>
+<anchor xml:id="_astro_8py_source_1l00359"/>00359 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;configuration&#32;in&#32;the&#32;tandem&#32;object.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00360"/>00360 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;seq&#32;(list[int]):&#32;The&#32;specific&#32;sequence&#32;selected&#32;for&#32;the&#32;tandem&#32;object,</emphasis>
+<anchor xml:id="_astro_8py_source_1l00361"/>00361 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;determined&#32;by&#32;the&#32;input&#32;index&#32;at&#32;instantiation.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00362"/>00362 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00363"/>00363 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1astro_1_1_rosetta_1ad37e8e95d1e2611a4217d78af56ccdb6">__init__</link>(self,&#32;i,&#32;constrained=True):
+<anchor xml:id="_astro_8py_source_1l00364"/>00364 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00365"/>00365 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Initializes&#32;an&#32;instance&#32;with&#32;specific&#32;configuration&#32;based&#32;on&#32;the&#32;given&#32;index&#32;and&#32;constraints.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00366"/>00366 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00367"/>00367 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;This&#32;constructor&#32;sets&#32;up&#32;various&#32;attributes&#32;for&#32;the&#32;instance&#32;including&#32;the&#32;name,&#32;associated</emphasis>
+<anchor xml:id="_astro_8py_source_1l00368"/><link linkend="_classfcmaes_1_1astro_1_1_sagas">00368</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;functions,&#32;bounds,&#32;and&#32;sequence&#32;configurations&#32;based&#32;on&#32;the&#32;input&#32;parameters.&#32;It&#32;provides</emphasis>
+<anchor xml:id="_astro_8py_source_1l00369"/>00369 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;flexibility&#32;for&#32;creating&#32;either&#32;a&#32;constrained&#32;or&#32;unconstrained&#32;configuration.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00370"/>00370 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00371"/>00371 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00372"/>00372 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;i&#32;(int):&#32;Index&#32;used&#32;to&#32;select&#32;specific&#32;sequence&#32;and&#32;configurations.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00373"/>00373 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;constrained&#32;(bool):&#32;Indicates&#32;whether&#32;the&#32;configuration&#32;should&#32;be&#32;constrained</emphasis>
+<anchor xml:id="_astro_8py_source_1l00374"/>00374 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;or&#32;unconstrained.&#32;Default&#32;is&#32;True.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00375"/>00375 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00376"/>00376 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.name&#32;=&#32;(<emphasis role="stringliteral">&apos;Tandem&#32;&apos;</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>&#32;constrained&#32;<emphasis role="keywordflow">else</emphasis>&#32;<emphasis role="stringliteral">&apos;Tandem&#32;unconstrained&#32;&apos;</emphasis>)&#32;+&#32;str(i+1)
+<anchor xml:id="_astro_8py_source_1l00377"/>00377 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.fun_c&#32;=&#32;<emphasis role="stringliteral">&quot;tandemC&quot;</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>&#32;constrained&#32;<emphasis role="keywordflow">else</emphasis>&#32;<emphasis role="stringliteral">&quot;tandemCu&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00378"/>00378 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.fun&#32;=&#32;self.tandem
+<anchor xml:id="_astro_8py_source_1l00379"/>00379 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.bounds&#32;=&#32;Bounds([5475,&#32;2.5,&#32;0,&#32;0,&#32;20,&#32;20,&#32;20,&#32;20,&#32;0.01,&#32;0.01,&#32;0.01,&#32;0.01,&#32;1.05,&#32;1.05,&#32;1.05,&#32;-math.pi,&#32;-math.pi,&#32;-math.pi],&#32;
+<anchor xml:id="_astro_8py_source_1l00380"/>00380 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[9132,&#32;4.9,&#32;1,&#32;1,&#32;2500,&#32;2500,&#32;2500,&#32;2500,&#32;0.99,&#32;0.99,&#32;0.99,&#32;0.99,&#32;10,&#32;10,&#32;10,&#32;math.pi,&#32;&#32;math.pi,&#32;&#32;math.pi])
+<anchor xml:id="_astro_8py_source_1l00381"/>00381 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.seqs&#32;=&#32;[[3,2,2,2,6],[3,2,2,3,6],[3,2,2,4,6],[3,2,2,5,6],[3,2,3,2,6],
+<anchor xml:id="_astro_8py_source_1l00382"/>00382 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[3,2,3,3,6],[3,2,3,4,6],[3,2,3,5,6],[3,2,4,2,6],[3,2,4,3,6],
+<anchor xml:id="_astro_8py_source_1l00383"/>00383 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[3,2,4,4,6],[3,2,4,5,6],[3,3,2,2,6],[3,3,2,3,6],[3,3,2,4,6],
+<anchor xml:id="_astro_8py_source_1l00384"/>00384 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[3,3,2,5,6],[3,3,3,2,6],[3,3,3,3,6],[3,3,3,4,6],[3,3,3,5,6],
+<anchor xml:id="_astro_8py_source_1l00385"/>00385 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[3,3,4,2,6],[3,3,4,3,6],[3,3,4,4,6],[3,3,4,5,6]]
+<anchor xml:id="_astro_8py_source_1l00386"/>00386 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.seq&#32;=&#32;self.seqs[i]
+<anchor xml:id="_astro_8py_source_1l00387"/>00387 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_astro_8py_source_1l00388"/>00388 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis>tandem(self,&#32;x):
+<anchor xml:id="_astro_8py_source_1l00389"/>00389 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00390"/><link linkend="_classfcmaes_1_1astro_1_1_sagas_1a532bc77e95faf73e051a8574ae5c93d7">00390</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Compute&#32;the&#32;evaluation&#32;of&#32;a&#32;C&#32;library&#32;function&#32;using&#32;the&#32;provided&#32;numeric&#32;array.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00391"/>00391 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00392"/>00392 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;This&#32;function&#32;interfaces&#32;with&#32;an&#32;external&#32;C&#32;function&#32;to&#32;perform&#32;calculations.&#32;The</emphasis>
+<anchor xml:id="_astro_8py_source_1l00393"/>00393 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;input&#32;array&#32;is&#32;passed&#32;to&#32;the&#32;C&#32;function&#32;after&#32;converting&#32;it&#32;to&#32;the&#32;required&#32;C&#32;types,</emphasis>
+<anchor xml:id="_astro_8py_source_1l00394"/>00394 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;and&#32;the&#32;result&#32;is&#32;retrieved.&#32;If&#32;any&#32;exception&#32;occurs&#32;or&#32;the&#32;result&#32;is&#32;not&#32;finite,</emphasis>
+<anchor xml:id="_astro_8py_source_1l00395"/>00395 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;a&#32;fallback&#32;value&#32;is&#32;returned.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00396"/>00396 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00397"/>00397 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00398"/>00398 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x&#32;(list[float]):&#32;Numeric&#32;array&#32;used&#32;as&#32;input&#32;for&#32;the&#32;C&#32;function.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00399"/>00399 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00400"/>00400 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Returns:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00401"/>00401 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;float:&#32;Result&#32;of&#32;the&#32;C&#32;function&#32;evaluation,&#32;or&#32;a&#32;fallback&#32;value&#32;in&#32;case</emphasis>
+<anchor xml:id="_astro_8py_source_1l00402"/>00402 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;of&#32;errors&#32;or&#32;non-finite&#32;results.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00403"/>00403 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00404"/>00404 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;n&#32;=&#32;len(x)
+<anchor xml:id="_astro_8py_source_1l00405"/>00405 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;array_type&#32;=&#32;ct.c_double&#32;*&#32;n&#32;&#32;&#32;
+<anchor xml:id="_astro_8py_source_1l00406"/>00406 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ints_type&#32;=&#32;ct.c_int&#32;*&#32;5&#32;&#32;&#32;
+<anchor xml:id="_astro_8py_source_1l00407"/><link linkend="_classfcmaes_1_1astro_1_1_tandem">00407</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fun_c&#32;=&#32;astro_map[self.<link linkend="_classfcmaes_1_1astro_1_1_tandem_1ac8fa6a908f79271f8e69a3ebcd7dc115">fun_c</link>]&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_astro_8py_source_1l00408"/>00408 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fun_c.argtypes&#32;=&#32;[ct.c_int,&#32;ct.POINTER(ct.c_double),&#32;ct.POINTER(ct.c_int)]
+<anchor xml:id="_astro_8py_source_1l00409"/>00409 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">try</emphasis>:&#32;<emphasis role="comment">#&#32;function&#32;is&#32;only&#32;defined&#32;inside&#32;bounds</emphasis>
+<anchor xml:id="_astro_8py_source_1l00410"/>00410 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#x&#32;=&#32;np.asarray(x).clip(self.bounds.lb,&#32;self.bounds.ub)</emphasis>
+<anchor xml:id="_astro_8py_source_1l00411"/>00411 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;val&#32;=&#32;<link linkend="_classfcmaes_1_1astro_1_1_tandem_1ac8fa6a908f79271f8e69a3ebcd7dc115">fun_c</link>(n,&#32;array_type(*x),&#32;ints_type(*self.<link linkend="_classfcmaes_1_1astro_1_1_tandem_1a72a4f9ca06fa840de348e7bb1ac916cd">seq</link>))
+<anchor xml:id="_astro_8py_source_1l00412"/>00412 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;<emphasis role="keywordflow">not</emphasis>&#32;math.isfinite(val):
+<anchor xml:id="_astro_8py_source_1l00413"/>00413 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;val&#32;=&#32;1E10
+<anchor xml:id="_astro_8py_source_1l00414"/>00414 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">except</emphasis>&#32;Exception&#32;<emphasis role="keyword">as</emphasis>&#32;ex:
+<anchor xml:id="_astro_8py_source_1l00415"/>00415 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;val&#32;=&#32;1E10
+<anchor xml:id="_astro_8py_source_1l00416"/>00416 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;val
+<anchor xml:id="_astro_8py_source_1l00417"/>00417 
+<anchor xml:id="_astro_8py_source_1l00418"/>00418 <emphasis role="keyword">class&#32;</emphasis><link linkend="_classfcmaes_1_1astro_1_1_tandem__minlp">Tandem_minlp</link>(object):
+<anchor xml:id="_astro_8py_source_1l00419"/>00419 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00420"/>00420 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Encapsulates&#32;a&#32;Tandem&#32;optimization&#32;problem&#32;in&#32;the&#32;form&#32;of&#32;a&#32;mixed-integer&#32;nonlinear&#32;programming&#32;(MINLP)&#32;task.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00421"/>00421 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00422"/>00422 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;This&#32;class&#32;models&#32;and&#32;processes&#32;a&#32;constrained&#32;or&#32;unconstrained&#32;tandem&#32;optimization&#32;problem.&#32;It&#32;allows&#32;setting</emphasis>
+<anchor xml:id="_astro_8py_source_1l00423"/>00423 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;boundaries&#32;on&#32;variables,&#32;defining&#32;the&#32;objective&#32;function&#32;specific&#32;to&#32;the&#32;problem,&#32;and&#32;performing&#32;computations</emphasis>
+<anchor xml:id="_astro_8py_source_1l00424"/>00424 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;for&#32;the&#32;given&#32;input&#32;vector.&#32;The&#32;specific&#32;configuration&#32;is&#32;determined&#32;based&#32;on&#32;the&#32;`constrained`&#32;parameter.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00425"/>00425 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00426"/>00426 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Attributes:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00427"/>00427 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;name&#32;(str):&#32;Name&#32;of&#32;the&#32;MINLP&#32;problem,&#32;either&#32;constrained&#32;or&#32;unconstrained.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00428"/>00428 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fun_c&#32;(str):&#32;Name&#32;of&#32;the&#32;corresponding&#32;C&#32;function&#32;for&#32;the&#32;constrained&#32;or&#32;unconstrained&#32;computation.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00429"/>00429 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fun&#32;(Callable):&#32;Reference&#32;to&#32;the&#32;objective&#32;function&#32;(`tandem_minlp`).</emphasis>
+<anchor xml:id="_astro_8py_source_1l00430"/>00430 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;bounds&#32;(Bounds):&#32;Bounds&#32;for&#32;the&#32;optimization&#32;problem&#32;variables.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00431"/>00431 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00432"/>00432 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1astro_1_1_tandem_1a85863c32831e91124bc8d1de23e13f39">__init__</link>(self,&#32;constrained=True):
+<anchor xml:id="_astro_8py_source_1l00433"/>00433 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00434"/>00434 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Initializes&#32;the&#32;instance&#32;with&#32;attributes&#32;based&#32;on&#32;whether&#32;it&#32;is&#32;in&#32;a&#32;constrained&#32;or</emphasis>
+<anchor xml:id="_astro_8py_source_1l00435"/>00435 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;unconstrained&#32;state.&#32;Sets&#32;the&#32;name,&#32;function&#32;strings&#32;for&#32;constrained&#32;operations,</emphasis>
+<anchor xml:id="_astro_8py_source_1l00436"/>00436 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;function&#32;reference,&#32;and&#32;specific&#32;variable&#32;bounds.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00437"/>00437 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00438"/>00438 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00439"/>00439 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;constrained&#32;(bool):&#32;Determines&#32;whether&#32;the&#32;instance&#32;is&#32;in&#32;the&#32;constrained&#32;state.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00440"/>00440 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Defaults&#32;to&#32;True.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00441"/>00441 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00442"/>00442 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1astro_1_1_tandem_1aaff7202792acfdc376fbf63dda71288f">name</link>&#32;=&#32;(<emphasis role="stringliteral">&apos;Tandem&#32;minlp&#32;&apos;</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>&#32;constrained&#32;<emphasis role="keywordflow">else</emphasis>&#32;<emphasis role="stringliteral">&apos;Tandem&#32;unconstrained&#32;minlp&#32;&apos;</emphasis>)&#32;
+<anchor xml:id="_astro_8py_source_1l00443"/>00443 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1astro_1_1_tandem_1ac8fa6a908f79271f8e69a3ebcd7dc115">fun_c</link>&#32;=&#32;<emphasis role="stringliteral">&quot;tandemC&quot;</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>&#32;constrained&#32;<emphasis role="keywordflow">else</emphasis>&#32;<emphasis role="stringliteral">&quot;tandemCu&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00444"/>00444 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1astro_1_1_tandem_1a7289ad20163a2b464e987587daa2fd90">fun</link>&#32;=&#32;self.tandem_minlp
+<anchor xml:id="_astro_8py_source_1l00445"/>00445 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1astro_1_1_tandem_1a78eef598c2b6d4c782c8c3f29e4c1752">bounds</link>&#32;=&#32;Bounds([5475,&#32;2.5,&#32;0,&#32;0,&#32;20,&#32;20,&#32;20,&#32;20,&#32;0.01,&#32;0.01,&#32;0.01,&#32;0.01,&#32;1.05,&#32;1.05,&#32;1.05,&#32;-math.pi,&#32;-math.pi,&#32;-math.pi,
+<anchor xml:id="_astro_8py_source_1l00446"/>00446 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;1.51,1.51,1.51],&#32;
+<anchor xml:id="_astro_8py_source_1l00447"/>00447 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[9132,&#32;4.9,&#32;1,&#32;1,&#32;2500,&#32;2500,&#32;2500,&#32;2500,&#32;0.99,&#32;0.99,&#32;0.99,&#32;0.99,&#32;10,&#32;10,&#32;10,&#32;math.pi,&#32;&#32;math.pi,&#32;&#32;math.pi,
+<anchor xml:id="_astro_8py_source_1l00448"/><link linkend="_classfcmaes_1_1astro_1_1_tandem_1a85863c32831e91124bc8d1de23e13f39">00448</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;3.49,4.49,5.49])
+<anchor xml:id="_astro_8py_source_1l00449"/><link linkend="_classfcmaes_1_1astro_1_1_tandem_1aaff7202792acfdc376fbf63dda71288f">00449</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_astro_8py_source_1l00450"/><link linkend="_classfcmaes_1_1astro_1_1_tandem_1ac8fa6a908f79271f8e69a3ebcd7dc115">00450</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis>tandem_minlp(self,&#32;xs):
+<anchor xml:id="_astro_8py_source_1l00451"/><link linkend="_classfcmaes_1_1astro_1_1_tandem_1a7289ad20163a2b464e987587daa2fd90">00451</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00452"/><link linkend="_classfcmaes_1_1astro_1_1_tandem_1a78eef598c2b6d4c782c8c3f29e4c1752">00452</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Evaluates&#32;a&#32;function&#32;using&#32;given&#32;sequence&#32;and&#32;array&#32;inputs.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00453"/>00453 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00454"/><link linkend="_classfcmaes_1_1astro_1_1_tandem_1a921041f857be56f16225e48038ebdc7f">00454</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;This&#32;method&#32;processes&#32;the&#32;provided&#32;list&#32;of&#32;inputs,&#32;partitions&#32;it&#32;into</emphasis>
+<anchor xml:id="_astro_8py_source_1l00455"/>00455 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;specific&#32;components,&#32;prepares&#32;the&#32;necessary&#32;C&#32;data&#32;types,&#32;and&#32;calls&#32;an</emphasis>
+<anchor xml:id="_astro_8py_source_1l00456"/>00456 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;external&#32;function&#32;to&#32;compute&#32;the&#32;final&#32;value.&#32;If&#32;the&#32;function&#32;call&#32;fails</emphasis>
+<anchor xml:id="_astro_8py_source_1l00457"/>00457 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;or&#32;the&#32;result&#32;is&#32;non-finite,&#32;a&#32;fallback&#32;default&#32;value&#32;is&#32;returned.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00458"/>00458 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00459"/><link linkend="_classfcmaes_1_1astro_1_1_tandem_1a72a4f9ca06fa840de348e7bb1ac916cd">00459</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00460"/>00460 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xs&#32;(list[float]):&#32;A&#32;list&#32;of&#32;floats&#32;where&#32;the&#32;first&#32;part&#32;represents&#32;an</emphasis>
+<anchor xml:id="_astro_8py_source_1l00461"/>00461 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;array&#32;of&#32;values&#32;and&#32;the&#32;last&#32;three&#32;indicate&#32;sequence&#32;parameters.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00462"/>00462 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00463"/>00463 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Returns:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00464"/>00464 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;float:&#32;The&#32;result&#32;of&#32;the&#32;computation&#32;provided&#32;by&#32;the&#32;external</emphasis>
+<anchor xml:id="_astro_8py_source_1l00465"/>00465 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;function.&#32;Defaults&#32;to&#32;1E10&#32;if&#32;the&#32;computation&#32;fails&#32;or</emphasis>
+<anchor xml:id="_astro_8py_source_1l00466"/>00466 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;produces&#32;a&#32;non-finite&#32;value.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00467"/>00467 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00468"/>00468 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;n&#32;=&#32;len(xs)&#32;-&#32;3
+<anchor xml:id="_astro_8py_source_1l00469"/>00469 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x&#32;=&#32;xs[:-3]
+<anchor xml:id="_astro_8py_source_1l00470"/>00470 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;seq&#32;=&#32;[3]&#32;+&#32;[int(round(xi))&#32;<emphasis role="keywordflow">for</emphasis>&#32;xi&#32;<emphasis role="keywordflow">in</emphasis>&#32;xs[-3:]]&#32;+&#32;[6]
+<anchor xml:id="_astro_8py_source_1l00471"/>00471 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;array_type&#32;=&#32;ct.c_double&#32;*&#32;n&#32;&#32;&#32;
+<anchor xml:id="_astro_8py_source_1l00472"/>00472 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ints_type&#32;=&#32;ct.c_int&#32;*&#32;5&#32;&#32;&#32;
+<anchor xml:id="_astro_8py_source_1l00473"/>00473 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fun_c&#32;=&#32;astro_map[self.<link linkend="_classfcmaes_1_1astro_1_1_tandem_1ac8fa6a908f79271f8e69a3ebcd7dc115">fun_c</link>]&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_astro_8py_source_1l00474"/>00474 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fun_c.argtypes&#32;=&#32;[ct.c_int,&#32;ct.POINTER(ct.c_double),&#32;ct.POINTER(ct.c_int)]
+<anchor xml:id="_astro_8py_source_1l00475"/>00475 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">try</emphasis>:
+<anchor xml:id="_astro_8py_source_1l00476"/><link linkend="_classfcmaes_1_1astro_1_1_tandem_1afbf6dda0c1377a59f0d4add61533293b">00476</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;val&#32;=&#32;<link linkend="_classfcmaes_1_1astro_1_1_tandem_1ac8fa6a908f79271f8e69a3ebcd7dc115">fun_c</link>(n,&#32;array_type(*x),&#32;ints_type(*seq))
+<anchor xml:id="_astro_8py_source_1l00477"/>00477 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;<emphasis role="keywordflow">not</emphasis>&#32;math.isfinite(val):
+<anchor xml:id="_astro_8py_source_1l00478"/>00478 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;val&#32;=&#32;1E10
+<anchor xml:id="_astro_8py_source_1l00479"/>00479 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">except</emphasis>&#32;Exception&#32;<emphasis role="keyword">as</emphasis>&#32;ex:
+<anchor xml:id="_astro_8py_source_1l00480"/>00480 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;val&#32;=&#32;1E10
+<anchor xml:id="_astro_8py_source_1l00481"/>00481 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;val
+<anchor xml:id="_astro_8py_source_1l00482"/>00482 
+<anchor xml:id="_astro_8py_source_1l00483"/>00483 <emphasis role="keyword">class&#32;</emphasis><link linkend="_classfcmaes_1_1astro_1_1_cassini1multi">Cassini1multi</link>(object):
+<anchor xml:id="_astro_8py_source_1l00484"/>00484 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00485"/>00485 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Represents&#32;a&#32;mathematical&#32;optimization&#32;model&#32;for&#32;the&#32;Cassini1&#32;multi-objective&#32;problem.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00486"/>00486 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00487"/>00487 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;This&#32;class&#32;is&#32;used&#32;to&#32;work&#32;with&#32;the&#32;Cassini1&#32;multi-objective&#32;problem&#32;for&#32;optimization&#32;purposes.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00488"/>00488 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;The&#32;class&#32;defines&#32;methods&#32;and&#32;attributes&#32;related&#32;to&#32;the&#32;problem,&#32;including&#32;objective&#32;weights</emphasis>
+<anchor xml:id="_astro_8py_source_1l00489"/>00489 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;and&#32;planet&#32;configurations.&#32;It&#32;acts&#32;as&#32;an&#32;interface&#32;for&#32;interacting&#32;with&#32;the&#32;Cassini1&#32;problem</emphasis>
+<anchor xml:id="_astro_8py_source_1l00490"/>00490 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;and&#32;computes&#32;multi-objective&#32;functions&#32;based&#32;on&#32;input&#32;variables.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00491"/>00491 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00492"/>00492 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Attributes:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00493"/>00493 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;weights&#32;(list[float]):&#32;Weights&#32;for&#32;combining&#32;different&#32;objective&#32;functions&#32;in&#32;the</emphasis>
+<anchor xml:id="_astro_8py_source_1l00494"/>00494 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;optimization&#32;problem.&#32;Each&#32;weight&#32;corresponds&#32;to&#32;an&#32;objective&#32;in&#32;the&#32;multi-objective</emphasis>
+<anchor xml:id="_astro_8py_source_1l00495"/>00495 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;formulation.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00496"/>00496 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;planets&#32;(list[int]):&#32;Configuration&#32;for&#32;planets&#32;involved&#32;in&#32;the&#32;Cassini1&#32;problem.&#32;This</emphasis>
+<anchor xml:id="_astro_8py_source_1l00497"/>00497 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;determines&#32;the&#32;specific&#32;problem&#32;setup&#32;used&#32;in&#32;calculations.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00498"/>00498 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00499"/>00499 &#32;&#32;&#32;&#32;
+<anchor xml:id="_astro_8py_source_1l00500"/><link linkend="_classfcmaes_1_1astro_1_1_tandem__minlp">00500</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1astro_1_1_tandem__minlp_1a13780d3723cb39e01929d7d82848dfe6">__init__</link>(self,&#32;weights&#32;=&#32;[1,0,0,0],&#32;planets&#32;=&#32;[2,2,3,5]):
+<anchor xml:id="_astro_8py_source_1l00501"/>00501 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00502"/>00502 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Initializes&#32;an&#32;instance&#32;of&#32;a&#32;class,&#32;setting&#32;up&#32;specific&#32;attributes&#32;and</emphasis>
+<anchor xml:id="_astro_8py_source_1l00503"/>00503 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;default&#32;parameters&#32;necessary&#32;for&#32;its&#32;operations.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00504"/>00504 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00505"/>00505 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00506"/>00506 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;weights&#32;(list,&#32;optional):&#32;A&#32;list&#32;of&#32;weight&#32;values&#32;used&#32;in&#32;the&#32;functionality</emphasis>
+<anchor xml:id="_astro_8py_source_1l00507"/>00507 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;of&#32;the&#32;object.&#32;Defaults&#32;to&#32;[1,&#32;0,&#32;0,&#32;0].</emphasis>
+<anchor xml:id="_astro_8py_source_1l00508"/>00508 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;planets&#32;(list,&#32;optional):&#32;A&#32;list&#32;of&#32;planet&#32;identifiers&#32;or&#32;parameters&#32;used</emphasis>
+<anchor xml:id="_astro_8py_source_1l00509"/>00509 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;within&#32;the&#32;multi-function&#32;calculations.&#32;Defaults&#32;to&#32;[2,&#32;2,&#32;3,&#32;5].</emphasis>
+<anchor xml:id="_astro_8py_source_1l00510"/>00510 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00511"/>00511 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Astrofun.__init__(self,&#32;<emphasis role="stringliteral">&apos;Cassini1minlp&apos;</emphasis>,&#32;<emphasis role="stringliteral">&quot;Cassini1minlpC&quot;</emphasis>,&#32;
+<anchor xml:id="_astro_8py_source_1l00512"/>00512 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[-1000.,30.,100.,30.,400.,1000.],
+<anchor xml:id="_astro_8py_source_1l00513"/>00513 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.,400.,470.,400.,2000.,6000.]&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_astro_8py_source_1l00514"/>00514 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;)
+<anchor xml:id="_astro_8py_source_1l00515"/>00515 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1astro_1_1_tandem__minlp_1ab4f58a6afc6358ae6c4004395eb94ade">fun</link>&#32;=&#32;self.cassini1
+<anchor xml:id="_astro_8py_source_1l00516"/>00516 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.weights&#32;=&#32;weights
+<anchor xml:id="_astro_8py_source_1l00517"/>00517 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.planets&#32;=&#32;planets
+<anchor xml:id="_astro_8py_source_1l00518"/>00518 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.mfun&#32;=&#32;<emphasis role="keyword">lambda</emphasis>&#32;x:&#32;<link linkend="_namespacefcmaes_1_1astro_1a472db8fe54c0594a141e21b211868164">cassini1multi</link>(x&#32;+&#32;[2,2,3,5])
+<anchor xml:id="_astro_8py_source_1l00519"/>00519 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_astro_8py_source_1l00520"/>00520 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis>cassini1(self,&#32;x):
+<anchor xml:id="_astro_8py_source_1l00521"/>00521 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00522"/><link linkend="_classfcmaes_1_1astro_1_1_tandem__minlp_1a13780d3723cb39e01929d7d82848dfe6">00522</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Computes&#32;a&#32;weighted&#32;sum&#32;of&#32;results&#32;from&#32;the&#32;cassini1multi&#32;function&#32;using</emphasis>
+<anchor xml:id="_astro_8py_source_1l00523"/><link linkend="_classfcmaes_1_1astro_1_1_tandem__minlp_1ae5334e0ccd190cefdaf55458e695d304">00523</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;the&#32;input&#32;value&#32;added&#32;to&#32;the&#32;object&apos;s&#32;&quot;planets&quot;&#32;attribute.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00524"/><link linkend="_classfcmaes_1_1astro_1_1_tandem__minlp_1a28656ec242ea92f2ab7ccc385d333a62">00524</link> <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00525"/><link linkend="_classfcmaes_1_1astro_1_1_tandem__minlp_1ab4f58a6afc6358ae6c4004395eb94ade">00525</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00526"/><link linkend="_classfcmaes_1_1astro_1_1_tandem__minlp_1a95a182a6b93b36922e8d3e120345e0e2">00526</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x:&#32;The&#32;input&#32;value&#32;used&#32;for&#32;computation.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00527"/>00527 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00528"/>00528 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Returns:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00529"/>00529 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;A&#32;float&#32;value&#32;representing&#32;the&#32;weighted&#32;sum&#32;of&#32;the&#32;results&#32;from&#32;the</emphasis>
+<anchor xml:id="_astro_8py_source_1l00530"/>00530 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cassini1multi&#32;function.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00531"/>00531 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00532"/>00532 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;r&#32;=&#32;<link linkend="_namespacefcmaes_1_1astro_1a472db8fe54c0594a141e21b211868164">cassini1multi</link>(x&#32;+&#32;self.planets)
+<anchor xml:id="_astro_8py_source_1l00533"/>00533 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;self.weights[0]*r[0]&#32;+&#32;self.weights[1]*r[1]&#32;+&#32;self.weights[2]*r[2]&#32;+&#32;self.weights[3]*r[3]
+<anchor xml:id="_astro_8py_source_1l00534"/>00534 &#32;&#32;&#32;&#32;
+<anchor xml:id="_astro_8py_source_1l00535"/>00535 <emphasis role="keyword">class&#32;</emphasis><link linkend="_classfcmaes_1_1astro_1_1_cassini1minlp">Cassini1minlp</link>(object):
+<anchor xml:id="_astro_8py_source_1l00536"/>00536 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;Represents&#32;the&#32;Cassini1&#32;MINLP&#32;(Mixed-Integer&#32;Nonlinear&#32;Programming)&#32;problem.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00537"/>00537 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00538"/>00538 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;This&#32;class&#32;models&#32;a&#32;specific&#32;mathematical&#32;optimization&#32;problem&#32;related&#32;to&#32;the&#32;trajectory</emphasis>
+<anchor xml:id="_astro_8py_source_1l00539"/>00539 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;of&#32;the&#32;Cassini&#32;spacecraft.&#32;It&#32;is&#32;designed&#32;to&#32;work&#32;with&#32;certain&#32;attributes,&#32;including</emphasis>
+<anchor xml:id="_astro_8py_source_1l00540"/>00540 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;bounds&#32;and&#32;planets,&#32;and&#32;relies&#32;on&#32;the&#32;`cassini1`&#32;function&#32;for&#32;computation.&#32;Users&#32;can</emphasis>
+<anchor xml:id="_astro_8py_source_1l00541"/>00541 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;interact&#32;with&#32;this&#32;class&#32;to&#32;evaluate&#32;optimization&#32;solutions&#32;within&#32;predefined&#32;constraints.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00542"/>00542 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00543"/>00543 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Attributes:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00544"/>00544 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fun&#32;(Callable):&#32;Reference&#32;to&#32;the&#32;cassini1&#32;function&#32;used&#32;for&#32;calculations.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00545"/>00545 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;planets&#32;(list):&#32;List&#32;of&#32;integers&#32;representing&#32;planetary&#32;identifiers&#32;involved&#32;in&#32;the</emphasis>
+<anchor xml:id="_astro_8py_source_1l00546"/>00546 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;optimization&#32;problem.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00547"/>00547 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00548"/><link linkend="_classfcmaes_1_1astro_1_1_tandem__minlp_1aa0c9717bee62a0dfeb50f4533d09a5a2">00548</link> &#32;&#32;&#32;&#32;
+<anchor xml:id="_astro_8py_source_1l00549"/>00549 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1astro_1_1_tandem__minlp_1a13780d3723cb39e01929d7d82848dfe6">__init__</link>(self,&#32;planets&#32;=&#32;[2,2,3,5]):
+<anchor xml:id="_astro_8py_source_1l00550"/>00550 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00551"/>00551 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Initializes&#32;the&#32;class&#32;with&#32;default&#32;parameters&#32;and&#32;sets&#32;up&#32;necessary&#32;attributes.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00552"/>00552 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00553"/>00553 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00554"/>00554 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;planets&#32;(list[int]):&#32;A&#32;list&#32;representing&#32;the&#32;planets&#32;of&#32;interest,&#32;defaulting&#32;to&#32;[2,&#32;2,&#32;3,&#32;5].</emphasis>
+<anchor xml:id="_astro_8py_source_1l00555"/>00555 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00556"/>00556 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Astrofun.__init__(self,&#32;<emphasis role="stringliteral">&apos;Cassini1&apos;</emphasis>,&#32;<emphasis role="stringliteral">&quot;cassini1C&quot;</emphasis>,&#32;
+<anchor xml:id="_astro_8py_source_1l00557"/>00557 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[-1000.,30.,100.,30.,400.,1000.],
+<anchor xml:id="_astro_8py_source_1l00558"/>00558 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.,400.,470.,400.,2000.,6000.]&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_astro_8py_source_1l00559"/>00559 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;)
+<anchor xml:id="_astro_8py_source_1l00560"/>00560 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1astro_1_1_tandem__minlp_1ab4f58a6afc6358ae6c4004395eb94ade">fun</link>&#32;=&#32;self.cassini1
+<anchor xml:id="_astro_8py_source_1l00561"/>00561 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.planets&#32;=&#32;planets
+<anchor xml:id="_astro_8py_source_1l00562"/>00562 &#32;&#32;&#32;
+<anchor xml:id="_astro_8py_source_1l00563"/>00563 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis>cassini1(self,&#32;x):
+<anchor xml:id="_astro_8py_source_1l00564"/>00564 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00565"/>00565 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Calculates&#32;the&#32;result&#32;of&#32;the&#32;cassini1minlp&#32;function&#32;after&#32;appending&#32;the&#32;provided</emphasis>
+<anchor xml:id="_astro_8py_source_1l00566"/>00566 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;parameter&#32;`x`&#32;to&#32;the&#32;`planets`&#32;attribute&#32;of&#32;the&#32;current&#32;instance.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00567"/>00567 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00568"/>00568 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00569"/>00569 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x:&#32;Iterable&#32;of&#32;numerical&#32;values&#32;representing&#32;a&#32;part&#32;of&#32;input&#32;to&#32;the</emphasis>
+<anchor xml:id="_astro_8py_source_1l00570"/>00570 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cassini1minlp&#32;function.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00571"/>00571 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00572"/>00572 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Returns:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00573"/>00573 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Result&#32;of&#32;the&#32;cassini1minlp&#32;function&#32;after&#32;combining&#32;`x`&#32;with&#32;the&#32;`planets`</emphasis>
+<anchor xml:id="_astro_8py_source_1l00574"/>00574 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;attribute&#32;of&#32;the&#32;class&#32;instance.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00575"/><link linkend="_classfcmaes_1_1astro_1_1_cassini1multi">00575</link> <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00576"/>00576 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Raises:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00577"/>00577 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;TypeError:&#32;If&#32;`x`&#32;is&#32;not&#32;an&#32;iterable&#32;of&#32;numerical&#32;values.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00578"/>00578 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00579"/>00579 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_namespacefcmaes_1_1astro_1a59d6a07135ef342220c1f9f03d600d59">cassini1minlp</link>(list(x)&#32;+&#32;self.<link linkend="_classfcmaes_1_1astro_1_1_cassini1multi_1ab73694cdd33d6720b4f74ed68e970f13">planets</link>)
+<anchor xml:id="_astro_8py_source_1l00580"/>00580 &#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_astro_8py_source_1l00581"/>00581 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefcmaes_1_1astro_1a59d6a07135ef342220c1f9f03d600d59">cassini1minlp</link>(x):
+<anchor xml:id="_astro_8py_source_1l00582"/>00582 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00583"/>00583 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Computes&#32;the&#32;objective&#32;function&#32;for&#32;the&#32;Cassini1MINLP&#32;optimization&#32;problem.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00584"/>00584 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00585"/>00585 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;This&#32;function&#32;is&#32;a&#32;wrapper&#32;that&#32;interacts&#32;with&#32;an&#32;external&#32;C&#32;function&#32;to&#32;compute</emphasis>
+<anchor xml:id="_astro_8py_source_1l00586"/>00586 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;the&#32;required&#32;value&#32;for&#32;a&#32;specific&#32;mathematical&#32;optimization&#32;problem.&#32;The&#32;external</emphasis>
+<anchor xml:id="_astro_8py_source_1l00587"/>00587 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;function&#32;is&#32;utilized&#32;for&#32;its&#32;computational&#32;efficiency&#32;and&#32;requires&#32;properly</emphasis>
+<anchor xml:id="_astro_8py_source_1l00588"/>00588 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;formatted&#32;inputs&#32;to&#32;execute.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00589"/>00589 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00590"/>00590 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00591"/>00591 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x&#32;(list&#32;of&#32;float):&#32;A&#32;list&#32;of&#32;input&#32;values&#32;representing&#32;variables&#32;for&#32;which</emphasis>
+<anchor xml:id="_astro_8py_source_1l00592"/>00592 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;the&#32;objective&#32;function&#32;needs&#32;to&#32;be&#32;evaluated.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00593"/>00593 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00594"/>00594 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Returns:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00595"/>00595 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;float:&#32;The&#32;computed&#32;objective&#32;function&#32;value.&#32;If&#32;errors&#32;occur&#32;or&#32;the&#32;result</emphasis>
+<anchor xml:id="_astro_8py_source_1l00596"/>00596 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;is&#32;not&#32;finite,&#32;a&#32;default&#32;high-value&#32;penalty&#32;of&#32;1E10&#32;is&#32;returned.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00597"/><link linkend="_classfcmaes_1_1astro_1_1_cassini1multi_1a6f542a9ffb66b028f975a6529bed90c3">00597</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00598"/>00598 &#32;&#32;&#32;&#32;n&#32;=&#32;len(x)
+<anchor xml:id="_astro_8py_source_1l00599"/>00599 &#32;&#32;&#32;&#32;array_type&#32;=&#32;ct.c_double&#32;*&#32;n&#32;&#32;&#32;
+<anchor xml:id="_astro_8py_source_1l00600"/>00600 &#32;&#32;&#32;&#32;fun_c&#32;=&#32;astro_map[<emphasis role="stringliteral">&quot;cassini1minlpC&quot;</emphasis>]&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_astro_8py_source_1l00601"/>00601 &#32;&#32;&#32;&#32;fun_c.argtypes&#32;=&#32;[ct.c_int,&#32;ct.POINTER(ct.c_double)]
+<anchor xml:id="_astro_8py_source_1l00602"/><link linkend="_classfcmaes_1_1astro_1_1_cassini1multi_1abc0c4735a3014c94fe6934f96c7a2b84">00602</link> &#32;&#32;&#32;&#32;fun_c.restype&#32;=&#32;ct.POINTER(ct.c_double)&#32;&#32;
+<anchor xml:id="_astro_8py_source_1l00603"/><link linkend="_classfcmaes_1_1astro_1_1_cassini1multi_1accf0981b5689f4aa3e31172b07222f71">00603</link> &#32;&#32;&#32;&#32;<emphasis role="keywordflow">try</emphasis>:&#32;<emphasis role="comment">#&#32;function&#32;is&#32;only&#32;defined&#32;inside&#32;bounds</emphasis>
+<anchor xml:id="_astro_8py_source_1l00604"/><link linkend="_classfcmaes_1_1astro_1_1_cassini1multi_1ab73694cdd33d6720b4f74ed68e970f13">00604</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;res&#32;=&#32;fun_c(n,&#32;array_type(*x))
+<anchor xml:id="_astro_8py_source_1l00605"/><link linkend="_classfcmaes_1_1astro_1_1_cassini1multi_1ae9b3acee5a218cba957861661d2156dd">00605</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dv&#32;=&#32;res[0]
+<anchor xml:id="_astro_8py_source_1l00606"/>00606 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_namespacefcmaes_1_1astro_1ae7ed2a3e77f9b7bc33f0db1f11050369">freemem</link>(res)
+<anchor xml:id="_astro_8py_source_1l00607"/>00607 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;<emphasis role="keywordflow">not</emphasis>&#32;math.isfinite(dv):
+<anchor xml:id="_astro_8py_source_1l00608"/>00608 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dv&#32;=&#32;1E10
+<anchor xml:id="_astro_8py_source_1l00609"/>00609 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">except</emphasis>&#32;Exception&#32;<emphasis role="keyword">as</emphasis>&#32;ex:
+<anchor xml:id="_astro_8py_source_1l00610"/>00610 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;print(ex)
+<anchor xml:id="_astro_8py_source_1l00611"/>00611 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dv&#32;=&#32;1E10
+<anchor xml:id="_astro_8py_source_1l00612"/>00612 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;dv
+<anchor xml:id="_astro_8py_source_1l00613"/>00613 
+<anchor xml:id="_astro_8py_source_1l00614"/>00614 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefcmaes_1_1astro_1a472db8fe54c0594a141e21b211868164">cassini1multi</link>(x):
+<anchor xml:id="_astro_8py_source_1l00615"/>00615 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00616"/>00616 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Calculates&#32;the&#32;Delta-V,&#32;time&#32;of&#32;flight&#32;(TOF),&#32;and&#32;launch&#32;time&#32;for&#32;a&#32;spacecraft&#32;based&#32;on&#32;given&#32;input</emphasis>
+<anchor xml:id="_astro_8py_source_1l00617"/>00617 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;parameters.&#32;The&#32;function&#32;uses&#32;an&#32;external&#32;C&#32;library&#32;to&#32;compute&#32;the&#32;result&#32;and&#32;handles&#32;edge&#32;cases</emphasis>
+<anchor xml:id="_astro_8py_source_1l00618"/><link linkend="_classfcmaes_1_1astro_1_1_cassini1multi_1a030454ed2d59c150171a83abb1e6d94b">00618</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;by&#32;returning&#32;large&#32;values&#32;for&#32;Delta-V&#32;in&#32;case&#32;of&#32;errors&#32;or&#32;invalid&#32;operations.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00619"/>00619 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00620"/>00620 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00621"/>00621 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x&#32;(list[float]):&#32;A&#32;list&#32;of&#32;input&#32;parameters&#32;including&#32;launch&#32;time&#32;and&#32;trajectory&#32;parameters.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00622"/>00622 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;The&#32;specific&#32;meaning&#32;of&#32;each&#32;value&#32;in&#32;the&#32;list&#32;depends&#32;on&#32;the&#32;mathematical&#32;requirements</emphasis>
+<anchor xml:id="_astro_8py_source_1l00623"/>00623 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;for&#32;calculating&#32;the&#32;Delta-V.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00624"/>00624 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00625"/>00625 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Returns:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00626"/>00626 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;list[float]:&#32;A&#32;list&#32;containing:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00627"/>00627 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-&#32;Delta-V&#32;(float):&#32;The&#32;total&#32;change&#32;in&#32;velocity&#32;required&#32;for&#32;the&#32;spacecraft.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00628"/>00628 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-&#32;TOF&#32;(float):&#32;The&#32;time&#32;of&#32;flight&#32;calculated&#32;as&#32;the&#32;sum&#32;of&#32;specific&#32;parameters&#32;from&#32;the&#32;input.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00629"/>00629 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-&#32;Launch&#32;time&#32;(float):&#32;The&#32;initial&#32;launch&#32;time&#32;extracted&#32;from&#32;the&#32;input&#32;list.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00630"/>00630 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00631"/>00631 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Raises:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00632"/><link linkend="_classfcmaes_1_1astro_1_1_cassini1minlp">00632</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Any&#32;exception&#32;raised&#32;during&#32;function&#32;execution&#32;will&#32;be&#32;caught&#32;internally,&#32;and&#32;default&#32;large</emphasis>
+<anchor xml:id="_astro_8py_source_1l00633"/>00633 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;values&#32;will&#32;be&#32;returned&#32;for&#32;Delta-V&#32;and&#32;launch&#32;DV.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00634"/>00634 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00635"/>00635 &#32;&#32;&#32;&#32;n&#32;=&#32;len(x)
+<anchor xml:id="_astro_8py_source_1l00636"/>00636 &#32;&#32;&#32;&#32;array_type&#32;=&#32;ct.c_double&#32;*&#32;n&#32;&#32;&#32;
+<anchor xml:id="_astro_8py_source_1l00637"/>00637 &#32;&#32;&#32;&#32;fun_c&#32;=&#32;astro_map[<emphasis role="stringliteral">&quot;cassini1minlpC&quot;</emphasis>]&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_astro_8py_source_1l00638"/>00638 &#32;&#32;&#32;&#32;fun_c.argtypes&#32;=&#32;[ct.c_int,&#32;ct.POINTER(ct.c_double)]
+<anchor xml:id="_astro_8py_source_1l00639"/>00639 &#32;&#32;&#32;&#32;fun_c.restype&#32;=&#32;ct.POINTER(ct.c_double)&#32;&#32;
+<anchor xml:id="_astro_8py_source_1l00640"/>00640 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">try</emphasis>:&#32;<emphasis role="comment">#&#32;function&#32;is&#32;only&#32;defined&#32;inside&#32;bounds</emphasis>
+<anchor xml:id="_astro_8py_source_1l00641"/>00641 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;res&#32;=&#32;fun_c(n,&#32;array_type(*x))
+<anchor xml:id="_astro_8py_source_1l00642"/>00642 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dv&#32;=&#32;res[0]
+<anchor xml:id="_astro_8py_source_1l00643"/>00643 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;launch_dv&#32;=&#32;res[1]
+<anchor xml:id="_astro_8py_source_1l00644"/>00644 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_namespacefcmaes_1_1astro_1ae7ed2a3e77f9b7bc33f0db1f11050369">freemem</link>(res)
+<anchor xml:id="_astro_8py_source_1l00645"/>00645 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;<emphasis role="keywordflow">not</emphasis>&#32;math.isfinite(dv):
+<anchor xml:id="_astro_8py_source_1l00646"/><link linkend="_classfcmaes_1_1astro_1_1_cassini1minlp_1a43fe7b41f8ebaab1dea138bae0a52568">00646</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dv&#32;=&#32;1E10
+<anchor xml:id="_astro_8py_source_1l00647"/>00647 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">except</emphasis>&#32;Exception&#32;<emphasis role="keyword">as</emphasis>&#32;ex:
+<anchor xml:id="_astro_8py_source_1l00648"/>00648 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;print(ex)
+<anchor xml:id="_astro_8py_source_1l00649"/>00649 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dv&#32;=&#32;1E10
+<anchor xml:id="_astro_8py_source_1l00650"/>00650 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;launch_dv&#32;=&#32;1E10&#32;
+<anchor xml:id="_astro_8py_source_1l00651"/><link linkend="_classfcmaes_1_1astro_1_1_cassini1minlp_1a1cbd83402656701b417eb6d8766727fd">00651</link> &#32;&#32;&#32;&#32;tof&#32;=&#32;sum(x[1:6])
+<anchor xml:id="_astro_8py_source_1l00652"/><link linkend="_classfcmaes_1_1astro_1_1_cassini1minlp_1a68e1d9d22284550c7fd7bcd54b3eb5e6">00652</link> &#32;&#32;&#32;&#32;launch_time&#32;=&#32;x[0]&#32;
+<anchor xml:id="_astro_8py_source_1l00653"/>00653 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;[dv,&#32;tof,&#32;launch_time]
+<anchor xml:id="_astro_8py_source_1l00654"/>00654 
+<anchor xml:id="_astro_8py_source_1l00655"/>00655 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefcmaes_1_1astro_1af7f68f2469008115c386732d7a167537">cassini2multi</link>(x):
+<anchor xml:id="_astro_8py_source_1l00656"/>00656 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00657"/>00657 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Converts&#32;mission&#32;parameters&#32;to&#32;their&#32;respective&#32;outputs&#32;using&#32;an&#32;external</emphasis>
+<anchor xml:id="_astro_8py_source_1l00658"/>00658 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;function&#32;call&#32;and&#32;computes&#32;additional&#32;metrics.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00659"/>00659 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00660"/>00660 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;The&#32;function&#32;calculates&#32;delta&#32;velocity&#32;(dv),&#32;time&#32;of&#32;flight&#32;(tof),&#32;and</emphasis>
+<anchor xml:id="_astro_8py_source_1l00661"/>00661 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;launch&#32;time&#32;based&#32;on&#32;the&#32;input&#32;parameters.&#32;It&#32;utilizes&#32;a&#32;C-based&#32;external</emphasis>
+<anchor xml:id="_astro_8py_source_1l00662"/>00662 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;function&#32;to&#32;compute&#32;`dv`.&#32;If&#32;the&#32;external&#32;function&#32;fails,&#32;it&#32;assigns&#32;a</emphasis>
+<anchor xml:id="_astro_8py_source_1l00663"/>00663 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;default&#32;high&#32;value&#32;to&#32;`dv`.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00664"/>00664 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00665"/>00665 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00666"/>00666 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x&#32;(list[float]):&#32;A&#32;list&#32;of&#32;mission&#32;parameters&#32;where&#32;specific&#32;indices</emphasis>
+<anchor xml:id="_astro_8py_source_1l00667"/>00667 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;represent&#32;particular&#32;parameters&#32;such&#32;as&#32;launch&#32;time&#32;and&#32;other</emphasis>
+<anchor xml:id="_astro_8py_source_1l00668"/>00668 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;configuration&#32;values.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00669"/><link linkend="_classfcmaes_1_1astro_1_1_cassini1minlp_1a899dcf0f3139b54035e0b3f01ef6a408">00669</link> <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00670"/>00670 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Returns:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00671"/>00671 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;list[float]:&#32;A&#32;list&#32;containing:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00672"/>00672 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-&#32;dv&#32;(float):&#32;Delta&#32;velocity&#32;calculated&#32;from&#32;the&#32;external&#32;function.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00673"/>00673 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-&#32;tof&#32;(float):&#32;Total&#32;time&#32;of&#32;flight&#32;derived&#32;from&#32;the&#32;input&#32;parameters.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00674"/>00674 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-&#32;launch_time&#32;(float):&#32;The&#32;launch&#32;time&#32;extracted&#32;from&#32;the&#32;input</emphasis>
+<anchor xml:id="_astro_8py_source_1l00675"/>00675 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;parameters.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00676"/>00676 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00677"/>00677 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Raises:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00678"/>00678 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Exception:&#32;Propagates&#32;the&#32;exception&#32;if&#32;the&#32;external&#32;function&#32;fails</emphasis>
+<anchor xml:id="_astro_8py_source_1l00679"/>00679 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;and&#32;logs&#32;the&#32;error,&#32;without&#32;terminating&#32;the&#32;program.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00680"/>00680 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00681"/>00681 &#32;&#32;&#32;&#32;n&#32;=&#32;len(x)
+<anchor xml:id="_astro_8py_source_1l00682"/>00682 &#32;&#32;&#32;&#32;array_type&#32;=&#32;ct.c_double&#32;*&#32;n&#32;&#32;&#32;
+<anchor xml:id="_astro_8py_source_1l00683"/>00683 &#32;&#32;&#32;&#32;fun_c&#32;=&#32;astro_map[<emphasis role="stringliteral">&quot;cassini2minlpC&quot;</emphasis>]&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_astro_8py_source_1l00684"/>00684 &#32;&#32;&#32;&#32;fun_c.argtypes&#32;=&#32;[ct.c_int,&#32;ct.POINTER(ct.c_double)]
+<anchor xml:id="_astro_8py_source_1l00685"/>00685 &#32;&#32;&#32;&#32;fun_c.restype&#32;=&#32;ct.c_double&#32;&#32;
+<anchor xml:id="_astro_8py_source_1l00686"/>00686 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">try</emphasis>:&#32;<emphasis role="comment">#&#32;function&#32;is&#32;only&#32;defined&#32;inside&#32;bounds</emphasis>
+<anchor xml:id="_astro_8py_source_1l00687"/>00687 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dv&#32;=&#32;fun_c(n,&#32;array_type(*x))
+<anchor xml:id="_astro_8py_source_1l00688"/><link linkend="_namespacefcmaes_1_1astro_1a59d6a07135ef342220c1f9f03d600d59">00688</link> &#32;&#32;&#32;&#32;<emphasis role="keywordflow">except</emphasis>&#32;Exception&#32;<emphasis role="keyword">as</emphasis>&#32;ex:
+<anchor xml:id="_astro_8py_source_1l00689"/>00689 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;print(ex)
+<anchor xml:id="_astro_8py_source_1l00690"/>00690 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dv&#32;=&#32;1E99
+<anchor xml:id="_astro_8py_source_1l00691"/>00691 &#32;&#32;&#32;&#32;tof&#32;=&#32;sum(x[4:9])
+<anchor xml:id="_astro_8py_source_1l00692"/>00692 &#32;&#32;&#32;&#32;launch_time&#32;=&#32;x[0]&#32;
+<anchor xml:id="_astro_8py_source_1l00693"/>00693 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;[dv,&#32;tof,&#32;launch_time]
+<anchor xml:id="_astro_8py_source_1l00694"/>00694 &#32;
+<anchor xml:id="_astro_8py_source_1l00695"/>00695 <emphasis role="keyword">class&#32;</emphasis><link linkend="_classfcmaes_1_1astro_1_1python__fun">python_fun</link>(object):
+<anchor xml:id="_astro_8py_source_1l00696"/>00696 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00697"/>00697 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Represents&#32;a&#32;callable&#32;Python&#32;function&#32;object&#32;that&#32;interfaces&#32;with&#32;external&#32;C&#32;functions&#32;and&#32;enforces&#32;boundary</emphasis>
+<anchor xml:id="_astro_8py_source_1l00698"/>00698 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;restrictions&#32;on&#32;the&#32;input.&#32;This&#32;class&#32;is&#32;used&#32;to&#32;evaluate&#32;functions&#32;defined&#32;by&#32;external&#32;mappings,&#32;ensuring</emphasis>
+<anchor xml:id="_astro_8py_source_1l00699"/>00699 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;values&#32;remain&#32;valid&#32;within&#32;specified&#32;constraints.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00700"/>00700 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00701"/>00701 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Attributes:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00702"/>00702 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cfun&#32;(str):&#32;The&#32;name&#32;of&#32;the&#32;function&#32;as&#32;defined&#32;in&#32;the&#32;external&#32;`astro_map`&#32;dictionary.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00703"/>00703 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;bounds&#32;(Bounds):&#32;An&#32;object&#32;specifying&#32;the&#32;lower&#32;and&#32;upper&#32;bounds&#32;for&#32;valid&#32;input&#32;values.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00704"/>00704 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00705"/>00705 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis>__init__(self,&#32;cfun,&#32;bounds):
+<anchor xml:id="_astro_8py_source_1l00706"/>00706 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00707"/>00707 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Initializes&#32;an&#32;instance&#32;of&#32;the&#32;class&#32;with&#32;the&#32;provided&#32;callable&#32;function&#32;and&#32;bounds.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00708"/>00708 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00709"/>00709 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00710"/>00710 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cfun:&#32;A&#32;callable&#32;function&#32;to&#32;be&#32;used&#32;in&#32;the&#32;implementation.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00711"/>00711 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;bounds:&#32;A&#32;list&#32;or&#32;tuple&#32;representing&#32;the&#32;bounds&#32;associated&#32;with&#32;the&#32;object.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00712"/>00712 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00713"/>00713 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.cfun&#32;=&#32;cfun
+<anchor xml:id="_astro_8py_source_1l00714"/>00714 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.bounds&#32;=&#32;bounds
+<anchor xml:id="_astro_8py_source_1l00715"/>00715 &#32;&#32;&#32;&#32;
+<anchor xml:id="_astro_8py_source_1l00716"/>00716 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis>__call__(self,&#32;x):
+<anchor xml:id="_astro_8py_source_1l00717"/>00717 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00718"/>00718 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Evaluates&#32;the&#32;given&#32;callable&#32;function&#32;mapped&#32;to&#32;`astro_map`&#32;using&#32;the&#32;input&#32;array&#32;`x`.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00719"/>00719 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;The&#32;function&#32;validates&#32;the&#32;input&#32;array&apos;s&#32;size&#32;before&#32;performing&#32;the&#32;calculation</emphasis>
+<anchor xml:id="_astro_8py_source_1l00720"/>00720 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;and&#32;ensures&#32;the&#32;result&#32;is&#32;finite.&#32;In&#32;case&#32;of&#32;an&#32;exception&#32;or&#32;invalid&#32;output,</emphasis>
+<anchor xml:id="_astro_8py_source_1l00721"/>00721 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;a&#32;default&#32;value&#32;of&#32;1E10&#32;is&#32;returned.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00722"/>00722 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00723"/>00723 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00724"/>00724 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x&#32;(list[float]):&#32;An&#32;array&#32;of&#32;floating-point&#32;numbers&#32;to&#32;be&#32;evaluated&#32;by&#32;the</emphasis>
+<anchor xml:id="_astro_8py_source_1l00725"/><link linkend="_namespacefcmaes_1_1astro_1a472db8fe54c0594a141e21b211868164">00725</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;callable&#32;function&#32;in&#32;`astro_map`.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00726"/>00726 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_astro_8py_source_1l00727"/>00727 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Returns:</emphasis>
+<anchor xml:id="_astro_8py_source_1l00728"/>00728 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;float:&#32;The&#32;computed&#32;value&#32;from&#32;the&#32;callable&#32;function.&#32;If&#32;an&#32;error&#32;occurs</emphasis>
+<anchor xml:id="_astro_8py_source_1l00729"/>00729 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;during&#32;computation&#32;or&#32;the&#32;output&#32;is&#32;not&#32;finite,&#32;returns&#32;1E10.</emphasis>
+<anchor xml:id="_astro_8py_source_1l00730"/>00730 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_astro_8py_source_1l00731"/>00731 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fun_c&#32;=&#32;astro_map[self.cfun]
+<anchor xml:id="_astro_8py_source_1l00732"/>00732 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;n&#32;=&#32;len(x)
+<anchor xml:id="_astro_8py_source_1l00733"/>00733 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;array_type&#32;=&#32;ct.c_double&#32;*&#32;n&#32;&#32;&#32;
+<anchor xml:id="_astro_8py_source_1l00734"/>00734 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">try</emphasis>:&#32;<emphasis role="comment">#&#32;function&#32;is&#32;only&#32;defined&#32;inside&#32;bounds</emphasis>
+<anchor xml:id="_astro_8py_source_1l00735"/>00735 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;x&#32;=&#32;np.array(x).clip(self.bounds.lb,&#32;self.bounds.ub)</emphasis>
+<anchor xml:id="_astro_8py_source_1l00736"/>00736 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;val&#32;=&#32;float(fun_c(n,&#32;array_type(*x)))
+<anchor xml:id="_astro_8py_source_1l00737"/>00737 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;<emphasis role="keywordflow">not</emphasis>&#32;math.isfinite(val):
+<anchor xml:id="_astro_8py_source_1l00738"/>00738 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;val&#32;=&#32;1E10
+<anchor xml:id="_astro_8py_source_1l00739"/>00739 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">except</emphasis>&#32;Exception&#32;<emphasis role="keyword">as</emphasis>&#32;ex:
+<anchor xml:id="_astro_8py_source_1l00740"/>00740 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;val&#32;=&#32;1E10
+<anchor xml:id="_astro_8py_source_1l00741"/>00741 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;val&#32;
+<anchor xml:id="_astro_8py_source_1l00742"/>00742 
+</programlisting></section>

@@ -1,0 +1,231 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_classexamples_1_1trappist__delivery_1_1fitness" xml:lang="en-US">
+<title>examples.trappist_delivery.fitness Class Reference</title>
+<indexterm><primary>examples.trappist_delivery.fitness</primary></indexterm>
+Collaboration diagram for examples.trappist_delivery.fitness:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classexamples_1_1trappist__delivery_1_1fitness__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Public Member Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classexamples_1_1trappist__delivery_1_1fitness_1ac93b14c8459740354d17ab1e96262bf8">__init__</link> (self)</para>
+</listitem>
+            <listitem><para><link linkend="_classexamples_1_1trappist__delivery_1_1fitness_1a9c1664f5b2f23d74d40c0d36262af5b4">__call__</link> (self, x)</para>
+</listitem>
+            <listitem><para><link linkend="_classexamples_1_1trappist__delivery_1_1fitness_1a1bf55a383dda1484f8e3cfbdad60dfd7">windows</link> (self, x)</para>
+</listitem>
+            <listitem><para><link linkend="_classexamples_1_1trappist__delivery_1_1fitness_1afe9d605b6b8ab793bcd82376d6be49cf">convert</link> (self, x)</para>
+</listitem>
+            <listitem><para><link linkend="_classexamples_1_1trappist__delivery_1_1fitness_1ad25284f2ed9bbb5897ec7ca711e5fa17">optimize</link> (self, maxevals=50000000, retries=2000)</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Public Attributes    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classexamples_1_1trappist__delivery_1_1fitness_1a46dd96ea80bc85c68b209b636ec3452c">udp</link> = <link linkend="_classexamples_1_1trappist__delivery_1_1trappist__schedule">trappist_schedule</link>()</para>
+</listitem>
+            <listitem><para><link linkend="_classexamples_1_1trappist__delivery_1_1fitness_1adc956fb869ae471beb7963ad438be581">sel_i</link> = np.argsort(np.array([len(r) for r in <link linkend="_classexamples_1_1trappist__delivery_1_1fitness_1a5e1ca9b0352ca434af54d73f0876474d">db</link>]))</para>
+</listitem>
+            <listitem><para><link linkend="_classexamples_1_1trappist__delivery_1_1fitness_1a4d1deeb3a4f09d5a3554889183e6dc51">sel_size</link> = np.array([len(r) for r in <link linkend="_classexamples_1_1trappist__delivery_1_1fitness_1a5e1ca9b0352ca434af54d73f0876474d">db</link>], dtype=int)</para>
+</listitem>
+            <listitem><para>int <link linkend="_classexamples_1_1trappist__delivery_1_1fitness_1a3c2a5c40f5941e45d4afa100a1cefcad">ub_selection</link> = self.sel_size-1E-9</para>
+</listitem>
+            <listitem><para><link linkend="_classexamples_1_1trappist__delivery_1_1fitness_1a5e1ca9b0352ca434af54d73f0876474d">db</link> = np.array([r + [[-1,0,0,0,0]]*(pad-len(r)) for r in db])</para>
+</listitem>
+            <listitem><para><link linkend="_classexamples_1_1trappist__delivery_1_1fitness_1a133c96a64e92c82834d684f8b53f80f4">bounds</link> = Bounds(lb, ub)</para>
+</listitem>
+            <listitem><para><link linkend="_classexamples_1_1trappist__delivery_1_1fitness_1a72b345bc382ff4c29360d66e89992e01">dim</link> = len(lb)</para>
+</listitem>
+            <listitem><para><link linkend="_classexamples_1_1trappist__delivery_1_1fitness_1af15eda907d43881daeb82c926911e37b">best</link> = mp.RawValue(ct.c_double, np.inf)</para>
+</listitem>
+            <listitem><para><link linkend="_classexamples_1_1trappist__delivery_1_1fitness_1a59db4ff2ae78efc307bd406db4ceb986">best_min</link> = mp.RawValue(ct.c_double, 0)</para>
+</listitem>
+            <listitem><para><link linkend="_classexamples_1_1trappist__delivery_1_1fitness_1a9e75309de43a64bd7ccf8a2c860973f0">best_x</link> = mp.RawArray(ct.c_double, self.dim)</para>
+</listitem>
+            <listitem><para><link linkend="_classexamples_1_1trappist__delivery_1_1fitness_1a0f5c9846e248690f607ada9b0b617ecb">weights</link> = -weights</para>
+</listitem>
+            <listitem><para><link linkend="_classexamples_1_1trappist__delivery_1_1fitness_1ac0dcebc5d6ff6cb76dbd0c193750bf07">window_lb</link></para>
+</listitem>
+            <listitem><para><link linkend="_classexamples_1_1trappist__delivery_1_1fitness_1afc0f187fd3c282da558fcb39058baafd">window_ub</link> = np.array(<link linkend="_classexamples_1_1trappist__delivery_1_1fitness_1ac0dcebc5d6ff6cb76dbd0c193750bf07">window_lb</link>), np.array(window_ub)</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+<para>
+Definition at line <link linkend="_trappist__delivery_8py_source_1l00857">857</link> of file <link linkend="_trappist__delivery_8py_source">trappist_delivery.py</link>.</para>
+</section>
+<section>
+<title>Constructor &amp; Destructor Documentation</title>
+<anchor xml:id="_classexamples_1_1trappist__delivery_1_1fitness_1ac93b14c8459740354d17ab1e96262bf8"/><section>
+    <title>__init__()</title>
+<indexterm><primary>__init__</primary><secondary>examples.trappist_delivery.fitness</secondary></indexterm>
+<indexterm><primary>examples.trappist_delivery.fitness</primary><secondary>__init__</secondary></indexterm>
+<para><computeroutput>examples.trappist_delivery.fitness.__init__ ( self)</computeroutput></para><para>
+Definition at line <link linkend="_trappist__delivery_8py_source_1l00859">859</link> of file <link linkend="_trappist__delivery_8py_source">trappist_delivery.py</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Function Documentation</title>
+<anchor xml:id="_classexamples_1_1trappist__delivery_1_1fitness_1a9c1664f5b2f23d74d40c0d36262af5b4"/><section>
+    <title>__call__()</title>
+<indexterm><primary>__call__</primary><secondary>examples.trappist_delivery.fitness</secondary></indexterm>
+<indexterm><primary>examples.trappist_delivery.fitness</primary><secondary>__call__</secondary></indexterm>
+<para><computeroutput>examples.trappist_delivery.fitness.__call__ ( self,  x)</computeroutput></para><para>
+Definition at line <link linkend="_trappist__delivery_8py_source_1l00893">893</link> of file <link linkend="_trappist__delivery_8py_source">trappist_delivery.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classexamples_1_1trappist__delivery_1_1fitness_a9c1664f5b2f23d74d40c0d36262af5b4_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classexamples_1_1trappist__delivery_1_1fitness_1afe9d605b6b8ab793bcd82376d6be49cf"/><section>
+    <title>convert()</title>
+<indexterm><primary>convert</primary><secondary>examples.trappist_delivery.fitness</secondary></indexterm>
+<indexterm><primary>examples.trappist_delivery.fitness</primary><secondary>convert</secondary></indexterm>
+<para><computeroutput>examples.trappist_delivery.fitness.convert ( self,  x)</computeroutput></para><para>
+Definition at line <link linkend="_trappist__delivery_8py_source_1l00915">915</link> of file <link linkend="_trappist__delivery_8py_source">trappist_delivery.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classexamples_1_1trappist__delivery_1_1fitness_afe9d605b6b8ab793bcd82376d6be49cf_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classexamples_1_1trappist__delivery_1_1fitness_1ad25284f2ed9bbb5897ec7ca711e5fa17"/><section>
+    <title>optimize()</title>
+<indexterm><primary>optimize</primary><secondary>examples.trappist_delivery.fitness</secondary></indexterm>
+<indexterm><primary>examples.trappist_delivery.fitness</primary><secondary>optimize</secondary></indexterm>
+<para><computeroutput>examples.trappist_delivery.fitness.optimize ( self,  maxevals = <computeroutput>50000000</computeroutput>
+,  retries = <computeroutput>2000</computeroutput>
+)</computeroutput></para><para>
+Definition at line <link linkend="_trappist__delivery_8py_source_1l00944">944</link> of file <link linkend="_trappist__delivery_8py_source">trappist_delivery.py</link>.</para>
+</section>
+<anchor xml:id="_classexamples_1_1trappist__delivery_1_1fitness_1a1bf55a383dda1484f8e3cfbdad60dfd7"/><section>
+    <title>windows()</title>
+<indexterm><primary>windows</primary><secondary>examples.trappist_delivery.fitness</secondary></indexterm>
+<indexterm><primary>examples.trappist_delivery.fitness</primary><secondary>windows</secondary></indexterm>
+<para><computeroutput>examples.trappist_delivery.fitness.windows ( self,  x)</computeroutput></para><para>
+Definition at line <link linkend="_trappist__delivery_8py_source_1l00904">904</link> of file <link linkend="_trappist__delivery_8py_source">trappist_delivery.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classexamples_1_1trappist__delivery_1_1fitness_a1bf55a383dda1484f8e3cfbdad60dfd7_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+<section>
+<title>Member Data Documentation</title>
+<anchor xml:id="_classexamples_1_1trappist__delivery_1_1fitness_1af15eda907d43881daeb82c926911e37b"/><section>
+    <title>best</title>
+<indexterm><primary>best</primary><secondary>examples.trappist_delivery.fitness</secondary></indexterm>
+<indexterm><primary>examples.trappist_delivery.fitness</primary><secondary>best</secondary></indexterm>
+<para><computeroutput>examples.trappist_delivery.fitness.best = mp.RawValue(ct.c_double, np.inf)</computeroutput></para><para>
+Definition at line <link linkend="_trappist__delivery_8py_source_1l00881">881</link> of file <link linkend="_trappist__delivery_8py_source">trappist_delivery.py</link>.</para>
+</section>
+<anchor xml:id="_classexamples_1_1trappist__delivery_1_1fitness_1a59db4ff2ae78efc307bd406db4ceb986"/><section>
+    <title>best_min</title>
+<indexterm><primary>best_min</primary><secondary>examples.trappist_delivery.fitness</secondary></indexterm>
+<indexterm><primary>examples.trappist_delivery.fitness</primary><secondary>best_min</secondary></indexterm>
+<para><computeroutput>examples.trappist_delivery.fitness.best_min = mp.RawValue(ct.c_double, 0)</computeroutput></para><para>
+Definition at line <link linkend="_trappist__delivery_8py_source_1l00882">882</link> of file <link linkend="_trappist__delivery_8py_source">trappist_delivery.py</link>.</para>
+</section>
+<anchor xml:id="_classexamples_1_1trappist__delivery_1_1fitness_1a9e75309de43a64bd7ccf8a2c860973f0"/><section>
+    <title>best_x</title>
+<indexterm><primary>best_x</primary><secondary>examples.trappist_delivery.fitness</secondary></indexterm>
+<indexterm><primary>examples.trappist_delivery.fitness</primary><secondary>best_x</secondary></indexterm>
+<para><computeroutput>examples.trappist_delivery.fitness.best_x = mp.RawArray(ct.c_double, self.dim)</computeroutput></para><para>
+Definition at line <link linkend="_trappist__delivery_8py_source_1l00883">883</link> of file <link linkend="_trappist__delivery_8py_source">trappist_delivery.py</link>.</para>
+</section>
+<anchor xml:id="_classexamples_1_1trappist__delivery_1_1fitness_1a133c96a64e92c82834d684f8b53f80f4"/><section>
+    <title>bounds</title>
+<indexterm><primary>bounds</primary><secondary>examples.trappist_delivery.fitness</secondary></indexterm>
+<indexterm><primary>examples.trappist_delivery.fitness</primary><secondary>bounds</secondary></indexterm>
+<para><computeroutput>examples.trappist_delivery.fitness.bounds = Bounds(lb, ub)</computeroutput></para><para>
+Definition at line <link linkend="_trappist__delivery_8py_source_1l00879">879</link> of file <link linkend="_trappist__delivery_8py_source">trappist_delivery.py</link>.</para>
+</section>
+<anchor xml:id="_classexamples_1_1trappist__delivery_1_1fitness_1a5e1ca9b0352ca434af54d73f0876474d"/><section>
+    <title>db</title>
+<indexterm><primary>db</primary><secondary>examples.trappist_delivery.fitness</secondary></indexterm>
+<indexterm><primary>examples.trappist_delivery.fitness</primary><secondary>db</secondary></indexterm>
+<para><computeroutput>examples.trappist_delivery.fitness.db = np.array([r + [[-1,0,0,0,0]]*(pad-len(r)) for r in db])</computeroutput></para><para>
+Definition at line <link linkend="_trappist__delivery_8py_source_1l00876">876</link> of file <link linkend="_trappist__delivery_8py_source">trappist_delivery.py</link>.</para>
+</section>
+<anchor xml:id="_classexamples_1_1trappist__delivery_1_1fitness_1a72b345bc382ff4c29360d66e89992e01"/><section>
+    <title>dim</title>
+<indexterm><primary>dim</primary><secondary>examples.trappist_delivery.fitness</secondary></indexterm>
+<indexterm><primary>examples.trappist_delivery.fitness</primary><secondary>dim</secondary></indexterm>
+<para><computeroutput>examples.trappist_delivery.fitness.dim = len(lb)</computeroutput></para><para>
+Definition at line <link linkend="_trappist__delivery_8py_source_1l00880">880</link> of file <link linkend="_trappist__delivery_8py_source">trappist_delivery.py</link>.</para>
+</section>
+<anchor xml:id="_classexamples_1_1trappist__delivery_1_1fitness_1adc956fb869ae471beb7963ad438be581"/><section>
+    <title>sel_i</title>
+<indexterm><primary>sel_i</primary><secondary>examples.trappist_delivery.fitness</secondary></indexterm>
+<indexterm><primary>examples.trappist_delivery.fitness</primary><secondary>sel_i</secondary></indexterm>
+<para><computeroutput>examples.trappist_delivery.fitness.sel_i = np.argsort(np.array([len(r) for r in <link linkend="_classexamples_1_1trappist__delivery_1_1fitness_1a5e1ca9b0352ca434af54d73f0876474d">db</link>]))</computeroutput></para><para>
+Definition at line <link linkend="_trappist__delivery_8py_source_1l00872">872</link> of file <link linkend="_trappist__delivery_8py_source">trappist_delivery.py</link>.</para>
+</section>
+<anchor xml:id="_classexamples_1_1trappist__delivery_1_1fitness_1a4d1deeb3a4f09d5a3554889183e6dc51"/><section>
+    <title>sel_size</title>
+<indexterm><primary>sel_size</primary><secondary>examples.trappist_delivery.fitness</secondary></indexterm>
+<indexterm><primary>examples.trappist_delivery.fitness</primary><secondary>sel_size</secondary></indexterm>
+<para><computeroutput>examples.trappist_delivery.fitness.sel_size = np.array([len(r) for r in <link linkend="_classexamples_1_1trappist__delivery_1_1fitness_1a5e1ca9b0352ca434af54d73f0876474d">db</link>], dtype=int)</computeroutput></para><para>
+Definition at line <link linkend="_trappist__delivery_8py_source_1l00873">873</link> of file <link linkend="_trappist__delivery_8py_source">trappist_delivery.py</link>.</para>
+</section>
+<anchor xml:id="_classexamples_1_1trappist__delivery_1_1fitness_1a3c2a5c40f5941e45d4afa100a1cefcad"/><section>
+    <title>ub_selection</title>
+<indexterm><primary>ub_selection</primary><secondary>examples.trappist_delivery.fitness</secondary></indexterm>
+<indexterm><primary>examples.trappist_delivery.fitness</primary><secondary>ub_selection</secondary></indexterm>
+<para><computeroutput>int examples.trappist_delivery.fitness.ub_selection = self.sel_size-1E-9</computeroutput></para><para>
+Definition at line <link linkend="_trappist__delivery_8py_source_1l00874">874</link> of file <link linkend="_trappist__delivery_8py_source">trappist_delivery.py</link>.</para>
+</section>
+<anchor xml:id="_classexamples_1_1trappist__delivery_1_1fitness_1a46dd96ea80bc85c68b209b636ec3452c"/><section>
+    <title>udp</title>
+<indexterm><primary>udp</primary><secondary>examples.trappist_delivery.fitness</secondary></indexterm>
+<indexterm><primary>examples.trappist_delivery.fitness</primary><secondary>udp</secondary></indexterm>
+<para><computeroutput>examples.trappist_delivery.fitness.udp = <link linkend="_classexamples_1_1trappist__delivery_1_1trappist__schedule">trappist_schedule</link>()</computeroutput></para><para>
+Definition at line <link linkend="_trappist__delivery_8py_source_1l00860">860</link> of file <link linkend="_trappist__delivery_8py_source">trappist_delivery.py</link>.</para>
+</section>
+<anchor xml:id="_classexamples_1_1trappist__delivery_1_1fitness_1a0f5c9846e248690f607ada9b0b617ecb"/><section>
+    <title>weights</title>
+<indexterm><primary>weights</primary><secondary>examples.trappist_delivery.fitness</secondary></indexterm>
+<indexterm><primary>examples.trappist_delivery.fitness</primary><secondary>weights</secondary></indexterm>
+<para><computeroutput>examples.trappist_delivery.fitness.weights = -weights</computeroutput></para><para>
+Definition at line <link linkend="_trappist__delivery_8py_source_1l00891">891</link> of file <link linkend="_trappist__delivery_8py_source">trappist_delivery.py</link>.</para>
+</section>
+<anchor xml:id="_classexamples_1_1trappist__delivery_1_1fitness_1ac0dcebc5d6ff6cb76dbd0c193750bf07"/><section>
+    <title>window_lb</title>
+<indexterm><primary>window_lb</primary><secondary>examples.trappist_delivery.fitness</secondary></indexterm>
+<indexterm><primary>examples.trappist_delivery.fitness</primary><secondary>window_lb</secondary></indexterm>
+<para><computeroutput>examples.trappist_delivery.fitness.window_lb</computeroutput></para><para>
+Definition at line <link linkend="_trappist__delivery_8py_source_1l00912">912</link> of file <link linkend="_trappist__delivery_8py_source">trappist_delivery.py</link>.</para>
+</section>
+<anchor xml:id="_classexamples_1_1trappist__delivery_1_1fitness_1afc0f187fd3c282da558fcb39058baafd"/><section>
+    <title>window_ub</title>
+<indexterm><primary>window_ub</primary><secondary>examples.trappist_delivery.fitness</secondary></indexterm>
+<indexterm><primary>examples.trappist_delivery.fitness</primary><secondary>window_ub</secondary></indexterm>
+<para><computeroutput>examples.trappist_delivery.fitness.window_ub = np.array(<link linkend="_classexamples_1_1trappist__delivery_1_1fitness_1ac0dcebc5d6ff6cb76dbd0c193750bf07">window_lb</link>), np.array(window_ub)</computeroutput></para><para>
+Definition at line <link linkend="_trappist__delivery_8py_source_1l00912">912</link> of file <link linkend="_trappist__delivery_8py_source">trappist_delivery.py</link>.</para>
+</section>
+<para>
+The documentation for this class was generated from the following file:</para>
+examples/<link linkend="_trappist__delivery_8py">trappist_delivery.py</link></section>
+</section>

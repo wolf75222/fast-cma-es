@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_setup_8py_source" xml:lang="en-US">
+<title>setup.py</title>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_setup_8py_source_1l00001"/><link linkend="_namespacesetup">00001</link> <emphasis role="keyword">from</emphasis>&#32;setuptools&#32;<emphasis role="keyword">import</emphasis>&#32;setup,&#32;find_packages
+<anchor xml:id="_setup_8py_source_1l00002"/>00002 <emphasis role="keyword">import</emphasis>&#32;re
+<anchor xml:id="_setup_8py_source_1l00003"/>00003 
+<anchor xml:id="_setup_8py_source_1l00004"/>00004 <emphasis role="keyword">with</emphasis>&#32;open(<emphasis role="stringliteral">&quot;README.md&quot;</emphasis>,&#32;<emphasis role="stringliteral">&quot;r&quot;</emphasis>)&#32;<emphasis role="keyword">as</emphasis>&#32;fh:
+<anchor xml:id="_setup_8py_source_1l00005"/><link linkend="_namespacesetup_1a4cda9dbfb952875376a0749fe08a5bde">00005</link> &#32;&#32;&#32;&#32;long_description&#32;=&#32;fh.read()
+<anchor xml:id="_setup_8py_source_1l00006"/>00006 
+<anchor xml:id="_setup_8py_source_1l00007"/><link linkend="_namespacesetup_1a35edfde810e93afdf6d0675e5f23c813">00007</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacesetup_1a35edfde810e93afdf6d0675e5f23c813">get_version</link>():
+<anchor xml:id="_setup_8py_source_1l00008"/>00008 &#32;&#32;&#32;&#32;<emphasis role="keyword">with</emphasis>&#32;open(<emphasis role="stringliteral">&quot;fcmaes/__init__.py&quot;</emphasis>,&#32;<emphasis role="stringliteral">&quot;r&quot;</emphasis>)&#32;<emphasis role="keyword">as</emphasis>&#32;f:
+<anchor xml:id="_setup_8py_source_1l00009"/>00009 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;match&#32;=&#32;re.search(<emphasis role="stringliteral">r&quot;(?m)^__version__\s*=\s*[&apos;\&quot;](.+)[&apos;\&quot;]$&quot;</emphasis>,&#32;f.read())
+<anchor xml:id="_setup_8py_source_1l00010"/>00010 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;match.group(1)
+<anchor xml:id="_setup_8py_source_1l00011"/>00011 
+<anchor xml:id="_setup_8py_source_1l00012"/>00012 <link linkend="_namespacesetup">setup</link>(
+<anchor xml:id="_setup_8py_source_1l00013"/><link linkend="_namespacesetup_1ab3a7a0638d76a01367c5bc3cc699447f">00013</link> &#32;&#32;&#32;&#32;name=<emphasis role="stringliteral">&apos;fcmaes&apos;</emphasis>,
+<anchor xml:id="_setup_8py_source_1l00014"/><link linkend="_namespacesetup_1aa7ca7bc9391b217e81efeb03689d8dbf">00014</link> &#32;&#32;&#32;&#32;python_requires=<emphasis role="stringliteral">&apos;&gt;=3.7&apos;</emphasis>,
+<anchor xml:id="_setup_8py_source_1l00015"/><link linkend="_namespacesetup_1a2aa722b36a933088812b50ea79b97a5c">00015</link> &#32;&#32;&#32;&#32;version=<link linkend="_namespacesetup_1a35edfde810e93afdf6d0675e5f23c813">get_version</link>(),
+<anchor xml:id="_setup_8py_source_1l00016"/><link linkend="_namespacesetup_1aedf461ec52a946bda975938ba0b93ec0">00016</link> &#32;&#32;&#32;&#32;description=(<emphasis role="stringliteral">&apos;A&#32;Python&#32;3&#32;gradient-free&#32;optimization&#32;library.&apos;</emphasis>),
+<anchor xml:id="_setup_8py_source_1l00017"/>00017 &#32;&#32;&#32;&#32;long_description=long_description,
+<anchor xml:id="_setup_8py_source_1l00018"/><link linkend="_namespacesetup_1a3796ea10c998699d07d391414ff5d720">00018</link> &#32;&#32;&#32;&#32;long_description_content_type=<emphasis role="stringliteral">&quot;text/markdown&quot;</emphasis>,
+<anchor xml:id="_setup_8py_source_1l00019"/><link linkend="_namespacesetup_1a3a57a4772d418a06835249cbade0d86a">00019</link> &#32;&#32;&#32;&#32;author=<emphasis role="stringliteral">&apos;Dietmar&#32;Wolz&apos;</emphasis>,
+<anchor xml:id="_setup_8py_source_1l00020"/><link linkend="_namespacesetup_1a5b08034343aa2be607722a8b315f3625">00020</link> &#32;&#32;&#32;&#32;author_email=<emphasis role="stringliteral">&apos;drdietmarwolz@yahoo.de&apos;</emphasis>,
+<anchor xml:id="_setup_8py_source_1l00021"/><link linkend="_namespacesetup_1afc13124aa5c0124e84e1d965e3f4b0fb">00021</link> &#32;&#32;&#32;&#32;url=<emphasis role="stringliteral">&apos;https://github.com/dietmarwo/fast-cma-es&apos;</emphasis>,
+<anchor xml:id="_setup_8py_source_1l00022"/><link linkend="_namespacesetup_1a8ed6f50a28bd6a8794f8e1153baa6de9">00022</link> &#32;&#32;&#32;&#32;license=<emphasis role="stringliteral">&apos;MIT&apos;</emphasis>,
+<anchor xml:id="_setup_8py_source_1l00023"/><link linkend="_namespacesetup_1aff2375a361fd5865c77bd9aa093be747">00023</link> &#32;&#32;&#32;&#32;packages=find_packages(),
+<anchor xml:id="_setup_8py_source_1l00024"/><link linkend="_namespacesetup_1abead4f26b530856f858f0d44c7cf2588">00024</link> &#32;&#32;&#32;&#32;install_requires=[
+<anchor xml:id="_setup_8py_source_1l00025"/>00025 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&apos;numpy&apos;</emphasis>,&#32;<emphasis role="stringliteral">&apos;scipy&apos;</emphasis>,&#32;<emphasis role="stringliteral">&apos;scikit-learn&apos;</emphasis>,&#32;<emphasis role="stringliteral">&apos;threadpoolctl&apos;</emphasis>,&#32;<emphasis role="stringliteral">&apos;numba&apos;</emphasis>,&#32;<emphasis role="stringliteral">&apos;loguru&apos;</emphasis>
+<anchor xml:id="_setup_8py_source_1l00026"/>00026 &#32;&#32;&#32;&#32;],
+<anchor xml:id="_setup_8py_source_1l00027"/><link linkend="_namespacesetup_1abe96a9c38c1c61f9f0fdb002c482f785">00027</link> &#32;&#32;&#32;&#32;classifiers&#32;=&#32;[
+<anchor xml:id="_setup_8py_source_1l00028"/>00028 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;Intended&#32;Audience&#32;::&#32;Manufacturing&quot;</emphasis>,
+<anchor xml:id="_setup_8py_source_1l00029"/>00029 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;Intended&#32;Audience&#32;::&#32;Financial&#32;and&#32;Insurance&#32;Industry&quot;</emphasis>,
+<anchor xml:id="_setup_8py_source_1l00030"/>00030 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;Intended&#32;Audience&#32;::&#32;Healthcare&#32;Industry&quot;</emphasis>,
+<anchor xml:id="_setup_8py_source_1l00031"/>00031 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;Intended&#32;Audience&#32;::&#32;Telecommunications&#32;Industry&quot;</emphasis>,
+<anchor xml:id="_setup_8py_source_1l00032"/>00032 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;Intended&#32;Audience&#32;::&#32;Information&#32;Technology&quot;</emphasis>,
+<anchor xml:id="_setup_8py_source_1l00033"/>00033 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;Intended&#32;Audience&#32;::&#32;Science/Research&quot;</emphasis>,
+<anchor xml:id="_setup_8py_source_1l00034"/>00034 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;Intended&#32;Audience&#32;::&#32;Education&quot;</emphasis>,
+<anchor xml:id="_setup_8py_source_1l00035"/>00035 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;Topic&#32;::&#32;Office/Business&#32;::&#32;Financial&quot;</emphasis>,
+<anchor xml:id="_setup_8py_source_1l00036"/>00036 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;Topic&#32;::&#32;Office/Business&#32;::&#32;Scheduling&quot;</emphasis>,
+<anchor xml:id="_setup_8py_source_1l00037"/>00037 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;Topic&#32;::&#32;Scientific/Engineering&quot;</emphasis>,
+<anchor xml:id="_setup_8py_source_1l00038"/>00038 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;Topic&#32;::&#32;Scientific/Engineering&#32;::&#32;Information&#32;Analysis&quot;</emphasis>,
+<anchor xml:id="_setup_8py_source_1l00039"/>00039 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;Topic&#32;::&#32;Scientific/Engineering&#32;::&#32;Mathematics&quot;</emphasis>,
+<anchor xml:id="_setup_8py_source_1l00040"/>00040 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;Topic&#32;::&#32;Scientific/Engineering&#32;::&#32;Artificial&#32;Intelligence&quot;</emphasis>,
+<anchor xml:id="_setup_8py_source_1l00041"/>00041 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;Operating&#32;System&#32;::&#32;OS&#32;Independent&quot;</emphasis>,
+<anchor xml:id="_setup_8py_source_1l00042"/>00042 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;Programming&#32;Language&#32;::&#32;Python&#32;::&#32;3&quot;</emphasis>,
+<anchor xml:id="_setup_8py_source_1l00043"/>00043 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;Development&#32;Status&#32;::&#32;5&#32;-&#32;Production/Stable&quot;</emphasis>,
+<anchor xml:id="_setup_8py_source_1l00044"/>00044 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;Environment&#32;::&#32;Console&quot;</emphasis>,
+<anchor xml:id="_setup_8py_source_1l00045"/>00045 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;License&#32;::&#32;OSI&#32;Approved&#32;::&#32;MIT&#32;License&quot;</emphasis>,
+<anchor xml:id="_setup_8py_source_1l00046"/>00046 &#32;&#32;&#32;&#32;&#32;&#32;],
+<anchor xml:id="_setup_8py_source_1l00047"/><link linkend="_namespacesetup_1a73ae9ecb109f0dcab6f0b6a89043c5c3">00047</link> &#32;&#32;&#32;&#32;keywords=[<emphasis role="stringliteral">&quot;optimization&quot;</emphasis>,&#32;<emphasis role="stringliteral">&quot;multi-objective&quot;</emphasis>,&#32;<emphasis role="stringliteral">&quot;parallel&quot;</emphasis>],
+<anchor xml:id="_setup_8py_source_1l00048"/><link linkend="_namespacesetup_1a35139105b25ef46629d31888bad595d8">00048</link> &#32;&#32;&#32;&#32;include_package_data=<emphasis role="keyword">True</emphasis>,
+<anchor xml:id="_setup_8py_source_1l00049"/>00049 &#32;&#32;&#32;)
+</programlisting></section>

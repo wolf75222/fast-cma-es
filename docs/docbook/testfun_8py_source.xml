@@ -1,0 +1,497 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_testfun_8py_source" xml:lang="en-US">
+<title>testfun.py</title>
+<indexterm><primary>fcmaes/testfun.py</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_testfun_8py_source_1l00001"/><link linkend="_namespacefcmaes_1_1testfun">00001</link> <emphasis role="comment">#&#32;-*-&#32;coding:&#32;utf-8&#32;-*-</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00002"/>00002 <emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00003"/>00003 <emphasis role="stringliteral">=============================================================================</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00004"/>00004 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00005"/>00005 <emphasis role="stringliteral">&#32;Fast&#32;CMA-ES&#32;-&#32;version&#32;1.6.11</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00006"/>00006 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00007"/>00007 <emphasis role="stringliteral">&#32;(c)&#32;2025&#32;–&#32;Dietmar&#32;Wolz</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00008"/>00008 <emphasis role="stringliteral">&#32;(c)&#32;2025&#32;–&#32;Latitude</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00009"/>00009 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00010"/>00010 <emphasis role="stringliteral">&#32;License:&#32;MIT</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00011"/>00011 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00012"/>00012 <emphasis role="stringliteral">&#32;File:</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00013"/>00013 <emphasis role="stringliteral">&#32;&#32;-&#32;testfun.py</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00014"/>00014 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00015"/>00015 <emphasis role="stringliteral">&#32;Description:</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00016"/>00016 <emphasis role="stringliteral">&#32;&#32;-&#32;This&#32;module&#32;provides&#32;a&#32;set&#32;of&#32;test&#32;functions&#32;for&#32;optimization</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00017"/>00017 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;problems,&#32;including&#32;Rosenbrock,&#32;Rastrigin,&#32;Cigar,&#32;Sphere,&#32;and&#32;others.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00018"/>00018 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00019"/>00019 <emphasis role="stringliteral">&#32;Authors:</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00020"/>00020 <emphasis role="stringliteral">&#32;&#32;-&#32;Dietmar&#32;Wolz</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00021"/>00021 <emphasis role="stringliteral">&#32;&#32;-&#32;romain.despoullains@latitude.eu</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00022"/>00022 <emphasis role="stringliteral">&#32;&#32;-&#32;corentin.generet@latitude.eu</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00023"/>00023 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00024"/>00024 <emphasis role="stringliteral">&#32;References:</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00025"/>00025 <emphasis role="stringliteral">&#32;&#32;-&#32;[1]&#32;https://github.com/dietmarwo/fast-cma-es</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00026"/>00026 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00027"/>00027 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00028"/>00028 <emphasis role="stringliteral">&#32;Documentation:</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00029"/>00029 <emphasis role="stringliteral">&#32;&#32;-</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00030"/>00030 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00031"/>00031 <emphasis role="stringliteral">=============================================================================</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00032"/>00032 <emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00033"/>00033 
+<anchor xml:id="_testfun_8py_source_1l00034"/>00034 <emphasis role="keyword">import</emphasis>&#32;sys
+<anchor xml:id="_testfun_8py_source_1l00035"/>00035 <emphasis role="keyword">import</emphasis>&#32;math
+<anchor xml:id="_testfun_8py_source_1l00036"/>00036 <emphasis role="keyword">import</emphasis>&#32;numpy&#32;<emphasis role="keyword">as</emphasis>&#32;np
+<anchor xml:id="_testfun_8py_source_1l00037"/>00037 <emphasis role="keyword">import</emphasis>&#32;ctypes&#32;<emphasis role="keyword">as</emphasis>&#32;ct
+<anchor xml:id="_testfun_8py_source_1l00038"/>00038 <emphasis role="keyword">import</emphasis>&#32;multiprocessing&#32;<emphasis role="keyword">as</emphasis>&#32;mp
+<anchor xml:id="_testfun_8py_source_1l00039"/>00039 <emphasis role="keyword">from</emphasis>&#32;scipy.optimize&#32;<emphasis role="keyword">import</emphasis>&#32;Bounds
+<anchor xml:id="_testfun_8py_source_1l00040"/>00040 
+<anchor xml:id="_testfun_8py_source_1l00041"/>00041 <emphasis role="keyword">class&#32;</emphasis><link linkend="_classfcmaes_1_1testfun_1_1_wrapper">Wrapper</link>(object):
+<anchor xml:id="_testfun_8py_source_1l00042"/>00042 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;Wrapper&#32;for&#32;parallel&#32;computation&#32;with&#32;shared&#32;state.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00043"/>00043 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00044"/>00044 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;This&#32;class&#32;acts&#32;as&#32;a&#32;wrapper&#32;to&#32;provide&#32;thread/process-safe&#32;management</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00045"/>00045 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;of&#32;shared&#32;variables&#32;during&#32;multiprocessing&#32;operations.&#32;It&#32;enables</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00046"/>00046 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;evaluation&#32;of&#32;a&#32;function&#32;and&#32;maintains&#32;the&#32;best&#32;result&#32;(minimum&#32;value</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00047"/>00047 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;of&#32;function&#32;output)&#32;along&#32;with&#32;a&#32;counter&#32;of&#32;evaluations.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00048"/>00048 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00049"/>00049 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Attributes:</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00050"/>00050 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;func&#32;(Callable):&#32;The&#32;function&#32;to&#32;be&#32;evaluated.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00051"/>00051 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;best_x&#32;(mp.RawArray):&#32;Shared&#32;memory&#32;array&#32;to&#32;store&#32;the&#32;inputs</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00052"/>00052 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;corresponding&#32;to&#32;the&#32;best&#32;function&#32;output.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00053"/><link linkend="_classfcmaes_1_1testfun_1_1_wrapper">00053</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;best_y&#32;(mp.RawValue):&#32;Shared&#32;memory&#32;value&#32;to&#32;store&#32;the&#32;best&#32;function</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00054"/>00054 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;output&#32;observed.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00055"/>00055 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;count&#32;(mp.RawValue):&#32;Shared&#32;memory&#32;counter&#32;to&#32;track&#32;the&#32;number</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00056"/>00056 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;of&#32;function&#32;evaluations.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00057"/>00057 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00058"/>00058 &#32;&#32;&#32;
+<anchor xml:id="_testfun_8py_source_1l00059"/>00059 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1testfun_1_1_wrapper_1ae106b1f604bdb6e24937cee17b03e2d1">__init__</link>(self,&#32;fun,&#32;dim):
+<anchor xml:id="_testfun_8py_source_1l00060"/>00060 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00061"/>00061 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Initializes&#32;the&#32;instance&#32;with&#32;function&#32;to&#32;optimize&#32;and&#32;dimension&#32;of&#32;the&#32;problem.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00062"/>00062 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00063"/>00063 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00064"/>00064 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fun:&#32;Callable&#32;function&#32;to&#32;optimize.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00065"/>00065 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dim:&#32;int.&#32;The&#32;dimensionality&#32;of&#32;the&#32;optimization&#32;problem.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00066"/>00066 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00067"/>00067 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Attributes:</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00068"/>00068 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;func:&#32;Callable.&#32;The&#32;function&#32;to&#32;optimize.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00069"/>00069 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;statMutex:&#32;multiprocessing.Lock.&#32;A&#32;lock&#32;to&#32;ensure&#32;thread&#32;safety.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00070"/>00070 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;best_x:&#32;multiprocessing.Array.&#32;Shared&#32;array&#32;storing&#32;the&#32;best&#32;optimization</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00071"/>00071 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;solution&#32;found&#32;so&#32;far.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00072"/>00072 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;best_y:&#32;multiprocessing.Value.&#32;Shared&#32;value&#32;storing&#32;the&#32;best&#32;objective</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00073"/>00073 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;value&#32;found&#32;so&#32;far.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00074"/>00074 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;count:&#32;multiprocessing.Value.&#32;Shared&#32;value&#32;counting&#32;the&#32;number&#32;of&#32;function</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00075"/>00075 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;evaluations.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00076"/>00076 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00077"/>00077 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1testfun_1_1_wrapper_1a672784c241ae3b65b49297a7e5669b3f">func</link>&#32;=&#32;fun
+<anchor xml:id="_testfun_8py_source_1l00078"/>00078 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1testfun_1_1_wrapper_1a3dfee5cd0eb8f872c25bedf57ca02cf5">statMutex</link>&#32;=&#32;mp.Lock()&#32;&#32;&#32;&#32;
+<anchor xml:id="_testfun_8py_source_1l00079"/>00079 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1testfun_1_1_wrapper_1a150ab1471fdda3ff21e3f4e29adf1225">best_x</link>&#32;=&#32;mp.RawArray(ct.c_double,&#32;dim)
+<anchor xml:id="_testfun_8py_source_1l00080"/>00080 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1testfun_1_1_wrapper_1a676b9c1af1cf8c2b284854e792637541">best_y</link>&#32;=&#32;mp.RawValue(ct.c_double,&#32;sys.float_info.max)&#32;
+<anchor xml:id="_testfun_8py_source_1l00081"/>00081 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1testfun_1_1_wrapper_1af9bf5ba50b9b5c1e6a147711b56f9218">count</link>&#32;=&#32;mp.RawValue(ct.c_int,&#32;0)&#32;
+<anchor xml:id="_testfun_8py_source_1l00082"/>00082 &#32;&#32;&#32;&#32;
+<anchor xml:id="_testfun_8py_source_1l00083"/>00083 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1testfun_1_1_wrapper_1a45ea4439b3b149098ed57d810656de38">eval</link>(self,&#32;x):
+<anchor xml:id="_testfun_8py_source_1l00084"/>00084 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00085"/>00085 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Evaluates&#32;a&#32;given&#32;input&#32;`x`&#32;using&#32;the&#32;function&#32;`func`,&#32;updates&#32;the&#32;best&#32;observed</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00086"/>00086 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;value&#32;and&#32;corresponding&#32;input&#32;if&#32;applicable,&#32;and&#32;increments&#32;the&#32;evaluation</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00087"/>00087 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;counter.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00088"/>00088 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00089"/>00089 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00090"/>00090 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x:&#32;Input&#32;data&#32;to&#32;be&#32;evaluated&#32;by&#32;the&#32;function&#32;`func`.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00091"/>00091 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00092"/>00092 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Returns:</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00093"/><link linkend="_classfcmaes_1_1testfun_1_1_wrapper_1ae106b1f604bdb6e24937cee17b03e2d1">00093</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;The&#32;result&#32;of&#32;evaluating&#32;`x`&#32;using&#32;the&#32;function&#32;`func`.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00094"/><link linkend="_classfcmaes_1_1testfun_1_1_wrapper_1a672784c241ae3b65b49297a7e5669b3f">00094</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00095"/><link linkend="_classfcmaes_1_1testfun_1_1_wrapper_1a3dfee5cd0eb8f872c25bedf57ca02cf5">00095</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;y&#32;=&#32;self.<link linkend="_classfcmaes_1_1testfun_1_1_wrapper_1a672784c241ae3b65b49297a7e5669b3f">func</link>(x)
+<anchor xml:id="_testfun_8py_source_1l00096"/><link linkend="_classfcmaes_1_1testfun_1_1_wrapper_1a150ab1471fdda3ff21e3f4e29adf1225">00096</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">with</emphasis>&#32;self.<link linkend="_classfcmaes_1_1testfun_1_1_wrapper_1a3dfee5cd0eb8f872c25bedf57ca02cf5">statMutex</link>:
+<anchor xml:id="_testfun_8py_source_1l00097"/><link linkend="_classfcmaes_1_1testfun_1_1_wrapper_1a676b9c1af1cf8c2b284854e792637541">00097</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;y&#32;&lt;&#32;self.<link linkend="_classfcmaes_1_1testfun_1_1_wrapper_1a676b9c1af1cf8c2b284854e792637541">best_y</link>.value:
+<anchor xml:id="_testfun_8py_source_1l00098"/><link linkend="_classfcmaes_1_1testfun_1_1_wrapper_1af9bf5ba50b9b5c1e6a147711b56f9218">00098</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1testfun_1_1_wrapper_1a676b9c1af1cf8c2b284854e792637541">best_y</link>.value&#32;=&#32;y
+<anchor xml:id="_testfun_8py_source_1l00099"/>00099 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1testfun_1_1_wrapper_1a150ab1471fdda3ff21e3f4e29adf1225">best_x</link>[:]&#32;=&#32;x[:]
+<anchor xml:id="_testfun_8py_source_1l00100"/>00100 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#print(str(self.count.value)&#32;+&#32;&quot;&#32;&quot;&#32;+&#32;str(y)&#32;+&#32;&quot;&#32;&quot;&#32;+&#32;str(x))</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00101"/>00101 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1testfun_1_1_wrapper_1af9bf5ba50b9b5c1e6a147711b56f9218">count</link>.value&#32;+=&#32;1
+<anchor xml:id="_testfun_8py_source_1l00102"/>00102 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;y
+<anchor xml:id="_testfun_8py_source_1l00103"/>00103 &#32;&#32;&#32;&#32;
+<anchor xml:id="_testfun_8py_source_1l00104"/>00104 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1testfun_1_1_wrapper_1ad0135b00f2c165118000017b25b3bfa4">get_best_x</link>(self):
+<anchor xml:id="_testfun_8py_source_1l00105"/>00105 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00106"/>00106 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Returns&#32;a&#32;copy&#32;of&#32;the&#32;best_x&#32;attribute.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00107"/>00107 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00108"/>00108 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;This&#32;method&#32;provides&#32;a&#32;copy&#32;of&#32;the&#32;`best_x`&#32;attribute&#32;to&#32;ensure&#32;the&#32;original</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00109"/>00109 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;data&#32;remains&#32;unaltered&#32;and&#32;secure&#32;from&#32;unintended&#32;modifications.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00110"/>00110 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00111"/><link linkend="_classfcmaes_1_1testfun_1_1_wrapper_1a45ea4439b3b149098ed57d810656de38">00111</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Returns:</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00112"/>00112 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;list:&#32;A&#32;copy&#32;of&#32;the&#32;best_x&#32;attribute.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00113"/>00113 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00114"/>00114 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;self.<link linkend="_classfcmaes_1_1testfun_1_1_wrapper_1a150ab1471fdda3ff21e3f4e29adf1225">best_x</link>[:]
+<anchor xml:id="_testfun_8py_source_1l00115"/>00115 
+<anchor xml:id="_testfun_8py_source_1l00116"/>00116 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1testfun_1_1_wrapper_1ab86f2d8e5df54c431b95a8dac9eb7c80">get_best_y</link>(self):
+<anchor xml:id="_testfun_8py_source_1l00117"/>00117 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00118"/>00118 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Retrieves&#32;the&#32;value&#32;of&#32;the&#32;best_y&#32;attribute.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00119"/>00119 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00120"/>00120 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;This&#32;method&#32;returns&#32;the&#32;current&#32;value&#32;of&#32;the&#32;`best_y`&#32;attribute,&#32;which&#32;is&#32;likely</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00121"/>00121 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;used&#32;as&#32;a&#32;part&#32;of&#32;an&#32;optimization&#32;process&#32;or&#32;to&#32;represent&#32;the&#32;best-known&#32;value</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00122"/>00122 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;achieved&#32;during&#32;a&#32;computation.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00123"/>00123 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00124"/>00124 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Returns:</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00125"/>00125 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Any:&#32;The&#32;value&#32;of&#32;the&#32;`best_y`&#32;attribute.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00126"/>00126 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00127"/>00127 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;self.<link linkend="_classfcmaes_1_1testfun_1_1_wrapper_1a676b9c1af1cf8c2b284854e792637541">best_y</link>.value
+<anchor xml:id="_testfun_8py_source_1l00128"/>00128 &#32;&#32;&#32;&#32;
+<anchor xml:id="_testfun_8py_source_1l00129"/>00129 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1testfun_1_1_wrapper_1a4441f7cb86d2ff083093521f22c72784">get_count</link>(self):
+<anchor xml:id="_testfun_8py_source_1l00130"/><link linkend="_classfcmaes_1_1testfun_1_1_wrapper_1ad0135b00f2c165118000017b25b3bfa4">00130</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00131"/>00131 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Fetches&#32;the&#32;current&#32;value&#32;of&#32;the&#32;count.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00132"/>00132 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00133"/>00133 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;The&#32;method&#32;retrieves&#32;the&#32;current&#32;value&#32;associated&#32;with&#32;the&#32;`count`&#32;attribute.&#32;The&#32;returned</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00134"/>00134 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;value&#32;represents&#32;the&#32;current&#32;count&#32;stored&#32;within&#32;the&#32;object.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00135"/>00135 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00136"/>00136 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Returns:</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00137"/>00137 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;int:&#32;The&#32;current&#32;value&#32;of&#32;the&#32;count.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00138"/>00138 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00139"/>00139 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;self.<link linkend="_classfcmaes_1_1testfun_1_1_wrapper_1af9bf5ba50b9b5c1e6a147711b56f9218">count</link>.value
+<anchor xml:id="_testfun_8py_source_1l00140"/>00140 &#32;&#32;&#32;&#32;
+<anchor xml:id="_testfun_8py_source_1l00141"/>00141 <emphasis role="keyword">class&#32;</emphasis><link linkend="_classfcmaes_1_1testfun_1_1_rosen">Rosen</link>(object):
+<anchor xml:id="_testfun_8py_source_1l00142"/>00142 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00143"/><link linkend="_classfcmaes_1_1testfun_1_1_wrapper_1ab86f2d8e5df54c431b95a8dac9eb7c80">00143</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Represents&#32;the&#32;Rosen&#32;class,&#32;which&#32;encapsulates&#32;details&#32;and&#32;functionality</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00144"/>00144 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;specific&#32;to&#32;Rosen&#32;operations.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00145"/>00145 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00146"/>00146 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;This&#32;class&#32;is&#32;designed&#32;to&#32;initialize&#32;and&#32;handle&#32;Rosen-related&#32;computations</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00147"/>00147 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;and&#32;configurations.&#32;It&#32;sets&#32;up&#32;the&#32;initial&#32;parameters&#32;based&#32;on&#32;given</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00148"/>00148 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;dimensions&#32;to&#32;facilitate&#32;further&#32;processes.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00149"/>00149 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00150"/>00150 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Attributes:</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00151"/>00151 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dim&#32;(int):&#32;The&#32;dimensionality&#32;for&#32;initializing&#32;the&#32;Rosen&#32;computation.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00152"/>00152 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00153"/>00153 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1testfun_1_1_wrapper_1ae106b1f604bdb6e24937cee17b03e2d1">__init__</link>(self,&#32;dim):
+<anchor xml:id="_testfun_8py_source_1l00154"/>00154 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00155"/><link linkend="_classfcmaes_1_1testfun_1_1_wrapper_1a4441f7cb86d2ff083093521f22c72784">00155</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Initializes&#32;an&#32;instance&#32;of&#32;the&#32;class&#32;with&#32;a&#32;given&#32;dimensionality,&#32;setting&#32;up</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00156"/>00156 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;specific&#32;bounds&#32;and&#32;objective&#32;function.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00157"/>00157 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00158"/>00158 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00159"/>00159 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dim:&#32;The&#32;dimensionality&#32;of&#32;the&#32;problem.&#32;Specifies&#32;the&#32;size&#32;of&#32;bounds&#32;and</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00160"/>00160 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;other&#32;configurations.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00161"/>00161 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00162"/>00162 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;_testfun.__init__(self,&#32;<emphasis role="stringliteral">&apos;rosen&apos;</emphasis>,&#32;_rosen,&#32;[-5]*dim,&#32;[5]*dim)
+<anchor xml:id="_testfun_8py_source_1l00163"/>00163 
+<anchor xml:id="_testfun_8py_source_1l00164"/>00164 <emphasis role="keyword">class&#32;</emphasis><link linkend="_classfcmaes_1_1testfun_1_1_elli">Elli</link>(object):
+<anchor xml:id="_testfun_8py_source_1l00165"/>00165 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;Represents&#32;an&#32;Elli&#32;object.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00166"/>00166 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00167"/>00167 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;This&#32;class&#32;is&#32;used&#32;to&#32;initialize&#32;and&#32;manage&#32;Elli&#32;objects&#32;with&#32;specified</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00168"/><link linkend="_classfcmaes_1_1testfun_1_1_rosen">00168</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;dimensionality.&#32;The&#32;purpose&#32;of&#32;the&#32;Elli&#32;object&#32;is&#32;primarily&#32;related&#32;to&#32;its</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00169"/>00169 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;usage&#32;with&#32;a&#32;range&#32;of&#32;defined&#32;lower&#32;and&#32;upper&#32;bounds.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00170"/>00170 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00171"/>00171 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Attributes:</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00172"/>00172 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dim&#32;(int):&#32;The&#32;dimensionality&#32;of&#32;the&#32;Elli&#32;object.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00173"/>00173 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00174"/>00174 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1testfun_1_1_rosen_1a4cb77fdab714481708d2e1c4589cceaa">__init__</link>(self,&#32;dim):
+<anchor xml:id="_testfun_8py_source_1l00175"/>00175 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00176"/>00176 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Initializes&#32;an&#32;instance&#32;of&#32;the&#32;class&#32;and&#32;sets&#32;up&#32;the&#32;function&#32;parameters.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00177"/>00177 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00178"/>00178 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00179"/>00179 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dim:&#32;The&#32;dimensionality&#32;of&#32;the&#32;input&#32;space&#32;for&#32;the&#32;function.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00180"/><link linkend="_classfcmaes_1_1testfun_1_1_rosen_1a4cb77fdab714481708d2e1c4589cceaa">00180</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00181"/>00181 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;_testfun.__init__(self,&#32;<emphasis role="stringliteral">&apos;elli&apos;</emphasis>,&#32;_elli,&#32;[-5]*dim,&#32;[5]*dim)
+<anchor xml:id="_testfun_8py_source_1l00182"/>00182 
+<anchor xml:id="_testfun_8py_source_1l00183"/>00183 <emphasis role="keyword">class&#32;</emphasis><link linkend="_classfcmaes_1_1testfun_1_1_cigar">Cigar</link>(object):
+<anchor xml:id="_testfun_8py_source_1l00184"/>00184 &#32;&#32;&#32;&#32;
+<anchor xml:id="_testfun_8py_source_1l00185"/>00185 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1testfun_1_1_rosen_1a4cb77fdab714481708d2e1c4589cceaa">__init__</link>(self,&#32;dim):&#32;&#32;&#32;&#32;
+<anchor xml:id="_testfun_8py_source_1l00186"/>00186 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;_testfun.__init__(self,&#32;<emphasis role="stringliteral">&apos;cigar&apos;</emphasis>,&#32;_cigar,&#32;[-5]*dim,&#32;[5]*dim)
+<anchor xml:id="_testfun_8py_source_1l00187"/>00187 
+<anchor xml:id="_testfun_8py_source_1l00188"/>00188 <emphasis role="keyword">class&#32;</emphasis><link linkend="_classfcmaes_1_1testfun_1_1_sphere">Sphere</link>(object):
+<anchor xml:id="_testfun_8py_source_1l00189"/>00189 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00190"/>00190 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Represents&#32;a&#32;Sphere&#32;object.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00191"/><link linkend="_classfcmaes_1_1testfun_1_1_elli">00191</link> <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00192"/>00192 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;The&#32;Sphere&#32;object&#32;serves&#32;as&#32;a&#32;conceptual&#32;representation&#32;for&#32;a&#32;mathematical</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00193"/>00193 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;sphere&#32;within&#32;a&#32;certain&#32;dimension.&#32;It&#32;defines&#32;its&#32;boundaries&#32;and&#32;provides</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00194"/>00194 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;appropriate&#32;initialization&#32;for&#32;creating&#32;a&#32;sphere.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00195"/>00195 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00196"/>00196 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Attributes:</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00197"/>00197 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dim&#32;(int):&#32;The&#32;dimensionality&#32;of&#32;the&#32;sphere,&#32;specifying&#32;how&#32;many</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00198"/>00198 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dimensions&#32;the&#32;sphere&#32;spans.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00199"/>00199 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00200"/>00200 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1testfun_1_1_elli_1ac187a52acd0202adc67ac36884b725d1">__init__</link>(self,&#32;dim):
+<anchor xml:id="_testfun_8py_source_1l00201"/><link linkend="_classfcmaes_1_1testfun_1_1_elli_1ac187a52acd0202adc67ac36884b725d1">00201</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00202"/>00202 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Initializes&#32;an&#32;instance&#32;with&#32;given&#32;dimensional&#32;constraints&#32;for&#32;a&#32;&apos;sphere&apos;&#32;type&#32;function.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00203"/>00203 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00204"/><link linkend="_classfcmaes_1_1testfun_1_1_cigar">00204</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00205"/>00205 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dim&#32;(int):&#32;Dimensionality&#32;of&#32;the&#32;space&#32;to&#32;be&#32;initialized.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00206"/><link linkend="_classfcmaes_1_1testfun_1_1_cigar_1a65186daa3dad8f1a6c93683bfa1e4dd4">00206</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00207"/>00207 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;_testfun.__init__(self,&#32;<emphasis role="stringliteral">&apos;sphere&apos;</emphasis>,&#32;_sphere,&#32;[-5]*dim,&#32;[5]*dim)
+<anchor xml:id="_testfun_8py_source_1l00208"/>00208 &#32;&#32;
+<anchor xml:id="_testfun_8py_source_1l00209"/>00209 <emphasis role="keyword">class&#32;</emphasis><link linkend="_classfcmaes_1_1testfun_1_1_rastrigin">Rastrigin</link>(object):
+<anchor xml:id="_testfun_8py_source_1l00210"/>00210 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00211"/>00211 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Represents&#32;the&#32;Rastrigin&#32;function&#32;commonly&#32;used&#32;in&#32;optimization&#32;problems.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00212"/>00212 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00213"/>00213 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;The&#32;Rastrigin&#32;function&#32;is&#32;a&#32;non-convex&#32;function&#32;used&#32;as&#32;a&#32;performance&#32;test</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00214"/>00214 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;problem&#32;for&#32;optimization&#32;algorithms.&#32;It&#32;is&#32;a&#32;typical&#32;example&#32;of&#32;non-linear</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00215"/>00215 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;multimodal&#32;functions&#32;and&#32;is&#32;highly&#32;multimodal,&#32;meaning&#32;it&#32;has&#32;many&#32;local</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00216"/>00216 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;minima.&#32;This&#32;class&#32;initializes&#32;the&#32;Rastrigin&#32;function&#32;with&#32;specified</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00217"/>00217 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;dimensionality&#32;and&#32;its&#32;domain.&#32;It&#32;inherits&#32;from&#32;a&#32;base&#32;function&#32;class.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00218"/>00218 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00219"/><link linkend="_classfcmaes_1_1testfun_1_1_sphere">00219</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Attributes:</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00220"/>00220 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;name&#32;(str):&#32;The&#32;name&#32;of&#32;the&#32;optimization&#32;function.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00221"/>00221 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;domain&#32;(list&#32;of&#32;float):&#32;The&#32;lower&#32;and&#32;upper&#32;bounds&#32;for&#32;each&#32;dimension</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00222"/>00222 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;of&#32;the&#32;input&#32;domain.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00223"/>00223 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00224"/>00224 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1testfun_1_1_sphere_1a49792538dd2f26d3904440b9d400733a">__init__</link>(self,&#32;dim):
+<anchor xml:id="_testfun_8py_source_1l00225"/>00225 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00226"/>00226 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Initializes&#32;the&#32;given&#32;object&#32;configuration&#32;for&#32;the&#32;&quot;rastrigin&quot;&#32;function.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00227"/>00227 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00228"/>00228 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00229"/><link linkend="_classfcmaes_1_1testfun_1_1_sphere_1a49792538dd2f26d3904440b9d400733a">00229</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dim&#32;(int):&#32;Dimensionality&#32;of&#32;the&#32;function,&#32;defining&#32;the&#32;number&#32;of&#32;variables</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00230"/>00230 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;the&#32;function&#32;considers&#32;during&#32;evaluation.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00231"/>00231 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00232"/>00232 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;_testfun.__init__(self,&#32;<emphasis role="stringliteral">&apos;rastrigin&apos;</emphasis>,&#32;_rastrigin,&#32;[-5.12]*dim,&#32;[5.12]*dim)
+<anchor xml:id="_testfun_8py_source_1l00233"/>00233 
+<anchor xml:id="_testfun_8py_source_1l00234"/>00234 <emphasis role="keyword">class&#32;</emphasis><link linkend="_classfcmaes_1_1testfun_1_1_eggholder">Eggholder</link>(object):
+<anchor xml:id="_testfun_8py_source_1l00235"/>00235 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00236"/>00236 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Represents&#32;the&#32;Eggholder&#32;optimization&#32;function.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00237"/>00237 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00238"/>00238 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;The&#32;Eggholder&#32;function&#32;is&#32;a&#32;mathematical&#32;function&#32;commonly&#32;used&#32;for&#32;testing</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00239"/>00239 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;optimization&#32;algorithms.&#32;It&#32;is&#32;characterized&#32;by&#32;a&#32;complex&#32;surface&#32;with</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00240"/>00240 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;several&#32;local&#32;minima&#32;and&#32;a&#32;global&#32;minimum.&#32;The&#32;function&#32;is&#32;typically&#32;used</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00241"/>00241 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;within&#32;the&#32;specified&#32;domain&#32;and&#32;is&#32;considered&#32;challenging&#32;due&#32;to&#32;its&#32;rugged</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00242"/>00242 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;nature&#32;and&#32;numerous&#32;local&#32;optima.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00243"/>00243 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00244"/>00244 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Attributes:</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00245"/><link linkend="_classfcmaes_1_1testfun_1_1_rastrigin">00245</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;name&#32;(str):&#32;Name&#32;of&#32;the&#32;function,&#32;set&#32;to&#32;&apos;eggholder&apos;.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00246"/>00246 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;function&#32;(callable):&#32;The&#32;mathematical&#32;representation&#32;of&#32;the&#32;Eggholder</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00247"/>00247 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;function.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00248"/>00248 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;lower_bounds&#32;(List[int]):&#32;Lower&#32;bounds&#32;for&#32;the&#32;function&apos;s&#32;domain,&#32;set</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00249"/>00249 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;to&#32;[-512,&#32;-512].</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00250"/>00250 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;upper_bounds&#32;(List[int]):&#32;Upper&#32;bounds&#32;for&#32;the&#32;function&apos;s&#32;domain,&#32;set</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00251"/>00251 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;to&#32;[512,&#32;512].</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00252"/>00252 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00253"/>00253 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1testfun_1_1_rastrigin_1adc0d1a013ef3b19d8fa0b24bb67cbfb0">__init__</link>(self):
+<anchor xml:id="_testfun_8py_source_1l00254"/>00254 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00255"/>00255 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Initializes&#32;an&#32;object&#32;with&#32;specific&#32;function&#32;parameters&#32;and&#32;bounds.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00256"/><link linkend="_classfcmaes_1_1testfun_1_1_rastrigin_1adc0d1a013ef3b19d8fa0b24bb67cbfb0">00256</link> <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00257"/>00257 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;This&#32;constructor&#32;calls&#32;the&#32;parent&#32;class&#32;initializer&#32;and&#32;sets&#32;up&#32;the</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00258"/>00258 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;parameters&#32;for&#32;a&#32;specific&#32;optimization&#32;function,&#32;including&#32;its&#32;name,</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00259"/>00259 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;function&#32;reference,&#32;and&#32;upper/lower&#32;bounds.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00260"/>00260 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00261"/>00261 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00262"/>00262 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;None</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00263"/>00263 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00264"/>00264 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Returns:</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00265"/>00265 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;None</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00266"/>00266 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00267"/>00267 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;_testfun.__init__(self,&#32;<emphasis role="stringliteral">&apos;eggholder&apos;</emphasis>,&#32;_eggholder,&#32;[-512]*2,&#32;[512]*2)
+<anchor xml:id="_testfun_8py_source_1l00268"/>00268 
+<anchor xml:id="_testfun_8py_source_1l00269"/>00269 <emphasis role="keyword">class&#32;</emphasis><link linkend="_classfcmaes_1_1testfun_1_1_rastrigin_mean">RastriginMean</link>(object):
+<anchor xml:id="_testfun_8py_source_1l00270"/>00270 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00271"/><link linkend="_classfcmaes_1_1testfun_1_1_eggholder">00271</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Represents&#32;a&#32;Rastrigin&#32;mean&#32;test&#32;function.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00272"/>00272 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00273"/>00273 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;This&#32;class&#32;defines&#32;a&#32;Rastrigin&#32;mean&#32;function,&#32;typically&#32;used&#32;as&#32;a&#32;benchmark</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00274"/>00274 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;function&#32;in&#32;optimization&#32;problems.&#32;The&#32;aim&#32;of&#32;this&#32;function&#32;is&#32;to&#32;evaluate</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00275"/>00275 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;and&#32;analyze&#32;the&#32;performance&#32;of&#32;optimization&#32;algorithms.&#32;It&#32;initializes&#32;the</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00276"/>00276 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;function&#32;with&#32;a&#32;given&#32;dimension&#32;and&#32;a&#32;specific&#32;parameter&#32;`n`.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00277"/>00277 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00278"/>00278 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Attributes:</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00279"/>00279 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dim&#32;(int):&#32;The&#32;dimension&#32;of&#32;the&#32;function&#32;space.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00280"/>00280 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;n&#32;(int):&#32;A&#32;specific&#32;parameter&#32;that&#32;influences&#32;the&#32;Rastrigin&#32;mean&#32;function.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00281"/>00281 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00282"/>00282 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1testfun_1_1_eggholder_1abecdc4c5978776ec647f0b9424c6b90e">__init__</link>(self,&#32;dim,&#32;n):
+<anchor xml:id="_testfun_8py_source_1l00283"/>00283 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00284"/>00284 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Initializes&#32;an&#32;instance&#32;of&#32;the&#32;Rastrigin&#32;mean&#32;test&#32;function.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00285"/>00285 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00286"/>00286 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00287"/>00287 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dim:&#32;Dimensionality&#32;of&#32;the&#32;input&#32;vector.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00288"/>00288 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;n:&#32;Number&#32;of&#32;components&#32;used&#32;in&#32;calculating&#32;the&#32;mean.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00289"/>00289 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00290"/>00290 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fun&#32;=&#32;<emphasis role="keyword">lambda</emphasis>&#32;x:&#32;<link linkend="_namespacefcmaes_1_1testfun_1ad34b2d407175d3fa91535738b5193c88">_rastrigin_mean</link>(x,&#32;n)
+<anchor xml:id="_testfun_8py_source_1l00291"/>00291 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;_testfun.__init__(self,&#32;<emphasis role="stringliteral">&apos;rastrigin_mean&apos;</emphasis>,&#32;fun,&#32;[-5.12]*dim,&#32;[5.12]*dim)
+<anchor xml:id="_testfun_8py_source_1l00292"/>00292 
+<anchor xml:id="_testfun_8py_source_1l00293"/>00293 <emphasis role="keyword">class&#32;</emphasis><link linkend="_classfcmaes_1_1testfun_1_1__testfun">_testfun</link>(object):
+<anchor xml:id="_testfun_8py_source_1l00294"/>00294 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00295"/>00295 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Represents&#32;a&#32;test&#32;function,&#32;its&#32;name,&#32;functional&#32;implementation,&#32;and&#32;bounds.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00296"/>00296 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00297"/>00297 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;This&#32;class&#32;encapsulates&#32;information&#32;about&#32;a&#32;test&#32;function,&#32;including&#32;its</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00298"/>00298 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;name,&#32;the&#32;function&#32;itself,&#32;its&#32;variable&#32;bounds,&#32;and&#32;its&#32;wrapper&#32;for</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00299"/>00299 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;managing&#32;execution.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00300"/>00300 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00301"/><link linkend="_classfcmaes_1_1testfun_1_1_eggholder_1abecdc4c5978776ec647f0b9424c6b90e">00301</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Attributes:</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00302"/>00302 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;name&#32;(str):&#32;Name&#32;of&#32;the&#32;test&#32;function.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00303"/>00303 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fun&#32;(Callable):&#32;The&#32;functional&#32;implementation&#32;of&#32;the&#32;test&#32;function.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00304"/>00304 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;bounds&#32;(Bounds):&#32;Boundaries&#32;within&#32;which&#32;the&#32;function&#32;operates.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00305"/>00305 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;wrapper&#32;(Wrapper):&#32;Wrapper&#32;object&#32;for&#32;managing&#32;function&#32;execution&#32;and</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00306"/>00306 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;variable&#32;handling.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00307"/>00307 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00308"/>00308 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1testfun_1_1_eggholder_1abecdc4c5978776ec647f0b9424c6b90e">__init__</link>(self,&#32;name,&#32;fun,&#32;lower,&#32;upper):
+<anchor xml:id="_testfun_8py_source_1l00309"/>00309 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00310"/>00310 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Initializes&#32;an&#32;instance&#32;of&#32;the&#32;class&#32;with&#32;a&#32;name,&#32;a&#32;function,&#32;and&#32;bounds&#32;for</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00311"/>00311 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;the&#32;variables.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00312"/>00312 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00313"/>00313 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00314"/><link linkend="_classfcmaes_1_1testfun_1_1_rastrigin_mean">00314</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;name:&#32;str.&#32;The&#32;name&#32;associated&#32;with&#32;the&#32;instance.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00315"/>00315 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fun:&#32;Callable.&#32;The&#32;main&#32;function&#32;provided&#32;as&#32;input.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00316"/>00316 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;lower:&#32;Sequence[float].&#32;The&#32;lower&#32;bounds&#32;for&#32;the&#32;function&apos;s&#32;input&#32;variables.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00317"/>00317 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;upper:&#32;Sequence[float].&#32;The&#32;upper&#32;bounds&#32;for&#32;the&#32;function&apos;s&#32;input&#32;variables.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00318"/>00318 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00319"/>00319 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.name&#32;=&#32;name&#32;
+<anchor xml:id="_testfun_8py_source_1l00320"/>00320 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.fun&#32;=&#32;fun
+<anchor xml:id="_testfun_8py_source_1l00321"/>00321 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.bounds&#32;=&#32;Bounds(lower,&#32;upper)
+<anchor xml:id="_testfun_8py_source_1l00322"/>00322 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.wrapper&#32;=&#32;<link linkend="_classfcmaes_1_1testfun_1_1_wrapper">Wrapper</link>(self.fun,&#32;len(lower))&#32;&#32;&#32;
+<anchor xml:id="_testfun_8py_source_1l00323"/>00323 &#32;&#32;&#32;&#32;
+<anchor xml:id="_testfun_8py_source_1l00324"/>00324 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefcmaes_1_1testfun_1a73c5b2617f1f5e73c08b36611a54c9e9">_rosen</link>(xs,&#32;alpha=1e2):
+<anchor xml:id="_testfun_8py_source_1l00325"/>00325 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00326"/>00326 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Computes&#32;the&#32;Rosenbrock&#32;function&#32;for&#32;the&#32;given&#32;input.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00327"/>00327 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00328"/><link linkend="_classfcmaes_1_1testfun_1_1_rastrigin_mean_1ab3de865f1a1c5a6969740d4be0a75b88">00328</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;The&#32;Rosenbrock&#32;function&#32;is&#32;a&#32;non-convex&#32;mathematical&#32;function&#32;often&#32;used</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00329"/>00329 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;as&#32;a&#32;performance&#32;test&#32;problem&#32;for&#32;optimization&#32;algorithms.&#32;This&#32;function</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00330"/>00330 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;takes&#32;a&#32;list&#32;of&#32;numerical&#32;inputs&#32;and&#32;evaluates&#32;the&#32;Rosenbrock&#32;polynomial</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00331"/>00331 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;for&#32;those&#32;inputs.&#32;It&#32;also&#32;supports&#32;handling&#32;scalars&#32;and&#32;will&#32;return&#32;outputs</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00332"/>00332 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;as&#32;either&#32;a&#32;scalar&#32;or&#32;a&#32;list&#32;depending&#32;on&#32;the&#32;input.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00333"/>00333 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00334"/>00334 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00335"/>00335 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xs:&#32;A&#32;numerical&#32;iterable&#32;or&#32;scalar.&#32;The&#32;input&#32;values&#32;for&#32;which&#32;the</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00336"/>00336 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Rosenbrock&#32;function&#32;is&#32;to&#32;be&#32;computed.&#32;If&#32;the&#32;first&#32;element&#32;of&#32;`xs`</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00337"/>00337 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;is&#32;scalar,&#32;it&#32;is&#32;treated&#32;as&#32;a&#32;single&#32;value.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00338"/>00338 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;alpha:&#32;An&#32;optional&#32;numerical&#32;value.&#32;Represents&#32;the&#32;parameter&#32;to&#32;scale</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00339"/>00339 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;the&#32;quadratic&#32;term&#32;in&#32;the&#32;Rosenbrock&#32;function.&#32;Defaults&#32;to&#32;1e2.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00340"/>00340 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00341"/>00341 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Returns:</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00342"/>00342 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;float&#32;or&#32;list:&#32;The&#32;evaluated&#32;Rosenbrock&#32;function&#32;result.&#32;If&#32;the&#32;input</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00343"/>00343 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;is&#32;a&#32;scalar&#32;or&#32;a&#32;single&#32;list,&#32;it&#32;returns&#32;a&#32;scalar&#32;result.&#32;If&#32;the&#32;input</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00344"/><link linkend="_classfcmaes_1_1testfun_1_1__testfun">00344</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;is&#32;a&#32;list&#32;of&#32;multiple&#32;numerical&#32;iterables,&#32;it&#32;returns&#32;a&#32;list&#32;of&#32;computed</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00345"/>00345 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;results&#32;for&#32;each&#32;input&#32;iterable.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00346"/>00346 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00347"/>00347 &#32;&#32;&#32;&#32;xs&#32;=&#32;[xs]&#32;<emphasis role="keywordflow">if</emphasis>&#32;np.isscalar(xs[0])&#32;<emphasis role="keywordflow">else</emphasis>&#32;xs&#32;
+<anchor xml:id="_testfun_8py_source_1l00348"/>00348 &#32;&#32;&#32;&#32;xs&#32;=&#32;np.asarray(xs)
+<anchor xml:id="_testfun_8py_source_1l00349"/>00349 &#32;&#32;&#32;&#32;f&#32;=&#32;[sum(alpha&#32;*&#32;(x[:-1]**2&#32;-&#32;x[1:])**2&#32;+&#32;(1.&#32;-&#32;x[:-1])**2)&#32;<emphasis role="keywordflow">for</emphasis>&#32;x&#32;<emphasis role="keywordflow">in</emphasis>&#32;xs]
+<anchor xml:id="_testfun_8py_source_1l00350"/>00350 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;f&#32;<emphasis role="keywordflow">if</emphasis>&#32;len(f)&#32;&gt;&#32;1&#32;<emphasis role="keywordflow">else</emphasis>&#32;f[0]&#32;&#32;<emphasis role="comment">#&#32;1-element-list&#32;into&#32;scalar</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00351"/>00351 
+<anchor xml:id="_testfun_8py_source_1l00352"/>00352 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefcmaes_1_1testfun_1aabd797a31cba75eb6dcd83bd586bf3e3">_rastrigin</link>(x):
+<anchor xml:id="_testfun_8py_source_1l00353"/>00353 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00354"/>00354 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Computes&#32;the&#32;Rastrigin&#32;function&#32;value&#32;for&#32;a&#32;given&#32;input&#32;vector.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00355"/>00355 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00356"/>00356 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;The&#32;Rastrigin&#32;function&#32;is&#32;commonly&#32;used&#32;as&#32;a&#32;non-convex&#32;test&#32;function&#32;for</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00357"/>00357 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;optimization&#32;algorithms.&#32;It&#32;is&#32;highly&#32;multimodal,&#32;meaning&#32;it&#32;has&#32;many&#32;local</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00358"/>00358 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;minima,&#32;which&#32;makes&#32;it&#32;a&#32;challenging&#32;benchmark&#32;for&#32;optimization&#32;techniques.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00359"/>00359 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00360"/>00360 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00361"/>00361 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x&#32;(array-like):&#32;A&#32;vector&#32;of&#32;input&#32;values&#32;on&#32;which&#32;the&#32;Rastrigin&#32;function</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00362"/>00362 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;is&#32;evaluated.&#32;Must&#32;be&#32;convertible&#32;to&#32;a&#32;NumPy&#32;array.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00363"/>00363 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00364"/>00364 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Returns:</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00365"/>00365 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;float:&#32;The&#32;computed&#32;value&#32;of&#32;the&#32;Rastrigin&#32;function&#32;for&#32;the&#32;input&#32;vector.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00366"/>00366 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00367"/><link linkend="_classfcmaes_1_1testfun_1_1__testfun_1ad0c92fbf3c99b9c97e09f54c7e89b98d">00367</link> &#32;&#32;&#32;&#32;dim&#32;=&#32;len(x)
+<anchor xml:id="_testfun_8py_source_1l00368"/><link linkend="_classfcmaes_1_1testfun_1_1__testfun_1ac5931d6aca99cc0486eedf5497e23865">00368</link> &#32;&#32;&#32;&#32;x&#32;=&#32;np.asarray(x)
+<anchor xml:id="_testfun_8py_source_1l00369"/><link linkend="_classfcmaes_1_1testfun_1_1__testfun_1a532e7ace39cc2314a98eab033e9b98d8">00369</link> &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;10.0*dim&#32;+&#32;sum(x*x&#32;-&#32;10.0*np.cos(2.0*math.pi*x))
+<anchor xml:id="_testfun_8py_source_1l00370"/><link linkend="_classfcmaes_1_1testfun_1_1__testfun_1a7f4c8475b3ecf6bd9583ffd472824782">00370</link> 
+<anchor xml:id="_testfun_8py_source_1l00371"/><link linkend="_classfcmaes_1_1testfun_1_1__testfun_1a6b71269a55be7005a6e1af93c1eeeb0d">00371</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefcmaes_1_1testfun_1abac6eddc844a76e10f2f866c063c6ad7">_cigar</link>(x):
+<anchor xml:id="_testfun_8py_source_1l00372"/>00372 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00373"/>00373 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Calculates&#32;the&#32;value&#32;of&#32;the&#32;&quot;cigar&quot;&#32;function&#32;for&#32;a&#32;given&#32;input&#32;array.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00374"/>00374 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00375"/>00375 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;The&#32;&quot;cigar&quot;&#32;function&#32;is&#32;a&#32;common&#32;benchmark&#32;function&#32;in&#32;optimization&#32;studies.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00376"/>00376 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;It&#32;is&#32;designed&#32;to&#32;simulate&#32;an&#32;elliptical-shaped&#32;function&#32;with&#32;one&#32;dominant</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00377"/>00377 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;dimension.&#32;It&#32;is&#32;used&#32;to&#32;evaluate&#32;optimization&#32;algorithms&#32;in&#32;high-dimensional</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00378"/>00378 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;spaces.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00379"/>00379 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00380"/>00380 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00381"/>00381 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x&#32;(array-like):&#32;Input&#32;array&#32;for&#32;which&#32;the&#32;&quot;cigar&quot;&#32;function&#32;value&#32;is&#32;to</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00382"/>00382 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;be&#32;computed.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00383"/>00383 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00384"/>00384 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Returns:</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00385"/>00385 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;float:&#32;Calculated&#32;&quot;cigar&quot;&#32;function&#32;value&#32;for&#32;the&#32;given&#32;input&#32;array.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00386"/>00386 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00387"/>00387 &#32;&#32;&#32;&#32;factor&#32;=&#32;1E6
+<anchor xml:id="_testfun_8py_source_1l00388"/>00388 &#32;&#32;&#32;&#32;x&#32;=&#32;np.asarray(x)
+<anchor xml:id="_testfun_8py_source_1l00389"/>00389 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;x[0]*x[0]&#32;+&#32;factor&#32;*&#32;sum(xi*xi&#32;<emphasis role="keywordflow">for</emphasis>&#32;xi&#32;<emphasis role="keywordflow">in</emphasis>&#32;x);
+<anchor xml:id="_testfun_8py_source_1l00390"/>00390 
+<anchor xml:id="_testfun_8py_source_1l00391"/>00391 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefcmaes_1_1testfun_1a952a92ed97c6285612f56fa6a8f51fbd">_sphere</link>(x):
+<anchor xml:id="_testfun_8py_source_1l00392"/>00392 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00393"/>00393 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Calculates&#32;the&#32;sum&#32;of&#32;squares&#32;of&#32;elements&#32;in&#32;an&#32;input&#32;array.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00394"/>00394 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00395"/>00395 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;This&#32;function&#32;computes&#32;the&#32;sum&#32;of&#32;the&#32;squares&#32;of&#32;each&#32;element&#32;in&#32;the</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00396"/>00396 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;input&#32;array.&#32;It&#32;is&#32;typically&#32;used&#32;in&#32;mathematical&#32;or&#32;optimization&#32;contexts.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00397"/><link linkend="_namespacefcmaes_1_1testfun_1a73c5b2617f1f5e73c08b36611a54c9e9">00397</link> <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00398"/>00398 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00399"/>00399 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x:&#32;Input&#32;array&#32;or&#32;iterable&#32;whose&#32;squared&#32;elements&#32;will&#32;be&#32;summated.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00400"/>00400 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00401"/>00401 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Returns:</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00402"/>00402 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;The&#32;sum&#32;of&#32;the&#32;squares&#32;of&#32;the&#32;elements&#32;in&#32;the&#32;input&#32;array&#32;or&#32;iterable.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00403"/>00403 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00404"/>00404 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00405"/>00405 &#32;&#32;&#32;&#32;x&#32;=&#32;np.asarray(x)
+<anchor xml:id="_testfun_8py_source_1l00406"/>00406 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;sum(xi*xi&#32;<emphasis role="keywordflow">for</emphasis>&#32;xi&#32;<emphasis role="keywordflow">in</emphasis>&#32;x);
+<anchor xml:id="_testfun_8py_source_1l00407"/>00407 
+<anchor xml:id="_testfun_8py_source_1l00408"/>00408 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefcmaes_1_1testfun_1a0a7d3f710cd2e37748bfcefee390e92e">_elli</link>(x):
+<anchor xml:id="_testfun_8py_source_1l00409"/>00409 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00410"/>00410 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Calculates&#32;the&#32;elliptic&#32;function&#32;value&#32;for&#32;the&#32;given&#32;input.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00411"/>00411 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00412"/>00412 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;The&#32;elliptic&#32;function&#32;is&#32;commonly&#32;used&#32;in&#32;optimization&#32;problems&#32;as&#32;a</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00413"/>00413 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;benchmark&#32;function.&#32;It&#32;is&#32;computed&#32;using&#32;the&#32;input&#32;array&#32;and&#32;a&#32;factor</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00414"/>00414 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;that&#32;exponentially&#32;grows&#32;based&#32;on&#32;the&#32;dimension&#32;of&#32;the&#32;input.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00415"/>00415 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00416"/>00416 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00417"/>00417 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x&#32;(array-like):&#32;Input&#32;array&#32;representing&#32;the&#32;variables&#32;for&#32;which</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00418"/>00418 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;the&#32;elliptic&#32;function&#32;is&#32;calculated.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00419"/><link linkend="_namespacefcmaes_1_1testfun_1aabd797a31cba75eb6dcd83bd586bf3e3">00419</link> <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00420"/>00420 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Returns:</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00421"/>00421 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;float:&#32;The&#32;computed&#32;value&#32;of&#32;the&#32;elliptic&#32;function&#32;for&#32;the&#32;input.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00422"/>00422 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00423"/>00423 &#32;&#32;&#32;&#32;dim&#32;=&#32;len(x)
+<anchor xml:id="_testfun_8py_source_1l00424"/>00424 &#32;&#32;&#32;&#32;x&#32;=&#32;np.asarray(x)
+<anchor xml:id="_testfun_8py_source_1l00425"/>00425 &#32;&#32;&#32;&#32;factor&#32;=&#32;1E6
+<anchor xml:id="_testfun_8py_source_1l00426"/>00426 &#32;&#32;&#32;&#32;f&#32;=&#32;0
+<anchor xml:id="_testfun_8py_source_1l00427"/>00427 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(dim):
+<anchor xml:id="_testfun_8py_source_1l00428"/>00428 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;f&#32;+=&#32;factor&#32;**&#32;(i&#32;/&#32;(dim&#32;-&#32;1.))&#32;*&#32;x[i]&#32;*&#32;x[i]
+<anchor xml:id="_testfun_8py_source_1l00429"/>00429 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;f
+<anchor xml:id="_testfun_8py_source_1l00430"/>00430 &#32;
+<anchor xml:id="_testfun_8py_source_1l00431"/>00431 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefcmaes_1_1testfun_1abe5db8aa47b5d50d2100075d9600ba6c">_modify</link>(x,&#32;delta):
+<anchor xml:id="_testfun_8py_source_1l00432"/>00432 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00433"/>00433 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Applies&#32;a&#32;random&#32;modification&#32;to&#32;an&#32;array.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00434"/>00434 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00435"/>00435 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;This&#32;function&#32;takes&#32;an&#32;array&#32;as&#32;input,&#32;and&#32;applies&#32;a&#32;random&#32;modification</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00436"/>00436 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;to&#32;each&#32;of&#32;its&#32;elements&#32;using&#32;a&#32;Gaussian&#32;(normal)&#32;distribution&#32;scaled</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00437"/>00437 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;by&#32;a&#32;specified&#32;delta&#32;factor.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00438"/>00438 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00439"/>00439 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00440"/>00440 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x&#32;(list&#32;or&#32;np.ndarray):&#32;Input&#32;array&#32;to&#32;be&#32;modified.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00441"/><link linkend="_namespacefcmaes_1_1testfun_1abac6eddc844a76e10f2f866c063c6ad7">00441</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;delta&#32;(float):&#32;Scaling&#32;factor&#32;for&#32;the&#32;random&#32;noise&#32;to&#32;be&#32;added.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00442"/>00442 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00443"/>00443 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Returns:</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00444"/>00444 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;list:&#32;A&#32;new&#32;list&#32;containing&#32;the&#32;modified&#32;elements.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00445"/>00445 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00446"/>00446 &#32;&#32;&#32;&#32;dim&#32;=&#32;len(x)
+<anchor xml:id="_testfun_8py_source_1l00447"/>00447 &#32;&#32;&#32;&#32;modified&#32;=&#32;np.asarray(x)&#32;+&#32;delta&#32;*&#32;np.random.randn(dim)
+<anchor xml:id="_testfun_8py_source_1l00448"/>00448 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;modified.tolist()
+<anchor xml:id="_testfun_8py_source_1l00449"/>00449 
+<anchor xml:id="_testfun_8py_source_1l00450"/>00450 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefcmaes_1_1testfun_1ad34b2d407175d3fa91535738b5193c88">_rastrigin_mean</link>(x,&#32;n):
+<anchor xml:id="_testfun_8py_source_1l00451"/>00451 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00452"/>00452 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Computes&#32;the&#32;mean&#32;output&#32;of&#32;the&#32;Rastrigin&#32;function&#32;over&#32;`n`&#32;modifications&#32;of</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00453"/>00453 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;input&#32;`x`.&#32;This&#32;function&#32;applies&#32;a&#32;slight&#32;modification&#32;to&#32;the&#32;input&#32;value&#32;`x`</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00454"/>00454 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;before&#32;passing&#32;it&#32;to&#32;`_rastrigin`&#32;and&#32;accumulates&#32;the&#32;results&#32;to&#32;compute</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00455"/>00455 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;the&#32;mean.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00456"/>00456 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00457"/>00457 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00458"/>00458 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x:&#32;The&#32;initial&#32;input&#32;value&#32;for&#32;the&#32;Rastrigin&#32;function&#32;that&#32;will&#32;be&#32;slightly</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00459"/>00459 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;modified&#32;for&#32;each&#32;iteration.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00460"/>00460 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;n:&#32;The&#32;number&#32;of&#32;iterations&#32;or&#32;modifications&#32;of&#32;input&#32;`x`&#32;for&#32;computing</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00461"/><link linkend="_namespacefcmaes_1_1testfun_1a952a92ed97c6285612f56fa6a8f51fbd">00461</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;the&#32;average.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00462"/>00462 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00463"/>00463 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Returns:</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00464"/>00464 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;The&#32;mean&#32;result&#32;of&#32;the&#32;Rastrigin&#32;function&#32;after&#32;applying&#32;it&#32;to&#32;`n`</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00465"/>00465 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;modified&#32;versions&#32;of&#32;the&#32;input&#32;`x`.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00466"/>00466 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00467"/>00467 &#32;&#32;&#32;&#32;delta&#32;=&#32;0.001
+<anchor xml:id="_testfun_8py_source_1l00468"/>00468 &#32;&#32;&#32;&#32;sumy&#32;=&#32;0
+<anchor xml:id="_testfun_8py_source_1l00469"/>00469 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(n):
+<anchor xml:id="_testfun_8py_source_1l00470"/>00470 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;sumy&#32;+=&#32;<link linkend="_namespacefcmaes_1_1testfun_1aabd797a31cba75eb6dcd83bd586bf3e3">_rastrigin</link>(<link linkend="_namespacefcmaes_1_1testfun_1abe5db8aa47b5d50d2100075d9600ba6c">_modify</link>(x,&#32;delta))
+<anchor xml:id="_testfun_8py_source_1l00471"/>00471 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;sumy&#32;/&#32;n
+<anchor xml:id="_testfun_8py_source_1l00472"/>00472 
+<anchor xml:id="_testfun_8py_source_1l00473"/>00473 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefcmaes_1_1testfun_1a40a0037c26c1d47818ccdb151849b2c0">_eggholder</link>(x):
+<anchor xml:id="_testfun_8py_source_1l00474"/>00474 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00475"/>00475 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Calculates&#32;the&#32;Eggholder&#32;function&#32;value&#32;for&#32;a&#32;given&#32;input.&#32;The&#32;Eggholder</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00476"/>00476 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;function&#32;is&#32;a&#32;complex&#32;mathematical&#32;function&#32;often&#32;used&#32;in&#32;optimization</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00477"/>00477 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;problems&#32;to&#32;test&#32;the&#32;performance&#32;of&#32;algorithms&#32;due&#32;to&#32;its&#32;multiple&#32;local</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00478"/>00478 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;minima.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00479"/>00479 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00480"/>00480 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00481"/><link linkend="_namespacefcmaes_1_1testfun_1a0a7d3f710cd2e37748bfcefee390e92e">00481</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x:&#32;A&#32;list&#32;or&#32;array-like&#32;object&#32;with&#32;two&#32;elements&#32;representing&#32;the</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00482"/>00482 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;input&#32;values&#32;for&#32;the&#32;Eggholder&#32;function.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00483"/>00483 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00484"/>00484 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Returns:</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00485"/>00485 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;float:&#32;The&#32;result&#32;of&#32;evaluating&#32;the&#32;Eggholder&#32;function&#32;for&#32;the&#32;given</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00486"/>00486 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;input&#32;values.</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00487"/>00487 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_testfun_8py_source_1l00488"/>00488 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_testfun_8py_source_1l00489"/>00489 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;(-(x[1]&#32;+&#32;47.0)
+<anchor xml:id="_testfun_8py_source_1l00490"/>00490 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;*&#32;np.sin(np.sqrt(abs(x[0]/2.0&#32;+&#32;(x[1]&#32;+&#32;47.0))))
+<anchor xml:id="_testfun_8py_source_1l00491"/>00491 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-&#32;x[0]&#32;*&#32;np.sin(np.sqrt(abs(x[0]&#32;-&#32;(x[1]&#32;+&#32;47.0))))
+<anchor xml:id="_testfun_8py_source_1l00492"/>00492 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;)
+</programlisting></section>

@@ -1,0 +1,850 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_classexamples_1_1trappist__delivery_1_1trappist__schedule" xml:lang="en-US">
+<title>examples.trappist_delivery.trappist_schedule Class Reference</title>
+<indexterm><primary>examples.trappist_delivery.trappist_schedule</primary></indexterm>
+<para>
+
+<para>UDP (User-Defined Problem) for the Trappist-1 scheduling optimisation problem. </para>
+ 
+</para>
+Collaboration diagram for examples.trappist_delivery.trappist_schedule:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classexamples_1_1trappist__delivery_1_1trappist__schedule__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Public Member Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1ad49fb49a15d50bdf8ffb49a3a452c0d2">__init__</link> (self, path=os.path.join(&quot;.&quot;, &quot;trappist/candidates.txt&quot;), <link linkend="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1a18395f11e6c81aa516e2ec4bef41db1b">n_stations</link>=12, <link linkend="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1a7e81a9b44eba191fd562ad40a04deefa">start_time</link>=0.0, <link linkend="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1aea3674afcf5be6fad76b85302d039080">end_time</link>=80.0, <link linkend="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1a16fd71d9d8f5b3903959487cb92c4a86">station_gap</link>=1.0, <link linkend="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1a0292935302f86bb92f7f038317c97be7">materials</link>=(&quot;Material A&quot;, &quot;Material B&quot;, &quot;Material C&quot;,))</para>
+</listitem>
+            <listitem><para><link linkend="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1a04fa91e6b227d386a9089a2c09350b0c">get_nobj</link> (self)</para>
+
+<para>There is only one objective for this challenge: to maximise the minimum amount of material collected per station. </para>
+</listitem>
+            <listitem><para><link linkend="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1a8cebe82668c7807b5ca79c14143be75a">get_nix</link> (self)</para>
+
+<para>Each assignment consists of a pair of asteroid ID and station ID, hence the total number is 2 x the number of asteroids. </para>
+</listitem>
+            <listitem><para><link linkend="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1a5aa2a411aa8136aa4ff032beeccc4787">get_nec</link> (self)</para>
+
+<para>There are two equality constraints (cf. </para>
+</listitem>
+            <listitem><para><link linkend="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1a32ca9457b465788d42a6d4238887649c">get_nic</link> (self)</para>
+
+<para>There are two equality constraints (cf. </para>
+</listitem>
+            <listitem><para><link linkend="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1a05225027bb79bb598408d34eccca3d0f">get_bounds</link> (self)</para>
+
+<para>Bounds for chromosome elements. </para>
+</listitem>
+            <listitem><para><link linkend="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1abfacff9519a7926d3958aa192c6aa54c">fitness</link> (self, x)</para>
+
+<para>A wrapper for the fitness function (called for evaluation only). </para>
+</listitem>
+            <listitem><para><link linkend="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1a8c08f4da8537abdfb6a83dd7682eb2ae">pretty</link> (self, x)</para>
+
+<para><link linkend="_class_fitness">Fitness</link> evaluation function with pretty printing. </para>
+</listitem>
+            <listitem><para><link linkend="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1aab08205267f0350357c54fad4df63b8c">plot</link> (self, x, ax=None, path=None)</para>
+
+<para>Plot the total material masses accumulated at each station and the asteroid / station assignments. </para>
+</listitem>
+            <listitem><para><link linkend="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1a4508d8053f18fb3f3d5449f360ca1abc">example</link> (self)</para>
+
+<para>An example method returning a minimal chromosome that assigns a single asteroid to each station. </para>
+</listitem>
+            <listitem><para><link linkend="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1a6927de26658a5e34a9e952cd94179327">convert_to_chromosome</link> (self, x)</para>
+
+<para>Creates a valid chromosome from an incomplete one. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Public Attributes    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1acd3f1a1ff38ead0eca14e9a5278c0b8c">db</link> = self._load(path)</para>
+</listitem>
+            <listitem><para><link linkend="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1a18395f11e6c81aa516e2ec4bef41db1b">n_stations</link> = n_stations</para>
+</listitem>
+            <listitem><para><link linkend="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1a7859cc61326139c65d5d98d6e6f7e310">n_asteroids</link> = len(self.db)</para>
+</listitem>
+            <listitem><para><link linkend="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1aa1c9d81854f51cfbd8757f29953bc025">flat_db</link></para>
+</listitem>
+            <listitem><para><link linkend="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1afd0ebdc2ee3d7520dcfd6ce163703bdb">max_opportunities</link></para>
+</listitem>
+            <listitem><para><link linkend="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1a7e81a9b44eba191fd562ad40a04deefa">start_time</link> = start_time</para>
+</listitem>
+            <listitem><para><link linkend="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1aea3674afcf5be6fad76b85302d039080">end_time</link> = end_time</para>
+</listitem>
+            <listitem><para><link linkend="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1a16fd71d9d8f5b3903959487cb92c4a86">station_gap</link> = station_gap</para>
+</listitem>
+            <listitem><para><link linkend="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1a0292935302f86bb92f7f038317c97be7">materials</link> = materials</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Protected Member Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1a0a1525e9c7d156cfb215e35b8a7f4fb2">_load</link> (self, path)</para>
+
+<para>Load the database from an external JSON file. </para>
+</listitem>
+            <listitem><para><link linkend="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1abd8ab5bbb7c6ca032bb1c4574138c8ad">_flatten</link> (self, <link linkend="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1acd3f1a1ff38ead0eca14e9a5278c0b8c">db</link>)</para>
+
+<para>Flatten the database. </para>
+</listitem>
+            <listitem><para><link linkend="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1a3e02e116bf308314a6bc6c546960635e">_plot</link> (self, masses, schedule, ax=None, path=None)</para>
+
+<para>Plot the total material masses at each station and the schedule vs. </para>
+</listitem>
+            <listitem><para><link linkend="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1a0d67cf1ecfbbfa31991d2998be8d6586">_fitness_impl</link> (self, x, logging=False, plotting=False, ax=None, path=None)</para>
+
+<para>Computes the constraints and the fitness of the provided chromosome. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>UDP (User-Defined Problem) for the Trappist-1 scheduling optimisation problem. </para>
+
+
+
+<para>This corresponds to the third challenge in SpOC (Space Optimisation Competition) conceived by the ACT for the GECCO 2022 conference.</para>
+
+<para>The challenge involves optimising the schedule for delivering asteroids to hypothetical processing stations in a differnt orbit in the far future. A more detailed overview of the problem scenario and the three challenges can be found here:</para>
+
+<para><link xlink:href="https://www.esa.int/gsp/ACT/projects/gecco-2022-competition/">https://www.esa.int/gsp/ACT/projects/gecco-2022-competition/</link></para>
+
+<para>This class conforms to the pygmo UDP format. </para>
+<para>
+Definition at line <link linkend="_trappist__delivery_8py_source_1l00051">51</link> of file <link linkend="_trappist__delivery_8py_source">trappist_delivery.py</link>.</para>
+</section>
+<section>
+<title>Constructor &amp; Destructor Documentation</title>
+<anchor xml:id="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1ad49fb49a15d50bdf8ffb49a3a452c0d2"/><section>
+    <title>__init__()</title>
+<indexterm><primary>__init__</primary><secondary>examples.trappist_delivery.trappist_schedule</secondary></indexterm>
+<indexterm><primary>examples.trappist_delivery.trappist_schedule</primary><secondary>__init__</secondary></indexterm>
+<para><computeroutput>examples.trappist_delivery.trappist_schedule.__init__ ( self,  path = <computeroutput>os.path.join(&quot;.&quot;,&#160;&quot;trappist/candidates.txt&quot;)</computeroutput>
+,  n_stations = <computeroutput>12</computeroutput>
+,  start_time = <computeroutput>0.0</computeroutput>
+,  end_time = <computeroutput>80.0</computeroutput>
+,  station_gap = <computeroutput>1.0</computeroutput>
+,  materials = <computeroutput>(
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&quot;Material&#160;A&quot;,
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&quot;Material&#160;B&quot;,
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&quot;Material&#160;C&quot;,
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;)</computeroutput>
+)</computeroutput></para><para>
+Definition at line <link linkend="_trappist__delivery_8py_source_1l00053">53</link> of file <link linkend="_trappist__delivery_8py_source">trappist_delivery.py</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Function Documentation</title>
+<anchor xml:id="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1a0d67cf1ecfbbfa31991d2998be8d6586"/><section>
+    <title>_fitness_impl()</title>
+<indexterm><primary>_fitness_impl</primary><secondary>examples.trappist_delivery.trappist_schedule</secondary></indexterm>
+<indexterm><primary>examples.trappist_delivery.trappist_schedule</primary><secondary>_fitness_impl</secondary></indexterm>
+<para><computeroutput>examples.trappist_delivery.trappist_schedule._fitness_impl ( self,  x,  logging = <computeroutput>False</computeroutput>
+,  plotting = <computeroutput>False</computeroutput>
+,  ax = <computeroutput>None</computeroutput>
+,  path = <computeroutput>None</computeroutput>
+)<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+
+<para>Computes the constraints and the fitness of the provided chromosome. </para>
+</para>
+
+<para><literallayout><computeroutput>   1. Equality constraints:
+
+   1.1. Asteroid IDs: all asteroids in the database must be present in the chromosome.
+   1.2. Opportunity IDs: all opportunity IDs in the chromosome must correspond to opportunities in the database.
+
+   2. Inequality constraints:
+
+   2.1. Station gaps: all station gaps must be greater than a minimal time period (self.station_gap)
+   2.2. Arrival times: all asteroid arrival times must be between the start and end times of the corresponding station
+
+   3. Fitness:
+
+   3.1 Iterate over the chromosome and add the masses of the materials for all assigned asteroids with valid transfers
+   3.2 Find the minimum mass of each material per station. This is the final fitness.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>x</entry><entry>
+<para>A list of integers and floats in the following format:<itemizedlist>
+<listitem>
+<para>Station start and end times (2 x self.n_stations)</para>
+</listitem><listitem>
+<para>The following items for all selected asteroids (3 x self.n_asteroids integers in total):<itemizedlist>
+<listitem>
+<para>Asteroid ID</para>
+</listitem><listitem>
+<para>Station ID</para>
+</listitem><listitem>
+<para>Opportunity ID</para>
+</listitem></itemizedlist>
+</para>
+</listitem></itemizedlist>
+</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <note><title>Note</title>
+
+<para>The triplets do not have to be ordered by asteroid ID.</para>
+</note>
+
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>logging</entry><entry>
+<para>Logging switch. Defaults to False. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>plotting</entry><entry>
+<para>Plotting switch. Defaults to False. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>ax</entry><entry>
+<para>Plot axes. Defaults to None. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>path</entry><entry>
+<para>File path for saving the plots. Defaults to None.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>A tuple containing:<itemizedlist>
+<listitem>
+<para>The fitness</para>
+</listitem><listitem>
+<para>A list of equality constraints</para>
+</listitem><listitem>
+<para>A list of inequality constraints</para>
+</listitem><listitem>
+<para>Plot axes </para>
+</listitem></itemizedlist>
+</para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_trappist__delivery_8py_source_1l00410">410</link> of file <link linkend="_trappist__delivery_8py_source">trappist_delivery.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classexamples_1_1trappist__delivery_1_1trappist__schedule_a0d67cf1ecfbbfa31991d2998be8d6586_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classexamples_1_1trappist__delivery_1_1trappist__schedule_a0d67cf1ecfbbfa31991d2998be8d6586_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1abd8ab5bbb7c6ca032bb1c4574138c8ad"/><section>
+    <title>_flatten()</title>
+<indexterm><primary>_flatten</primary><secondary>examples.trappist_delivery.trappist_schedule</secondary></indexterm>
+<indexterm><primary>examples.trappist_delivery.trappist_schedule</primary><secondary>_flatten</secondary></indexterm>
+<para><computeroutput>examples.trappist_delivery.trappist_schedule._flatten ( self,  db)<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+
+<para>Flatten the database. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>db</entry><entry>
+<para>The database of possible asteroid / station assignment opportunities.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>A flat version of the database with (asteroid ID, station ID, opportunity ID) tuples as keys and (arrival time, mass A, mass B, mass C) tuples as values and the maximum number of opportunities for any asteroid / station pair in the database. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_trappist__delivery_8py_source_1l00201">201</link> of file <link linkend="_trappist__delivery_8py_source">trappist_delivery.py</link>.</para>
+</section>
+<anchor xml:id="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1a0a1525e9c7d156cfb215e35b8a7f4fb2"/><section>
+    <title>_load()</title>
+<indexterm><primary>_load</primary><secondary>examples.trappist_delivery.trappist_schedule</secondary></indexterm>
+<indexterm><primary>examples.trappist_delivery.trappist_schedule</primary><secondary>_load</secondary></indexterm>
+<para><computeroutput>examples.trappist_delivery.trappist_schedule._load ( self,  path)<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+
+<para>Load the database from an external JSON file. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>path</entry><entry>
+<para>The path to the database file</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>The path to the database file. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_trappist__delivery_8py_source_1l00164">164</link> of file <link linkend="_trappist__delivery_8py_source">trappist_delivery.py</link>.</para>
+</section>
+<anchor xml:id="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1a3e02e116bf308314a6bc6c546960635e"/><section>
+    <title>_plot()</title>
+<indexterm><primary>_plot</primary><secondary>examples.trappist_delivery.trappist_schedule</secondary></indexterm>
+<indexterm><primary>examples.trappist_delivery.trappist_schedule</primary><secondary>_plot</secondary></indexterm>
+<para><computeroutput>examples.trappist_delivery.trappist_schedule._plot ( self,  masses,  schedule,  ax = <computeroutput>None</computeroutput>
+,  path = <computeroutput>None</computeroutput>
+)<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+
+<para>Plot the total material masses at each station and the schedule vs. </para>
+</para>
+
+<para>opportunities for each station.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>masses</entry><entry>
+<para>A 2D array containing the masses corresponding to all assignment opportunities. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>schedule</entry><entry>
+<para>The actual scheduled asteroid / station assignments and their corresponding masses. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>ax</entry><entry>
+<para>Plot axes. Defaults to None. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>path</entry><entry>
+<para>A file to save the plot to. Defaults to None.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>Plot axes. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_trappist__delivery_8py_source_1l00233">233</link> of file <link linkend="_trappist__delivery_8py_source">trappist_delivery.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classexamples_1_1trappist__delivery_1_1trappist__schedule_a3e02e116bf308314a6bc6c546960635e_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1a6927de26658a5e34a9e952cd94179327"/><section>
+    <title>convert_to_chromosome()</title>
+<indexterm><primary>convert_to_chromosome</primary><secondary>examples.trappist_delivery.trappist_schedule</secondary></indexterm>
+<indexterm><primary>examples.trappist_delivery.trappist_schedule</primary><secondary>convert_to_chromosome</secondary></indexterm>
+<para><computeroutput>examples.trappist_delivery.trappist_schedule.convert_to_chromosome ( self,  x)</computeroutput></para><para>
+
+<para>Creates a valid chromosome from an incomplete one. </para>
+</para>
+
+<para><literallayout><computeroutput>   Here, &apos;incomplete&apos; means that all station windows are provided
+   but only some asteroids are assigned. This method completes the
+   chromosome by assigning the missing asteroids to station 0, which
+   means that those asteroids will not be considered in the fitness evaluation.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>x</entry><entry>
+<para>Incomplete chromosome.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>Complete chromosome. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_trappist__delivery_8py_source_1l00825">825</link> of file <link linkend="_trappist__delivery_8py_source">trappist_delivery.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classexamples_1_1trappist__delivery_1_1trappist__schedule_a6927de26658a5e34a9e952cd94179327_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1a4508d8053f18fb3f3d5449f360ca1abc"/><section>
+    <title>example()</title>
+<indexterm><primary>example</primary><secondary>examples.trappist_delivery.trappist_schedule</secondary></indexterm>
+<indexterm><primary>examples.trappist_delivery.trappist_schedule</primary><secondary>example</secondary></indexterm>
+<para><computeroutput>examples.trappist_delivery.trappist_schedule.example ( self)</computeroutput></para><para>
+
+<para>An example method returning a minimal chromosome that assigns a single asteroid to each station. </para>
+</para>
+
+<para><formalpara><title>Returns</title>
+
+<para>A valid chromosome. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_trappist__delivery_8py_source_1l00750">750</link> of file <link linkend="_trappist__delivery_8py_source">trappist_delivery.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classexamples_1_1trappist__delivery_1_1trappist__schedule_a4508d8053f18fb3f3d5449f360ca1abc_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1abfacff9519a7926d3958aa192c6aa54c"/><section>
+    <title>fitness()</title>
+<indexterm><primary>fitness</primary><secondary>examples.trappist_delivery.trappist_schedule</secondary></indexterm>
+<indexterm><primary>examples.trappist_delivery.trappist_schedule</primary><secondary>fitness</secondary></indexterm>
+<para><computeroutput>examples.trappist_delivery.trappist_schedule.fitness ( self,  x)</computeroutput></para><para>
+
+<para>A wrapper for the fitness function (called for evaluation only). </para>
+</para>
+
+<para><literallayout><computeroutput>
+</computeroutput></literallayout><itemizedlist>
+<listitem>
+<para>The chromosome has the following format:<itemizedlist>
+<listitem>
+<para>Start and end times for each station, <emphasis>in order of Station ID</emphasis></para>
+</listitem><listitem>
+<para>Asteroid / station assignments with the corresponding arrival times.</para>
+</listitem></itemizedlist>
+</para>
+</listitem></itemizedlist>
+</para>
+
+<para><formalpara>
+<title>Format</title>
+<para>[ Station 1 start time, Station 1 end time, | Station 2 start time, Station 2 end time, | <literallayout><computeroutput>
+</computeroutput></literallayout> Station 11 start time, Station 11 end time, | Station 12 start time, Station 12 end time, | Asteroid ID, Station ID, Opportunity ID, | Asteroid ID, Station ID, Opportunity ID, | <literallayout><computeroutput>
+</computeroutput></literallayout> Asteroid ID, Station ID, Opportunity ID, | Asteroid ID, Station ID, Opportunity ID | ]</para>
+</formalpara>
+<itemizedlist>
+<listitem>
+<para>All IDs (for asteroids, stations and opportunities) are 1-based.<itemizedlist>
+<listitem>
+<para>This is particularly relevant for the opportunity IDs since they are converted to 0-based indices in the fitness evaluation function by subtracting 1.</para>
+</listitem></itemizedlist>
+</para>
+</listitem><listitem>
+<para>Stations must be activated <emphasis>sequentially</emphasis> (<emphasis>not</emphasis> in parallel) but not necessarily in order of their ID.</para>
+</listitem><listitem>
+<para>There must be a minimal gap (called &apos;station gap&apos;) between the end time of one station and the start time of the next.</para>
+</listitem><listitem>
+<para>Every asteroid must be either asigned to a station or unassigned.</para>
+</listitem><listitem>
+<para>The asteroid / station assignments do not have to be in any particular order, but all asteroid IDs must appear in the chromosome, even if some asteroids are unassigned. <literallayout><computeroutput>- Assigned asteroids must have corresponding Station IDs between 1 and the number of stations.
+- Unassigned asteroids must have a Station ID 0.
+</computeroutput></literallayout></para>
+</listitem></itemizedlist>
+</para>
+
+<para><literallayout><computeroutput>
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>x</entry><entry>
+<para>A chromosome in the format specified above.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>A tuple containing the fitness followed by the equality and inequality constraints. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_trappist__delivery_8py_source_1l00693">693</link> of file <link linkend="_trappist__delivery_8py_source">trappist_delivery.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classexamples_1_1trappist__delivery_1_1trappist__schedule_abfacff9519a7926d3958aa192c6aa54c_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1a05225027bb79bb598408d34eccca3d0f"/><section>
+    <title>get_bounds()</title>
+<indexterm><primary>get_bounds</primary><secondary>examples.trappist_delivery.trappist_schedule</secondary></indexterm>
+<indexterm><primary>examples.trappist_delivery.trappist_schedule</primary><secondary>get_bounds</secondary></indexterm>
+<para><computeroutput>examples.trappist_delivery.trappist_schedule.get_bounds ( self)</computeroutput></para><para>
+
+<para>Bounds for chromosome elements. </para>
+</para>
+
+<para><formalpara><title>Returns</title>
+
+<para>Bounds for each element in the chromosome. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_trappist__delivery_8py_source_1l00139">139</link> of file <link linkend="_trappist__delivery_8py_source">trappist_delivery.py</link>.</para>
+</section>
+<anchor xml:id="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1a5aa2a411aa8136aa4ff032beeccc4787"/><section>
+    <title>get_nec()</title>
+<indexterm><primary>get_nec</primary><secondary>examples.trappist_delivery.trappist_schedule</secondary></indexterm>
+<indexterm><primary>examples.trappist_delivery.trappist_schedule</primary><secondary>get_nec</secondary></indexterm>
+<para><computeroutput>examples.trappist_delivery.trappist_schedule.get_nec ( self)</computeroutput></para><para>
+
+<para>There are two equality constraints (cf. </para>
+</para>
+
+<para><link linkend="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1a0d67cf1ecfbbfa31991d2998be8d6586">_fitness_impl()</link> for details).</para>
+
+<para><formalpara><title>Returns</title>
+
+<para>Number of equality constraints. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_trappist__delivery_8py_source_1l00120">120</link> of file <link linkend="_trappist__delivery_8py_source">trappist_delivery.py</link>.</para>
+</section>
+<anchor xml:id="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1a32ca9457b465788d42a6d4238887649c"/><section>
+    <title>get_nic()</title>
+<indexterm><primary>get_nic</primary><secondary>examples.trappist_delivery.trappist_schedule</secondary></indexterm>
+<indexterm><primary>examples.trappist_delivery.trappist_schedule</primary><secondary>get_nic</secondary></indexterm>
+<para><computeroutput>examples.trappist_delivery.trappist_schedule.get_nic ( self)</computeroutput></para><para>
+
+<para>There are two equality constraints (cf. </para>
+</para>
+
+<para><link linkend="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1a0d67cf1ecfbbfa31991d2998be8d6586">_fitness_impl()</link> for details).</para>
+
+<para><formalpara><title>Returns</title>
+
+<para>Number of inequality constraints. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_trappist__delivery_8py_source_1l00130">130</link> of file <link linkend="_trappist__delivery_8py_source">trappist_delivery.py</link>.</para>
+</section>
+<anchor xml:id="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1a8cebe82668c7807b5ca79c14143be75a"/><section>
+    <title>get_nix()</title>
+<indexterm><primary>get_nix</primary><secondary>examples.trappist_delivery.trappist_schedule</secondary></indexterm>
+<indexterm><primary>examples.trappist_delivery.trappist_schedule</primary><secondary>get_nix</secondary></indexterm>
+<para><computeroutput>examples.trappist_delivery.trappist_schedule.get_nix ( self)</computeroutput></para><para>
+
+<para>Each assignment consists of a pair of asteroid ID and station ID, hence the total number is 2 x the number of asteroids. </para>
+</para>
+
+<para><formalpara><title>Returns</title>
+
+<para>Number of integer components of the chromosome. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_trappist__delivery_8py_source_1l00111">111</link> of file <link linkend="_trappist__delivery_8py_source">trappist_delivery.py</link>.</para>
+</section>
+<anchor xml:id="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1a04fa91e6b227d386a9089a2c09350b0c"/><section>
+    <title>get_nobj()</title>
+<indexterm><primary>get_nobj</primary><secondary>examples.trappist_delivery.trappist_schedule</secondary></indexterm>
+<indexterm><primary>examples.trappist_delivery.trappist_schedule</primary><secondary>get_nobj</secondary></indexterm>
+<para><computeroutput>examples.trappist_delivery.trappist_schedule.get_nobj ( self)</computeroutput></para><para>
+
+<para>There is only one objective for this challenge: to maximise the minimum amount of material collected per station. </para>
+</para>
+
+<para><formalpara><title>Returns</title>
+
+<para>Number of objectives. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_trappist__delivery_8py_source_1l00101">101</link> of file <link linkend="_trappist__delivery_8py_source">trappist_delivery.py</link>.</para>
+</section>
+<anchor xml:id="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1aab08205267f0350357c54fad4df63b8c"/><section>
+    <title>plot()</title>
+<indexterm><primary>plot</primary><secondary>examples.trappist_delivery.trappist_schedule</secondary></indexterm>
+<indexterm><primary>examples.trappist_delivery.trappist_schedule</primary><secondary>plot</secondary></indexterm>
+<para><computeroutput>examples.trappist_delivery.trappist_schedule.plot ( self,  x,  ax = <computeroutput>None</computeroutput>
+,  path = <computeroutput>None</computeroutput>
+)</computeroutput></para><para>
+
+<para>Plot the total material masses accumulated at each station and the asteroid / station assignments. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>x</entry><entry>
+<para>A chromosome. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>ax</entry><entry>
+<para>Plot axes. Defaults to None. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>path</entry><entry>
+<para>A file to save the plot to. Defaults to None.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>Plot axes. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_trappist__delivery_8py_source_1l00727">727</link> of file <link linkend="_trappist__delivery_8py_source">trappist_delivery.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classexamples_1_1trappist__delivery_1_1trappist__schedule_aab08205267f0350357c54fad4df63b8c_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1a8c08f4da8537abdfb6a83dd7682eb2ae"/><section>
+    <title>pretty()</title>
+<indexterm><primary>pretty</primary><secondary>examples.trappist_delivery.trappist_schedule</secondary></indexterm>
+<indexterm><primary>examples.trappist_delivery.trappist_schedule</primary><secondary>pretty</secondary></indexterm>
+<para><computeroutput>examples.trappist_delivery.trappist_schedule.pretty ( self,  x)</computeroutput></para><para>
+
+<para><link linkend="_class_fitness">Fitness</link> evaluation function with pretty printing. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>x</entry><entry>
+<para>A chromosome. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_trappist__delivery_8py_source_1l00708">708</link> of file <link linkend="_trappist__delivery_8py_source">trappist_delivery.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classexamples_1_1trappist__delivery_1_1trappist__schedule_a8c08f4da8537abdfb6a83dd7682eb2ae_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+<section>
+<title>Member Data Documentation</title>
+<anchor xml:id="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1acd3f1a1ff38ead0eca14e9a5278c0b8c"/><section>
+    <title>db</title>
+<indexterm><primary>db</primary><secondary>examples.trappist_delivery.trappist_schedule</secondary></indexterm>
+<indexterm><primary>examples.trappist_delivery.trappist_schedule</primary><secondary>db</secondary></indexterm>
+<para><computeroutput>examples.trappist_delivery.trappist_schedule.db = self._load(path)</computeroutput></para><para>
+Definition at line <link linkend="_trappist__delivery_8py_source_1l00067">67</link> of file <link linkend="_trappist__delivery_8py_source">trappist_delivery.py</link>.</para>
+</section>
+<anchor xml:id="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1aea3674afcf5be6fad76b85302d039080"/><section>
+    <title>end_time</title>
+<indexterm><primary>end_time</primary><secondary>examples.trappist_delivery.trappist_schedule</secondary></indexterm>
+<indexterm><primary>examples.trappist_delivery.trappist_schedule</primary><secondary>end_time</secondary></indexterm>
+<para><computeroutput>examples.trappist_delivery.trappist_schedule.end_time = end_time</computeroutput></para><para>
+Definition at line <link linkend="_trappist__delivery_8py_source_1l00085">85</link> of file <link linkend="_trappist__delivery_8py_source">trappist_delivery.py</link>.</para>
+</section>
+<anchor xml:id="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1aa1c9d81854f51cfbd8757f29953bc025"/><section>
+    <title>flat_db</title>
+<indexterm><primary>flat_db</primary><secondary>examples.trappist_delivery.trappist_schedule</secondary></indexterm>
+<indexterm><primary>examples.trappist_delivery.trappist_schedule</primary><secondary>flat_db</secondary></indexterm>
+<para><computeroutput>examples.trappist_delivery.trappist_schedule.flat_db</computeroutput></para><para>
+Definition at line <link linkend="_trappist__delivery_8py_source_1l00080">80</link> of file <link linkend="_trappist__delivery_8py_source">trappist_delivery.py</link>.</para>
+</section>
+<anchor xml:id="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1a0292935302f86bb92f7f038317c97be7"/><section>
+    <title>materials</title>
+<indexterm><primary>materials</primary><secondary>examples.trappist_delivery.trappist_schedule</secondary></indexterm>
+<indexterm><primary>examples.trappist_delivery.trappist_schedule</primary><secondary>materials</secondary></indexterm>
+<para><computeroutput>examples.trappist_delivery.trappist_schedule.materials = materials</computeroutput></para><para>
+Definition at line <link linkend="_trappist__delivery_8py_source_1l00092">92</link> of file <link linkend="_trappist__delivery_8py_source">trappist_delivery.py</link>.</para>
+</section>
+<anchor xml:id="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1afd0ebdc2ee3d7520dcfd6ce163703bdb"/><section>
+    <title>max_opportunities</title>
+<indexterm><primary>max_opportunities</primary><secondary>examples.trappist_delivery.trappist_schedule</secondary></indexterm>
+<indexterm><primary>examples.trappist_delivery.trappist_schedule</primary><secondary>max_opportunities</secondary></indexterm>
+<para><computeroutput>examples.trappist_delivery.trappist_schedule.max_opportunities</computeroutput></para><para>
+Definition at line <link linkend="_trappist__delivery_8py_source_1l00080">80</link> of file <link linkend="_trappist__delivery_8py_source">trappist_delivery.py</link>.</para>
+</section>
+<anchor xml:id="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1a7859cc61326139c65d5d98d6e6f7e310"/><section>
+    <title>n_asteroids</title>
+<indexterm><primary>n_asteroids</primary><secondary>examples.trappist_delivery.trappist_schedule</secondary></indexterm>
+<indexterm><primary>examples.trappist_delivery.trappist_schedule</primary><secondary>n_asteroids</secondary></indexterm>
+<para><computeroutput>examples.trappist_delivery.trappist_schedule.n_asteroids = len(self.db)</computeroutput></para><para>
+Definition at line <link linkend="_trappist__delivery_8py_source_1l00073">73</link> of file <link linkend="_trappist__delivery_8py_source">trappist_delivery.py</link>.</para>
+</section>
+<anchor xml:id="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1a18395f11e6c81aa516e2ec4bef41db1b"/><section>
+    <title>n_stations</title>
+<indexterm><primary>n_stations</primary><secondary>examples.trappist_delivery.trappist_schedule</secondary></indexterm>
+<indexterm><primary>examples.trappist_delivery.trappist_schedule</primary><secondary>n_stations</secondary></indexterm>
+<para><computeroutput>examples.trappist_delivery.trappist_schedule.n_stations = n_stations</computeroutput></para><para>
+Definition at line <link linkend="_trappist__delivery_8py_source_1l00070">70</link> of file <link linkend="_trappist__delivery_8py_source">trappist_delivery.py</link>.</para>
+</section>
+<anchor xml:id="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1a7e81a9b44eba191fd562ad40a04deefa"/><section>
+    <title>start_time</title>
+<indexterm><primary>start_time</primary><secondary>examples.trappist_delivery.trappist_schedule</secondary></indexterm>
+<indexterm><primary>examples.trappist_delivery.trappist_schedule</primary><secondary>start_time</secondary></indexterm>
+<para><computeroutput>examples.trappist_delivery.trappist_schedule.start_time = start_time</computeroutput></para><para>
+Definition at line <link linkend="_trappist__delivery_8py_source_1l00084">84</link> of file <link linkend="_trappist__delivery_8py_source">trappist_delivery.py</link>.</para>
+</section>
+<anchor xml:id="_classexamples_1_1trappist__delivery_1_1trappist__schedule_1a16fd71d9d8f5b3903959487cb92c4a86"/><section>
+    <title>station_gap</title>
+<indexterm><primary>station_gap</primary><secondary>examples.trappist_delivery.trappist_schedule</secondary></indexterm>
+<indexterm><primary>examples.trappist_delivery.trappist_schedule</primary><secondary>station_gap</secondary></indexterm>
+<para><computeroutput>examples.trappist_delivery.trappist_schedule.station_gap = station_gap</computeroutput></para><para>
+Definition at line <link linkend="_trappist__delivery_8py_source_1l00089">89</link> of file <link linkend="_trappist__delivery_8py_source">trappist_delivery.py</link>.</para>
+</section>
+<para>
+The documentation for this class was generated from the following file:</para>
+examples/<link linkend="_trappist__delivery_8py">trappist_delivery.py</link></section>
+</section>

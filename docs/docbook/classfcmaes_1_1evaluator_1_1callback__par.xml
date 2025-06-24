@@ -1,0 +1,183 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_classfcmaes_1_1evaluator_1_1callback__par" xml:lang="en-US">
+<title>fcmaes.evaluator.callback_par Class Reference</title>
+<indexterm><primary>fcmaes.evaluator.callback_par</primary></indexterm>
+<para>
+
+<para>Wrapper class for callable objects with functionality to process populations of data using provided functions. </para>
+ 
+</para>
+Collaboration diagram for fcmaes.evaluator.callback_par:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1evaluator_1_1callback__par__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Public Member Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1evaluator_1_1callback__par_1a4fae3ecaebad817707bbdd38d1592aa4">__init__</link> (self, Callable[[ArrayLike], float] <link linkend="_classfcmaes_1_1evaluator_1_1callback__par_1ab00135869a09e7af34a5a3f27c639d25">fun</link>, Callable[[ArrayLike], ArrayLike] <link linkend="_classfcmaes_1_1evaluator_1_1callback__par_1a92cf3387fbaf4bb63152a328f64cd748">parfun</link>)</para>
+
+<para>Initializes the object with the provided function and parameter function. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1evaluator_1_1callback__par_1a2cc5592287f3feddcda3e51dcf38054b">__call__</link> (self, popsize, n, xs_, ys_)</para>
+
+<para>Calls the function or parallel function to evaluate the array of input values and store the results. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Public Attributes    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1evaluator_1_1callback__par_1ab00135869a09e7af34a5a3f27c639d25">fun</link> = fun</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1evaluator_1_1callback__par_1a92cf3387fbaf4bb63152a328f64cd748">parfun</link> = parfun</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>Wrapper class for callable objects with functionality to process populations of data using provided functions. </para>
+
+
+
+<para>This class provides a mechanism to evaluate a function or a parallelized function (<computeroutput>fun</computeroutput> or <computeroutput>parfun</computeroutput>) on a specified population&apos;s data. It accommodates use cases where either single or parallelized computation is required.</para>
+
+<para><literallayout><computeroutput>    fun (Callable[[ArrayLike], float]): A function that processes a
+        single element of a population and returns a float result.
+    parfun (Callable[[ArrayLike], ArrayLike]): A parallelizable function
+        that processes multiple elements of a population and returns
+        an array of results.
+</computeroutput></literallayout> </para>
+<para>
+Definition at line <link linkend="_evaluator_8py_source_1l00909">909</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+</section>
+<section>
+<title>Constructor &amp; Destructor Documentation</title>
+<anchor xml:id="_classfcmaes_1_1evaluator_1_1callback__par_1a4fae3ecaebad817707bbdd38d1592aa4"/><section>
+    <title>__init__()</title>
+<indexterm><primary>__init__</primary><secondary>fcmaes.evaluator.callback_par</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator.callback_par</primary><secondary>__init__</secondary></indexterm>
+<para><computeroutput>fcmaes.evaluator.callback_par.__init__ ( self, Callable[[ArrayLike], float] fun, Callable[[ArrayLike], ArrayLike] parfun)</computeroutput></para><para>
+
+<para>Initializes the object with the provided function and parameter function. </para>
+</para>
+
+<para><literallayout><computeroutput>       fun (Callable[[ArrayLike], float]): A callable function that takes an
+           ArrayLike input and returns a float.
+       parfun (Callable[[ArrayLike], ArrayLike]): A callable parameter function
+           that takes an ArrayLike input and returns an ArrayLike output.
+</computeroutput></literallayout> </para>
+<para>
+Definition at line <link linkend="_evaluator_8py_source_1l00919">919</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Function Documentation</title>
+<anchor xml:id="_classfcmaes_1_1evaluator_1_1callback__par_1a2cc5592287f3feddcda3e51dcf38054b"/><section>
+    <title>__call__()</title>
+<indexterm><primary>__call__</primary><secondary>fcmaes.evaluator.callback_par</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator.callback_par</primary><secondary>__call__</secondary></indexterm>
+<para><computeroutput>fcmaes.evaluator.callback_par.__call__ ( self,  popsize,  n,  xs_,  ys_)</computeroutput></para><para>
+
+<para>Calls the function or parallel function to evaluate the array of input values and store the results. </para>
+</para>
+
+<para>This method operates on the input arrays provided and evaluates them using the given function (<computeroutput>fun</computeroutput>) or a parallel function (<computeroutput>parfun</computeroutput>) if available. The results are then stored in the output array.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>popsize</entry><entry>
+<para>int The population size; determines how many sets of inputs are processed. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>n</entry><entry>
+<para>int The length of each input array segment. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>xs_</entry><entry>
+<para>ctypes.POINTER(ctypes.c_double) A pointer to the shared memory that contains the input numeric data. It points to an array of double-precision floating-point numbers. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>ys_</entry><entry>
+<para>ctypes.POINTER(ctypes.c_double) A pointer to the shared memory where the evaluated results will be stored. It points to an array of double-precision floating-point </para>
+</entry>
+                            </row>
+                            <row>
+<entry>numbers.</entry><entry></entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>Exception</entry><entry>
+<para>If the evaluation process of the inputs fails for any reason, it will print the exception message to the standard output. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_evaluator_8py_source_1l00950">950</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1evaluator_1_1callback__par_a2cc5592287f3feddcda3e51dcf38054b_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+<section>
+<title>Member Data Documentation</title>
+<anchor xml:id="_classfcmaes_1_1evaluator_1_1callback__par_1ab00135869a09e7af34a5a3f27c639d25"/><section>
+    <title>fun</title>
+<indexterm><primary>fun</primary><secondary>fcmaes.evaluator.callback_par</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator.callback_par</primary><secondary>fun</secondary></indexterm>
+<para><computeroutput>fcmaes.evaluator.callback_par.fun = fun</computeroutput></para><para>
+Definition at line <link linkend="_evaluator_8py_source_1l00922">922</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1evaluator_1_1callback__par_1a92cf3387fbaf4bb63152a328f64cd748"/><section>
+    <title>parfun</title>
+<indexterm><primary>parfun</primary><secondary>fcmaes.evaluator.callback_par</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator.callback_par</primary><secondary>parfun</secondary></indexterm>
+<para><computeroutput>fcmaes.evaluator.callback_par.parfun = parfun</computeroutput></para><para>
+Definition at line <link linkend="_evaluator_8py_source_1l00923">923</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+</section>
+<para>
+The documentation for this class was generated from the following file:</para>
+fcmaes/<link linkend="_evaluator_8py">evaluator.py</link></section>
+</section>

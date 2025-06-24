@@ -1,0 +1,452 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_namespacefcmaes_1_1journal" xml:lang="en-US">
+<title>fcmaes.journal Namespace Reference</title>
+<indexterm><primary>fcmaes.journal</primary></indexterm>
+<simplesect>
+    <title>Classes    </title>
+        <itemizedlist>
+            <listitem><para>class <link linkend="_classfcmaes_1_1journal_1_1_base__message">Base_message</link></para>
+
+<para>Represents the base structure of a message. </para>
+</listitem>
+            <listitem><para>class <link linkend="_classfcmaes_1_1journal_1_1_journal">Journal</link></para>
+
+<para>Handles logging of study, trial, parameter, and value information to a file. </para>
+</listitem>
+            <listitem><para>class <link linkend="_classfcmaes_1_1journal_1_1journal__wrapper">journal_wrapper</link></para>
+</listitem>
+            <listitem><para>class <link linkend="_classfcmaes_1_1journal_1_1_study__start">Study_start</link></para>
+
+<para>Represents the initial message to start a study. </para>
+</listitem>
+            <listitem><para>class <link linkend="_classfcmaes_1_1journal_1_1_trial__param">Trial_param</link></para>
+
+<para>Represents the parameters associated with a specific trial. </para>
+</listitem>
+            <listitem><para>class <link linkend="_classfcmaes_1_1journal_1_1_trial__start">Trial_start</link></para>
+
+<para>Represents the start of a trial within a specific study. </para>
+</listitem>
+            <listitem><para>class <link linkend="_classfcmaes_1_1journal_1_1_trial__value">Trial_value</link></para>
+
+<para>Represents the value of a single trial in an experiment. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_namespacefcmaes_1_1journal_1ab2d4646b056641882ced63f7d0299978">message_to_json</link> (message)</para>
+
+<para>Converts a given message object to its JSON representation. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1journal_1a3d2994fbc61c2eb4fa0bf4b6018b055e">distribution</link> (low, high)</para>
+
+<para>Generates a JSON representation of a float distribution within a specified range. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1journal_1a10dd7671556c1ec184e8402909fead3e">study_start</link> (worker_id, study_name, dir)</para>
+
+<para>Creates and returns a JSON representation of a study start message. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1journal_1ab08848e83cf71c33842407ee31354411">trial_param</link> (worker_id, trial_id, param_name, param_value_internal, low, high)</para>
+
+<para>Generates a JSON message containing trial parameter details. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1journal_1a7fd5c2a880bb6da8e4e2e42790dc9430">trial_start</link> (worker_id, study_id)</para>
+
+<para>Starts a trial by recording the worker ID, study ID, and the current timestamp, and generates a JSON message representation of the trial start event. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1journal_1a968c87aa2fb6e2e186e221f834d63552">trial_value</link> (worker_id, trial_id, y)</para>
+
+<para>Creates and returns a JSON representation of a trial value message. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Function Documentation</title>
+<anchor xml:id="_namespacefcmaes_1_1journal_1a3d2994fbc61c2eb4fa0bf4b6018b055e"/><section>
+    <title>distribution()</title>
+<indexterm><primary>distribution</primary><secondary>fcmaes.journal</secondary></indexterm>
+<indexterm><primary>fcmaes.journal</primary><secondary>distribution</secondary></indexterm>
+<para><computeroutput>fcmaes.journal.distribution ( low,  high)</computeroutput></para><para>
+
+<para>Generates a JSON representation of a float distribution within a specified range. </para>
+</para>
+
+<para>The function creates a JSON object representing a uniform float distribution with specified lower and upper bounds. The resulting JSON is parsed and returned as a Python dictionary.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>low</entry><entry>
+<para>The lower bound of the distribution range. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>high</entry><entry>
+<para>The upper bound of the distribution range.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>dict A dictionary representation of the float distribution. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_journal_8py_source_1l00231">231</link> of file <link linkend="_journal_8py_source">journal.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1journal_a3d2994fbc61c2eb4fa0bf4b6018b055e_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1journal_1ab2d4646b056641882ced63f7d0299978"/><section>
+    <title>message_to_json()</title>
+<indexterm><primary>message_to_json</primary><secondary>fcmaes.journal</secondary></indexterm>
+<indexterm><primary>fcmaes.journal</primary><secondary>message_to_json</secondary></indexterm>
+<para><computeroutput>fcmaes.journal.message_to_json ( message)</computeroutput></para><para>
+
+<para>Converts a given message object to its JSON representation. </para>
+</para>
+
+<para>This function serializes a message object based on its type. If the message type is <computeroutput><link linkend="_classfcmaes_1_1journal_1_1_trial__param">Trial_param</link></computeroutput>, its <computeroutput>distribution</computeroutput> field is serialized as a JSON string before converting the entire object to JSON format. For other message types, the object is directly converted to JSON format.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>message</entry><entry>
+<para>The message object to be serialized to JSON.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>str A JSON string representation of the message. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_journal_8py_source_1l00207">207</link> of file <link linkend="_journal_8py_source">journal.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1journal_ab2d4646b056641882ced63f7d0299978_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1journal_1a10dd7671556c1ec184e8402909fead3e"/><section>
+    <title>study_start()</title>
+<indexterm><primary>study_start</primary><secondary>fcmaes.journal</secondary></indexterm>
+<indexterm><primary>fcmaes.journal</primary><secondary>study_start</secondary></indexterm>
+<para><computeroutput>fcmaes.journal.study_start ( worker_id,  study_name,  dir)</computeroutput></para><para>
+
+<para>Creates and returns a JSON representation of a study start message. </para>
+</para>
+
+<para>This function builds a study start message using provided worker identification, study name, and study directions. If the <computeroutput>dir</computeroutput> parameter is scalar, it is converted into a list; otherwise, it is used as is. The message is then serialized into a JSON string for further communication or processing.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>worker_id</entry><entry>
+<para>Unique identifier for the worker initiating the study. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>study_name</entry><entry>
+<para>Name of the study being started. dir (Union[str, List[str]]): Direction(s) for the study. Can be a single direction (string) or a list of directions.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>str JSON-encoded representation of the constructed study start message. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_journal_8py_source_1l00252">252</link> of file <link linkend="_journal_8py_source">journal.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1journal_a10dd7671556c1ec184e8402909fead3e_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1journal_a10dd7671556c1ec184e8402909fead3e_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1journal_1ab08848e83cf71c33842407ee31354411"/><section>
+    <title>trial_param()</title>
+<indexterm><primary>trial_param</primary><secondary>fcmaes.journal</secondary></indexterm>
+<indexterm><primary>fcmaes.journal</primary><secondary>trial_param</secondary></indexterm>
+<para><computeroutput>fcmaes.journal.trial_param ( worker_id,  trial_id,  param_name,  param_value_internal,  low,  high)</computeroutput></para><para>
+
+<para>Generates a JSON message containing trial parameter details. </para>
+</para>
+
+<para>This function creates a message using the given trial parameters and returns its JSON representation. The message contains information such as worker ID, trial ID, parameter name, internal parameter value, and the specified distribution range.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>worker_id</entry><entry>
+<para>The unique identifier for the worker. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>trial_id</entry><entry>
+<para>The unique identifier for the trial. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>param_name</entry><entry>
+<para>The name of the parameter. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>param_value_internal</entry><entry>
+<para>The internal value of the parameter to be passed. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>low</entry><entry>
+<para>The lower bound of the parameter&apos;s range. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>high</entry><entry>
+<para>The upper bound of the parameter&apos;s range.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>str A JSON-formatted string with the details of the trial parameter. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_journal_8py_source_1l00280">280</link> of file <link linkend="_journal_8py_source">journal.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1journal_ab08848e83cf71c33842407ee31354411_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1journal_ab08848e83cf71c33842407ee31354411_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1journal_1a7fd5c2a880bb6da8e4e2e42790dc9430"/><section>
+    <title>trial_start()</title>
+<indexterm><primary>trial_start</primary><secondary>fcmaes.journal</secondary></indexterm>
+<indexterm><primary>fcmaes.journal</primary><secondary>trial_start</secondary></indexterm>
+<para><computeroutput>fcmaes.journal.trial_start ( worker_id,  study_id)</computeroutput></para><para>
+
+<para>Starts a trial by recording the worker ID, study ID, and the current timestamp, and generates a JSON message representation of the trial start event. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>worker_id</entry><entry>
+<para>Unique identifier for the worker initiating the trial. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>study_id</entry><entry>
+<para>Unique identifier for the study related to the trial.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>str JSON representation of the trial start event. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_journal_8py_source_1l00302">302</link> of file <link linkend="_journal_8py_source">journal.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1journal_a7fd5c2a880bb6da8e4e2e42790dc9430_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1journal_a7fd5c2a880bb6da8e4e2e42790dc9430_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1journal_1a968c87aa2fb6e2e186e221f834d63552"/><section>
+    <title>trial_value()</title>
+<indexterm><primary>trial_value</primary><secondary>fcmaes.journal</secondary></indexterm>
+<indexterm><primary>fcmaes.journal</primary><secondary>trial_value</secondary></indexterm>
+<para><computeroutput>fcmaes.journal.trial_value ( worker_id,  trial_id,  y)</computeroutput></para><para>
+
+<para>Creates and returns a JSON representation of a trial value message. </para>
+</para>
+
+<para>The function generates a message object for a specific trial and worker, incorporating information about the trial&apos;s state, its values, and a timestamp indicating when the operation was completed. It converts the message to a JSON format before returning.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>worker_id</entry><entry>
+<para>Identifier for the worker responsible for the trial. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>trial_id</entry><entry>
+<para>Identifier for the specific trial whose value is being </para>
+</entry>
+                            </row>
+                            <row>
+<entry>processed.</entry><entry>
+<para>y (Union[float, list[float]]): Numeric value(s) associated with the trial. This can be a scalar value or a list of values.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>str JSON string representation of the trial value message. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_journal_8py_source_1l00330">330</link> of file <link linkend="_journal_8py_source">journal.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1journal_a968c87aa2fb6e2e186e221f834d63552_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1journal_a968c87aa2fb6e2e186e221f834d63552_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+</section>

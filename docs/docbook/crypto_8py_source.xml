@@ -1,0 +1,349 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_crypto_8py_source" xml:lang="en-US">
+<title>crypto.py</title>
+<indexterm><primary>examples/crypto.py</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_crypto_8py_source_1l00001"/><link linkend="_namespaceexamples_1_1crypto">00001</link> <emphasis role="comment">#&#32;Copyright&#32;(c)&#32;Dietmar&#32;Wolz.</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00002"/>00002 <emphasis role="comment">#</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00003"/>00003 <emphasis role="comment">#&#32;This&#32;source&#32;code&#32;is&#32;licensed&#32;under&#32;the&#32;MIT&#32;license&#32;found&#32;in&#32;the</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00004"/>00004 <emphasis role="comment">#&#32;LICENSE&#32;file&#32;in&#32;the&#32;root&#32;directory.</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00005"/>00005 
+<anchor xml:id="_crypto_8py_source_1l00006"/>00006 <emphasis role="comment">#&#32;See&#32;https://github.com/dietmarwo/fast-cma-es/blob/master/tutorials/CryptoTrading.adoc&#32;for&#32;a&#32;detailed&#32;description.</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00007"/>00007 
+<anchor xml:id="_crypto_8py_source_1l00008"/>00008 <emphasis role="comment">#&#32;Install&#32;dependencies:</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00009"/>00009 <emphasis role="comment">#&#32;pip&#32;install&#32;yfinance</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00010"/>00010 <emphasis role="comment">#&#32;pip&#32;install&#32;finplot</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00011"/>00011 
+<anchor xml:id="_crypto_8py_source_1l00012"/>00012 <emphasis role="comment">#&#32;Tested&#32;using&#32;https://docs.conda.io/en/main/miniconda.html&#32;on&#32;Linux&#32;Mint&#32;21.2</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00013"/>00013 
+<anchor xml:id="_crypto_8py_source_1l00014"/>00014 <emphasis role="keyword">import</emphasis>&#32;yfinance&#32;<emphasis role="keyword">as</emphasis>&#32;yf
+<anchor xml:id="_crypto_8py_source_1l00015"/>00015 <emphasis role="keyword">import</emphasis>&#32;finplot&#32;<emphasis role="keyword">as</emphasis>&#32;fplt
+<anchor xml:id="_crypto_8py_source_1l00016"/>00016 <emphasis role="keyword">import</emphasis>&#32;pandas&#32;<emphasis role="keyword">as</emphasis>&#32;pd
+<anchor xml:id="_crypto_8py_source_1l00017"/>00017 <emphasis role="keyword">import</emphasis>&#32;numpy&#32;<emphasis role="keyword">as</emphasis>&#32;np
+<anchor xml:id="_crypto_8py_source_1l00018"/>00018 <emphasis role="keyword">import</emphasis>&#32;math,&#32;time
+<anchor xml:id="_crypto_8py_source_1l00019"/>00019 <emphasis role="keyword">from</emphasis>&#32;pathlib&#32;<emphasis role="keyword">import</emphasis>&#32;Path
+<anchor xml:id="_crypto_8py_source_1l00020"/>00020 
+<anchor xml:id="_crypto_8py_source_1l00021"/>00021 <emphasis role="keyword">from</emphasis>&#32;fcmaes&#32;<emphasis role="keyword">import</emphasis>&#32;retry,&#32;modecpp
+<anchor xml:id="_crypto_8py_source_1l00022"/>00022 <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1optimizer">fcmaes.optimizer</link>&#32;<emphasis role="keyword">import</emphasis>&#32;Bite_cpp,&#32;De_cpp,&#32;dtime
+<anchor xml:id="_crypto_8py_source_1l00023"/>00023 <emphasis role="keyword">from</emphasis>&#32;scipy.optimize&#32;<emphasis role="keyword">import</emphasis>&#32;Bounds
+<anchor xml:id="_crypto_8py_source_1l00024"/>00024 <emphasis role="keyword">import</emphasis>&#32;ctypes&#32;<emphasis role="keyword">as</emphasis>&#32;ct
+<anchor xml:id="_crypto_8py_source_1l00025"/>00025 <emphasis role="keyword">import</emphasis>&#32;multiprocessing&#32;<emphasis role="keyword">as</emphasis>&#32;mp&#32;
+<anchor xml:id="_crypto_8py_source_1l00026"/>00026 <emphasis role="keyword">from</emphasis>&#32;numba&#32;<emphasis role="keyword">import</emphasis>&#32;njit
+<anchor xml:id="_crypto_8py_source_1l00027"/>00027 <emphasis role="keyword">from</emphasis>&#32;numba.typed&#32;<emphasis role="keyword">import</emphasis>&#32;List
+<anchor xml:id="_crypto_8py_source_1l00028"/>00028 
+<anchor xml:id="_crypto_8py_source_1l00029"/>00029 <emphasis role="keyword">import</emphasis>&#32;sys&#32;
+<anchor xml:id="_crypto_8py_source_1l00030"/>00030 <emphasis role="keyword">from</emphasis>&#32;loguru&#32;<emphasis role="keyword">import</emphasis>&#32;logger
+<anchor xml:id="_crypto_8py_source_1l00031"/>00031 
+<anchor xml:id="_crypto_8py_source_1l00032"/>00032 logger.remove()
+<anchor xml:id="_crypto_8py_source_1l00033"/><link linkend="_namespaceexamples_1_1crypto_1a6973099c614186a0aaab015ae17aed7f">00033</link> logger.add(sys.stdout,&#32;format=<emphasis role="stringliteral">&quot;{time:HH:mm:ss.SS}&#32;|&#32;{process}&#32;|&#32;{level}&#32;|&#32;{message}&quot;</emphasis>,&#32;level=<emphasis role="stringliteral">&quot;INFO&quot;</emphasis>)
+<anchor xml:id="_crypto_8py_source_1l00034"/>00034 logger.add(<emphasis role="stringliteral">&quot;log_{time}.txt&quot;</emphasis>,&#32;format=<emphasis role="stringliteral">&quot;{time:HH:mm:ss.SS}&#32;|&#32;{process}&#32;|&#32;{level}&#32;|&#32;{message}&quot;</emphasis>,&#32;level=<emphasis role="stringliteral">&quot;INFO&quot;</emphasis>)
+<anchor xml:id="_crypto_8py_source_1l00035"/>00035 
+<anchor xml:id="_crypto_8py_source_1l00036"/><link linkend="_namespaceexamples_1_1crypto_1accaf5b53eed6cbec1e49d2a7292a15b1">00036</link> START_CASH&#32;=&#32;1000000.0
+<anchor xml:id="_crypto_8py_source_1l00037"/>00037 
+<anchor xml:id="_crypto_8py_source_1l00038"/>00038 <emphasis role="comment">#&#32;download&#32;price&#32;history&#32;of&#32;a&#32;ticker&#32;and&#32;cache&#32;result&#32;into&#32;a&#32;csv&#32;file</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00039"/><link linkend="_namespaceexamples_1_1crypto_1a2c916307beb743d28425fcd5c7568f01">00039</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1crypto_1a2c916307beb743d28425fcd5c7568f01">get_history</link>(ticker,&#32;start,&#32;end):
+<anchor xml:id="_crypto_8py_source_1l00040"/>00040 &#32;&#32;&#32;&#32;p&#32;=&#32;Path(<emphasis role="stringliteral">&apos;ticker_cache&apos;</emphasis>)
+<anchor xml:id="_crypto_8py_source_1l00041"/>00041 &#32;&#32;&#32;&#32;p.mkdir(exist_ok=<emphasis role="keyword">True</emphasis>)
+<anchor xml:id="_crypto_8py_source_1l00042"/>00042 &#32;&#32;&#32;&#32;fname&#32;=&#32;f<emphasis role="stringliteral">&apos;history_{ticker}_{start}_{end}.xz&apos;</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00043"/>00043 &#32;&#32;&#32;&#32;files&#32;=&#32;p.glob(fname)
+<anchor xml:id="_crypto_8py_source_1l00044"/>00044 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;file&#32;<emphasis role="keywordflow">in</emphasis>&#32;files:&#32;<emphasis role="comment">#&#32;if&#32;cached&#32;just&#32;load&#32;the&#32;csv</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00045"/>00045 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;df&#32;=&#32;pd.read_csv(file,&#32;compression=<emphasis role="stringliteral">&apos;xz&apos;</emphasis>)
+<anchor xml:id="_crypto_8py_source_1l00046"/>00046 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;df[<emphasis role="stringliteral">&apos;Date&apos;</emphasis>]&#32;=&#32;pd.to_datetime(df[<emphasis role="stringliteral">&apos;Date&apos;</emphasis>])
+<anchor xml:id="_crypto_8py_source_1l00047"/>00047 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;df&#32;=&#32;df.set_index(<emphasis role="stringliteral">&apos;Date&apos;</emphasis>)&#32;<emphasis role="comment">#&#32;restore&#32;date&#32;index</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00048"/>00048 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;df
+<anchor xml:id="_crypto_8py_source_1l00049"/>00049 &#32;&#32;&#32;&#32;df&#32;=&#32;yf.download(ticker,&#32;start=start,&#32;end=end,&#32;auto_adjust&#32;=&#32;<emphasis role="keyword">True</emphasis>)
+<anchor xml:id="_crypto_8py_source_1l00050"/>00050 &#32;&#32;&#32;&#32;df.to_csv(<emphasis role="stringliteral">&apos;ticker_cache/&apos;</emphasis>&#32;+&#32;fname,&#32;compression=<emphasis role="stringliteral">&apos;xz&apos;</emphasis>)&#32;&#32;<emphasis role="comment">#&#32;save&#32;history</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00051"/>00051 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;df
+<anchor xml:id="_crypto_8py_source_1l00052"/>00052 
+<anchor xml:id="_crypto_8py_source_1l00053"/>00053 <emphasis role="comment">#&#32;compute&#32;the&#32;exponential&#32;mean&#32;average&#32;of&#32;a&#32;time&#32;series&#32;of&#32;prices</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00054"/><link linkend="_namespaceexamples_1_1crypto_1a38e3ca807ed30d1fa4d4a5cc478e1525">00054</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1crypto_1a38e3ca807ed30d1fa4d4a5cc478e1525">get_ema</link>(prices,&#32;period):
+<anchor xml:id="_crypto_8py_source_1l00055"/>00055 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;prices.ewm(span=period,min_periods=period,adjust=<emphasis role="keyword">False</emphasis>,ignore_na=<emphasis role="keyword">False</emphasis>).mean().to_numpy()
+<anchor xml:id="_crypto_8py_source_1l00056"/>00056 
+<anchor xml:id="_crypto_8py_source_1l00057"/>00057 <emphasis role="comment">#&#32;compute&#32;the&#32;simple&#32;mean&#32;average&#32;of&#32;a&#32;time&#32;series&#32;of&#32;prices</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00058"/><link linkend="_namespaceexamples_1_1crypto_1a8fe56bb9960bb347eee6e2c39ddbd90f">00058</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1crypto_1a8fe56bb9960bb347eee6e2c39ddbd90f">get_sma</link>(prices,&#32;period):
+<anchor xml:id="_crypto_8py_source_1l00059"/>00059 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;prices.rolling(period).mean().to_numpy()
+<anchor xml:id="_crypto_8py_source_1l00060"/>00060 
+<anchor xml:id="_crypto_8py_source_1l00061"/>00061 <emphasis role="comment">#&#32;use&#32;numba&#32;to&#32;speed&#32;up&#32;the&#32;trading&#32;simulation</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00062"/>00062 
+<anchor xml:id="_crypto_8py_source_1l00063"/>00063 <emphasis role="preprocessor">@njit(fastmath=True)</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00064"/><link linkend="_namespaceexamples_1_1crypto_1a54eb39bc81fed172b7d1d74dcec022c2">00064</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1crypto_1a54eb39bc81fed172b7d1d74dcec022c2">buy_all</link>(cash,&#32;num_coins,&#32;price,&#32;date,&#32;logs):
+<anchor xml:id="_crypto_8py_source_1l00065"/>00065 &#32;&#32;&#32;&#32;num&#32;=&#32;int(cash&#32;/&#32;price)
+<anchor xml:id="_crypto_8py_source_1l00066"/>00066 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;<emphasis role="keywordflow">not</emphasis>&#32;date&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>:
+<anchor xml:id="_crypto_8py_source_1l00067"/>00067 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;logs.append(date&#32;+&#32;<emphasis role="stringliteral">&quot;&#32;cash&#32;&quot;</emphasis>&#32;+&#32;str(int(cash))&#32;<emphasis role="comment">#&#32;no&#32;string&#32;formatting&#32;in&#32;numba&#32;:-(</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00068"/>00068 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;+&#32;<emphasis role="stringliteral">&quot;&#32;buy&#32;&quot;</emphasis>&#32;+&#32;str(num)
+<anchor xml:id="_crypto_8py_source_1l00069"/>00069 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;+&#32;<emphasis role="stringliteral">&quot;&#32;num_coins&#32;&quot;</emphasis>&#32;+&#32;str(num_coins)
+<anchor xml:id="_crypto_8py_source_1l00070"/>00070 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;+&#32;<emphasis role="stringliteral">&quot;&#32;price&#32;&quot;</emphasis>&#32;+&#32;str(int(100*price))+&#32;<emphasis role="stringliteral">&quot;&#32;ct&quot;</emphasis>)&#32;<emphasis role="comment">#&#32;see&#32;https://github.com/numba/numba/issues/4758</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00071"/>00071 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;cash&#32;-&#32;num*price,&#32;num_coins&#32;+&#32;num
+<anchor xml:id="_crypto_8py_source_1l00072"/>00072 
+<anchor xml:id="_crypto_8py_source_1l00073"/>00073 <emphasis role="preprocessor">@njit(fastmath=True)</emphasis>&#32;&#32;&#32;&#32;
+<anchor xml:id="_crypto_8py_source_1l00074"/><link linkend="_namespaceexamples_1_1crypto_1a8e16e3bee50df8bd1b44e55fe8950e10">00074</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1crypto_1a8e16e3bee50df8bd1b44e55fe8950e10">sell_all</link>(cash,&#32;num_coins,&#32;price,&#32;date,&#32;logs):
+<anchor xml:id="_crypto_8py_source_1l00075"/>00075 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;<emphasis role="keywordflow">not</emphasis>&#32;date&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>:
+<anchor xml:id="_crypto_8py_source_1l00076"/>00076 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;logs.append(date&#32;+&#32;<emphasis role="stringliteral">&quot;&#32;cash&#32;&quot;</emphasis>&#32;+&#32;str(int(cash))&#32;
+<anchor xml:id="_crypto_8py_source_1l00077"/>00077 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;+&#32;<emphasis role="stringliteral">&quot;&#32;sell&#32;&quot;</emphasis>&#32;+&#32;str(num_coins)&#32;
+<anchor xml:id="_crypto_8py_source_1l00078"/>00078 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;+&#32;<emphasis role="stringliteral">&quot;&#32;num_coins&#32;&quot;</emphasis>&#32;+&#32;str(num_coins)
+<anchor xml:id="_crypto_8py_source_1l00079"/>00079 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;+&#32;<emphasis role="stringliteral">&quot;&#32;price&#32;&quot;</emphasis>&#32;+&#32;str(int(100*price))&#32;+&#32;<emphasis role="stringliteral">&quot;&#32;ct&quot;</emphasis>)
+<anchor xml:id="_crypto_8py_source_1l00080"/>00080 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;cash&#32;+&#32;num_coins*price,&#32;0
+<anchor xml:id="_crypto_8py_source_1l00081"/>00081 
+<anchor xml:id="_crypto_8py_source_1l00082"/>00082 <emphasis role="comment">#&#32;simulate&#32;HODL&#32;strategy</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00083"/>00083 <emphasis role="preprocessor">@njit(fastmath=True)</emphasis>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_crypto_8py_source_1l00084"/><link linkend="_namespaceexamples_1_1crypto_1a941dc0c737b40581bde98db6aef23525">00084</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1crypto_1a941dc0c737b40581bde98db6aef23525">hodl</link>(close,&#32;start_cash):
+<anchor xml:id="_crypto_8py_source_1l00085"/>00085 &#32;&#32;&#32;&#32;cash,&#32;num_coins&#32;=&#32;<link linkend="_namespaceexamples_1_1crypto_1a54eb39bc81fed172b7d1d74dcec022c2">buy_all</link>(start_cash,&#32;0,&#32;close[0],&#32;<emphasis role="keywordtype">None</emphasis>,&#32;<emphasis role="keywordtype">None</emphasis>)&#32;<emphasis role="comment">#&#32;buy&#32;first&#32;day</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00086"/>00086 &#32;&#32;&#32;&#32;cash,&#32;num_coins&#32;=&#32;<link linkend="_namespaceexamples_1_1crypto_1a8e16e3bee50df8bd1b44e55fe8950e10">sell_all</link>(cash,&#32;num_coins,&#32;close[-1],&#32;<emphasis role="keywordtype">None</emphasis>,&#32;<emphasis role="keywordtype">None</emphasis>)&#32;<emphasis role="comment">#&#32;sell&#32;last&#32;day</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00087"/>00087 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;cash&#32;/&#32;start_cash&#32;<emphasis role="comment">#&#32;return&#32;cash&#32;gain&#32;factor</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00088"/>00088 
+<anchor xml:id="_crypto_8py_source_1l00089"/>00089 <emphasis role="comment">#&#32;simulate&#32;a&#32;simple&#32;crossing&#32;EMA/SMA&#32;trading&#32;strategy,&#32;return&#32;the&#32;resulting&#32;cash&#32;factor</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00090"/>00090 <emphasis role="preprocessor">@njit(fastmath=True)</emphasis>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_crypto_8py_source_1l00091"/><link linkend="_namespaceexamples_1_1crypto_1a61f6c93fa62a257ed271a0aa1210f604">00091</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1crypto_1a61f6c93fa62a257ed271a0aa1210f604">strategy</link>(close,&#32;start_cash,&#32;ema,&#32;sma,&#32;wait_buy,&#32;wait_sell,&#32;dates):
+<anchor xml:id="_crypto_8py_source_1l00092"/>00092 &#32;&#32;&#32;&#32;cash&#32;=&#32;start_cash
+<anchor xml:id="_crypto_8py_source_1l00093"/>00093 &#32;&#32;&#32;&#32;num_coins&#32;=&#32;0
+<anchor xml:id="_crypto_8py_source_1l00094"/>00094 &#32;&#32;&#32;&#32;last_trade&#32;=&#32;0
+<anchor xml:id="_crypto_8py_source_1l00095"/>00095 &#32;&#32;&#32;&#32;logs&#32;=&#32;List();&#32;logs.append(<emphasis role="stringliteral">&quot;&quot;</emphasis>)&#32;<emphasis role="comment">#&#32;needs&#32;to&#32;be&#32;String&#32;typed</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00096"/>00096 &#32;&#32;&#32;&#32;num_trades&#32;=&#32;0
+<anchor xml:id="_crypto_8py_source_1l00097"/>00097 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;for&#32;all&#32;trading&#32;days</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00098"/>00098 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(len(close)):
+<anchor xml:id="_crypto_8py_source_1l00099"/>00099 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;c_ema&#32;=&#32;ema[i];&#32;c_sma&#32;=&#32;sma[i];&#32;price&#32;=&#32;close[i]&#32;&#32;
+<anchor xml:id="_crypto_8py_source_1l00100"/>00100 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;date&#32;=&#32;dates[i]&#32;<emphasis role="keywordflow">if</emphasis>&#32;<emphasis role="keywordflow">not</emphasis>&#32;dates&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>&#32;<emphasis role="keywordflow">else</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_crypto_8py_source_1l00101"/>00101 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;np.isnan(c_ema)&#32;<emphasis role="keywordflow">or</emphasis>&#32;np.isnan(c_sma):
+<anchor xml:id="_crypto_8py_source_1l00102"/>00102 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00103"/>00103 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;buy&#32;if&#32;current&#32;ema&#32;&gt;&#32;current&#32;sma&#32;and&#32;&gt;&#32;wait_buy&#32;days&#32;since&#32;last&#32;trade</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00104"/>00104 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;num_coins&#32;==&#32;0&#32;<emphasis role="keywordflow">and</emphasis>&#32;c_ema&#32;&gt;&#32;c_sma&#32;<emphasis role="keywordflow">and</emphasis>&#32;i&#32;&gt;&#32;last_trade&#32;+&#32;wait_buy:
+<anchor xml:id="_crypto_8py_source_1l00105"/>00105 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cash,&#32;num_coins&#32;=&#32;<link linkend="_namespaceexamples_1_1crypto_1a54eb39bc81fed172b7d1d74dcec022c2">buy_all</link>(cash,&#32;num_coins,&#32;price,&#32;date,&#32;logs)
+<anchor xml:id="_crypto_8py_source_1l00106"/>00106 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;last_trade&#32;=&#32;i
+<anchor xml:id="_crypto_8py_source_1l00107"/>00107 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;num_trades&#32;+=&#32;1
+<anchor xml:id="_crypto_8py_source_1l00108"/>00108 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;sell&#32;if&#32;current&#32;ema&#32;&lt;&#32;current&#32;sma&#32;and&#32;&gt;&#32;wait_sell&#32;days&#32;since&#32;last&#32;trade</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00109"/>00109 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">elif</emphasis>&#32;num_coins&#32;&gt;&#32;0&#32;<emphasis role="keywordflow">and</emphasis>&#32;c_ema&#32;&lt;&#32;c_sma&#32;<emphasis role="keywordflow">and</emphasis>&#32;i&#32;&gt;&#32;last_trade&#32;+&#32;wait_sell:
+<anchor xml:id="_crypto_8py_source_1l00110"/>00110 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cash,&#32;num_coins&#32;=&#32;<link linkend="_namespaceexamples_1_1crypto_1a8e16e3bee50df8bd1b44e55fe8950e10">sell_all</link>(cash,&#32;num_coins,&#32;price,&#32;date,&#32;logs)
+<anchor xml:id="_crypto_8py_source_1l00111"/>00111 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;last_trade&#32;=&#32;i
+<anchor xml:id="_crypto_8py_source_1l00112"/>00112 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;num_trades&#32;+=&#32;1
+<anchor xml:id="_crypto_8py_source_1l00113"/>00113 
+<anchor xml:id="_crypto_8py_source_1l00114"/>00114 &#32;&#32;&#32;&#32;cash,&#32;num_coins&#32;=&#32;<link linkend="_namespaceexamples_1_1crypto_1a8e16e3bee50df8bd1b44e55fe8950e10">sell_all</link>(cash,&#32;num_coins,&#32;price,&#32;date,&#32;logs)
+<anchor xml:id="_crypto_8py_source_1l00115"/>00115 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;return&#32;cash&#32;gain&#32;factor&#32;compared&#32;with&#32;HODL&#32;strategy</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00116"/>00116 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;cash&#32;/&#32;start_cash&#32;/&#32;<link linkend="_namespaceexamples_1_1crypto_1a941dc0c737b40581bde98db6aef23525">hodl</link>(close,&#32;start_cash),&#32;num_trades,&#32;logs
+<anchor xml:id="_crypto_8py_source_1l00117"/>00117 
+<anchor xml:id="_crypto_8py_source_1l00118"/><link linkend="_namespaceexamples_1_1crypto_1a75d529296c6d83294ad1c37e55bd267f">00118</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1crypto_1a75d529296c6d83294ad1c37e55bd267f">simulate</link>(prices,&#32;ema_period,&#32;sma_period,&#32;wait_buy,&#32;wait_sell,&#32;dates=None):
+<anchor xml:id="_crypto_8py_source_1l00119"/>00119 &#32;&#32;&#32;&#32;close&#32;=&#32;prices.to_numpy()
+<anchor xml:id="_crypto_8py_source_1l00120"/>00120 &#32;&#32;&#32;&#32;ema&#32;=&#32;<link linkend="_namespaceexamples_1_1crypto_1a38e3ca807ed30d1fa4d4a5cc478e1525">get_ema</link>(prices,&#32;ema_period)
+<anchor xml:id="_crypto_8py_source_1l00121"/>00121 &#32;&#32;&#32;&#32;sma&#32;=&#32;<link linkend="_namespaceexamples_1_1crypto_1a8fe56bb9960bb347eee6e2c39ddbd90f">get_sma</link>(prices,&#32;sma_period)&#32;
+<anchor xml:id="_crypto_8py_source_1l00122"/>00122 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_namespaceexamples_1_1crypto_1a61f6c93fa62a257ed271a0aa1210f604">strategy</link>(close,&#32;START_CASH,&#32;ema,&#32;sma,&#32;wait_buy,&#32;wait_sell,&#32;dates)
+<anchor xml:id="_crypto_8py_source_1l00123"/>00123 
+<anchor xml:id="_crypto_8py_source_1l00124"/><link linkend="_classexamples_1_1crypto_1_1fitness">00124</link> <emphasis role="keyword">class&#32;</emphasis><link linkend="_classexamples_1_1crypto_1_1fitness">fitness</link>(object):
+<anchor xml:id="_crypto_8py_source_1l00125"/>00125 
+<anchor xml:id="_crypto_8py_source_1l00126"/><link linkend="_classexamples_1_1crypto_1_1fitness_1ad9958db7a70ef673f3bcb9d5f5e5708b">00126</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1crypto_1_1fitness_1ad9958db7a70ef673f3bcb9d5f5e5708b">__init__</link>(self,&#32;tickers,&#32;start,&#32;end,&#32;max_trades&#32;=&#32;None):
+<anchor xml:id="_crypto_8py_source_1l00127"/><link linkend="_classexamples_1_1crypto_1_1fitness_1ae49c94306fd553fcf1163473d6db192d">00127</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1crypto_1_1fitness_1ae49c94306fd553fcf1163473d6db192d">evals</link>&#32;=&#32;mp.RawValue(ct.c_int,&#32;0)&#32;
+<anchor xml:id="_crypto_8py_source_1l00128"/><link linkend="_classexamples_1_1crypto_1_1fitness_1add3f7fd867bb662eb828f9ce44f7a9db">00128</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1crypto_1_1fitness_1add3f7fd867bb662eb828f9ce44f7a9db">best_y</link>&#32;=&#32;mp.RawValue(ct.c_double,&#32;np.inf)&#32;
+<anchor xml:id="_crypto_8py_source_1l00129"/><link linkend="_classexamples_1_1crypto_1_1fitness_1a2dc1e4fe20038b1eff24554fcc9a7b3b">00129</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1crypto_1_1fitness_1a2dc1e4fe20038b1eff24554fcc9a7b3b">t0</link>&#32;=&#32;time.perf_counter()
+<anchor xml:id="_crypto_8py_source_1l00130"/><link linkend="_classexamples_1_1crypto_1_1fitness_1a9ffd824c461a915a2e1361a44428040e">00130</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1crypto_1_1fitness_1a9ffd824c461a915a2e1361a44428040e">tickers</link>&#32;=&#32;tickers
+<anchor xml:id="_crypto_8py_source_1l00131"/><link linkend="_classexamples_1_1crypto_1_1fitness_1a23a9ca5a0018097f299c6bbdb1463ec3">00131</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1crypto_1_1fitness_1a23a9ca5a0018097f299c6bbdb1463ec3">max_trades</link>&#32;=&#32;max_trades
+<anchor xml:id="_crypto_8py_source_1l00132"/><link linkend="_classexamples_1_1crypto_1_1fitness_1a996266cd94bc021d810079a4acaf9105">00132</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1crypto_1_1fitness_1a996266cd94bc021d810079a4acaf9105">histories</link>&#32;=&#32;{}
+<anchor xml:id="_crypto_8py_source_1l00133"/><link linkend="_classexamples_1_1crypto_1_1fitness_1abe072955ebed441ec3435097e2caf86b">00133</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1crypto_1_1fitness_1abe072955ebed441ec3435097e2caf86b">closes</link>&#32;=&#32;{}
+<anchor xml:id="_crypto_8py_source_1l00134"/><link linkend="_classexamples_1_1crypto_1_1fitness_1abe3f4d73b67a9b156c6188b9d644cec4">00134</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1crypto_1_1fitness_1abe3f4d73b67a9b156c6188b9d644cec4">dates</link>&#32;=&#32;{}
+<anchor xml:id="_crypto_8py_source_1l00135"/><link linkend="_classexamples_1_1crypto_1_1fitness_1a9c118b62e1b58bee262b99574abe0428">00135</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1crypto_1_1fitness_1a9c118b62e1b58bee262b99574abe0428">hodls</link>&#32;=&#32;{}
+<anchor xml:id="_crypto_8py_source_1l00136"/>00136 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;ticker&#32;<emphasis role="keywordflow">in</emphasis>&#32;tickers:
+<anchor xml:id="_crypto_8py_source_1l00137"/>00137 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1crypto_1_1fitness_1a996266cd94bc021d810079a4acaf9105">histories</link>[ticker]&#32;=&#32;<link linkend="_namespaceexamples_1_1crypto_1a2c916307beb743d28425fcd5c7568f01">get_history</link>(ticker,&#32;start=start,&#32;end=end)
+<anchor xml:id="_crypto_8py_source_1l00138"/>00138 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1crypto_1_1fitness_1abe072955ebed441ec3435097e2caf86b">closes</link>[ticker]&#32;=&#32;self.<link linkend="_classexamples_1_1crypto_1_1fitness_1a996266cd94bc021d810079a4acaf9105">histories</link>[ticker].Close
+<anchor xml:id="_crypto_8py_source_1l00139"/>00139 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1crypto_1_1fitness_1abe3f4d73b67a9b156c6188b9d644cec4">dates</link>[ticker]&#32;=&#32;np.array([d.strftime(<emphasis role="stringliteral">&apos;%Y.%m.%d&apos;</emphasis>)&#32;<emphasis role="keywordflow">for</emphasis>&#32;d&#32;<emphasis role="keywordflow">in</emphasis>&#32;self.<link linkend="_classexamples_1_1crypto_1_1fitness_1a996266cd94bc021d810079a4acaf9105">histories</link>[ticker].index])
+<anchor xml:id="_crypto_8py_source_1l00140"/>00140 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1crypto_1_1fitness_1a9c118b62e1b58bee262b99574abe0428">hodls</link>[ticker]&#32;=&#32;<link linkend="_namespaceexamples_1_1crypto_1a941dc0c737b40581bde98db6aef23525">hodl</link>(self.<link linkend="_classexamples_1_1crypto_1_1fitness_1abe072955ebed441ec3435097e2caf86b">closes</link>[ticker].to_numpy(),&#32;START_CASH)&#32;&#32;&#32;
+<anchor xml:id="_crypto_8py_source_1l00141"/>00141 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;hodls&#32;=&#32;list(self.<link linkend="_classexamples_1_1crypto_1_1fitness_1a9c118b62e1b58bee262b99574abe0428">hodls</link>.values())&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_crypto_8py_source_1l00142"/>00142 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;logger.info(<emphasis role="stringliteral">&quot;hodl&#32;=&#32;{0:.3f}&#32;{1:s}&quot;</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00143"/>00143 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;.<link linkend="_namespaceexamples_1_1crypto_1a6973099c614186a0aaab015ae17aed7f">format</link>(np.prod(hodls)&#32;**&#32;(1.0/len(hodls)),&#32;str([round(fi,1)&#32;<emphasis role="keywordflow">for</emphasis>&#32;fi&#32;<emphasis role="keywordflow">in</emphasis>&#32;hodls])))
+<anchor xml:id="_crypto_8py_source_1l00144"/>00144 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_crypto_8py_source_1l00145"/><link linkend="_classexamples_1_1crypto_1_1fitness_1a5a933388f6d0303f80251156e30e6b9b">00145</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1crypto_1_1fitness_1a5a933388f6d0303f80251156e30e6b9b">fun</link>(self,&#32;x):
+<anchor xml:id="_crypto_8py_source_1l00146"/>00146 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;simulate&#32;the&#32;EMS/SMA&#32;strategy&#32;for&#32;all&#32;tickers</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00147"/>00147 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;factors&#32;=&#32;[]
+<anchor xml:id="_crypto_8py_source_1l00148"/>00148 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;num_trades&#32;=&#32;[]
+<anchor xml:id="_crypto_8py_source_1l00149"/>00149 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;ticker&#32;<emphasis role="keywordflow">in</emphasis>&#32;self.<link linkend="_classexamples_1_1crypto_1_1fitness_1a9ffd824c461a915a2e1361a44428040e">tickers</link>:&#32;&#32;&#32;&#32;
+<anchor xml:id="_crypto_8py_source_1l00150"/>00150 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;convert&#32;the&#32;optimization&#32;variables&#32;into&#32;integers&#32;and&#32;use&#32;them&#32;to&#32;configure&#32;the&#32;simulation</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00151"/>00151 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;f,&#32;num,&#32;_&#32;=&#32;<link linkend="_namespaceexamples_1_1crypto_1a75d529296c6d83294ad1c37e55bd267f">simulate</link>(self.<link linkend="_classexamples_1_1crypto_1_1fitness_1abe072955ebed441ec3435097e2caf86b">closes</link>[ticker],&#32;int(x[0]),&#32;int(x[1]),&#32;int(x[2]),&#32;int(x[3]))
+<anchor xml:id="_crypto_8py_source_1l00152"/>00152 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;factors.append(f)&#32;&#32;
+<anchor xml:id="_crypto_8py_source_1l00153"/>00153 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;num_trades.append(num)&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_crypto_8py_source_1l00154"/>00154 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;factor&#32;=&#32;np.prod(factors)&#32;**&#32;(1.0/len(factors))&#32;<emphasis role="comment">#&#32;normalize&#32;the&#32;accumulated&#32;factor</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00155"/>00155 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;y&#32;=&#32;-factor&#32;<emphasis role="comment">#&#32;our&#32;optimization&#32;algorithm&#32;minimizes&#32;the&#32;resulting&#32;value,&#32;we&#32;maximize&#32;factor</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00156"/>00156 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;book&#32;keeping&#32;and&#32;logging&#32;for&#32;parallel&#32;optimization</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00157"/>00157 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1crypto_1_1fitness_1ae49c94306fd553fcf1163473d6db192d">evals</link>.value&#32;+=&#32;1
+<anchor xml:id="_crypto_8py_source_1l00158"/>00158 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;y&#32;&lt;&#32;self.<link linkend="_classexamples_1_1crypto_1_1fitness_1add3f7fd867bb662eb828f9ce44f7a9db">best_y</link>.value:
+<anchor xml:id="_crypto_8py_source_1l00159"/>00159 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1crypto_1_1fitness_1add3f7fd867bb662eb828f9ce44f7a9db">best_y</link>.value&#32;=&#32;y&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_crypto_8py_source_1l00160"/>00160 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;logger.info(<emphasis role="stringliteral">&quot;nsim&#32;=&#32;{0}:&#32;time&#32;=&#32;{1:.1f}&#32;fac&#32;=&#32;{2:.3f}&#32;{3:s}&#32;ntr&#32;=&#32;{4:s}&#32;x&#32;=&#32;{5:s}&quot;</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00161"/>00161 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;.<link linkend="_namespaceexamples_1_1crypto_1a6973099c614186a0aaab015ae17aed7f">format</link>(self.<link linkend="_classexamples_1_1crypto_1_1fitness_1ae49c94306fd553fcf1163473d6db192d">evals</link>.value,&#32;dtime(self.<link linkend="_classexamples_1_1crypto_1_1fitness_1a2dc1e4fe20038b1eff24554fcc9a7b3b">t0</link>),&#32;-y,&#32;
+<anchor xml:id="_crypto_8py_source_1l00162"/>00162 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;str([round(fi,1)&#32;<emphasis role="keywordflow">for</emphasis>&#32;fi&#32;<emphasis role="keywordflow">in</emphasis>&#32;factors]),
+<anchor xml:id="_crypto_8py_source_1l00163"/>00163 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;str([int(ntr)&#32;<emphasis role="keywordflow">for</emphasis>&#32;ntr&#32;<emphasis role="keywordflow">in</emphasis>&#32;num_trades]),&#32;&#32;
+<anchor xml:id="_crypto_8py_source_1l00164"/>00164 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;str([int(xi)&#32;<emphasis role="keywordflow">for</emphasis>&#32;xi&#32;<emphasis role="keywordflow">in</emphasis>&#32;x])))
+<anchor xml:id="_crypto_8py_source_1l00165"/>00165 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;y,&#32;factors,&#32;num_trades&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_crypto_8py_source_1l00166"/>00166 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_crypto_8py_source_1l00167"/><link linkend="_classexamples_1_1crypto_1_1fitness_1ac24e8f7966063c3bc0cc215a561cbadb">00167</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1crypto_1_1fitness_1ac24e8f7966063c3bc0cc215a561cbadb">__call__</link>(self,&#32;x):&#32;&#32;
+<anchor xml:id="_crypto_8py_source_1l00168"/>00168 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;y,&#32;_,&#32;_&#32;=&#32;self.<link linkend="_classexamples_1_1crypto_1_1fitness_1a5a933388f6d0303f80251156e30e6b9b">fun</link>(x)
+<anchor xml:id="_crypto_8py_source_1l00169"/>00169 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;y&#32;&#32;&#32;
+<anchor xml:id="_crypto_8py_source_1l00170"/>00170 &#32;&#32;&#32;&#32;
+<anchor xml:id="_crypto_8py_source_1l00171"/><link linkend="_classexamples_1_1crypto_1_1fitness_1a1209aafc30c6a32427e2707c0bcadd22">00171</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1crypto_1_1fitness_1a1209aafc30c6a32427e2707c0bcadd22">mofun</link>(self,&#32;x):
+<anchor xml:id="_crypto_8py_source_1l00172"/>00172 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;_,&#32;factors,&#32;num_trades&#32;=&#32;self.<link linkend="_classexamples_1_1crypto_1_1fitness_1a5a933388f6d0303f80251156e30e6b9b">fun</link>(x)
+<anchor xml:id="_crypto_8py_source_1l00173"/>00173 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ys&#32;=&#32;[-f&#32;<emphasis role="keywordflow">for</emphasis>&#32;f&#32;<emphasis role="keywordflow">in</emphasis>&#32;factors]&#32;<emphasis role="comment">#&#32;higher&#32;factor&#32;is&#32;better</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00174"/>00174 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;constraints&#32;=&#32;[ntr&#32;-&#32;self.<link linkend="_classexamples_1_1crypto_1_1fitness_1a23a9ca5a0018097f299c6bbdb1463ec3">max_trades</link>&#32;<emphasis role="keywordflow">for</emphasis>&#32;ntr&#32;<emphasis role="keywordflow">in</emphasis>&#32;num_trades]&#32;<emphasis role="comment">#&#32;at&#32;most&#32;max_trades&#32;trades</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00175"/>00175 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;np.array(ys&#32;+&#32;constraints)
+<anchor xml:id="_crypto_8py_source_1l00176"/>00176 &#32;&#32;&#32;&#32;
+<anchor xml:id="_crypto_8py_source_1l00177"/><link linkend="_classexamples_1_1crypto_1_1fitness_1a3ba688bf0d5b34a2cc6268a2248dfaa0">00177</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1crypto_1_1fitness_1a3ba688bf0d5b34a2cc6268a2248dfaa0">ndfun</link>(self,&#32;x):
+<anchor xml:id="_crypto_8py_source_1l00178"/>00178 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;y,&#32;factors,&#32;_&#32;=&#32;self.<link linkend="_classexamples_1_1crypto_1_1fitness_1a5a933388f6d0303f80251156e30e6b9b">fun</link>(x)
+<anchor xml:id="_crypto_8py_source_1l00179"/>00179 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;5+y,&#32;factors&#32;<emphasis role="comment">#&#32;we&#32;need&#32;positive&#32;y&#32;values&#32;for&#32;tracking&#32;QD-Score</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00180"/>00180 &#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_crypto_8py_source_1l00181"/><link linkend="_classexamples_1_1crypto_1_1fitness_1a92e26f20d8494227c6ef3ff4cf6cae71">00181</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1crypto_1_1fitness_1a92e26f20d8494227c6ef3ff4cf6cae71">get_trades</link>(self,&#32;ticker,&#32;x):
+<anchor xml:id="_crypto_8py_source_1l00182"/>00182 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;_,&#32;_,&#32;log&#32;=&#32;<link linkend="_namespaceexamples_1_1crypto_1a75d529296c6d83294ad1c37e55bd267f">simulate</link>(self.<link linkend="_classexamples_1_1crypto_1_1fitness_1abe072955ebed441ec3435097e2caf86b">closes</link>[ticker],&#32;int(x[0]),&#32;int(x[1]),&#32;int(x[2]),&#32;int(x[3]),&#32;self.<link linkend="_classexamples_1_1crypto_1_1fitness_1abe3f4d73b67a9b156c6188b9d644cec4">dates</link>[ticker])
+<anchor xml:id="_crypto_8py_source_1l00183"/>00183 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;trades&#32;=&#32;[]
+<anchor xml:id="_crypto_8py_source_1l00184"/>00184 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(1,len(log)):
+<anchor xml:id="_crypto_8py_source_1l00185"/>00185 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;l&#32;=&#32;log[i].split()
+<anchor xml:id="_crypto_8py_source_1l00186"/>00186 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;trade&#32;=&#32;{<emphasis role="stringliteral">&apos;date&apos;</emphasis>:&#32;l[0],&#32;
+<anchor xml:id="_crypto_8py_source_1l00187"/>00187 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&apos;cash&apos;</emphasis>:&#32;int(l[2]),&#32;
+<anchor xml:id="_crypto_8py_source_1l00188"/>00188 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&apos;type&apos;</emphasis>:&#32;l[3],
+<anchor xml:id="_crypto_8py_source_1l00189"/>00189 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&apos;traded&apos;</emphasis>:&#32;int(l[4]),&#32;
+<anchor xml:id="_crypto_8py_source_1l00190"/>00190 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&apos;num_coins&apos;</emphasis>:&#32;int(l[6]),&#32;
+<anchor xml:id="_crypto_8py_source_1l00191"/>00191 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&apos;price&apos;</emphasis>:&#32;int(l[8])/1000}
+<anchor xml:id="_crypto_8py_source_1l00192"/>00192 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;trades.append(trade)
+<anchor xml:id="_crypto_8py_source_1l00193"/>00193 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;logger.info(<emphasis role="stringliteral">&apos;\n&apos;</emphasis>&#32;+&#32;ticker)
+<anchor xml:id="_crypto_8py_source_1l00194"/>00194 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;l&#32;<emphasis role="keywordflow">in</emphasis>&#32;log:&#32;logger.info(l)
+<anchor xml:id="_crypto_8py_source_1l00195"/>00195 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;trades
+<anchor xml:id="_crypto_8py_source_1l00196"/>00196 
+<anchor xml:id="_crypto_8py_source_1l00197"/><link linkend="_classexamples_1_1crypto_1_1fitness_1a052fc5adc7b09eb7f0613dc254699a5d">00197</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1crypto_1_1fitness_1a052fc5adc7b09eb7f0613dc254699a5d">get_values</link>(self,&#32;ticker,&#32;x):
+<anchor xml:id="_crypto_8py_source_1l00198"/>00198 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;trades&#32;=&#32;self.<link linkend="_classexamples_1_1crypto_1_1fitness_1a92e26f20d8494227c6ef3ff4cf6cae71">get_trades</link>(ticker,&#32;x)&#32;&#32;&#32;
+<anchor xml:id="_crypto_8py_source_1l00199"/>00199 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cash&#32;=&#32;START_CASH
+<anchor xml:id="_crypto_8py_source_1l00200"/>00200 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;num_coins&#32;=&#32;0
+<anchor xml:id="_crypto_8py_source_1l00201"/>00201 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;closes&#32;=&#32;self.<link linkend="_classexamples_1_1crypto_1_1fitness_1abe072955ebed441ec3435097e2caf86b">closes</link>[ticker]
+<anchor xml:id="_crypto_8py_source_1l00202"/>00202 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dates&#32;=&#32;self.<link linkend="_classexamples_1_1crypto_1_1fitness_1abe3f4d73b67a9b156c6188b9d644cec4">dates</link>[ticker]
+<anchor xml:id="_crypto_8py_source_1l00203"/>00203 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;values&#32;=&#32;[]
+<anchor xml:id="_crypto_8py_source_1l00204"/>00204 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;i&#32;=&#32;0
+<anchor xml:id="_crypto_8py_source_1l00205"/>00205 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;date,&#32;price&#32;<emphasis role="keywordflow">in</emphasis>&#32;zip(dates,closes):
+<anchor xml:id="_crypto_8py_source_1l00206"/>00206 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;trade&#32;=&#32;trades[i]
+<anchor xml:id="_crypto_8py_source_1l00207"/>00207 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;tdate&#32;=&#32;trade[<emphasis role="stringliteral">&apos;date&apos;</emphasis>]
+<anchor xml:id="_crypto_8py_source_1l00208"/>00208 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;date&#32;==&#32;tdate:
+<anchor xml:id="_crypto_8py_source_1l00209"/>00209 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;i&#32;+=&#32;1
+<anchor xml:id="_crypto_8py_source_1l00210"/>00210 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;traded&#32;=&#32;trade[<emphasis role="stringliteral">&apos;traded&apos;</emphasis>]
+<anchor xml:id="_crypto_8py_source_1l00211"/>00211 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;trade[<emphasis role="stringliteral">&apos;type&apos;</emphasis>]&#32;==&#32;<emphasis role="stringliteral">&apos;buy&apos;</emphasis>:
+<anchor xml:id="_crypto_8py_source_1l00212"/>00212 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;num_coins,&#32;cash&#32;=&#32;num_coins&#32;+&#32;traded,&#32;cash&#32;-&#32;traded*price
+<anchor xml:id="_crypto_8py_source_1l00213"/>00213 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>:
+<anchor xml:id="_crypto_8py_source_1l00214"/>00214 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;num_coins,&#32;cash&#32;=&#32;num_coins&#32;-&#32;traded,&#32;cash&#32;+&#32;traded*price&#32;&#32;&#32;
+<anchor xml:id="_crypto_8py_source_1l00215"/>00215 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;print(trade)&#32;&#32;</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00216"/>00216 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;values.append(cash&#32;+&#32;num_coins*price)
+<anchor xml:id="_crypto_8py_source_1l00217"/>00217 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;np.array(np.fromiter((v/START_CASH*closes[0]&#32;<emphasis role="keywordflow">for</emphasis>&#32;v&#32;<emphasis role="keywordflow">in</emphasis>&#32;values),&#32;dtype=float))&#32;<emphasis role="comment">#&#32;adjust&#32;to&#32;initial&#32;stock&#32;price&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00218"/>00218 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_crypto_8py_source_1l00219"/><link linkend="_classexamples_1_1crypto_1_1fitness_1af74be6f5f7cb7648d11cc9852fb1ea05">00219</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1crypto_1_1fitness_1af74be6f5f7cb7648d11cc9852fb1ea05">plot</link>(self,&#32;x):
+<anchor xml:id="_crypto_8py_source_1l00220"/>00220 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;axs&#32;=&#32;{}
+<anchor xml:id="_crypto_8py_source_1l00221"/>00221 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ema_period&#32;=&#32;int(x[0])
+<anchor xml:id="_crypto_8py_source_1l00222"/>00222 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;sma_period&#32;=&#32;int(x[1])&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_crypto_8py_source_1l00223"/>00223 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;ticker&#32;<emphasis role="keywordflow">in</emphasis>&#32;self.<link linkend="_classexamples_1_1crypto_1_1fitness_1a9ffd824c461a915a2e1361a44428040e">tickers</link>:
+<anchor xml:id="_crypto_8py_source_1l00224"/>00224 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;axs[ticker]&#32;=&#32;fplt.create_plot(ticker,&#32;maximize=<emphasis role="keyword">False</emphasis>)&#32;
+<anchor xml:id="_crypto_8py_source_1l00225"/>00225 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;history&#32;=&#32;self.<link linkend="_classexamples_1_1crypto_1_1fitness_1a996266cd94bc021d810079a4acaf9105">histories</link>[ticker]
+<anchor xml:id="_crypto_8py_source_1l00226"/>00226 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;candles&#32;=&#32;history[[<emphasis role="stringliteral">&apos;Open&apos;</emphasis>,<emphasis role="stringliteral">&apos;Close&apos;</emphasis>,<emphasis role="stringliteral">&apos;High&apos;</emphasis>,<emphasis role="stringliteral">&apos;Low&apos;</emphasis>]]
+<anchor xml:id="_crypto_8py_source_1l00227"/>00227 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fplt.candlestick_ochl(candles,&#32;ax=axs[ticker])
+<anchor xml:id="_crypto_8py_source_1l00228"/>00228 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;volumes&#32;=&#32;history[[<emphasis role="stringliteral">&apos;Open&apos;</emphasis>,<emphasis role="stringliteral">&apos;Close&apos;</emphasis>,<emphasis role="stringliteral">&apos;Volume&apos;</emphasis>]]
+<anchor xml:id="_crypto_8py_source_1l00229"/>00229 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fplt.volume_ocv(volumes,&#32;ax=axs[ticker].overlay())
+<anchor xml:id="_crypto_8py_source_1l00230"/>00230 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fplt.plot(history.Close.rolling(sma_period).mean(),&#32;ax=axs[ticker])
+<anchor xml:id="_crypto_8py_source_1l00231"/>00231 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fplt.plot(history.Close.ewm(span=ema_period,min_periods=ema_period,
+<anchor xml:id="_crypto_8py_source_1l00232"/>00232 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;adjust=<emphasis role="keyword">False</emphasis>,ignore_na=<emphasis role="keyword">False</emphasis>).mean(),&#32;ax=axs[ticker])
+<anchor xml:id="_crypto_8py_source_1l00233"/>00233 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;values&#32;=&#32;self.<link linkend="_classexamples_1_1crypto_1_1fitness_1a052fc5adc7b09eb7f0613dc254699a5d">get_values</link>(ticker,&#32;x)
+<anchor xml:id="_crypto_8py_source_1l00234"/>00234 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;history[<emphasis role="stringliteral">&apos;Value&apos;</emphasis>]&#32;=&#32;values
+<anchor xml:id="_crypto_8py_source_1l00235"/>00235 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fplt.plot(values,&#32;ax=axs[ticker])
+<anchor xml:id="_crypto_8py_source_1l00236"/>00236 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;closes&#32;=&#32;history.Close.to_numpy()
+<anchor xml:id="_crypto_8py_source_1l00237"/>00237 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fplt.plot(closes,&#32;ax=axs[ticker])&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_crypto_8py_source_1l00238"/>00238 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;history.to_csv(ticker&#32;+&#32;<emphasis role="stringliteral">&apos;.csv&apos;</emphasis>)
+<anchor xml:id="_crypto_8py_source_1l00239"/>00239 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fplt.show()
+<anchor xml:id="_crypto_8py_source_1l00240"/>00240 &#32;&#32;&#32;&#32;
+<anchor xml:id="_crypto_8py_source_1l00241"/><link linkend="_namespaceexamples_1_1crypto_1a7c596426791d1e3f74d126fdb08ec38f">00241</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1crypto_1a7c596426791d1e3f74d126fdb08ec38f">optimize</link>(tickers,&#32;start,&#32;end):
+<anchor xml:id="_crypto_8py_source_1l00242"/>00242 &#32;&#32;&#32;&#32;bounds&#32;=&#32;Bounds([20,50,10,10],&#32;[50,100,200,200])
+<anchor xml:id="_crypto_8py_source_1l00243"/>00243 &#32;&#32;&#32;&#32;fit&#32;=&#32;<link linkend="_classexamples_1_1crypto_1_1fitness">fitness</link>(tickers,&#32;start,&#32;end)&#32;
+<anchor xml:id="_crypto_8py_source_1l00244"/>00244 &#32;&#32;&#32;&#32;ret&#32;=&#32;retry.minimize(fit,&#32;bounds,
+<anchor xml:id="_crypto_8py_source_1l00245"/>00245 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;num_retries=32,&#32;optimizer=<link linkend="_classfcmaes_1_1optimizer_1_1_bite__cpp">Bite_cpp</link>(2000))
+<anchor xml:id="_crypto_8py_source_1l00246"/>00246 &#32;&#32;&#32;&#32;fit.plot(ret.x)
+<anchor xml:id="_crypto_8py_source_1l00247"/>00247 &#32;&#32;&#32;&#32;
+<anchor xml:id="_crypto_8py_source_1l00248"/><link linkend="_namespaceexamples_1_1crypto_1a8de0d53fbf350d4ad637d00dfa9e3318">00248</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1crypto_1a8de0d53fbf350d4ad637d00dfa9e3318">optimize_mo</link>(tickers,&#32;start,&#32;end,&#32;nsga_update&#32;=&#32;True):
+<anchor xml:id="_crypto_8py_source_1l00249"/>00249 &#32;&#32;&#32;&#32;nobj&#32;=&#32;len(tickers)&#32;<emphasis role="comment">#&#32;number&#32;of&#32;objectives</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00250"/>00250 &#32;&#32;&#32;&#32;ncon&#32;=&#32;nobj&#32;<emphasis role="comment">#&#32;number&#32;of&#32;constraints</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00251"/>00251 &#32;&#32;&#32;&#32;max_trades&#32;=&#32;8
+<anchor xml:id="_crypto_8py_source_1l00252"/>00252 &#32;&#32;&#32;&#32;fit&#32;=&#32;<link linkend="_classexamples_1_1crypto_1_1fitness">fitness</link>(tickers,&#32;start,&#32;end,&#32;max_trades)&#32;
+<anchor xml:id="_crypto_8py_source_1l00253"/>00253 &#32;&#32;&#32;&#32;bounds&#32;=&#32;Bounds([20,50,10,10],&#32;[50,100,200,200])
+<anchor xml:id="_crypto_8py_source_1l00254"/>00254 &#32;&#32;&#32;&#32;xs,&#32;front&#32;=&#32;modecpp.retry(fit.mofun,&#32;len(tickers),&#32;ncon,&#32;bounds,&#32;num_retries=24,&#32;popsize&#32;=&#32;48,&#32;
+<anchor xml:id="_crypto_8py_source_1l00255"/>00255 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_evaluations&#32;=&#32;16000,&#32;nsga_update&#32;=&#32;nsga_update,&#32;workers=24)
+<anchor xml:id="_crypto_8py_source_1l00256"/>00256 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;y,&#32;x&#32;<emphasis role="keywordflow">in</emphasis>&#32;zip(front,&#32;xs):
+<anchor xml:id="_crypto_8py_source_1l00257"/>00257 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;print(<emphasis role="stringliteral">&quot;fac&#32;&quot;</emphasis>&#32;+&#32;str([-round(yi,2)&#32;<emphasis role="keywordflow">for</emphasis>&#32;yi&#32;<emphasis role="keywordflow">in</emphasis>&#32;y[:nobj]])&#32;+&#32;&#32;
+<anchor xml:id="_crypto_8py_source_1l00258"/>00258 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&#32;trades&#32;&quot;</emphasis>&#32;+&#32;str([int(max_trades+ci)&#32;<emphasis role="keywordflow">for</emphasis>&#32;ci&#32;<emphasis role="keywordflow">in</emphasis>&#32;y[nobj:]])&#32;+&#32;
+<anchor xml:id="_crypto_8py_source_1l00259"/>00259 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&#32;x&#32;=&#32;&quot;</emphasis>&#32;+&#32;str([int(xi)&#32;<emphasis role="keywordflow">for</emphasis>&#32;xi&#32;<emphasis role="keywordflow">in</emphasis>&#32;x]))
+<anchor xml:id="_crypto_8py_source_1l00260"/>00260 
+<anchor xml:id="_crypto_8py_source_1l00261"/>00261 <emphasis role="keyword">from</emphasis>&#32;fcmaes&#32;<emphasis role="keyword">import</emphasis>&#32;diversifier,&#32;mapelites
+<anchor xml:id="_crypto_8py_source_1l00262"/>00262 <emphasis role="keyword">import</emphasis>&#32;matplotlib.pyplot&#32;<emphasis role="keyword">as</emphasis>&#32;plt
+<anchor xml:id="_crypto_8py_source_1l00263"/>00263 &#32;&#32;&#32;&#32;
+<anchor xml:id="_crypto_8py_source_1l00264"/><link linkend="_namespaceexamples_1_1crypto_1a284d5c864a794e437544590cb282efac">00264</link> bounds&#32;=&#32;Bounds([20,50,10,10],&#32;[50,100,200,200])
+<anchor xml:id="_crypto_8py_source_1l00265"/><link linkend="_namespaceexamples_1_1crypto_1a9fefe2b65764ffc2422e189b7674e66b">00265</link> ddim&#32;=&#32;4
+<anchor xml:id="_crypto_8py_source_1l00266"/><link linkend="_namespaceexamples_1_1crypto_1a7b9a03eae92503954a62eb5a0510c852">00266</link> qd_bounds&#32;=&#32;Bounds([0]*ddim,&#32;[4]*ddim)
+<anchor xml:id="_crypto_8py_source_1l00267"/><link linkend="_namespaceexamples_1_1crypto_1a5eede08c19254c6895849bb97c9257a7">00267</link> niche_num&#32;=&#32;1000
+<anchor xml:id="_crypto_8py_source_1l00268"/>00268 
+<anchor xml:id="_crypto_8py_source_1l00269"/><link linkend="_namespaceexamples_1_1crypto_1a832e3832c38bb9d153a7af1b37d2e24a">00269</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1crypto_1a832e3832c38bb9d153a7af1b37d2e24a">bar</link>(tickers,&#32;start,&#32;end):
+<anchor xml:id="_crypto_8py_source_1l00270"/>00270 &#32;&#32;&#32;&#32;archive&#32;=&#32;mapelites.load_archive(<emphasis role="stringliteral">&quot;crypto_min_cma&quot;</emphasis>,&#32;bounds,&#32;qd_bounds,&#32;niche_num)
+<anchor xml:id="_crypto_8py_source_1l00271"/>00271 &#32;&#32;&#32;&#32;ys,&#32;ds,&#32;xs&#32;=&#32;archive.get_occupied_data()
+<anchor xml:id="_crypto_8py_source_1l00272"/>00272 &#32;&#32;&#32;&#32;ys&#32;=&#32;5-ys<emphasis role="comment">#&#32;convert&#32;back&#32;to&#32;real&#32;ROI</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00273"/>00273 &#32;&#32;&#32;&#32;n&#32;=&#32;len(xs)
+<anchor xml:id="_crypto_8py_source_1l00274"/>00274 &#32;&#32;&#32;&#32;m&#32;=&#32;201
+<anchor xml:id="_crypto_8py_source_1l00275"/>00275 &#32;&#32;&#32;&#32;ws&#32;=&#32;np.zeros((4,&#32;m))
+<anchor xml:id="_crypto_8py_source_1l00276"/>00276 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(n):
+<anchor xml:id="_crypto_8py_source_1l00277"/>00277 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;j&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(4):
+<anchor xml:id="_crypto_8py_source_1l00278"/>00278 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;k&#32;=&#32;int(xs[i][j])
+<anchor xml:id="_crypto_8py_source_1l00279"/>00279 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ws[j][k]&#32;+=&#32;ys[i]
+<anchor xml:id="_crypto_8py_source_1l00280"/>00280 &#32;&#32;&#32;&#32;max&#32;=&#32;np.amax(ws,&#32;axis=1)
+<anchor xml:id="_crypto_8py_source_1l00281"/>00281 &#32;&#32;&#32;&#32;fig,&#32;ax&#32;=&#32;plt.subplots()
+<anchor xml:id="_crypto_8py_source_1l00282"/>00282 &#32;&#32;&#32;&#32;width&#32;=&#32;0.9
+<anchor xml:id="_crypto_8py_source_1l00283"/>00283 &#32;&#32;&#32;&#32;ok&#32;=&#32;np.logical_or(ws[0]&#32;&gt;&#32;max[0]*0.1,&#32;\
+<anchor xml:id="_crypto_8py_source_1l00284"/>00284 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;np.logical_or(ws[1]&#32;&gt;&#32;max[1]*0.05,&#32;\
+<anchor xml:id="_crypto_8py_source_1l00285"/>00285 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;np.logical_or(ws[2]&#32;&gt;&#32;max[2]*0.7,&#32;ws[3]&#32;&gt;&#32;max[3]*0.7)))
+<anchor xml:id="_crypto_8py_source_1l00286"/>00286 &#32;&#32;&#32;&#32;indices&#32;=&#32;np.array([i&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(m)&#32;<emphasis role="keywordflow">if</emphasis>&#32;ok[i]])&#32;
+<anchor xml:id="_crypto_8py_source_1l00287"/>00287 &#32;&#32;&#32;&#32;labels&#32;=&#32;[str(i)&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;indices]&#32;&#32;&#32;&#32;
+<anchor xml:id="_crypto_8py_source_1l00288"/>00288 &#32;&#32;&#32;&#32;x&#32;=&#32;np.arange(len(labels))&#32;&#32;<emphasis role="comment">#&#32;the&#32;label&#32;locations</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00289"/>00289 &#32;&#32;&#32;&#32;
+<anchor xml:id="_crypto_8py_source_1l00290"/>00290 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;j&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(4):
+<anchor xml:id="_crypto_8py_source_1l00291"/>00291 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;rects&#32;=&#32;ax.bar(x&#32;+&#32;(j-1.5)*width/4,&#32;
+<anchor xml:id="_crypto_8py_source_1l00292"/>00292 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ws[j][indices],&#32;width/4,&#32;label=<emphasis role="stringliteral">&apos;parameter&#32;&apos;</emphasis>+&#32;str(j))
+<anchor xml:id="_crypto_8py_source_1l00293"/>00293 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ax.bar_label(rects,&#32;padding=3,&#32;fmt=<emphasis role="stringliteral">&apos;%d&apos;</emphasis>)
+<anchor xml:id="_crypto_8py_source_1l00294"/>00294 &#32;&#32;&#32;&#32;
+<anchor xml:id="_crypto_8py_source_1l00295"/>00295 &#32;&#32;&#32;&#32;ax.set_xticks(x,&#32;labels)
+<anchor xml:id="_crypto_8py_source_1l00296"/>00296 &#32;&#32;&#32;&#32;ax.set_xlabel(<emphasis role="stringliteral">&apos;Parameter&#32;Setting&apos;</emphasis>)
+<anchor xml:id="_crypto_8py_source_1l00297"/>00297 &#32;&#32;&#32;&#32;ax.set_ylabel(<emphasis role="stringliteral">&apos;Sum&#32;of&#32;ROI&apos;</emphasis>)
+<anchor xml:id="_crypto_8py_source_1l00298"/>00298 &#32;&#32;&#32;&#32;ax.set_yscale(<emphasis role="stringliteral">&apos;log&apos;</emphasis>)
+<anchor xml:id="_crypto_8py_source_1l00299"/>00299 &#32;&#32;&#32;&#32;ax.set_title(<emphasis role="stringliteral">&apos;Parameter&#32;Setting&#32;/&#32;ROI&apos;</emphasis>)
+<anchor xml:id="_crypto_8py_source_1l00300"/>00300 &#32;&#32;&#32;&#32;ax.legend()&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_crypto_8py_source_1l00301"/>00301 &#32;&#32;&#32;&#32;fig.tight_layout()
+<anchor xml:id="_crypto_8py_source_1l00302"/>00302 &#32;&#32;&#32;&#32;plt.show()
+<anchor xml:id="_crypto_8py_source_1l00303"/>00303 &#32;&#32;&#32;&#32;
+<anchor xml:id="_crypto_8py_source_1l00304"/><link linkend="_namespaceexamples_1_1crypto_1a89ff39f1a827fa14663f90898e5f3fef">00304</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1crypto_1a89ff39f1a827fa14663f90898e5f3fef">optimize_nd</link>(tickers,&#32;start,&#32;end):&#32;
+<anchor xml:id="_crypto_8py_source_1l00305"/>00305 &#32;&#32;&#32;&#32;fit&#32;=&#32;<link linkend="_classexamples_1_1crypto_1_1fitness">fitness</link>(tickers,&#32;start,&#32;end,&#32;<emphasis role="keywordtype">None</emphasis>)&#32;
+<anchor xml:id="_crypto_8py_source_1l00306"/>00306 &#32;&#32;&#32;&#32;opt_params0&#32;=&#32;{<emphasis role="stringliteral">&apos;solver&apos;</emphasis>:<emphasis role="stringliteral">&apos;elites&apos;</emphasis>,&#32;<emphasis role="stringliteral">&apos;popsize&apos;</emphasis>:1000}
+<anchor xml:id="_crypto_8py_source_1l00307"/>00307 &#32;&#32;&#32;&#32;opt_params1&#32;=&#32;{<emphasis role="stringliteral">&apos;solver&apos;</emphasis>:<emphasis role="stringliteral">&apos;CMA_CPP&apos;</emphasis>,&#32;<emphasis role="stringliteral">&apos;max_evals&apos;</emphasis>:10000,&#32;<emphasis role="stringliteral">&apos;popsize&apos;</emphasis>:16,&#32;<emphasis role="stringliteral">&apos;stall_criterion&apos;</emphasis>:3}
+<anchor xml:id="_crypto_8py_source_1l00308"/>00308 &#32;&#32;&#32;&#32;archive&#32;=&#32;diversifier.minimize(
+<anchor xml:id="_crypto_8py_source_1l00309"/>00309 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classfcmaes_1_1mapelites_1_1wrapper">mapelites.wrapper</link>(fit.ndfun,&#32;ddim,&#32;interval=10000,&#32;save_interval=100000000),&#32;
+<anchor xml:id="_crypto_8py_source_1l00310"/>00310 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;bounds,&#32;qd_bounds,&#32;
+<anchor xml:id="_crypto_8py_source_1l00311"/>00311 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;opt_params=[opt_params0,&#32;opt_params1],&#32;max_evals=500000,
+<anchor xml:id="_crypto_8py_source_1l00312"/>00312 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;niche_num&#32;=&#32;niche_num,&#32;samples_per_niche&#32;=&#32;20)
+<anchor xml:id="_crypto_8py_source_1l00313"/>00313 &#32;&#32;&#32;&#32;print(<emphasis role="stringliteral">&quot;final&#32;archive:&#32;&quot;</emphasis>&#32;+&#32;archive.info())
+<anchor xml:id="_crypto_8py_source_1l00314"/>00314 &#32;&#32;&#32;&#32;archive.save(<emphasis role="stringliteral">&quot;crypto_min_cma&quot;</emphasis>)
+<anchor xml:id="_crypto_8py_source_1l00315"/>00315 
+<anchor xml:id="_crypto_8py_source_1l00316"/>00316 &#32;&#32;&#32;&#32;ysi&#32;=&#32;archive.argsort()
+<anchor xml:id="_crypto_8py_source_1l00317"/>00317 &#32;&#32;&#32;&#32;ys&#32;=&#32;archive.get_ys()[ysi]
+<anchor xml:id="_crypto_8py_source_1l00318"/>00318 &#32;&#32;&#32;&#32;ds&#32;=&#32;archive.get_ds()[ysi]
+<anchor xml:id="_crypto_8py_source_1l00319"/>00319 &#32;&#32;&#32;&#32;xs&#32;=&#32;archive.get_xs()[ysi]
+<anchor xml:id="_crypto_8py_source_1l00320"/>00320 &#32;&#32;&#32;&#32;occupied&#32;=&#32;(ys&#32;&lt;&#32;np.inf)
+<anchor xml:id="_crypto_8py_source_1l00321"/>00321 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_crypto_8py_source_1l00322"/>00322 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i,&#32;(y,&#32;d,&#32;x)&#32;<emphasis role="keywordflow">in</emphasis>&#32;enumerate(zip(ys[occupied],&#32;ds[occupied],&#32;xs[occupied])):
+<anchor xml:id="_crypto_8py_source_1l00323"/>00323 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;print(str(i+1)&#32;+&#32;<emphasis role="stringliteral">&quot;:&#32;y&#32;&quot;</emphasis>&#32;+&#32;str(round(5-y,2))&#32;+&#32;&#32;
+<anchor xml:id="_crypto_8py_source_1l00324"/>00324 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&#32;fac&#32;&quot;</emphasis>&#32;+&#32;str([round(di,2)&#32;<emphasis role="keywordflow">for</emphasis>&#32;di&#32;<emphasis role="keywordflow">in</emphasis>&#32;d])&#32;+&#32;&#32;
+<anchor xml:id="_crypto_8py_source_1l00325"/>00325 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&#32;x&#32;=&#32;&quot;</emphasis>&#32;+&#32;str([int(xi)&#32;<emphasis role="keywordflow">for</emphasis>&#32;xi&#32;<emphasis role="keywordflow">in</emphasis>&#32;x]))
+<anchor xml:id="_crypto_8py_source_1l00326"/>00326 
+<anchor xml:id="_crypto_8py_source_1l00327"/>00327 <emphasis role="keywordflow">if</emphasis>&#32;__name__&#32;==&#32;<emphasis role="stringliteral">&apos;__main__&apos;</emphasis>:
+<anchor xml:id="_crypto_8py_source_1l00328"/>00328 &#32;&#32;&#32;&#32;
+<anchor xml:id="_crypto_8py_source_1l00329"/>00329 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;ticker&#32;names:&#32;https://finance.yahoo.com/lookup</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00330"/><link linkend="_namespaceexamples_1_1crypto_1a11fa498d14aab048b8ba856c68562161">00330</link> &#32;&#32;&#32;&#32;tickers&#32;=&#32;[<emphasis role="stringliteral">&apos;BTC-USD&apos;</emphasis>,&#32;<emphasis role="stringliteral">&apos;ETH-USD&apos;</emphasis>,&#32;<emphasis role="stringliteral">&apos;XRP-USD&apos;</emphasis>,&#32;<emphasis role="stringliteral">&apos;ADA-USD&apos;</emphasis>]
+<anchor xml:id="_crypto_8py_source_1l00331"/>00331 &#32;&#32;&#32;&#32;<emphasis role="comment">#tickers&#32;=&#32;[&apos;BTC-USD&apos;]</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00332"/>00332 &#32;&#32;&#32;&#32;
+<anchor xml:id="_crypto_8py_source_1l00333"/><link linkend="_namespaceexamples_1_1crypto_1a69a1d45fff78e42c6f6b970bdab95bd5">00333</link> &#32;&#32;&#32;&#32;start=<emphasis role="stringliteral">&quot;2019-01-01&quot;</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00334"/><link linkend="_namespaceexamples_1_1crypto_1a8a8f7983f4ea099719a5b299d1b22ef6">00334</link> &#32;&#32;&#32;&#32;end=<emphasis role="stringliteral">&quot;2030-04-30&quot;</emphasis>&#32;
+<anchor xml:id="_crypto_8py_source_1l00335"/>00335 &#32;&#32;&#32;&#32;
+<anchor xml:id="_crypto_8py_source_1l00336"/>00336 &#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1crypto_1a7c596426791d1e3f74d126fdb08ec38f">optimize</link>(tickers,&#32;start,&#32;end)
+<anchor xml:id="_crypto_8py_source_1l00337"/>00337 &#32;&#32;&#32;&#32;
+<anchor xml:id="_crypto_8py_source_1l00338"/>00338 &#32;&#32;&#32;&#32;<emphasis role="comment">#optimize_mo(tickers,&#32;start,&#32;end)</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00339"/>00339 &#32;&#32;&#32;
+<anchor xml:id="_crypto_8py_source_1l00340"/>00340 &#32;&#32;&#32;&#32;<emphasis role="comment">#optimize_nd(tickers,&#32;start,&#32;end)</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00341"/>00341 &#32;&#32;&#32;&#32;<emphasis role="comment">#bar(tickers,&#32;start,&#32;end)</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00342"/>00342 
+<anchor xml:id="_crypto_8py_source_1l00343"/>00343 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;fit&#32;=&#32;fitness(tickers,&#32;start,&#32;end)&#32;</emphasis>
+<anchor xml:id="_crypto_8py_source_1l00344"/>00344 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;fit.plot([20,60,10,10])</emphasis>
+</programlisting></section>

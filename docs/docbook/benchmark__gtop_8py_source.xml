@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_benchmark__gtop_8py_source" xml:lang="en-US">
+<title>benchmark_gtop.py</title>
+<indexterm><primary>examples/benchmark_gtop.py</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_benchmark__gtop_8py_source_1l00001"/><link linkend="_namespaceexamples_1_1benchmark__gtop">00001</link> <emphasis role="comment">#&#32;Copyright&#32;(c)&#32;Dietmar&#32;Wolz.</emphasis>
+<anchor xml:id="_benchmark__gtop_8py_source_1l00002"/>00002 <emphasis role="comment">#</emphasis>
+<anchor xml:id="_benchmark__gtop_8py_source_1l00003"/>00003 <emphasis role="comment">#&#32;This&#32;source&#32;code&#32;is&#32;licensed&#32;under&#32;the&#32;MIT&#32;license&#32;found&#32;in&#32;the</emphasis>
+<anchor xml:id="_benchmark__gtop_8py_source_1l00004"/>00004 <emphasis role="comment">#&#32;LICENSE&#32;file&#32;in&#32;the&#32;root&#32;directory.</emphasis>
+<anchor xml:id="_benchmark__gtop_8py_source_1l00005"/>00005 
+<anchor xml:id="_benchmark__gtop_8py_source_1l00006"/>00006 <emphasis role="comment">#&#32;Test&#32;for&#32;fcmaes&#32;coordinated&#32;retry&#32;applied&#32;to&#32;https://www.esa.int/gsp/ACT/projects/gtop/</emphasis>
+<anchor xml:id="_benchmark__gtop_8py_source_1l00007"/>00007 <emphasis role="comment">#&#32;Generates&#32;the&#32;log&#32;files&#32;used&#32;to&#32;produce&#32;the&#32;tables&#32;in&#32;the&#32;README.&#32;</emphasis>
+<anchor xml:id="_benchmark__gtop_8py_source_1l00008"/>00008 
+<anchor xml:id="_benchmark__gtop_8py_source_1l00009"/>00009 <emphasis role="comment">#&#32;Tested&#32;using&#32;https://docs.conda.io/en/main/miniconda.html&#32;on&#32;Linux&#32;Mint&#32;21.2</emphasis>
+<anchor xml:id="_benchmark__gtop_8py_source_1l00010"/>00010 
+<anchor xml:id="_benchmark__gtop_8py_source_1l00011"/>00011 <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1astro">fcmaes.astro</link>&#32;<emphasis role="keyword">import</emphasis>&#32;Messenger,&#32;Cassini2,&#32;Rosetta,&#32;Gtoc1,&#32;Cassini1,&#32;Sagas,&#32;Tandem,&#32;MessFull
+<anchor xml:id="_benchmark__gtop_8py_source_1l00012"/>00012 <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1optimizer">fcmaes.optimizer</link>&#32;<emphasis role="keyword">import</emphasis>&#32;de_cma
+<anchor xml:id="_benchmark__gtop_8py_source_1l00013"/>00013 <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1advretry">fcmaes.advretry</link>&#32;<emphasis role="keyword">import</emphasis>&#32;minimize
+<anchor xml:id="_benchmark__gtop_8py_source_1l00014"/>00014 
+<anchor xml:id="_benchmark__gtop_8py_source_1l00015"/>00015 <emphasis role="keyword">import</emphasis>&#32;sys&#32;
+<anchor xml:id="_benchmark__gtop_8py_source_1l00016"/>00016 <emphasis role="keyword">from</emphasis>&#32;loguru&#32;<emphasis role="keyword">import</emphasis>&#32;logger
+<anchor xml:id="_benchmark__gtop_8py_source_1l00017"/>00017 
+<anchor xml:id="_benchmark__gtop_8py_source_1l00018"/>00018 logger.remove()
+<anchor xml:id="_benchmark__gtop_8py_source_1l00019"/><link linkend="_namespaceexamples_1_1benchmark__gtop_1a4f7cd346d30b61ea57ed3d7b1cddb947">00019</link> logger.add(sys.stdout,&#32;format=<emphasis role="stringliteral">&quot;{time:HH:mm:ss.SS}&#32;|&#32;{process}&#32;|&#32;{level}&#32;|&#32;{message}&quot;</emphasis>,&#32;level=<emphasis role="stringliteral">&quot;INFO&quot;</emphasis>)
+<anchor xml:id="_benchmark__gtop_8py_source_1l00020"/>00020 logger.add(<emphasis role="stringliteral">&quot;log_{time}.txt&quot;</emphasis>,&#32;format=<emphasis role="stringliteral">&quot;{time:HH:mm:ss.SS}&#32;|&#32;{process}&#32;|&#32;{level}&#32;|&#32;{message}&quot;</emphasis>,&#32;level=<emphasis role="stringliteral">&quot;INFO&quot;</emphasis>)
+<anchor xml:id="_benchmark__gtop_8py_source_1l00021"/>00021 
+<anchor xml:id="_benchmark__gtop_8py_source_1l00022"/><link linkend="_namespaceexamples_1_1benchmark__gtop_1a08a1ce877f0cc26216701cbd9b3e5701">00022</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1benchmark__gtop_1a08a1ce877f0cc26216701cbd9b3e5701">_test_optimizer</link>(opt,&#32;problem,&#32;num_retries&#32;=&#32;10000,&#32;num&#32;=&#32;1,&#32;value_limit&#32;=&#32;100.0,&#32;
+<anchor xml:id="_benchmark__gtop_8py_source_1l00023"/>00023 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;stop_val&#32;=&#32;-1E99):
+<anchor xml:id="_benchmark__gtop_8py_source_1l00024"/>00024 &#32;&#32;&#32;&#32;logger.info(<emphasis role="stringliteral">&quot;Testing&#32;coordinated&#32;retry&#32;&quot;</emphasis>&#32;+&#32;opt.name&#32;+&#32;&#32;<emphasis role="stringliteral">&apos;&#32;&apos;</emphasis>&#32;+&#32;problem.name&#32;)
+<anchor xml:id="_benchmark__gtop_8py_source_1l00025"/>00025 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;_&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(num):
+<anchor xml:id="_benchmark__gtop_8py_source_1l00026"/>00026 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ret&#32;=&#32;minimize(problem.fun,&#32;problem.bounds,&#32;value_limit,&#32;num_retries,
+<anchor xml:id="_benchmark__gtop_8py_source_1l00027"/>00027 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;optimizer=opt,&#32;stop_fitness&#32;=&#32;stop_val)
+<anchor xml:id="_benchmark__gtop_8py_source_1l00028"/>00028 
+<anchor xml:id="_benchmark__gtop_8py_source_1l00029"/><link linkend="_namespaceexamples_1_1benchmark__gtop_1aa7b89d2bfe93ac3c40ba31caa1892769">00029</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1benchmark__gtop_1aa7b89d2bfe93ac3c40ba31caa1892769">main</link>():
+<anchor xml:id="_benchmark__gtop_8py_source_1l00030"/>00030 &#32;&#32;&#32;&#32;numRuns&#32;=&#32;100
+<anchor xml:id="_benchmark__gtop_8py_source_1l00031"/>00031 &#32;&#32;&#32;&#32;min_evals&#32;=&#32;1500
+<anchor xml:id="_benchmark__gtop_8py_source_1l00032"/>00032 &#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1benchmark__gtop_1a08a1ce877f0cc26216701cbd9b3e5701">_test_optimizer</link>(de_cma(min_evals),&#32;<link linkend="_classfcmaes_1_1astro_1_1_cassini1">Cassini1</link>(),&#32;num_retries&#32;=&#32;4000,&#32;num&#32;=&#32;numRuns,&#32;
+<anchor xml:id="_benchmark__gtop_8py_source_1l00033"/>00033 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;value_limit&#32;=&#32;20.0,&#32;stop_val&#32;=&#32;4.93075)
+<anchor xml:id="_benchmark__gtop_8py_source_1l00034"/>00034 &#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1benchmark__gtop_1a08a1ce877f0cc26216701cbd9b3e5701">_test_optimizer</link>(de_cma(min_evals),&#32;<link linkend="_classfcmaes_1_1astro_1_1_cassini2">Cassini2</link>(),&#32;num_retries&#32;=&#32;6000,&#32;num&#32;=&#32;numRuns,&#32;
+<anchor xml:id="_benchmark__gtop_8py_source_1l00035"/>00035 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;value_limit&#32;=&#32;20.0,&#32;stop_val&#32;=&#32;8.38305)&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_benchmark__gtop_8py_source_1l00036"/>00036 &#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1benchmark__gtop_1a08a1ce877f0cc26216701cbd9b3e5701">_test_optimizer</link>(de_cma(min_evals),&#32;<link linkend="_classfcmaes_1_1astro_1_1_gtoc1">Gtoc1</link>(),&#32;num_retries&#32;=&#32;10000,&#32;num&#32;=&#32;numRuns,&#32;
+<anchor xml:id="_benchmark__gtop_8py_source_1l00037"/>00037 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;value_limit&#32;=&#32;-300000.0,&#32;stop_val&#32;=&#32;-1581949)
+<anchor xml:id="_benchmark__gtop_8py_source_1l00038"/>00038 &#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1benchmark__gtop_1a08a1ce877f0cc26216701cbd9b3e5701">_test_optimizer</link>(de_cma(min_evals),&#32;<link linkend="_classfcmaes_1_1astro_1_1_messenger">Messenger</link>(),&#32;num_retries&#32;=&#32;8000,&#32;num&#32;=&#32;numRuns,&#32;
+<anchor xml:id="_benchmark__gtop_8py_source_1l00039"/>00039 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;value_limit&#32;=&#32;20.0,&#32;stop_val&#32;=&#32;8.63)
+<anchor xml:id="_benchmark__gtop_8py_source_1l00040"/>00040 &#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1benchmark__gtop_1a08a1ce877f0cc26216701cbd9b3e5701">_test_optimizer</link>(de_cma(min_evals),&#32;<link linkend="_classfcmaes_1_1astro_1_1_rosetta">Rosetta</link>(),&#32;num_retries&#32;=&#32;4000,&#32;num&#32;=&#32;numRuns,&#32;
+<anchor xml:id="_benchmark__gtop_8py_source_1l00041"/>00041 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;value_limit&#32;=&#32;20.0,&#32;stop_val&#32;=&#32;1.34335)
+<anchor xml:id="_benchmark__gtop_8py_source_1l00042"/>00042 &#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1benchmark__gtop_1a08a1ce877f0cc26216701cbd9b3e5701">_test_optimizer</link>(de_cma(min_evals),&#32;<link linkend="_classfcmaes_1_1astro_1_1_sagas">Sagas</link>(),&#32;num_retries&#32;=&#32;4000,&#32;num&#32;=&#32;numRuns,&#32;
+<anchor xml:id="_benchmark__gtop_8py_source_1l00043"/>00043 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;value_limit&#32;=&#32;100.0,&#32;stop_val&#32;=&#32;18.188)
+<anchor xml:id="_benchmark__gtop_8py_source_1l00044"/>00044 &#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1benchmark__gtop_1a08a1ce877f0cc26216701cbd9b3e5701">_test_optimizer</link>(de_cma(min_evals),&#32;<link linkend="_classfcmaes_1_1astro_1_1_tandem">Tandem</link>(5),&#32;num_retries&#32;=&#32;20000,&#32;num&#32;=&#32;numRuns,&#32;
+<anchor xml:id="_benchmark__gtop_8py_source_1l00045"/>00045 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;value_limit&#32;=&#32;-300.0,&#32;stop_val&#32;=&#32;-1500)
+<anchor xml:id="_benchmark__gtop_8py_source_1l00046"/>00046 &#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1benchmark__gtop_1a08a1ce877f0cc26216701cbd9b3e5701">_test_optimizer</link>(de_cma(min_evals),&#32;<link linkend="_classfcmaes_1_1astro_1_1_mess_full">MessFull</link>(),&#32;num_retries&#32;=&#32;50000,&#32;num&#32;=&#32;numRuns,&#32;
+<anchor xml:id="_benchmark__gtop_8py_source_1l00047"/>00047 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;value_limit&#32;=&#32;12.0,&#32;stop_val&#32;=&#32;1.960)
+<anchor xml:id="_benchmark__gtop_8py_source_1l00048"/>00048 &#32;
+<anchor xml:id="_benchmark__gtop_8py_source_1l00049"/>00049 <emphasis role="keywordflow">if</emphasis>&#32;__name__&#32;==&#32;<emphasis role="stringliteral">&apos;__main__&apos;</emphasis>:
+<anchor xml:id="_benchmark__gtop_8py_source_1l00050"/>00050 &#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1benchmark__gtop_1aa7b89d2bfe93ac3c40ba31caa1892769">main</link>()
+<anchor xml:id="_benchmark__gtop_8py_source_1l00051"/>00051 &#32;&#32;&#32;&#32;
+</programlisting></section>

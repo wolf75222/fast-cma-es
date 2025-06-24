@@ -1,0 +1,359 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_powerplant_8py_source" xml:lang="en-US">
+<title>powerplant.py</title>
+<indexterm><primary>examples/powerplant.py</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_powerplant_8py_source_1l00001"/><link linkend="_namespaceexamples_1_1powerplant">00001</link> 
+<anchor xml:id="_powerplant_8py_source_1l00002"/>00002 <emphasis role="stringliteral">&apos;&apos;&apos;</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00003"/>00003 <emphasis role="stringliteral">Optimizing&#32;the&#32;efficiency&#32;of&#32;a&#32;power&#32;plant.&#32;</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00004"/>00004 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00005"/>00005 <emphasis role="stringliteral">See</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00006"/>00006 <emphasis role="stringliteral">https://tespy.readthedocs.io/en/main/tutorials_examples.html#thermal-power-plant-efficiency-optimization</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00007"/>00007 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00008"/>00008 <emphasis role="stringliteral">Added&#32;the&#32;application&#32;of&#32;fcmaes&#32;optimizers,&#32;both&#32;using&#32;parallel&#32;function&#32;evaluation&#32;and&#32;parallel&#32;retry.&#32;</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00009"/>00009 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00010"/>00010 <emphasis role="stringliteral">Note:&#32;tespy&#32;doesn&apos;t&#32;support&#32;Python&#32;3.9,&#32;tested&#32;on&#32;anaconda&#32;with&#32;python&#32;3.8&#32;on&#32;linux.&#32;</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00011"/>00011 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00012"/>00012 <emphasis role="stringliteral">See&#32;https://github.com/dietmarwo/fast-cma-es/blob/master/tutorials/PowerPlant.adoc&#32;for&#32;a&#32;detailed&#32;description.</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00013"/>00013 <emphasis role="stringliteral">See&#32;also&#32;https://github.com/dietmarwo/fast-cma-es/blob/master/tutorials/Diversity.adoc</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00014"/>00014 <emphasis role="stringliteral">&apos;&apos;&apos;</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00015"/>00015 
+<anchor xml:id="_powerplant_8py_source_1l00016"/>00016 <emphasis role="comment">#&#32;Tested&#32;using&#32;https://docs.conda.io/en/main/miniconda.html&#32;on&#32;Linux&#32;Mint&#32;21.2</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00017"/>00017 
+<anchor xml:id="_powerplant_8py_source_1l00018"/>00018 <emphasis role="keyword">from</emphasis>&#32;tespy.networks&#32;<emphasis role="keyword">import</emphasis>&#32;Network
+<anchor xml:id="_powerplant_8py_source_1l00019"/>00019 <emphasis role="keyword">from</emphasis>&#32;tespy.components&#32;<emphasis role="keyword">import</emphasis>&#32;(
+<anchor xml:id="_powerplant_8py_source_1l00020"/>00020 &#32;&#32;&#32;&#32;Turbine,&#32;Splitter,&#32;Merge,&#32;Condenser,&#32;Pump,&#32;Sink,&#32;Source,
+<anchor xml:id="_powerplant_8py_source_1l00021"/>00021 &#32;&#32;&#32;&#32;HeatExchangerSimple,&#32;Desuperheater,&#32;CycleCloser
+<anchor xml:id="_powerplant_8py_source_1l00022"/>00022 )
+<anchor xml:id="_powerplant_8py_source_1l00023"/>00023 <emphasis role="keyword">from</emphasis>&#32;tespy.connections&#32;<emphasis role="keyword">import</emphasis>&#32;Connection,&#32;Bus
+<anchor xml:id="_powerplant_8py_source_1l00024"/>00024 <emphasis role="keyword">from</emphasis>&#32;tespy.tools&#32;<emphasis role="keyword">import</emphasis>&#32;logger
+<anchor xml:id="_powerplant_8py_source_1l00025"/>00025 <emphasis role="keyword">import</emphasis>&#32;logging
+<anchor xml:id="_powerplant_8py_source_1l00026"/>00026 <emphasis role="keyword">import</emphasis>&#32;numpy&#32;<emphasis role="keyword">as</emphasis>&#32;np
+<anchor xml:id="_powerplant_8py_source_1l00027"/>00027 
+<anchor xml:id="_powerplant_8py_source_1l00028"/><link linkend="_namespaceexamples_1_1powerplant_1a2f5507817062080b61a452eab5e05563">00028</link> logger.define_logging(screen_level=logging.ERROR)
+<anchor xml:id="_powerplant_8py_source_1l00029"/>00029 
+<anchor xml:id="_powerplant_8py_source_1l00030"/>00030 <emphasis role="keyword">import</emphasis>&#32;sys&#32;
+<anchor xml:id="_powerplant_8py_source_1l00031"/>00031 <emphasis role="keyword">from</emphasis>&#32;loguru&#32;<emphasis role="keyword">import</emphasis>&#32;logger&#32;<emphasis role="keyword">as</emphasis>&#32;log
+<anchor xml:id="_powerplant_8py_source_1l00032"/>00032 
+<anchor xml:id="_powerplant_8py_source_1l00033"/>00033 log.remove()
+<anchor xml:id="_powerplant_8py_source_1l00034"/><link linkend="_namespaceexamples_1_1powerplant_1a327b80afd9ca0a738ab9581f762edc0d">00034</link> log.add(sys.stdout,&#32;format=<emphasis role="stringliteral">&quot;{time:HH:mm:ss.SS}&#32;|&#32;{process}&#32;|&#32;{level}&#32;|&#32;{message}&quot;</emphasis>)
+<anchor xml:id="_powerplant_8py_source_1l00035"/>00035 log.add(<emphasis role="stringliteral">&quot;log_{time}.txt&quot;</emphasis>)
+<anchor xml:id="_powerplant_8py_source_1l00036"/>00036 
+<anchor xml:id="_powerplant_8py_source_1l00037"/><link linkend="_classexamples_1_1powerplant_1_1_power_plant">00037</link> <emphasis role="keyword">class&#32;</emphasis><link linkend="_classexamples_1_1powerplant_1_1_power_plant">PowerPlant</link>():
+<anchor xml:id="_powerplant_8py_source_1l00038"/>00038 
+<anchor xml:id="_powerplant_8py_source_1l00039"/><link linkend="_classexamples_1_1powerplant_1_1_power_plant_1a324449e8830f6615f93aa385ab45ef1e">00039</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1powerplant_1_1_power_plant_1a324449e8830f6615f93aa385ab45ef1e">__init__</link>(self):
+<anchor xml:id="_powerplant_8py_source_1l00040"/><link linkend="_classexamples_1_1powerplant_1_1_power_plant_1aab711b2d10c71730460b6b62a4b6a9aa">00040</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1powerplant_1_1_power_plant_1aab711b2d10c71730460b6b62a4b6a9aa">nw</link>&#32;=&#32;Network(
+<anchor xml:id="_powerplant_8py_source_1l00041"/>00041 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fluids=[<emphasis role="stringliteral">&apos;BICUBIC::water&apos;</emphasis>],
+<anchor xml:id="_powerplant_8py_source_1l00042"/>00042 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;p_unit=<emphasis role="stringliteral">&apos;bar&apos;</emphasis>,&#32;T_unit=<emphasis role="stringliteral">&apos;C&apos;</emphasis>,&#32;h_unit=<emphasis role="stringliteral">&apos;kJ&#32;/&#32;kg&apos;</emphasis>,
+<anchor xml:id="_powerplant_8py_source_1l00043"/>00043 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;iterinfo=<emphasis role="keyword">False</emphasis>)<emphasis role="comment">#,&#32;memorise_fluid_properties=False)</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00044"/>00044 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;components</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00045"/>00045 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;main&#32;cycle</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00046"/>00046 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;eco&#32;=&#32;HeatExchangerSimple(<emphasis role="stringliteral">&apos;economizer&apos;</emphasis>)
+<anchor xml:id="_powerplant_8py_source_1l00047"/>00047 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;eva&#32;=&#32;HeatExchangerSimple(<emphasis role="stringliteral">&apos;evaporator&apos;</emphasis>)
+<anchor xml:id="_powerplant_8py_source_1l00048"/>00048 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;sup&#32;=&#32;HeatExchangerSimple(<emphasis role="stringliteral">&apos;superheater&apos;</emphasis>)
+<anchor xml:id="_powerplant_8py_source_1l00049"/>00049 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cc&#32;=&#32;CycleCloser(<emphasis role="stringliteral">&apos;cycle&#32;closer&apos;</emphasis>)
+<anchor xml:id="_powerplant_8py_source_1l00050"/>00050 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;hpt&#32;=&#32;Turbine(<emphasis role="stringliteral">&apos;high&#32;pressure&#32;turbine&apos;</emphasis>)
+<anchor xml:id="_powerplant_8py_source_1l00051"/>00051 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;sp1&#32;=&#32;Splitter(<emphasis role="stringliteral">&apos;splitter&#32;1&apos;</emphasis>,&#32;num_out=2)
+<anchor xml:id="_powerplant_8py_source_1l00052"/>00052 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;mpt&#32;=&#32;Turbine(<emphasis role="stringliteral">&apos;mid&#32;pressure&#32;turbine&apos;</emphasis>)
+<anchor xml:id="_powerplant_8py_source_1l00053"/>00053 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;sp2&#32;=&#32;Splitter(<emphasis role="stringliteral">&apos;splitter&#32;2&apos;</emphasis>,&#32;num_out=2)
+<anchor xml:id="_powerplant_8py_source_1l00054"/>00054 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;lpt&#32;=&#32;Turbine(<emphasis role="stringliteral">&apos;low&#32;pressure&#32;turbine&apos;</emphasis>)
+<anchor xml:id="_powerplant_8py_source_1l00055"/>00055 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;con&#32;=&#32;Condenser(<emphasis role="stringliteral">&apos;condenser&apos;</emphasis>)
+<anchor xml:id="_powerplant_8py_source_1l00056"/>00056 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pu1&#32;=&#32;Pump(<emphasis role="stringliteral">&apos;feed&#32;water&#32;pump&apos;</emphasis>)
+<anchor xml:id="_powerplant_8py_source_1l00057"/>00057 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fwh1&#32;=&#32;Condenser(<emphasis role="stringliteral">&apos;feed&#32;water&#32;preheater&#32;1&apos;</emphasis>)
+<anchor xml:id="_powerplant_8py_source_1l00058"/>00058 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fwh2&#32;=&#32;Condenser(<emphasis role="stringliteral">&apos;feed&#32;water&#32;preheater&#32;2&apos;</emphasis>)
+<anchor xml:id="_powerplant_8py_source_1l00059"/>00059 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dsh&#32;=&#32;Desuperheater(<emphasis role="stringliteral">&apos;desuperheater&apos;</emphasis>)
+<anchor xml:id="_powerplant_8py_source_1l00060"/>00060 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;me2&#32;=&#32;Merge(<emphasis role="stringliteral">&apos;merge2&apos;</emphasis>,&#32;num_in=2)
+<anchor xml:id="_powerplant_8py_source_1l00061"/>00061 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pu2&#32;=&#32;Pump(<emphasis role="stringliteral">&apos;feed&#32;water&#32;pump&#32;2&apos;</emphasis>)
+<anchor xml:id="_powerplant_8py_source_1l00062"/>00062 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pu3&#32;=&#32;Pump(<emphasis role="stringliteral">&apos;feed&#32;water&#32;pump&#32;3&apos;</emphasis>)
+<anchor xml:id="_powerplant_8py_source_1l00063"/>00063 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;me&#32;=&#32;Merge(<emphasis role="stringliteral">&apos;merge&apos;</emphasis>,&#32;num_in=2)
+<anchor xml:id="_powerplant_8py_source_1l00064"/>00064 
+<anchor xml:id="_powerplant_8py_source_1l00065"/>00065 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;cooling&#32;water</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00066"/>00066 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cwi&#32;=&#32;Source(<emphasis role="stringliteral">&apos;cooling&#32;water&#32;source&apos;</emphasis>)
+<anchor xml:id="_powerplant_8py_source_1l00067"/>00067 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cwo&#32;=&#32;Sink(<emphasis role="stringliteral">&apos;cooling&#32;water&#32;sink&apos;</emphasis>)
+<anchor xml:id="_powerplant_8py_source_1l00068"/>00068 
+<anchor xml:id="_powerplant_8py_source_1l00069"/>00069 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;connections</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00070"/>00070 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;main&#32;cycle</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00071"/>00071 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cc_hpt&#32;=&#32;Connection(cc,&#32;<emphasis role="stringliteral">&apos;out1&apos;</emphasis>,&#32;hpt,&#32;<emphasis role="stringliteral">&apos;in1&apos;</emphasis>,&#32;label=<emphasis role="stringliteral">&apos;feed&#32;steam&apos;</emphasis>)
+<anchor xml:id="_powerplant_8py_source_1l00072"/>00072 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;hpt_sp1&#32;=&#32;Connection(hpt,&#32;<emphasis role="stringliteral">&apos;out1&apos;</emphasis>,&#32;sp1,&#32;<emphasis role="stringliteral">&apos;in1&apos;</emphasis>,&#32;label=<emphasis role="stringliteral">&apos;extraction1&apos;</emphasis>)
+<anchor xml:id="_powerplant_8py_source_1l00073"/>00073 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;sp1_mpt&#32;=&#32;Connection(sp1,&#32;<emphasis role="stringliteral">&apos;out1&apos;</emphasis>,&#32;mpt,&#32;<emphasis role="stringliteral">&apos;in1&apos;</emphasis>,&#32;state=<emphasis role="stringliteral">&apos;g&apos;</emphasis>)
+<anchor xml:id="_powerplant_8py_source_1l00074"/>00074 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;mpt_sp2&#32;=&#32;Connection(mpt,&#32;<emphasis role="stringliteral">&apos;out1&apos;</emphasis>,&#32;sp2,&#32;<emphasis role="stringliteral">&apos;in1&apos;</emphasis>,&#32;label=<emphasis role="stringliteral">&apos;extraction2&apos;</emphasis>)
+<anchor xml:id="_powerplant_8py_source_1l00075"/>00075 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;sp2_lpt&#32;=&#32;Connection(sp2,&#32;<emphasis role="stringliteral">&apos;out1&apos;</emphasis>,&#32;lpt,&#32;<emphasis role="stringliteral">&apos;in1&apos;</emphasis>)
+<anchor xml:id="_powerplant_8py_source_1l00076"/>00076 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;lpt_con&#32;=&#32;Connection(lpt,&#32;<emphasis role="stringliteral">&apos;out1&apos;</emphasis>,&#32;con,&#32;<emphasis role="stringliteral">&apos;in1&apos;</emphasis>)
+<anchor xml:id="_powerplant_8py_source_1l00077"/>00077 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;con_pu1&#32;=&#32;Connection(con,&#32;<emphasis role="stringliteral">&apos;out1&apos;</emphasis>,&#32;pu1,&#32;<emphasis role="stringliteral">&apos;in1&apos;</emphasis>)
+<anchor xml:id="_powerplant_8py_source_1l00078"/>00078 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pu1_fwh1&#32;=&#32;Connection(pu1,&#32;<emphasis role="stringliteral">&apos;out1&apos;</emphasis>,&#32;fwh1,&#32;<emphasis role="stringliteral">&apos;in2&apos;</emphasis>)
+<anchor xml:id="_powerplant_8py_source_1l00079"/>00079 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fwh1_me&#32;=&#32;Connection(fwh1,&#32;<emphasis role="stringliteral">&apos;out2&apos;</emphasis>,&#32;me,&#32;<emphasis role="stringliteral">&apos;in1&apos;</emphasis>,&#32;state=<emphasis role="stringliteral">&apos;l&apos;</emphasis>)
+<anchor xml:id="_powerplant_8py_source_1l00080"/>00080 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;me_fwh2&#32;=&#32;Connection(me,&#32;<emphasis role="stringliteral">&apos;out1&apos;</emphasis>,&#32;fwh2,&#32;<emphasis role="stringliteral">&apos;in2&apos;</emphasis>,&#32;state=<emphasis role="stringliteral">&apos;l&apos;</emphasis>)
+<anchor xml:id="_powerplant_8py_source_1l00081"/>00081 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fwh2_dsh&#32;=&#32;Connection(fwh2,&#32;<emphasis role="stringliteral">&apos;out2&apos;</emphasis>,&#32;dsh,&#32;<emphasis role="stringliteral">&apos;in2&apos;</emphasis>,&#32;state=<emphasis role="stringliteral">&apos;l&apos;</emphasis>)
+<anchor xml:id="_powerplant_8py_source_1l00082"/>00082 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dsh_me2&#32;=&#32;Connection(dsh,&#32;<emphasis role="stringliteral">&apos;out2&apos;</emphasis>,&#32;me2,&#32;<emphasis role="stringliteral">&apos;in1&apos;</emphasis>)
+<anchor xml:id="_powerplant_8py_source_1l00083"/>00083 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;me2_eco&#32;=&#32;Connection(me2,&#32;<emphasis role="stringliteral">&apos;out1&apos;</emphasis>,&#32;eco,&#32;<emphasis role="stringliteral">&apos;in1&apos;</emphasis>,&#32;state=<emphasis role="stringliteral">&apos;l&apos;</emphasis>)
+<anchor xml:id="_powerplant_8py_source_1l00084"/>00084 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;eco_eva&#32;=&#32;Connection(eco,&#32;<emphasis role="stringliteral">&apos;out1&apos;</emphasis>,&#32;eva,&#32;<emphasis role="stringliteral">&apos;in1&apos;</emphasis>)
+<anchor xml:id="_powerplant_8py_source_1l00085"/>00085 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;eva_sup&#32;=&#32;Connection(eva,&#32;<emphasis role="stringliteral">&apos;out1&apos;</emphasis>,&#32;sup,&#32;<emphasis role="stringliteral">&apos;in1&apos;</emphasis>)
+<anchor xml:id="_powerplant_8py_source_1l00086"/>00086 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;sup_cc&#32;=&#32;Connection(sup,&#32;<emphasis role="stringliteral">&apos;out1&apos;</emphasis>,&#32;cc,&#32;<emphasis role="stringliteral">&apos;in1&apos;</emphasis>)
+<anchor xml:id="_powerplant_8py_source_1l00087"/>00087 
+<anchor xml:id="_powerplant_8py_source_1l00088"/>00088 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1powerplant_1_1_power_plant_1aab711b2d10c71730460b6b62a4b6a9aa">nw</link>.add_conns(cc_hpt,&#32;hpt_sp1,&#32;sp1_mpt,&#32;mpt_sp2,&#32;sp2_lpt,
+<anchor xml:id="_powerplant_8py_source_1l00089"/>00089 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;lpt_con,&#32;con_pu1,&#32;pu1_fwh1,&#32;fwh1_me,&#32;me_fwh2,
+<anchor xml:id="_powerplant_8py_source_1l00090"/>00090 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fwh2_dsh,&#32;dsh_me2,&#32;me2_eco,&#32;eco_eva,&#32;eva_sup,&#32;sup_cc)
+<anchor xml:id="_powerplant_8py_source_1l00091"/>00091 
+<anchor xml:id="_powerplant_8py_source_1l00092"/>00092 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;cooling&#32;water</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00093"/>00093 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cwi_con&#32;=&#32;Connection(cwi,&#32;<emphasis role="stringliteral">&apos;out1&apos;</emphasis>,&#32;con,&#32;<emphasis role="stringliteral">&apos;in2&apos;</emphasis>)
+<anchor xml:id="_powerplant_8py_source_1l00094"/>00094 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;con_cwo&#32;=&#32;Connection(con,&#32;<emphasis role="stringliteral">&apos;out2&apos;</emphasis>,&#32;cwo,&#32;<emphasis role="stringliteral">&apos;in1&apos;</emphasis>)
+<anchor xml:id="_powerplant_8py_source_1l00095"/>00095 
+<anchor xml:id="_powerplant_8py_source_1l00096"/>00096 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1powerplant_1_1_power_plant_1aab711b2d10c71730460b6b62a4b6a9aa">nw</link>.add_conns(cwi_con,&#32;con_cwo)
+<anchor xml:id="_powerplant_8py_source_1l00097"/>00097 
+<anchor xml:id="_powerplant_8py_source_1l00098"/>00098 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;preheating</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00099"/>00099 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;sp1_dsh&#32;=&#32;Connection(sp1,&#32;<emphasis role="stringliteral">&apos;out2&apos;</emphasis>,&#32;dsh,&#32;<emphasis role="stringliteral">&apos;in1&apos;</emphasis>)
+<anchor xml:id="_powerplant_8py_source_1l00100"/>00100 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dsh_fwh2&#32;=&#32;Connection(dsh,&#32;<emphasis role="stringliteral">&apos;out1&apos;</emphasis>,&#32;fwh2,&#32;<emphasis role="stringliteral">&apos;in1&apos;</emphasis>)
+<anchor xml:id="_powerplant_8py_source_1l00101"/>00101 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fwh2_pu2&#32;=&#32;Connection(fwh2,&#32;<emphasis role="stringliteral">&apos;out1&apos;</emphasis>,&#32;pu2,&#32;<emphasis role="stringliteral">&apos;in1&apos;</emphasis>)
+<anchor xml:id="_powerplant_8py_source_1l00102"/>00102 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pu2_me2&#32;=&#32;Connection(pu2,&#32;<emphasis role="stringliteral">&apos;out1&apos;</emphasis>,&#32;me2,&#32;<emphasis role="stringliteral">&apos;in2&apos;</emphasis>)
+<anchor xml:id="_powerplant_8py_source_1l00103"/>00103 
+<anchor xml:id="_powerplant_8py_source_1l00104"/>00104 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;sp2_fwh1&#32;=&#32;Connection(sp2,&#32;<emphasis role="stringliteral">&apos;out2&apos;</emphasis>,&#32;fwh1,&#32;<emphasis role="stringliteral">&apos;in1&apos;</emphasis>)
+<anchor xml:id="_powerplant_8py_source_1l00105"/>00105 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fwh1_pu3&#32;=&#32;Connection(fwh1,&#32;<emphasis role="stringliteral">&apos;out1&apos;</emphasis>,&#32;pu3,&#32;<emphasis role="stringliteral">&apos;in1&apos;</emphasis>)
+<anchor xml:id="_powerplant_8py_source_1l00106"/>00106 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pu3_me&#32;=&#32;Connection(pu3,&#32;<emphasis role="stringliteral">&apos;out1&apos;</emphasis>,&#32;me,&#32;<emphasis role="stringliteral">&apos;in2&apos;</emphasis>)
+<anchor xml:id="_powerplant_8py_source_1l00107"/>00107 
+<anchor xml:id="_powerplant_8py_source_1l00108"/>00108 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1powerplant_1_1_power_plant_1aab711b2d10c71730460b6b62a4b6a9aa">nw</link>.add_conns(sp1_dsh,&#32;dsh_fwh2,&#32;fwh2_pu2,&#32;pu2_me2,
+<anchor xml:id="_powerplant_8py_source_1l00109"/>00109 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;sp2_fwh1,&#32;fwh1_pu3,&#32;pu3_me)
+<anchor xml:id="_powerplant_8py_source_1l00110"/>00110 
+<anchor xml:id="_powerplant_8py_source_1l00111"/>00111 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;busses</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00112"/>00112 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;power&#32;bus</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00113"/><link linkend="_classexamples_1_1powerplant_1_1_power_plant_1aa3ea795b382cc29715c2fec04b34f184">00113</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1powerplant_1_1_power_plant_1aa3ea795b382cc29715c2fec04b34f184">power</link>&#32;=&#32;Bus(<emphasis role="stringliteral">&apos;power&apos;</emphasis>)
+<anchor xml:id="_powerplant_8py_source_1l00114"/>00114 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1powerplant_1_1_power_plant_1aa3ea795b382cc29715c2fec04b34f184">power</link>.add_comps(
+<anchor xml:id="_powerplant_8py_source_1l00115"/>00115 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{<emphasis role="stringliteral">&apos;comp&apos;</emphasis>:&#32;hpt,&#32;<emphasis role="stringliteral">&apos;char&apos;</emphasis>:&#32;-1},&#32;{<emphasis role="stringliteral">&apos;comp&apos;</emphasis>:&#32;mpt,&#32;<emphasis role="stringliteral">&apos;char&apos;</emphasis>:&#32;-1},
+<anchor xml:id="_powerplant_8py_source_1l00116"/>00116 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{<emphasis role="stringliteral">&apos;comp&apos;</emphasis>:&#32;lpt,&#32;<emphasis role="stringliteral">&apos;char&apos;</emphasis>:&#32;-1},&#32;{<emphasis role="stringliteral">&apos;comp&apos;</emphasis>:&#32;pu1,&#32;<emphasis role="stringliteral">&apos;char&apos;</emphasis>:&#32;-1},
+<anchor xml:id="_powerplant_8py_source_1l00117"/>00117 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{<emphasis role="stringliteral">&apos;comp&apos;</emphasis>:&#32;pu2,&#32;<emphasis role="stringliteral">&apos;char&apos;</emphasis>:&#32;-1},&#32;{<emphasis role="stringliteral">&apos;comp&apos;</emphasis>:&#32;pu3,&#32;<emphasis role="stringliteral">&apos;char&apos;</emphasis>:&#32;-1})
+<anchor xml:id="_powerplant_8py_source_1l00118"/>00118 
+<anchor xml:id="_powerplant_8py_source_1l00119"/>00119 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;heating&#32;bus</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00120"/><link linkend="_classexamples_1_1powerplant_1_1_power_plant_1a4993a483a10f4b089953cf5a04f02c02">00120</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1powerplant_1_1_power_plant_1a4993a483a10f4b089953cf5a04f02c02">heat</link>&#32;=&#32;Bus(<emphasis role="stringliteral">&apos;heat&apos;</emphasis>)
+<anchor xml:id="_powerplant_8py_source_1l00121"/>00121 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1powerplant_1_1_power_plant_1a4993a483a10f4b089953cf5a04f02c02">heat</link>.add_comps(
+<anchor xml:id="_powerplant_8py_source_1l00122"/>00122 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{<emphasis role="stringliteral">&apos;comp&apos;</emphasis>:&#32;eco,&#32;<emphasis role="stringliteral">&apos;char&apos;</emphasis>:&#32;1},&#32;{<emphasis role="stringliteral">&apos;comp&apos;</emphasis>:&#32;eva,&#32;<emphasis role="stringliteral">&apos;char&apos;</emphasis>:&#32;1},
+<anchor xml:id="_powerplant_8py_source_1l00123"/>00123 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{<emphasis role="stringliteral">&apos;comp&apos;</emphasis>:&#32;sup,&#32;<emphasis role="stringliteral">&apos;char&apos;</emphasis>:&#32;1})
+<anchor xml:id="_powerplant_8py_source_1l00124"/>00124 
+<anchor xml:id="_powerplant_8py_source_1l00125"/>00125 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1powerplant_1_1_power_plant_1aab711b2d10c71730460b6b62a4b6a9aa">nw</link>.add_busses(self.<link linkend="_classexamples_1_1powerplant_1_1_power_plant_1aa3ea795b382cc29715c2fec04b34f184">power</link>,&#32;self.<link linkend="_classexamples_1_1powerplant_1_1_power_plant_1a4993a483a10f4b089953cf5a04f02c02">heat</link>)
+<anchor xml:id="_powerplant_8py_source_1l00126"/>00126 
+<anchor xml:id="_powerplant_8py_source_1l00127"/>00127 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;parametrization</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00128"/>00128 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;components</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00129"/>00129 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;hpt.set_attr(eta_s=0.9)
+<anchor xml:id="_powerplant_8py_source_1l00130"/>00130 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;mpt.set_attr(eta_s=0.9)
+<anchor xml:id="_powerplant_8py_source_1l00131"/>00131 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;lpt.set_attr(eta_s=0.9)
+<anchor xml:id="_powerplant_8py_source_1l00132"/>00132 
+<anchor xml:id="_powerplant_8py_source_1l00133"/>00133 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pu1.set_attr(eta_s=0.8)
+<anchor xml:id="_powerplant_8py_source_1l00134"/>00134 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pu2.set_attr(eta_s=0.8)
+<anchor xml:id="_powerplant_8py_source_1l00135"/>00135 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pu3.set_attr(eta_s=0.8)
+<anchor xml:id="_powerplant_8py_source_1l00136"/>00136 
+<anchor xml:id="_powerplant_8py_source_1l00137"/>00137 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;eco.set_attr(pr=0.99)
+<anchor xml:id="_powerplant_8py_source_1l00138"/>00138 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;eva.set_attr(pr=0.99)
+<anchor xml:id="_powerplant_8py_source_1l00139"/>00139 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;sup.set_attr(pr=0.99)
+<anchor xml:id="_powerplant_8py_source_1l00140"/>00140 
+<anchor xml:id="_powerplant_8py_source_1l00141"/>00141 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;con.set_attr(pr1=1,&#32;pr2=0.99,&#32;ttd_u=5)
+<anchor xml:id="_powerplant_8py_source_1l00142"/>00142 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fwh1.set_attr(pr1=1,&#32;pr2=0.99,&#32;ttd_u=5)
+<anchor xml:id="_powerplant_8py_source_1l00143"/>00143 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fwh2.set_attr(pr1=1,&#32;pr2=0.99,&#32;ttd_u=5)
+<anchor xml:id="_powerplant_8py_source_1l00144"/>00144 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dsh.set_attr(pr1=0.99,&#32;pr2=0.99)
+<anchor xml:id="_powerplant_8py_source_1l00145"/>00145 
+<anchor xml:id="_powerplant_8py_source_1l00146"/>00146 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;connections</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00147"/>00147 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;eco_eva.set_attr(x=0)
+<anchor xml:id="_powerplant_8py_source_1l00148"/>00148 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;eva_sup.set_attr(x=1)
+<anchor xml:id="_powerplant_8py_source_1l00149"/>00149 
+<anchor xml:id="_powerplant_8py_source_1l00150"/>00150 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cc_hpt.set_attr(m=200,&#32;T=650,&#32;p=100,&#32;fluid={<emphasis role="stringliteral">&apos;water&apos;</emphasis>:&#32;1})
+<anchor xml:id="_powerplant_8py_source_1l00151"/>00151 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;hpt_sp1.set_attr(p=20)
+<anchor xml:id="_powerplant_8py_source_1l00152"/>00152 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;mpt_sp2.set_attr(p=3)
+<anchor xml:id="_powerplant_8py_source_1l00153"/>00153 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;lpt_con.set_attr(p=0.05)
+<anchor xml:id="_powerplant_8py_source_1l00154"/>00154 
+<anchor xml:id="_powerplant_8py_source_1l00155"/>00155 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cwi_con.set_attr(T=20,&#32;p=10,&#32;fluid={<emphasis role="stringliteral">&apos;water&apos;</emphasis>:&#32;1})
+<anchor xml:id="_powerplant_8py_source_1l00156"/>00156 
+<anchor xml:id="_powerplant_8py_source_1l00157"/><link linkend="_classexamples_1_1powerplant_1_1_power_plant_1ac895a4b4ea8434a5320344b71db52b0d">00157</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1powerplant_1_1_power_plant_1ac895a4b4ea8434a5320344b71db52b0d">calculate_efficiency</link>(self,&#32;x):
+<anchor xml:id="_powerplant_8py_source_1l00158"/>00158 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;set&#32;extraction&#32;pressure</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00159"/>00159 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1powerplant_1_1_power_plant_1aab711b2d10c71730460b6b62a4b6a9aa">nw</link>.get_conn(<emphasis role="stringliteral">&apos;extraction1&apos;</emphasis>).set_attr(p=x[0])
+<anchor xml:id="_powerplant_8py_source_1l00160"/>00160 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1powerplant_1_1_power_plant_1aab711b2d10c71730460b6b62a4b6a9aa">nw</link>.get_conn(<emphasis role="stringliteral">&apos;extraction2&apos;</emphasis>).set_attr(p=x[1])
+<anchor xml:id="_powerplant_8py_source_1l00161"/>00161 
+<anchor xml:id="_powerplant_8py_source_1l00162"/>00162 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1powerplant_1_1_power_plant_1aab711b2d10c71730460b6b62a4b6a9aa">nw</link>.solve(<emphasis role="stringliteral">&apos;design&apos;</emphasis>)
+<anchor xml:id="_powerplant_8py_source_1l00163"/>00163 
+<anchor xml:id="_powerplant_8py_source_1l00164"/>00164 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;components&#32;are&#32;saved&#32;in&#32;a&#32;DataFrame,&#32;column&#32;&apos;object&apos;&#32;holds&#32;the</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00165"/>00165 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;component&#32;instances</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00166"/>00166 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;cp&#32;<emphasis role="keywordflow">in</emphasis>&#32;self.<link linkend="_classexamples_1_1powerplant_1_1_power_plant_1aab711b2d10c71730460b6b62a4b6a9aa">nw</link>.comps[<emphasis role="stringliteral">&apos;object&apos;</emphasis>]:
+<anchor xml:id="_powerplant_8py_source_1l00167"/>00167 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;isinstance(cp,&#32;Condenser)&#32;<emphasis role="keywordflow">or</emphasis>&#32;isinstance(cp,&#32;Desuperheater):
+<anchor xml:id="_powerplant_8py_source_1l00168"/>00168 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;cp.Q.val&#32;&gt;&#32;0:
+<anchor xml:id="_powerplant_8py_source_1l00169"/>00169 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;np.nan
+<anchor xml:id="_powerplant_8py_source_1l00170"/>00170 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">elif</emphasis>&#32;isinstance(cp,&#32;Pump):
+<anchor xml:id="_powerplant_8py_source_1l00171"/>00171 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;cp.P.val&#32;&lt;&#32;0:
+<anchor xml:id="_powerplant_8py_source_1l00172"/>00172 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;np.nan
+<anchor xml:id="_powerplant_8py_source_1l00173"/>00173 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">elif</emphasis>&#32;isinstance(cp,&#32;Turbine):
+<anchor xml:id="_powerplant_8py_source_1l00174"/>00174 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;cp.P.val&#32;&gt;&#32;0:
+<anchor xml:id="_powerplant_8py_source_1l00175"/>00175 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;np.nan
+<anchor xml:id="_powerplant_8py_source_1l00176"/>00176 
+<anchor xml:id="_powerplant_8py_source_1l00177"/>00177 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;self.<link linkend="_classexamples_1_1powerplant_1_1_power_plant_1aab711b2d10c71730460b6b62a4b6a9aa">nw</link>.res[-1]&#32;&gt;&#32;1e-3&#32;<emphasis role="keywordflow">or</emphasis>&#32;self.<link linkend="_classexamples_1_1powerplant_1_1_power_plant_1aab711b2d10c71730460b6b62a4b6a9aa">nw</link>.lin_dep:
+<anchor xml:id="_powerplant_8py_source_1l00178"/>00178 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;np.nan
+<anchor xml:id="_powerplant_8py_source_1l00179"/>00179 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>:
+<anchor xml:id="_powerplant_8py_source_1l00180"/>00180 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;self.<link linkend="_classexamples_1_1powerplant_1_1_power_plant_1aab711b2d10c71730460b6b62a4b6a9aa">nw</link>.busses[<emphasis role="stringliteral">&apos;power&apos;</emphasis>].P.val&#32;/&#32;self.<link linkend="_classexamples_1_1powerplant_1_1_power_plant_1aab711b2d10c71730460b6b62a4b6a9aa">nw</link>.busses[<emphasis role="stringliteral">&apos;heat&apos;</emphasis>].P.val
+<anchor xml:id="_powerplant_8py_source_1l00181"/>00181 
+<anchor xml:id="_powerplant_8py_source_1l00182"/><link linkend="_classexamples_1_1powerplant_1_1_power_plant_1a5a1c1253b4d58f5f7d346fb24ce83472">00182</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1powerplant_1_1_power_plant_1a5a1c1253b4d58f5f7d346fb24ce83472">calculate_qd</link>(self,&#32;x):
+<anchor xml:id="_powerplant_8py_source_1l00183"/>00183 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;y&#32;=&#32;self.<link linkend="_classexamples_1_1powerplant_1_1_power_plant_1ac895a4b4ea8434a5320344b71db52b0d">calculate_efficiency</link>(x)
+<anchor xml:id="_powerplant_8py_source_1l00184"/>00184 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;desc&#32;=&#32;[self.<link linkend="_classexamples_1_1powerplant_1_1_power_plant_1aab711b2d10c71730460b6b62a4b6a9aa">nw</link>.busses[<emphasis role="stringliteral">&apos;power&apos;</emphasis>].P.val,&#32;self.<link linkend="_classexamples_1_1powerplant_1_1_power_plant_1aab711b2d10c71730460b6b62a4b6a9aa">nw</link>.busses[<emphasis role="stringliteral">&apos;heat&apos;</emphasis>].P.val]
+<anchor xml:id="_powerplant_8py_source_1l00185"/>00185 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;y,&#32;desc
+<anchor xml:id="_powerplant_8py_source_1l00186"/>00186 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_powerplant_8py_source_1l00187"/><link linkend="_namespaceexamples_1_1powerplant_1ac65ddc3076a6a09c56dd51103402f526">00187</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1powerplant_1ac65ddc3076a6a09c56dd51103402f526">optimize_fcmaes</link>():
+<anchor xml:id="_powerplant_8py_source_1l00188"/>00188 &#32;&#32;&#32;&#32;
+<anchor xml:id="_powerplant_8py_source_1l00189"/>00189 &#32;&#32;&#32;&#32;<emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1optimizer">fcmaes.optimizer</link>&#32;<emphasis role="keyword">import</emphasis>&#32;Bite_cpp,&#32;De_cpp,&#32;Cma_cpp,&#32;Crfmnes_cpp,&#32;de_cma,&#32;wrapper
+<anchor xml:id="_powerplant_8py_source_1l00190"/>00190 &#32;&#32;&#32;&#32;<emphasis role="keyword">from</emphasis>&#32;fcmaes&#32;<emphasis role="keyword">import</emphasis>&#32;retry,&#32;mode,&#32;modecpp,&#32;de,&#32;bitecpp,&#32;decpp,&#32;crfmnes,&#32;crfmnescpp,&#32;cmaes
+<anchor xml:id="_powerplant_8py_source_1l00191"/>00191 &#32;&#32;&#32;&#32;<emphasis role="keyword">from</emphasis>&#32;scipy.optimize&#32;<emphasis role="keyword">import</emphasis>&#32;Bounds
+<anchor xml:id="_powerplant_8py_source_1l00192"/>00192 &#32;&#32;&#32;&#32;<emphasis role="keyword">import</emphasis>&#32;threading,&#32;math,&#32;threadpoolctl
+<anchor xml:id="_powerplant_8py_source_1l00193"/>00193 &#32;&#32;&#32;&#32;
+<anchor xml:id="_powerplant_8py_source_1l00194"/>00194 &#32;&#32;&#32;&#32;<emphasis role="keyword">class&#32;</emphasis>fcmaes_problem():
+<anchor xml:id="_powerplant_8py_source_1l00195"/>00195 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_powerplant_8py_source_1l00196"/>00196 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis>__init__(self):
+<anchor xml:id="_powerplant_8py_source_1l00197"/><link linkend="_namespaceexamples_1_1powerplant_1a9897ae865258899c6a683d3c4410725c">00197</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.dim&#32;=&#32;2
+<anchor xml:id="_powerplant_8py_source_1l00198"/><link linkend="_namespaceexamples_1_1powerplant_1ae9821641eeb365562951ee84a190a47a">00198</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.nobj&#32;=&#32;1
+<anchor xml:id="_powerplant_8py_source_1l00199"/><link linkend="_namespaceexamples_1_1powerplant_1a36f33b188fcc1f4e8a35c22cd64adca1">00199</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.ncon&#32;=&#32;1
+<anchor xml:id="_powerplant_8py_source_1l00200"/><link linkend="_namespaceexamples_1_1powerplant_1a8bcca3c60d94623e0dafbc9c139b8a6e">00200</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.bounds&#32;=&#32;Bounds([1]*self.dim,&#32;[40]*self.dim)&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_powerplant_8py_source_1l00201"/><link linkend="_namespaceexamples_1_1powerplant_1a14a177aa86746b8829645a4feb2830a0">00201</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.local&#32;=&#32;threading.local()
+<anchor xml:id="_powerplant_8py_source_1l00202"/>00202 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_powerplant_8py_source_1l00203"/>00203 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis>get_model(self):
+<anchor xml:id="_powerplant_8py_source_1l00204"/>00204 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;<emphasis role="keywordflow">not</emphasis>&#32;hasattr(self.local,&#32;<emphasis role="stringliteral">&apos;model&apos;</emphasis>):
+<anchor xml:id="_powerplant_8py_source_1l00205"/>00205 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.create_model()
+<anchor xml:id="_powerplant_8py_source_1l00206"/>00206 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;self.local.model
+<anchor xml:id="_powerplant_8py_source_1l00207"/>00207 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_powerplant_8py_source_1l00208"/>00208 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis>create_model(self):
+<anchor xml:id="_powerplant_8py_source_1l00209"/>00209 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.local.model&#32;=&#32;<link linkend="_classexamples_1_1powerplant_1_1_power_plant">PowerPlant</link>()
+<anchor xml:id="_powerplant_8py_source_1l00210"/>00210 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_powerplant_8py_source_1l00211"/>00211 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis>efficiency(self,&#32;x):&#32;&#32;&#32;
+<anchor xml:id="_powerplant_8py_source_1l00212"/>00212 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">try</emphasis>:
+<anchor xml:id="_powerplant_8py_source_1l00213"/>00213 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">with</emphasis>&#32;threadpoolctl.threadpool_limits(limits=1,&#32;user_api=<emphasis role="stringliteral">&quot;blas&quot;</emphasis>):
+<anchor xml:id="_powerplant_8py_source_1l00214"/>00214 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;eff&#32;=&#32;self.get_model().calculate_efficiency(x)&#32;&#32;&#32;&#32;
+<anchor xml:id="_powerplant_8py_source_1l00215"/>00215 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;<emphasis role="keywordflow">not</emphasis>&#32;np.isfinite(eff):&#32;<emphasis role="comment">#&#32;model&#32;gets&#32;corrupted&#32;in&#32;case&#32;of&#32;an&#32;error</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00216"/>00216 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.create_model()&#32;<emphasis role="comment">#&#32;we&#32;need&#32;to&#32;recreate&#32;the&#32;model</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00217"/>00217 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;0
+<anchor xml:id="_powerplant_8py_source_1l00218"/>00218 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;eff
+<anchor xml:id="_powerplant_8py_source_1l00219"/>00219 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">except</emphasis>&#32;Exception&#32;<emphasis role="keyword">as</emphasis>&#32;ex:
+<anchor xml:id="_powerplant_8py_source_1l00220"/>00220 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;0&#32;&#32;
+<anchor xml:id="_powerplant_8py_source_1l00221"/>00221 &#32;&#32;
+<anchor xml:id="_powerplant_8py_source_1l00222"/>00222 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis>fitness(self,&#32;x):
+<anchor xml:id="_powerplant_8py_source_1l00223"/>00223 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;y&#32;=&#32;-self.efficiency(x)
+<anchor xml:id="_powerplant_8py_source_1l00224"/>00224 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;c&#32;=&#32;-x[0]&#32;+&#32;x[1]
+<anchor xml:id="_powerplant_8py_source_1l00225"/>00225 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;[y,&#32;c]
+<anchor xml:id="_powerplant_8py_source_1l00226"/>00226 &#32;&#32;&#32;&#32;
+<anchor xml:id="_powerplant_8py_source_1l00227"/>00227 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis>fitness_so(self,&#32;x):
+<anchor xml:id="_powerplant_8py_source_1l00228"/>00228 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;x[1]&#32;&gt;&#32;x[0]:&#32;<emphasis role="comment">#&#32;handle&#32;constraint</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00229"/>00229 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;1000&#32;+&#32;x[1]&#32;-&#32;x[0]
+<anchor xml:id="_powerplant_8py_source_1l00230"/>00230 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;-self.efficiency(x)
+<anchor xml:id="_powerplant_8py_source_1l00231"/>00231 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_powerplant_8py_source_1l00232"/>00232 &#32;&#32;&#32;&#32;problem&#32;=&#32;fcmaes_problem()
+<anchor xml:id="_powerplant_8py_source_1l00233"/>00233 &#32;&#32;&#32;&#32;
+<anchor xml:id="_powerplant_8py_source_1l00234"/>00234 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Parallel&#32;retry&#32;of&#32;different&#32;single-objective&#32;optimizers</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00235"/>00235 
+<anchor xml:id="_powerplant_8py_source_1l00236"/>00236 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;ret&#32;=&#32;retry.minimize(wrapper(problem.fitness_so),&#32;problem.bounds,</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00237"/>00237 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;num_retries&#32;=&#32;32,&#32;optimizer=Bite_cpp(20000))&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00238"/>00238 &#32;&#32;&#32;&#32;<emphasis role="comment">#</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00239"/>00239 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;ret&#32;=&#32;retry.minimize(wrapper(problem.fitness_so),&#32;problem.bounds,</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00240"/>00240 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;num_retries&#32;=&#32;32,&#32;optimizer=De_cpp(20000))&#32;&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00241"/>00241 &#32;&#32;&#32;&#32;<emphasis role="comment">#</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00242"/>00242 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;ret&#32;=&#32;retry.minimize(wrapper(problem.fitness_so),&#32;problem.bounds,</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00243"/>00243 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;num_retries&#32;=&#32;32,&#32;optimizer=Cma_cpp(20000))&#32;&#32;&#32;&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00244"/>00244 &#32;&#32;&#32;&#32;<emphasis role="comment">#</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00245"/>00245 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;ret&#32;=&#32;retry.minimize(wrapper(problem.fitness_so),&#32;problem.bounds,</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00246"/>00246 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;num_retries&#32;=&#32;32,&#32;optimizer=Crfmnes_cpp(20000))&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00247"/>00247 &#32;&#32;&#32;
+<anchor xml:id="_powerplant_8py_source_1l00248"/>00248 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Multi&#32;objective&#32;optimization&#32;parallel&#32;retry:&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00249"/>00249 &#32;
+<anchor xml:id="_powerplant_8py_source_1l00250"/>00250 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;x,&#32;y&#32;=&#32;modecpp.retry(mode.wrapper(problem.fitness,&#32;problem.nobj),&#32;problem.nobj,&#32;</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00251"/>00251 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;problem.ncon,&#32;problem.bounds,&#32;</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00252"/>00252 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;popsize&#32;=&#32;32,&#32;max_evaluations&#32;=&#32;1000000,&#32;</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00253"/>00253 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;nsga_update=True,&#32;num_retries&#32;=&#32;32,</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00254"/>00254 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;workers=32)</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00255"/>00255 &#32;&#32;&#32;&#32;<emphasis role="comment">#</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00256"/>00256 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;#&#32;Differential&#32;Evolution&#32;using&#32;parallel&#32;function&#32;evaluation:</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00257"/>00257 &#32;&#32;&#32;&#32;<emphasis role="comment">#</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00258"/>00258 &#32;&#32;&#32;&#32;ret&#32;=&#32;de.minimize(wrapper(problem.fitness_so),&#32;problem.dim,&#32;problem.bounds,&#32;max_evaluations&#32;=&#32;20000,&#32;workers=32)&#32;&#32;&#32;
+<anchor xml:id="_powerplant_8py_source_1l00259"/>00259 &#32;&#32;&#32;&#32;
+<anchor xml:id="_powerplant_8py_source_1l00260"/>00260 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Multi&#32;objective&#32;optimization&#32;using&#32;parallel&#32;function&#32;evaluation:&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00261"/>00261 
+<anchor xml:id="_powerplant_8py_source_1l00262"/>00262 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;x,&#32;y&#32;=&#32;mode.minimize(mode.wrapper(problem.fitness,&#32;problem.nobj),&#32;problem.nobj,&#32;</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00263"/>00263 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;problem.ncon,&#32;problem.bounds,&#32;</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00264"/>00264 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;popsize&#32;=&#32;32,&#32;max_evaluations&#32;=&#32;100000,&#32;nsga_update=True,&#32;</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00265"/>00265 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;workers=32)</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00266"/>00266 
+<anchor xml:id="_powerplant_8py_source_1l00267"/>00267 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;The&#32;C++&#32;version&#32;of&#32;this&#32;algorithm&#32;only&#32;works&#32;single&#32;threaded&#32;with&#32;tespy,&#32;but&#32;modecpp.retry&#32;works&#32;multi&#32;threaded&#32;</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00268"/>00268 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_powerplant_8py_source_1l00269"/>00269 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;x,&#32;y&#32;=&#32;modecpp.minimize(mode.wrapper(problem.fitness,&#32;problem.nobj),&#32;problem.nobj,&#32;</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00270"/>00270 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;problem.ncon,&#32;problem.bounds,&#32;</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00271"/>00271 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;popsize&#32;=&#32;32,&#32;max_evaluations&#32;=&#32;100000,&#32;nsga_update=True,&#32;</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00272"/>00272 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;workers=1)</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00273"/>00273 &#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_powerplant_8py_source_1l00274"/>00274 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;some&#32;single&#32;threaded&#32;single&#32;objective&#32;optimizers</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00275"/>00275 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_powerplant_8py_source_1l00276"/>00276 &#32;&#32;&#32;&#32;<emphasis role="comment">#ret&#32;=&#32;decpp.minimize(wrapper(problem.fitness_so),&#32;problem.dim,&#32;problem.bounds,&#32;max_evaluations&#32;=&#32;20000)&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00277"/>00277 &#32;&#32;&#32;&#32;
+<anchor xml:id="_powerplant_8py_source_1l00278"/>00278 &#32;&#32;&#32;&#32;<emphasis role="comment">#ret&#32;=&#32;cmaes.minimize(wrapper(problem.fitness_so),&#32;problem.bounds,&#32;max_evaluations&#32;=&#32;20000)&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00279"/>00279 &#32;&#32;&#32;&#32;
+<anchor xml:id="_powerplant_8py_source_1l00280"/>00280 &#32;&#32;&#32;&#32;<emphasis role="comment">#ret&#32;=&#32;bitecpp.minimize(wrapper(problem.fitness_so),&#32;problem.bounds,&#32;max_evaluations&#32;=&#32;20000)&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00281"/>00281 &#32;&#32;&#32;&#32;
+<anchor xml:id="_powerplant_8py_source_1l00282"/>00282 &#32;&#32;&#32;&#32;<emphasis role="comment">#ret&#32;=&#32;de_cma(20000).minimize(wrapper(problem.fitness_so),&#32;problem.bounds)&#32;&#32;</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00283"/>00283 &#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_powerplant_8py_source_1l00284"/>00284 
+<anchor xml:id="_powerplant_8py_source_1l00285"/><link linkend="_namespaceexamples_1_1powerplant_1ad53e1a3a3df5632bbbf9ba687701accc">00285</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1powerplant_1ad53e1a3a3df5632bbbf9ba687701accc">optimize_qd</link>():
+<anchor xml:id="_powerplant_8py_source_1l00286"/>00286 &#32;&#32;&#32;&#32;
+<anchor xml:id="_powerplant_8py_source_1l00287"/>00287 &#32;&#32;&#32;&#32;<emphasis role="keyword">from</emphasis>&#32;fcmaes&#32;<emphasis role="keyword">import</emphasis>&#32;diversifier,&#32;mapelites
+<anchor xml:id="_powerplant_8py_source_1l00288"/>00288 &#32;&#32;&#32;&#32;<emphasis role="keyword">from</emphasis>&#32;scipy.optimize&#32;<emphasis role="keyword">import</emphasis>&#32;Bounds
+<anchor xml:id="_powerplant_8py_source_1l00289"/>00289 &#32;&#32;&#32;&#32;<emphasis role="keyword">import</emphasis>&#32;threadpoolctl,&#32;threading
+<anchor xml:id="_powerplant_8py_source_1l00290"/>00290 &#32;&#32;&#32;&#32;
+<anchor xml:id="_powerplant_8py_source_1l00291"/>00291 &#32;&#32;&#32;&#32;<emphasis role="keyword">class&#32;</emphasis>qd_problem():
+<anchor xml:id="_powerplant_8py_source_1l00292"/>00292 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_powerplant_8py_source_1l00293"/>00293 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis>__init__(self):
+<anchor xml:id="_powerplant_8py_source_1l00294"/>00294 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.dim&#32;=&#32;2
+<anchor xml:id="_powerplant_8py_source_1l00295"/><link linkend="_namespaceexamples_1_1powerplant_1adf307215fa1609423237f05bc6a10986">00295</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.qd_dim&#32;=&#32;2
+<anchor xml:id="_powerplant_8py_source_1l00296"/>00296 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.bounds&#32;=&#32;Bounds([1]*self.dim,&#32;[40]*self.dim)&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_powerplant_8py_source_1l00297"/><link linkend="_namespaceexamples_1_1powerplant_1a26dfe71635f9eb14498be9fea2e08ac8">00297</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.qd_bounds&#32;=&#32;Bounds([2.2E8,&#32;5E8],&#32;[2.8E8,&#32;6.3E8])&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_powerplant_8py_source_1l00298"/>00298 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.local&#32;=&#32;threading.local()
+<anchor xml:id="_powerplant_8py_source_1l00299"/>00299 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_powerplant_8py_source_1l00300"/>00300 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis>get_model(self):
+<anchor xml:id="_powerplant_8py_source_1l00301"/>00301 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;<emphasis role="keywordflow">not</emphasis>&#32;hasattr(self.local,&#32;<emphasis role="stringliteral">&apos;model&apos;</emphasis>):
+<anchor xml:id="_powerplant_8py_source_1l00302"/>00302 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.create_model()
+<anchor xml:id="_powerplant_8py_source_1l00303"/>00303 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;self.local.model
+<anchor xml:id="_powerplant_8py_source_1l00304"/>00304 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_powerplant_8py_source_1l00305"/>00305 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis>create_model(self):
+<anchor xml:id="_powerplant_8py_source_1l00306"/>00306 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.local.model&#32;=&#32;<link linkend="_classexamples_1_1powerplant_1_1_power_plant">PowerPlant</link>()
+<anchor xml:id="_powerplant_8py_source_1l00307"/>00307 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_powerplant_8py_source_1l00308"/>00308 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis>efficiency(self,&#32;x):&#32;&#32;&#32;
+<anchor xml:id="_powerplant_8py_source_1l00309"/>00309 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">try</emphasis>:
+<anchor xml:id="_powerplant_8py_source_1l00310"/>00310 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">with</emphasis>&#32;threadpoolctl.threadpool_limits(limits=1,&#32;user_api=<emphasis role="stringliteral">&quot;blas&quot;</emphasis>):
+<anchor xml:id="_powerplant_8py_source_1l00311"/>00311 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;eff,&#32;desc&#32;=&#32;self.get_model().calculate_qd(x)&#32;&#32;&#32;&#32;
+<anchor xml:id="_powerplant_8py_source_1l00312"/>00312 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;<emphasis role="keywordflow">not</emphasis>&#32;np.isfinite(eff):&#32;<emphasis role="comment">#&#32;model&#32;gets&#32;corrupted&#32;in&#32;case&#32;of&#32;an&#32;error</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00313"/>00313 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.create_model()&#32;<emphasis role="comment">#&#32;we&#32;need&#32;to&#32;recreate&#32;the&#32;model</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00314"/>00314 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;0,&#32;self.qd_bounds.lb
+<anchor xml:id="_powerplant_8py_source_1l00315"/>00315 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#print&#32;(eff,&#32;desc)</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00316"/>00316 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;eff,&#32;desc
+<anchor xml:id="_powerplant_8py_source_1l00317"/>00317 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">except</emphasis>&#32;Exception&#32;<emphasis role="keyword">as</emphasis>&#32;ex:
+<anchor xml:id="_powerplant_8py_source_1l00318"/>00318 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;0,&#32;self.qd_bounds.lb&#32;&#32;
+<anchor xml:id="_powerplant_8py_source_1l00319"/>00319 &#32;&#32;
+<anchor xml:id="_powerplant_8py_source_1l00320"/>00320 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis>qd_fitness(self,&#32;x):
+<anchor xml:id="_powerplant_8py_source_1l00321"/>00321 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;y,&#32;desc&#32;=&#32;self.efficiency(x)
+<anchor xml:id="_powerplant_8py_source_1l00322"/>00322 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;1-y,&#32;desc
+<anchor xml:id="_powerplant_8py_source_1l00323"/>00323 
+<anchor xml:id="_powerplant_8py_source_1l00324"/>00324 &#32;&#32;&#32;&#32;problem&#32;=&#32;qd_problem()
+<anchor xml:id="_powerplant_8py_source_1l00325"/>00325 &#32;&#32;&#32;&#32;opt_params0&#32;=&#32;{<emphasis role="stringliteral">&apos;solver&apos;</emphasis>:<emphasis role="stringliteral">&apos;elites&apos;</emphasis>,&#32;<emphasis role="stringliteral">&apos;popsize&apos;</emphasis>:128}
+<anchor xml:id="_powerplant_8py_source_1l00326"/>00326 &#32;&#32;&#32;&#32;opt_params1&#32;=&#32;{<emphasis role="stringliteral">&apos;solver&apos;</emphasis>:<emphasis role="stringliteral">&apos;CMA_CPP&apos;</emphasis>,&#32;<emphasis role="stringliteral">&apos;max_evals&apos;</emphasis>:200,&#32;<emphasis role="stringliteral">&apos;popsize&apos;</emphasis>:16,&#32;<emphasis role="stringliteral">&apos;stall_criterion&apos;</emphasis>:3}
+<anchor xml:id="_powerplant_8py_source_1l00327"/>00327 &#32;&#32;&#32;&#32;archive&#32;=&#32;diversifier.minimize(
+<anchor xml:id="_powerplant_8py_source_1l00328"/>00328 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;mapelites.wrapper(problem.qd_fitness,&#32;2,&#32;interval=1000),&#32;problem.bounds,&#32;problem.qd_bounds,&#32;
+<anchor xml:id="_powerplant_8py_source_1l00329"/>00329 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;opt_params=[opt_params0,&#32;opt_params1],&#32;max_evals=25600)
+<anchor xml:id="_powerplant_8py_source_1l00330"/>00330 &#32;&#32;&#32;&#32;print(<emphasis role="stringliteral">&apos;final&#32;archive:&apos;</emphasis>,&#32;archive.info())
+<anchor xml:id="_powerplant_8py_source_1l00331"/>00331 &#32;&#32;&#32;&#32;archive.save(<emphasis role="stringliteral">&apos;powerplant_qd&apos;</emphasis>)
+<anchor xml:id="_powerplant_8py_source_1l00332"/>00332 &#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1powerplant_1a40e0b05c5c539f8e9800c1053e0df88e">plot_archive</link>(archive)
+<anchor xml:id="_powerplant_8py_source_1l00333"/>00333 
+<anchor xml:id="_powerplant_8py_source_1l00334"/>00334 <emphasis role="keyword">from</emphasis>&#32;elitescass2&#32;<emphasis role="keyword">import</emphasis>&#32;plot3d
+<anchor xml:id="_powerplant_8py_source_1l00335"/>00335 
+<anchor xml:id="_powerplant_8py_source_1l00336"/><link linkend="_namespaceexamples_1_1powerplant_1a40e0b05c5c539f8e9800c1053e0df88e">00336</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1powerplant_1a40e0b05c5c539f8e9800c1053e0df88e">plot_archive</link>(archive):
+<anchor xml:id="_powerplant_8py_source_1l00337"/>00337 &#32;&#32;&#32;&#32;si&#32;=&#32;archive.argsort()
+<anchor xml:id="_powerplant_8py_source_1l00338"/>00338 &#32;&#32;&#32;&#32;ysp&#32;=&#32;[]
+<anchor xml:id="_powerplant_8py_source_1l00339"/>00339 &#32;&#32;&#32;&#32;descriptions&#32;=&#32;archive.get_ds()[si]
+<anchor xml:id="_powerplant_8py_source_1l00340"/>00340 &#32;&#32;&#32;&#32;ys&#32;=&#32;archive.get_ys()[si]
+<anchor xml:id="_powerplant_8py_source_1l00341"/>00341 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(len(si)):
+<anchor xml:id="_powerplant_8py_source_1l00342"/>00342 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;ys[i]&#32;&lt;&#32;1:&#32;<emphasis role="comment">#&#32;throw&#32;out&#32;invalid</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00343"/>00343 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;desc&#32;=&#32;descriptions[i]
+<anchor xml:id="_powerplant_8py_source_1l00344"/>00344 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ysp.append([desc[0],&#32;desc[1],&#32;ys[i]])
+<anchor xml:id="_powerplant_8py_source_1l00345"/>00345 
+<anchor xml:id="_powerplant_8py_source_1l00346"/>00346 &#32;&#32;&#32;&#32;ysp&#32;=&#32;np.array(ysp)
+<anchor xml:id="_powerplant_8py_source_1l00347"/>00347 &#32;&#32;&#32;&#32;print(len(ysp))
+<anchor xml:id="_powerplant_8py_source_1l00348"/>00348 &#32;&#32;&#32;&#32;print(ysp)
+<anchor xml:id="_powerplant_8py_source_1l00349"/>00349 &#32;&#32;&#32;&#32;plot3d(ysp,&#32;<emphasis role="stringliteral">&quot;powerplant_qd&quot;</emphasis>,&#32;<emphasis role="stringliteral">&apos;power&apos;</emphasis>,&#32;<emphasis role="stringliteral">&apos;heat&apos;</emphasis>,&#32;<emphasis role="stringliteral">&apos;power&#32;/&#32;heat&apos;</emphasis>)
+<anchor xml:id="_powerplant_8py_source_1l00350"/>00350 &#32;&#32;&#32;&#32;
+<anchor xml:id="_powerplant_8py_source_1l00351"/>00351 <emphasis role="keywordflow">if</emphasis>&#32;__name__&#32;==&#32;<emphasis role="stringliteral">&apos;__main__&apos;</emphasis>:
+<anchor xml:id="_powerplant_8py_source_1l00352"/>00352 &#32;&#32;&#32;&#32;<emphasis role="comment">#optimize_fcmaes()</emphasis>
+<anchor xml:id="_powerplant_8py_source_1l00353"/>00353 &#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1powerplant_1ad53e1a3a3df5632bbbf9ba687701accc">optimize_qd</link>()
+<anchor xml:id="_powerplant_8py_source_1l00354"/>00354 &#32;&#32;&#32;&#32;
+</programlisting></section>

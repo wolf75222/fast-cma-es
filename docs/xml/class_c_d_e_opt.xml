@@ -1,0 +1,499 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.13.2" xml:lang="en-US">
+  <compounddef id="class_c_d_e_opt" kind="class" language="C++" prot="public">
+    <compoundname>CDEOpt</compoundname>
+    <basecompoundref refid="class_c_bite_opt_base" prot="public" virt="non-virtual">CBiteOptBase&lt; int64_t &gt;</basecompoundref>
+    <includes refid="deopt_8h" local="no">deopt.h</includes>
+    <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="class_c_d_e_opt_1a5aab4771da4fe59a157f702840b8ac49" prot="public" static="no">
+        <type>int64_t</type>
+        <definition>typedef int64_t CDEOpt::ptype</definition>
+        <argsstring></argsstring>
+        <name>ptype</name>
+        <qualifiedname>CDEOpt::ptype</qualifiedname>
+        <briefdescription>
+<para>signed integer type, same as <ref refid="class_c_bite_opt_base" kindref="compound">CBiteOptBase</ref> template parameter). </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Parameter value storage type (should be a </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/deopt.h" line="47" column="17" bodyfile="_fcmaescpp/include/deopt.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="class_c_d_e_opt_1a7bd6d1e27282a8b4eee07da8ef5fae2d" prot="protected" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool CDEOpt::DoInitEvals</definition>
+        <argsstring></argsstring>
+        <name>DoInitEvals</name>
+        <qualifiedname>CDEOpt::DoInitEvals</qualifiedname>
+        <briefdescription>
+<para>&quot;True&quot; if initial evaluations should be performed. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/deopt.h" line="307" column="6" bodyfile="_fcmaescpp/include/deopt.h" bodystart="307" bodyend="-1"/>
+        <referencedby refid="class_c_d_e_opt_1a36a626e15e143c668c8c94417a7e9d20" compoundref="deopt_8h" startline="80" endline="126">init</referencedby>
+        <referencedby refid="class_c_d_e_opt_1a819e3692005dd630f7bc83d4444e23ee" compoundref="deopt_8h" startline="140" endline="304">optimize</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_c_d_e_opt_1a226dd5b6af6c70e994012958e41eb550" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void CDEOpt::updateDims</definition>
+        <argsstring>(const int aParamCount, const int PopSize0=0)</argsstring>
+        <name>updateDims</name>
+        <qualifiedname>CDEOpt::updateDims</qualifiedname>
+        <param>
+          <type>const int</type>
+          <declname>aParamCount</declname>
+        </param>
+        <param>
+          <type>const int</type>
+          <declname>PopSize0</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Function updates dimensionality of *this object.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>aParamCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of parameters being optimized. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PopSize0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of elements in population to use. If set to 0 or negative, the default formula will be used. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/deopt.h" line="58" column="6" bodyfile="_fcmaescpp/include/deopt.h" bodystart="58" bodyend="68"/>
+        <references refid="class_c_bite_opt_base_1a5c53a8eb3a4269a746d990282452d71e" compoundref="biteaux_8h" startline="1684" endline="1696">CBiteOptBase&lt; int64_t &gt;::initBuffers</references>
+        <references refid="class_c_bite_pop_1a0dc6f7b3a19db513e349e68c3471f9fa" compoundref="biteaux_8h" startline="1170">CBitePop&lt; int64_t &gt;::ParamCount</references>
+        <references refid="class_c_bite_pop_1a58e3bf5abc2fb4b1e173aa6cb3477bfb" compoundref="biteaux_8h" startline="1172">CBitePop&lt; int64_t &gt;::PopSize</references>
+      </memberdef>
+      <memberdef kind="function" id="class_c_d_e_opt_1a36a626e15e143c668c8c94417a7e9d20" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void CDEOpt::init</definition>
+        <argsstring>(CBiteRnd &amp;rnd, const double *const InitParams=NULL, const double InitRadius=1.0)</argsstring>
+        <name>init</name>
+        <qualifiedname>CDEOpt::init</qualifiedname>
+        <param>
+          <type><ref refid="class_c_bite_rnd" kindref="compound">CBiteRnd</ref> &amp;</type>
+          <declname>rnd</declname>
+        </param>
+        <param>
+          <type>const double *const</type>
+          <declname>InitParams</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type>const double</type>
+          <declname>InitRadius</declname>
+          <defval>1.0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Function initializes *this optimizer.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>rnd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Random number generator. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>InitParams</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If not NULL, initial parameter vector, also used as centroid. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>InitRadius</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Initial radius, multiplier relative to the default sigma value. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/deopt.h" line="80" column="6" bodyfile="_fcmaescpp/include/deopt.h" bodystart="80" bodyend="126"/>
+        <references refid="class_c_bite_opt_base_1a70f5211fb9521491b0e6a336e21dd7bc" compoundref="biteaux_8h" startline="1662">CBiteOptBase&lt; int64_t &gt;::DiffValues</references>
+        <references refid="class_c_d_e_opt_1a7bd6d1e27282a8b4eee07da8ef5fae2d" compoundref="deopt_8h" startline="307">DoInitEvals</references>
+        <references refid="class_c_bite_pop_1aecaac61269e65bda93cb2dc1a3a26091" compoundref="biteaux_8h" startline="1318" endline="1330">CBitePop&lt; int64_t &gt;::getGaussianInt</references>
+        <references refid="class_c_bite_opt_base_1a768362da5c773eea5a8649d44676eeed" compoundref="biteaux_8h" startline="1717" endline="1737">CBiteOptBase&lt; int64_t &gt;::initCommonVars</references>
+        <references refid="class_c_bite_pop_1a1302e3c2e578dd650aedb57e18645092" compoundref="biteaux_8h" startline="1161">CBitePop&lt; int64_t &gt;::IntMantMult</references>
+        <references refid="class_c_bite_opt_base_1a07d5b7c3007f79c7dc1f6106d9832dc6" compoundref="biteaux_8h" startline="1660">CBiteOptBase&lt; int64_t &gt;::MinValues</references>
+        <references refid="class_c_bite_pop_1a0dc6f7b3a19db513e349e68c3471f9fa" compoundref="biteaux_8h" startline="1170">CBitePop&lt; int64_t &gt;::ParamCount</references>
+        <references refid="class_c_bite_pop_1a0c41790e473b70c5ec37986d0fb1f9a2" compoundref="biteaux_8h" startline="1182">CBitePop&lt; int64_t &gt;::PopParams</references>
+        <references refid="class_c_bite_pop_1a58e3bf5abc2fb4b1e173aa6cb3477bfb" compoundref="biteaux_8h" startline="1172">CBitePop&lt; int64_t &gt;::PopSize</references>
+        <references refid="class_c_bite_pop_1a3b7e8d2276455475bd761e29c8c72ac6" compoundref="biteaux_8h" startline="1256" endline="1307">CBitePop&lt; int64_t &gt;::wrapParam</references>
+      </memberdef>
+      <memberdef kind="function" id="class_c_d_e_opt_1a819e3692005dd630f7bc83d4444e23ee" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int CDEOpt::optimize</definition>
+        <argsstring>(CBiteRnd &amp;rnd, double *const OutCost=NULL, double *const OutValues=NULL)</argsstring>
+        <name>optimize</name>
+        <qualifiedname>CDEOpt::optimize</qualifiedname>
+        <param>
+          <type><ref refid="class_c_bite_rnd" kindref="compound">CBiteRnd</ref> &amp;</type>
+          <declname>rnd</declname>
+        </param>
+        <param>
+          <type>double *const</type>
+          <declname>OutCost</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type>double *const</type>
+          <declname>OutValues</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Function performs the parameter optimization iteration that involves 1 objective function evaluation.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>rnd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Random number generator. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">OutCost</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If not NULL, pointer to variable that receives cost of the newly-evaluated solution. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">OutValues</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If not NULL, pointer to array that receives a newly-evaluated parameter vector, in real scale, in real value bounds. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The number of non-improving iterations so far. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/deopt.h" line="140" column="5" bodyfile="_fcmaescpp/include/deopt.h" bodystart="140" bodyend="304"/>
+        <references refid="class_c_bite_pop_1a57e751582761922bbabff1ddb7af277b" compoundref="biteaux_8h" startline="1241" endline="1244">CBitePop&lt; int64_t &gt;::copyValues</references>
+        <references refid="class_c_bite_pop_1aa7c87b9148768d6104f8d3dfb5abebce" compoundref="biteaux_8h" startline="1177">CBitePop&lt; int64_t &gt;::CurPopPos</references>
+        <references refid="class_c_bite_pop_1adc98fbdebc2671ef0826245d8c472cc5" compoundref="biteaux_8h" startline="1174">CBitePop&lt; int64_t &gt;::CurPopSize</references>
+        <references refid="class_c_bite_pop_1a26b81c70200085e410cf83258e139f9b" compoundref="biteaux_8h" startline="1175">CBitePop&lt; int64_t &gt;::CurPopSize1</references>
+        <references refid="class_c_d_e_opt_1a7bd6d1e27282a8b4eee07da8ef5fae2d" compoundref="deopt_8h" startline="307">DoInitEvals</references>
+        <references refid="class_c_bite_rnd_1a6ccc0608cbc9080d9509a0e4c483adfe" compoundref="biteaux_8h" startline="317" endline="337">CBiteRnd::getBit</references>
+        <references refid="class_c_bite_pop_1a0053ae41c70babe967c5931f491ea865" compoundref="biteaux_8h" startline="950" endline="953">CBitePop&lt; int64_t &gt;::getCurParams</references>
+        <references refid="class_c_bite_rnd_1a4e9ad0a5c5e09149a60f849736d8d7ce" compoundref="biteaux_8h" startline="126" endline="129">CBiteRnd::getInt</references>
+        <references refid="class_c_bite_pop_1aaa8e3f180accfedf21218cbed8ffbb79" compoundref="biteaux_8h" startline="893" endline="896">CBitePop&lt; int64_t &gt;::getParamsOrdered</references>
+        <references refid="class_c_bite_rnd_1adca97316ecce595b9175815493f7a3a2" compoundref="biteaux_8h" startline="236" endline="239">CBiteRnd::getPowInt</references>
+        <references refid="class_c_bite_rnd_1a6e9234ff0489b0d3d38ef71be159b34d" compoundref="biteaux_8h" startline="256" endline="259">CBiteRnd::getRaw</references>
+        <references refid="class_c_bite_opt_base_1a7b849dbede3dc6be555a4197541fad51" compoundref="biteaux_8h" startline="1803" endline="1806">CBiteOptBase&lt; int64_t &gt;::getRealValue</references>
+        <references refid="class_c_bite_pop_1a27448c9be1bed517e4a48aa656ca4f76" compoundref="biteaux_8h" startline="1167">CBitePop&lt; int64_t &gt;::IntMantMask</references>
+        <references refid="class_c_bite_opt_base_1a0a97be5c42eed6fbaffba04c8720e6ce" compoundref="biteaux_8h" startline="1667">CBiteOptBase&lt; int64_t &gt;::NewValues</references>
+        <references refid="class_c_bite_opt_interface_1a45d7e2c9ea31b6f8bb23758a6879df9d">CBiteOptInterface::optcost</references>
+        <references refid="class_c_bite_pop_1a0dc6f7b3a19db513e349e68c3471f9fa" compoundref="biteaux_8h" startline="1170">CBitePop&lt; int64_t &gt;::ParamCount</references>
+        <references refid="class_c_bite_pop_1a58e3bf5abc2fb4b1e173aa6cb3477bfb" compoundref="biteaux_8h" startline="1172">CBitePop&lt; int64_t &gt;::PopSize</references>
+        <references refid="class_c_bite_opt_base_1ab756659a8ba09ba42ffa3d207564fdd8" compoundref="biteaux_8h" startline="1668">CBiteOptBase&lt; int64_t &gt;::StallCount</references>
+        <references refid="class_c_bite_pop_1acae90e3584dca8b6c08c70d7bd317729" compoundref="biteaux_8h" startline="1196">CBitePop&lt; int64_t &gt;::TmpParams</references>
+        <references refid="class_c_bite_opt_base_1a9e49b98f5f6a2470d060282b2fd26a53" compoundref="biteaux_8h" startline="1779" endline="1793">CBiteOptBase&lt; int64_t &gt;::updateBestCost</references>
+        <references refid="class_c_bite_pop_1aad999ddc8a2ed72ffaee0db7732c9f76" compoundref="biteaux_8h" startline="1039" endline="1151">CBitePop&lt; int64_t &gt;::updatePop</references>
+        <references refid="class_c_bite_pop_1a3b7e8d2276455475bd761e29c8c72ac6" compoundref="biteaux_8h" startline="1256" endline="1307">CBitePop&lt; int64_t &gt;::wrapParam</references>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Differential Evolution-alike DFO solver.</para>
+<para>Description is available at <ulink url="https://github.com/avaneev/biteopt">https://github.com/avaneev/biteopt</ulink> </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="9">
+        <label>CBiteOptBase&lt; ptype &gt;</label>
+        <link refid="class_c_bite_opt_base"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="10" relation="protected-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>CBiteOptBase&lt; int64_t &gt;</label>
+        <link refid="class_c_bite_opt_base"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="protected-inheritance">
+        </childnode>
+        <childnode refid="9" relation="template-instance">
+          <edgelabel>&lt; int64_t &gt;</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>CBiteOptInterface</label>
+        <link refid="class_c_bite_opt_interface"/>
+      </node>
+      <node id="7">
+        <label>CBiteParPops&lt; ptype &gt;</label>
+        <link refid="class_c_bite_par_pops"/>
+        <childnode refid="8" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>CBiteParPops&lt; int64_t &gt;</label>
+        <link refid="class_c_bite_par_pops"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+        <childnode refid="7" relation="template-instance">
+          <edgelabel>&lt; int64_t &gt;</edgelabel>
+        </childnode>
+      </node>
+      <node id="10">
+        <label>CBiteParPops&lt; ptype &gt;</label>
+        <link refid="class_c_bite_par_pops"/>
+        <childnode refid="8" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>CBitePop&lt; ptype &gt;</label>
+        <link refid="class_c_bite_pop"/>
+      </node>
+      <node id="5">
+        <label>CBitePop&lt; int64_t &gt;</label>
+        <link refid="class_c_bite_pop"/>
+        <childnode refid="6" relation="template-instance">
+          <edgelabel>&lt; int64_t &gt;</edgelabel>
+        </childnode>
+      </node>
+      <node id="8">
+        <label>CBitePop&lt; ptype &gt;</label>
+        <link refid="class_c_bite_pop"/>
+      </node>
+      <node id="1">
+        <label>CDEOpt</label>
+        <link refid="class_c_d_e_opt"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="10">
+        <label>CBiteOptBase&lt; ptype &gt;</label>
+        <link refid="class_c_bite_opt_base"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="11" relation="protected-inheritance">
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>#ApplySels</edgelabel>
+          <edgelabel>#Sels</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>CBiteOptBase&lt; int64_t &gt;</label>
+        <link refid="class_c_bite_opt_base"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="protected-inheritance">
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>#ApplySels</edgelabel>
+          <edgelabel>#Sels</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="template-instance">
+          <edgelabel>&lt; int64_t &gt;</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>CBiteOptInterface</label>
+        <link refid="class_c_bite_opt_interface"/>
+      </node>
+      <node id="7">
+        <label>CBiteParPops&lt; ptype &gt;</label>
+        <link refid="class_c_bite_par_pops"/>
+        <childnode refid="8" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>CBiteParPops&lt; int64_t &gt;</label>
+        <link refid="class_c_bite_par_pops"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>#ParPops</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="template-instance">
+          <edgelabel>&lt; int64_t &gt;</edgelabel>
+        </childnode>
+      </node>
+      <node id="11">
+        <label>CBiteParPops&lt; ptype &gt;</label>
+        <link refid="class_c_bite_par_pops"/>
+        <childnode refid="8" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>CBitePop&lt; ptype &gt;</label>
+        <link refid="class_c_bite_pop"/>
+      </node>
+      <node id="5">
+        <label>CBitePop&lt; int64_t &gt;</label>
+        <link refid="class_c_bite_pop"/>
+        <childnode refid="6" relation="template-instance">
+          <edgelabel>&lt; int64_t &gt;</edgelabel>
+        </childnode>
+      </node>
+      <node id="8">
+        <label>CBitePop&lt; ptype &gt;</label>
+        <link refid="class_c_bite_pop"/>
+      </node>
+      <node id="9">
+        <label>CBiteSelBase</label>
+        <link refid="class_c_bite_sel_base"/>
+      </node>
+      <node id="1">
+        <label>CDEOpt</label>
+        <link refid="class_c_d_e_opt"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="_fcmaescpp/include/deopt.h" line="44" column="1" bodyfile="_fcmaescpp/include/deopt.h" bodystart="45" bodyend="308"/>
+    <listofallmembers>
+      <member refid="class_c_bite_opt_base_1a5d8710f00b828beca21c0d2699ae340d" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>addSel</name></member>
+      <member refid="class_c_bite_opt_base_1a3922d6b29602643882d3212071a5e679" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>ApplySels</name></member>
+      <member refid="class_c_bite_opt_base_1afc2d6ec2c61d8f41bd39bb99632cf12e" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>ApplySelsCount</name></member>
+      <member refid="class_c_bite_opt_base_1a47acdb7a495f75170b0eb457e0dc950e" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>applySelsDecr</name></member>
+      <member refid="class_c_bite_opt_base_1aa08dcfff8871910e4d01a94f261ee752" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>applySelsIncr</name></member>
+      <member refid="class_c_bite_opt_base_1acc0aa62d6125bd03d3baae22b0bf0467" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>AvgCost</name></member>
+      <member refid="class_c_bite_opt_base_1adc4dfe02978fd4ed460f49c7e9a01633" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>BestCost</name></member>
+      <member refid="class_c_bite_opt_base_1a0fbab700b9d9c5c36d5ef664540efad0" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>BestValues</name></member>
+      <member refid="class_c_bite_pop_1ad4e3a3c5b7a25ad02ef0231bd3fe8388" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>calcLP1Coeff</name></member>
+      <member refid="class_c_bite_opt_base_1a424395289a687d98b8d27cbd828dbc6c" prot="private" virt="non-virtual"><scope>CDEOpt</scope><name>CBiteOptBase</name></member>
+      <member refid="class_c_bite_opt_base_1af11515f00a0a685516aa9cc3daf7f603" prot="public" virt="non-virtual"><scope>CDEOpt</scope><name>CBiteOptBase</name></member>
+      <member refid="class_c_bite_opt_interface_1a0155b3fcab9eeb2d7505c0326e12e809" prot="public" virt="non-virtual"><scope>CDEOpt</scope><name>CBiteOptInterface</name></member>
+      <member refid="class_c_bite_par_pops_1a1d00195283da4d97f648da706e5c5cec" prot="public" virt="non-virtual"><scope>CDEOpt</scope><name>CBiteParPops</name></member>
+      <member refid="class_c_bite_pop_1ad427518ed1d47fbe3c2222b3a11badb7" prot="public" virt="non-virtual"><scope>CDEOpt</scope><name>CBitePop</name></member>
+      <member refid="class_c_bite_pop_1a73402384f4b75abf6d956dc086ccf36e" prot="public" virt="non-virtual" ambiguityscope="CBiteParPops&lt; int64_t &gt;::"><scope>CDEOpt</scope><name>CBitePop</name></member>
+      <member refid="class_c_bite_pop_1ab6dec63b0ee3955563c2a3f815614f31" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>CentLPC</name></member>
+      <member refid="class_c_bite_pop_1ac31d95bc1f383828e72bcf1eb499e949" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>CentParams</name></member>
+      <member refid="class_c_bite_pop_1a2bf725291723a8dcaa215496e3175471" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>CnsCount</name></member>
+      <member refid="class_c_bite_pop_1a3fc2d887ae91be62fd9fc3100268e53c" prot="public" virt="non-virtual"><scope>CDEOpt</scope><name>copy</name></member>
+      <member refid="class_c_bite_pop_1a24130fea35014433f142e3b9ed0f8929" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>copyParams</name></member>
+      <member refid="class_c_bite_pop_1a57e751582761922bbabff1ddb7af277b" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>copyValues</name></member>
+      <member refid="class_c_bite_pop_1aa7c87b9148768d6104f8d3dfb5abebce" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>CurPopPos</name></member>
+      <member refid="class_c_bite_pop_1adc98fbdebc2671ef0826245d8c472cc5" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>CurPopSize</name></member>
+      <member refid="class_c_bite_pop_1a26b81c70200085e410cf83258e139f9b" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>CurPopSize1</name></member>
+      <member refid="class_c_bite_pop_1aa5105ca75379f9a760dc9f0b9ea30ea7" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>CurPopSizeI</name></member>
+      <member refid="class_c_bite_pop_1a4656171c63f1944ae045d6f222d9d33a" prot="public" virt="non-virtual"><scope>CDEOpt</scope><name>decrCurPopSize</name></member>
+      <member refid="class_c_bite_opt_base_1aed59421f7102fb6921e4af39acfb8369" prot="protected" virt="virtual"><scope>CDEOpt</scope><name>deleteBuffers</name></member>
+      <member refid="class_c_bite_opt_base_1a70f5211fb9521491b0e6a336e21dd7bc" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>DiffValues</name></member>
+      <member refid="class_c_bite_opt_base_1ad5c0fe9c5312847158a6df8f4639de23" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>DiffValuesI</name></member>
+      <member refid="class_c_d_e_opt_1a7bd6d1e27282a8b4eee07da8ef5fae2d" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>DoInitEvals</name></member>
+      <member refid="class_c_bite_opt_base_1a4b2d3669723dbe251cf391cc10dd4f5c" prot="public" virt="virtual"><scope>CDEOpt</scope><name>getBestCost</name></member>
+      <member refid="class_c_bite_opt_base_1abbed35653d8765915efc675204c19bb2" prot="public" virt="virtual"><scope>CDEOpt</scope><name>getBestParams</name></member>
+      <member refid="class_c_bite_pop_1a5e6ccebb178353b084084f841b09042d" prot="public" virt="non-virtual"><scope>CDEOpt</scope><name>getCentroid</name></member>
+      <member refid="class_c_bite_pop_1ad38d886687357797479e69098759476a" prot="public" virt="non-virtual"><scope>CDEOpt</scope><name>getCnsPtr</name></member>
+      <member refid="class_c_bite_pop_1a0053ae41c70babe967c5931f491ea865" prot="public" virt="non-virtual"><scope>CDEOpt</scope><name>getCurParams</name></member>
+      <member refid="class_c_bite_pop_1a7e1fbb7f7e9aaf8f73eb865fa4610185" prot="public" virt="non-virtual"><scope>CDEOpt</scope><name>getCurPopPos</name></member>
+      <member refid="class_c_bite_pop_1a5aef425d751172e1fff38a455cb51d34" prot="public" virt="non-virtual"><scope>CDEOpt</scope><name>getCurPopSize</name></member>
+      <member refid="class_c_bite_pop_1aecaac61269e65bda93cb2dc1a3a26091" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>getGaussianInt</name></member>
+      <member refid="class_c_bite_opt_interface_1a9debe40625c2bc248a4ffd12a9197a4d" prot="public" virt="pure-virtual"><scope>CDEOpt</scope><name>getMaxValues</name></member>
+      <member refid="class_c_bite_par_pops_1afa8a97732cea882b664c2d0fbedf2289" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>getMinDistParPop</name></member>
+      <member refid="class_c_bite_opt_interface_1ae7f8adaf2fd8acb10ccf057592a6229d" prot="public" virt="pure-virtual"><scope>CDEOpt</scope><name>getMinValues</name></member>
+      <member refid="class_c_bite_pop_1ad6cbe6cfbf9954dcb6f8a223a5e1f36b" prot="public" virt="non-virtual"><scope>CDEOpt</scope><name>getObjPtr</name></member>
+      <member refid="class_c_bite_pop_1aaa8e3f180accfedf21218cbed8ffbb79" prot="public" virt="non-virtual"><scope>CDEOpt</scope><name>getParamsOrdered</name></member>
+      <member refid="class_c_bite_pop_1ac2a01e9eb6b884a0b318e4b914273acf" prot="public" virt="non-virtual"><scope>CDEOpt</scope><name>getPopParams</name></member>
+      <member refid="class_c_bite_pop_1aa4f3255c9607f72eff280f8c3c09143f" prot="public" virt="non-virtual"><scope>CDEOpt</scope><name>getRankPtr</name></member>
+      <member refid="class_c_bite_opt_base_1a7b849dbede3dc6be555a4197541fad51" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>getRealValue</name></member>
+      <member refid="class_c_bite_opt_base_1a96f3b9e0a82d830bc34c17a5d0f8fa19" prot="public" virt="non-virtual"><scope>CDEOpt</scope><name>getSelCount</name></member>
+      <member refid="class_c_bite_opt_base_1afd1006a5d6154064115a205b54ecaa8c" prot="public" virt="non-virtual"><scope>CDEOpt</scope><name>getSelNames</name></member>
+      <member refid="class_c_bite_opt_base_1a2eaae4dd1761eaef42ead68546994c12" prot="public" virt="non-virtual"><scope>CDEOpt</scope><name>getSels</name></member>
+      <member refid="class_c_bite_opt_base_1a48296b534db162fa0007ff83757cb84b" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>HiBound</name></member>
+      <member refid="class_c_bite_pop_1a48d6ede5c82534c973e0458726e820dd" prot="public" virt="non-virtual"><scope>CDEOpt</scope><name>incrCurPopSize</name></member>
+      <member refid="class_c_d_e_opt_1a36a626e15e143c668c8c94417a7e9d20" prot="public" virt="non-virtual"><scope>CDEOpt</scope><name>init</name></member>
+      <member refid="class_c_bite_opt_base_1a5c53a8eb3a4269a746d990282452d71e" prot="protected" virt="virtual"><scope>CDEOpt</scope><name>initBuffers</name></member>
+      <member refid="class_c_bite_opt_base_1a768362da5c773eea5a8649d44676eeed" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>initCommonVars</name></member>
+      <member refid="class_c_bite_pop_1ac9adf8849ed7251dadd94815e20bdee8" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>IntMantBits</name></member>
+      <member refid="class_c_bite_pop_1a27448c9be1bed517e4a48aa656ca4f76" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>IntMantMask</name></member>
+      <member refid="class_c_bite_pop_1a1302e3c2e578dd650aedb57e18645092" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>IntMantMult</name></member>
+      <member refid="class_c_bite_pop_1a8c64d2e83f225b034df818b06b09ecd2" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>IntMantMult2</name></member>
+      <member refid="class_c_bite_pop_1aeba03d86b17ed01a97dc8225c5598b2d" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>IntMantMultM</name></member>
+      <member refid="class_c_bite_pop_1a8009a96dd8a678daaefc9410ba2e0a76" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>IntOverBits</name></member>
+      <member refid="class_c_bite_opt_base_1ab1e0b2f8caf76a2a75401e2f6bc913ba" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>MaxApplySels</name></member>
+      <member refid="class_c_bite_par_pops_1a451f5fa8bb3503f9c344fe03f46ffcc9" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>MaxParPopCount</name></member>
+      <member refid="class_c_bite_opt_base_1ad4c10c5958656e9ad5bb0073415b9c9f" prot="public" virt="non-virtual"><scope>CDEOpt</scope><name>MaxSelCount</name></member>
+      <member refid="class_c_bite_opt_base_1a9b100a7afa3bdcb3684383ff2df7867a" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>MaxValues</name></member>
+      <member refid="class_c_bite_opt_base_1a07d5b7c3007f79c7dc1f6106d9832dc6" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>MinValues</name></member>
+      <member refid="class_c_bite_pop_1a41f29468becc588bea6ff3f842db93ea" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>NeedCentUpdate</name></member>
+      <member refid="class_c_bite_opt_base_1a0a97be5c42eed6fbaffba04c8720e6ce" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>NewValues</name></member>
+      <member refid="class_c_bite_pop_1a2f7c6a4707e23c21197ab32b71d900c7" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>ObjCount</name></member>
+      <member refid="class_c_bite_opt_base_1a8b1b8265762299edcd1714553ce2104d" prot="private" virt="non-virtual"><scope>CDEOpt</scope><name>operator=</name></member>
+      <member refid="class_c_bite_pop_1ab18cf322db6ab186db1e19b53e34c232" prot="public" virt="non-virtual" ambiguityscope="CBiteParPops&lt; int64_t &gt;::"><scope>CDEOpt</scope><name>operator=</name></member>
+      <member refid="class_c_bite_opt_interface_1a45d7e2c9ea31b6f8bb23758a6879df9d" prot="public" virt="pure-virtual"><scope>CDEOpt</scope><name>optcost</name></member>
+      <member refid="class_c_d_e_opt_1a819e3692005dd630f7bc83d4444e23ee" prot="public" virt="non-virtual"><scope>CDEOpt</scope><name>optimize</name></member>
+      <member refid="class_c_bite_pop_1a0dc6f7b3a19db513e349e68c3471f9fa" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>ParamCount</name></member>
+      <member refid="class_c_bite_pop_1a884c9ad4c0327aaa0110a23a89f5697a" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>ParamCountI</name></member>
+      <member refid="class_c_bite_par_pops_1aea59bf6c1cf9894f944d07cec99882ee" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>ParPopCount</name></member>
+      <member refid="class_c_bite_par_pops_1a79983cca58bd18a6ff73120e65a976dd" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>ParPops</name></member>
+      <member refid="class_c_bite_pop_1a6d4a3479ca9e60de6cf4667d5b2937a5" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>PopCnsOffs</name></member>
+      <member refid="class_c_bite_pop_1a3cdac0ad2cf5c8403f1f7676171f4e76" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>PopItemSize</name></member>
+      <member refid="class_c_bite_pop_1a98e2af75120c4184b271c14d22acf9d4" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>PopObjOffs</name></member>
+      <member refid="class_c_bite_pop_1a0c41790e473b70c5ec37986d0fb1f9a2" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>PopParams</name></member>
+      <member refid="class_c_bite_pop_1ac69b014720b11a472509b22588eaf6c3" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>PopParamsBuf</name></member>
+      <member refid="class_c_bite_pop_1a3ecc4ffcf1c6f3f9b4e4e5a873c481fe" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>PopRankOffs</name></member>
+      <member refid="class_c_bite_pop_1a58e3bf5abc2fb4b1e173aa6cb3477bfb" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>PopSize</name></member>
+      <member refid="class_c_bite_pop_1a0b64743a84d5af143d44e7f6e9f02ada" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>PopSize1</name></member>
+      <member refid="class_c_d_e_opt_1a5aab4771da4fe59a157f702840b8ac49" prot="public" virt="non-virtual"><scope>CDEOpt</scope><name>ptype</name></member>
+      <member refid="class_c_bite_pop_1a767519aa2fcc2667dc135a131bc9fd85" prot="public" virt="non-virtual"><scope>CDEOpt</scope><name>resetCurPopPos</name></member>
+      <member refid="class_c_bite_opt_base_1ae9b284aca73ab2f6784f12174e391f7b" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>SelCount</name></member>
+      <member refid="class_c_bite_opt_base_1abf93d2e584756812ad210f86e4f84a69" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>select</name></member>
+      <member refid="class_c_bite_opt_base_1a43d69538ae5aa7d78d8b3a3e821902b7" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>SelNames</name></member>
+      <member refid="class_c_bite_opt_base_1aebc1904c883f8b4dafefeda608c4536b" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>Sels</name></member>
+      <member refid="class_c_bite_par_pops_1a24cc3d1978b4dbe57fad8a6f6d7efd8a" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>setParPopCount</name></member>
+      <member refid="class_c_bite_opt_base_1ab756659a8ba09ba42ffa3d207564fdd8" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>StallCount</name></member>
+      <member refid="class_c_bite_pop_1acae90e3584dca8b6c08c70d7bd317729" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>TmpParams</name></member>
+      <member refid="class_c_bite_opt_base_1a9e49b98f5f6a2470d060282b2fd26a53" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>updateBestCost</name></member>
+      <member refid="class_c_bite_pop_1a7850902dad276dcecea68559eaccc168" prot="public" virt="non-virtual"><scope>CDEOpt</scope><name>updateCentroid</name></member>
+      <member refid="class_c_bite_opt_base_1ac2ee22488c24887a922a30dd15d898e6" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>updateDiffValues</name></member>
+      <member refid="class_c_d_e_opt_1a226dd5b6af6c70e994012958e41eb550" prot="public" virt="non-virtual"><scope>CDEOpt</scope><name>updateDims</name></member>
+      <member refid="class_c_bite_pop_1aad999ddc8a2ed72ffaee0db7732c9f76" prot="public" virt="non-virtual"><scope>CDEOpt</scope><name>updatePop</name></member>
+      <member refid="class_c_bite_pop_1a3b7e8d2276455475bd761e29c8c72ac6" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>wrapParam</name></member>
+      <member refid="class_c_bite_opt_base_1a634a498e8ebd71bbf87fd1df02f178e0" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>wrapParamReal</name></member>
+      <member refid="class_c_bite_pop_1a0d5ab322641bb1a091df91ff7ee630c4" prot="protected" virt="non-virtual"><scope>CDEOpt</scope><name>zeroParams</name></member>
+      <member refid="class_c_bite_opt_base_1abc6be9a0740c36dfadb4ec3508dc0d65" prot="public" virt="virtual"><scope>CDEOpt</scope><name>~CBiteOptBase</name></member>
+      <member refid="class_c_bite_opt_interface_1a070d1317053ec55bbe7d8ddde32076ce" prot="public" virt="virtual"><scope>CDEOpt</scope><name>~CBiteOptInterface</name></member>
+      <member refid="class_c_bite_par_pops_1a772516362f17b8e5790596740ce355ba" prot="public" virt="virtual"><scope>CDEOpt</scope><name>~CBiteParPops</name></member>
+      <member refid="class_c_bite_pop_1ac386e4638d6fc6bd5370eeae895347c3" prot="public" virt="virtual"><scope>CDEOpt</scope><name>~CBitePop</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

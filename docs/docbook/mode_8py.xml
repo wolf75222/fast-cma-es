@@ -1,0 +1,191 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_mode_8py" xml:lang="en-US">
+<title>fcmaes/mode.py File Reference</title>
+<indexterm><primary>fcmaes/mode.py</primary></indexterm>
+<para>
+
+<para>============================================================================= </para>
+ 
+</para>
+<simplesect>
+    <title>Classes    </title>
+        <itemizedlist>
+            <listitem><para>class <link linkend="_classfcmaes_1_1mode_1_1store">fcmaes.mode.store</link></para>
+
+<para>Handles the management of shared data storage and processing for multi-objective optimization. </para>
+</listitem>
+            <listitem><para>class <link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e">fcmaes.mode.MODE</link></para>
+
+<para>Multi-Objective Differential Evolution (<link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e">MODE</link>) optimization algorithm. </para>
+</listitem>
+            <listitem><para>class <link linkend="_classfcmaes_1_1mode_1_1wrapper">fcmaes.mode.wrapper</link></para>
+
+<para>A wrapper class to manage function calls with additional features such as tracking progress, logging results, and storing or plotting outcomes. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Namespaces    </title>
+        <itemizedlist>
+            <listitem><para>namespace <link linkend="_namespacefcmaes">fcmaes</link></para>
+</listitem>
+            <listitem><para>namespace <link linkend="_namespacefcmaes_1_1mode">fcmaes.mode</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para>Tuple[np.ndarray, np.ndarray] <link linkend="_namespacefcmaes_1_1mode_1a7e76a634ae4563d738ad007097e3c2b4">fcmaes.mode.minimize</link> (Callable[[ArrayLike], ArrayLike] mofun, int nobj, int ncon, Bounds bounds, Optional[np.ndarray] guess=None, Optional[int] popsize=64, Optional[int] max_evaluations=100000, Optional[int] workers=1, Optional[float] f=0.5, Optional[float] cr=0.9, Optional[float] pro_c=0.5, Optional[float] dis_c=15.0, Optional[float] pro_m=0.9, Optional[float] dis_m=20.0, Optional[bool] nsga_update=True, Optional[int] pareto_update=0, Optional[ArrayLike] ints=None, Callable modifier=None, Optional[float] min_mutate=0.1, Optional[float] max_mutate=0.5, Optional[Generator] rg=Generator(PCG64DXSM()), Optional[<link linkend="_classfcmaes_1_1mode_1_1store">store</link>] <link linkend="_classfcmaes_1_1mode_1_1store">store</link>=None)</para>
+
+<para>Minimizes a multi-objective function subject to constraints and bounds using evolutionary algorithms. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1mode_1a7437cac94470387e12001d7f424393af">fcmaes.mode._check_bounds</link> (bounds, dim)</para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1mode_1a4421a58b8727b0b72ab4aaff9f3494b3">fcmaes.mode._filter</link> (x, y)</para>
+
+<para>Filters and sorts input arrays based on specific conditions. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1mode_1a64da91b9fe11c4db2c528851fe65f4e4">fcmaes.mode.objranks</link> (objs)</para>
+
+<para>Computes the rank of objects based on their sum of ranks across all columns. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1mode_1af072da864e0f91afc47942de9a8901a5">fcmaes.mode.ranks</link> (cons, <link linkend="_namespacefcmaes_1_1mode_1ad8018519575a155be2d2f4659ce52b0b">feasible</link>, eps)</para>
+
+<para>Computes the ranks of constraint values, adjusted by their feasibility and scaled by the fraction of violations for each constraint. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1mode_1aa9045b5ff7e2451881af650c926cc04c">fcmaes.mode.get_valid</link> (xs, ys, nobj)</para>
+
+<para>Filters the input data based on a validity condition and returns the valid elements. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1mode_1a4648393e4988cb88b634bc6969891383">fcmaes.mode.pareto_sort</link> (x0, y0, nobj, ncon)</para>
+
+<para>Sorts solutions based on Pareto dominance and crowding distance. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1mode_1aee5b0cd4fba6d7edff0afe48a8bc636a">fcmaes.mode.pareto_domination</link> (ys, nobj, ncon, last_ycon=None, last_eps=0)</para>
+
+<para>Determines Pareto domination levels for a set of solutions considering objectives and constraint violations. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1mode_1a2570992dd7d42219e4b1381adff7a710">fcmaes.mode.pareto_levels</link> (ys)</para>
+
+<para>Determines the Pareto levels of a given set of points. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1mode_1a0f27ab476c153a96dba3568003ab075a">fcmaes.mode.crowd_dist</link> (y)</para>
+
+<para>Calculates the crowding distance for the first objective in a multi-objective optimization problem. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1mode_1afba15234474d356adb0ed83aa94f73a6">fcmaes.mode.variation</link> (pop, lower, upper, rg, pro_c=1, dis_c=20, pro_m=1, dis_m=20)</para>
+
+<para>Applies genetic variation operations, including simulated binary crossover (SBX) and polynomial mutation, on a population to produce offspring. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1mode_1ad8018519575a155be2d2f4659ce52b0b">fcmaes.mode.feasible</link> (xs, ys, ncon, eps=1E-2)</para>
+
+<para>Determines feasible solutions based on constraints and filters the input arrays <computeroutput>xs</computeroutput> and <computeroutput>ys</computeroutput> accordingly. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1mode_1afc694697801d4ac2a3e8956987220939">fcmaes.mode.is_feasible</link> (y, nobj, eps=1E-2)</para>
+
+<para>Determines if a given solution is feasible based on constraints and tolerance. </para>
+</listitem>
+            <listitem><para>Tuple[np.ndarray, np.ndarray] <link linkend="_namespacefcmaes_1_1mode_1a0bc11f1e1783869a0b99b01ba75c80eb">fcmaes.mode.minimize_plot</link> (str name, Callable[[ArrayLike], ArrayLike] fun, int nobj, int ncon, Bounds bounds, Optional[int] popsize=64, Optional[int] max_evaluations=100000, Optional[bool] nsga_update=True, Optional[int] pareto_update=0, Optional[ArrayLike] ints=None, Optional[int] workers=mp.cpu_count())</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>============================================================================= </para>
+
+<para>Fast version 1.6.11</para>
+
+<para>(c) 2025 – Dietmar Wolz (c) 2025 – Latitude</para>
+
+<para>License MIT</para>
+
+<para><itemizedlist>
+<listitem>
+<para><link linkend="_mode_8py">mode.py</link></para>
+</listitem></itemizedlist>
+</para>
+
+<para><formalpara>
+<title>Description</title>
+<para><itemizedlist>
+<listitem>
+<para>Numpy based implementation of multi objective Differential Evolution using either the DE/rand/1 strategy or a NSGA-II like population update (parameter &apos;nsga_update=True)&apos;. Then it works similar to NSGA-II. </para>
+</listitem></itemizedlist>
+</para>
+</formalpara>
+<para>
+
+<para>Supports parallel fitness function evaluation. </para>
+</para>
+<para>
+
+<para>Features enhanced multiple constraint ranking [2] improving its performance in handling constraints for engineering design optimization. </para>
+</para>
+<para>
+
+<para>Enables the comparison of DE and NSGA-II population update mechanism with everything else kept completely identical. </para>
+</para>
+<para>
+
+<para>Requires python 3.5 or higher. </para>
+</para>
+<para>
+
+<para>Uses the following deviation from the standard DE algorithm: a) oscillating CR/F parameters. </para>
+</para>
+<para>
+
+<para>You may keep parameters F and CR at their defaults since this implementation works well with the given settings for most problems, since the algorithm oscillates between different F and CR settings. </para>
+</para>
+<para>
+
+<para>For expensive objective functions (e.g. machine learning parameter optimization) use the workers parameter to parallelize objective function evaluation. The workers parameter is limited by the population size. </para>
+</para>
+<para>
+
+<para>The ints parameter is a boolean array indicating which parameters are discrete integer values. This parameter was introduced after observing non optimal DE-results for the ESP2 benchmark problem: <literallayout><computeroutput>[3]
+</computeroutput></literallayout> If defined it causes a &quot;special treatment&quot; for discrete variables: They are rounded to the next integer value and there is an additional mutation to avoid getting stuck at local minima. This behavior is specified by the internal function _modifier which can be overwritten by providing the optional modifier argument. If modifier is defined, ints is ignored. </para>
+</para>
+<para>
+
+<para>See [4] for a detailed description.</para>
+</para>
+<formalpara><title>Author</title>
+
+<para>:<itemizedlist>
+<listitem>
+<para>Dietmar Wolz <literallayout><computeroutput>-&#32;romain.despoullains<emphasis role="preprocessor">@latitude.eu</emphasis>
+-&#32;corentin.generet<emphasis role="preprocessor">@latitude.eu</emphasis>
+</computeroutput></literallayout></para>
+</listitem></itemizedlist>
+</para>
+</formalpara>
+<formalpara>
+<title>References</title>
+<para><itemizedlist>
+<listitem>
+<para>[1] <link xlink:href="https://github.com/dietmarwo/fast-cma-es">https://github.com/dietmarwo/fast-cma-es</link></para>
+</listitem><listitem>
+<para>[2] <link xlink:href="https://www.jstage.jst.go.jp/article/tjpnsec/11/2/11_18/_article/-char/en/">https://www.jstage.jst.go.jp/article/tjpnsec/11/2/11_18/_article/-char/en/</link></para>
+</listitem><listitem>
+<para>[3] <link xlink:href="https://github.com/AlgTUDelft/ExpensiveOptimBenchmark/blob/master/expensiveoptimbenchmark/problems/DockerCFDBenchmark.py">https://github.com/AlgTUDelft/ExpensiveOptimBenchmark/blob/master/expensiveoptimbenchmark/problems/DockerCFDBenchmark.py</link></para>
+</listitem><listitem>
+<para>[4] <link xlink:href="https://github.com/dietmarwo/fast-cma-es/blob/master/tutorials/MODE.adoc">https://github.com/dietmarwo/fast-cma-es/blob/master/tutorials/MODE.adoc</link></para>
+</listitem></itemizedlist>
+</para>
+</formalpara>
+<formalpara>
+<title>Documentation</title>
+<para><itemizedlist>
+<listitem></listitem></itemizedlist>
+</para>
+</formalpara>
+<informaltable frame='bottom'><tgroup cols='1'><colspec align='center'/><tbody><row><entry align='center'>
+</entry></row></tbody></tgroup></informaltable>
+ </para>
+<para>
+Definition in file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+</section>

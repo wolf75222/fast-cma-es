@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_house_8py" xml:lang="en-US">
+<title>examples/house.py File Reference</title>
+<indexterm><primary>examples/house.py</primary></indexterm>
+<simplesect>
+    <title>Classes    </title>
+        <itemizedlist>
+            <listitem><para>class <link linkend="_classexamples_1_1house_1_1cv__problem">examples.house.cv_problem</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Namespaces    </title>
+        <itemizedlist>
+            <listitem><para>namespace <link linkend="_namespaceexamples">examples</link></para>
+</listitem>
+            <listitem><para>namespace <link linkend="_namespaceexamples_1_1house">examples.house</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_namespaceexamples_1_1house_1ade8281dc8c65d8118f9d98154de6308e">examples.house.ConverNaNToNAString</link> (data, columnList)</para>
+</listitem>
+            <listitem><para><link linkend="_namespaceexamples_1_1house_1a39b5eebf257563b87a88a9a5ef6ee5ad">examples.house.cv_score</link> (X)</para>
+</listitem>
+            <listitem><para><link linkend="_namespaceexamples_1_1house_1a8b9298c0123a93afcd0f36a42ac72230">examples.house.obj_f</link> (X)</para>
+</listitem>
+            <listitem><para><link linkend="_namespaceexamples_1_1house_1acb427336872b6d7e0fc0371ddc53dac7">examples.house.obj_fmin</link> (X)</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Variables    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_namespaceexamples_1_1house_1a4934e27c4da6ba749aed142321a92786">examples.house.stdout</link></para>
+</listitem>
+            <listitem><para><link linkend="_namespaceexamples_1_1house_1ab46c30f2c08d0d96db6520e8ca076d36">examples.house.format</link></para>
+</listitem>
+            <listitem><para><link linkend="_namespaceexamples_1_1house_1aba858ae5de8fb7f24964bff0c3842802">examples.house.level</link></para>
+</listitem>
+            <listitem><para><link linkend="_namespaceexamples_1_1house_1a3b0347fdd4de9dbe8215ffed52d37f4f">examples.house.train_dataset</link> = pd.read_csv(&apos;../input/train.csv&apos;, header=0)</para>
+</listitem>
+            <listitem><para><link linkend="_namespaceexamples_1_1house_1aed975c759441882937098ef4c190ca0d">examples.house.test_dataset</link> = pd.read_csv(&apos;../input/test.csv&apos;, header=0)</para>
+</listitem>
+            <listitem><para>list <link linkend="_namespaceexamples_1_1house_1a82b43265e599352aa67170fb0dc01976">examples.house.categorical_features</link></para>
+</listitem>
+            <listitem><para>list <link linkend="_namespaceexamples_1_1house_1a4b968b58512b3493a1c28ddcb1b62a17">examples.house.every_column_except_y</link> = [col for col in train_dataset.columns if col not in [&apos;SalePrice&apos;,&apos;Id&apos;]]</para>
+</listitem>
+            <listitem><para>list <link linkend="_namespaceexamples_1_1house_1a2edc9a3af1cf35065657d37aa6092d0b">examples.house.every_column_non_categorical</link> = [col for col in train_dataset.columns if col not in <link linkend="_namespaceexamples_1_1house_1a82b43265e599352aa67170fb0dc01976">categorical_features</link> and col not in [&apos;Id&apos;] ]</para>
+</listitem>
+            <listitem><para><link linkend="_namespaceexamples_1_1house_1ad86e27976b8a992dcc2d41b89bcc8db3">examples.house.numeric_feats</link> = <link linkend="_namespaceexamples_1_1house_1a3b0347fdd4de9dbe8215ffed52d37f4f">train_dataset</link>[<link linkend="_namespaceexamples_1_1house_1a2edc9a3af1cf35065657d37aa6092d0b">every_column_non_categorical</link>].dtypes[train_dataset.dtypes != &quot;object&quot;].index</para>
+</listitem>
+            <listitem><para>list <link linkend="_namespaceexamples_1_1house_1a550e21ac7059371e4394896cfe2a7ba6">examples.house.features_with_nan</link></para>
+</listitem>
+            <listitem><para><link linkend="_namespaceexamples_1_1house_1a51b5d2e283cc1d846c6fe369fea06a1f">examples.house.model</link></para>
+</listitem>
+            <listitem><para><link linkend="_namespaceexamples_1_1house_1a992883b04b0f7d9481f373de9c5df398">examples.house.weighted_features</link> = model.get_booster().get_score(importance_type=&apos;weight&apos;).items()</para>
+</listitem>
+            <listitem><para><link linkend="_namespaceexamples_1_1house_1a543dd25d1396426b86a8b84cc639ee16">examples.house.ordered_features</link> = OrderedDict(sorted(<link linkend="_namespaceexamples_1_1house_1a992883b04b0f7d9481f373de9c5df398">weighted_features</link>, key=lambda t: t[1], reverse=True))</para>
+</listitem>
+            <listitem><para><link linkend="_namespaceexamples_1_1house_1a59913344df23ab873d6a5d0ae217e90e">examples.house.most_relevant_features</link> = list( dict((k, v) for k, v in <link linkend="_namespaceexamples_1_1house_1a992883b04b0f7d9481f373de9c5df398">weighted_features</link> if v &gt;= 10).keys())</para>
+</listitem>
+            <listitem><para><link linkend="_namespaceexamples_1_1house_1a42ce97b3ca0226db9e4467e016d417cd">examples.house.axis</link></para>
+</listitem>
+            <listitem><para><link linkend="_namespaceexamples_1_1house_1a4586d38b33b44e150bb176b86f7c3022">examples.house.inplace</link></para>
+</listitem>
+            <listitem><para><link linkend="_namespaceexamples_1_1house_1a1377c74d53c1100c7bbce092002e8362">examples.house.train_x</link> = <link linkend="_namespaceexamples_1_1house_1a3b0347fdd4de9dbe8215ffed52d37f4f">train_dataset</link>[<link linkend="_namespaceexamples_1_1house_1a59913344df23ab873d6a5d0ae217e90e">most_relevant_features</link>]</para>
+</listitem>
+            <listitem><para><link linkend="_namespaceexamples_1_1house_1aed17691e77bd8195b440e7e6c576c0d0">examples.house.train_y</link> = <link linkend="_namespaceexamples_1_1house_1a3b0347fdd4de9dbe8215ffed52d37f4f">train_dataset</link>[&apos;SalePrice&apos;]</para>
+</listitem>
+            <listitem><para>bool <link linkend="_namespaceexamples_1_1house_1a3c03a0234a2c71ef181d8e85ee11739d">examples.house.grid_search</link> = False</para>
+</listitem>
+            <listitem><para>bool <link linkend="_namespaceexamples_1_1house_1ae1e3ec63d02fac6de46655b3bd0c22b9">examples.house.hyperopt</link> = False</para>
+</listitem>
+            <listitem><para>bool <link linkend="_namespaceexamples_1_1house_1a58f1ee9db2b6804b6d00c152ad40b802">examples.house.bayesian</link> = False</para>
+</listitem>
+            <listitem><para>bool <link linkend="_namespaceexamples_1_1house_1a5a3829e9f7c9a57a045c0b48719b1b51">examples.house.evolutionary</link> = True</para>
+</listitem>
+            <listitem><para>dict <link linkend="_namespaceexamples_1_1house_1a5fc66d59169f22ab71835a11b5e9e932">examples.house.parameters_for_testing</link></para>
+</listitem>
+            <listitem><para><link linkend="_namespaceexamples_1_1house_1a5e0260102b4af1ca5b85c5472d09b2e3">examples.house.xgb_model</link></para>
+</listitem>
+            <listitem><para><link linkend="_namespaceexamples_1_1house_1a2732c74b853863a101cac2999de77e08">examples.house.gsearch</link></para>
+</listitem>
+            <listitem><para>list <link linkend="_namespaceexamples_1_1house_1afba8daf815562b6f56fad5a1a4923cfe">examples.house.xgb_space</link></para>
+</listitem>
+            <listitem><para><link linkend="_namespaceexamples_1_1house_1a0ad73fccd0afeaa8550811d87106dd5a">examples.house.best</link></para>
+</listitem>
+            <listitem><para>list <link linkend="_namespaceexamples_1_1house_1ab5772acae74caae3870e1ca71d7dc5e1">examples.house.bds</link></para>
+</listitem>
+            <listitem><para><link linkend="_namespaceexamples_1_1house_1a263802c227189418de4d0c702eb18dce">examples.house.optimizer</link></para>
+</listitem>
+            <listitem><para><link linkend="_namespaceexamples_1_1house_1a8b99c5a7ab3c241da3ed644965f2a715">examples.house.max_iter</link></para>
+</listitem>
+            <listitem><para><link linkend="_namespaceexamples_1_1house_1a107282d610c5c3cd4e8bece6cafd4bd4">examples.house.y_bo</link> = np.maximum.accumulate(-optimizer.Y).ravel()</para>
+</listitem>
+            <listitem><para><link linkend="_namespaceexamples_1_1house_1aa1edc9c4f08ab5e9479e35f328a6743b">examples.house.bounds</link> = Bounds([0.4, 0, 1.5, 0.07, 3, 1e-5, 1e-5, 0.6], [0.8, 0.3, 10, 0.1, 5.99, 0.75, 0.45, 0.95])</para>
+</listitem>
+            <listitem><para><link linkend="_namespaceexamples_1_1house_1a96d51c8d870c5843922de8007f346037">examples.house.problem</link> = <link linkend="_classexamples_1_1house_1_1cv__problem">cv_problem</link>(<link linkend="_namespaceexamples_1_1house_1a8b9298c0123a93afcd0f36a42ac72230">obj_f</link>, <link linkend="_namespaceexamples_1_1house_1aa1edc9c4f08ab5e9479e35f328a6743b">bounds</link>)</para>
+</listitem>
+            <listitem><para><link linkend="_namespaceexamples_1_1house_1a1baee49f82585b83c248e153dbfeb95c">examples.house.ret</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+</section>

@@ -1,0 +1,200 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_f8_8py_source" xml:lang="en-US">
+<title>f8.py</title>
+<indexterm><primary>examples/f8.py</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_f8_8py_source_1l00001"/><link linkend="_namespaceexamples_1_1f8">00001</link> <emphasis role="comment">#&#32;Copyright&#32;(c)&#32;Dietmar&#32;Wolz.</emphasis>
+<anchor xml:id="_f8_8py_source_1l00002"/>00002 <emphasis role="comment">#</emphasis>
+<anchor xml:id="_f8_8py_source_1l00003"/>00003 <emphasis role="comment">#&#32;This&#32;source&#32;code&#32;is&#32;licensed&#32;under&#32;the&#32;MIT&#32;license&#32;found&#32;in&#32;the</emphasis>
+<anchor xml:id="_f8_8py_source_1l00004"/>00004 <emphasis role="comment">#&#32;LICENSE&#32;file&#32;in&#32;the&#32;root&#32;directory.</emphasis>
+<anchor xml:id="_f8_8py_source_1l00005"/>00005 
+<anchor xml:id="_f8_8py_source_1l00006"/>00006 <emphasis role="comment">#&#32;This&#32;example&#32;is&#32;taken&#32;from&#32;https://mintoc.de/index.php/F-8_aircraft</emphasis>
+<anchor xml:id="_f8_8py_source_1l00007"/>00007 
+<anchor xml:id="_f8_8py_source_1l00008"/>00008 <emphasis role="comment">#&#32;The&#32;F-8&#32;aircraft&#32;control&#32;problem&#32;is&#32;based&#32;on&#32;a&#32;very&#32;simple&#32;aircraft&#32;model.&#32;</emphasis>
+<anchor xml:id="_f8_8py_source_1l00009"/>00009 <emphasis role="comment">#&#32;The&#32;control&#32;problem&#32;was&#32;introduced&#32;by&#32;Kaya&#32;and&#32;Noakes&#32;and&#32;aims&#32;at&#32;controlling&#32;</emphasis>
+<anchor xml:id="_f8_8py_source_1l00010"/>00010 <emphasis role="comment">#&#32;an&#32;aircraft&#32;in&#32;a&#32;time-optimal&#32;way&#32;from&#32;an&#32;initial&#32;state&#32;to&#32;a&#32;terminal&#32;state.</emphasis>
+<anchor xml:id="_f8_8py_source_1l00011"/>00011 
+<anchor xml:id="_f8_8py_source_1l00012"/>00012 <emphasis role="comment">#&#32;Uses&#32;compiled&#32;differential&#32;equations&#32;based&#32;on&#32;the&#32;Ascent&#32;library&#32;</emphasis>
+<anchor xml:id="_f8_8py_source_1l00013"/>00013 <emphasis role="comment">#&#32;https://github.com/AnyarInc/Ascent&#32;see&#32;</emphasis>
+<anchor xml:id="_f8_8py_source_1l00014"/>00014 <emphasis role="comment">#&#32;https://github.com/dietmarwo/fast-cma-es/blob/master/_fcmaescpp/ascent.cpp</emphasis>
+<anchor xml:id="_f8_8py_source_1l00015"/>00015 
+<anchor xml:id="_f8_8py_source_1l00016"/>00016 <emphasis role="comment">#&#32;Compare&#32;with&#32;the&#32;F8&#32;results&#32;</emphasis>
+<anchor xml:id="_f8_8py_source_1l00017"/>00017 <emphasis role="comment">#&#32;given&#32;in&#32;http://www.midaco-solver.com/data/pub/The_Oracle_Penalty_Method.pdf</emphasis>
+<anchor xml:id="_f8_8py_source_1l00018"/>00018 
+<anchor xml:id="_f8_8py_source_1l00019"/>00019 <emphasis role="comment">#&#32;Tested&#32;using&#32;https://docs.conda.io/en/main/miniconda.html&#32;on&#32;Linux&#32;Mint&#32;21.2</emphasis>
+<anchor xml:id="_f8_8py_source_1l00020"/>00020 
+<anchor xml:id="_f8_8py_source_1l00021"/>00021 <emphasis role="keyword">from</emphasis>&#32;scipy.integrate&#32;<emphasis role="keyword">import</emphasis>&#32;ode
+<anchor xml:id="_f8_8py_source_1l00022"/>00022 <emphasis role="keyword">from</emphasis>&#32;scipy.optimize&#32;<emphasis role="keyword">import</emphasis>&#32;Bounds
+<anchor xml:id="_f8_8py_source_1l00023"/>00023 <emphasis role="keyword">import</emphasis>&#32;numpy&#32;<emphasis role="keyword">as</emphasis>&#32;np
+<anchor xml:id="_f8_8py_source_1l00024"/>00024 <emphasis role="keyword">import</emphasis>&#32;multiprocessing&#32;<emphasis role="keyword">as</emphasis>&#32;mp
+<anchor xml:id="_f8_8py_source_1l00025"/>00025 <emphasis role="keyword">import</emphasis>&#32;ctypes&#32;<emphasis role="keyword">as</emphasis>&#32;ct
+<anchor xml:id="_f8_8py_source_1l00026"/>00026 <emphasis role="keyword">import</emphasis>&#32;warnings
+<anchor xml:id="_f8_8py_source_1l00027"/>00027 <emphasis role="keyword">import</emphasis>&#32;time&#32;
+<anchor xml:id="_f8_8py_source_1l00028"/>00028 <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1optimizer">fcmaes.optimizer</link>&#32;<emphasis role="keyword">import</emphasis>&#32;Sequence,&#32;Cma_cpp,&#32;GCLDE_cpp,&#32;de_cma,&#32;dtime
+<anchor xml:id="_f8_8py_source_1l00029"/>00029 <emphasis role="keyword">from</emphasis>&#32;fcmaes&#32;<emphasis role="keyword">import</emphasis>&#32;advretry,&#32;retry,&#32;gcldecpp,&#32;csmacpp
+<anchor xml:id="_f8_8py_source_1l00030"/>00030 <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1cmaescpp">fcmaes.cmaescpp</link>&#32;<emphasis role="keyword">import</emphasis>&#32;libcmalib
+<anchor xml:id="_f8_8py_source_1l00031"/>00031 
+<anchor xml:id="_f8_8py_source_1l00032"/>00032 <emphasis role="keyword">import</emphasis>&#32;sys&#32;
+<anchor xml:id="_f8_8py_source_1l00033"/>00033 <emphasis role="keyword">from</emphasis>&#32;loguru&#32;<emphasis role="keyword">import</emphasis>&#32;logger
+<anchor xml:id="_f8_8py_source_1l00034"/>00034 
+<anchor xml:id="_f8_8py_source_1l00035"/>00035 logger.remove()
+<anchor xml:id="_f8_8py_source_1l00036"/><link linkend="_namespaceexamples_1_1f8_1a917b1d90c79f5928cbc8c3e8f5ef2b8e">00036</link> logger.add(sys.stdout,&#32;format=<emphasis role="stringliteral">&quot;{time:HH:mm:ss.SS}&#32;|&#32;{process}&#32;|&#32;{level}&#32;|&#32;{message}&quot;</emphasis>,&#32;level=<emphasis role="stringliteral">&quot;INFO&quot;</emphasis>)
+<anchor xml:id="_f8_8py_source_1l00037"/>00037 logger.add(<emphasis role="stringliteral">&quot;log_{time}.txt&quot;</emphasis>,&#32;format=<emphasis role="stringliteral">&quot;{time:HH:mm:ss.SS}&#32;|&#32;{process}&#32;|&#32;{level}&#32;|&#32;{message}&quot;</emphasis>,&#32;level=<emphasis role="stringliteral">&quot;INFO&quot;</emphasis>)
+<anchor xml:id="_f8_8py_source_1l00038"/>00038 
+<anchor xml:id="_f8_8py_source_1l00039"/><link linkend="_namespaceexamples_1_1f8_1a37a9fc6c4c6dcc77c32f318d9ecb919c">00039</link> ksi&#32;=&#32;0.05236
+<anchor xml:id="_f8_8py_source_1l00040"/>00040 &#32;&#32;&#32;&#32;
+<anchor xml:id="_f8_8py_source_1l00041"/><link linkend="_namespaceexamples_1_1f8_1abb430cf22cc5d886ed57d2779f95f939">00041</link> <emphasis role="keyword">def&#32;</emphasis>f8(t,&#32;y,&#32;w):
+<anchor xml:id="_f8_8py_source_1l00042"/>00042 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;[
+<anchor xml:id="_f8_8py_source_1l00043"/>00043 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-0.877*y[0]&#32;+&#32;y[2]&#32;-&#32;0.088*y[0]*y[2]&#32;+&#32;0.47*y[0]**2&#32;-&#32;0.019*y[1]**2&#32;-&#32;y[0]**2*y[2]&#32;+&#32;3.846*y[0]**3&#32;
+<anchor xml:id="_f8_8py_source_1l00044"/>00044 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;+0.215*ksi&#32;-&#32;0.28*y[0]**2*ksi&#32;+&#32;0.47*y[0]*ksi**2&#32;-&#32;0.63*ksi**3&#32;
+<anchor xml:id="_f8_8py_source_1l00045"/>00045 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-(0.215*ksi&#32;-&#32;0.28*y[0]**2*ksi&#32;-&#32;0.63*ksi**3)*2*w,
+<anchor xml:id="_f8_8py_source_1l00046"/>00046 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;y[2],
+<anchor xml:id="_f8_8py_source_1l00047"/>00047 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-4.208*y[0]&#32;-&#32;0.396*y[2]&#32;-&#32;0.47*y[0]**2&#32;-&#32;3.564*y[0]**3
+<anchor xml:id="_f8_8py_source_1l00048"/>00048 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;+20.967*ksi&#32;-&#32;6.265*y[0]**2*ksi&#32;+&#32;46*y[0]*ksi**2&#32;-61.4*ksi**3
+<anchor xml:id="_f8_8py_source_1l00049"/>00049 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-(20.967*ksi&#32;-&#32;6.265*y[0]**2*ksi&#32;-&#32;61.4*ksi**3)*2*w
+<anchor xml:id="_f8_8py_source_1l00050"/>00050 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;]
+<anchor xml:id="_f8_8py_source_1l00051"/>00051 &#32;
+<anchor xml:id="_f8_8py_source_1l00052"/><link linkend="_namespaceexamples_1_1f8_1a16f2b5368959427f3eeacb0d09f89301">00052</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1f8_1a16f2b5368959427f3eeacb0d09f89301">bounds</link>(n):
+<anchor xml:id="_f8_8py_source_1l00053"/>00053 &#32;&#32;&#32;&#32;lb&#32;=&#32;[0]*n
+<anchor xml:id="_f8_8py_source_1l00054"/>00054 &#32;&#32;&#32;&#32;ub&#32;=&#32;[2]*n
+<anchor xml:id="_f8_8py_source_1l00055"/>00055 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;Bounds(lb,ub)
+<anchor xml:id="_f8_8py_source_1l00056"/>00056 
+<anchor xml:id="_f8_8py_source_1l00057"/><link linkend="_namespaceexamples_1_1f8_1aa56ebe4417be7da0b50032e27a949ee2">00057</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1f8_1aa56ebe4417be7da0b50032e27a949ee2">obj_f</link>(X):
+<anchor xml:id="_f8_8py_source_1l00058"/>00058 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">try</emphasis>:
+<anchor xml:id="_f8_8py_source_1l00059"/>00059 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;t&#32;=&#32;0.
+<anchor xml:id="_f8_8py_source_1l00060"/>00060 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;y&#32;=&#32;[0.4655,&#32;0.,&#32;0.]
+<anchor xml:id="_f8_8py_source_1l00061"/>00061 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;I&#32;=&#32;ode(f8)
+<anchor xml:id="_f8_8py_source_1l00062"/>00062 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;I.set_integrator(<emphasis role="stringliteral">&quot;dopri5&quot;</emphasis>,&#32;nsteps=10**6,&#32;rtol=1E-8,&#32;atol=1E-8)
+<anchor xml:id="_f8_8py_source_1l00063"/>00063 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;I.set_initial_value(y,&#32;t)
+<anchor xml:id="_f8_8py_source_1l00064"/>00064 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;n&#32;=&#32;len(X)&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_f8_8py_source_1l00065"/>00065 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(n):
+<anchor xml:id="_f8_8py_source_1l00066"/>00066 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;X[i]&#32;==&#32;0:
+<anchor xml:id="_f8_8py_source_1l00067"/>00067 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>
+<anchor xml:id="_f8_8py_source_1l00068"/>00068 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;&#32;bang-bang&#32;type&#32;switches&#32;starting&#32;with&#32;w(t)&#32;=&#32;1.</emphasis>
+<anchor xml:id="_f8_8py_source_1l00069"/>00069 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;w&#32;=&#32;(i&#32;+&#32;1)&#32;%&#32;2
+<anchor xml:id="_f8_8py_source_1l00070"/>00070 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;t&#32;+=&#32;X[i]
+<anchor xml:id="_f8_8py_source_1l00071"/>00071 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;I.set_f_params(w)
+<anchor xml:id="_f8_8py_source_1l00072"/>00072 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">with</emphasis>&#32;warnings.catch_warnings():
+<anchor xml:id="_f8_8py_source_1l00073"/>00073 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;warnings.simplefilter(<emphasis role="stringliteral">&quot;ignore&quot;</emphasis>)
+<anchor xml:id="_f8_8py_source_1l00074"/>00074 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;y&#32;=&#32;I.integrate(t)
+<anchor xml:id="_f8_8py_source_1l00075"/>00075 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;val0&#32;=&#32;np.sum(X)
+<anchor xml:id="_f8_8py_source_1l00076"/>00076 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;penalty&#32;=&#32;np.sum(np.abs(y))
+<anchor xml:id="_f8_8py_source_1l00077"/>00077 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;estimated&#32;fixed&#32;weight&#32;for&#32;penalty&#32;</emphasis>
+<anchor xml:id="_f8_8py_source_1l00078"/>00078 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;0.1*val0&#32;+&#32;penalty
+<anchor xml:id="_f8_8py_source_1l00079"/>00079 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">except</emphasis>&#32;Exception:
+<anchor xml:id="_f8_8py_source_1l00080"/>00080 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;1E10&#32;<emphasis role="comment">#&#32;fail</emphasis>
+<anchor xml:id="_f8_8py_source_1l00081"/>00081 
+<anchor xml:id="_f8_8py_source_1l00082"/><link linkend="_namespaceexamples_1_1f8_1a45311ef62008dabd7031405663afdf13">00082</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1f8_1a45311ef62008dabd7031405663afdf13">obj_f_c</link>(X):
+<anchor xml:id="_f8_8py_source_1l00083"/>00083 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">try</emphasis>:
+<anchor xml:id="_f8_8py_source_1l00084"/>00084 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;y&#32;=&#32;np.asarray([0.4655,&#32;0.,&#32;0.])
+<anchor xml:id="_f8_8py_source_1l00085"/>00085 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;array_type&#32;=&#32;ct.c_double&#32;*&#32;y.size&#32;
+<anchor xml:id="_f8_8py_source_1l00086"/>00086 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;n&#32;=&#32;len(X)&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_f8_8py_source_1l00087"/>00087 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(n):
+<anchor xml:id="_f8_8py_source_1l00088"/>00088 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;X[i]&#32;==&#32;0:
+<anchor xml:id="_f8_8py_source_1l00089"/>00089 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>
+<anchor xml:id="_f8_8py_source_1l00090"/>00090 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;&#32;bang-bang&#32;type&#32;switches&#32;starting&#32;with&#32;w(t)&#32;=&#32;1.</emphasis>
+<anchor xml:id="_f8_8py_source_1l00091"/>00091 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;w&#32;=&#32;(i&#32;+&#32;1)&#32;%&#32;2
+<anchor xml:id="_f8_8py_source_1l00092"/>00092 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ry&#32;=&#32;<link linkend="_namespaceexamples_1_1f8_1a828783438a580b58c72837e17d5d61a5">integrateF8_C</link>(array_type(*y),&#32;w,&#32;X[i],&#32;0.1)
+<anchor xml:id="_f8_8py_source_1l00093"/>00093 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;y&#32;=&#32;np.array(np.fromiter(ry,&#32;dtype=np.float64,&#32;count=y.size))
+<anchor xml:id="_f8_8py_source_1l00094"/>00094 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1f8_1ae14e6ef9056e9877368a539a519f0f01">freemem</link>(ry)
+<anchor xml:id="_f8_8py_source_1l00095"/>00095 
+<anchor xml:id="_f8_8py_source_1l00096"/>00096 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;val0&#32;=&#32;np.sum(X)
+<anchor xml:id="_f8_8py_source_1l00097"/>00097 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;penalty&#32;=&#32;np.sum(np.abs(y))
+<anchor xml:id="_f8_8py_source_1l00098"/>00098 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;estimated&#32;fixed&#32;weight&#32;for&#32;penalty&#32;</emphasis>
+<anchor xml:id="_f8_8py_source_1l00099"/>00099 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;0.1*val0&#32;+&#32;penalty
+<anchor xml:id="_f8_8py_source_1l00100"/>00100 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">except</emphasis>&#32;Exception&#32;<emphasis role="keyword">as</emphasis>&#32;e:
+<anchor xml:id="_f8_8py_source_1l00101"/>00101 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;1E10&#32;<emphasis role="comment">#&#32;fail</emphasis>
+<anchor xml:id="_f8_8py_source_1l00102"/>00102 
+<anchor xml:id="_f8_8py_source_1l00103"/>00103 
+<anchor xml:id="_f8_8py_source_1l00104"/><link linkend="_classexamples_1_1f8_1_1f8__problem">00104</link> <emphasis role="keyword">class&#32;</emphasis><link linkend="_classexamples_1_1f8_1_1f8__problem">f8_problem</link>(object):
+<anchor xml:id="_f8_8py_source_1l00105"/>00105 
+<anchor xml:id="_f8_8py_source_1l00106"/><link linkend="_classexamples_1_1f8_1_1f8__problem_1a24954c3c927370c687c8a0f536b6baec">00106</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1f8_1_1f8__problem_1a24954c3c927370c687c8a0f536b6baec">__init__</link>(self,&#32;dim,&#32;f8fun):
+<anchor xml:id="_f8_8py_source_1l00107"/><link linkend="_classexamples_1_1f8_1_1f8__problem_1a9f78672934045515f966ee9473cd6e50">00107</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1f8_1_1f8__problem_1a9f78672934045515f966ee9473cd6e50">name</link>&#32;=&#32;<emphasis role="stringliteral">&quot;f8&quot;</emphasis>
+<anchor xml:id="_f8_8py_source_1l00108"/><link linkend="_classexamples_1_1f8_1_1f8__problem_1af883608e630d0b5fa77e6e83969d1c75">00108</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1f8_1_1f8__problem_1af883608e630d0b5fa77e6e83969d1c75">dim</link>&#32;=&#32;dim
+<anchor xml:id="_f8_8py_source_1l00109"/><link linkend="_classexamples_1_1f8_1_1f8__problem_1aa91c8816778e52136ee226f78f80871e">00109</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1f8_1_1f8__problem_1aa91c8816778e52136ee226f78f80871e">f8fun</link>&#32;=&#32;f8fun
+<anchor xml:id="_f8_8py_source_1l00110"/><link linkend="_classexamples_1_1f8_1_1f8__problem_1ae5169f3001021958f15c094b840839c1">00110</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1f8_1_1f8__problem_1ae5169f3001021958f15c094b840839c1">bounds</link>&#32;=&#32;<link linkend="_classexamples_1_1f8_1_1f8__problem_1ae5169f3001021958f15c094b840839c1">bounds</link>(dim)
+<anchor xml:id="_f8_8py_source_1l00111"/><link linkend="_classexamples_1_1f8_1_1f8__problem_1a5233f87deea69fbf743214613e56b464">00111</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1f8_1_1f8__problem_1a5233f87deea69fbf743214613e56b464">evals</link>&#32;=&#32;mp.RawValue(ct.c_int,&#32;0)&#32;
+<anchor xml:id="_f8_8py_source_1l00112"/><link linkend="_classexamples_1_1f8_1_1f8__problem_1ae8bd2dc13afc2e441a458f57d758388f">00112</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1f8_1_1f8__problem_1ae8bd2dc13afc2e441a458f57d758388f">best_y</link>&#32;=&#32;mp.RawValue(ct.c_double,&#32;np.inf)&#32;
+<anchor xml:id="_f8_8py_source_1l00113"/><link linkend="_classexamples_1_1f8_1_1f8__problem_1ad485f749b59b2b7c3338426f3a0b25af">00113</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1f8_1_1f8__problem_1ad485f749b59b2b7c3338426f3a0b25af">t0</link>&#32;=&#32;time.perf_counter()
+<anchor xml:id="_f8_8py_source_1l00114"/>00114 
+<anchor xml:id="_f8_8py_source_1l00115"/><link linkend="_classexamples_1_1f8_1_1f8__problem_1a017bafba8cac9022a8683804494191ad">00115</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1f8_1_1f8__problem_1a017bafba8cac9022a8683804494191ad">fun</link>(self,&#32;x):
+<anchor xml:id="_f8_8py_source_1l00116"/>00116 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1f8_1_1f8__problem_1a5233f87deea69fbf743214613e56b464">evals</link>.value&#32;+=&#32;1
+<anchor xml:id="_f8_8py_source_1l00117"/>00117 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;y&#32;=&#32;self.<link linkend="_classexamples_1_1f8_1_1f8__problem_1aa91c8816778e52136ee226f78f80871e">f8fun</link>(x)
+<anchor xml:id="_f8_8py_source_1l00118"/>00118 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;y&#32;&lt;&#32;self.<link linkend="_classexamples_1_1f8_1_1f8__problem_1ae8bd2dc13afc2e441a458f57d758388f">best_y</link>.value:
+<anchor xml:id="_f8_8py_source_1l00119"/>00119 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1f8_1_1f8__problem_1ae8bd2dc13afc2e441a458f57d758388f">best_y</link>.value&#32;=&#32;y
+<anchor xml:id="_f8_8py_source_1l00120"/>00120 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;logger.info(str(dtime(self.<link linkend="_classexamples_1_1f8_1_1f8__problem_1ad485f749b59b2b7c3338426f3a0b25af">t0</link>))&#32;+&#32;<emphasis role="stringliteral">&apos;&#32;&apos;</emphasis>&#32;&#32;+&#32;
+<anchor xml:id="_f8_8py_source_1l00121"/>00121 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;str(self.<link linkend="_classexamples_1_1f8_1_1f8__problem_1a5233f87deea69fbf743214613e56b464">evals</link>.value)&#32;+&#32;<emphasis role="stringliteral">&apos;&#32;&apos;</emphasis>&#32;+&#32;
+<anchor xml:id="_f8_8py_source_1l00122"/>00122 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;str(self.<link linkend="_classexamples_1_1f8_1_1f8__problem_1ae8bd2dc13afc2e441a458f57d758388f">best_y</link>.value)&#32;+&#32;<emphasis role="stringliteral">&apos;&#32;&apos;</emphasis>&#32;+&#32;
+<anchor xml:id="_f8_8py_source_1l00123"/>00123 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;str(list(x)))
+<anchor xml:id="_f8_8py_source_1l00124"/>00124 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;y
+<anchor xml:id="_f8_8py_source_1l00125"/>00125 &#32;&#32;&#32;&#32;
+<anchor xml:id="_f8_8py_source_1l00126"/><link linkend="_namespaceexamples_1_1f8_1ac15e3164294c973c8525b747e5612388">00126</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1f8_1ac15e3164294c973c8525b747e5612388">test_default_cordinated_retry</link>(problem):
+<anchor xml:id="_f8_8py_source_1l00127"/>00127 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;coordinated&#32;retry&#32;with&#32;default&#32;optimizer</emphasis>
+<anchor xml:id="_f8_8py_source_1l00128"/>00128 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;advretry.minimize(problem.fun,&#32;problem.bounds)&#32;
+<anchor xml:id="_f8_8py_source_1l00129"/>00129 
+<anchor xml:id="_f8_8py_source_1l00130"/><link linkend="_namespaceexamples_1_1f8_1a90e66176c39820d24606c1803a21a682">00130</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1f8_1a90e66176c39820d24606c1803a21a682">test_gclde_cordinated_retry</link>(problem):
+<anchor xml:id="_f8_8py_source_1l00131"/>00131 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;coordinated&#32;retry&#32;with&#32;GCLDE-&gt;CMA&#32;sequence&#32;optimizer</emphasis>
+<anchor xml:id="_f8_8py_source_1l00132"/>00132 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;advretry.minimize(problem.fun,&#32;problem.bounds,&#32;
+<anchor xml:id="_f8_8py_source_1l00133"/>00133 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;optimizer=<link linkend="_classfcmaes_1_1optimizer_1_1_sequence">Sequence</link>([GCLDE_cpp(750),&#32;<link linkend="_classfcmaes_1_1optimizer_1_1_cma__cpp">Cma_cpp</link>(750,&#32;popsize=13)]))&#32;
+<anchor xml:id="_f8_8py_source_1l00134"/>00134 
+<anchor xml:id="_f8_8py_source_1l00135"/><link linkend="_namespaceexamples_1_1f8_1a0c7c9dd2bf41f65d59684df70361018a">00135</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1f8_1a0c7c9dd2bf41f65d59684df70361018a">test_cma_cordinated_retry</link>(dim&#32;=&#32;6):
+<anchor xml:id="_f8_8py_source_1l00136"/>00136 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;coordinated&#32;retry&#32;with&#32;CMA-ES&#32;optimizer&#32;with&#32;reduced&#32;popsize</emphasis>
+<anchor xml:id="_f8_8py_source_1l00137"/>00137 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;faster&#32;for&#32;small&#32;dimension,&#32;use&#32;default&#32;for&#32;dim&#32;&gt;&#32;12</emphasis>
+<anchor xml:id="_f8_8py_source_1l00138"/>00138 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;advretry.minimize(problem.fun,&#32;problem.bounds,&#32;optimizer=<link linkend="_classfcmaes_1_1optimizer_1_1_cma__cpp">Cma_cpp</link>(2000,&#32;popsize=13))
+<anchor xml:id="_f8_8py_source_1l00139"/>00139 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_f8_8py_source_1l00140"/><link linkend="_namespaceexamples_1_1f8_1aa52e358a5531d1b2f59aba6b73d9f9fc">00140</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1f8_1aa52e358a5531d1b2f59aba6b73d9f9fc">test_de_cma_parallel_retry</link>(problem):
+<anchor xml:id="_f8_8py_source_1l00141"/>00141 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;parallel&#32;optimization&#32;retry&#32;using&#32;a&#32;DE&#32;-&gt;&#32;CMA-ES&#32;sequence</emphasis>
+<anchor xml:id="_f8_8py_source_1l00142"/>00142 &#32;&#32;&#32;&#32;t0&#32;=&#32;time.perf_counter();
+<anchor xml:id="_f8_8py_source_1l00143"/>00143 &#32;&#32;&#32;&#32;evals&#32;=&#32;0
+<anchor xml:id="_f8_8py_source_1l00144"/>00144 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(1000):
+<anchor xml:id="_f8_8py_source_1l00145"/>00145 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ret&#32;=&#32;retry.minimize(problem.fun,&#32;problem.bounds,&#32;optimizer=de_cma(50000),&#32;
+<anchor xml:id="_f8_8py_source_1l00146"/>00146 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;value_limit&#32;=&#32;10)
+<anchor xml:id="_f8_8py_source_1l00147"/>00147 
+<anchor xml:id="_f8_8py_source_1l00148"/>00148 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;evals&#32;+=&#32;ret.nfev
+<anchor xml:id="_f8_8py_source_1l00149"/>00149 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;print(<emphasis role="stringliteral">&quot;{0}:&#32;time&#32;=&#32;{1:.1f}&#32;fun&#32;=&#32;{2:.3f}&#32;nfev&#32;=&#32;{3}&quot;</emphasis>
+<anchor xml:id="_f8_8py_source_1l00150"/>00150 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;.<link linkend="_namespaceexamples_1_1f8_1a917b1d90c79f5928cbc8c3e8f5ef2b8e">format</link>(i+1,&#32;dtime(t0),&#32;ret.fun,&#32;evals))&#32;
+<anchor xml:id="_f8_8py_source_1l00151"/>00151 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;ret
+<anchor xml:id="_f8_8py_source_1l00152"/>00152 
+<anchor xml:id="_f8_8py_source_1l00153"/><link linkend="_namespaceexamples_1_1f8_1a545ccc620ffe0e15b26bb49f9d996fd4">00153</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1f8_1a545ccc620ffe0e15b26bb49f9d996fd4">test_cma_parallel_eval</link>(problem):
+<anchor xml:id="_f8_8py_source_1l00154"/>00154 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;parallel&#32;function&#32;evaluation&#32;using&#32;CMA-ES</emphasis>
+<anchor xml:id="_f8_8py_source_1l00155"/>00155 &#32;&#32;&#32;&#32;t0&#32;=&#32;time.perf_counter();
+<anchor xml:id="_f8_8py_source_1l00156"/>00156 &#32;&#32;&#32;&#32;evals&#32;=&#32;0
+<anchor xml:id="_f8_8py_source_1l00157"/>00157 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(1000):
+<anchor xml:id="_f8_8py_source_1l00158"/>00158 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ret&#32;=&#32;csmacpp.minimize(problem.fun,&#32;problem.bounds,&#32;popsize=32,&#32;max_evaluations&#32;=&#32;50000,&#32;workers&#32;=&#32;mp.cpu_count())
+<anchor xml:id="_f8_8py_source_1l00159"/>00159 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;evals&#32;+=&#32;ret.nfev
+<anchor xml:id="_f8_8py_source_1l00160"/>00160 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;print(<emphasis role="stringliteral">&quot;{0}:&#32;time&#32;=&#32;{1:.1f}&#32;fun&#32;=&#32;{2:.3f}&#32;nfev&#32;=&#32;{3}&quot;</emphasis>
+<anchor xml:id="_f8_8py_source_1l00161"/>00161 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;.<link linkend="_namespaceexamples_1_1f8_1a917b1d90c79f5928cbc8c3e8f5ef2b8e">format</link>(i+1,&#32;dtime(t0),&#32;ret.fun,&#32;evals))&#32;
+<anchor xml:id="_f8_8py_source_1l00162"/>00162 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;ret
+<anchor xml:id="_f8_8py_source_1l00163"/>00163 
+<anchor xml:id="_f8_8py_source_1l00164"/><link linkend="_namespaceexamples_1_1f8_1a2761e37ad7f9424dcd775492ddac1aed">00164</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1f8_1a2761e37ad7f9424dcd775492ddac1aed">test_gclde_parallel_eval</link>(problem):
+<anchor xml:id="_f8_8py_source_1l00165"/>00165 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;parallel&#32;function&#32;evaluation&#32;using&#32;GCL_DE</emphasis>
+<anchor xml:id="_f8_8py_source_1l00166"/>00166 &#32;&#32;&#32;&#32;t0&#32;=&#32;time.perf_counter();
+<anchor xml:id="_f8_8py_source_1l00167"/>00167 &#32;&#32;&#32;&#32;evals&#32;=&#32;0
+<anchor xml:id="_f8_8py_source_1l00168"/>00168 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(100000):
+<anchor xml:id="_f8_8py_source_1l00169"/>00169 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ret&#32;=&#32;gcldecpp.minimize(problem.fun,&#32;problem.bounds,&#32;popsize=256,&#32;max_evaluations&#32;=&#32;200000,&#32;
+<anchor xml:id="_f8_8py_source_1l00170"/>00170 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;workers&#32;=&#32;mp.cpu_count())
+<anchor xml:id="_f8_8py_source_1l00171"/>00171 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;evals&#32;+=&#32;ret.nfev
+<anchor xml:id="_f8_8py_source_1l00172"/>00172 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;print(<emphasis role="stringliteral">&quot;{0}:&#32;time&#32;=&#32;{1:.1f}&#32;fun&#32;=&#32;{2:.3f}&#32;nfev&#32;=&#32;{3}&quot;</emphasis>
+<anchor xml:id="_f8_8py_source_1l00173"/>00173 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;.<link linkend="_namespaceexamples_1_1f8_1a917b1d90c79f5928cbc8c3e8f5ef2b8e">format</link>(i+1,&#32;dtime(t0),&#32;ret.fun,&#32;evals))&#32;
+<anchor xml:id="_f8_8py_source_1l00174"/>00174 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;ret
+<anchor xml:id="_f8_8py_source_1l00175"/>00175 &#32;&#32;&#32;&#32;
+<anchor xml:id="_f8_8py_source_1l00176"/>00176 
+<anchor xml:id="_f8_8py_source_1l00177"/><link linkend="_namespaceexamples_1_1f8_1a828783438a580b58c72837e17d5d61a5">00177</link> integrateF8_C&#32;=&#32;libcmalib.integrateF8_C
+<anchor xml:id="_f8_8py_source_1l00178"/><link linkend="_namespaceexamples_1_1f8_1a178c95a5c2a21ca72d34dbbbbf583f42">00178</link> integrateF8_C.argtypes&#32;=&#32;[ct.POINTER(ct.c_double),&#32;ct.c_double,&#32;ct.c_double,&#32;ct.c_double]
+<anchor xml:id="_f8_8py_source_1l00179"/><link linkend="_namespaceexamples_1_1f8_1a1429a567c0d4eebe634d377059f5fab4">00179</link> integrateF8_C.restype&#32;=&#32;ct.POINTER(ct.c_double)&#32;&#32;&#32;
+<anchor xml:id="_f8_8py_source_1l00180"/><link linkend="_namespaceexamples_1_1f8_1ae14e6ef9056e9877368a539a519f0f01">00180</link> freemem&#32;=&#32;libcmalib.free_mem
+<anchor xml:id="_f8_8py_source_1l00181"/>00181 freemem.argtypes&#32;=&#32;[ct.POINTER(ct.c_double)]
+<anchor xml:id="_f8_8py_source_1l00182"/>00182 
+<anchor xml:id="_f8_8py_source_1l00183"/>00183 <emphasis role="keywordflow">if</emphasis>&#32;__name__&#32;==&#32;<emphasis role="stringliteral">&apos;__main__&apos;</emphasis>:
+<anchor xml:id="_f8_8py_source_1l00184"/>00184 &#32;&#32;&#32;&#32;
+<anchor xml:id="_f8_8py_source_1l00185"/><link linkend="_namespaceexamples_1_1f8_1a62aa26911a48985ff9145ba7afa2ea92">00185</link> &#32;&#32;&#32;&#32;dim&#32;=&#32;6
+<anchor xml:id="_f8_8py_source_1l00186"/><link linkend="_namespaceexamples_1_1f8_1a681305358ccb77100f5c4fc48f6d0f43">00186</link> &#32;&#32;&#32;&#32;problem&#32;=&#32;<link linkend="_classexamples_1_1f8_1_1f8__problem">f8_problem</link>(dim,&#32;obj_f_c)
+<anchor xml:id="_f8_8py_source_1l00187"/>00187 &#32;&#32;&#32;&#32;<emphasis role="comment">#problem&#32;=&#32;f8_problem(dim,&#32;obj_f)</emphasis>
+<anchor xml:id="_f8_8py_source_1l00188"/>00188 
+<anchor xml:id="_f8_8py_source_1l00189"/>00189 &#32;&#32;&#32;&#32;<emphasis role="comment">#ret&#32;=&#32;test_default_cordinated_retry(problem)</emphasis>
+<anchor xml:id="_f8_8py_source_1l00190"/>00190 &#32;&#32;&#32;&#32;<emphasis role="comment">#ret&#32;=&#32;test_gclde_cordinated_retry(problem)</emphasis>
+<anchor xml:id="_f8_8py_source_1l00191"/>00191 &#32;&#32;&#32;&#32;<emphasis role="comment">#ret&#32;=&#32;test_cma_cordinated_retry(problem)</emphasis>
+<anchor xml:id="_f8_8py_source_1l00192"/><link linkend="_namespaceexamples_1_1f8_1a5c0f72dba186ef86a69efc09ded23449">00192</link> &#32;&#32;&#32;&#32;ret&#32;=&#32;<link linkend="_namespaceexamples_1_1f8_1aa52e358a5531d1b2f59aba6b73d9f9fc">test_de_cma_parallel_retry</link>(problem)
+<anchor xml:id="_f8_8py_source_1l00193"/>00193 &#32;&#32;&#32;&#32;<emphasis role="comment">#ret&#32;=&#32;test_cma_parallel_eval(problem)</emphasis>
+<anchor xml:id="_f8_8py_source_1l00194"/>00194 &#32;&#32;&#32;&#32;<emphasis role="comment">#ret&#32;=&#32;test_gclde_parallel_eval(problem)</emphasis>
+<anchor xml:id="_f8_8py_source_1l00195"/>00195 
+</programlisting></section>

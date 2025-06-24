@@ -1,0 +1,168 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_namespacefcmaes_1_1bitecpp" xml:lang="en-US">
+<title>fcmaes.bitecpp Namespace Reference</title>
+<indexterm><primary>fcmaes.bitecpp</primary></indexterm>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para>OptimizeResult <link linkend="_namespacefcmaes_1_1bitecpp_1a02c6a2143e70721f9ad360505914f9ba">minimize</link> (Callable[[ArrayLike], float] fun, Optional[Bounds] bounds=None, Optional[ArrayLike] x0=None, Optional[int] max_evaluations=100000, Optional[float] stop_fitness=-np.inf, Optional[int] M=1, Optional[int] popsize=0, Optional[int] stall_criterion=0, Optional[Generator] rg=Generator(PCG64DXSM()), Optional[int] runid=0)</para>
+
+<para>Minimize an objective function using the optimizer. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Variables    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_namespacefcmaes_1_1bitecpp_1a3e9029aaa882c4646cc176749bd3c5cd">optimizeBite_C</link> = libcmalib.optimizeBite_C</para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1bitecpp_1a135989ea655d889da4b8651d0d305968">argtypes</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Function Documentation</title>
+<anchor xml:id="_namespacefcmaes_1_1bitecpp_1a02c6a2143e70721f9ad360505914f9ba"/><section>
+    <title>minimize()</title>
+<indexterm><primary>minimize</primary><secondary>fcmaes.bitecpp</secondary></indexterm>
+<indexterm><primary>fcmaes.bitecpp</primary><secondary>minimize</secondary></indexterm>
+<para><computeroutput> OptimizeResult fcmaes.bitecpp.minimize (Callable[[ArrayLike], float] fun, Optional[Bounds]  bounds = <computeroutput>None</computeroutput>
+, Optional[ArrayLike]  x0 = <computeroutput>None</computeroutput>
+, Optional[int]  max_evaluations = <computeroutput>100000</computeroutput>
+, Optional[float]  stop_fitness = <computeroutput>-np.inf</computeroutput>
+, Optional[int]  M = <computeroutput>1</computeroutput>
+, Optional[int]  popsize = <computeroutput>0</computeroutput>
+, Optional[int]   stall_criterion = <computeroutput>0</computeroutput>
+, Optional[Generator]   rg = <computeroutput>Generator(PCG64DXSM())</computeroutput>
+, Optional[int]  runid = <computeroutput>0</computeroutput>
+)</computeroutput></para><para>
+
+<para>Minimize an objective function using the optimizer. </para>
+</para>
+
+<para>This function performs optimization on a given callable objective function by utilizing specified bounds, constraints, and other parameters. The optimizer iteratively adjusts the input variables to reach an optimal solution that minimizes the objective function.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>fun</entry><entry>
+<para>A callable objective function that accepts an array-like input and returns a float value representing the function value to be minimized. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>bounds</entry><entry>
+<para>Optional bounds for the input variables, which must be consistent with the search space. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>x0</entry><entry>
+<para>Optional initial guess for the input variables; used to initialize the search process. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>max_evaluations</entry><entry>
+<para>Maximum number of function evaluations allowed during optimization. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>stop_fitness</entry><entry>
+<para>Optional stopping criterion based on achieving a particular fitness value. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>M</entry><entry>
+<para>Optional parameter for additional optimization configuration. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>popsize</entry><entry>
+<para>Optional population size parameter for optimization algorithms requiring population-based </para>
+</entry>
+                            </row>
+                            <row>
+<entry>computations.</entry><entry>
+<para></para>
+</entry>
+                            </row>
+                            <row>
+<entry>stall_criterion</entry><entry>
+<para>Optional criterion to stop the search when no significant improvement is seen. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>rg</entry><entry>
+<para>Optional random number generator, used for ensuring reproducibility and randomness in the </para>
+</entry>
+                            </row>
+                            <row>
+<entry>optimization.</entry><entry>
+<para></para>
+</entry>
+                            </row>
+                            <row>
+<entry>runid</entry><entry>
+<para>Optional identifier for the specific optimization run; used for tracking and reporting.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>OptimizeResult A data structure containing the optimization results, including the best solution found, its corresponding function value, number of function evaluations, number of iterations performed, status, and a boolean indicating success or failure.</para>
+</formalpara>
+
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>Exception</entry><entry>
+<para>Raised for any unexpected errors encountered during the optimization process. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_bitecpp_8py_source_1l00084">84</link> of file <link linkend="_bitecpp_8py_source">bitecpp.py</link>.</para>
+</section>
+</section>
+<section>
+<title>Variable Documentation</title>
+<anchor xml:id="_namespacefcmaes_1_1bitecpp_1a135989ea655d889da4b8651d0d305968"/><section>
+    <title>argtypes</title>
+<indexterm><primary>argtypes</primary><secondary>fcmaes.bitecpp</secondary></indexterm>
+<indexterm><primary>fcmaes.bitecpp</primary><secondary>argtypes</secondary></indexterm>
+<para><computeroutput>fcmaes.bitecpp.argtypes</computeroutput></para><para>
+Definition at line <link linkend="_bitecpp_8py_source_1l00119">119</link> of file <link linkend="_bitecpp_8py_source">bitecpp.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1bitecpp_1a3e9029aaa882c4646cc176749bd3c5cd"/><section>
+    <title>optimizeBite_C</title>
+<indexterm><primary>optimizeBite_C</primary><secondary>fcmaes.bitecpp</secondary></indexterm>
+<indexterm><primary>fcmaes.bitecpp</primary><secondary>optimizeBite_C</secondary></indexterm>
+<para><computeroutput>fcmaes.bitecpp.optimizeBite_C = libcmalib.optimizeBite_C</computeroutput></para><para>
+Definition at line <link linkend="_bitecpp_8py_source_1l00118">118</link> of file <link linkend="_bitecpp_8py_source">bitecpp.py</link>.</para>
+</section>
+</section>
+</section>

@@ -1,0 +1,131 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.13.2" xml:lang="en-US">
+  <compounddef id="lotka_8py" kind="file" language="Python">
+    <compoundname>lotka.py</compoundname>
+    <innernamespace refid="namespaceexamples">examples</innernamespace>
+    <innernamespace refid="namespaceexamples_1_1lotka">examples::lotka</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1" refid="namespaceexamples_1_1lotka" refkind="compound"><highlight class="comment">#<sp/>Copyright<sp/>(c)<sp/>Dietmar<sp/>Wolz.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">#</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="comment">#<sp/>This<sp/>source<sp/>code<sp/>is<sp/>licensed<sp/>under<sp/>the<sp/>MIT<sp/>license<sp/>found<sp/>in<sp/>the</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="comment">#<sp/>LICENSE<sp/>file<sp/>in<sp/>the<sp/>root<sp/>directory.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Tested<sp/>using<sp/>https://docs.conda.io/en/main/miniconda.html<sp/>on<sp/>Linux<sp/>Mint<sp/>21.2</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>time,<sp/>sys,<sp/>warnings,<sp/>math</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>fcmaes<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>retry,<sp/>advretry</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/><ref refid="namespacefcmaes_1_1optimizer" kindref="compound">fcmaes.optimizer</ref><sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>de_cma,<sp/>Bite_cpp,<sp/>De_cpp,<sp/>Cma_cpp,<sp/>LDe_cpp,<sp/>Minimize,<sp/>dtime</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/><ref refid="namespacefcmaes_1_1de" kindref="compound">fcmaes.de</ref><sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>DE</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/><ref refid="namespacefcmaes_1_1cmaes" kindref="compound">fcmaes.cmaes</ref><sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>Cmaes</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>numpy<sp/></highlight><highlight class="keyword">as</highlight><highlight class="normal"><sp/>np</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>scipy.integrate<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>ode</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>scipy.optimize<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>Bounds</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>ctypes<sp/></highlight><highlight class="keyword">as</highlight><highlight class="normal"><sp/>ct</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>multiprocessing<sp/></highlight><highlight class="keyword">as</highlight><highlight class="normal"><sp/>mp<sp/></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>sys<sp/></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>loguru<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>logger</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal">logger.remove()</highlight></codeline>
+<codeline lineno="25"><highlight class="normal">logger.add(sys.stdout,<sp/>format=</highlight><highlight class="stringliteral">&quot;{time:HH:mm:ss.SS}<sp/>|<sp/>{process}<sp/>|<sp/>{level}<sp/>|<sp/>{message}&quot;</highlight><highlight class="normal">,<sp/>level=</highlight><highlight class="stringliteral">&quot;INFO&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="26"><highlight class="normal">logger.add(</highlight><highlight class="stringliteral">&quot;log_{time}.txt&quot;</highlight><highlight class="normal">,<sp/>format=</highlight><highlight class="stringliteral">&quot;{time:HH:mm:ss.SS}<sp/>|<sp/>{process}<sp/>|<sp/>{level}<sp/>|<sp/>{message}&quot;</highlight><highlight class="normal">,<sp/>level=</highlight><highlight class="stringliteral">&quot;INFO&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Definition<sp/>of<sp/>parameters<sp/>from<sp/>https://scipy-cookbook.readthedocs.io/items/LoktaVolterraTutorial.html</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal">a<sp/>=<sp/>1.</highlight></codeline>
+<codeline lineno="30"><highlight class="normal">b<sp/>=<sp/>0.1</highlight></codeline>
+<codeline lineno="31"><highlight class="normal">c<sp/>=<sp/>1.5</highlight></codeline>
+<codeline lineno="32"><highlight class="normal">d<sp/>=<sp/>b*0.75</highlight></codeline>
+<codeline lineno="33"><highlight class="normal">pop0<sp/>=<sp/>[10,<sp/>5]<sp/></highlight><highlight class="comment">#<sp/>initial<sp/>population<sp/>10<sp/>rabbits,<sp/>5<sp/>foxes<sp/>at<sp/>t0<sp/>=<sp/>0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal">dim<sp/>=<sp/>20<sp/></highlight><highlight class="comment">#<sp/>years</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal">bounds<sp/>=<sp/>Bounds([-1]*dim,<sp/>[1]*dim)<sp/></highlight><highlight class="comment">#<sp/>X[i]<sp/>&lt;<sp/>0<sp/>means:<sp/>no<sp/>fox<sp/>killing<sp/>this<sp/>year</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Lodka<sp/>Volterra<sp/>differential<sp/>equations<sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Propagates<sp/>a<sp/>population<sp/>of<sp/>x<sp/>rabbits<sp/>and<sp/>y<sp/>foxes</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">lotkavolterra(t,<sp/>pop,<sp/>a,<sp/>b,<sp/>c,<sp/>d):</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/>x,<sp/>y<sp/>=<sp/>pop</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>[a*x<sp/>-<sp/>b*x*y,<sp/>-c*y<sp/>+<sp/>d*x*y]</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">integrator():</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/>I<sp/>=<sp/>ode(lotkavolterra)</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>see<sp/>https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.ode.html</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>the<sp/>“dopri5”<sp/>integrator<sp/>is<sp/>reentrant</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/>I.set_integrator(</highlight><highlight class="stringliteral">&quot;dopri5&quot;</highlight><highlight class="normal">,<sp/>nsteps=1000,<sp/>rtol=1e-6,<sp/>atol=1e-6)</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/>I.set_f_params(a,b,c,d)</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>I</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">integrate(I,<sp/>t):</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">with</highlight><highlight class="normal"><sp/>warnings.catch_warnings():</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>warnings.simplefilter(</highlight><highlight class="stringliteral">&quot;ignore&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>I.integrate(t)</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">#<sp/>maximal<sp/>rabbit<sp/>population<sp/>after<sp/>dim<sp/>years<sp/>of<sp/>fox<sp/>killings<sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">fitness(object):</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">__init__(self):</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.evals<sp/>=<sp/>mp.RawValue(ct.c_int,<sp/>0)<sp/></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.best_y<sp/>=<sp/>mp.RawValue(ct.c_double,<sp/>np.inf)<sp/></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.t0<sp/>=<sp/>time.perf_counter()</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">__call__(self,<sp/>X):</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ts<sp/>=<sp/>[]</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>year,<sp/>x<sp/></highlight><highlight class="keywordflow">in</highlight><highlight class="normal"><sp/>enumerate(X):</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>x<sp/>&gt;<sp/>0:<sp/></highlight><highlight class="comment">#<sp/>should<sp/>we<sp/>kill<sp/>a<sp/>fox<sp/>this<sp/>year?<sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ts.append(year<sp/>+<sp/>x)<sp/></highlight><highlight class="comment">#<sp/>when<sp/>exactly?</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I<sp/>=<sp/>integrator()</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I.set_initial_value(pop0,<sp/>0)</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>i<sp/></highlight><highlight class="keywordflow">in</highlight><highlight class="normal"><sp/>range(len(ts)):</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pop<sp/>=<sp/>integrate(I,<sp/>ts[i])<sp/></highlight><highlight class="comment">#<sp/>propagate<sp/>rabbit<sp/>and<sp/>fox<sp/>population<sp/>to<sp/>ts[i]<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pop[1]<sp/>=<sp/>max(1,<sp/>pop[1]-1)<sp/></highlight><highlight class="comment">#<sp/>kill<sp/>one<sp/>fox,<sp/>but<sp/>keep<sp/>at<sp/>least<sp/>one</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I.set_initial_value(pop,<sp/>ts[i])</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>value<sp/>is<sp/>maximal<sp/>rabbit<sp/>population<sp/>during<sp/>the<sp/>following<sp/>5<sp/>years<sp/>without<sp/>fox<sp/>killings</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>y<sp/>=<sp/>-max([integrate(I,<sp/>t)[0]<sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>t<sp/></highlight><highlight class="keywordflow">in</highlight><highlight class="normal"><sp/>np.linspace(dim,<sp/>dim<sp/>+<sp/>5,<sp/>50)])</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>book<sp/>keeping<sp/>and<sp/>logging</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.evals.value<sp/>+=<sp/>1</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>y<sp/>&lt;<sp/>self.best_y.value:</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.best_y.value<sp/>=<sp/>y</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logger.info(</highlight><highlight class="stringliteral">&quot;nfev<sp/>=<sp/>{0}:<sp/>t<sp/>=<sp/>{1:.1f}<sp/>fval<sp/>=<sp/>{2:.3f}<sp/>fox<sp/>kill<sp/>at<sp/>{3:s}<sp/>x<sp/>=<sp/>{4:s}&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.format(self.evals.value,<sp/>dtime(self.t0),<sp/>y,<sp/>str([round(t,2)<sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>t<sp/></highlight><highlight class="keywordflow">in</highlight><highlight class="normal"><sp/>ts[:-1]]),<sp/>str(list(X))))</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>y<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="comment">#<sp/>parallel<sp/>optimization<sp/>with<sp/>smart<sp/>boundary<sp/>management,<sp/>DE<sp/>works<sp/>best</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">smart_retry(opt<sp/>=<sp/>De_cpp(1500)):</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>advretry.minimize(fitness(),<sp/>bounds,<sp/>optimizer=opt,<sp/>num_retries=50000,<sp/>max_eval_fac=20)</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="comment">#<sp/>parallel<sp/>independent<sp/>optimization,<sp/>BiteOpt<sp/>works<sp/>best</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">parallel_retry(opt<sp/>=<sp/>Bite_cpp(100000,<sp/>M=8)):</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>retry.minimize(fitness(),<sp/>bounds,<sp/>optimizer=opt)</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="comment">#<sp/>parallel<sp/>independent<sp/>optimization<sp/>for<sp/>improvement<sp/>of<sp/>an<sp/>existing<sp/>solution.<sp/>Bite_cpp,<sp/>LDe_cpp<sp/>and<sp/>Cma_cpp<sp/>can<sp/>be<sp/>used.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">parallel_improve(opt):</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>retry.minimize(fitness(),<sp/>bounds,<sp/>optimizer=opt)</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="comment">#<sp/>parallel<sp/>function<sp/>evaluation,<sp/>single<sp/>optimization,<sp/>DE<sp/>works<sp/>best</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">parallel_eval(opt<sp/>=<sp/>DE(dim,<sp/>bounds)):</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>opt.do_optimize_delayed_update(fun=fitness(),<sp/>max_evals=5000000)</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal">solution<sp/>=<sp/>[0.7764942271302568,<sp/>9.831131324541304e-13,<sp/>-0.4392523575954558,<sp/>0.9999999991093724,<sp/>0.9999999993419174,<sp/>0.877806604524956,<sp/>-0.21969547982373291,<sp/>0.9877830923045987,<sp/>0.21691094924304902,<sp/>-0.016089523522436144,<sp/>1.0,<sp/>0.7622848572479829,<sp/>-0.0004231871176822595,<sp/>-0.015617623735551967,<sp/>-0.9227281069513724,<sp/>0.8517521143397784,<sp/>8.397851857275901e-19,<sp/>1.0,<sp/>1.0,<sp/>0.1509108812092751]</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>__name__<sp/>==<sp/></highlight><highlight class="stringliteral">&apos;__main__&apos;</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/>print(</highlight><highlight class="stringliteral">&quot;shoot<sp/>no<sp/>fox<sp/>at<sp/>all,<sp/>fitness<sp/>=&quot;</highlight><highlight class="normal">,<sp/>fitness()([-0.5]*dim))<sp/></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/>print(</highlight><highlight class="stringliteral">&quot;shoot<sp/>a<sp/>fox<sp/>every<sp/>year,<sp/>fitness<sp/>=&quot;</highlight><highlight class="normal">,<sp/>fitness()([0.5]*dim))<sp/></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/>print(</highlight><highlight class="stringliteral">&quot;best<sp/>solution,<sp/>fitness<sp/>=&quot;</highlight><highlight class="normal">,<sp/>fitness()(solution))</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>lets<sp/>find<sp/>the<sp/>best<sp/>solution</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/>ret<sp/>=<sp/>smart_retry()<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#ret<sp/>=<sp/>parallel_retry()</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#ret<sp/>=<sp/>parallel_eval()</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#parallel_improve(Bite_cpp(1000000,<sp/>M=16,<sp/>guess=sol))</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#parallel_improve(LDe_cpp(1000000,<sp/>guess=sol))</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#parallel_improve(Cma_cpp(1000000,<sp/>guess=sol))</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#parallel_retry(opt<sp/>=<sp/>Minimize(500000))</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="examples/lotka.py"/>
+  </compounddef>
+</doxygen>

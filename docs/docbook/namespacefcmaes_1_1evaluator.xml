@@ -1,0 +1,814 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_namespacefcmaes_1_1evaluator" xml:lang="en-US">
+<title>fcmaes.evaluator Namespace Reference</title>
+<indexterm><primary>fcmaes.evaluator</primary></indexterm>
+<simplesect>
+    <title>Classes    </title>
+        <itemizedlist>
+            <listitem><para>class <link linkend="_classfcmaes_1_1evaluator_1_1__fitness">_fitness</link></para>
+
+<para>Represents a fitness evaluation system for optimization problems. </para>
+</listitem>
+            <listitem><para>class <link linkend="_classfcmaes_1_1evaluator_1_1callback">callback</link></para>
+
+<para>Represents a callable object to evaluate a function with input processing. </para>
+</listitem>
+            <listitem><para>class <link linkend="_classfcmaes_1_1evaluator_1_1callback__mo">callback_mo</link></para>
+
+<para>Callable object for multi-objective optimization. </para>
+</listitem>
+            <listitem><para>class <link linkend="_classfcmaes_1_1evaluator_1_1callback__par">callback_par</link></para>
+
+<para>Wrapper class for callable objects with functionality to process populations of data using provided functions. </para>
+</listitem>
+            <listitem><para>class <link linkend="_classfcmaes_1_1evaluator_1_1callback__so">callback_so</link></para>
+
+<para>Handles callback functionality for single-objective optimization purposes. </para>
+</listitem>
+            <listitem><para>class <link linkend="_classfcmaes_1_1evaluator_1_1_evaluator">Evaluator</link></para>
+
+<para><link linkend="_classfcmaes_1_1evaluator_1_1_evaluator">Evaluator</link> class to manage the parallel evaluation of a function across multiple workers. </para>
+</listitem>
+            <listitem><para>class <link linkend="_classfcmaes_1_1evaluator_1_1parallel">parallel</link></para>
+
+<para>Executes functions in parallel using a multi-worker setup. </para>
+</listitem>
+            <listitem><para>class <link linkend="_classfcmaes_1_1evaluator_1_1parallel__mo">parallel_mo</link></para>
+
+<para>Manages parallel multi-objective evaluations. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_namespacefcmaes_1_1evaluator_1ab8a6f2f441a50ed78841e55af7af2f5f">is_log_level_active</link> (level)</para>
+
+<para>Determines if the specified log level is currently active. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1evaluator_1ab8164b41a79c6e2e9836dbcc301d3369">is_debug_active</link> ()</para>
+
+<para>Determines if the debug log level is currently active. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1evaluator_1a629b44d3fbb8de96604cf0cedb48452e">is_trace_active</link> ()</para>
+
+<para>Checks if the TRACE log level is currently active. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1evaluator_1a3f1de81bb9ebb3f1026990d51627f5e3">eval_parallel</link> (ArrayLike xs, <link linkend="_classfcmaes_1_1evaluator_1_1_evaluator">Evaluator</link> <link linkend="_classevaluator">evaluator</link>)</para>
+
+<para>Evaluates a set of inputs in parallel using a provided evaluator function. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1evaluator_1a7fd3b71184ba68c9fc886a0da91030a1">eval_parallel_mo</link> (ArrayLike xs, <link linkend="_classfcmaes_1_1evaluator_1_1_evaluator">Evaluator</link> <link linkend="_classevaluator">evaluator</link>, int nobj)</para>
+
+<para>Evaluates a population of solutions in parallel for a multi-objective optimization problem. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1evaluator_1afe255aa77cf706556cd5740a6d9dc120">_eval_parallel_segment</link> (xs, ys, i0, i1, <link linkend="_classevaluator">evaluator</link>)</para>
+
+<para>Evaluates a segment of data in parallel by sending and receiving data through a pipe. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1evaluator_1ad73ccd9d36e41634dfd83907b1fa2872">_evaluate</link> (fun, pipe, read_mutex, write_mutex)</para>
+
+<para>Execute a given function on inputs received from a communication pipe in a thread-safe manner and send results back through the pipe. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1evaluator_1a4cbc79347af4303863c4d9b57a251e0d">_check_bounds</link> (bounds, guess, rg)</para>
+
+<para>Checks and processes bounds, guesses, and random generator inputs for optimization. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1evaluator_1a8e9d001859be2ec90b8511ef634bfdda">_get_bounds</link> (dim, bounds, guess, rg)</para>
+
+<para>Configures and validates bounds, initial guesses, and dimensionality for a process. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1evaluator_1a91fda48468c86eb01e6ef3959d4087c8">serial</link> (fun)</para>
+
+<para>Creates a function that applies a given function to each element in a list. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1evaluator_1a208b8277669b6cfffba7bbafa42702fe">_func_serial</link> (fun, num, pid, xs, ys)</para>
+
+<para>Applies a function to elements of a list in a serial manner based on a processing strategy using process ID and total number of processes. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1evaluator_1a2070228090b71531c5734270831835f1">_tryfun</link> (fun, x)</para>
+
+<para>Attempts to evaluate the specified function with a given input and handle errors gracefully. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Variables    </title>
+        <itemizedlist>
+            <listitem><para>int <link linkend="_namespacefcmaes_1_1evaluator_1a68d2ca2ef338645b599a081c8a9d47e8">pipe_limit</link> = 64</para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1evaluator_1a7e6692c75e37badbe9b2a64268404720">basepath</link> = os.path.dirname(os.path.abspath(__file__))</para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1evaluator_1a18b6b20a32631ee3da1b0728bb8aad22">libcmalib</link> = ct.cdll.LoadLibrary(<link linkend="_namespacefcmaes_1_1evaluator_1a7e6692c75e37badbe9b2a64268404720">basepath</link> + &apos;/lib/libacmalib.so&apos;)</para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1evaluator_1a0cd19ddbe59785956b8547b6a0352f66">mo_call_back_type</link> = ct.CFUNCTYPE(ct.c_bool, ct.c_int, ct.POINTER(ct.c_double), ct.POINTER(ct.c_double))</para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1evaluator_1ae4b67a512622d25a7afbdeb83357e371">call_back_type</link> = ct.CFUNCTYPE(ct.c_double, ct.c_int, ct.POINTER(ct.c_double))</para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1evaluator_1a88261dcfd3a319b63ff1e856f1b3d84d">call_back_par</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Function Documentation</title>
+<anchor xml:id="_namespacefcmaes_1_1evaluator_1a4cbc79347af4303863c4d9b57a251e0d"/><section>
+    <title>_check_bounds()</title>
+<indexterm><primary>_check_bounds</primary><secondary>fcmaes.evaluator</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator</primary><secondary>_check_bounds</secondary></indexterm>
+<para><computeroutput>fcmaes.evaluator._check_bounds ( bounds,  guess,  rg)<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+
+<para>Checks and processes bounds, guesses, and random generator inputs for optimization. </para>
+</para>
+
+<para>This function ensures that either bounds or guesses are properly defined, as they are necessary to perform any optimization task. If <computeroutput>bounds</computeroutput> is not provided, but <computeroutput>guess</computeroutput> is, it returns a processed version of the guess. If <computeroutput>bounds</computeroutput> is provided but <computeroutput>guess</computeroutput> is absent, it generates a random guess within the bounds using the provided random generator. Ultimately, it arranges and returns bounds and guesses as numpy arrays.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>bounds</entry><entry>
+<para>Object containing lower (<computeroutput>lb</computeroutput>) and upper (<computeroutput>ub</computeroutput>) bounds. Can be None if guess is provided directly. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>guess</entry><entry>
+<para>Initial guess of the parameters. Can be None if bounds are provided. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>rg</entry><entry>
+<para>A random number generator instance used to generate guesses when they are not explicitly provided.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>Tuple containing:<itemizedlist>
+<listitem>
+<para>Lower bounds array (numpy.ndarray) or None if bounds are not provided.</para>
+</listitem><listitem>
+<para>Upper bounds array (numpy.ndarray) or None if bounds are not provided.</para>
+</listitem><listitem>
+<para>Guess array (numpy.ndarray) processed from the provided inputs.</para>
+</listitem></itemizedlist>
+</para>
+</formalpara>
+
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>ValueError</entry><entry>
+<para>If both bounds and guess are None. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_evaluator_8py_source_1l00327">327</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1evaluator_1afe255aa77cf706556cd5740a6d9dc120"/><section>
+    <title>_eval_parallel_segment()</title>
+<indexterm><primary>_eval_parallel_segment</primary><secondary>fcmaes.evaluator</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator</primary><secondary>_eval_parallel_segment</secondary></indexterm>
+<para><computeroutput>fcmaes.evaluator._eval_parallel_segment ( xs,  ys,  i0,  i1,  evaluator)<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+
+<para>Evaluates a segment of data in parallel by sending and receiving data through a pipe. </para>
+</para>
+
+<para>This function processes a segment of input data specified by the indices i0 and i1 using the evaluator&apos;s pipeline. It sends values from the input <computeroutput>xs</computeroutput> to the evaluator, and receives processed results to update the output <computeroutput>ys</computeroutput>.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>xs</entry><entry>
+<para>A sequence of input data to be evaluated. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>ys</entry><entry>
+<para>A sequence to store the results after evaluation. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>i0</entry><entry>
+<para>The starting index of the segment to be processed (inclusive). </para>
+</entry>
+                            </row>
+                            <row>
+<entry>i1</entry><entry>
+<para>The ending index of the segment to be processed (exclusive). </para>
+</entry>
+                            </row>
+                            <row>
+<entry>evaluator</entry><entry>
+<para>An object with a communication pipe for parallel processing.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>The updated <computeroutput>ys</computeroutput> sequence containing the evaluated results. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_evaluator_8py_source_1l00262">262</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1evaluator_afe255aa77cf706556cd5740a6d9dc120_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1evaluator_1ad73ccd9d36e41634dfd83907b1fa2872"/><section>
+    <title>_evaluate()</title>
+<indexterm><primary>_evaluate</primary><secondary>fcmaes.evaluator</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator</primary><secondary>_evaluate</secondary></indexterm>
+<para><computeroutput>fcmaes.evaluator._evaluate ( fun,  pipe,  read_mutex,  write_mutex)<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+
+<para>Execute a given function on inputs received from a communication pipe in a thread-safe manner and send results back through the pipe. </para>
+</para>
+
+<para>Handles potential exceptions during function execution and ensures proper synchronization using the provided mutex locks.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>fun</entry><entry>
+<para>Function to be executed on input data received from the pipe. pipe (Tuple[Connection, Connection]): A pair of connection objects for inter-process communication, used for receiving inputs and sending results. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>read_mutex</entry><entry>
+<para>A threading lock ensuring safe reading from the input pipe. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>write_mutex</entry><entry>
+<para>A threading lock ensuring safe writing to the output pipe. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_evaluator_8py_source_1l00285">285</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1evaluator_1a208b8277669b6cfffba7bbafa42702fe"/><section>
+    <title>_func_serial()</title>
+<indexterm><primary>_func_serial</primary><secondary>fcmaes.evaluator</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator</primary><secondary>_func_serial</secondary></indexterm>
+<para><computeroutput>fcmaes.evaluator._func_serial ( fun,  num,  pid,  xs,  ys)<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+
+<para>Applies a function to elements of a list in a serial manner based on a processing strategy using process ID and total number of processes. </para>
+</para>
+
+<para>This function modifies the <computeroutput>ys</computeroutput> list in place, applying the <computeroutput>fun</computeroutput> function to elements in <computeroutput>xs</computeroutput> at specific indices determined by the process ID (<computeroutput>pid</computeroutput>) and total number of processes (<computeroutput>num</computeroutput>). It ensures elements are processed in a distributed order across processes.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>fun</entry><entry>
+<para>Callable function to apply to elements of the input list. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>num</entry><entry>
+<para>int. Total number of processes. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>pid</entry><entry>
+<para>int. Process ID, indicating the current process index starting at 0. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>xs</entry><entry>
+<para>list. Input list of elements to process. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>ys</entry><entry>
+<para>list. Output list where results are stored at corresponding indices. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_evaluator_8py_source_1l00534">534</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1evaluator_a208b8277669b6cfffba7bbafa42702fe_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1evaluator_1a8e9d001859be2ec90b8511ef634bfdda"/><section>
+    <title>_get_bounds()</title>
+<indexterm><primary>_get_bounds</primary><secondary>fcmaes.evaluator</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator</primary><secondary>_get_bounds</secondary></indexterm>
+<para><computeroutput>fcmaes.evaluator._get_bounds ( dim,  bounds,  guess,  rg)<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+
+<para>Configures and validates bounds, initial guesses, and dimensionality for a process. </para>
+</para>
+
+<para>This function processes and ensures the compatibility of dimensionality, bounds, and guesses for an optimization or computational routine. It also generates default values where absent, ensuring all return values align with the given inputs.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>dim</entry><entry>
+<para>Dimensionality of the problem. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>bounds</entry><entry>
+<para>The lower and upper bounds for each dimension. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>guess</entry><entry>
+<para>Initial guess for the optimization variable(s). </para>
+</entry>
+                            </row>
+                            <row>
+<entry>rg</entry><entry>
+<para>Random number generator used for generating uniformly distributed guesses if <computeroutput>guess</computeroutput> is not provided.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>Tuple[Optional[np.ndarray], Optional[np.ndarray], np.ndarray]: A tuple containing the processed lower bounds, upper bounds, and initial guess. Returns (None, None, guess) when bounds is not specified. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_evaluator_8py_source_1l00358">358</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1evaluator_1a2070228090b71531c5734270831835f1"/><section>
+    <title>_tryfun()</title>
+<indexterm><primary>_tryfun</primary><secondary>fcmaes.evaluator</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator</primary><secondary>_tryfun</secondary></indexterm>
+<para><computeroutput>fcmaes.evaluator._tryfun ( fun,  x)<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+
+<para>Attempts to evaluate the specified function with a given input and handle errors gracefully. </para>
+</para>
+
+<para>If the result is a finite value, it is returned. Otherwise, or if the evaluation raises an exception, the maximum floating-point value is returned.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>fun</entry><entry>
+<para>A callable that represents the function to be evaluated. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>x</entry><entry>
+<para>The input value passed to the function for evaluation.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>The result of the function evaluation if it produces a finite value. Otherwise, returns the maximum floating-point value. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_evaluator_8py_source_1l00553">553</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1evaluator_a2070228090b71531c5734270831835f1_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1evaluator_1a3f1de81bb9ebb3f1026990d51627f5e3"/><section>
+    <title>eval_parallel()</title>
+<indexterm><primary>eval_parallel</primary><secondary>fcmaes.evaluator</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator</primary><secondary>eval_parallel</secondary></indexterm>
+<para><computeroutput>fcmaes.evaluator.eval_parallel (ArrayLike xs, <link linkend="_classfcmaes_1_1evaluator_1_1_evaluator">Evaluator</link> evaluator)</computeroutput></para><para>
+
+<para>Evaluates a set of inputs in parallel using a provided evaluator function. </para>
+</para>
+
+<para>This function processes a sequence of elements in chunks, using a custom evaluator. It supports efficiently evaluating large data by dividing the inputs into smaller segments and processing them iteratively in a pipeline.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>xs</entry><entry>
+<para>Array-like collection of inputs to be evaluated. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>evaluator</entry><entry>
+<para>An evaluator callable or function responsible for computing the results of the inputs provided.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>np Array containing the evaluation results corresponding to the input elements. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_evaluator_8py_source_1l00124">124</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1evaluator_a3f1de81bb9ebb3f1026990d51627f5e3_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1evaluator_a3f1de81bb9ebb3f1026990d51627f5e3_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1evaluator_1a7fd3b71184ba68c9fc886a0da91030a1"/><section>
+    <title>eval_parallel_mo()</title>
+<indexterm><primary>eval_parallel_mo</primary><secondary>fcmaes.evaluator</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator</primary><secondary>eval_parallel_mo</secondary></indexterm>
+<para><computeroutput>fcmaes.evaluator.eval_parallel_mo (ArrayLike xs, <link linkend="_classfcmaes_1_1evaluator_1_1_evaluator">Evaluator</link> evaluator, int nobj)</computeroutput></para><para>
+
+<para>Evaluates a population of solutions in parallel for a multi-objective optimization problem. </para>
+</para>
+
+<para>This function takes a population of solutions and evaluates them in parallel to compute objective values. It is designed to handle large populations by dividing them into segments and processing each segment iteratively. The computed objective values are returned in a 2-dimensional array.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>xs</entry><entry>
+<para>The input population of solutions to evaluate. Each solution should be represented as an array-like structure. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>evaluator</entry><entry>
+<para>The evaluator object that computes objective values for the given solutions. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>nobj</entry><entry>
+<para>The number of objectives being evaluated.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>np A 2-dimensional array where each row corresponds to the computed objective values of a solution in the input population. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_evaluator_8py_source_1l00157">157</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1evaluator_a7fd3b71184ba68c9fc886a0da91030a1_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1evaluator_a7fd3b71184ba68c9fc886a0da91030a1_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1evaluator_1ab8164b41a79c6e2e9836dbcc301d3369"/><section>
+    <title>is_debug_active()</title>
+<indexterm><primary>is_debug_active</primary><secondary>fcmaes.evaluator</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator</primary><secondary>is_debug_active</secondary></indexterm>
+<para><computeroutput>fcmaes.evaluator.is_debug_active ( )</computeroutput></para><para>
+
+<para>Determines if the debug log level is currently active. </para>
+</para>
+
+<para>This function checks whether the &quot;DEBUG&quot; log level is active by invoking the <computeroutput>is_log_level_active</computeroutput> function with the &quot;DEBUG&quot; string as an argument. It is useful for determining if debug-level logging is enabled in the application.</para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>bool True if the &quot;DEBUG&quot; log level is active, False otherwise. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_evaluator_8py_source_1l00093">93</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1evaluator_ab8164b41a79c6e2e9836dbcc301d3369_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1evaluator_1ab8a6f2f441a50ed78841e55af7af2f5f"/><section>
+    <title>is_log_level_active()</title>
+<indexterm><primary>is_log_level_active</primary><secondary>fcmaes.evaluator</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator</primary><secondary>is_log_level_active</secondary></indexterm>
+<para><computeroutput>fcmaes.evaluator.is_log_level_active ( level)</computeroutput></para><para>
+
+<para>Determines if the specified log level is currently active. </para>
+</para>
+
+<para>This function checks whether the provided logging level is active by iterating through the logger handlers and comparing their level settings.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>level</entry><entry>
+<para>The logging level to check.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>bool True if the specified logging level is active, otherwise False. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_evaluator_8py_source_1l00073">73</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1evaluator_ab8a6f2f441a50ed78841e55af7af2f5f_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1evaluator_1a629b44d3fbb8de96604cf0cedb48452e"/><section>
+    <title>is_trace_active()</title>
+<indexterm><primary>is_trace_active</primary><secondary>fcmaes.evaluator</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator</primary><secondary>is_trace_active</secondary></indexterm>
+<para><computeroutput>fcmaes.evaluator.is_trace_active ( )</computeroutput></para><para>
+
+<para>Checks if the TRACE log level is currently active. </para>
+</para>
+
+<para>This function determines whether the TRACE level of logging is enabled, typically indicating if detailed debug information should be logged.</para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>bool True if the TRACE log level is active, False otherwise. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_evaluator_8py_source_1l00105">105</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1evaluator_a629b44d3fbb8de96604cf0cedb48452e_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1evaluator_1a91fda48468c86eb01e6ef3959d4087c8"/><section>
+    <title>serial()</title>
+<indexterm><primary>serial</primary><secondary>fcmaes.evaluator</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator</primary><secondary>serial</secondary></indexterm>
+<para><computeroutput>fcmaes.evaluator.serial ( fun)</computeroutput></para><para>
+
+<para>Creates a function that applies a given function to each element in a list. </para>
+</para>
+
+<para>This decorator takes a function as input and returns a new function. The returned function, when called with a list of elements, applies the input function to each element in the list sequentially. If the input function fails for an element, the resulting behavior is handled by an internal mechanism.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>fun</entry><entry>
+<para>The function to be applied to each element in a list.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>A new function that takes a list of elements and applies &apos;fun&apos; to each element, returning a list of results. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_evaluator_8py_source_1l00512">512</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1evaluator_a91fda48468c86eb01e6ef3959d4087c8_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+<section>
+<title>Variable Documentation</title>
+<anchor xml:id="_namespacefcmaes_1_1evaluator_1a7e6692c75e37badbe9b2a64268404720"/><section>
+    <title>basepath</title>
+<indexterm><primary>basepath</primary><secondary>fcmaes.evaluator</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator</primary><secondary>basepath</secondary></indexterm>
+<para><computeroutput>fcmaes.evaluator.basepath = os.path.dirname(os.path.abspath(__file__))</computeroutput></para><para>
+Definition at line <link linkend="_evaluator_8py_source_1l00970">970</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1evaluator_1a88261dcfd3a319b63ff1e856f1b3d84d"/><section>
+    <title>call_back_par</title>
+<indexterm><primary>call_back_par</primary><secondary>fcmaes.evaluator</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator</primary><secondary>call_back_par</secondary></indexterm>
+<para><computeroutput>fcmaes.evaluator.call_back_par</computeroutput></para><emphasis role="strong">Initial value:</emphasis><programlisting linenumbering="unnumbered">00001 =&#32;&#32;ct.CFUNCTYPE(<emphasis role="keywordtype">None</emphasis>,&#32;ct.c_int,&#32;ct.c_int,&#32;\
+00002 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ct.POINTER(ct.c_double),&#32;ct.POINTER(ct.c_double))
+</programlisting><para>
+Definition at line <link linkend="_evaluator_8py_source_1l00987">987</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1evaluator_1ae4b67a512622d25a7afbdeb83357e371"/><section>
+    <title>call_back_type</title>
+<indexterm><primary>call_back_type</primary><secondary>fcmaes.evaluator</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator</primary><secondary>call_back_type</secondary></indexterm>
+<para><computeroutput>fcmaes.evaluator.call_back_type = ct.CFUNCTYPE(ct.c_double, ct.c_int, ct.POINTER(ct.c_double))</computeroutput></para><para>
+Definition at line <link linkend="_evaluator_8py_source_1l00985">985</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1evaluator_1a18b6b20a32631ee3da1b0728bb8aad22"/><section>
+    <title>libcmalib</title>
+<indexterm><primary>libcmalib</primary><secondary>fcmaes.evaluator</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator</primary><secondary>libcmalib</secondary></indexterm>
+<para><computeroutput>fcmaes.evaluator.libcmalib = ct.cdll.LoadLibrary(<link linkend="_namespacefcmaes_1_1evaluator_1a7e6692c75e37badbe9b2a64268404720">basepath</link> + &apos;/lib/libacmalib.so&apos;)</computeroutput></para><para>
+Definition at line <link linkend="_evaluator_8py_source_1l00974">974</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1evaluator_1a0cd19ddbe59785956b8547b6a0352f66"/><section>
+    <title>mo_call_back_type</title>
+<indexterm><primary>mo_call_back_type</primary><secondary>fcmaes.evaluator</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator</primary><secondary>mo_call_back_type</secondary></indexterm>
+<para><computeroutput>fcmaes.evaluator.mo_call_back_type = ct.CFUNCTYPE(ct.c_bool, ct.c_int, ct.POINTER(ct.c_double), ct.POINTER(ct.c_double))</computeroutput></para><para>
+Definition at line <link linkend="_evaluator_8py_source_1l00983">983</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1evaluator_1a68d2ca2ef338645b599a081c8a9d47e8"/><section>
+    <title>pipe_limit</title>
+<indexterm><primary>pipe_limit</primary><secondary>fcmaes.evaluator</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator</primary><secondary>pipe_limit</secondary></indexterm>
+<para><computeroutput>int fcmaes.evaluator.pipe_limit = 64</computeroutput></para><para>
+Definition at line <link linkend="_evaluator_8py_source_1l00059">59</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+</section>
+</section>
+</section>

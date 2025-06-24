@@ -1,0 +1,255 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_namespacedual__annealing" xml:lang="en-US">
+<title>dual_annealing Namespace Reference</title>
+<indexterm><primary>dual_annealing</primary></indexterm>
+<simplesect>
+    <title>Classes    </title>
+        <itemizedlist>
+            <listitem><para>class <link linkend="_classdual__annealing_1_1_d_a_runner">DARunner</link></para>
+</listitem>
+            <listitem><para>class <link linkend="_classdual__annealing_1_1_energy_state">EnergyState</link></para>
+</listitem>
+            <listitem><para>class <link linkend="_classdual__annealing_1_1_fitness">Fitness</link></para>
+</listitem>
+            <listitem><para>class <link linkend="_classdual__annealing_1_1_l_b_f_g_s_func">LBFGSFunc</link></para>
+</listitem>
+            <listitem><para>class <link linkend="_classdual__annealing_1_1nanexception">nanexception</link></para>
+</listitem>
+            <listitem><para>class <link linkend="_classdual__annealing_1_1sizeexception">sizeexception</link></para>
+</listitem>
+            <listitem><para>class <link linkend="_classdual__annealing_1_1_strategy_chain">StrategyChain</link></para>
+</listitem>
+            <listitem><para>class <link linkend="_classdual__annealing_1_1_visiting_distribution">VisitingDistribution</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Typedefs    </title>
+        <itemizedlist>
+            <listitem><para>typedef double(* <link linkend="_namespacedual__annealing_1acc0e4feae757283b161380c003152d7c">callback_type</link>) (int, const double *)</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para>static <link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> <link linkend="_namespacedual__annealing_1a8be31e030bc6b64855a87450168499d1">zeros</link> (int n)</para>
+</listitem>
+            <listitem><para>static Eigen::MatrixXd <link linkend="_namespacedual__annealing_1a3688f9a35c8af0e21f7670473fdfc196">normalVec</link> (int dim, pcg64 &amp;rs)</para>
+</listitem>
+            <listitem><para>static Eigen::MatrixXd <link linkend="_namespacedual__annealing_1ab0a43c3dcc31de6ab3f4b6feb070a4df">uniformVec</link> (int dim, pcg64 &amp;rs)</para>
+</listitem>
+            <listitem><para>static <link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> <link linkend="_namespacedual__annealing_1aa453b3bdb1c9bcf34d298af39b661639">logv</link> (<link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> v)</para>
+</listitem>
+            <listitem><para>static <link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> <link linkend="_namespacedual__annealing_1a151b32ba2575f7a0632b5c55162fb4bd">expv</link> (<link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> v)</para>
+</listitem>
+            <listitem><para>double <link linkend="_namespacedual__annealing_1ac314c8e5c367afe5307f99a29a667f6b">minLBFGS</link> (<link linkend="_classdual__annealing_1_1_fitness">Fitness</link> *fitfun, <link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> &amp;X0_, int maxIterations)</para>
+</listitem>
+            <listitem><para>double <link linkend="_namespacedual__annealing_1a9d98349bcdfafe6b4659304b33f53b88">minimize</link> (<link linkend="_classdual__annealing_1_1_fitness">Fitness</link> *fun, <link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> &amp;x0, long seed, bool use_local_search, <link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> &amp;X)</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Variables    </title>
+        <itemizedlist>
+            <listitem><para>static uniform_real_distribution <link linkend="_namespacedual__annealing_1aa2dc69b8049771ea50c1c75e24ba4f61">distr_01</link></para>
+</listitem>
+            <listitem><para>static normal_distribution <link linkend="_namespacedual__annealing_1a3355fe6c7e3315cbbdff5dd45558144f">gauss_01</link> = std::normal_distribution&lt;&gt;(0, 1)</para>
+</listitem>
+            <listitem><para>static <link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> <link linkend="_namespacedual__annealing_1ad43d310b3d2ac1ef9ad7cf7af4edb59f">emptyVec</link> = { }</para>
+</listitem>
+            <listitem><para><link linkend="_classdual__annealing_1_1nanexception">dual_annealing::nanexception</link> <link linkend="_namespacedual__annealing_1ab078cd17a94ab74e2da2a4931983a391">naneexc</link></para>
+</listitem>
+            <listitem><para>const double <link linkend="_namespacedual__annealing_1a614a5ed9ce767f856bcc9bc07bef6b2e">BIG_VALUE</link> = 1e16</para>
+</listitem>
+            <listitem><para><link linkend="_classdual__annealing_1_1sizeexception">dual_annealing::sizeexception</link> <link linkend="_namespacedual__annealing_1a40c22fe5772392ba4c147232af1cd4d3">sizeeexc</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Typedef Documentation</title>
+<anchor xml:id="_namespacedual__annealing_1acc0e4feae757283b161380c003152d7c"/><section>
+    <title>callback_type</title>
+<indexterm><primary>callback_type</primary><secondary>dual_annealing</secondary></indexterm>
+<indexterm><primary>dual_annealing</primary><secondary>callback_type</secondary></indexterm>
+<para><computeroutput>typedef double(* dual_annealing::callback_type) (int, const double *)</computeroutput></para><para>
+Definition at line <link linkend="_daoptimizer_8cpp_source_1l00030">30</link> of file <link linkend="_daoptimizer_8cpp_source">daoptimizer.cpp</link>.</para>
+</section>
+</section>
+<section>
+<title>Function Documentation</title>
+<anchor xml:id="_namespacedual__annealing_1a151b32ba2575f7a0632b5c55162fb4bd"/><section>
+    <title>expv()</title>
+<indexterm><primary>expv</primary><secondary>dual_annealing</secondary></indexterm>
+<indexterm><primary>dual_annealing</primary><secondary>expv</secondary></indexterm>
+<para><computeroutput>static <link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> dual_annealing::expv (<link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> v)<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_daoptimizer_8cpp_source_1l00064">64</link> of file <link linkend="_daoptimizer_8cpp_source">daoptimizer.cpp</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacedual__annealing_a151b32ba2575f7a0632b5c55162fb4bd_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespacedual__annealing_1aa453b3bdb1c9bcf34d298af39b661639"/><section>
+    <title>logv()</title>
+<indexterm><primary>logv</primary><secondary>dual_annealing</secondary></indexterm>
+<indexterm><primary>dual_annealing</primary><secondary>logv</secondary></indexterm>
+<para><computeroutput>static <link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> dual_annealing::logv (<link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> v)<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_daoptimizer_8cpp_source_1l00058">58</link> of file <link linkend="_daoptimizer_8cpp_source">daoptimizer.cpp</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacedual__annealing_aa453b3bdb1c9bcf34d298af39b661639_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespacedual__annealing_1a9d98349bcdfafe6b4659304b33f53b88"/><section>
+    <title>minimize()</title>
+<indexterm><primary>minimize</primary><secondary>dual_annealing</secondary></indexterm>
+<indexterm><primary>dual_annealing</primary><secondary>minimize</secondary></indexterm>
+<para><computeroutput>double dual_annealing::minimize (<link linkend="_classdual__annealing_1_1_fitness">Fitness</link> * fun, <link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> &amp; x0, long seed, bool use_local_search, <link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> &amp; X)</computeroutput></para><para>
+Definition at line <link linkend="_daoptimizer_8cpp_source_1l00640">640</link> of file <link linkend="_daoptimizer_8cpp_source">daoptimizer.cpp</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacedual__annealing_a9d98349bcdfafe6b4659304b33f53b88_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacedual__annealing_a9d98349bcdfafe6b4659304b33f53b88_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespacedual__annealing_1ac314c8e5c367afe5307f99a29a667f6b"/><section>
+    <title>minLBFGS()</title>
+<indexterm><primary>minLBFGS</primary><secondary>dual_annealing</secondary></indexterm>
+<indexterm><primary>dual_annealing</primary><secondary>minLBFGS</secondary></indexterm>
+<para><computeroutput>double dual_annealing::minLBFGS (<link linkend="_classdual__annealing_1_1_fitness">Fitness</link> * fitfun, <link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> &amp; X0_, int maxIterations)</computeroutput></para><para>
+Definition at line <link linkend="_daoptimizer_8cpp_source_1l00210">210</link> of file <link linkend="_daoptimizer_8cpp_source">daoptimizer.cpp</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacedual__annealing_ac314c8e5c367afe5307f99a29a667f6b_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacedual__annealing_ac314c8e5c367afe5307f99a29a667f6b_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespacedual__annealing_1a3688f9a35c8af0e21f7670473fdfc196"/><section>
+    <title>normalVec()</title>
+<indexterm><primary>normalVec</primary><secondary>dual_annealing</secondary></indexterm>
+<indexterm><primary>dual_annealing</primary><secondary>normalVec</secondary></indexterm>
+<para><computeroutput>static Eigen::MatrixXd dual_annealing::normalVec (int dim, pcg64 &amp; rs)<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_daoptimizer_8cpp_source_1l00044">44</link> of file <link linkend="_daoptimizer_8cpp_source">daoptimizer.cpp</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacedual__annealing_a3688f9a35c8af0e21f7670473fdfc196_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespacedual__annealing_1ab0a43c3dcc31de6ab3f4b6feb070a4df"/><section>
+    <title>uniformVec()</title>
+<indexterm><primary>uniformVec</primary><secondary>dual_annealing</secondary></indexterm>
+<indexterm><primary>dual_annealing</primary><secondary>uniformVec</secondary></indexterm>
+<para><computeroutput>static Eigen::MatrixXd dual_annealing::uniformVec (int dim, pcg64 &amp; rs)<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_daoptimizer_8cpp_source_1l00050">50</link> of file <link linkend="_daoptimizer_8cpp_source">daoptimizer.cpp</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacedual__annealing_ab0a43c3dcc31de6ab3f4b6feb070a4df_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespacedual__annealing_1a8be31e030bc6b64855a87450168499d1"/><section>
+    <title>zeros()</title>
+<indexterm><primary>zeros</primary><secondary>dual_annealing</secondary></indexterm>
+<indexterm><primary>dual_annealing</primary><secondary>zeros</secondary></indexterm>
+<para><computeroutput>static <link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> dual_annealing::zeros (int n)<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_daoptimizer_8cpp_source_1l00040">40</link> of file <link linkend="_daoptimizer_8cpp_source">daoptimizer.cpp</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacedual__annealing_a8be31e030bc6b64855a87450168499d1_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+<section>
+<title>Variable Documentation</title>
+<anchor xml:id="_namespacedual__annealing_1a614a5ed9ce767f856bcc9bc07bef6b2e"/><section>
+    <title>BIG_VALUE</title>
+<indexterm><primary>BIG_VALUE</primary><secondary>dual_annealing</secondary></indexterm>
+<indexterm><primary>dual_annealing</primary><secondary>BIG_VALUE</secondary></indexterm>
+<para><computeroutput>const double dual_annealing::BIG_VALUE = 1e16</computeroutput></para><para>
+Definition at line <link linkend="_daoptimizer_8cpp_source_1l00348">348</link> of file <link linkend="_daoptimizer_8cpp_source">daoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_namespacedual__annealing_1aa2dc69b8049771ea50c1c75e24ba4f61"/><section>
+    <title>distr_01</title>
+<indexterm><primary>distr_01</primary><secondary>dual_annealing</secondary></indexterm>
+<indexterm><primary>dual_annealing</primary><secondary>distr_01</secondary></indexterm>
+<para><computeroutput>uniform_real_distribution dual_annealing::distr_01<computeroutput>[static]</computeroutput></computeroutput></para><emphasis role="strong">Initial value:</emphasis><programlisting linenumbering="unnumbered">=&#32;std::uniform_real_distribution&lt;&gt;(
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;0,&#32;1)
+</programlisting><para>
+Definition at line <link linkend="_daoptimizer_8cpp_source_1l00036">36</link> of file <link linkend="_daoptimizer_8cpp_source">daoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_namespacedual__annealing_1ad43d310b3d2ac1ef9ad7cf7af4edb59f"/><section>
+    <title>emptyVec</title>
+<indexterm><primary>emptyVec</primary><secondary>dual_annealing</secondary></indexterm>
+<indexterm><primary>dual_annealing</primary><secondary>emptyVec</secondary></indexterm>
+<para><computeroutput><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> dual_annealing::emptyVec = { }<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_daoptimizer_8cpp_source_1l00056">56</link> of file <link linkend="_daoptimizer_8cpp_source">daoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_namespacedual__annealing_1a3355fe6c7e3315cbbdff5dd45558144f"/><section>
+    <title>gauss_01</title>
+<indexterm><primary>gauss_01</primary><secondary>dual_annealing</secondary></indexterm>
+<indexterm><primary>dual_annealing</primary><secondary>gauss_01</secondary></indexterm>
+<para><computeroutput>normal_distribution dual_annealing::gauss_01 = std::normal_distribution&lt;&gt;(0, 1)<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_daoptimizer_8cpp_source_1l00038">38</link> of file <link linkend="_daoptimizer_8cpp_source">daoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_namespacedual__annealing_1ab078cd17a94ab74e2da2a4931983a391"/><section>
+    <title>naneexc</title>
+<indexterm><primary>naneexc</primary><secondary>dual_annealing</secondary></indexterm>
+<indexterm><primary>dual_annealing</primary><secondary>naneexc</secondary></indexterm>
+<para><computeroutput><link linkend="_classdual__annealing_1_1nanexception">dual_annealing::nanexception</link> dual_annealing::naneexc</computeroutput></para></section>
+<anchor xml:id="_namespacedual__annealing_1a40c22fe5772392ba4c147232af1cd4d3"/><section>
+    <title>sizeeexc</title>
+<indexterm><primary>sizeeexc</primary><secondary>dual_annealing</secondary></indexterm>
+<indexterm><primary>dual_annealing</primary><secondary>sizeeexc</secondary></indexterm>
+<para><computeroutput><link linkend="_classdual__annealing_1_1sizeexception">dual_annealing::sizeexception</link> dual_annealing::sizeeexc</computeroutput></para></section>
+</section>
+</section>

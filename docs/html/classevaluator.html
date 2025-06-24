@@ -1,0 +1,641 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>Fast CMA-ES: evaluator Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/TeX/AMSmath','[tex]/TeX/AMSsymbols']
+  },
+  tex: {
+    macros: {},
+    packages: ['base','configmacros','TeX/AMSmath','TeX/AMSsymbols']
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/jothepro/doxygen-awesome-css" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="fcames.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Fast CMA-ES
+   &#160;<span id="projectnumber">1.6.11</span>
+   </div>
+   <div id="projectbrief">Fast Covariance Matrix Adaptation Evolution Strategy (CMA-ES) implementation in C++ and Python</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.13.2 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('classevaluator.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="classevaluator-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">evaluator Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="evaluator_8h_source.html">evaluator.h</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for evaluator:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classevaluator__coll__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classevaluator_1_1evaluator__job.html">evaluator_job</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ad503d1b0d07dc0123f2619f613fe2365" id="r_ad503d1b0d07dc0123f2619f613fe2365"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad503d1b0d07dc0123f2619f613fe2365">evaluator</a> (<a class="el" href="class_fitness.html">Fitness</a> *fit, int nobj, int workers)</td></tr>
+<tr class="separator:ad503d1b0d07dc0123f2619f613fe2365"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68ea26494aa55c644bbab86b39d29d9d" id="r_a68ea26494aa55c644bbab86b39d29d9d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a68ea26494aa55c644bbab86b39d29d9d">~evaluator</a> ()</td></tr>
+<tr class="separator:a68ea26494aa55c644bbab86b39d29d9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62e9fb557b5a2ecfabc49a01eb7f59d5" id="r_a62e9fb557b5a2ecfabc49a01eb7f59d5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a62e9fb557b5a2ecfabc49a01eb7f59d5">evaluate</a> (<a class="el" href="evaluator_8h.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a> &amp;x, int id)</td></tr>
+<tr class="separator:a62e9fb557b5a2ecfabc49a01eb7f59d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71fc6fd970c9d9f19af8202500c51b05" id="r_a71fc6fd970c9d9f19af8202500c51b05"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structvec__id.html">vec_id</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a71fc6fd970c9d9f19af8202500c51b05">result</a> ()</td></tr>
+<tr class="separator:a71fc6fd970c9d9f19af8202500c51b05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39a80a3c8535b71a004ef2b395015ade" id="r_a39a80a3c8535b71a004ef2b395015ade"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a39a80a3c8535b71a004ef2b395015ade">execute</a> (int thread_id)</td></tr>
+<tr class="separator:a39a80a3c8535b71a004ef2b395015ade"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaedd24a31a5d9e98e59596ba5e86cae2" id="r_aaedd24a31a5d9e98e59596ba5e86cae2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaedd24a31a5d9e98e59596ba5e86cae2">join</a> ()</td></tr>
+<tr class="separator:aaedd24a31a5d9e98e59596ba5e86cae2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a55728e92361122eb506a3f53d7ca7965" id="r_a55728e92361122eb506a3f53d7ca7965"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_fitness.html">Fitness</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a55728e92361122eb506a3f53d7ca7965">_fit</a></td></tr>
+<tr class="separator:a55728e92361122eb506a3f53d7ca7965"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9acff16e9a1fff7e8374d02bcb5897b" id="r_aa9acff16e9a1fff7e8374d02bcb5897b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa9acff16e9a1fff7e8374d02bcb5897b">_nobj</a></td></tr>
+<tr class="separator:aa9acff16e9a1fff7e8374d02bcb5897b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01d0a89d9e703daa46c72471b2245727" id="r_a01d0a89d9e703daa46c72471b2245727"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a01d0a89d9e703daa46c72471b2245727">_workers</a></td></tr>
+<tr class="separator:a01d0a89d9e703daa46c72471b2245727"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a475abe7cc16b726f9257c4c99170903c" id="r_a475abe7cc16b726f9257c4c99170903c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a475abe7cc16b726f9257c4c99170903c">_stop</a></td></tr>
+<tr class="separator:a475abe7cc16b726f9257c4c99170903c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52c19bb405788ea2d4de4915dfcce2e0" id="r_a52c19bb405788ea2d4de4915dfcce2e0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classblocking__queue.html">blocking_queue</a>&lt; <a class="el" href="structvec__id.html">vec_id</a> * &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a52c19bb405788ea2d4de4915dfcce2e0">_requests</a></td></tr>
+<tr class="separator:a52c19bb405788ea2d4de4915dfcce2e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0459baf3cf0e1917cd7254a041825f3" id="r_af0459baf3cf0e1917cd7254a041825f3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classblocking__queue.html">blocking_queue</a>&lt; <a class="el" href="structvec__id.html">vec_id</a> * &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af0459baf3cf0e1917cd7254a041825f3">_evaled</a></td></tr>
+<tr class="separator:af0459baf3cf0e1917cd7254a041825f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa142677c82d588bf35f42c80ae932e3" id="r_aaa142677c82d588bf35f42c80ae932e3"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classevaluator_1_1evaluator__job.html">evaluator_job</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaa142677c82d588bf35f42c80ae932e3">_jobs</a></td></tr>
+<tr class="separator:aaa142677c82d588bf35f42c80ae932e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91dbe1e8f9bc305dbdd890718ce890c8" id="r_a91dbe1e8f9bc305dbdd890718ce890c8"><td class="memItemLeft" align="right" valign="top">time_point&lt; <a class="el" href="evaluator_8h.html#a19bfb27380067c74ae297dd7dad5fb37">Clock</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a91dbe1e8f9bc305dbdd890718ce890c8">_t0</a></td></tr>
+<tr class="separator:a91dbe1e8f9bc305dbdd890718ce890c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="evaluator_8h_source.html#l00419">419</a> of file <a class="el" href="evaluator_8h_source.html">evaluator.h</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ad503d1b0d07dc0123f2619f613fe2365" name="ad503d1b0d07dc0123f2619f613fe2365"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad503d1b0d07dc0123f2619f613fe2365">&#9670;&#160;</a></span>evaluator()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator::evaluator </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_fitness.html">Fitness</a> *</td>          <td class="paramname"><span class="paramname"><em>fit</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>nobj</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>workers</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="evaluator_8h_source.html#l00422">422</a> of file <a class="el" href="evaluator_8h_source.html">evaluator.h</a>.</p>
+<div id="dynsection-1" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classevaluator_ad503d1b0d07dc0123f2619f613fe2365_icgraph.svg" width="330" height="54"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a68ea26494aa55c644bbab86b39d29d9d" name="a68ea26494aa55c644bbab86b39d29d9d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68ea26494aa55c644bbab86b39d29d9d">&#9670;&#160;</a></span>~evaluator()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">evaluator::~evaluator </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="evaluator_8h_source.html#l00434">434</a> of file <a class="el" href="evaluator_8h_source.html">evaluator.h</a>.</p>
+<div id="dynsection-2" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classevaluator_a68ea26494aa55c644bbab86b39d29d9d_cgraph.svg" width="304" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a62e9fb557b5a2ecfabc49a01eb7f59d5" name="a62e9fb557b5a2ecfabc49a01eb7f59d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62e9fb557b5a2ecfabc49a01eb7f59d5">&#9670;&#160;</a></span>evaluate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void evaluator::evaluate </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="evaluator_8h.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>id</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="evaluator_8h_source.html#l00440">440</a> of file <a class="el" href="evaluator_8h_source.html">evaluator.h</a>.</p>
+<div id="dynsection-3" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-3-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classevaluator_a62e9fb557b5a2ecfabc49a01eb7f59d5_icgraph.svg" width="371" height="152"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a39a80a3c8535b71a004ef2b395015ade" name="a39a80a3c8535b71a004ef2b395015ade"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39a80a3c8535b71a004ef2b395015ade">&#9670;&#160;</a></span>execute()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void evaluator::execute </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>thread_id</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="evaluator_8h_source.html#l00449">449</a> of file <a class="el" href="evaluator_8h_source.html">evaluator.h</a>.</p>
+<div id="dynsection-4" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-4-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-4-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classevaluator_a39a80a3c8535b71a004ef2b395015ade_cgraph.svg" width="259" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-5" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-5-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-5-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classevaluator_a39a80a3c8535b71a004ef2b395015ade_icgraph.svg" width="323" height="54"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="aaedd24a31a5d9e98e59596ba5e86cae2" name="aaedd24a31a5d9e98e59596ba5e86cae2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaedd24a31a5d9e98e59596ba5e86cae2">&#9670;&#160;</a></span>join()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void evaluator::join </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="evaluator_8h_source.html#l00466">466</a> of file <a class="el" href="evaluator_8h_source.html">evaluator.h</a>.</p>
+<div id="dynsection-6" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-6-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-6-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classevaluator_aaedd24a31a5d9e98e59596ba5e86cae2_icgraph.svg" width="304" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a71fc6fd970c9d9f19af8202500c51b05" name="a71fc6fd970c9d9f19af8202500c51b05"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71fc6fd970c9d9f19af8202500c51b05">&#9670;&#160;</a></span>result()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structvec__id.html">vec_id</a> * evaluator::result </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="evaluator_8h_source.html#l00445">445</a> of file <a class="el" href="evaluator_8h_source.html">evaluator.h</a>.</p>
+<div id="dynsection-7" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-7-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-7-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-7-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classevaluator_a71fc6fd970c9d9f19af8202500c51b05_icgraph.svg" width="354" height="152"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="af0459baf3cf0e1917cd7254a041825f3" name="af0459baf3cf0e1917cd7254a041825f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0459baf3cf0e1917cd7254a041825f3">&#9670;&#160;</a></span>_evaled</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classblocking__queue.html">blocking_queue</a>&lt;<a class="el" href="structvec__id.html">vec_id</a>*&gt;* evaluator::_evaled</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="evaluator_8h_source.html#l00501">501</a> of file <a class="el" href="evaluator_8h_source.html">evaluator.h</a>.</p>
+
+</div>
+</div>
+<a id="a55728e92361122eb506a3f53d7ca7965" name="a55728e92361122eb506a3f53d7ca7965"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55728e92361122eb506a3f53d7ca7965">&#9670;&#160;</a></span>_fit</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_fitness.html">Fitness</a>* evaluator::_fit</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="evaluator_8h_source.html#l00496">496</a> of file <a class="el" href="evaluator_8h_source.html">evaluator.h</a>.</p>
+
+</div>
+</div>
+<a id="aaa142677c82d588bf35f42c80ae932e3" name="aaa142677c82d588bf35f42c80ae932e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa142677c82d588bf35f42c80ae932e3">&#9670;&#160;</a></span>_jobs</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="classevaluator_1_1evaluator__job.html">evaluator_job</a>&gt; evaluator::_jobs</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="evaluator_8h_source.html#l00502">502</a> of file <a class="el" href="evaluator_8h_source.html">evaluator.h</a>.</p>
+
+</div>
+</div>
+<a id="aa9acff16e9a1fff7e8374d02bcb5897b" name="aa9acff16e9a1fff7e8374d02bcb5897b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9acff16e9a1fff7e8374d02bcb5897b">&#9670;&#160;</a></span>_nobj</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int evaluator::_nobj</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="evaluator_8h_source.html#l00497">497</a> of file <a class="el" href="evaluator_8h_source.html">evaluator.h</a>.</p>
+
+</div>
+</div>
+<a id="a52c19bb405788ea2d4de4915dfcce2e0" name="a52c19bb405788ea2d4de4915dfcce2e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52c19bb405788ea2d4de4915dfcce2e0">&#9670;&#160;</a></span>_requests</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classblocking__queue.html">blocking_queue</a>&lt;<a class="el" href="structvec__id.html">vec_id</a>*&gt;* evaluator::_requests</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="evaluator_8h_source.html#l00500">500</a> of file <a class="el" href="evaluator_8h_source.html">evaluator.h</a>.</p>
+
+</div>
+</div>
+<a id="a475abe7cc16b726f9257c4c99170903c" name="a475abe7cc16b726f9257c4c99170903c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a475abe7cc16b726f9257c4c99170903c">&#9670;&#160;</a></span>_stop</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool evaluator::_stop</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="evaluator_8h_source.html#l00499">499</a> of file <a class="el" href="evaluator_8h_source.html">evaluator.h</a>.</p>
+
+</div>
+</div>
+<a id="a91dbe1e8f9bc305dbdd890718ce890c8" name="a91dbe1e8f9bc305dbdd890718ce890c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91dbe1e8f9bc305dbdd890718ce890c8">&#9670;&#160;</a></span>_t0</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">time_point&lt;<a class="el" href="evaluator_8h.html#a19bfb27380067c74ae297dd7dad5fb37">Clock</a>&gt; evaluator::_t0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="evaluator_8h_source.html#l00503">503</a> of file <a class="el" href="evaluator_8h_source.html">evaluator.h</a>.</p>
+
+</div>
+</div>
+<a id="a01d0a89d9e703daa46c72471b2245727" name="a01d0a89d9e703daa46c72471b2245727"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01d0a89d9e703daa46c72471b2245727">&#9670;&#160;</a></span>_workers</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int evaluator::_workers</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="evaluator_8h_source.html#l00498">498</a> of file <a class="el" href="evaluator_8h_source.html">evaluator.h</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>_fcmaescpp/include/<a class="el" href="evaluator_8h_source.html">evaluator.h</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="classevaluator.html">evaluator</a></li>
+    <li class="footer">Generated on Tue Jun 24 2025 15:36:40 for Fast CMA-ES by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+  </ul>
+</div>
+</body>
+</html>

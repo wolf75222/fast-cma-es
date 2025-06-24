@@ -1,0 +1,447 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_namespacefcmaes_1_1advretry" xml:lang="en-US">
+<title>fcmaes.advretry Namespace Reference</title>
+<indexterm><primary>fcmaes.advretry</primary></indexterm>
+<simplesect>
+    <title>Classes    </title>
+        <itemizedlist>
+            <listitem><para>class <link linkend="_classfcmaes_1_1advretry_1_1_store">Store</link></para>
+
+<para>Manages the storing, evaluation, and tracking of data in an optimization problem. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para>OptimizeResult <link linkend="_namespacefcmaes_1_1advretry_1ac919a7d43929d78301af60b182a99f24">minimize</link> (Callable[[ArrayLike], float] fun, Bounds bounds, Optional[float] value_limit=np.inf, Optional[int] num_retries=5000, Optional[int] workers=mp.cpu_count(), Optional[int] popsize=31, Optional[int] min_evaluations=1500, Optional[int] max_eval_fac=None, Optional[int] check_interval=100, Optional[int] capacity=500, Optional[float] stop_fitness=-np.inf, Optional[<link linkend="_classfcmaes_1_1optimizer_1_1_optimizer">Optimizer</link>] optimizer=None, Optional[int] statistic_num=0, Optional[str] datafile=None)</para>
+
+<para>Minimizes an objective function using a specified optimizer with options for retrying and parallel evaluations, storing intermediate and final results. </para>
+</listitem>
+            <listitem><para>OptimizeResult <link linkend="_namespacefcmaes_1_1advretry_1afa7f53840d446eae71b0a9d7a01077e4">retry</link> (<link linkend="_classfcmaes_1_1advretry_1_1_store">Store</link> store, Callable optimize, Optional[float] value_limit=np.inf, workers=mp.cpu_count(), stop_fitness=-np.inf)</para>
+
+<para>Retries the optimization process using multiple worker processes and random number generators. </para>
+</listitem>
+            <listitem><para>OptimizeResult <link linkend="_namespacefcmaes_1_1advretry_1a5e2cd1f8c09ad3861f3e9fec0c5d8ea0">minimize_plot</link> (str name, <link linkend="_classfcmaes_1_1optimizer_1_1_optimizer">Optimizer</link> optimizer, Callable[[ArrayLike], float] fun, Bounds bounds, Optional[float] value_limit=np.inf, Optional[float] plot_limit=np.inf, Optional[int] num_retries=1024, Optional[int] workers=mp.cpu_count(), Optional[float] stop_fitness=-np.inf, Optional[int] statistic_num=5000)</para>
+
+<para>Minimizes an objective function using a specified optimizer and plots the optimization progress. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1advretry_1a2e67b1339ce1e546807f7cba0a45d8c9">_retry_loop</link> (pid, rgs, store, optimize, value_limit, stop_fitness=-np.inf)</para>
+
+<para>Retries a loop for optimization until stopping criteria are met. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1advretry_1a6c3c42e1fa5ab01ff7ba59710578ebb5">_crossover</link> (fun, store, optimize, rg)</para>
+
+<para>Performs a crossover operation to optimize a function. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Function Documentation</title>
+<anchor xml:id="_namespacefcmaes_1_1advretry_1a6c3c42e1fa5ab01ff7ba59710578ebb5"/><section>
+    <title>_crossover()</title>
+<indexterm><primary>_crossover</primary><secondary>fcmaes.advretry</secondary></indexterm>
+<indexterm><primary>fcmaes.advretry</primary><secondary>_crossover</secondary></indexterm>
+<para><computeroutput>fcmaes.advretry._crossover ( fun,  store,  optimize,  rg)<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+
+<para>Performs a crossover operation to optimize a function. </para>
+</para>
+
+<para>This function attempts to optimize a given function using an optimization strategy by utilizing the provided parameters and probabilistic logic to decide whether crossover should be performed. It uses the specified random generator and optimization function, and updates the solution store upon successful optimization completion.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>fun</entry><entry>
+<para>The objective function to be optimized. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>store</entry><entry>
+<para>An object that stores limits, results, and other related data. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>optimize</entry><entry>
+<para>A callable function used to perform the optimization. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>rg</entry><entry>
+<para>A random generator for probabilistic decisions and randomness during the optimization process.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>bool True if the optimization process completes successfully; False otherwise. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_advretry_8py_source_1l00922">922</link> of file <link linkend="_advretry_8py_source">advretry.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1advretry_a6c3c42e1fa5ab01ff7ba59710578ebb5_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1advretry_1a2e67b1339ce1e546807f7cba0a45d8c9"/><section>
+    <title>_retry_loop()</title>
+<indexterm><primary>_retry_loop</primary><secondary>fcmaes.advretry</secondary></indexterm>
+<indexterm><primary>fcmaes.advretry</primary><secondary>_retry_loop</secondary></indexterm>
+<para><computeroutput>fcmaes.advretry._retry_loop ( pid,  rgs,  store,  optimize,  value_limit,  stop_fitness = <computeroutput>-np.inf</computeroutput>
+)<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+
+<para>Retries a loop for optimization until stopping criteria are met. </para>
+</para>
+
+<para>The function performs optimization processes in a loop, sampling solutions and evaluating their fitness to improve a defined objective within bounds. It also incorporates handling parallel executions for optimization using private random generator and thread limits.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>pid</entry><entry>
+<para>The process or thread identifier for parallel computation. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>rgs</entry><entry>
+<para>A list of random generator states that control the stochastic behavior of each process or thread. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>store</entry><entry>
+<para>The shared data store, containing optimization inherent details like lower and upper bounds, number of retries, best fitness achieved, and statistical configurations. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>optimize</entry><entry>
+<para>The optimization function responsible for processing sample solutions and measuring fitness outcomes. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>value_limit</entry><entry>
+<para>The maximum value allowed for a solution, restricting unacceptable outliers in the results. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>stop_fitness</entry><entry>
+<para>The fitness threshold at which the optimization ceases if exceeded by best achieved fitness. Defaults to negative infinity. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_advretry_8py_source_1l00886">886</link> of file <link linkend="_advretry_8py_source">advretry.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1advretry_a2e67b1339ce1e546807f7cba0a45d8c9_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1advretry_1ac919a7d43929d78301af60b182a99f24"/><section>
+    <title>minimize()</title>
+<indexterm><primary>minimize</primary><secondary>fcmaes.advretry</secondary></indexterm>
+<indexterm><primary>fcmaes.advretry</primary><secondary>minimize</secondary></indexterm>
+<para><computeroutput> OptimizeResult fcmaes.advretry.minimize (Callable[[ArrayLike], float] fun, Bounds bounds, Optional[float]  value_limit = <computeroutput>np.inf</computeroutput>
+, Optional[int]  num_retries = <computeroutput>5000</computeroutput>
+, Optional[int]  workers = <computeroutput>mp.cpu_count()</computeroutput>
+, Optional[int]  popsize = <computeroutput>31</computeroutput>
+, Optional[int]  min_evaluations = <computeroutput>1500</computeroutput>
+, Optional[int]  max_eval_fac = <computeroutput>None</computeroutput>
+, Optional[int]  check_interval = <computeroutput>100</computeroutput>
+, Optional[int]  capacity = <computeroutput>500</computeroutput>
+, Optional[float]  stop_fitness = <computeroutput>-np.inf</computeroutput>
+, Optional[<link linkend="_classfcmaes_1_1optimizer_1_1_optimizer">Optimizer</link>]  optimizer = <computeroutput>None</computeroutput>
+, Optional[int]  statistic_num = <computeroutput>0</computeroutput>
+, Optional[str]   datafile = <computeroutput>None</computeroutput>
+)</computeroutput></para><para>
+
+<para>Minimizes an objective function using a specified optimizer with options for retrying and parallel evaluations, storing intermediate and final results. </para>
+</para>
+
+<para><literallayout><computeroutput>   fun (Callable[[ArrayLike], float]): The objective function to be minimized.
+       It should accept a single argument as an array-like structure and return
+       a float value representing the function evaluation.
+</computeroutput></literallayout> 
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>bounds</entry><entry>
+<para>The bounds of the search space for the optimization problem. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>value_limit</entry><entry>
+<para>The optional threshold for the objective function value. If exceeded, the optimization process will terminate. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>num_retries</entry><entry>
+<para>The number of retries allowed for optimization attempts. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>workers</entry><entry>
+<para>The number of workers available for parallel computation. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>popsize</entry><entry>
+<para>The size of the population in the optimization algorithm. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>min_evaluations</entry><entry>
+<para>The minimum number of function evaluations to perform before considering termination. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>max_eval_fac</entry><entry>
+<para>The maximum number of evaluation factors allowed. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>check_interval</entry><entry>
+<para>The interval at which evaluations are checked during </para>
+</entry>
+                            </row>
+                            <row>
+<entry>retries.</entry><entry>
+<para></para>
+</entry>
+                            </row>
+                            <row>
+<entry>capacity</entry><entry>
+<para>The capacity of the storage to hold records and data during optimization. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>stop_fitness</entry><entry>
+<para>The stopping criteria for fitness. Optimization halts if this value is achieved or surpassed. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>optimizer</entry><entry>
+<para>The optimization algorithm to be used. If None is provided, a default optimizer is created. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>statistic_num</entry><entry>
+<para>The number of statistical records to maintain if required. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>datafile</entry><entry>
+<para>The path to the file used to store or load intermediate optimization data.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>OptimizeResult The result of the optimization process, which includes details like the best-found solution, its fitness value, and related metadata about the optimization process. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_advretry_8py_source_1l00103">103</link> of file <link linkend="_advretry_8py_source">advretry.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1advretry_1a5e2cd1f8c09ad3861f3e9fec0c5d8ea0"/><section>
+    <title>minimize_plot()</title>
+<indexterm><primary>minimize_plot</primary><secondary>fcmaes.advretry</secondary></indexterm>
+<indexterm><primary>fcmaes.advretry</primary><secondary>minimize_plot</secondary></indexterm>
+<para><computeroutput> OptimizeResult fcmaes.advretry.minimize_plot (str name, <link linkend="_classfcmaes_1_1optimizer_1_1_optimizer">Optimizer</link> optimizer, Callable[[ArrayLike], float] fun, Bounds bounds, Optional[float]  value_limit = <computeroutput>np.inf</computeroutput>
+, Optional[float]  plot_limit = <computeroutput>np.inf</computeroutput>
+, Optional[int]  num_retries = <computeroutput>1024</computeroutput>
+, Optional[int]  workers = <computeroutput>mp.cpu_count()</computeroutput>
+, Optional[float]  stop_fitness = <computeroutput>-np.inf</computeroutput>
+, Optional[int]  statistic_num = <computeroutput>5000</computeroutput>
+)</computeroutput></para><para>
+
+<para>Minimizes an objective function using a specified optimizer and plots the optimization progress. </para>
+</para>
+
+<para>The function performs multiple retries, applies value and plot limits, and saves the optimization improvements for further analysis.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>name</entry><entry>
+<para>The base name for the optimization run, used in logs and output file names. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>optimizer</entry><entry>
+<para>The optimization algorithm instance to be used. fun (Callable[[ArrayLike], float]): The objective function to minimize. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>bounds</entry><entry>
+<para>Bounds for the input space of the optimization. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>value_limit</entry><entry>
+<para>The threshold for the function value beyond which the results are not considered. Defaults to infinity. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>plot_limit</entry><entry>
+<para>The limit for the maximum function value to include in the plot. Defaults to infinity. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>num_retries</entry><entry>
+<para>The number of optimization retries allowed. Defaults to 1024. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>workers</entry><entry>
+<para>The number of parallel workers to use during optimization. Defaults to the number of CPU cores available. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>stop_fitness</entry><entry>
+<para>The fitness threshold to stop the optimization early if reached. Defaults to negative infinity. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>statistic_num</entry><entry>
+<para>The number of stored samples for statistical analysis during optimization. Defaults to 5000.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>OptimizeResult The results of the optimization, which include details on the best solution found, its fitness, and other metrics. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_advretry_8py_source_1l00198">198</link> of file <link linkend="_advretry_8py_source">advretry.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1advretry_1afa7f53840d446eae71b0a9d7a01077e4"/><section>
+    <title>retry()</title>
+<indexterm><primary>retry</primary><secondary>fcmaes.advretry</secondary></indexterm>
+<indexterm><primary>fcmaes.advretry</primary><secondary>retry</secondary></indexterm>
+<para><computeroutput> OptimizeResult fcmaes.advretry.retry (<link linkend="_classfcmaes_1_1advretry_1_1_store">Store</link> store, Callable optimize, Optional[float]  value_limit = <computeroutput>np.inf</computeroutput>
+,  workers = <computeroutput>mp.cpu_count()</computeroutput>
+,  stop_fitness = <computeroutput>-np.inf</computeroutput>
+)</computeroutput></para><para>
+
+<para>Retries the optimization process using multiple worker processes and random number generators. </para>
+</para>
+
+<para>This function parallelizes the optimization task, applies a stopping criterion based on the provided fitness value, and selects the best result from the optimization attempts.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>store</entry><entry>
+<para>Stores results of optimization during the process. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>optimize</entry><entry>
+<para>The optimization function to be applied. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>value_limit</entry><entry>
+<para>The upper limit for the function value considered in optimization. Defaults to positive infinity (np.inf). </para>
+</entry>
+                            </row>
+                            <row>
+<entry>workers</entry><entry>
+<para>The number of parallel workers to allocate for the process. Defaults to the total number of CPU cores available. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>stop_fitness</entry><entry>
+<para>The stopping fitness criterion for the optimization process. The optimization stops when this value is reached. Defaults to negative infinity (-np.inf).</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>OptimizeResult The result of the optimization process containing the best solution found (x), the fitness of this solution (fun), the number of function evaluations (nfev), and a success flag (success). </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_advretry_8py_source_1l00154">154</link> of file <link linkend="_advretry_8py_source">advretry.py</link>.</para>
+</section>
+</section>
+</section>

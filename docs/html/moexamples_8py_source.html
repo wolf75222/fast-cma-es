@@ -1,0 +1,584 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>Fast CMA-ES: examples/moexamples.py Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/TeX/AMSmath','[tex]/TeX/AMSsymbols']
+  },
+  tex: {
+    macros: {},
+    packages: ['base','configmacros','TeX/AMSmath','TeX/AMSsymbols']
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/jothepro/doxygen-awesome-css" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="fcames.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Fast CMA-ES
+   &#160;<span id="projectnumber">1.6.11</span>
+   </div>
+   <div id="projectbrief">Fast Covariance Matrix Adaptation Evolution Strategy (CMA-ES) implementation in C++ and Python</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.13.2 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('moexamples_8py_source.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">moexamples.py</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="moexamples_8py.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1moexamples.html">    1</a></span><span class="comment"># Copyright (c) Dietmar Wolz.</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">#</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"># This source code is licensed under the MIT license found in the</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"># LICENSE file in the root directory.</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"># multi objective optimization experiments</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"># See https://github.com/dietmarwo/fast-cma-es/blob/master/tutorials/MultiObjective.adoc for a detailed description.</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment"># Tested using https://docs.conda.io/en/main/miniconda.html on Linux Mint 21.2</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">import</span> random</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">import</span> math</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">import</span> time</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">import</span> glob</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">import</span> sys</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">from</span> scipy.optimize <span class="keyword">import</span> Bounds</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">from</span> <a class="code hl_namespace" href="namespacefcmaes_1_1optimizer.html">fcmaes.optimizer</a> <span class="keyword">import</span> de_cma, Bite_cpp, random_search, dtime</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">from</span> fcmaes <span class="keyword">import</span> moretry, retry, mode, modecpp</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">from</span> deap <span class="keyword">import</span> base</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">from</span> deap <span class="keyword">import</span> creator</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">from</span> deap <span class="keyword">import</span> tools</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">import</span> array</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">import</span> deap.benchmarks <span class="keyword">as</span> db</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">import</span> sys </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keyword">from</span> loguru <span class="keyword">import</span> logger</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>logger.remove()</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1moexamples.html#ac2c1d97b582d9e0b4c897fb5aaf9bcbc">   30</a></span>logger.add(sys.stdout, format=<span class="stringliteral">&quot;{time:HH:mm:ss.SS} | {process} | {level} | {message}&quot;</span>, level=<span class="stringliteral">&quot;INFO&quot;</span>)</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>logger.add(<span class="stringliteral">&quot;log_{time}.txt&quot;</span>, format=<span class="stringliteral">&quot;{time:HH:mm:ss.SS} | {process} | {level} | {message}&quot;</span>, level=<span class="stringliteral">&quot;INFO&quot;</span>)</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keyword">from</span> <a class="code hl_namespace" href="namespacefcmaes_1_1astro.html">fcmaes.astro</a> <span class="keyword">import</span> Cassini1, Cassini2, Tandem</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="foldopen" id="foldopen00035" data-start="" data-end="">
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="classexamples_1_1moexamples_1_1cassini1__mo.html">   35</a></span><span class="keyword">class </span><a class="code hl_class" href="classexamples_1_1moexamples_1_1cassini1__mo.html">cassini1_mo</a>: </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="foldopen" id="foldopen00037" data-start="" data-end="">
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="classexamples_1_1moexamples_1_1cassini1__mo.html#a48594e2a63cc5e90b2829c7da972f21a">   37</a></span>    <span class="keyword">def </span><a class="code hl_function" href="classexamples_1_1moexamples_1_1cassini1__mo.html#a48594e2a63cc5e90b2829c7da972f21a">__init__</a>(self):</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="classexamples_1_1moexamples_1_1cassini1__mo.html#a62350500c8f1ce1a6a5bcfcb749292ae">   38</a></span>        self.<a class="code hl_variable" href="classexamples_1_1moexamples_1_1cassini1__mo.html#a62350500c8f1ce1a6a5bcfcb749292ae">base</a> = <a class="code hl_class" href="classfcmaes_1_1astro_1_1_cassini1.html">Cassini1</a>()</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="classexamples_1_1moexamples_1_1cassini1__mo.html#ac044cf434bb0cd96230187c42f3a7317">   39</a></span>        self.<a class="code hl_variable" href="classexamples_1_1moexamples_1_1cassini1__mo.html#ac044cf434bb0cd96230187c42f3a7317">bounds</a> = self.<a class="code hl_variable" href="classexamples_1_1moexamples_1_1cassini1__mo.html#a62350500c8f1ce1a6a5bcfcb749292ae">base</a>.bounds</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="classexamples_1_1moexamples_1_1cassini1__mo.html#a1feaa53a39042df9fa82f4036f014cb4">   40</a></span>        self.<a class="code hl_variable" href="classexamples_1_1moexamples_1_1cassini1__mo.html#a1feaa53a39042df9fa82f4036f014cb4">weight_bounds</a> = Bounds([1, 0.01], [100, 1]) <span class="comment"># weighting of objectives</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="classexamples_1_1moexamples_1_1cassini1__mo.html#af1ceafd8b7678eae55a98fca89e6cc7d">   41</a></span>        self.<a class="code hl_variable" href="classexamples_1_1moexamples_1_1cassini1__mo.html#af1ceafd8b7678eae55a98fca89e6cc7d">name</a> = self.<a class="code hl_variable" href="classexamples_1_1moexamples_1_1cassini1__mo.html#a62350500c8f1ce1a6a5bcfcb749292ae">base</a>.name</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+</div>
+<div class="foldopen" id="foldopen00043" data-start="" data-end="">
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="classexamples_1_1moexamples_1_1cassini1__mo.html#adbd0b49e9aab0124da2dfa38b30c60d8">   43</a></span>    <span class="keyword">def </span><a class="code hl_function" href="classexamples_1_1moexamples_1_1cassini1__mo.html#adbd0b49e9aab0124da2dfa38b30c60d8">fun</a>(self, x):</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        dv = self.<a class="code hl_variable" href="classexamples_1_1moexamples_1_1cassini1__mo.html#a62350500c8f1ce1a6a5bcfcb749292ae">base</a>.<a class="code hl_function" href="classexamples_1_1moexamples_1_1cassini1__mo.html#adbd0b49e9aab0124da2dfa38b30c60d8">fun</a>(np.array(x)) <span class="comment"># delta velocity, original objective (km/s)</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        mission_time = sum(x[1:]) <span class="comment"># mission time (days)</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        y = np.empty(2)</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        y[0] = dv       </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        y[1] = mission_time</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="keywordflow">return</span> y</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+</div>
+</div>
+<div class="foldopen" id="foldopen00051" data-start="" data-end="">
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="classexamples_1_1moexamples_1_1cassini2__mo.html">   51</a></span><span class="keyword">class </span><a class="code hl_class" href="classexamples_1_1moexamples_1_1cassini2__mo.html">cassini2_mo</a>: </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="foldopen" id="foldopen00053" data-start="" data-end="">
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="classexamples_1_1moexamples_1_1cassini2__mo.html#a19efcdbf3abf19b7d8a9ef137ea568d1">   53</a></span>    <span class="keyword">def </span><a class="code hl_function" href="classexamples_1_1moexamples_1_1cassini2__mo.html#a19efcdbf3abf19b7d8a9ef137ea568d1">__init__</a>(self):</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="classexamples_1_1moexamples_1_1cassini2__mo.html#a49461f4cddd036d9842f2b3e1f9744ea">   54</a></span>        self.<a class="code hl_variable" href="classexamples_1_1moexamples_1_1cassini2__mo.html#a49461f4cddd036d9842f2b3e1f9744ea">base</a> = <a class="code hl_class" href="classfcmaes_1_1astro_1_1_cassini2.html">Cassini2</a>()</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="classexamples_1_1moexamples_1_1cassini2__mo.html#afe0c63d30f32fb147496ac8bca27fac1">   55</a></span>        self.<a class="code hl_variable" href="classexamples_1_1moexamples_1_1cassini2__mo.html#afe0c63d30f32fb147496ac8bca27fac1">bounds</a> = self.<a class="code hl_variable" href="classexamples_1_1moexamples_1_1cassini2__mo.html#a49461f4cddd036d9842f2b3e1f9744ea">base</a>.bounds</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="classexamples_1_1moexamples_1_1cassini2__mo.html#a75ed6fe8d453400c0418ff0c203cc2a8">   56</a></span>        self.<a class="code hl_variable" href="classexamples_1_1moexamples_1_1cassini2__mo.html#a75ed6fe8d453400c0418ff0c203cc2a8">weight_bounds</a> = Bounds([1, 0.01], [100, 1]) <span class="comment"># weighting of objectives</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="classexamples_1_1moexamples_1_1cassini2__mo.html#a40aea611c7f988552c37e232a801358c">   57</a></span>        self.<a class="code hl_variable" href="classexamples_1_1moexamples_1_1cassini2__mo.html#a40aea611c7f988552c37e232a801358c">name</a> = self.<a class="code hl_variable" href="classexamples_1_1moexamples_1_1cassini2__mo.html#a49461f4cddd036d9842f2b3e1f9744ea">base</a>.name</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+</div>
+<div class="foldopen" id="foldopen00059" data-start="" data-end="">
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="classexamples_1_1moexamples_1_1cassini2__mo.html#ada76a55bc7d5657dd4ad6085cb39dbdc">   59</a></span>    <span class="keyword">def </span><a class="code hl_function" href="classexamples_1_1moexamples_1_1cassini2__mo.html#ada76a55bc7d5657dd4ad6085cb39dbdc">fun</a>(self, x):</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        dv = self.<a class="code hl_variable" href="classexamples_1_1moexamples_1_1cassini2__mo.html#a49461f4cddd036d9842f2b3e1f9744ea">base</a>.<a class="code hl_function" href="classexamples_1_1moexamples_1_1cassini2__mo.html#ada76a55bc7d5657dd4ad6085cb39dbdc">fun</a>(np.array(x)) <span class="comment"># delta velocity, original objective (km/s)</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        mission_time = sum(x[4:9]) <span class="comment"># mission time (days)</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        y = np.empty(2)</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        y[0] = dv       </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        y[1] = mission_time</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        <span class="keywordflow">return</span> y</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+</div>
+</div>
+<div class="foldopen" id="foldopen00067" data-start="" data-end="">
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="classexamples_1_1moexamples_1_1tandem__mo.html">   67</a></span><span class="keyword">class </span><a class="code hl_class" href="classexamples_1_1moexamples_1_1tandem__mo.html">tandem_mo</a>: </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="foldopen" id="foldopen00069" data-start="" data-end="">
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="classexamples_1_1moexamples_1_1tandem__mo.html#a1aa1a50748e860b0e2feef50d2b07b28">   69</a></span>    <span class="keyword">def </span><a class="code hl_function" href="classexamples_1_1moexamples_1_1tandem__mo.html#a1aa1a50748e860b0e2feef50d2b07b28">__init__</a>(self, constrained=False):</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="classexamples_1_1moexamples_1_1tandem__mo.html#a09dc9402019380ff93e28961b4414d7f">   70</a></span>        self.<a class="code hl_variable" href="classexamples_1_1moexamples_1_1tandem__mo.html#a09dc9402019380ff93e28961b4414d7f">base</a> = <a class="code hl_class" href="classfcmaes_1_1astro_1_1_tandem.html">Tandem</a>(5, constrained=constrained)</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="classexamples_1_1moexamples_1_1tandem__mo.html#a511846a5c1b27e20e4b6ea0359bfff1a">   71</a></span>        self.<a class="code hl_variable" href="classexamples_1_1moexamples_1_1tandem__mo.html#a511846a5c1b27e20e4b6ea0359bfff1a">bounds</a> = self.<a class="code hl_variable" href="classexamples_1_1moexamples_1_1tandem__mo.html#a09dc9402019380ff93e28961b4414d7f">base</a>.bounds</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="classexamples_1_1moexamples_1_1tandem__mo.html#aace3ae9d7607ceab95180da983ee6619">   72</a></span>        self.<a class="code hl_variable" href="classexamples_1_1moexamples_1_1tandem__mo.html#aace3ae9d7607ceab95180da983ee6619">weight_bounds</a> = Bounds([1, 0], [1, 0]) <span class="comment"># ignore 2nd objective</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="classexamples_1_1moexamples_1_1tandem__mo.html#aab019d0f29632f3b7ea8644864e1efdd">   73</a></span>        self.<a class="code hl_variable" href="classexamples_1_1moexamples_1_1tandem__mo.html#aab019d0f29632f3b7ea8644864e1efdd">name</a> = self.<a class="code hl_variable" href="classexamples_1_1moexamples_1_1tandem__mo.html#a09dc9402019380ff93e28961b4414d7f">base</a>.name</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+</div>
+<div class="foldopen" id="foldopen00075" data-start="" data-end="">
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="classexamples_1_1moexamples_1_1tandem__mo.html#a3cbef98aa5fbd416a6b5344a14de9ee1">   75</a></span>    <span class="keyword">def </span><a class="code hl_function" href="classexamples_1_1moexamples_1_1tandem__mo.html#a3cbef98aa5fbd416a6b5344a14de9ee1">fun</a>(self, x):</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        final_mass = self.<a class="code hl_variable" href="classexamples_1_1moexamples_1_1tandem__mo.html#a09dc9402019380ff93e28961b4414d7f">base</a>.<a class="code hl_function" href="classexamples_1_1moexamples_1_1tandem__mo.html#a3cbef98aa5fbd416a6b5344a14de9ee1">fun</a>(np.array(x)) <span class="comment"># original objective (-kg)</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        mission_time = sum(x[4:8]) <span class="comment"># mission time (days)</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        y = np.empty(2)</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        y[0] = final_mass       </div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        y[1] = mission_time</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        <span class="keywordflow">return</span> y</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+</div>
+</div>
+<div class="foldopen" id="foldopen00083" data-start="" data-end="">
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="classexamples_1_1moexamples_1_1zdt1.html">   83</a></span><span class="keyword">class </span><a class="code hl_class" href="classexamples_1_1moexamples_1_1zdt1.html">zdt1</a>: </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="foldopen" id="foldopen00085" data-start="" data-end="">
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="classexamples_1_1moexamples_1_1zdt1.html#ae3d3f7a58a4898aa81ba42d29206f98c">   85</a></span>    <span class="keyword">def </span><a class="code hl_function" href="classexamples_1_1moexamples_1_1zdt1.html#ae3d3f7a58a4898aa81ba42d29206f98c">__init__</a>(self, dim):</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="classexamples_1_1moexamples_1_1zdt1.html#a9a9c87ca31e4550f14b56938ffe925b8">   86</a></span>        self.<a class="code hl_variable" href="classexamples_1_1moexamples_1_1zdt1.html#a9a9c87ca31e4550f14b56938ffe925b8">fun</a> = db.zdt1</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="classexamples_1_1moexamples_1_1zdt1.html#aac2d76839129a0fdb5773c341f2c42aa">   87</a></span>        self.<a class="code hl_variable" href="classexamples_1_1moexamples_1_1zdt1.html#aac2d76839129a0fdb5773c341f2c42aa">bounds</a> = Bounds([0]*dim, [1]*dim)</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="classexamples_1_1moexamples_1_1zdt1.html#aac22d2604374b3ba9b344c0b67a52e80">   88</a></span>        self.<a class="code hl_variable" href="classexamples_1_1moexamples_1_1zdt1.html#aac22d2604374b3ba9b344c0b67a52e80">weight_bounds</a> = Bounds([0.01, 0.01], [1, 1]) </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno"><a class="line" href="classexamples_1_1moexamples_1_1zdt1.html#ad9e1b4d020b56c11b9b98a6016ca05be">   89</a></span>        self.<a class="code hl_variable" href="classexamples_1_1moexamples_1_1zdt1.html#ad9e1b4d020b56c11b9b98a6016ca05be">name</a> = <span class="stringliteral">&#39;zdt1(&#39;</span> + str(dim) + <span class="stringliteral">&#39;)&#39;</span></div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
+</div>
+</div>
+<div class="foldopen" id="foldopen00091" data-start="" data-end="">
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="classexamples_1_1moexamples_1_1schaffer.html">   91</a></span><span class="keyword">class </span><a class="code hl_class" href="classexamples_1_1moexamples_1_1schaffer.html">schaffer</a>: </div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="foldopen" id="foldopen00093" data-start="" data-end="">
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="classexamples_1_1moexamples_1_1schaffer.html#a9efabe9057767de2d571212041ea1c4f">   93</a></span>    <span class="keyword">def </span><a class="code hl_function" href="classexamples_1_1moexamples_1_1schaffer.html#a9efabe9057767de2d571212041ea1c4f">__init__</a>(self, dim):</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno"><a class="line" href="classexamples_1_1moexamples_1_1schaffer.html#a10b328eef7be3135910830a565a6ab45">   94</a></span>        self.<a class="code hl_variable" href="classexamples_1_1moexamples_1_1schaffer.html#a10b328eef7be3135910830a565a6ab45">fun</a> = db.schaffer_mo</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="classexamples_1_1moexamples_1_1schaffer.html#a6882de61351bdf964ae5347711e33bc7">   95</a></span>        self.<a class="code hl_variable" href="classexamples_1_1moexamples_1_1schaffer.html#a6882de61351bdf964ae5347711e33bc7">bounds</a> = Bounds([-1000]*dim, [1000]*dim)</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno"><a class="line" href="classexamples_1_1moexamples_1_1schaffer.html#a58532071f4503f6238ffb52863e7642a">   96</a></span>        self.<a class="code hl_variable" href="classexamples_1_1moexamples_1_1schaffer.html#a58532071f4503f6238ffb52863e7642a">weight_bounds</a> = Bounds([0.01, 0.01], [1, 1]) </div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="classexamples_1_1moexamples_1_1schaffer.html#ab4968ea95226652ae3aea20bf8211c4a">   97</a></span>        self.<a class="code hl_variable" href="classexamples_1_1moexamples_1_1schaffer.html#ab4968ea95226652ae3aea20bf8211c4a">name</a> = <span class="stringliteral">&#39;schaffer(&#39;</span> + str(dim) + <span class="stringliteral">&#39;)&#39;</span></div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
+</div>
+</div>
+<div class="foldopen" id="foldopen00099" data-start="" data-end="">
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="classexamples_1_1moexamples_1_1poloni.html">   99</a></span><span class="keyword">class </span><a class="code hl_class" href="classexamples_1_1moexamples_1_1poloni.html">poloni</a>: </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
+<div class="foldopen" id="foldopen00101" data-start="" data-end="">
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno"><a class="line" href="classexamples_1_1moexamples_1_1poloni.html#a811f372af3678355144708e348f2ff4d">  101</a></span>    <span class="keyword">def </span><a class="code hl_function" href="classexamples_1_1moexamples_1_1poloni.html#a811f372af3678355144708e348f2ff4d">__init__</a>(self, dim):</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno"><a class="line" href="classexamples_1_1moexamples_1_1poloni.html#af982af89da67c6ffab1c741d968d2ad1">  102</a></span>        self.<a class="code hl_variable" href="classexamples_1_1moexamples_1_1poloni.html#af982af89da67c6ffab1c741d968d2ad1">fun</a> = db.poloni</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno"><a class="line" href="classexamples_1_1moexamples_1_1poloni.html#a7ce92402006f09357b0a77fcc410d5ab">  103</a></span>        self.<a class="code hl_variable" href="classexamples_1_1moexamples_1_1poloni.html#a7ce92402006f09357b0a77fcc410d5ab">bounds</a> = Bounds([-math.pi]*dim, [math.pi]*dim)</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno"><a class="line" href="classexamples_1_1moexamples_1_1poloni.html#a632a5db6aaebbf3cc20ec04cb185cc52">  104</a></span>        self.<a class="code hl_variable" href="classexamples_1_1moexamples_1_1poloni.html#a632a5db6aaebbf3cc20ec04cb185cc52">weight_bounds</a> = Bounds([0.01, 0.01], [1, 1]) </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="classexamples_1_1moexamples_1_1poloni.html#a976e67b737c31d4ca1a27b6243ebe06e">  105</a></span>        self.<a class="code hl_variable" href="classexamples_1_1moexamples_1_1poloni.html#a976e67b737c31d4ca1a27b6243ebe06e">name</a> = <span class="stringliteral">&#39;poloni(&#39;</span> + str(dim) + <span class="stringliteral">&#39;)&#39;</span></div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
+</div>
+</div>
+<div class="foldopen" id="foldopen00107" data-start="" data-end="">
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno"><a class="line" href="classexamples_1_1moexamples_1_1fonseca.html">  107</a></span><span class="keyword">class </span><a class="code hl_class" href="classexamples_1_1moexamples_1_1fonseca.html">fonseca</a>: </div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="foldopen" id="foldopen00109" data-start="" data-end="">
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno"><a class="line" href="classexamples_1_1moexamples_1_1fonseca.html#a5f6984293aa62e0a2fabab192af1e03d">  109</a></span>    <span class="keyword">def </span><a class="code hl_function" href="classexamples_1_1moexamples_1_1fonseca.html#a5f6984293aa62e0a2fabab192af1e03d">__init__</a>(self, dim):</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno"><a class="line" href="classexamples_1_1moexamples_1_1fonseca.html#accb4f09ab7849d699dd3c6f56d07b7bc">  110</a></span>        self.<a class="code hl_variable" href="classexamples_1_1moexamples_1_1fonseca.html#accb4f09ab7849d699dd3c6f56d07b7bc">fun</a> = db.fonseca</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno"><a class="line" href="classexamples_1_1moexamples_1_1fonseca.html#a1ba2328495976cd1c3f907a00489b375">  111</a></span>        self.<a class="code hl_variable" href="classexamples_1_1moexamples_1_1fonseca.html#a1ba2328495976cd1c3f907a00489b375">bounds</a> = Bounds([-4]*dim, [4]*dim) </div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno"><a class="line" href="classexamples_1_1moexamples_1_1fonseca.html#aeb26e7f492c7cd21f1fe27e2b9703834">  112</a></span>        self.<a class="code hl_variable" href="classexamples_1_1moexamples_1_1fonseca.html#aeb26e7f492c7cd21f1fe27e2b9703834">weight_bounds</a> = Bounds([0.01, 0.01], [1, 1]) </div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno"><a class="line" href="classexamples_1_1moexamples_1_1fonseca.html#a7de3207828b60ce92238ee3582c073e9">  113</a></span>        self.<a class="code hl_variable" href="classexamples_1_1moexamples_1_1fonseca.html#a7de3207828b60ce92238ee3582c073e9">name</a> = <span class="stringliteral">&#39;fonseca(&#39;</span> + str(dim) + <span class="stringliteral">&#39;)&#39;</span></div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
+</div>
+</div>
+<div class="foldopen" id="foldopen00116" data-start="" data-end="">
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1moexamples.html#ac65511f1250e7d476d1dbefa6a1383d6">  116</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1moexamples.html#ac65511f1250e7d476d1dbefa6a1383d6">uniform</a>(bounds):</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    <span class="keywordflow">return</span> [random.uniform(b[0], b[1]) <span class="keywordflow">for</span> b <span class="keywordflow">in</span> bounds]</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
+</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1moexamples.html#acbff63ac4ca44b2c8d090f13e6a24d1d">  119</a></span>FirstCall = <span class="keyword">True</span></div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span><span class="comment"># adapted copy from https://github.com/ppgaluzio/MOBOpt/blob/master/mobopt/_NSGA2.py</span></div>
+<div class="foldopen" id="foldopen00121" data-start="" data-end="">
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1moexamples.html#a4053ac1d24b537d2435005c9f7be9ccd">  121</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1moexamples.html#a4053ac1d24b537d2435005c9f7be9ccd">nsgaII</a>(NObj, objective, pbounds, seed=None, NGEN=20000, MU=400, CXPB=0.9):</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    random.seed(seed)</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    <span class="keyword">global</span> FirstCall</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    <span class="keywordflow">if</span> FirstCall:</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        creator.create(<span class="stringliteral">&#39;FitnessMin&#39;</span>, base.Fitness, weights=(-1.0,)*NObj)</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        creator.create(<span class="stringliteral">&#39;Individual&#39;</span>, array.array, typecode=<span class="stringliteral">&#39;d&#39;</span>,</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>                       fitness=creator.FitnessMin)</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        FirstCall = <span class="keyword">False</span></div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    toolbox = base.Toolbox()</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    NDIM = len(pbounds)</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    toolbox.register(<span class="stringliteral">&#39;attr_float&#39;</span>, uniform, pbounds)</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span> </div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    toolbox.register(<span class="stringliteral">&#39;individual&#39;</span>,</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>                     tools.initIterate,</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>                     creator.Individual,</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>                     toolbox.attr_float)</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span> </div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    toolbox.register(<span class="stringliteral">&#39;population&#39;</span>, tools.initRepeat, list, toolbox.individual)</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    toolbox.register(<span class="stringliteral">&#39;evaluate&#39;</span>, objective)</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span> </div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    toolbox.register(<span class="stringliteral">&#39;mate&#39;</span>,</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>                     tools.cxSimulatedBinaryBounded,</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>                     low=pbounds[:, 0].tolist(),</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>                     up=pbounds[:, 1].tolist(),</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>                     eta=20.0)</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span> </div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    toolbox.register(<span class="stringliteral">&#39;mutate&#39;</span>,</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>                     tools.mutPolynomialBounded,</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>                     low=pbounds[:, 0].tolist(),</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>                     up=pbounds[:, 1].tolist(),</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>                     eta=20.0,</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>                     indpb=1.0/NDIM)</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span> </div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    toolbox.register(<span class="stringliteral">&#39;select&#39;</span>, tools.selNSGA2)</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span> </div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    stats = tools.Statistics(<span class="keyword">lambda</span> ind: ind.fitness.values)</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    stats.register(<span class="stringliteral">&#39;min&#39;</span>, np.min, axis=0)</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    stats.register(<span class="stringliteral">&#39;max&#39;</span>, np.max, axis=0)</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    logbook = tools.Logbook()</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    logbook.header = <span class="stringliteral">&#39;gen&#39;</span>, <span class="stringliteral">&#39;evals&#39;</span>, <span class="stringliteral">&#39;std&#39;</span>, <span class="stringliteral">&#39;min&#39;</span>, <span class="stringliteral">&#39;avg&#39;</span>, <span class="stringliteral">&#39;max&#39;</span></div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span> </div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    pop = toolbox.population(n=MU)</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span> </div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    <span class="comment"># Evaluate the individuals with an invalid fitness</span></div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    invalid_ind = [ind <span class="keywordflow">for</span> ind <span class="keywordflow">in</span> pop <span class="keywordflow">if</span> <span class="keywordflow">not</span> ind.fitness.valid]</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    fitnesses = toolbox.map(toolbox.evaluate, invalid_ind)</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    <span class="keywordflow">for</span> ind, fit <span class="keywordflow">in</span> zip(invalid_ind, fitnesses):</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>        ind.fitness.values = fit</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    pop = toolbox.select(pop, len(pop))</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span> </div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    record = stats.compile(pop)</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    logbook.record(gen=0, evals=len(invalid_ind), **record)</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span> </div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    <span class="keywordflow">for</span> gen <span class="keywordflow">in</span> range(1, NGEN):</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>        <span class="comment"># Vary the population</span></div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>        offspring = tools.selTournamentDCD(pop, len(pop))</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>        offspring = [toolbox.clone(ind) <span class="keywordflow">for</span> ind <span class="keywordflow">in</span> offspring]</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span> </div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>        <span class="keywordflow">for</span> ind1, ind2 <span class="keywordflow">in</span> zip(offspring[::2], offspring[1::2]):</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>            <span class="keywordflow">if</span> random.random() &lt;= CXPB:</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>                toolbox.mate(ind1, ind2)</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span> </div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>            toolbox.mutate(ind1)</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>            toolbox.mutate(ind2)</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>            del ind1.fitness.values, ind2.fitness.values</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span> </div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>        <span class="comment"># Evaluate the individuals with an invalid fitness</span></div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>        invalid_ind = [ind <span class="keywordflow">for</span> ind <span class="keywordflow">in</span> offspring <span class="keywordflow">if</span> <span class="keywordflow">not</span> ind.fitness.valid]</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>        fitnesses = toolbox.map(toolbox.evaluate, invalid_ind)</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>        <span class="keywordflow">for</span> ind, fit <span class="keywordflow">in</span> zip(invalid_ind, fitnesses):</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>            ind.fitness.values = fit</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span> </div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>        <span class="comment"># Select the next generation population</span></div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>        pop = toolbox.select(pop + offspring, MU)</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>        record = stats.compile(pop)</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>        logbook.record(gen=gen, evals=len(invalid_ind), **record)</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>        <span class="comment"># print(logbook.stream)</span></div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span> </div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>    front = np.array([ind.fitness.values <span class="keywordflow">for</span> ind <span class="keywordflow">in</span> pop])</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    <span class="keywordflow">return</span> pop, logbook, front</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>  </div>
+</div>
+<div class="foldopen" id="foldopen00207" data-start="" data-end="">
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1moexamples.html#a565f7101212f4770069ca2b305bfb10f">  207</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1moexamples.html#a565f7101212f4770069ca2b305bfb10f">nsgaII_test</a>(problem, fname, NGEN=2000, MU=100, value_limits = None):</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>    time0 = time.perf_counter() <span class="comment"># optimization start time</span></div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    name = problem.name </div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>    logger.info(<span class="stringliteral">&#39;optimize &#39;</span> + name + <span class="stringliteral">&#39; nsgaII&#39;</span>) </div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>    pbounds = np.array(list(zip(problem.bounds.lb, problem.bounds.ub)))</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>    pop, logbook, front = <a class="code hl_function" href="namespaceexamples_1_1moexamples.html#a4053ac1d24b537d2435005c9f7be9ccd">nsgaII</a>(2, problem.fun, pbounds, NGEN=NGEN, MU=MU) </div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>    logger.info(name + <span class="stringliteral">&#39; nsgaII time &#39;</span> + str(dtime(time0)))    </div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>    name = <span class="stringliteral">&#39;nsgaII_&#39;</span> + str(NGEN) + <span class="stringliteral">&#39;_&#39;</span> + str(MU) + name + <span class="stringliteral">&#39;_&#39;</span> + fname</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>    np.savez_compressed(name, xs=pop, ys=front)</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>    <span class="keywordflow">if</span> <span class="keywordflow">not</span> value_limits <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>        front = np.array(</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>            [y <span class="keywordflow">for</span> y <span class="keywordflow">in</span> front <span class="keywordflow">if</span> all([y[i] &lt; value_limits[i] <span class="keywordflow">for</span> i <span class="keywordflow">in</span> range(len(y))])])</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>    retry.plot(front, name)</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>       </div>
+</div>
+<div class="foldopen" id="foldopen00221" data-start="" data-end="">
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1moexamples.html#a4599740480fba54da22dd17058b73c76">  221</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1moexamples.html#a4599740480fba54da22dd17058b73c76">plot_all</a>(folder, fname):</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>    files = glob.glob(folder + <span class="stringliteral">&#39;/*.npz&#39;</span>, recursive=<span class="keyword">True</span>)</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>    xs = []</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>    ys = []</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>    <span class="keywordflow">for</span> file <span class="keywordflow">in</span> files:</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>        <span class="keyword">with</span> np.load(file) <span class="keyword">as</span> data:</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>            xs += list(data[<span class="stringliteral">&#39;xs&#39;</span>])</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>            ys += list(data[<span class="stringliteral">&#39;ys&#39;</span>])</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>    xs = np.array(xs); ys = np.array(ys)         </div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>    xs, front = moretry.pareto(xs, ys)</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>    retry.plot(ys, fname + <span class="stringliteral">&#39;_all.png&#39;</span>, interp=<span class="keyword">False</span>)</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>    retry.plot(front, fname + <span class="stringliteral">&#39;_front.png&#39;</span>)</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span> </div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span> </div>
+</div>
+<div class="foldopen" id="foldopen00235" data-start="" data-end="">
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1moexamples.html#aea4afb4ee1738276b6d3458681f545cf">  235</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1moexamples.html#aea4afb4ee1738276b6d3458681f545cf">decpp_minimize_plot</a>(problem, name, popsize = 64, max_eval = 100000, nobj = 2):</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>    plot_name = problem.name + <span class="stringliteral">&#39;_&#39;</span> + name</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>    modecpp.minimize(problem.fun, nobj, 0, problem.bounds, popsize = popsize, </div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>                       workers=32, max_evaluations = max_eval, nsga_update=<span class="keyword">True</span>)</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span> </div>
+</div>
+<div class="foldopen" id="foldopen00240" data-start="" data-end="">
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1moexamples.html#aea8fa426f342d5569c78b2f502d23d5d">  240</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1moexamples.html#aea8fa426f342d5569c78b2f502d23d5d">de_minimize_plot</a>(problem, name, popsize = 64, max_eval = 100000, nobj = 2):</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>    mode.minimize_plot(problem.name + <span class="stringliteral">&#39;_&#39;</span> + name, problem.fun, nobj, 0, problem.bounds, popsize = popsize, </div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>                       workers = 32, max_evaluations = max_eval, nsga_update=<span class="keyword">False</span>)</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span> </div>
+</div>
+<div class="foldopen" id="foldopen00244" data-start="" data-end="">
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1moexamples.html#acab1d97a5dc64a2c9ab558c3638986e7">  244</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1moexamples.html#acab1d97a5dc64a2c9ab558c3638986e7">nsga_minimize_plot</a>(problem, name, popsize = 64, max_eval = 100000, nobj = 2):</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>    mode.minimize_plot(problem.name + <span class="stringliteral">&#39;_&#39;</span> + name, problem.fun, nobj, 0, problem.bounds, popsize = popsize, </div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>                       max_evaluations = max_eval, nsga_update=<span class="keyword">True</span>)</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span> </div>
+</div>
+<div class="foldopen" id="foldopen00248" data-start="" data-end="">
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1moexamples.html#a566fc7b1e3a68cda7c9b396dda6ce003">  248</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1moexamples.html#a566fc7b1e3a68cda7c9b396dda6ce003">minimize_plot</a>(problem, opt, name, exp = 2.0, num_retries = 1024, value_limits=None):</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>    moretry.minimize_plot(problem.name + <span class="stringliteral">&#39;_&#39;</span> + name, opt, </div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>                          problem.fun, problem.bounds, problem.weight_bounds, </div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>                          num_retries = num_retries, exp = exp, value_limits = value_limits)</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span> </div>
+</div>
+<div class="foldopen" id="foldopen00253" data-start="" data-end="">
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1moexamples.html#ac27d609cba5e248a69559de25efe9a26">  253</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1moexamples.html#ac27d609cba5e248a69559de25efe9a26">adv_minimize_plot</a>(problem, opt, name, value_limit = np.inf, num_retries = 10240):</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>    moretry.adv_minimize_plot(problem.name + <span class="stringliteral">&#39;_&#39;</span> + name, opt, </div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>                              problem.fun, problem.bounds, value_limit = value_limit,</div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>                              num_retries = num_retries)</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span> </div>
+</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span><span class="keywordflow">if</span> __name__ == <span class="stringliteral">&#39;__main__&#39;</span>:</div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>    </div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>    <span class="comment"># decpp_minimize_plot(zdt1(20), &#39;100k64&#39;)</span></div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>    <span class="comment"># decpp_minimize_plot(schaffer(20), &#39;100k64&#39;)</span></div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>    <span class="comment"># decpp_minimize_plot(poloni(20), &#39;100k64&#39;)</span></div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>    <span class="comment"># decpp_minimize_plot(fonseca(20), &#39;100k64&#39;)</span></div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>    <span class="comment">#</span></div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>    <span class="comment"># de_minimize_plot(zdt1(20), &#39;100k64&#39;)</span></div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>    <span class="comment"># de_minimize_plot(schaffer(20), &#39;100k64&#39;)</span></div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>    <span class="comment"># de_minimize_plot(poloni(20), &#39;100k64&#39;)</span></div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>    <span class="comment"># de_minimize_plot(fonseca(20), &#39;100k64&#39;)</span></div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>    <span class="comment">#</span></div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>    <span class="comment"># nsga_minimize_plot(zdt1(20), &#39;100k64&#39;)</span></div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>    <span class="comment"># nsga_minimize_plot(schaffer(20), &#39;100k64&#39;)</span></div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>    <span class="comment"># nsga_minimize_plot(poloni(20), &#39;100k64&#39;)</span></div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>    <span class="comment"># nsga_minimize_plot(fonseca(20), &#39;100k64&#39;)</span></div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>        </div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>    <a class="code hl_function" href="namespaceexamples_1_1moexamples.html#a566fc7b1e3a68cda7c9b396dda6ce003">minimize_plot</a>(<a class="code hl_class" href="classexamples_1_1moexamples_1_1zdt1.html">zdt1</a>(20), <a class="code hl_class" href="classfcmaes_1_1optimizer_1_1_bite__cpp.html">Bite_cpp</a>(M=16), <span class="stringliteral">&#39;50k1k&#39;</span>)</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>    <a class="code hl_function" href="namespaceexamples_1_1moexamples.html#a566fc7b1e3a68cda7c9b396dda6ce003">minimize_plot</a>(<a class="code hl_class" href="classexamples_1_1moexamples_1_1schaffer.html">schaffer</a>(20), <a class="code hl_class" href="classfcmaes_1_1optimizer_1_1_bite__cpp.html">Bite_cpp</a>(M=16), <span class="stringliteral">&#39;50k1k&#39;</span>)</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1moexamples.html#a2613f239ece1c033a7e0a1e5c2977a09">  277</a></span>    <a class="code hl_function" href="namespaceexamples_1_1moexamples.html#a566fc7b1e3a68cda7c9b396dda6ce003">minimize_plot</a>(<a class="code hl_class" href="classexamples_1_1moexamples_1_1poloni.html">poloni</a>(20), <a class="code hl_class" href="classfcmaes_1_1optimizer_1_1_bite__cpp.html">Bite_cpp</a>(M=16), <span class="stringliteral">&#39;50k1k&#39;</span>, exp=1.0)</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>    <a class="code hl_function" href="namespaceexamples_1_1moexamples.html#a566fc7b1e3a68cda7c9b396dda6ce003">minimize_plot</a>(<a class="code hl_class" href="classexamples_1_1moexamples_1_1fonseca.html">fonseca</a>(20), <a class="code hl_class" href="classfcmaes_1_1optimizer_1_1_bite__cpp.html">Bite_cpp</a>(M=16), <span class="stringliteral">&#39;50k1k&#39;</span>, exp=3.0)</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>     </div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>    <a class="code hl_function" href="namespaceexamples_1_1moexamples.html#a566fc7b1e3a68cda7c9b396dda6ce003">minimize_plot</a>(<a class="code hl_class" href="classexamples_1_1moexamples_1_1zdt1.html">zdt1</a>(20), de_cma(), <span class="stringliteral">&#39;50k1k&#39;</span>)</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>    <a class="code hl_function" href="namespaceexamples_1_1moexamples.html#a566fc7b1e3a68cda7c9b396dda6ce003">minimize_plot</a>(<a class="code hl_class" href="classexamples_1_1moexamples_1_1schaffer.html">schaffer</a>(20), de_cma(), <span class="stringliteral">&#39;50k1k&#39;</span>)</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>    <a class="code hl_function" href="namespaceexamples_1_1moexamples.html#a566fc7b1e3a68cda7c9b396dda6ce003">minimize_plot</a>(<a class="code hl_class" href="classexamples_1_1moexamples_1_1poloni.html">poloni</a>(20), de_cma(), <span class="stringliteral">&#39;50k1k&#39;</span>, exp=1.0)</div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>    <a class="code hl_function" href="namespaceexamples_1_1moexamples.html#a566fc7b1e3a68cda7c9b396dda6ce003">minimize_plot</a>(<a class="code hl_class" href="classexamples_1_1moexamples_1_1fonseca.html">fonseca</a>(20), de_cma(), <span class="stringliteral">&#39;50k1k&#39;</span>, exp=3.0)</div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>         </div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>    <a class="code hl_function" href="namespaceexamples_1_1moexamples.html#a566fc7b1e3a68cda7c9b396dda6ce003">minimize_plot</a>(<a class="code hl_class" href="classexamples_1_1moexamples_1_1zdt1.html">zdt1</a>(20), <a class="code hl_class" href="classfcmaes_1_1optimizer_1_1random__search.html">random_search</a>(), <span class="stringliteral">&#39;50k1k&#39;</span>)</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>    <a class="code hl_function" href="namespaceexamples_1_1moexamples.html#a566fc7b1e3a68cda7c9b396dda6ce003">minimize_plot</a>(<a class="code hl_class" href="classexamples_1_1moexamples_1_1schaffer.html">schaffer</a>(20), <a class="code hl_class" href="classfcmaes_1_1optimizer_1_1random__search.html">random_search</a>(), <span class="stringliteral">&#39;50k1k&#39;</span>)</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>    <a class="code hl_function" href="namespaceexamples_1_1moexamples.html#a566fc7b1e3a68cda7c9b396dda6ce003">minimize_plot</a>(<a class="code hl_class" href="classexamples_1_1moexamples_1_1poloni.html">poloni</a>(20), <a class="code hl_class" href="classfcmaes_1_1optimizer_1_1random__search.html">random_search</a>(), <span class="stringliteral">&#39;50k1k&#39;</span>, exp=1.0)</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>    <a class="code hl_function" href="namespaceexamples_1_1moexamples.html#a566fc7b1e3a68cda7c9b396dda6ce003">minimize_plot</a>(<a class="code hl_class" href="classexamples_1_1moexamples_1_1fonseca.html">fonseca</a>(20), <a class="code hl_class" href="classfcmaes_1_1optimizer_1_1random__search.html">random_search</a>(), <span class="stringliteral">&#39;50k1k&#39;</span>, exp=3.0)</div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>     </div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1moexamples.html#ae8e0a9288b0247d89e562a088db4166a">  290</a></span>    <a class="code hl_function" href="namespaceexamples_1_1moexamples.html#a566fc7b1e3a68cda7c9b396dda6ce003">minimize_plot</a>(<a class="code hl_class" href="classexamples_1_1moexamples_1_1cassini1__mo.html">cassini1_mo</a>(), de_cma(50000), <span class="stringliteral">&#39;50k4k&#39;</span>, num_retries=4096, value_limits=[40, 7000])    </div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>    <a class="code hl_function" href="namespaceexamples_1_1moexamples.html#a566fc7b1e3a68cda7c9b396dda6ce003">minimize_plot</a>(<a class="code hl_class" href="classexamples_1_1moexamples_1_1cassini1__mo.html">cassini1_mo</a>(), <a class="code hl_class" href="classfcmaes_1_1optimizer_1_1_bite__cpp.html">Bite_cpp</a>(50000, M=16), <span class="stringliteral">&#39;50k4k&#39;</span>, num_retries=4096, value_limits=[40, 7000])</div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>    <a class="code hl_function" href="namespaceexamples_1_1moexamples.html#a566fc7b1e3a68cda7c9b396dda6ce003">minimize_plot</a>(<a class="code hl_class" href="classexamples_1_1moexamples_1_1cassini1__mo.html">cassini1_mo</a>(), <a class="code hl_class" href="classfcmaes_1_1optimizer_1_1random__search.html">random_search</a>(50000), <span class="stringliteral">&#39;50k4k&#39;</span>, num_retries=4096, value_limits=[40, 7000])</div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>     </div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>    <a class="code hl_function" href="namespaceexamples_1_1moexamples.html#a566fc7b1e3a68cda7c9b396dda6ce003">minimize_plot</a>(<a class="code hl_class" href="classexamples_1_1moexamples_1_1cassini2__mo.html">cassini2_mo</a>(), de_cma(50000), <span class="stringliteral">&#39;50k4k&#39;</span>, num_retries=4096, value_limits=[40, 7000])   </div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>    <a class="code hl_function" href="namespaceexamples_1_1moexamples.html#a566fc7b1e3a68cda7c9b396dda6ce003">minimize_plot</a>(<a class="code hl_class" href="classexamples_1_1moexamples_1_1cassini2__mo.html">cassini2_mo</a>(), <a class="code hl_class" href="classfcmaes_1_1optimizer_1_1_bite__cpp.html">Bite_cpp</a>(50000, M=16), <span class="stringliteral">&#39;50k4k&#39;</span>, num_retries=4096, value_limits=[40, 7000])</div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>    <a class="code hl_function" href="namespaceexamples_1_1moexamples.html#a566fc7b1e3a68cda7c9b396dda6ce003">minimize_plot</a>(<a class="code hl_class" href="classexamples_1_1moexamples_1_1cassini2__mo.html">cassini2_mo</a>(), <a class="code hl_class" href="classfcmaes_1_1optimizer_1_1random__search.html">random_search</a>(50000), <span class="stringliteral">&#39;50k4k&#39;</span>, num_retries=4096, value_limits=[40, 7000])</div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>     </div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>    <a class="code hl_function" href="namespaceexamples_1_1moexamples.html#a566fc7b1e3a68cda7c9b396dda6ce003">minimize_plot</a>(<a class="code hl_class" href="classexamples_1_1moexamples_1_1tandem__mo.html">tandem_mo</a>(), de_cma(100000), <span class="stringliteral">&#39;100k10k&#39;</span>, num_retries=10240, exp=1.0)</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>    <a class="code hl_function" href="namespaceexamples_1_1moexamples.html#a566fc7b1e3a68cda7c9b396dda6ce003">minimize_plot</a>(<a class="code hl_class" href="classexamples_1_1moexamples_1_1tandem__mo.html">tandem_mo</a>(), <a class="code hl_class" href="classfcmaes_1_1optimizer_1_1_bite__cpp.html">Bite_cpp</a>(100000, M=16), <span class="stringliteral">&#39;100k10k&#39;</span>, num_retries=10240, exp=1.0)</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>    <a class="code hl_function" href="namespaceexamples_1_1moexamples.html#a566fc7b1e3a68cda7c9b396dda6ce003">minimize_plot</a>(<a class="code hl_class" href="classexamples_1_1moexamples_1_1tandem__mo.html">tandem_mo</a>(), <a class="code hl_class" href="classfcmaes_1_1optimizer_1_1random__search.html">random_search</a>(100000), <span class="stringliteral">&#39;100k10k&#39;</span>, num_retries=10240, exp=1.0)</div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>    </div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>    <a class="code hl_function" href="namespaceexamples_1_1moexamples.html#a565f7101212f4770069ca2b305bfb10f">nsgaII_test</a>(<a class="code hl_class" href="classexamples_1_1moexamples_1_1zdt1.html">zdt1</a>(20), <span class="stringliteral">&#39;_front.png&#39;</span>)</div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>    <a class="code hl_function" href="namespaceexamples_1_1moexamples.html#a565f7101212f4770069ca2b305bfb10f">nsgaII_test</a>(<a class="code hl_class" href="classexamples_1_1moexamples_1_1schaffer.html">schaffer</a>(20), <span class="stringliteral">&#39;_front.png&#39;</span>)</div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>    <a class="code hl_function" href="namespaceexamples_1_1moexamples.html#a565f7101212f4770069ca2b305bfb10f">nsgaII_test</a>(<a class="code hl_class" href="classexamples_1_1moexamples_1_1poloni.html">poloni</a>(20),  <span class="stringliteral">&#39;_front.png&#39;</span>)</div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>    <a class="code hl_function" href="namespaceexamples_1_1moexamples.html#a565f7101212f4770069ca2b305bfb10f">nsgaII_test</a>(<a class="code hl_class" href="classexamples_1_1moexamples_1_1fonseca.html">fonseca</a>(20), <span class="stringliteral">&#39;_front.png&#39;</span>)</div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span> </div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1moexamples.html#a56a3887777d5069db3de8ea51f916347">  307</a></span>    <a class="code hl_function" href="namespaceexamples_1_1moexamples.html#ac27d609cba5e248a69559de25efe9a26">adv_minimize_plot</a>(<a class="code hl_class" href="classexamples_1_1moexamples_1_1tandem__mo.html">tandem_mo</a>(), de_cma(1500), <span class="stringliteral">&#39;_smart&#39;</span>, value_limit = 0, num_retries = 60000)</div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span> </div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>      </div>
+<div class="ttc" id="aclassexamples_1_1moexamples_1_1cassini1__mo_html"><div class="ttname"><a href="classexamples_1_1moexamples_1_1cassini1__mo.html">examples.moexamples.cassini1_mo</a></div><div class="ttdef"><b>Definition</b> <a href="#l00035">moexamples.py:35</a></div></div>
+<div class="ttc" id="aclassexamples_1_1moexamples_1_1cassini1__mo_html_a1feaa53a39042df9fa82f4036f014cb4"><div class="ttname"><a href="classexamples_1_1moexamples_1_1cassini1__mo.html#a1feaa53a39042df9fa82f4036f014cb4">examples.moexamples.cassini1_mo.weight_bounds</a></div><div class="ttdeci">weight_bounds</div><div class="ttdef"><b>Definition</b> <a href="#l00040">moexamples.py:40</a></div></div>
+<div class="ttc" id="aclassexamples_1_1moexamples_1_1cassini1__mo_html_a48594e2a63cc5e90b2829c7da972f21a"><div class="ttname"><a href="classexamples_1_1moexamples_1_1cassini1__mo.html#a48594e2a63cc5e90b2829c7da972f21a">examples.moexamples.cassini1_mo.__init__</a></div><div class="ttdeci">__init__(self)</div><div class="ttdef"><b>Definition</b> <a href="#l00037">moexamples.py:37</a></div></div>
+<div class="ttc" id="aclassexamples_1_1moexamples_1_1cassini1__mo_html_a62350500c8f1ce1a6a5bcfcb749292ae"><div class="ttname"><a href="classexamples_1_1moexamples_1_1cassini1__mo.html#a62350500c8f1ce1a6a5bcfcb749292ae">examples.moexamples.cassini1_mo.base</a></div><div class="ttdeci">base</div><div class="ttdef"><b>Definition</b> <a href="#l00038">moexamples.py:38</a></div></div>
+<div class="ttc" id="aclassexamples_1_1moexamples_1_1cassini1__mo_html_ac044cf434bb0cd96230187c42f3a7317"><div class="ttname"><a href="classexamples_1_1moexamples_1_1cassini1__mo.html#ac044cf434bb0cd96230187c42f3a7317">examples.moexamples.cassini1_mo.bounds</a></div><div class="ttdeci">bounds</div><div class="ttdef"><b>Definition</b> <a href="#l00039">moexamples.py:39</a></div></div>
+<div class="ttc" id="aclassexamples_1_1moexamples_1_1cassini1__mo_html_adbd0b49e9aab0124da2dfa38b30c60d8"><div class="ttname"><a href="classexamples_1_1moexamples_1_1cassini1__mo.html#adbd0b49e9aab0124da2dfa38b30c60d8">examples.moexamples.cassini1_mo.fun</a></div><div class="ttdeci">fun(self, x)</div><div class="ttdef"><b>Definition</b> <a href="#l00043">moexamples.py:43</a></div></div>
+<div class="ttc" id="aclassexamples_1_1moexamples_1_1cassini1__mo_html_af1ceafd8b7678eae55a98fca89e6cc7d"><div class="ttname"><a href="classexamples_1_1moexamples_1_1cassini1__mo.html#af1ceafd8b7678eae55a98fca89e6cc7d">examples.moexamples.cassini1_mo.name</a></div><div class="ttdeci">name</div><div class="ttdef"><b>Definition</b> <a href="#l00041">moexamples.py:41</a></div></div>
+<div class="ttc" id="aclassexamples_1_1moexamples_1_1cassini2__mo_html"><div class="ttname"><a href="classexamples_1_1moexamples_1_1cassini2__mo.html">examples.moexamples.cassini2_mo</a></div><div class="ttdef"><b>Definition</b> <a href="#l00051">moexamples.py:51</a></div></div>
+<div class="ttc" id="aclassexamples_1_1moexamples_1_1cassini2__mo_html_a19efcdbf3abf19b7d8a9ef137ea568d1"><div class="ttname"><a href="classexamples_1_1moexamples_1_1cassini2__mo.html#a19efcdbf3abf19b7d8a9ef137ea568d1">examples.moexamples.cassini2_mo.__init__</a></div><div class="ttdeci">__init__(self)</div><div class="ttdef"><b>Definition</b> <a href="#l00053">moexamples.py:53</a></div></div>
+<div class="ttc" id="aclassexamples_1_1moexamples_1_1cassini2__mo_html_a40aea611c7f988552c37e232a801358c"><div class="ttname"><a href="classexamples_1_1moexamples_1_1cassini2__mo.html#a40aea611c7f988552c37e232a801358c">examples.moexamples.cassini2_mo.name</a></div><div class="ttdeci">name</div><div class="ttdef"><b>Definition</b> <a href="#l00057">moexamples.py:57</a></div></div>
+<div class="ttc" id="aclassexamples_1_1moexamples_1_1cassini2__mo_html_a49461f4cddd036d9842f2b3e1f9744ea"><div class="ttname"><a href="classexamples_1_1moexamples_1_1cassini2__mo.html#a49461f4cddd036d9842f2b3e1f9744ea">examples.moexamples.cassini2_mo.base</a></div><div class="ttdeci">base</div><div class="ttdef"><b>Definition</b> <a href="#l00054">moexamples.py:54</a></div></div>
+<div class="ttc" id="aclassexamples_1_1moexamples_1_1cassini2__mo_html_a75ed6fe8d453400c0418ff0c203cc2a8"><div class="ttname"><a href="classexamples_1_1moexamples_1_1cassini2__mo.html#a75ed6fe8d453400c0418ff0c203cc2a8">examples.moexamples.cassini2_mo.weight_bounds</a></div><div class="ttdeci">weight_bounds</div><div class="ttdef"><b>Definition</b> <a href="#l00056">moexamples.py:56</a></div></div>
+<div class="ttc" id="aclassexamples_1_1moexamples_1_1cassini2__mo_html_ada76a55bc7d5657dd4ad6085cb39dbdc"><div class="ttname"><a href="classexamples_1_1moexamples_1_1cassini2__mo.html#ada76a55bc7d5657dd4ad6085cb39dbdc">examples.moexamples.cassini2_mo.fun</a></div><div class="ttdeci">fun(self, x)</div><div class="ttdef"><b>Definition</b> <a href="#l00059">moexamples.py:59</a></div></div>
+<div class="ttc" id="aclassexamples_1_1moexamples_1_1cassini2__mo_html_afe0c63d30f32fb147496ac8bca27fac1"><div class="ttname"><a href="classexamples_1_1moexamples_1_1cassini2__mo.html#afe0c63d30f32fb147496ac8bca27fac1">examples.moexamples.cassini2_mo.bounds</a></div><div class="ttdeci">bounds</div><div class="ttdef"><b>Definition</b> <a href="#l00055">moexamples.py:55</a></div></div>
+<div class="ttc" id="aclassexamples_1_1moexamples_1_1fonseca_html"><div class="ttname"><a href="classexamples_1_1moexamples_1_1fonseca.html">examples.moexamples.fonseca</a></div><div class="ttdef"><b>Definition</b> <a href="#l00107">moexamples.py:107</a></div></div>
+<div class="ttc" id="aclassexamples_1_1moexamples_1_1fonseca_html_a1ba2328495976cd1c3f907a00489b375"><div class="ttname"><a href="classexamples_1_1moexamples_1_1fonseca.html#a1ba2328495976cd1c3f907a00489b375">examples.moexamples.fonseca.bounds</a></div><div class="ttdeci">bounds</div><div class="ttdef"><b>Definition</b> <a href="#l00111">moexamples.py:111</a></div></div>
+<div class="ttc" id="aclassexamples_1_1moexamples_1_1fonseca_html_a5f6984293aa62e0a2fabab192af1e03d"><div class="ttname"><a href="classexamples_1_1moexamples_1_1fonseca.html#a5f6984293aa62e0a2fabab192af1e03d">examples.moexamples.fonseca.__init__</a></div><div class="ttdeci">__init__(self, dim)</div><div class="ttdef"><b>Definition</b> <a href="#l00109">moexamples.py:109</a></div></div>
+<div class="ttc" id="aclassexamples_1_1moexamples_1_1fonseca_html_a7de3207828b60ce92238ee3582c073e9"><div class="ttname"><a href="classexamples_1_1moexamples_1_1fonseca.html#a7de3207828b60ce92238ee3582c073e9">examples.moexamples.fonseca.name</a></div><div class="ttdeci">str name</div><div class="ttdef"><b>Definition</b> <a href="#l00113">moexamples.py:113</a></div></div>
+<div class="ttc" id="aclassexamples_1_1moexamples_1_1fonseca_html_accb4f09ab7849d699dd3c6f56d07b7bc"><div class="ttname"><a href="classexamples_1_1moexamples_1_1fonseca.html#accb4f09ab7849d699dd3c6f56d07b7bc">examples.moexamples.fonseca.fun</a></div><div class="ttdeci">fun</div><div class="ttdef"><b>Definition</b> <a href="#l00110">moexamples.py:110</a></div></div>
+<div class="ttc" id="aclassexamples_1_1moexamples_1_1fonseca_html_aeb26e7f492c7cd21f1fe27e2b9703834"><div class="ttname"><a href="classexamples_1_1moexamples_1_1fonseca.html#aeb26e7f492c7cd21f1fe27e2b9703834">examples.moexamples.fonseca.weight_bounds</a></div><div class="ttdeci">weight_bounds</div><div class="ttdef"><b>Definition</b> <a href="#l00112">moexamples.py:112</a></div></div>
+<div class="ttc" id="aclassexamples_1_1moexamples_1_1poloni_html"><div class="ttname"><a href="classexamples_1_1moexamples_1_1poloni.html">examples.moexamples.poloni</a></div><div class="ttdef"><b>Definition</b> <a href="#l00099">moexamples.py:99</a></div></div>
+<div class="ttc" id="aclassexamples_1_1moexamples_1_1poloni_html_a632a5db6aaebbf3cc20ec04cb185cc52"><div class="ttname"><a href="classexamples_1_1moexamples_1_1poloni.html#a632a5db6aaebbf3cc20ec04cb185cc52">examples.moexamples.poloni.weight_bounds</a></div><div class="ttdeci">weight_bounds</div><div class="ttdef"><b>Definition</b> <a href="#l00104">moexamples.py:104</a></div></div>
+<div class="ttc" id="aclassexamples_1_1moexamples_1_1poloni_html_a7ce92402006f09357b0a77fcc410d5ab"><div class="ttname"><a href="classexamples_1_1moexamples_1_1poloni.html#a7ce92402006f09357b0a77fcc410d5ab">examples.moexamples.poloni.bounds</a></div><div class="ttdeci">bounds</div><div class="ttdef"><b>Definition</b> <a href="#l00103">moexamples.py:103</a></div></div>
+<div class="ttc" id="aclassexamples_1_1moexamples_1_1poloni_html_a811f372af3678355144708e348f2ff4d"><div class="ttname"><a href="classexamples_1_1moexamples_1_1poloni.html#a811f372af3678355144708e348f2ff4d">examples.moexamples.poloni.__init__</a></div><div class="ttdeci">__init__(self, dim)</div><div class="ttdef"><b>Definition</b> <a href="#l00101">moexamples.py:101</a></div></div>
+<div class="ttc" id="aclassexamples_1_1moexamples_1_1poloni_html_a976e67b737c31d4ca1a27b6243ebe06e"><div class="ttname"><a href="classexamples_1_1moexamples_1_1poloni.html#a976e67b737c31d4ca1a27b6243ebe06e">examples.moexamples.poloni.name</a></div><div class="ttdeci">str name</div><div class="ttdef"><b>Definition</b> <a href="#l00105">moexamples.py:105</a></div></div>
+<div class="ttc" id="aclassexamples_1_1moexamples_1_1poloni_html_af982af89da67c6ffab1c741d968d2ad1"><div class="ttname"><a href="classexamples_1_1moexamples_1_1poloni.html#af982af89da67c6ffab1c741d968d2ad1">examples.moexamples.poloni.fun</a></div><div class="ttdeci">fun</div><div class="ttdef"><b>Definition</b> <a href="#l00102">moexamples.py:102</a></div></div>
+<div class="ttc" id="aclassexamples_1_1moexamples_1_1schaffer_html"><div class="ttname"><a href="classexamples_1_1moexamples_1_1schaffer.html">examples.moexamples.schaffer</a></div><div class="ttdef"><b>Definition</b> <a href="#l00091">moexamples.py:91</a></div></div>
+<div class="ttc" id="aclassexamples_1_1moexamples_1_1schaffer_html_a10b328eef7be3135910830a565a6ab45"><div class="ttname"><a href="classexamples_1_1moexamples_1_1schaffer.html#a10b328eef7be3135910830a565a6ab45">examples.moexamples.schaffer.fun</a></div><div class="ttdeci">fun</div><div class="ttdef"><b>Definition</b> <a href="#l00094">moexamples.py:94</a></div></div>
+<div class="ttc" id="aclassexamples_1_1moexamples_1_1schaffer_html_a58532071f4503f6238ffb52863e7642a"><div class="ttname"><a href="classexamples_1_1moexamples_1_1schaffer.html#a58532071f4503f6238ffb52863e7642a">examples.moexamples.schaffer.weight_bounds</a></div><div class="ttdeci">weight_bounds</div><div class="ttdef"><b>Definition</b> <a href="#l00096">moexamples.py:96</a></div></div>
+<div class="ttc" id="aclassexamples_1_1moexamples_1_1schaffer_html_a6882de61351bdf964ae5347711e33bc7"><div class="ttname"><a href="classexamples_1_1moexamples_1_1schaffer.html#a6882de61351bdf964ae5347711e33bc7">examples.moexamples.schaffer.bounds</a></div><div class="ttdeci">bounds</div><div class="ttdef"><b>Definition</b> <a href="#l00095">moexamples.py:95</a></div></div>
+<div class="ttc" id="aclassexamples_1_1moexamples_1_1schaffer_html_a9efabe9057767de2d571212041ea1c4f"><div class="ttname"><a href="classexamples_1_1moexamples_1_1schaffer.html#a9efabe9057767de2d571212041ea1c4f">examples.moexamples.schaffer.__init__</a></div><div class="ttdeci">__init__(self, dim)</div><div class="ttdef"><b>Definition</b> <a href="#l00093">moexamples.py:93</a></div></div>
+<div class="ttc" id="aclassexamples_1_1moexamples_1_1schaffer_html_ab4968ea95226652ae3aea20bf8211c4a"><div class="ttname"><a href="classexamples_1_1moexamples_1_1schaffer.html#ab4968ea95226652ae3aea20bf8211c4a">examples.moexamples.schaffer.name</a></div><div class="ttdeci">str name</div><div class="ttdef"><b>Definition</b> <a href="#l00097">moexamples.py:97</a></div></div>
+<div class="ttc" id="aclassexamples_1_1moexamples_1_1tandem__mo_html"><div class="ttname"><a href="classexamples_1_1moexamples_1_1tandem__mo.html">examples.moexamples.tandem_mo</a></div><div class="ttdef"><b>Definition</b> <a href="#l00067">moexamples.py:67</a></div></div>
+<div class="ttc" id="aclassexamples_1_1moexamples_1_1tandem__mo_html_a09dc9402019380ff93e28961b4414d7f"><div class="ttname"><a href="classexamples_1_1moexamples_1_1tandem__mo.html#a09dc9402019380ff93e28961b4414d7f">examples.moexamples.tandem_mo.base</a></div><div class="ttdeci">base</div><div class="ttdef"><b>Definition</b> <a href="#l00070">moexamples.py:70</a></div></div>
+<div class="ttc" id="aclassexamples_1_1moexamples_1_1tandem__mo_html_a1aa1a50748e860b0e2feef50d2b07b28"><div class="ttname"><a href="classexamples_1_1moexamples_1_1tandem__mo.html#a1aa1a50748e860b0e2feef50d2b07b28">examples.moexamples.tandem_mo.__init__</a></div><div class="ttdeci">__init__(self, constrained=False)</div><div class="ttdef"><b>Definition</b> <a href="#l00069">moexamples.py:69</a></div></div>
+<div class="ttc" id="aclassexamples_1_1moexamples_1_1tandem__mo_html_a3cbef98aa5fbd416a6b5344a14de9ee1"><div class="ttname"><a href="classexamples_1_1moexamples_1_1tandem__mo.html#a3cbef98aa5fbd416a6b5344a14de9ee1">examples.moexamples.tandem_mo.fun</a></div><div class="ttdeci">fun(self, x)</div><div class="ttdef"><b>Definition</b> <a href="#l00075">moexamples.py:75</a></div></div>
+<div class="ttc" id="aclassexamples_1_1moexamples_1_1tandem__mo_html_a511846a5c1b27e20e4b6ea0359bfff1a"><div class="ttname"><a href="classexamples_1_1moexamples_1_1tandem__mo.html#a511846a5c1b27e20e4b6ea0359bfff1a">examples.moexamples.tandem_mo.bounds</a></div><div class="ttdeci">bounds</div><div class="ttdef"><b>Definition</b> <a href="#l00071">moexamples.py:71</a></div></div>
+<div class="ttc" id="aclassexamples_1_1moexamples_1_1tandem__mo_html_aab019d0f29632f3b7ea8644864e1efdd"><div class="ttname"><a href="classexamples_1_1moexamples_1_1tandem__mo.html#aab019d0f29632f3b7ea8644864e1efdd">examples.moexamples.tandem_mo.name</a></div><div class="ttdeci">name</div><div class="ttdef"><b>Definition</b> <a href="#l00073">moexamples.py:73</a></div></div>
+<div class="ttc" id="aclassexamples_1_1moexamples_1_1tandem__mo_html_aace3ae9d7607ceab95180da983ee6619"><div class="ttname"><a href="classexamples_1_1moexamples_1_1tandem__mo.html#aace3ae9d7607ceab95180da983ee6619">examples.moexamples.tandem_mo.weight_bounds</a></div><div class="ttdeci">weight_bounds</div><div class="ttdef"><b>Definition</b> <a href="#l00072">moexamples.py:72</a></div></div>
+<div class="ttc" id="aclassexamples_1_1moexamples_1_1zdt1_html"><div class="ttname"><a href="classexamples_1_1moexamples_1_1zdt1.html">examples.moexamples.zdt1</a></div><div class="ttdef"><b>Definition</b> <a href="#l00083">moexamples.py:83</a></div></div>
+<div class="ttc" id="aclassexamples_1_1moexamples_1_1zdt1_html_a9a9c87ca31e4550f14b56938ffe925b8"><div class="ttname"><a href="classexamples_1_1moexamples_1_1zdt1.html#a9a9c87ca31e4550f14b56938ffe925b8">examples.moexamples.zdt1.fun</a></div><div class="ttdeci">fun</div><div class="ttdef"><b>Definition</b> <a href="#l00086">moexamples.py:86</a></div></div>
+<div class="ttc" id="aclassexamples_1_1moexamples_1_1zdt1_html_aac22d2604374b3ba9b344c0b67a52e80"><div class="ttname"><a href="classexamples_1_1moexamples_1_1zdt1.html#aac22d2604374b3ba9b344c0b67a52e80">examples.moexamples.zdt1.weight_bounds</a></div><div class="ttdeci">weight_bounds</div><div class="ttdef"><b>Definition</b> <a href="#l00088">moexamples.py:88</a></div></div>
+<div class="ttc" id="aclassexamples_1_1moexamples_1_1zdt1_html_aac2d76839129a0fdb5773c341f2c42aa"><div class="ttname"><a href="classexamples_1_1moexamples_1_1zdt1.html#aac2d76839129a0fdb5773c341f2c42aa">examples.moexamples.zdt1.bounds</a></div><div class="ttdeci">bounds</div><div class="ttdef"><b>Definition</b> <a href="#l00087">moexamples.py:87</a></div></div>
+<div class="ttc" id="aclassexamples_1_1moexamples_1_1zdt1_html_ad9e1b4d020b56c11b9b98a6016ca05be"><div class="ttname"><a href="classexamples_1_1moexamples_1_1zdt1.html#ad9e1b4d020b56c11b9b98a6016ca05be">examples.moexamples.zdt1.name</a></div><div class="ttdeci">str name</div><div class="ttdef"><b>Definition</b> <a href="#l00089">moexamples.py:89</a></div></div>
+<div class="ttc" id="aclassexamples_1_1moexamples_1_1zdt1_html_ae3d3f7a58a4898aa81ba42d29206f98c"><div class="ttname"><a href="classexamples_1_1moexamples_1_1zdt1.html#ae3d3f7a58a4898aa81ba42d29206f98c">examples.moexamples.zdt1.__init__</a></div><div class="ttdeci">__init__(self, dim)</div><div class="ttdef"><b>Definition</b> <a href="#l00085">moexamples.py:85</a></div></div>
+<div class="ttc" id="aclassfcmaes_1_1astro_1_1_cassini1_html"><div class="ttname"><a href="classfcmaes_1_1astro_1_1_cassini1.html">fcmaes.astro.Cassini1</a></div><div class="ttdoc">Cassini1 class that represents a specific astronomical function configuration.</div><div class="ttdef"><b>Definition</b> <a href="astro_8py_source.html#l00249">astro.py:249</a></div></div>
+<div class="ttc" id="aclassfcmaes_1_1astro_1_1_cassini2_html"><div class="ttname"><a href="classfcmaes_1_1astro_1_1_cassini2.html">fcmaes.astro.Cassini2</a></div><div class="ttdoc">Represents the Cassini2 optimization problem.</div><div class="ttdef"><b>Definition</b> <a href="astro_8py_source.html#l00279">astro.py:279</a></div></div>
+<div class="ttc" id="aclassfcmaes_1_1astro_1_1_tandem_html"><div class="ttname"><a href="classfcmaes_1_1astro_1_1_tandem.html">fcmaes.astro.Tandem</a></div><div class="ttdoc">Represents a Tandem configuration with specific bounds, sequences, and functionalities.</div><div class="ttdef"><b>Definition</b> <a href="astro_8py_source.html#l00407">astro.py:407</a></div></div>
+<div class="ttc" id="aclassfcmaes_1_1optimizer_1_1_bite__cpp_html"><div class="ttname"><a href="classfcmaes_1_1optimizer_1_1_bite__cpp.html">fcmaes.optimizer.Bite_cpp</a></div><div class="ttdef"><b>Definition</b> <a href="optimizer_8py_source.html#l02617">optimizer.py:2617</a></div></div>
+<div class="ttc" id="aclassfcmaes_1_1optimizer_1_1random__search_html"><div class="ttname"><a href="classfcmaes_1_1optimizer_1_1random__search.html">fcmaes.optimizer.random_search</a></div><div class="ttdoc">A class for performing optimization using a random search strategy.</div><div class="ttdef"><b>Definition</b> <a href="optimizer_8py_source.html#l02444">optimizer.py:2444</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1moexamples_html_a4053ac1d24b537d2435005c9f7be9ccd"><div class="ttname"><a href="namespaceexamples_1_1moexamples.html#a4053ac1d24b537d2435005c9f7be9ccd">examples.moexamples.nsgaII</a></div><div class="ttdeci">nsgaII(NObj, objective, pbounds, seed=None, NGEN=20000, MU=400, CXPB=0.9)</div><div class="ttdef"><b>Definition</b> <a href="#l00121">moexamples.py:121</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1moexamples_html_a4599740480fba54da22dd17058b73c76"><div class="ttname"><a href="namespaceexamples_1_1moexamples.html#a4599740480fba54da22dd17058b73c76">examples.moexamples.plot_all</a></div><div class="ttdeci">plot_all(folder, fname)</div><div class="ttdef"><b>Definition</b> <a href="#l00221">moexamples.py:221</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1moexamples_html_a565f7101212f4770069ca2b305bfb10f"><div class="ttname"><a href="namespaceexamples_1_1moexamples.html#a565f7101212f4770069ca2b305bfb10f">examples.moexamples.nsgaII_test</a></div><div class="ttdeci">nsgaII_test(problem, fname, NGEN=2000, MU=100, value_limits=None)</div><div class="ttdef"><b>Definition</b> <a href="#l00207">moexamples.py:207</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1moexamples_html_a566fc7b1e3a68cda7c9b396dda6ce003"><div class="ttname"><a href="namespaceexamples_1_1moexamples.html#a566fc7b1e3a68cda7c9b396dda6ce003">examples.moexamples.minimize_plot</a></div><div class="ttdeci">minimize_plot(problem, opt, name, exp=2.0, num_retries=1024, value_limits=None)</div><div class="ttdef"><b>Definition</b> <a href="#l00248">moexamples.py:248</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1moexamples_html_ac27d609cba5e248a69559de25efe9a26"><div class="ttname"><a href="namespaceexamples_1_1moexamples.html#ac27d609cba5e248a69559de25efe9a26">examples.moexamples.adv_minimize_plot</a></div><div class="ttdeci">adv_minimize_plot(problem, opt, name, value_limit=np.inf, num_retries=10240)</div><div class="ttdef"><b>Definition</b> <a href="#l00253">moexamples.py:253</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1moexamples_html_ac65511f1250e7d476d1dbefa6a1383d6"><div class="ttname"><a href="namespaceexamples_1_1moexamples.html#ac65511f1250e7d476d1dbefa6a1383d6">examples.moexamples.uniform</a></div><div class="ttdeci">uniform(bounds)</div><div class="ttdef"><b>Definition</b> <a href="#l00116">moexamples.py:116</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1moexamples_html_acab1d97a5dc64a2c9ab558c3638986e7"><div class="ttname"><a href="namespaceexamples_1_1moexamples.html#acab1d97a5dc64a2c9ab558c3638986e7">examples.moexamples.nsga_minimize_plot</a></div><div class="ttdeci">nsga_minimize_plot(problem, name, popsize=64, max_eval=100000, nobj=2)</div><div class="ttdef"><b>Definition</b> <a href="#l00244">moexamples.py:244</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1moexamples_html_aea4afb4ee1738276b6d3458681f545cf"><div class="ttname"><a href="namespaceexamples_1_1moexamples.html#aea4afb4ee1738276b6d3458681f545cf">examples.moexamples.decpp_minimize_plot</a></div><div class="ttdeci">decpp_minimize_plot(problem, name, popsize=64, max_eval=100000, nobj=2)</div><div class="ttdef"><b>Definition</b> <a href="#l00235">moexamples.py:235</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1moexamples_html_aea8fa426f342d5569c78b2f502d23d5d"><div class="ttname"><a href="namespaceexamples_1_1moexamples.html#aea8fa426f342d5569c78b2f502d23d5d">examples.moexamples.de_minimize_plot</a></div><div class="ttdeci">de_minimize_plot(problem, name, popsize=64, max_eval=100000, nobj=2)</div><div class="ttdef"><b>Definition</b> <a href="#l00240">moexamples.py:240</a></div></div>
+<div class="ttc" id="anamespacefcmaes_1_1astro_html"><div class="ttname"><a href="namespacefcmaes_1_1astro.html">fcmaes.astro</a></div><div class="ttdef"><b>Definition</b> <a href="astro_8py_source.html#l00001">astro.py:1</a></div></div>
+<div class="ttc" id="anamespacefcmaes_1_1optimizer_html"><div class="ttname"><a href="namespacefcmaes_1_1optimizer.html">fcmaes.optimizer</a></div><div class="ttdef"><b>Definition</b> <a href="optimizer_8py_source.html#l00001">optimizer.py:1</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d28a4824dc47e487b107a5db32ef43c4.html">examples</a></li><li class="navelem"><a class="el" href="moexamples_8py.html">moexamples.py</a></li>
+    <li class="footer">Generated on Tue Jun 24 2025 15:36:05 for Fast CMA-ES by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+  </ul>
+</div>
+</body>
+</html>

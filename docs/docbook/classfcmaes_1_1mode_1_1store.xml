@@ -1,0 +1,510 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_classfcmaes_1_1mode_1_1store" xml:lang="en-US">
+<title>fcmaes.mode.store Class Reference</title>
+<indexterm><primary>fcmaes.mode.store</primary></indexterm>
+<para>
+
+<para>Handles the management of shared data storage and processing for multi-objective optimization. </para>
+ 
+</para>
+Collaboration diagram for fcmaes.mode.store:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mode_1_1store__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Public Member Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1store_1ab639a5b34f36a616f38edbd188469b99">__init__</link> (self, <link linkend="_classfcmaes_1_1mode_1_1store_1abb90fc4232b181b4692c5418a37a5bd7">dim</link>, <link linkend="_classfcmaes_1_1mode_1_1store_1ad41dda52326d3c8dd58fa1ba06e4fe43">nobj</link>, <link linkend="_classfcmaes_1_1mode_1_1store_1a3e2c5ad682cc0020ea9ba7cd00a94a8f">capacity</link>=mp.cpu_count() *512)</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1store_1a34a1a949f5857ab3edfb6beb8fb8b563">create_views</link> (self)</para>
+
+<para>Creates views for the class&apos;s xs and ys attributes. </para>
+</listitem>
+            <listitem><para>np.ndarray <link linkend="_classfcmaes_1_1mode_1_1store_1ac474104fcfc6ca9dce6a873a95af0204">get_xs</link> (self)</para>
+
+<para>Returns a view of the xs ndarray. </para>
+</listitem>
+            <listitem><para>np.ndarray <link linkend="_classfcmaes_1_1mode_1_1store_1ae794481869c1d681838a181c6f1976fe">get_ys</link> (self)</para>
+
+<para>Returns a view of the <computeroutput>ys</computeroutput> attribute. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1store_1a215371084a0bff8b1368d27a91495fb5">add_result</link> (self, x, y)</para>
+
+<para>Adds a result to the storage, ensuring that the storage capacity is not exceeded. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1store_1aac282e295578d049a156da83056e25fe">add_results</link> (self, <link linkend="_classfcmaes_1_1mode_1_1store_1a1a19c7046d247df093c393bf640049b4">xs</link>, <link linkend="_classfcmaes_1_1mode_1_1store_1aebc7f2a3cbee661b34b92bc6948b7849">ys</link>)</para>
+
+<para>Adds the content of the provided <computeroutput>xs</computeroutput> and <computeroutput>ys</computeroutput> to the storage, while managing the storage capacity and ensuring proper synchronization. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1store_1a1f2b11c0242f454020e72bc15d12625d">get_front</link> (self, update=False)</para>
+
+<para>Retrieves the Pareto front from stored values of <computeroutput>xs_view</computeroutput> and <computeroutput>ys_view</computeroutput>. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1store_1a1ffd4596004d9c4a84a094883dccdbfa">get_content</link> (self)</para>
+
+<para>Retrieves and returns the stored content. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Public Attributes    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1store_1abb90fc4232b181b4692c5418a37a5bd7">dim</link> = dim</para>
+
+<para>Dimensionality of the input data. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1store_1ad41dda52326d3c8dd58fa1ba06e4fe43">nobj</link> = nobj</para>
+
+<para>Number of objectives for the optimization problem. </para>
+</listitem>
+            <listitem><para># give up <link linkend="_classfcmaes_1_1mode_1_1store_1a3e2c5ad682cc0020ea9ba7cd00a94a8f">capacity</link> = capacity</para>
+
+<para>Maximum capacity of the storage. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1store_1ae24305a686c275864dc54f1afb29d8c1">add_mutex</link> = mp.Lock()</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1store_1a1a19c7046d247df093c393bf640049b4">xs</link> = <link linkend="_classfcmaes_1_1retry_1_1_shared2d">Shared2d</link>(np.empty((self.capacity, self.dim), dtype = np.float64))</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1store_1aebc7f2a3cbee661b34b92bc6948b7849">ys</link> = <link linkend="_classfcmaes_1_1retry_1_1_shared2d">Shared2d</link>(np.empty((self.capacity, self.nobj), dtype = np.float64))</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1store_1a55c223142d2113cb824124744d2926e8">num_stored</link> = mp.RawValue(ct.c_int, 0)</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1store_1ac4b4da5b1175f8134ee6555ceb37d183">num_added</link> = mp.RawValue(ct.c_int, 0)</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1store_1a96139a4d610eaf0d6814eba5f3dc6fc5">xs_view</link> = self.xs.view()</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1store_1a270a1beccd7fe26e44d5d727fc484f0f">ys_view</link> = self.ys.view()</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>Handles the management of shared data storage and processing for multi-objective optimization. </para>
+
+
+
+<para>This class facilitates the storage and processing of results for multi-objective optimization problems using shared memory objects to support multiprocessing. It includes functionality for adding new results, managing capacity, and extracting Pareto fronts. </para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00183">183</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<section>
+<title>Constructor &amp; Destructor Documentation</title>
+<anchor xml:id="_classfcmaes_1_1mode_1_1store_1ab639a5b34f36a616f38edbd188469b99"/><section>
+    <title>__init__()</title>
+<indexterm><primary>__init__</primary><secondary>fcmaes.mode.store</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.store</primary><secondary>__init__</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.store.__init__ ( self,  dim,  nobj,  capacity = <computeroutput>mp.cpu_count()*512</computeroutput>
+)</computeroutput></para><para>
+Definition at line <link linkend="_mode_8py_source_1l00216">216</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Function Documentation</title>
+<anchor xml:id="_classfcmaes_1_1mode_1_1store_1a215371084a0bff8b1368d27a91495fb5"/><section>
+    <title>add_result()</title>
+<indexterm><primary>add_result</primary><secondary>fcmaes.mode.store</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.store</primary><secondary>add_result</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.store.add_result ( self,  x,  y)</computeroutput></para><para>
+
+<para>Adds a result to the storage, ensuring that the storage capacity is not exceeded. </para>
+</para>
+
+<para>If the storage reaches its capacity, it performs truncation and stores the new values accordingly.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>x</entry><entry>
+<para>The input data point to be added. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>y</entry><entry>
+<para>The corresponding result or label associated with <computeroutput>x</computeroutput>. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00276">276</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mode_1_1store_a215371084a0bff8b1368d27a91495fb5_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1store_1aac282e295578d049a156da83056e25fe"/><section>
+    <title>add_results()</title>
+<indexterm><primary>add_results</primary><secondary>fcmaes.mode.store</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.store</primary><secondary>add_results</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.store.add_results ( self,  xs,  ys)</computeroutput></para><para>
+
+<para>Adds the content of the provided <computeroutput>xs</computeroutput> and <computeroutput>ys</computeroutput> to the storage, while managing the storage capacity and ensuring proper synchronization. </para>
+</para>
+
+<para>If the storage exceeds 90% of its capacity during the operation, the addition process will terminate early to avoid overfilling. The addition process is thread-safe due to <computeroutput>add_mutex</computeroutput>.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>xs</entry><entry>
+<para>A sequence containing the elements to be added to the storage. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>ys</entry><entry>
+<para>A sequence of sequences, where each sub-sequence represents corresponding entries to <computeroutput>xs</computeroutput> and is truncated to the first <computeroutput>nobj</computeroutput> elements during storage. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00303">303</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mode_1_1store_aac282e295578d049a156da83056e25fe_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1store_1a34a1a949f5857ab3edfb6beb8fb8b563"/><section>
+    <title>create_views()</title>
+<indexterm><primary>create_views</primary><secondary>fcmaes.mode.store</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.store</primary><secondary>create_views</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.store.create_views ( self)</computeroutput></para><para>
+
+<para>Creates views for the class&apos;s xs and ys attributes. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method generates views for the xs and ys attributes, which should
+   be initialized prior to calling this function. It ensures the views are
+   references to the existing data rather than independent copies.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>None</entry><entry></entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>None </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00240">240</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1store_1a1ffd4596004d9c4a84a094883dccdbfa"/><section>
+    <title>get_content()</title>
+<indexterm><primary>get_content</primary><secondary>fcmaes.mode.store</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.store</primary><secondary>get_content</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.store.get_content ( self)</computeroutput></para><para>
+
+<para>Retrieves and returns the stored content. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method accesses the current amount of stored data and retrieves
+   the corresponding portions of `xs_view` and `ys_view` based on
+   the stored count.
+</computeroutput></literallayout></para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>tuple A tuple containing two arrays or lists. The first element is the portion of <computeroutput>xs_view</computeroutput> up to the stored count, and the second element is the portion of <computeroutput>ys_view</computeroutput> up to the stored count. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00356">356</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1store_1a1f2b11c0242f454020e72bc15d12625d"/><section>
+    <title>get_front()</title>
+<indexterm><primary>get_front</primary><secondary>fcmaes.mode.store</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.store</primary><secondary>get_front</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.store.get_front ( self,  update = <computeroutput>False</computeroutput>
+)</computeroutput></para><para>
+
+<para>Retrieves the Pareto front from stored values of <computeroutput>xs_view</computeroutput> and <computeroutput>ys_view</computeroutput>. </para>
+</para>
+
+<para>Optionally, updates the values in-place if <computeroutput>update</computeroutput> is set to True.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>update</entry><entry>
+<para>Determines whether the current views and stored count are updated with the Pareto front values.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>tuple Contains two elements <computeroutput>(xf, yf)</computeroutput> where: <computeroutput>xf</computeroutput> - The x-coordinates of the Pareto front. <computeroutput>yf</computeroutput> - The y-coordinates of the Pareto front. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00332">332</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mode_1_1store_a1f2b11c0242f454020e72bc15d12625d_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1store_1ac474104fcfc6ca9dce6a873a95af0204"/><section>
+    <title>get_xs()</title>
+<indexterm><primary>get_xs</primary><secondary>fcmaes.mode.store</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.store</primary><secondary>get_xs</secondary></indexterm>
+<para><computeroutput> np.ndarray fcmaes.mode.store.get_xs ( self)</computeroutput></para><para>
+
+<para>Returns a view of the xs ndarray. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method provides a view of the internal numpy array `xs`, allowing
+   users to access the data without creating a copy.
+</computeroutput></literallayout></para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>np A view of the <computeroutput>xs</computeroutput> numpy array. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00253">253</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1store_1ae794481869c1d681838a181c6f1976fe"/><section>
+    <title>get_ys()</title>
+<indexterm><primary>get_ys</primary><secondary>fcmaes.mode.store</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.store</primary><secondary>get_ys</secondary></indexterm>
+<para><computeroutput> np.ndarray fcmaes.mode.store.get_ys ( self)</computeroutput></para><para>
+
+<para>Returns a view of the <computeroutput>ys</computeroutput> attribute. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method provides a view of the `ys` NumPy array, allowing the caller to
+   access the same data without creating a copy.
+</computeroutput></literallayout></para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>np A view of the <computeroutput>ys</computeroutput> NumPy array. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00265">265</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mode_1_1store_ae794481869c1d681838a181c6f1976fe_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+<section>
+<title>Member Data Documentation</title>
+<anchor xml:id="_classfcmaes_1_1mode_1_1store_1ae24305a686c275864dc54f1afb29d8c1"/><section>
+    <title>add_mutex</title>
+<indexterm><primary>add_mutex</primary><secondary>fcmaes.mode.store</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.store</primary><secondary>add_mutex</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.store.add_mutex = mp.Lock()</computeroutput></para><para>
+Definition at line <link linkend="_mode_8py_source_1l00220">220</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1store_1a3e2c5ad682cc0020ea9ba7cd00a94a8f"/><section>
+    <title>capacity</title>
+<indexterm><primary>capacity</primary><secondary>fcmaes.mode.store</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.store</primary><secondary>capacity</secondary></indexterm>
+<para><computeroutput># give up fcmaes.mode.store.capacity = capacity</computeroutput></para><para>
+
+<para>Maximum capacity of the storage. </para>
+</para>
+
+<para>Total initial storage capacity. </para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00219">219</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1store_1abb90fc4232b181b4692c5418a37a5bd7"/><section>
+    <title>dim</title>
+<indexterm><primary>dim</primary><secondary>fcmaes.mode.store</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.store</primary><secondary>dim</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.store.dim = dim</computeroutput></para><para>
+
+<para>Dimensionality of the input data. </para>
+</para>
+
+<para>Initializes an instance of the class with provided dimensions and objects.</para>
+
+<para><literallayout><computeroutput>   The constructor sets up shared memory buffers for storing data (`xs` and `ys`)
+   and initializes synchronization mechanisms and counters to effectively handle
+   data storage and retrieval.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>dim</entry><entry>
+<para>Number of dimensions for each data point. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>nobj</entry><entry>
+<para>Number of objectives for each data point. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>capacity</entry><entry>
+<para>Total initial storage capacity. Defaults to the number of CPU cores multiplied by 512.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                Number of dimensions for each data point. </para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00217">217</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1store_1ad41dda52326d3c8dd58fa1ba06e4fe43"/><section>
+    <title>nobj</title>
+<indexterm><primary>nobj</primary><secondary>fcmaes.mode.store</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.store</primary><secondary>nobj</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.store.nobj = nobj</computeroutput></para><para>
+
+<para>Number of objectives for the optimization problem. </para>
+</para>
+
+<para>Number of objectives for each data point. </para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00218">218</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1store_1ac4b4da5b1175f8134ee6555ceb37d183"/><section>
+    <title>num_added</title>
+<indexterm><primary>num_added</primary><secondary>fcmaes.mode.store</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.store</primary><secondary>num_added</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.store.num_added = mp.RawValue(ct.c_int, 0)</computeroutput></para><para>
+Definition at line <link linkend="_mode_8py_source_1l00225">225</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1store_1a55c223142d2113cb824124744d2926e8"/><section>
+    <title>num_stored</title>
+<indexterm><primary>num_stored</primary><secondary>fcmaes.mode.store</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.store</primary><secondary>num_stored</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.store.num_stored = mp.RawValue(ct.c_int, 0)</computeroutput></para><para>
+Definition at line <link linkend="_mode_8py_source_1l00224">224</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1store_1a1a19c7046d247df093c393bf640049b4"/><section>
+    <title>xs</title>
+<indexterm><primary>xs</primary><secondary>fcmaes.mode.store</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.store</primary><secondary>xs</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.store.xs = <link linkend="_classfcmaes_1_1retry_1_1_shared2d">Shared2d</link>(np.empty((self.capacity, self.dim), dtype = np.float64))</computeroutput></para><para>
+Definition at line <link linkend="_mode_8py_source_1l00221">221</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1store_1a96139a4d610eaf0d6814eba5f3dc6fc5"/><section>
+    <title>xs_view</title>
+<indexterm><primary>xs_view</primary><secondary>fcmaes.mode.store</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.store</primary><secondary>xs_view</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.store.xs_view = self.xs.view()</computeroutput></para><para>
+Definition at line <link linkend="_mode_8py_source_1l00241">241</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1store_1aebc7f2a3cbee661b34b92bc6948b7849"/><section>
+    <title>ys</title>
+<indexterm><primary>ys</primary><secondary>fcmaes.mode.store</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.store</primary><secondary>ys</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.store.ys = <link linkend="_classfcmaes_1_1retry_1_1_shared2d">Shared2d</link>(np.empty((self.capacity, self.nobj), dtype = np.float64))</computeroutput></para><para>
+Definition at line <link linkend="_mode_8py_source_1l00222">222</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1store_1a270a1beccd7fe26e44d5d727fc484f0f"/><section>
+    <title>ys_view</title>
+<indexterm><primary>ys_view</primary><secondary>fcmaes.mode.store</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.store</primary><secondary>ys_view</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.store.ys_view = self.ys.view()</computeroutput></para><para>
+Definition at line <link linkend="_mode_8py_source_1l00242">242</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<para>
+The documentation for this class was generated from the following file:</para>
+fcmaes/<link linkend="_mode_8py">mode.py</link></section>
+</section>

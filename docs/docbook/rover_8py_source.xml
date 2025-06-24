@@ -1,0 +1,613 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_rover_8py_source" xml:lang="en-US">
+<title>rover.py</title>
+<indexterm><primary>examples/rover.py</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_rover_8py_source_1l00001"/><link linkend="_namespaceexamples_1_1rover">00001</link> <emphasis role="comment">#&#32;Adapted&#32;from&#32;https://github.com/zi-w/Ensemble-Bayesian-Optimization/tree/master/test_functions</emphasis>
+<anchor xml:id="_rover_8py_source_1l00002"/>00002 <emphasis role="comment">#&#32;See&#32;https://arxiv.org/pdf/1706.01445.pdf</emphasis>
+<anchor xml:id="_rover_8py_source_1l00003"/>00003 <emphasis role="comment">#&#32;See&#32;https://github.com/dietmarwo/fast-cma-es/blob/master/tutorials/RobotRover.adoc&#32;for&#32;a&#32;detailed&#32;description.</emphasis>
+<anchor xml:id="_rover_8py_source_1l00004"/>00004 
+<anchor xml:id="_rover_8py_source_1l00005"/>00005 <emphasis role="comment">#&#32;Tested&#32;using&#32;https://docs.conda.io/en/main/miniconda.html&#32;on&#32;Linux&#32;Mint&#32;21.2</emphasis>
+<anchor xml:id="_rover_8py_source_1l00006"/>00006 
+<anchor xml:id="_rover_8py_source_1l00007"/>00007 <emphasis role="keyword">import</emphasis>&#32;numpy&#32;<emphasis role="keyword">as</emphasis>&#32;np
+<anchor xml:id="_rover_8py_source_1l00008"/>00008 <emphasis role="keyword">import</emphasis>&#32;scipy.interpolate&#32;<emphasis role="keyword">as</emphasis>&#32;si
+<anchor xml:id="_rover_8py_source_1l00009"/>00009 
+<anchor xml:id="_rover_8py_source_1l00010"/>00010 <emphasis role="keyword">import</emphasis>&#32;sys&#32;
+<anchor xml:id="_rover_8py_source_1l00011"/>00011 <emphasis role="keyword">from</emphasis>&#32;loguru&#32;<emphasis role="keyword">import</emphasis>&#32;logger
+<anchor xml:id="_rover_8py_source_1l00012"/>00012 
+<anchor xml:id="_rover_8py_source_1l00013"/>00013 logger.remove()
+<anchor xml:id="_rover_8py_source_1l00014"/><link linkend="_namespaceexamples_1_1rover_1afd261f0f2f987b14a9bd407644a3cc76">00014</link> logger.add(sys.stdout,&#32;format=<emphasis role="stringliteral">&quot;{time:HH:mm:ss.SS}&#32;|&#32;{process}&#32;|&#32;{level}&#32;|&#32;{message}&quot;</emphasis>,&#32;level=<emphasis role="stringliteral">&quot;INFO&quot;</emphasis>)
+<anchor xml:id="_rover_8py_source_1l00015"/>00015 logger.add(<emphasis role="stringliteral">&quot;log_{time}.txt&quot;</emphasis>,&#32;format=<emphasis role="stringliteral">&quot;{time:HH:mm:ss.SS}&#32;|&#32;{process}&#32;|&#32;{level}&#32;|&#32;{message}&quot;</emphasis>,&#32;level=<emphasis role="stringliteral">&quot;INFO&quot;</emphasis>)
+<anchor xml:id="_rover_8py_source_1l00016"/>00016 
+<anchor xml:id="_rover_8py_source_1l00017"/><link linkend="_classexamples_1_1rover_1_1_trajectory">00017</link> <emphasis role="keyword">class&#32;</emphasis><link linkend="_classexamples_1_1rover_1_1_trajectory">Trajectory</link>:
+<anchor xml:id="_rover_8py_source_1l00018"/>00018 
+<anchor xml:id="_rover_8py_source_1l00019"/><link linkend="_classexamples_1_1rover_1_1_trajectory_1a716f6c9780fb49ec245fba98b5e7ced7">00019</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1rover_1_1_trajectory_1a716f6c9780fb49ec245fba98b5e7ced7">__init__</link>(self):
+<anchor xml:id="_rover_8py_source_1l00020"/>00020 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">pass</emphasis>
+<anchor xml:id="_rover_8py_source_1l00021"/>00021 
+<anchor xml:id="_rover_8py_source_1l00022"/><link linkend="_classexamples_1_1rover_1_1_trajectory_1a599041aa0cfc739a83362487794d363c">00022</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1rover_1_1_trajectory_1a599041aa0cfc739a83362487794d363c">set_params</link>(self,&#32;start,&#32;goal,&#32;params):
+<anchor xml:id="_rover_8py_source_1l00023"/>00023 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">raise</emphasis>&#32;NotImplemented
+<anchor xml:id="_rover_8py_source_1l00024"/>00024 
+<anchor xml:id="_rover_8py_source_1l00025"/><link linkend="_classexamples_1_1rover_1_1_trajectory_1a414d3f091728648d91f9783494c8d6a9">00025</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1rover_1_1_trajectory_1a414d3f091728648d91f9783494c8d6a9">get_points</link>(self,&#32;t):
+<anchor xml:id="_rover_8py_source_1l00026"/>00026 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">raise</emphasis>&#32;NotImplemented
+<anchor xml:id="_rover_8py_source_1l00027"/>00027 
+<anchor xml:id="_rover_8py_source_1l00028"/>00028 &#32;&#32;&#32;&#32;<emphasis role="preprocessor">@property</emphasis>
+<anchor xml:id="_rover_8py_source_1l00029"/><link linkend="_classexamples_1_1rover_1_1_trajectory_1a47a778dbc3e032c49c2a981a37c4fb30">00029</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1rover_1_1_trajectory_1a47a778dbc3e032c49c2a981a37c4fb30">param_size</link>(self):
+<anchor xml:id="_rover_8py_source_1l00030"/>00030 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">raise</emphasis>&#32;NotImplemented
+<anchor xml:id="_rover_8py_source_1l00031"/><link linkend="_classexamples_1_1rover_1_1_trajectory_1a597aeae68f75047a2b31b485199effcc">00031</link> 
+<anchor xml:id="_rover_8py_source_1l00032"/>00032 
+<anchor xml:id="_rover_8py_source_1l00033"/>00033 <emphasis role="keyword">class&#32;</emphasis><link linkend="_classexamples_1_1rover_1_1_point_b_spline">PointBSpline</link>(<link linkend="_classexamples_1_1rover_1_1_trajectory">Trajectory</link>):
+<anchor xml:id="_rover_8py_source_1l00034"/>00034 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_rover_8py_source_1l00035"/>00035 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;dim&#32;:&#32;number&#32;of&#32;dimensions&#32;of&#32;the&#32;state&#32;space</emphasis>
+<anchor xml:id="_rover_8py_source_1l00036"/>00036 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;num_points&#32;:&#32;number&#32;of&#32;internal&#32;points&#32;used&#32;to&#32;represent&#32;the&#32;trajectory.</emphasis>
+<anchor xml:id="_rover_8py_source_1l00037"/>00037 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Note,&#32;internal&#32;points&#32;are&#32;not&#32;necessarily&#32;on&#32;the&#32;trajectory.</emphasis>
+<anchor xml:id="_rover_8py_source_1l00038"/>00038 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_rover_8py_source_1l00039"/>00039 
+<anchor xml:id="_rover_8py_source_1l00040"/><link linkend="_classexamples_1_1rover_1_1_point_b_spline">00040</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1rover_1_1_point_b_spline_1adbbedb28344ce819672c40009723ca29">__init__</link>(self,&#32;dim,&#32;num_points):
+<anchor xml:id="_rover_8py_source_1l00041"/>00041 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1rover_1_1_point_b_spline_1a09e55ae544de814c7f8d3336f01fdb0e">tck</link>&#32;=&#32;<emphasis role="keywordtype">None</emphasis>
+<anchor xml:id="_rover_8py_source_1l00042"/><link linkend="_classexamples_1_1rover_1_1_point_b_spline_1adbbedb28344ce819672c40009723ca29">00042</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1rover_1_1_point_b_spline_1a725daa8d759ab3fc43d40f4221335074">d</link>&#32;=&#32;dim
+<anchor xml:id="_rover_8py_source_1l00043"/><link linkend="_classexamples_1_1rover_1_1_point_b_spline_1a09e55ae544de814c7f8d3336f01fdb0e">00043</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1rover_1_1_point_b_spline_1afafeb955c14ba2f44d50f2a089d07d44">npoints</link>&#32;=&#32;num_points
+<anchor xml:id="_rover_8py_source_1l00044"/><link linkend="_classexamples_1_1rover_1_1_point_b_spline_1a725daa8d759ab3fc43d40f4221335074">00044</link> 
+<anchor xml:id="_rover_8py_source_1l00045"/><link linkend="_classexamples_1_1rover_1_1_point_b_spline_1afafeb955c14ba2f44d50f2a089d07d44">00045</link> &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_rover_8py_source_1l00046"/>00046 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Set&#32;fit&#32;the&#32;parameters&#32;of&#32;the&#32;spline&#32;from&#32;a&#32;set&#32;of&#32;points.&#32;If&#32;values&#32;are&#32;given&#32;for&#32;start&#32;or&#32;goal,</emphasis>
+<anchor xml:id="_rover_8py_source_1l00047"/>00047 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;the&#32;start&#32;or&#32;endpoint&#32;of&#32;the&#32;trajectory&#32;will&#32;be&#32;forces&#32;on&#32;those&#32;points,&#32;respectively.</emphasis>
+<anchor xml:id="_rover_8py_source_1l00048"/>00048 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_rover_8py_source_1l00049"/>00049 
+<anchor xml:id="_rover_8py_source_1l00050"/>00050 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1rover_1_1_point_b_spline_1ace33159f5979622fd5dd8ed23ebe3cab">set_params</link>(self,&#32;params,&#32;start=None,&#32;goal=None):
+<anchor xml:id="_rover_8py_source_1l00051"/>00051 
+<anchor xml:id="_rover_8py_source_1l00052"/><link linkend="_classexamples_1_1rover_1_1_point_b_spline_1ace33159f5979622fd5dd8ed23ebe3cab">00052</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;points&#32;=&#32;params.reshape((-1,&#32;self.<link linkend="_classexamples_1_1rover_1_1_point_b_spline_1a725daa8d759ab3fc43d40f4221335074">d</link>)).T
+<anchor xml:id="_rover_8py_source_1l00053"/>00053 
+<anchor xml:id="_rover_8py_source_1l00054"/>00054 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;start&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordflow">not</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>:
+<anchor xml:id="_rover_8py_source_1l00055"/>00055 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;points&#32;=&#32;np.hstack((start[:,&#32;<emphasis role="keywordtype">None</emphasis>],&#32;points))
+<anchor xml:id="_rover_8py_source_1l00056"/>00056 
+<anchor xml:id="_rover_8py_source_1l00057"/>00057 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;goal&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordflow">not</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>:
+<anchor xml:id="_rover_8py_source_1l00058"/>00058 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;points&#32;=&#32;np.hstack((points,&#32;goal[:,&#32;<emphasis role="keywordtype">None</emphasis>]))
+<anchor xml:id="_rover_8py_source_1l00059"/>00059 
+<anchor xml:id="_rover_8py_source_1l00060"/>00060 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1rover_1_1_point_b_spline_1a09e55ae544de814c7f8d3336f01fdb0e">tck</link>,&#32;u&#32;=&#32;si.splprep(points,&#32;k=3)
+<anchor xml:id="_rover_8py_source_1l00061"/>00061 
+<anchor xml:id="_rover_8py_source_1l00062"/>00062 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;start&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordflow">not</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>:
+<anchor xml:id="_rover_8py_source_1l00063"/>00063 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;a,&#32;sv&#32;<emphasis role="keywordflow">in</emphasis>&#32;zip(self.<link linkend="_classexamples_1_1rover_1_1_point_b_spline_1a09e55ae544de814c7f8d3336f01fdb0e">tck</link>[1],&#32;start):
+<anchor xml:id="_rover_8py_source_1l00064"/>00064 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;a[0]&#32;=&#32;sv
+<anchor xml:id="_rover_8py_source_1l00065"/>00065 
+<anchor xml:id="_rover_8py_source_1l00066"/>00066 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;goal&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordflow">not</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>:
+<anchor xml:id="_rover_8py_source_1l00067"/>00067 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;a,&#32;gv&#32;<emphasis role="keywordflow">in</emphasis>&#32;zip(self.<link linkend="_classexamples_1_1rover_1_1_point_b_spline_1a09e55ae544de814c7f8d3336f01fdb0e">tck</link>[1],&#32;goal):
+<anchor xml:id="_rover_8py_source_1l00068"/>00068 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;a[-1]&#32;=&#32;gv
+<anchor xml:id="_rover_8py_source_1l00069"/>00069 
+<anchor xml:id="_rover_8py_source_1l00070"/>00070 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1rover_1_1_point_b_spline_1a71851a1b64fad26272d8d039eb9951f7">get_points</link>(self,&#32;t):
+<anchor xml:id="_rover_8py_source_1l00071"/>00071 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">assert</emphasis>&#32;self.<link linkend="_classexamples_1_1rover_1_1_point_b_spline_1a09e55ae544de814c7f8d3336f01fdb0e">tck</link>&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordflow">not</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>,&#32;<emphasis role="stringliteral">&quot;Parameters&#32;have&#32;to&#32;be&#32;set&#32;with&#32;set_params()&#32;before&#32;points&#32;can&#32;be&#32;queried.&quot;</emphasis>
+<anchor xml:id="_rover_8py_source_1l00072"/><link linkend="_classexamples_1_1rover_1_1_point_b_spline_1a71851a1b64fad26272d8d039eb9951f7">00072</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;np.vstack(si.splev(t,&#32;self.<link linkend="_classexamples_1_1rover_1_1_point_b_spline_1a09e55ae544de814c7f8d3336f01fdb0e">tck</link>)).T
+<anchor xml:id="_rover_8py_source_1l00073"/>00073 
+<anchor xml:id="_rover_8py_source_1l00074"/>00074 &#32;&#32;&#32;&#32;<emphasis role="preprocessor">@property</emphasis>
+<anchor xml:id="_rover_8py_source_1l00075"/>00075 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1rover_1_1_point_b_spline_1a5e61be4384410f60da557be42ec8a7ce">param_size</link>(self):
+<anchor xml:id="_rover_8py_source_1l00076"/>00076 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;self.<link linkend="_classexamples_1_1rover_1_1_point_b_spline_1a725daa8d759ab3fc43d40f4221335074">d</link>&#32;*&#32;self.<link linkend="_classexamples_1_1rover_1_1_point_b_spline_1afafeb955c14ba2f44d50f2a089d07d44">npoints</link>
+<anchor xml:id="_rover_8py_source_1l00077"/><link linkend="_classexamples_1_1rover_1_1_point_b_spline_1a5e61be4384410f60da557be42ec8a7ce">00077</link> 
+<anchor xml:id="_rover_8py_source_1l00078"/>00078 
+<anchor xml:id="_rover_8py_source_1l00079"/><link linkend="_classexamples_1_1rover_1_1_point_b_spline_1abe8e49ded9a98949bf77a4c974e10b71">00079</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1rover_1a8207a32f0c02058548e9e200378ec732">simple_rbf</link>(x,&#32;point):
+<anchor xml:id="_rover_8py_source_1l00080"/>00080 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;(1&#32;-&#32;np.exp(-np.sum(((x&#32;-&#32;point)&#32;/&#32;0.25)&#32;**&#32;2)))
+<anchor xml:id="_rover_8py_source_1l00081"/>00081 
+<anchor xml:id="_rover_8py_source_1l00082"/>00082 
+<anchor xml:id="_rover_8py_source_1l00083"/><link linkend="_namespaceexamples_1_1rover_1a8207a32f0c02058548e9e200378ec732">00083</link> <emphasis role="keyword">class&#32;</emphasis><link linkend="_classexamples_1_1rover_1_1_rover_domain">RoverDomain</link>:
+<anchor xml:id="_rover_8py_source_1l00084"/>00084 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_rover_8py_source_1l00085"/>00085 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Rover&#32;domain&#32;defined&#32;on&#32;R^d</emphasis>
+<anchor xml:id="_rover_8py_source_1l00086"/>00086 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;cost_fn&#32;:&#32;vectorized&#32;function&#32;giving&#32;a&#32;scalar&#32;cost&#32;to&#32;states</emphasis>
+<anchor xml:id="_rover_8py_source_1l00087"/>00087 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;start&#32;:&#32;a&#32;start&#32;state&#32;for&#32;the&#32;rover</emphasis>
+<anchor xml:id="_rover_8py_source_1l00088"/>00088 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;goal&#32;:&#32;a&#32;goal&#32;state</emphasis>
+<anchor xml:id="_rover_8py_source_1l00089"/>00089 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;traj&#32;:&#32;a&#32;parameterized&#32;trajectory&#32;object&#32;offering&#32;an&#32;interface</emphasis>
+<anchor xml:id="_rover_8py_source_1l00090"/>00090 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;to&#32;interpolate&#32;point&#32;on&#32;the&#32;trajectory</emphasis>
+<anchor xml:id="_rover_8py_source_1l00091"/>00091 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;s_range&#32;:&#32;the&#32;min&#32;and&#32;max&#32;of&#32;the&#32;state&#32;with&#32;s_range[0]&#32;in&#32;R^d&#32;are</emphasis>
+<anchor xml:id="_rover_8py_source_1l00092"/>00092 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;the&#32;mins&#32;and&#32;s_range[1]&#32;in&#32;R^d&#32;are&#32;the&#32;maxs</emphasis>
+<anchor xml:id="_rover_8py_source_1l00093"/>00093 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_rover_8py_source_1l00094"/>00094 
+<anchor xml:id="_rover_8py_source_1l00095"/>00095 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis>__init__(self,&#32;cost_fn,
+<anchor xml:id="_rover_8py_source_1l00096"/>00096 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;start,
+<anchor xml:id="_rover_8py_source_1l00097"/><link linkend="_classexamples_1_1rover_1_1_rover_domain">00097</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;goal,
+<anchor xml:id="_rover_8py_source_1l00098"/>00098 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;traj,
+<anchor xml:id="_rover_8py_source_1l00099"/><link linkend="_classexamples_1_1rover_1_1_rover_domain_1a708409d5253e1583b7a15ee02607000b">00099</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;s_range,
+<anchor xml:id="_rover_8py_source_1l00100"/>00100 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;start_miss_cost=None,
+<anchor xml:id="_rover_8py_source_1l00101"/>00101 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;goal_miss_cost=None,
+<anchor xml:id="_rover_8py_source_1l00102"/>00102 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;force_start=True,
+<anchor xml:id="_rover_8py_source_1l00103"/>00103 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;force_goal=True,
+<anchor xml:id="_rover_8py_source_1l00104"/>00104 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;only_add_start_goal=True,
+<anchor xml:id="_rover_8py_source_1l00105"/>00105 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;rnd_stream=None):
+<anchor xml:id="_rover_8py_source_1l00106"/>00106 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1rover_1_1_rover_domain_1a4273b36f984eca0947e3dd30a5aed567">cost_fn</link>&#32;=&#32;cost_fn
+<anchor xml:id="_rover_8py_source_1l00107"/>00107 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1rover_1_1_rover_domain_1a0efff7e14ded474c7f2eaa3ebb0639f0">start</link>&#32;=&#32;start
+<anchor xml:id="_rover_8py_source_1l00108"/>00108 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1rover_1_1_rover_domain_1a683a9449fa09963fbb599693541ef8fe">goal</link>&#32;=&#32;goal
+<anchor xml:id="_rover_8py_source_1l00109"/>00109 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1rover_1_1_rover_domain_1a3f47d31af70741772fbf534325f4f22b">traj</link>&#32;=&#32;traj
+<anchor xml:id="_rover_8py_source_1l00110"/><link linkend="_classexamples_1_1rover_1_1_rover_domain_1a4273b36f984eca0947e3dd30a5aed567">00110</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1rover_1_1_rover_domain_1a30f9c349d650f55227a1394d63e593bd">s_range</link>&#32;=&#32;s_range
+<anchor xml:id="_rover_8py_source_1l00111"/><link linkend="_classexamples_1_1rover_1_1_rover_domain_1a0efff7e14ded474c7f2eaa3ebb0639f0">00111</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1rover_1_1_rover_domain_1afea7a0b011174acdae795cbdb94a34db">rnd_stream</link>&#32;=&#32;rnd_stream
+<anchor xml:id="_rover_8py_source_1l00112"/><link linkend="_classexamples_1_1rover_1_1_rover_domain_1a683a9449fa09963fbb599693541ef8fe">00112</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1rover_1_1_rover_domain_1a6f324c41f28bbbab3459637559a1570f">force_start</link>&#32;=&#32;force_start
+<anchor xml:id="_rover_8py_source_1l00113"/><link linkend="_classexamples_1_1rover_1_1_rover_domain_1a3f47d31af70741772fbf534325f4f22b">00113</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1rover_1_1_rover_domain_1a725a4b212e8ad88824e0f5a9007a99b7">force_goal</link>&#32;=&#32;force_goal
+<anchor xml:id="_rover_8py_source_1l00114"/><link linkend="_classexamples_1_1rover_1_1_rover_domain_1a30f9c349d650f55227a1394d63e593bd">00114</link> 
+<anchor xml:id="_rover_8py_source_1l00115"/><link linkend="_classexamples_1_1rover_1_1_rover_domain_1afea7a0b011174acdae795cbdb94a34db">00115</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1rover_1_1_rover_domain_1a3fd96c704ab7629386af25b022d00cad">goal_miss_cost</link>&#32;=&#32;goal_miss_cost
+<anchor xml:id="_rover_8py_source_1l00116"/><link linkend="_classexamples_1_1rover_1_1_rover_domain_1a6f324c41f28bbbab3459637559a1570f">00116</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1rover_1_1_rover_domain_1aa6f1212184c2576ce9cf6c0adbda8f9c">start_miss_cost</link>&#32;=&#32;start_miss_cost
+<anchor xml:id="_rover_8py_source_1l00117"/><link linkend="_classexamples_1_1rover_1_1_rover_domain_1a725a4b212e8ad88824e0f5a9007a99b7">00117</link> 
+<anchor xml:id="_rover_8py_source_1l00118"/>00118 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;self.<link linkend="_classexamples_1_1rover_1_1_rover_domain_1aa6f1212184c2576ce9cf6c0adbda8f9c">start_miss_cost</link>&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>:
+<anchor xml:id="_rover_8py_source_1l00119"/><link linkend="_classexamples_1_1rover_1_1_rover_domain_1a3fd96c704ab7629386af25b022d00cad">00119</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1rover_1_1_rover_domain_1aa6f1212184c2576ce9cf6c0adbda8f9c">start_miss_cost</link>&#32;=&#32;simple_rbf
+<anchor xml:id="_rover_8py_source_1l00120"/><link linkend="_classexamples_1_1rover_1_1_rover_domain_1aa6f1212184c2576ce9cf6c0adbda8f9c">00120</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;self.<link linkend="_classexamples_1_1rover_1_1_rover_domain_1a3fd96c704ab7629386af25b022d00cad">goal_miss_cost</link>&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>:
+<anchor xml:id="_rover_8py_source_1l00121"/>00121 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1rover_1_1_rover_domain_1a3fd96c704ab7629386af25b022d00cad">goal_miss_cost</link>&#32;=&#32;simple_rbf
+<anchor xml:id="_rover_8py_source_1l00122"/>00122 
+<anchor xml:id="_rover_8py_source_1l00123"/>00123 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;self.<link linkend="_classexamples_1_1rover_1_1_rover_domain_1afea7a0b011174acdae795cbdb94a34db">rnd_stream</link>&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>:
+<anchor xml:id="_rover_8py_source_1l00124"/>00124 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1rover_1_1_rover_domain_1afea7a0b011174acdae795cbdb94a34db">rnd_stream</link>&#32;=&#32;np.random.RandomState(np.random.randint(0,&#32;2&#32;**&#32;32&#32;-&#32;1))
+<anchor xml:id="_rover_8py_source_1l00125"/>00125 
+<anchor xml:id="_rover_8py_source_1l00126"/>00126 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;return&#32;the&#32;negative&#32;cost&#32;which&#32;need&#32;to&#32;be&#32;optimized</emphasis>
+<anchor xml:id="_rover_8py_source_1l00127"/>00127 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1rover_1_1_rover_domain_1a4ba9fa810af2a6417e90599214aae3df">__call__</link>(self,&#32;params,&#32;n_samples=1000):
+<anchor xml:id="_rover_8py_source_1l00128"/>00128 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1rover_1_1_rover_domain_1a5fc4dbfdeeeb45e828c2db21fe2eb908">set_params</link>(params)
+<anchor xml:id="_rover_8py_source_1l00129"/>00129 
+<anchor xml:id="_rover_8py_source_1l00130"/>00130 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;-self.<link linkend="_classexamples_1_1rover_1_1_rover_domain_1a60840a6ab40f86a73f7bd1bce9099d12">estimate_cost</link>(n_samples=n_samples)
+<anchor xml:id="_rover_8py_source_1l00131"/><link linkend="_classexamples_1_1rover_1_1_rover_domain_1a4ba9fa810af2a6417e90599214aae3df">00131</link> 
+<anchor xml:id="_rover_8py_source_1l00132"/>00132 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1rover_1_1_rover_domain_1a5fc4dbfdeeeb45e828c2db21fe2eb908">set_params</link>(self,&#32;params):
+<anchor xml:id="_rover_8py_source_1l00133"/>00133 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1rover_1_1_rover_domain_1a3f47d31af70741772fbf534325f4f22b">traj</link>.<link linkend="_classexamples_1_1rover_1_1_rover_domain_1a5fc4dbfdeeeb45e828c2db21fe2eb908">set_params</link>(params&#32;+&#32;self.<link linkend="_classexamples_1_1rover_1_1_rover_domain_1afea7a0b011174acdae795cbdb94a34db">rnd_stream</link>.<link linkend="_evaluator_8h_1a231544ac51b3f9312c104a3b7a3c49a6">normal</link>(0,&#32;1e-4,&#32;params.shape),
+<anchor xml:id="_rover_8py_source_1l00134"/>00134 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1rover_1_1_rover_domain_1a0efff7e14ded474c7f2eaa3ebb0639f0">start</link>&#32;<emphasis role="keywordflow">if</emphasis>&#32;self.<link linkend="_classexamples_1_1rover_1_1_rover_domain_1a6f324c41f28bbbab3459637559a1570f">force_start</link>&#32;<emphasis role="keywordflow">else</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>,
+<anchor xml:id="_rover_8py_source_1l00135"/>00135 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1rover_1_1_rover_domain_1a683a9449fa09963fbb599693541ef8fe">goal</link>&#32;<emphasis role="keywordflow">if</emphasis>&#32;self.<link linkend="_classexamples_1_1rover_1_1_rover_domain_1a725a4b212e8ad88824e0f5a9007a99b7">force_goal</link>&#32;<emphasis role="keywordflow">else</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>)
+<anchor xml:id="_rover_8py_source_1l00136"/><link linkend="_classexamples_1_1rover_1_1_rover_domain_1a5fc4dbfdeeeb45e828c2db21fe2eb908">00136</link> 
+<anchor xml:id="_rover_8py_source_1l00137"/>00137 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1rover_1_1_rover_domain_1a60840a6ab40f86a73f7bd1bce9099d12">estimate_cost</link>(self,&#32;n_samples=1000):
+<anchor xml:id="_rover_8py_source_1l00138"/>00138 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;get&#32;points&#32;on&#32;the&#32;trajectory</emphasis>
+<anchor xml:id="_rover_8py_source_1l00139"/>00139 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;points&#32;=&#32;self.<link linkend="_classexamples_1_1rover_1_1_rover_domain_1a3f47d31af70741772fbf534325f4f22b">traj</link>.get_points(np.linspace(0,&#32;1.0,&#32;n_samples,&#32;endpoint=<emphasis role="keyword">True</emphasis>))
+<anchor xml:id="_rover_8py_source_1l00140"/>00140 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;compute&#32;cost&#32;at&#32;each&#32;point</emphasis>
+<anchor xml:id="_rover_8py_source_1l00141"/><link linkend="_classexamples_1_1rover_1_1_rover_domain_1a60840a6ab40f86a73f7bd1bce9099d12">00141</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;costs&#32;=&#32;self.<link linkend="_classexamples_1_1rover_1_1_rover_domain_1a4273b36f984eca0947e3dd30a5aed567">cost_fn</link>(points)
+<anchor xml:id="_rover_8py_source_1l00142"/>00142 
+<anchor xml:id="_rover_8py_source_1l00143"/>00143 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;estimate&#32;(trapezoidal)&#32;the&#32;integral&#32;of&#32;the&#32;cost&#32;along&#32;traj</emphasis>
+<anchor xml:id="_rover_8py_source_1l00144"/>00144 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;avg_cost&#32;=&#32;0.5&#32;*&#32;(costs[:-1]&#32;+&#32;costs[1:])
+<anchor xml:id="_rover_8py_source_1l00145"/>00145 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;l&#32;=&#32;np.linalg.norm(points[1:]&#32;-&#32;points[:-1],&#32;axis=1)
+<anchor xml:id="_rover_8py_source_1l00146"/>00146 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;total_cost&#32;=&#32;np.sum(l&#32;*&#32;avg_cost)
+<anchor xml:id="_rover_8py_source_1l00147"/>00147 
+<anchor xml:id="_rover_8py_source_1l00148"/>00148 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;<emphasis role="keywordflow">not</emphasis>&#32;self.<link linkend="_classexamples_1_1rover_1_1_rover_domain_1a6f324c41f28bbbab3459637559a1570f">force_start</link>:
+<anchor xml:id="_rover_8py_source_1l00149"/>00149 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;total_cost&#32;+=&#32;self.<link linkend="_classexamples_1_1rover_1_1_rover_domain_1aa6f1212184c2576ce9cf6c0adbda8f9c">start_miss_cost</link>(points[0],&#32;self.<link linkend="_classexamples_1_1rover_1_1_rover_domain_1a0efff7e14ded474c7f2eaa3ebb0639f0">start</link>)
+<anchor xml:id="_rover_8py_source_1l00150"/>00150 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;<emphasis role="keywordflow">not</emphasis>&#32;self.<link linkend="_classexamples_1_1rover_1_1_rover_domain_1a725a4b212e8ad88824e0f5a9007a99b7">force_goal</link>:
+<anchor xml:id="_rover_8py_source_1l00151"/>00151 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;total_cost&#32;+=&#32;self.<link linkend="_classexamples_1_1rover_1_1_rover_domain_1a3fd96c704ab7629386af25b022d00cad">goal_miss_cost</link>(points[-1],&#32;self.<link linkend="_classexamples_1_1rover_1_1_rover_domain_1a683a9449fa09963fbb599693541ef8fe">goal</link>)
+<anchor xml:id="_rover_8py_source_1l00152"/>00152 
+<anchor xml:id="_rover_8py_source_1l00153"/>00153 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;total_cost
+<anchor xml:id="_rover_8py_source_1l00154"/>00154 
+<anchor xml:id="_rover_8py_source_1l00155"/>00155 &#32;&#32;&#32;&#32;<emphasis role="preprocessor">@property</emphasis>
+<anchor xml:id="_rover_8py_source_1l00156"/>00156 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1rover_1_1_rover_domain_1af771c4b68557d85cefe9866398d9551b">input_size</link>(self):
+<anchor xml:id="_rover_8py_source_1l00157"/>00157 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;self.<link linkend="_classexamples_1_1rover_1_1_rover_domain_1a3f47d31af70741772fbf534325f4f22b">traj</link>.param_size
+<anchor xml:id="_rover_8py_source_1l00158"/>00158 
+<anchor xml:id="_rover_8py_source_1l00159"/>00159 
+<anchor xml:id="_rover_8py_source_1l00160"/><link linkend="_classexamples_1_1rover_1_1_rover_domain_1af771c4b68557d85cefe9866398d9551b">00160</link> <emphasis role="keyword">class&#32;</emphasis><link linkend="_classexamples_1_1rover_1_1_a_a_boxes">AABoxes</link>:
+<anchor xml:id="_rover_8py_source_1l00161"/>00161 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1rover_1_1_rover_domain_1a708409d5253e1583b7a15ee02607000b">__init__</link>(self,&#32;lows,&#32;highs):
+<anchor xml:id="_rover_8py_source_1l00162"/><link linkend="_classexamples_1_1rover_1_1_rover_domain_1a0e75ac6f876210ca471fd14af8332560">00162</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.l&#32;=&#32;lows
+<anchor xml:id="_rover_8py_source_1l00163"/>00163 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.h&#32;=&#32;highs
+<anchor xml:id="_rover_8py_source_1l00164"/>00164 
+<anchor xml:id="_rover_8py_source_1l00165"/>00165 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis>contains(self,&#32;X):
+<anchor xml:id="_rover_8py_source_1l00166"/><link linkend="_classexamples_1_1rover_1_1_a_a_boxes">00166</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;X.ndim&#32;==&#32;1:
+<anchor xml:id="_rover_8py_source_1l00167"/><link linkend="_classexamples_1_1rover_1_1_a_a_boxes_1ad695e0e2f2d7c6ca6ee43ecc855e8750">00167</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;X&#32;=&#32;X[<emphasis role="keywordtype">None</emphasis>,&#32;:]
+<anchor xml:id="_rover_8py_source_1l00168"/><link linkend="_classexamples_1_1rover_1_1_a_a_boxes_1a5b70cbc46fc996f00fe537b5a176ecbe">00168</link> 
+<anchor xml:id="_rover_8py_source_1l00169"/><link linkend="_classexamples_1_1rover_1_1_a_a_boxes_1a59102d167090b13d2e63914a09916c3d">00169</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;lX&#32;=&#32;self.<link linkend="_classexamples_1_1rover_1_1_a_a_boxes_1a5b70cbc46fc996f00fe537b5a176ecbe">l</link>.T[<emphasis role="keywordtype">None</emphasis>,&#32;:,&#32;:]&#32;&lt;=&#32;X[:,&#32;:,&#32;<emphasis role="keywordtype">None</emphasis>]
+<anchor xml:id="_rover_8py_source_1l00170"/>00170 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;hX&#32;=&#32;self.<link linkend="_classexamples_1_1rover_1_1_a_a_boxes_1a59102d167090b13d2e63914a09916c3d">h</link>.T[<emphasis role="keywordtype">None</emphasis>,&#32;:,&#32;:]&#32;&gt;&#32;X[:,&#32;:,&#32;<emphasis role="keywordtype">None</emphasis>]
+<anchor xml:id="_rover_8py_source_1l00171"/><link linkend="_classexamples_1_1rover_1_1_a_a_boxes_1a2012bc9418f0d3933f3ab1192d628030">00171</link> 
+<anchor xml:id="_rover_8py_source_1l00172"/>00172 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;(lX.all(axis=1)&#32;&amp;&#32;hX.all(axis=1))
+<anchor xml:id="_rover_8py_source_1l00173"/>00173 
+<anchor xml:id="_rover_8py_source_1l00174"/>00174 
+<anchor xml:id="_rover_8py_source_1l00175"/>00175 <emphasis role="keyword">class&#32;</emphasis><link linkend="_classexamples_1_1rover_1_1_neg_geom">NegGeom</link>:
+<anchor xml:id="_rover_8py_source_1l00176"/>00176 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1rover_1_1_a_a_boxes_1ad695e0e2f2d7c6ca6ee43ecc855e8750">__init__</link>(self,&#32;geometry):
+<anchor xml:id="_rover_8py_source_1l00177"/>00177 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.geom&#32;=&#32;geometry
+<anchor xml:id="_rover_8py_source_1l00178"/>00178 
+<anchor xml:id="_rover_8py_source_1l00179"/>00179 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1rover_1_1_a_a_boxes_1a2012bc9418f0d3933f3ab1192d628030">contains</link>(self,&#32;X):
+<anchor xml:id="_rover_8py_source_1l00180"/>00180 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;~self.geom.<link linkend="_classexamples_1_1rover_1_1_a_a_boxes_1a2012bc9418f0d3933f3ab1192d628030">contains</link>(X)
+<anchor xml:id="_rover_8py_source_1l00181"/><link linkend="_classexamples_1_1rover_1_1_neg_geom">00181</link> 
+<anchor xml:id="_rover_8py_source_1l00182"/><link linkend="_classexamples_1_1rover_1_1_neg_geom_1ae0cd947662006d62c1be1dbb450891df">00182</link> 
+<anchor xml:id="_rover_8py_source_1l00183"/><link linkend="_classexamples_1_1rover_1_1_neg_geom_1a977d66ad1eece3d36dd7d31997338a04">00183</link> <emphasis role="keyword">class&#32;</emphasis><link linkend="_classexamples_1_1rover_1_1_union_geom">UnionGeom</link>:
+<anchor xml:id="_rover_8py_source_1l00184"/>00184 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1rover_1_1_neg_geom_1ae0cd947662006d62c1be1dbb450891df">__init__</link>(self,&#32;geometries):
+<anchor xml:id="_rover_8py_source_1l00185"/><link linkend="_classexamples_1_1rover_1_1_neg_geom_1ae477ebc2bb651493f613f8667caf4ea9">00185</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.geoms&#32;=&#32;geometries
+<anchor xml:id="_rover_8py_source_1l00186"/>00186 
+<anchor xml:id="_rover_8py_source_1l00187"/>00187 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1rover_1_1_neg_geom_1ae477ebc2bb651493f613f8667caf4ea9">contains</link>(self,&#32;X):
+<anchor xml:id="_rover_8py_source_1l00188"/>00188 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;np.any(np.hstack([g.contains(X)&#32;<emphasis role="keywordflow">for</emphasis>&#32;g&#32;<emphasis role="keywordflow">in</emphasis>&#32;self.geoms]),&#32;axis=1,&#32;keepdims=<emphasis role="keyword">True</emphasis>)
+<anchor xml:id="_rover_8py_source_1l00189"/><link linkend="_classexamples_1_1rover_1_1_union_geom">00189</link> 
+<anchor xml:id="_rover_8py_source_1l00190"/><link linkend="_classexamples_1_1rover_1_1_union_geom_1ac1acf61a797002e4415657f53f70ffb4">00190</link> 
+<anchor xml:id="_rover_8py_source_1l00191"/><link linkend="_classexamples_1_1rover_1_1_union_geom_1ae554a3843aa4433bf556dea8cbe61d4b">00191</link> <emphasis role="keyword">class&#32;</emphasis><link linkend="_classexamples_1_1rover_1_1_const_obstacle_cost">ConstObstacleCost</link>:
+<anchor xml:id="_rover_8py_source_1l00192"/>00192 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1rover_1_1_union_geom_1ac1acf61a797002e4415657f53f70ffb4">__init__</link>(self,&#32;geometry,&#32;cost):
+<anchor xml:id="_rover_8py_source_1l00193"/><link linkend="_classexamples_1_1rover_1_1_union_geom_1a7ef0852ef62b4570f96041910e2b7f79">00193</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.geom&#32;=&#32;geometry
+<anchor xml:id="_rover_8py_source_1l00194"/>00194 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.c&#32;=&#32;cost
+<anchor xml:id="_rover_8py_source_1l00195"/>00195 
+<anchor xml:id="_rover_8py_source_1l00196"/>00196 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis>__call__(self,&#32;X):
+<anchor xml:id="_rover_8py_source_1l00197"/><link linkend="_classexamples_1_1rover_1_1_const_obstacle_cost">00197</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;self.<link linkend="_classexamples_1_1rover_1_1_const_obstacle_cost_1a29bfbb10b896deebab2ec8cb4ffa0fc3">c</link>&#32;*&#32;self.<link linkend="_classexamples_1_1rover_1_1_const_obstacle_cost_1aaa03dec8b1545604bf243a8501888bcf">geom</link>.contains(X)
+<anchor xml:id="_rover_8py_source_1l00198"/><link linkend="_classexamples_1_1rover_1_1_const_obstacle_cost_1a7368f8d4316086554151a3f2d3bac59b">00198</link> 
+<anchor xml:id="_rover_8py_source_1l00199"/><link linkend="_classexamples_1_1rover_1_1_const_obstacle_cost_1aaa03dec8b1545604bf243a8501888bcf">00199</link> 
+<anchor xml:id="_rover_8py_source_1l00200"/><link linkend="_classexamples_1_1rover_1_1_const_obstacle_cost_1a29bfbb10b896deebab2ec8cb4ffa0fc3">00200</link> <emphasis role="keyword">class&#32;</emphasis><link linkend="_classexamples_1_1rover_1_1_const_cost">ConstCost</link>:
+<anchor xml:id="_rover_8py_source_1l00201"/>00201 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1rover_1_1_const_obstacle_cost_1a7368f8d4316086554151a3f2d3bac59b">__init__</link>(self,&#32;cost):
+<anchor xml:id="_rover_8py_source_1l00202"/><link linkend="_classexamples_1_1rover_1_1_const_obstacle_cost_1aab2874d2bc04e873ad4757b2db74fc18">00202</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1rover_1_1_const_obstacle_cost_1a29bfbb10b896deebab2ec8cb4ffa0fc3">c</link>&#32;=&#32;cost
+<anchor xml:id="_rover_8py_source_1l00203"/>00203 
+<anchor xml:id="_rover_8py_source_1l00204"/>00204 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1rover_1_1_const_obstacle_cost_1aab2874d2bc04e873ad4757b2db74fc18">__call__</link>(self,&#32;X):
+<anchor xml:id="_rover_8py_source_1l00205"/>00205 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;X.ndim&#32;==&#32;1:
+<anchor xml:id="_rover_8py_source_1l00206"/><link linkend="_classexamples_1_1rover_1_1_const_cost">00206</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;X&#32;=&#32;X[<emphasis role="keywordtype">None</emphasis>,&#32;:]
+<anchor xml:id="_rover_8py_source_1l00207"/><link linkend="_classexamples_1_1rover_1_1_const_cost_1a50cb3ae1e965ee6ddb5d87af627bf67d">00207</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;np.ones((X.shape[0],&#32;1))&#32;*&#32;self.<link linkend="_classexamples_1_1rover_1_1_const_cost_1ad1b6eebf901c4c919456e157f02b5920">c</link>
+<anchor xml:id="_rover_8py_source_1l00208"/><link linkend="_classexamples_1_1rover_1_1_const_cost_1ad1b6eebf901c4c919456e157f02b5920">00208</link> 
+<anchor xml:id="_rover_8py_source_1l00209"/>00209 
+<anchor xml:id="_rover_8py_source_1l00210"/><link linkend="_classexamples_1_1rover_1_1_const_cost_1abbda252f7d0e477a4f0b9f1676847aae">00210</link> <emphasis role="keyword">class&#32;</emphasis><link linkend="_classexamples_1_1rover_1_1_additive_costs">AdditiveCosts</link>:
+<anchor xml:id="_rover_8py_source_1l00211"/>00211 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1rover_1_1_const_cost_1a50cb3ae1e965ee6ddb5d87af627bf67d">__init__</link>(self,&#32;fns):
+<anchor xml:id="_rover_8py_source_1l00212"/>00212 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.fns&#32;=&#32;fns
+<anchor xml:id="_rover_8py_source_1l00213"/>00213 
+<anchor xml:id="_rover_8py_source_1l00214"/>00214 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1rover_1_1_const_cost_1abbda252f7d0e477a4f0b9f1676847aae">__call__</link>(self,&#32;X):
+<anchor xml:id="_rover_8py_source_1l00215"/>00215 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;np.sum(np.hstack([f(X)&#32;<emphasis role="keywordflow">for</emphasis>&#32;f&#32;<emphasis role="keywordflow">in</emphasis>&#32;self.fns]),&#32;axis=1)
+<anchor xml:id="_rover_8py_source_1l00216"/><link linkend="_classexamples_1_1rover_1_1_additive_costs">00216</link> 
+<anchor xml:id="_rover_8py_source_1l00217"/><link linkend="_classexamples_1_1rover_1_1_additive_costs_1ad65a50860578a382e6f70a04471a5ae3">00217</link> 
+<anchor xml:id="_rover_8py_source_1l00218"/><link linkend="_classexamples_1_1rover_1_1_additive_costs_1a5e325bd66cf439a73d3d90616f266a42">00218</link> <emphasis role="keyword">class&#32;</emphasis><link linkend="_classexamples_1_1rover_1_1_g_m_cost">GMCost</link>:
+<anchor xml:id="_rover_8py_source_1l00219"/>00219 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1rover_1_1_additive_costs_1ad65a50860578a382e6f70a04471a5ae3">__init__</link>(self,&#32;centers,&#32;sigmas,&#32;weights=None):
+<anchor xml:id="_rover_8py_source_1l00220"/><link linkend="_classexamples_1_1rover_1_1_additive_costs_1ad884197dcbacaed61fd3d430a80b698d">00220</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.c&#32;=&#32;centers
+<anchor xml:id="_rover_8py_source_1l00221"/>00221 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.s&#32;=&#32;sigmas
+<anchor xml:id="_rover_8py_source_1l00222"/>00222 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;self.s.ndim&#32;==&#32;1:
+<anchor xml:id="_rover_8py_source_1l00223"/>00223 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.s&#32;=&#32;self.s[:,&#32;<emphasis role="keywordtype">None</emphasis>]
+<anchor xml:id="_rover_8py_source_1l00224"/><link linkend="_classexamples_1_1rover_1_1_g_m_cost">00224</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1rover_1_1_g_m_cost_1ab3bc19e548719abb2f52284cb475dffc">w</link>&#32;=&#32;weights
+<anchor xml:id="_rover_8py_source_1l00225"/><link linkend="_classexamples_1_1rover_1_1_g_m_cost_1a7ad4a0f68b48fd6f7094f58779c62cf7">00225</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;weights&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>:
+<anchor xml:id="_rover_8py_source_1l00226"/><link linkend="_classexamples_1_1rover_1_1_g_m_cost_1a4aaea18dec35e4b0def7bd4fba2e9d83">00226</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1rover_1_1_g_m_cost_1ab3bc19e548719abb2f52284cb475dffc">w</link>&#32;=&#32;np.ones(centers.shape[0])
+<anchor xml:id="_rover_8py_source_1l00227"/><link linkend="_classexamples_1_1rover_1_1_g_m_cost_1aa883cd3bf77cec0ed8e534ac72da7581">00227</link> 
+<anchor xml:id="_rover_8py_source_1l00228"/>00228 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1rover_1_1_g_m_cost_1af39c1af9a1e61878a88b899d58a511d8">__call__</link>(self,&#32;X):
+<anchor xml:id="_rover_8py_source_1l00229"/>00229 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;X.ndim&#32;==&#32;1:
+<anchor xml:id="_rover_8py_source_1l00230"/><link linkend="_classexamples_1_1rover_1_1_g_m_cost_1ab3bc19e548719abb2f52284cb475dffc">00230</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;X&#32;=&#32;X[<emphasis role="keywordtype">None</emphasis>,&#32;:]
+<anchor xml:id="_rover_8py_source_1l00231"/>00231 
+<anchor xml:id="_rover_8py_source_1l00232"/>00232 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;np.exp(-np.sum(((X[:,&#32;:,&#32;<emphasis role="keywordtype">None</emphasis>]&#32;-&#32;self.<link linkend="_classexamples_1_1rover_1_1_g_m_cost_1a4aaea18dec35e4b0def7bd4fba2e9d83">c</link>.T[<emphasis role="keywordtype">None</emphasis>,&#32;:,&#32;:])&#32;/&#32;self.<link linkend="_classexamples_1_1rover_1_1_g_m_cost_1aa883cd3bf77cec0ed8e534ac72da7581">s</link>.T[<emphasis role="keywordtype">None</emphasis>,&#32;:,&#32;:])&#32;**&#32;2,&#32;axis=1)).dot(self.<link linkend="_classexamples_1_1rover_1_1_g_m_cost_1ab3bc19e548719abb2f52284cb475dffc">w</link>)
+<anchor xml:id="_rover_8py_source_1l00233"/>00233 
+<anchor xml:id="_rover_8py_source_1l00234"/><link linkend="_classexamples_1_1rover_1_1_g_m_cost_1af39c1af9a1e61878a88b899d58a511d8">00234</link> 
+<anchor xml:id="_rover_8py_source_1l00235"/>00235 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1rover_1aa48d43d67b8dbf6d1a0ec1c55a23f9a8">plot_2d_rover</link>(roverdomain,&#32;ngrid_points=100,&#32;ntraj_points=100,&#32;colormap=&apos;RdBu&apos;,&#32;draw_colorbar=False):
+<anchor xml:id="_rover_8py_source_1l00236"/>00236 &#32;&#32;&#32;&#32;<emphasis role="keyword">import</emphasis>&#32;matplotlib.pyplot&#32;<emphasis role="keyword">as</emphasis>&#32;plt
+<anchor xml:id="_rover_8py_source_1l00237"/>00237 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;get&#32;a&#32;grid&#32;of&#32;points&#32;over&#32;the&#32;state&#32;space</emphasis>
+<anchor xml:id="_rover_8py_source_1l00238"/>00238 &#32;&#32;&#32;&#32;points&#32;=&#32;[np.linspace(mi,&#32;ma,&#32;ngrid_points,&#32;endpoint=<emphasis role="keyword">True</emphasis>)&#32;<emphasis role="keywordflow">for</emphasis>&#32;mi,&#32;ma&#32;<emphasis role="keywordflow">in</emphasis>&#32;zip(*roverdomain.s_range)]
+<anchor xml:id="_rover_8py_source_1l00239"/>00239 &#32;&#32;&#32;&#32;grid_points&#32;=&#32;np.meshgrid(*points)
+<anchor xml:id="_rover_8py_source_1l00240"/>00240 &#32;&#32;&#32;&#32;points&#32;=&#32;np.hstack([g.reshape((-1,&#32;1))&#32;<emphasis role="keywordflow">for</emphasis>&#32;g&#32;<emphasis role="keywordflow">in</emphasis>&#32;grid_points])
+<anchor xml:id="_rover_8py_source_1l00241"/><link linkend="_namespaceexamples_1_1rover_1aa48d43d67b8dbf6d1a0ec1c55a23f9a8">00241</link> 
+<anchor xml:id="_rover_8py_source_1l00242"/>00242 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;compute&#32;the&#32;cost&#32;at&#32;each&#32;point&#32;on&#32;the&#32;grid</emphasis>
+<anchor xml:id="_rover_8py_source_1l00243"/>00243 &#32;&#32;&#32;&#32;costs&#32;=&#32;roverdomain.cost_fn(points)
+<anchor xml:id="_rover_8py_source_1l00244"/>00244 
+<anchor xml:id="_rover_8py_source_1l00245"/>00245 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;get&#32;the&#32;cost&#32;of&#32;the&#32;current&#32;trajectory</emphasis>
+<anchor xml:id="_rover_8py_source_1l00246"/>00246 &#32;&#32;&#32;&#32;traj_cost&#32;=&#32;roverdomain.estimate_cost()
+<anchor xml:id="_rover_8py_source_1l00247"/>00247 
+<anchor xml:id="_rover_8py_source_1l00248"/>00248 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;get&#32;points&#32;on&#32;the&#32;current&#32;trajectory</emphasis>
+<anchor xml:id="_rover_8py_source_1l00249"/>00249 &#32;&#32;&#32;&#32;traj_points&#32;=&#32;roverdomain.traj.get_points(np.linspace(0.,&#32;1.0,&#32;ntraj_points,&#32;endpoint=<emphasis role="keyword">True</emphasis>))
+<anchor xml:id="_rover_8py_source_1l00250"/>00250 
+<anchor xml:id="_rover_8py_source_1l00251"/>00251 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;set&#32;title&#32;to&#32;be&#32;the&#32;total&#32;cost</emphasis>
+<anchor xml:id="_rover_8py_source_1l00252"/>00252 &#32;&#32;&#32;&#32;plt.title(<emphasis role="stringliteral">&apos;traj&#32;cost:&#32;{0}&apos;</emphasis>.<link linkend="_namespaceexamples_1_1rover_1afd261f0f2f987b14a9bd407644a3cc76">format</link>(traj_cost))
+<anchor xml:id="_rover_8py_source_1l00253"/>00253 &#32;&#32;&#32;&#32;print(<emphasis role="stringliteral">&apos;traj&#32;cost:&#32;{0}&apos;</emphasis>.<link linkend="_namespaceexamples_1_1rover_1afd261f0f2f987b14a9bd407644a3cc76">format</link>(traj_cost))
+<anchor xml:id="_rover_8py_source_1l00254"/>00254 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;plot&#32;cost&#32;function</emphasis>
+<anchor xml:id="_rover_8py_source_1l00255"/>00255 &#32;&#32;&#32;&#32;cmesh&#32;=&#32;plt.pcolormesh(grid_points[0],&#32;grid_points[1],&#32;costs.reshape((ngrid_points,&#32;-1)),&#32;cmap=colormap)
+<anchor xml:id="_rover_8py_source_1l00256"/>00256 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;draw_colorbar:
+<anchor xml:id="_rover_8py_source_1l00257"/>00257 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;plt.gcf().colorbar(cmesh)
+<anchor xml:id="_rover_8py_source_1l00258"/>00258 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;plot&#32;traj</emphasis>
+<anchor xml:id="_rover_8py_source_1l00259"/>00259 &#32;&#32;&#32;&#32;plt.plot(traj_points[:,&#32;0],&#32;traj_points[:,&#32;1],&#32;<emphasis role="stringliteral">&apos;g&apos;</emphasis>)
+<anchor xml:id="_rover_8py_source_1l00260"/>00260 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;plot&#32;start&#32;and&#32;goal</emphasis>
+<anchor xml:id="_rover_8py_source_1l00261"/>00261 &#32;&#32;&#32;&#32;plt.plot([roverdomain.start[0],&#32;roverdomain.goal[0]],&#32;(roverdomain.start[1],&#32;roverdomain.goal[1]),&#32;<emphasis role="stringliteral">&apos;ok&apos;</emphasis>)
+<anchor xml:id="_rover_8py_source_1l00262"/>00262 
+<anchor xml:id="_rover_8py_source_1l00263"/>00263 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;cmesh
+<anchor xml:id="_rover_8py_source_1l00264"/>00264 
+<anchor xml:id="_rover_8py_source_1l00265"/>00265 
+<anchor xml:id="_rover_8py_source_1l00266"/>00266 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1rover_1a701f5da1f2c44ddb42f0cb2650d1645e">generate_verts</link>(rectangles):
+<anchor xml:id="_rover_8py_source_1l00267"/>00267 &#32;&#32;&#32;&#32;poly3d&#32;=&#32;[]
+<anchor xml:id="_rover_8py_source_1l00268"/>00268 &#32;&#32;&#32;&#32;all_faces&#32;=&#32;[]
+<anchor xml:id="_rover_8py_source_1l00269"/>00269 &#32;&#32;&#32;&#32;vertices&#32;=&#32;[]
+<anchor xml:id="_rover_8py_source_1l00270"/>00270 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;l,&#32;h&#32;<emphasis role="keywordflow">in</emphasis>&#32;zip(rectangles.l,&#32;rectangles.h):
+<anchor xml:id="_rover_8py_source_1l00271"/>00271 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;verts&#32;=&#32;[[l[0],&#32;l[1],&#32;l[2]],&#32;[l[0],&#32;h[1],&#32;l[2]],&#32;[h[0],&#32;h[1],&#32;l[2]],&#32;[h[0],&#32;l[1],&#32;l[2]],
+<anchor xml:id="_rover_8py_source_1l00272"/><link linkend="_namespaceexamples_1_1rover_1a701f5da1f2c44ddb42f0cb2650d1645e">00272</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[l[0],&#32;l[1],&#32;h[2]],&#32;[l[0],&#32;h[1],&#32;h[2]],&#32;[h[0],&#32;h[1],&#32;h[2]],&#32;[h[0],&#32;l[1],&#32;h[2]]]
+<anchor xml:id="_rover_8py_source_1l00273"/>00273 
+<anchor xml:id="_rover_8py_source_1l00274"/>00274 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;faces&#32;=&#32;[[0,&#32;1,&#32;2,&#32;3],&#32;[0,&#32;3,&#32;7,&#32;4],&#32;[3,&#32;2,&#32;6,&#32;7],&#32;[7,&#32;6,&#32;5,&#32;4],&#32;[1,&#32;5,&#32;6,&#32;2],&#32;[0,&#32;4,&#32;5,&#32;1]]
+<anchor xml:id="_rover_8py_source_1l00275"/>00275 
+<anchor xml:id="_rover_8py_source_1l00276"/>00276 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;vert_ind&#32;=&#32;[[0,&#32;1,&#32;2],&#32;[0,&#32;2,&#32;3],&#32;[0,&#32;3,&#32;4],&#32;[4,&#32;3,&#32;7],&#32;[7,&#32;3,&#32;2],&#32;[2,&#32;6,&#32;7],
+<anchor xml:id="_rover_8py_source_1l00277"/>00277 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[7,&#32;5,&#32;4],&#32;[7,&#32;6,&#32;5],&#32;[2,&#32;5,&#32;6],&#32;[2,&#32;1,&#32;5],&#32;[0,&#32;1,&#32;4],&#32;[1,&#32;4,&#32;5]]
+<anchor xml:id="_rover_8py_source_1l00278"/>00278 
+<anchor xml:id="_rover_8py_source_1l00279"/>00279 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;plist&#32;=&#32;[[verts[vert_ind[ix][iy]]&#32;<emphasis role="keywordflow">for</emphasis>&#32;iy&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(len(vert_ind[0]))]&#32;<emphasis role="keywordflow">for</emphasis>&#32;ix&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(len(vert_ind))]
+<anchor xml:id="_rover_8py_source_1l00280"/>00280 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;faces&#32;=&#32;[[verts[faces[ix][iy]]&#32;<emphasis role="keywordflow">for</emphasis>&#32;iy&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(len(faces[0]))]&#32;<emphasis role="keywordflow">for</emphasis>&#32;ix&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(len(faces))]
+<anchor xml:id="_rover_8py_source_1l00281"/>00281 
+<anchor xml:id="_rover_8py_source_1l00282"/>00282 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;poly3d&#32;=&#32;poly3d&#32;+&#32;plist
+<anchor xml:id="_rover_8py_source_1l00283"/>00283 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;vertices&#32;=&#32;vertices&#32;+&#32;verts
+<anchor xml:id="_rover_8py_source_1l00284"/>00284 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;all_faces&#32;=&#32;all_faces&#32;+&#32;faces
+<anchor xml:id="_rover_8py_source_1l00285"/>00285 
+<anchor xml:id="_rover_8py_source_1l00286"/>00286 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;poly3d,&#32;vertices,&#32;all_faces
+<anchor xml:id="_rover_8py_source_1l00287"/>00287 
+<anchor xml:id="_rover_8py_source_1l00288"/>00288 
+<anchor xml:id="_rover_8py_source_1l00289"/>00289 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1rover_1acb4d82abdf43c7d1c50e81ae6945c25f">plot_3d_forest_rover</link>(roverdomain,&#32;rectangles,&#32;ntraj_points=100):
+<anchor xml:id="_rover_8py_source_1l00290"/>00290 &#32;&#32;&#32;&#32;<emphasis role="keyword">from</emphasis>&#32;matplotlib&#32;<emphasis role="keyword">import</emphasis>&#32;pyplot&#32;<emphasis role="keyword">as</emphasis>&#32;plt
+<anchor xml:id="_rover_8py_source_1l00291"/>00291 &#32;&#32;&#32;&#32;<emphasis role="keyword">from</emphasis>&#32;mpl_toolkits.mplot3d.art3d&#32;<emphasis role="keyword">import</emphasis>&#32;Poly3DCollection,&#32;Line3DCollection
+<anchor xml:id="_rover_8py_source_1l00292"/>00292 
+<anchor xml:id="_rover_8py_source_1l00293"/>00293 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;get&#32;the&#32;cost&#32;of&#32;the&#32;current&#32;trajectory</emphasis>
+<anchor xml:id="_rover_8py_source_1l00294"/>00294 &#32;&#32;&#32;&#32;traj_cost&#32;=&#32;roverdomain.estimate_cost()
+<anchor xml:id="_rover_8py_source_1l00295"/><link linkend="_namespaceexamples_1_1rover_1acb4d82abdf43c7d1c50e81ae6945c25f">00295</link> 
+<anchor xml:id="_rover_8py_source_1l00296"/>00296 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;get&#32;points&#32;on&#32;the&#32;current&#32;trajectory</emphasis>
+<anchor xml:id="_rover_8py_source_1l00297"/>00297 &#32;&#32;&#32;&#32;traj_points&#32;=&#32;roverdomain.traj.get_points(np.linspace(0.,&#32;1.0,&#32;ntraj_points,&#32;endpoint=<emphasis role="keyword">True</emphasis>))
+<anchor xml:id="_rover_8py_source_1l00298"/>00298 
+<anchor xml:id="_rover_8py_source_1l00299"/>00299 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;convert&#32;the&#32;rectangles&#32;into&#32;lists&#32;of&#32;vertices&#32;for&#32;matplotlib</emphasis>
+<anchor xml:id="_rover_8py_source_1l00300"/>00300 &#32;&#32;&#32;&#32;poly3d,&#32;verts,&#32;faces&#32;=&#32;<link linkend="_namespaceexamples_1_1rover_1a701f5da1f2c44ddb42f0cb2650d1645e">generate_verts</link>(rectangles)
+<anchor xml:id="_rover_8py_source_1l00301"/>00301 
+<anchor xml:id="_rover_8py_source_1l00302"/>00302 &#32;&#32;&#32;&#32;ax&#32;=&#32;plt.gcf().add_subplot(111,&#32;projection=<emphasis role="stringliteral">&apos;3d&apos;</emphasis>)
+<anchor xml:id="_rover_8py_source_1l00303"/>00303 
+<anchor xml:id="_rover_8py_source_1l00304"/>00304 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;plot&#32;start&#32;and&#32;goal</emphasis>
+<anchor xml:id="_rover_8py_source_1l00305"/>00305 &#32;&#32;&#32;&#32;ax.scatter((roverdomain.start[0],&#32;roverdomain.goal[0]),
+<anchor xml:id="_rover_8py_source_1l00306"/>00306 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;(roverdomain.start[1],&#32;roverdomain.goal[1]),
+<anchor xml:id="_rover_8py_source_1l00307"/>00307 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;(roverdomain.start[2],&#32;roverdomain.goal[2]),&#32;c=<emphasis role="stringliteral">&apos;k&apos;</emphasis>)
+<anchor xml:id="_rover_8py_source_1l00308"/>00308 
+<anchor xml:id="_rover_8py_source_1l00309"/>00309 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;plot&#32;traj</emphasis>
+<anchor xml:id="_rover_8py_source_1l00310"/>00310 &#32;&#32;&#32;&#32;seg&#32;=&#32;(zip(traj_points[:-1,&#32;:],&#32;traj_points[1:,&#32;:]))
+<anchor xml:id="_rover_8py_source_1l00311"/>00311 &#32;&#32;&#32;&#32;ax.add_collection3d(Line3DCollection(seg,&#32;colors=[(0,&#32;1.,&#32;0,&#32;1.)]&#32;*&#32;len(seg)))
+<anchor xml:id="_rover_8py_source_1l00312"/>00312 
+<anchor xml:id="_rover_8py_source_1l00313"/>00313 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;plot&#32;rectangles</emphasis>
+<anchor xml:id="_rover_8py_source_1l00314"/>00314 &#32;&#32;&#32;&#32;ax.add_collection3d(Poly3DCollection(poly3d,&#32;facecolors=(0.7,&#32;0.7,&#32;0.7,&#32;1.),&#32;linewidth=0.5))
+<anchor xml:id="_rover_8py_source_1l00315"/>00315 
+<anchor xml:id="_rover_8py_source_1l00316"/>00316 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;set&#32;limits&#32;of&#32;axis&#32;to&#32;be&#32;the&#32;same&#32;as&#32;domain</emphasis>
+<anchor xml:id="_rover_8py_source_1l00317"/>00317 &#32;&#32;&#32;&#32;s_range&#32;=&#32;roverdomain.s_range
+<anchor xml:id="_rover_8py_source_1l00318"/>00318 &#32;&#32;&#32;&#32;ax.set_xlim(s_range[0][0],&#32;s_range[1][0])
+<anchor xml:id="_rover_8py_source_1l00319"/>00319 &#32;&#32;&#32;&#32;ax.set_ylim(s_range[0][1],&#32;s_range[1][1])
+<anchor xml:id="_rover_8py_source_1l00320"/>00320 &#32;&#32;&#32;&#32;ax.set_zlim(s_range[0][2],&#32;s_range[1][2])
+<anchor xml:id="_rover_8py_source_1l00321"/>00321 
+<anchor xml:id="_rover_8py_source_1l00322"/>00322 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1rover_1aec941ae9a13aea3eb5a306bf83f8d3bf">create_cost_small</link>():
+<anchor xml:id="_rover_8py_source_1l00323"/>00323 &#32;&#32;&#32;&#32;c&#32;=&#32;np.array([[0.11353145,&#32;0.17251116],
+<anchor xml:id="_rover_8py_source_1l00324"/>00324 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.4849413,&#32;0.7684513],
+<anchor xml:id="_rover_8py_source_1l00325"/>00325 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.38840863,&#32;0.10730809],
+<anchor xml:id="_rover_8py_source_1l00326"/>00326 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.32968556,&#32;0.37542275],
+<anchor xml:id="_rover_8py_source_1l00327"/>00327 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.64342773,&#32;0.32438415],
+<anchor xml:id="_rover_8py_source_1l00328"/><link linkend="_namespaceexamples_1_1rover_1aec941ae9a13aea3eb5a306bf83f8d3bf">00328</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.42,&#32;0.35],
+<anchor xml:id="_rover_8py_source_1l00329"/>00329 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.38745546,&#32;0.0688907],
+<anchor xml:id="_rover_8py_source_1l00330"/>00330 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.05771529,&#32;0.1670573],
+<anchor xml:id="_rover_8py_source_1l00331"/>00331 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.48750001,&#32;0.67864249],
+<anchor xml:id="_rover_8py_source_1l00332"/>00332 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.5294646,&#32;0.66245226],
+<anchor xml:id="_rover_8py_source_1l00333"/>00333 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.88495861,&#32;0.76770809],
+<anchor xml:id="_rover_8py_source_1l00334"/>00334 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.71132462,&#32;0.46580745],
+<anchor xml:id="_rover_8py_source_1l00335"/>00335 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.02038182,&#32;0.32146063],
+<anchor xml:id="_rover_8py_source_1l00336"/>00336 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.34077448,&#32;0.70446464],
+<anchor xml:id="_rover_8py_source_1l00337"/>00337 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.61490175,&#32;0.79081785],
+<anchor xml:id="_rover_8py_source_1l00338"/>00338 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.37367616,&#32;0.6720441],
+<anchor xml:id="_rover_8py_source_1l00339"/>00339 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.14711569,&#32;0.57060365],
+<anchor xml:id="_rover_8py_source_1l00340"/>00340 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.76084188,&#32;0.65168123],
+<anchor xml:id="_rover_8py_source_1l00341"/>00341 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.51038721,&#32;0.78655373],
+<anchor xml:id="_rover_8py_source_1l00342"/>00342 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.50396508,&#32;0.90299952],
+<anchor xml:id="_rover_8py_source_1l00343"/>00343 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.23763956,&#32;0.38260748],
+<anchor xml:id="_rover_8py_source_1l00344"/>00344 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.40169679,&#32;0.72553068],
+<anchor xml:id="_rover_8py_source_1l00345"/>00345 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.59670114,&#32;0.08541569],
+<anchor xml:id="_rover_8py_source_1l00346"/>00346 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.5514408,&#32;0.62855134],
+<anchor xml:id="_rover_8py_source_1l00347"/>00347 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.84606733,&#32;0.94264543],
+<anchor xml:id="_rover_8py_source_1l00348"/>00348 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.8,&#32;0.19590218],
+<anchor xml:id="_rover_8py_source_1l00349"/>00349 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.39181603,&#32;0.46357532],
+<anchor xml:id="_rover_8py_source_1l00350"/>00350 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.44800403,&#32;0.27380116],
+<anchor xml:id="_rover_8py_source_1l00351"/>00351 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.5681913,&#32;0.1468706],
+<anchor xml:id="_rover_8py_source_1l00352"/>00352 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.37418262,&#32;0.69210095]])
+<anchor xml:id="_rover_8py_source_1l00353"/>00353 
+<anchor xml:id="_rover_8py_source_1l00354"/>00354 &#32;&#32;&#32;&#32;l&#32;=&#32;c&#32;-&#32;0.05
+<anchor xml:id="_rover_8py_source_1l00355"/>00355 &#32;&#32;&#32;&#32;h&#32;=&#32;c&#32;+&#32;0.05
+<anchor xml:id="_rover_8py_source_1l00356"/>00356 
+<anchor xml:id="_rover_8py_source_1l00357"/>00357 &#32;&#32;&#32;&#32;r_box&#32;=&#32;np.array([[0.5,&#32;0.5]])
+<anchor xml:id="_rover_8py_source_1l00358"/>00358 &#32;&#32;&#32;&#32;r_l&#32;=&#32;r_box&#32;-&#32;0.5
+<anchor xml:id="_rover_8py_source_1l00359"/>00359 &#32;&#32;&#32;&#32;r_h&#32;=&#32;r_box&#32;+&#32;0.5
+<anchor xml:id="_rover_8py_source_1l00360"/>00360 
+<anchor xml:id="_rover_8py_source_1l00361"/>00361 &#32;&#32;&#32;&#32;trees&#32;=&#32;<link linkend="_classexamples_1_1rover_1_1_a_a_boxes">AABoxes</link>(l,&#32;h)
+<anchor xml:id="_rover_8py_source_1l00362"/>00362 &#32;&#32;&#32;&#32;r_box&#32;=&#32;<link linkend="_classexamples_1_1rover_1_1_neg_geom">NegGeom</link>(<link linkend="_classexamples_1_1rover_1_1_a_a_boxes">AABoxes</link>(r_l,&#32;r_h))
+<anchor xml:id="_rover_8py_source_1l00363"/>00363 &#32;&#32;&#32;&#32;obstacles&#32;=&#32;<link linkend="_classexamples_1_1rover_1_1_union_geom">UnionGeom</link>([trees,&#32;r_box])
+<anchor xml:id="_rover_8py_source_1l00364"/>00364 
+<anchor xml:id="_rover_8py_source_1l00365"/>00365 &#32;&#32;&#32;&#32;start&#32;=&#32;np.zeros(2)&#32;+&#32;0.05
+<anchor xml:id="_rover_8py_source_1l00366"/>00366 &#32;&#32;&#32;&#32;goal&#32;=&#32;np.array([0.95,&#32;0.95])
+<anchor xml:id="_rover_8py_source_1l00367"/>00367 
+<anchor xml:id="_rover_8py_source_1l00368"/>00368 &#32;&#32;&#32;&#32;costs&#32;=&#32;[<link linkend="_classexamples_1_1rover_1_1_const_obstacle_cost">ConstObstacleCost</link>(obstacles,&#32;cost=20.),&#32;<link linkend="_classexamples_1_1rover_1_1_const_cost">ConstCost</link>(0.05)]
+<anchor xml:id="_rover_8py_source_1l00369"/>00369 &#32;&#32;&#32;&#32;cost_fn&#32;=&#32;<link linkend="_classexamples_1_1rover_1_1_additive_costs">AdditiveCosts</link>(costs)
+<anchor xml:id="_rover_8py_source_1l00370"/>00370 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;cost_fn,&#32;start,&#32;goal
+<anchor xml:id="_rover_8py_source_1l00371"/>00371 
+<anchor xml:id="_rover_8py_source_1l00372"/>00372 
+<anchor xml:id="_rover_8py_source_1l00373"/>00373 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1rover_1a23a83bf80e3cd736066e3bf602df95b6">create_small_domain</link>():
+<anchor xml:id="_rover_8py_source_1l00374"/>00374 &#32;&#32;&#32;&#32;cost_fn,&#32;start,&#32;goal&#32;=&#32;<link linkend="_namespaceexamples_1_1rover_1aec941ae9a13aea3eb5a306bf83f8d3bf">create_cost_small</link>()
+<anchor xml:id="_rover_8py_source_1l00375"/>00375 
+<anchor xml:id="_rover_8py_source_1l00376"/>00376 &#32;&#32;&#32;&#32;n_points&#32;=&#32;10
+<anchor xml:id="_rover_8py_source_1l00377"/>00377 &#32;&#32;&#32;&#32;traj&#32;=&#32;<link linkend="_classexamples_1_1rover_1_1_point_b_spline">PointBSpline</link>(dim=2,&#32;num_points=n_points)
+<anchor xml:id="_rover_8py_source_1l00378"/>00378 &#32;&#32;&#32;&#32;n_params&#32;=&#32;traj.param_size
+<anchor xml:id="_rover_8py_source_1l00379"/><link linkend="_namespaceexamples_1_1rover_1a23a83bf80e3cd736066e3bf602df95b6">00379</link> &#32;&#32;&#32;&#32;domain&#32;=&#32;<link linkend="_classexamples_1_1rover_1_1_rover_domain">RoverDomain</link>(cost_fn,
+<anchor xml:id="_rover_8py_source_1l00380"/>00380 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;start=start,
+<anchor xml:id="_rover_8py_source_1l00381"/>00381 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;goal=goal,
+<anchor xml:id="_rover_8py_source_1l00382"/>00382 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;traj=traj,
+<anchor xml:id="_rover_8py_source_1l00383"/>00383 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;s_range=np.array([[-0.1,&#32;-0.1],&#32;[1.1,&#32;1.1]]))
+<anchor xml:id="_rover_8py_source_1l00384"/>00384 
+<anchor xml:id="_rover_8py_source_1l00385"/>00385 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;domain
+<anchor xml:id="_rover_8py_source_1l00386"/>00386 
+<anchor xml:id="_rover_8py_source_1l00387"/>00387 
+<anchor xml:id="_rover_8py_source_1l00388"/>00388 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1rover_1a07b1b7a0f434192fb94ed8fc72743a07">create_cost_large</link>():
+<anchor xml:id="_rover_8py_source_1l00389"/>00389 &#32;&#32;&#32;&#32;c&#32;=&#32;np.array([[0.43143755,&#32;0.20876147],
+<anchor xml:id="_rover_8py_source_1l00390"/>00390 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.38485367,&#32;0.39183579],
+<anchor xml:id="_rover_8py_source_1l00391"/>00391 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.02985961,&#32;0.22328303],
+<anchor xml:id="_rover_8py_source_1l00392"/>00392 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.7803707,&#32;0.3447003],
+<anchor xml:id="_rover_8py_source_1l00393"/>00393 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.93685657,&#32;0.56297285],
+<anchor xml:id="_rover_8py_source_1l00394"/><link linkend="_namespaceexamples_1_1rover_1a07b1b7a0f434192fb94ed8fc72743a07">00394</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.04194252,&#32;0.23598362],
+<anchor xml:id="_rover_8py_source_1l00395"/>00395 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.28049582,&#32;0.40984475],
+<anchor xml:id="_rover_8py_source_1l00396"/>00396 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.6756053,&#32;0.70939481],
+<anchor xml:id="_rover_8py_source_1l00397"/>00397 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.01926493,&#32;0.86972335],
+<anchor xml:id="_rover_8py_source_1l00398"/>00398 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.5993437,&#32;0.63347932],
+<anchor xml:id="_rover_8py_source_1l00399"/>00399 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.57807619,&#32;0.40180792],
+<anchor xml:id="_rover_8py_source_1l00400"/>00400 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.56824287,&#32;0.75486851],
+<anchor xml:id="_rover_8py_source_1l00401"/>00401 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.35403502,&#32;0.38591056],
+<anchor xml:id="_rover_8py_source_1l00402"/>00402 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.72492026,&#32;0.59969313],
+<anchor xml:id="_rover_8py_source_1l00403"/>00403 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.27618746,&#32;0.64322757],
+<anchor xml:id="_rover_8py_source_1l00404"/>00404 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.54029566,&#32;0.25492943],
+<anchor xml:id="_rover_8py_source_1l00405"/>00405 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.30903526,&#32;0.60166842],
+<anchor xml:id="_rover_8py_source_1l00406"/>00406 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.2913432,&#32;0.29636879],
+<anchor xml:id="_rover_8py_source_1l00407"/>00407 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.78512072,&#32;0.62340245],
+<anchor xml:id="_rover_8py_source_1l00408"/>00408 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.29592116,&#32;0.08400595],
+<anchor xml:id="_rover_8py_source_1l00409"/>00409 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.87548394,&#32;0.04877622],
+<anchor xml:id="_rover_8py_source_1l00410"/>00410 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.21714791,&#32;0.9607346],
+<anchor xml:id="_rover_8py_source_1l00411"/>00411 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.92624074,&#32;0.53441687],
+<anchor xml:id="_rover_8py_source_1l00412"/>00412 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.53639253,&#32;0.45127928],
+<anchor xml:id="_rover_8py_source_1l00413"/>00413 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.99892031,&#32;0.79537837],
+<anchor xml:id="_rover_8py_source_1l00414"/>00414 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.84621631,&#32;0.41891986],
+<anchor xml:id="_rover_8py_source_1l00415"/>00415 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.39432819,&#32;0.06768617],
+<anchor xml:id="_rover_8py_source_1l00416"/>00416 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.92365693,&#32;0.72217512],
+<anchor xml:id="_rover_8py_source_1l00417"/>00417 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.95520914,&#32;0.73956575],
+<anchor xml:id="_rover_8py_source_1l00418"/>00418 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.820383,&#32;0.53880139],
+<anchor xml:id="_rover_8py_source_1l00419"/>00419 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.22378049,&#32;0.9971974],
+<anchor xml:id="_rover_8py_source_1l00420"/>00420 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.34023233,&#32;0.91014706],
+<anchor xml:id="_rover_8py_source_1l00421"/>00421 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.64960636,&#32;0.35661133],
+<anchor xml:id="_rover_8py_source_1l00422"/>00422 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.29976464,&#32;0.33578931],
+<anchor xml:id="_rover_8py_source_1l00423"/>00423 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.43202238,&#32;0.11563227],
+<anchor xml:id="_rover_8py_source_1l00424"/>00424 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.66764947,&#32;0.52086962],
+<anchor xml:id="_rover_8py_source_1l00425"/>00425 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.45431078,&#32;0.94582745],
+<anchor xml:id="_rover_8py_source_1l00426"/>00426 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.12819915,&#32;0.33555344],
+<anchor xml:id="_rover_8py_source_1l00427"/>00427 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.19287232,&#32;0.8112075],
+<anchor xml:id="_rover_8py_source_1l00428"/>00428 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.61214791,&#32;0.71940626],
+<anchor xml:id="_rover_8py_source_1l00429"/>00429 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.4522542,&#32;0.47352186],
+<anchor xml:id="_rover_8py_source_1l00430"/>00430 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.95623345,&#32;0.74174186],
+<anchor xml:id="_rover_8py_source_1l00431"/>00431 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.17340293,&#32;0.89136853],
+<anchor xml:id="_rover_8py_source_1l00432"/>00432 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.04600255,&#32;0.53040724],
+<anchor xml:id="_rover_8py_source_1l00433"/>00433 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.42493468,&#32;0.41006649],
+<anchor xml:id="_rover_8py_source_1l00434"/>00434 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.37631485,&#32;0.88033853],
+<anchor xml:id="_rover_8py_source_1l00435"/>00435 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.66951947,&#32;0.29905739],
+<anchor xml:id="_rover_8py_source_1l00436"/>00436 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.4151516,&#32;0.77308712],
+<anchor xml:id="_rover_8py_source_1l00437"/>00437 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.55762991,&#32;0.26400156],
+<anchor xml:id="_rover_8py_source_1l00438"/>00438 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.6280609,&#32;0.53201974],
+<anchor xml:id="_rover_8py_source_1l00439"/>00439 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.92727447,&#32;0.61054975],
+<anchor xml:id="_rover_8py_source_1l00440"/>00440 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.93206587,&#32;0.42107549],
+<anchor xml:id="_rover_8py_source_1l00441"/>00441 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.63885574,&#32;0.37540613],
+<anchor xml:id="_rover_8py_source_1l00442"/>00442 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.15303425,&#32;0.57377797],
+<anchor xml:id="_rover_8py_source_1l00443"/>00443 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.8208471,&#32;0.16566631],
+<anchor xml:id="_rover_8py_source_1l00444"/>00444 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.14889043,&#32;0.35157346],
+<anchor xml:id="_rover_8py_source_1l00445"/>00445 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.71724622,&#32;0.57110725],
+<anchor xml:id="_rover_8py_source_1l00446"/>00446 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.32866327,&#32;0.8929578],
+<anchor xml:id="_rover_8py_source_1l00447"/>00447 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.74435871,&#32;0.47464421],
+<anchor xml:id="_rover_8py_source_1l00448"/>00448 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.9252026,&#32;0.21034329],
+<anchor xml:id="_rover_8py_source_1l00449"/>00449 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.57039306,&#32;0.54356078],
+<anchor xml:id="_rover_8py_source_1l00450"/>00450 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.56611551,&#32;0.02531317],
+<anchor xml:id="_rover_8py_source_1l00451"/>00451 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.84830056,&#32;0.01180542],
+<anchor xml:id="_rover_8py_source_1l00452"/>00452 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.51282028,&#32;0.73916524],
+<anchor xml:id="_rover_8py_source_1l00453"/>00453 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.58795481,&#32;0.46527371],
+<anchor xml:id="_rover_8py_source_1l00454"/>00454 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.83259048,&#32;0.98598188],
+<anchor xml:id="_rover_8py_source_1l00455"/>00455 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.00242488,&#32;0.83734691],
+<anchor xml:id="_rover_8py_source_1l00456"/>00456 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.72505789,&#32;0.04846931],
+<anchor xml:id="_rover_8py_source_1l00457"/>00457 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.07312971,&#32;0.30147979],
+<anchor xml:id="_rover_8py_source_1l00458"/>00458 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.55250344,&#32;0.23891255],
+<anchor xml:id="_rover_8py_source_1l00459"/>00459 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.51161315,&#32;0.46466442],
+<anchor xml:id="_rover_8py_source_1l00460"/>00460 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.802125,&#32;0.93440495],
+<anchor xml:id="_rover_8py_source_1l00461"/>00461 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.9157825,&#32;0.32441602],
+<anchor xml:id="_rover_8py_source_1l00462"/>00462 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.44927665,&#32;0.53380074],
+<anchor xml:id="_rover_8py_source_1l00463"/>00463 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.67708372,&#32;0.67527231],
+<anchor xml:id="_rover_8py_source_1l00464"/>00464 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.81868924,&#32;0.88356194],
+<anchor xml:id="_rover_8py_source_1l00465"/>00465 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.48228814,&#32;0.88668497],
+<anchor xml:id="_rover_8py_source_1l00466"/>00466 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.39805433,&#32;0.99341196],
+<anchor xml:id="_rover_8py_source_1l00467"/>00467 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.86671752,&#32;0.79016975],
+<anchor xml:id="_rover_8py_source_1l00468"/>00468 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.01115417,&#32;0.6924913],
+<anchor xml:id="_rover_8py_source_1l00469"/>00469 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.34272199,&#32;0.89543756],
+<anchor xml:id="_rover_8py_source_1l00470"/>00470 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.40721675,&#32;0.86164495],
+<anchor xml:id="_rover_8py_source_1l00471"/>00471 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.26317679,&#32;0.37334193],
+<anchor xml:id="_rover_8py_source_1l00472"/>00472 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.74446787,&#32;0.84782643],
+<anchor xml:id="_rover_8py_source_1l00473"/>00473 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.55560143,&#32;0.46405104],
+<anchor xml:id="_rover_8py_source_1l00474"/>00474 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.73567977,&#32;0.12776233],
+<anchor xml:id="_rover_8py_source_1l00475"/>00475 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.28080322,&#32;0.26036748],
+<anchor xml:id="_rover_8py_source_1l00476"/>00476 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.17507419,&#32;0.95540673],
+<anchor xml:id="_rover_8py_source_1l00477"/>00477 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.54233783,&#32;0.1196808],
+<anchor xml:id="_rover_8py_source_1l00478"/>00478 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.76670967,&#32;0.88396285],
+<anchor xml:id="_rover_8py_source_1l00479"/>00479 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.61297539,&#32;0.79057776],
+<anchor xml:id="_rover_8py_source_1l00480"/>00480 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.9344029,&#32;0.86252764],
+<anchor xml:id="_rover_8py_source_1l00481"/>00481 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.48746839,&#32;0.74942784],
+<anchor xml:id="_rover_8py_source_1l00482"/>00482 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.18657635,&#32;0.58127321],
+<anchor xml:id="_rover_8py_source_1l00483"/>00483 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.10377802,&#32;0.71463978],
+<anchor xml:id="_rover_8py_source_1l00484"/>00484 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.7771771,&#32;0.01463505],
+<anchor xml:id="_rover_8py_source_1l00485"/>00485 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.7635042,&#32;0.45498358],
+<anchor xml:id="_rover_8py_source_1l00486"/>00486 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.83345861,&#32;0.34749363],
+<anchor xml:id="_rover_8py_source_1l00487"/>00487 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.38273809,&#32;0.51890558],
+<anchor xml:id="_rover_8py_source_1l00488"/>00488 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.33887574,&#32;0.82842507],
+<anchor xml:id="_rover_8py_source_1l00489"/>00489 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.02073685,&#32;0.41776737],
+<anchor xml:id="_rover_8py_source_1l00490"/>00490 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.68754547,&#32;0.96430979],
+<anchor xml:id="_rover_8py_source_1l00491"/>00491 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.4704215,&#32;0.92717361],
+<anchor xml:id="_rover_8py_source_1l00492"/>00492 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.72666234,&#32;0.63241306],
+<anchor xml:id="_rover_8py_source_1l00493"/>00493 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.48494401,&#32;0.72003268],
+<anchor xml:id="_rover_8py_source_1l00494"/>00494 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.52601215,&#32;0.81641253],
+<anchor xml:id="_rover_8py_source_1l00495"/>00495 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.71426732,&#32;0.47077212],
+<anchor xml:id="_rover_8py_source_1l00496"/>00496 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.00258906,&#32;0.30377501],
+<anchor xml:id="_rover_8py_source_1l00497"/>00497 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.35495269,&#32;0.98585155],
+<anchor xml:id="_rover_8py_source_1l00498"/>00498 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.65507544,&#32;0.03458909],
+<anchor xml:id="_rover_8py_source_1l00499"/>00499 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.10550588,&#32;0.62032937],
+<anchor xml:id="_rover_8py_source_1l00500"/>00500 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.60259145,&#32;0.87110846],
+<anchor xml:id="_rover_8py_source_1l00501"/>00501 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0.04959159,&#32;0.535785]])
+<anchor xml:id="_rover_8py_source_1l00502"/>00502 
+<anchor xml:id="_rover_8py_source_1l00503"/>00503 &#32;&#32;&#32;&#32;l&#32;=&#32;c&#32;-&#32;0.025
+<anchor xml:id="_rover_8py_source_1l00504"/>00504 &#32;&#32;&#32;&#32;h&#32;=&#32;c&#32;+&#32;0.025
+<anchor xml:id="_rover_8py_source_1l00505"/>00505 
+<anchor xml:id="_rover_8py_source_1l00506"/>00506 &#32;&#32;&#32;&#32;r_box&#32;=&#32;np.array([[0.5,&#32;0.5]])
+<anchor xml:id="_rover_8py_source_1l00507"/>00507 &#32;&#32;&#32;&#32;r_l&#32;=&#32;r_box&#32;-&#32;0.5
+<anchor xml:id="_rover_8py_source_1l00508"/>00508 &#32;&#32;&#32;&#32;r_h&#32;=&#32;r_box&#32;+&#32;0.5
+<anchor xml:id="_rover_8py_source_1l00509"/>00509 
+<anchor xml:id="_rover_8py_source_1l00510"/>00510 &#32;&#32;&#32;&#32;trees&#32;=&#32;<link linkend="_classexamples_1_1rover_1_1_a_a_boxes">AABoxes</link>(l,&#32;h)
+<anchor xml:id="_rover_8py_source_1l00511"/>00511 &#32;&#32;&#32;&#32;r_box&#32;=&#32;<link linkend="_classexamples_1_1rover_1_1_neg_geom">NegGeom</link>(<link linkend="_classexamples_1_1rover_1_1_a_a_boxes">AABoxes</link>(r_l,&#32;r_h))
+<anchor xml:id="_rover_8py_source_1l00512"/>00512 &#32;&#32;&#32;&#32;obstacles&#32;=&#32;<link linkend="_classexamples_1_1rover_1_1_union_geom">UnionGeom</link>([trees,&#32;r_box])
+<anchor xml:id="_rover_8py_source_1l00513"/>00513 
+<anchor xml:id="_rover_8py_source_1l00514"/>00514 &#32;&#32;&#32;&#32;start&#32;=&#32;np.zeros(2)&#32;+&#32;0.05
+<anchor xml:id="_rover_8py_source_1l00515"/>00515 &#32;&#32;&#32;&#32;goal&#32;=&#32;np.array([0.95,&#32;0.95])
+<anchor xml:id="_rover_8py_source_1l00516"/>00516 
+<anchor xml:id="_rover_8py_source_1l00517"/>00517 &#32;&#32;&#32;&#32;costs&#32;=&#32;[<link linkend="_classexamples_1_1rover_1_1_const_obstacle_cost">ConstObstacleCost</link>(obstacles,&#32;cost=20.),&#32;<link linkend="_classexamples_1_1rover_1_1_const_cost">ConstCost</link>(0.05)]
+<anchor xml:id="_rover_8py_source_1l00518"/>00518 &#32;&#32;&#32;&#32;cost_fn&#32;=&#32;<link linkend="_classexamples_1_1rover_1_1_additive_costs">AdditiveCosts</link>(costs)
+<anchor xml:id="_rover_8py_source_1l00519"/>00519 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;cost_fn,&#32;start,&#32;goal
+<anchor xml:id="_rover_8py_source_1l00520"/>00520 
+<anchor xml:id="_rover_8py_source_1l00521"/>00521 
+<anchor xml:id="_rover_8py_source_1l00522"/>00522 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1rover_1a240750491f18db35d64c202a18f6718d">create_large_domain</link>(force_start=False,
+<anchor xml:id="_rover_8py_source_1l00523"/>00523 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;force_goal=False,
+<anchor xml:id="_rover_8py_source_1l00524"/>00524 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;start_miss_cost=None,
+<anchor xml:id="_rover_8py_source_1l00525"/>00525 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;goal_miss_cost=None):
+<anchor xml:id="_rover_8py_source_1l00526"/>00526 &#32;&#32;&#32;&#32;cost_fn,&#32;start,&#32;goal&#32;=&#32;<link linkend="_namespaceexamples_1_1rover_1a07b1b7a0f434192fb94ed8fc72743a07">create_cost_large</link>()
+<anchor xml:id="_rover_8py_source_1l00527"/>00527 
+<anchor xml:id="_rover_8py_source_1l00528"/><link linkend="_namespaceexamples_1_1rover_1a240750491f18db35d64c202a18f6718d">00528</link> &#32;&#32;&#32;&#32;n_points&#32;=&#32;30
+<anchor xml:id="_rover_8py_source_1l00529"/>00529 &#32;&#32;&#32;&#32;traj&#32;=&#32;<link linkend="_classexamples_1_1rover_1_1_point_b_spline">PointBSpline</link>(dim=2,&#32;num_points=n_points)
+<anchor xml:id="_rover_8py_source_1l00530"/>00530 &#32;&#32;&#32;&#32;n_params&#32;=&#32;traj.param_size
+<anchor xml:id="_rover_8py_source_1l00531"/>00531 &#32;&#32;&#32;&#32;domain&#32;=&#32;<link linkend="_classexamples_1_1rover_1_1_rover_domain">RoverDomain</link>(cost_fn,
+<anchor xml:id="_rover_8py_source_1l00532"/>00532 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;start=start,
+<anchor xml:id="_rover_8py_source_1l00533"/>00533 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;goal=goal,
+<anchor xml:id="_rover_8py_source_1l00534"/>00534 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;traj=traj,
+<anchor xml:id="_rover_8py_source_1l00535"/>00535 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;start_miss_cost=start_miss_cost,
+<anchor xml:id="_rover_8py_source_1l00536"/>00536 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;goal_miss_cost=goal_miss_cost,
+<anchor xml:id="_rover_8py_source_1l00537"/>00537 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;force_start=force_start,
+<anchor xml:id="_rover_8py_source_1l00538"/>00538 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;force_goal=force_goal,
+<anchor xml:id="_rover_8py_source_1l00539"/>00539 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;s_range=np.array([[-0.1,&#32;-0.1],&#32;[1.1,&#32;1.1]]))
+<anchor xml:id="_rover_8py_source_1l00540"/>00540 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;domain
+<anchor xml:id="_rover_8py_source_1l00541"/>00541 
+<anchor xml:id="_rover_8py_source_1l00542"/>00542 <emphasis role="keyword">class&#32;</emphasis><link linkend="_classexamples_1_1rover_1_1_normalized_input_fn">NormalizedInputFn</link>:
+<anchor xml:id="_rover_8py_source_1l00543"/>00543 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis>__init__(self,&#32;fn_instance,&#32;x_range):
+<anchor xml:id="_rover_8py_source_1l00544"/>00544 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.fn_instance&#32;=&#32;fn_instance
+<anchor xml:id="_rover_8py_source_1l00545"/>00545 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.x_range&#32;=&#32;x_range
+<anchor xml:id="_rover_8py_source_1l00546"/>00546 
+<anchor xml:id="_rover_8py_source_1l00547"/>00547 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis>__call__(self,&#32;x):
+<anchor xml:id="_rover_8py_source_1l00548"/><link linkend="_classexamples_1_1rover_1_1_normalized_input_fn">00548</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;self.<link linkend="_classexamples_1_1rover_1_1_normalized_input_fn_1a8242038aecd8611a62868e37886eba96">fn_instance</link>(self.<link linkend="_classexamples_1_1rover_1_1_normalized_input_fn_1adb36e5847488cc430f99b6b43f2de8cb">project_input</link>(x))
+<anchor xml:id="_rover_8py_source_1l00549"/><link linkend="_classexamples_1_1rover_1_1_normalized_input_fn_1a385299bdf85db1af00e87d23169e2fb8">00549</link> 
+<anchor xml:id="_rover_8py_source_1l00550"/><link linkend="_classexamples_1_1rover_1_1_normalized_input_fn_1a8242038aecd8611a62868e37886eba96">00550</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1rover_1_1_normalized_input_fn_1adb36e5847488cc430f99b6b43f2de8cb">project_input</link>(self,&#32;x):
+<anchor xml:id="_rover_8py_source_1l00551"/><link linkend="_classexamples_1_1rover_1_1_normalized_input_fn_1aadce70fe4d3a6040ab0df0b52a65873b">00551</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;x&#32;*&#32;(self.<link linkend="_classexamples_1_1rover_1_1_normalized_input_fn_1aadce70fe4d3a6040ab0df0b52a65873b">x_range</link>[1]&#32;-&#32;self.<link linkend="_classexamples_1_1rover_1_1_normalized_input_fn_1aadce70fe4d3a6040ab0df0b52a65873b">x_range</link>[0])&#32;+&#32;self.<link linkend="_classexamples_1_1rover_1_1_normalized_input_fn_1aadce70fe4d3a6040ab0df0b52a65873b">x_range</link>[0]
+<anchor xml:id="_rover_8py_source_1l00552"/>00552 
+<anchor xml:id="_rover_8py_source_1l00553"/><link linkend="_classexamples_1_1rover_1_1_normalized_input_fn_1a1753cd4e4dd5b023bfd632c0668a1e06">00553</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1rover_1_1_normalized_input_fn_1a79b8fee249a911d1ac1f07389ebfacee">inv_project_input</link>(self,&#32;x):
+<anchor xml:id="_rover_8py_source_1l00554"/>00554 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;(x&#32;-&#32;self.<link linkend="_classexamples_1_1rover_1_1_normalized_input_fn_1aadce70fe4d3a6040ab0df0b52a65873b">x_range</link>[0])&#32;/&#32;(self.<link linkend="_classexamples_1_1rover_1_1_normalized_input_fn_1aadce70fe4d3a6040ab0df0b52a65873b">x_range</link>[1]&#32;-&#32;self.<link linkend="_classexamples_1_1rover_1_1_normalized_input_fn_1aadce70fe4d3a6040ab0df0b52a65873b">x_range</link>[0])
+<anchor xml:id="_rover_8py_source_1l00555"/>00555 
+<anchor xml:id="_rover_8py_source_1l00556"/><link linkend="_classexamples_1_1rover_1_1_normalized_input_fn_1adb36e5847488cc430f99b6b43f2de8cb">00556</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1rover_1_1_normalized_input_fn_1ac44a6618ec40360dfa1cec1e3d1cb113">get_range</link>(self):
+<anchor xml:id="_rover_8py_source_1l00557"/>00557 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;np.array([np.zeros(self.<link linkend="_classexamples_1_1rover_1_1_normalized_input_fn_1aadce70fe4d3a6040ab0df0b52a65873b">x_range</link>[0].shape[0]),&#32;np.ones(self.<link linkend="_classexamples_1_1rover_1_1_normalized_input_fn_1aadce70fe4d3a6040ab0df0b52a65873b">x_range</link>[0].shape[0])])
+<anchor xml:id="_rover_8py_source_1l00558"/>00558 
+<anchor xml:id="_rover_8py_source_1l00559"/><link linkend="_classexamples_1_1rover_1_1_normalized_input_fn_1a79b8fee249a911d1ac1f07389ebfacee">00559</link> 
+<anchor xml:id="_rover_8py_source_1l00560"/>00560 <emphasis role="keyword">class&#32;</emphasis><link linkend="_classexamples_1_1rover_1_1_constant_offset_fn">ConstantOffsetFn</link>:
+<anchor xml:id="_rover_8py_source_1l00561"/>00561 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1rover_1_1_normalized_input_fn_1a385299bdf85db1af00e87d23169e2fb8">__init__</link>(self,&#32;fn_instance,&#32;offset):
+<anchor xml:id="_rover_8py_source_1l00562"/><link linkend="_classexamples_1_1rover_1_1_normalized_input_fn_1ac44a6618ec40360dfa1cec1e3d1cb113">00562</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1rover_1_1_normalized_input_fn_1a8242038aecd8611a62868e37886eba96">fn_instance</link>&#32;=&#32;fn_instance
+<anchor xml:id="_rover_8py_source_1l00563"/>00563 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.offset&#32;=&#32;offset
+<anchor xml:id="_rover_8py_source_1l00564"/>00564 
+<anchor xml:id="_rover_8py_source_1l00565"/>00565 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1rover_1_1_normalized_input_fn_1a1753cd4e4dd5b023bfd632c0668a1e06">__call__</link>(self,&#32;x):
+<anchor xml:id="_rover_8py_source_1l00566"/><link linkend="_classexamples_1_1rover_1_1_constant_offset_fn">00566</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;self.<link linkend="_classexamples_1_1rover_1_1_constant_offset_fn_1aaf677e5435a8dcb3cd1326a129b3cd06">fn_instance</link>(x)&#32;+&#32;self.<link linkend="_classexamples_1_1rover_1_1_constant_offset_fn_1a14c11f6e5f3f23de6f0748ede0ebb66f">offset</link>
+<anchor xml:id="_rover_8py_source_1l00567"/><link linkend="_classexamples_1_1rover_1_1_constant_offset_fn_1af7cfdad285f19f48c906b8d8d5810f9a">00567</link> 
+<anchor xml:id="_rover_8py_source_1l00568"/><link linkend="_classexamples_1_1rover_1_1_constant_offset_fn_1aaf677e5435a8dcb3cd1326a129b3cd06">00568</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1rover_1_1_constant_offset_fn_1a38021ae8d9773838abedb6b1edd5cbf6">get_range</link>(self):
+<anchor xml:id="_rover_8py_source_1l00569"/><link linkend="_classexamples_1_1rover_1_1_constant_offset_fn_1a14c11f6e5f3f23de6f0748ede0ebb66f">00569</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;self.<link linkend="_classexamples_1_1rover_1_1_constant_offset_fn_1aaf677e5435a8dcb3cd1326a129b3cd06">fn_instance</link>.<link linkend="_classexamples_1_1rover_1_1_constant_offset_fn_1a38021ae8d9773838abedb6b1edd5cbf6">get_range</link>()
+<anchor xml:id="_rover_8py_source_1l00570"/>00570 &#32;&#32;&#32;&#32;
+<anchor xml:id="_rover_8py_source_1l00571"/><link linkend="_classexamples_1_1rover_1_1_constant_offset_fn_1a576d8386cd92eba5c789738c6c0b1d3b">00571</link> <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1optimizer">fcmaes.optimizer</link>&#32;<emphasis role="keyword">import</emphasis>&#32;De_cpp,&#32;Bite_cpp,&#32;wrapper,&#32;logger
+<anchor xml:id="_rover_8py_source_1l00572"/>00572 <emphasis role="keyword">from</emphasis>&#32;fcmaes&#32;<emphasis role="keyword">import</emphasis>&#32;retry
+<anchor xml:id="_rover_8py_source_1l00573"/>00573 <emphasis role="keyword">from</emphasis>&#32;scipy.optimize&#32;<emphasis role="keyword">import</emphasis>&#32;Bounds
+<anchor xml:id="_rover_8py_source_1l00574"/><link linkend="_classexamples_1_1rover_1_1_constant_offset_fn_1a38021ae8d9773838abedb6b1edd5cbf6">00574</link> 
+<anchor xml:id="_rover_8py_source_1l00575"/>00575 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1rover_1a478b95bc30ea81b5ac1b26729cd9cf9f">main</link>():
+<anchor xml:id="_rover_8py_source_1l00576"/>00576 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis>l2cost(x,&#32;point):
+<anchor xml:id="_rover_8py_source_1l00577"/>00577 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;10&#32;*&#32;np.linalg.norm(x&#32;-&#32;point,&#32;1)
+<anchor xml:id="_rover_8py_source_1l00578"/>00578 
+<anchor xml:id="_rover_8py_source_1l00579"/>00579 &#32;&#32;&#32;&#32;domain&#32;=&#32;<link linkend="_namespaceexamples_1_1rover_1a240750491f18db35d64c202a18f6718d">create_large_domain</link>(force_start=<emphasis role="keyword">False</emphasis>,
+<anchor xml:id="_rover_8py_source_1l00580"/>00580 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;force_goal=<emphasis role="keyword">False</emphasis>,
+<anchor xml:id="_rover_8py_source_1l00581"/><link linkend="_namespaceexamples_1_1rover_1a478b95bc30ea81b5ac1b26729cd9cf9f">00581</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;start_miss_cost=l2cost,
+<anchor xml:id="_rover_8py_source_1l00582"/>00582 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;goal_miss_cost=l2cost)
+<anchor xml:id="_rover_8py_source_1l00583"/>00583 &#32;&#32;&#32;&#32;n_points&#32;=&#32;domain.traj.npoints
+<anchor xml:id="_rover_8py_source_1l00584"/>00584 
+<anchor xml:id="_rover_8py_source_1l00585"/>00585 &#32;&#32;&#32;&#32;raw_x_range&#32;=&#32;np.repeat(domain.s_range,&#32;n_points,&#32;axis=1)
+<anchor xml:id="_rover_8py_source_1l00586"/>00586 
+<anchor xml:id="_rover_8py_source_1l00587"/>00587 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;maximum&#32;value&#32;of&#32;f</emphasis>
+<anchor xml:id="_rover_8py_source_1l00588"/>00588 &#32;&#32;&#32;&#32;f_max&#32;=&#32;5.0
+<anchor xml:id="_rover_8py_source_1l00589"/>00589 &#32;&#32;&#32;&#32;f&#32;=&#32;<link linkend="_classexamples_1_1rover_1_1_constant_offset_fn">ConstantOffsetFn</link>(domain,&#32;f_max)
+<anchor xml:id="_rover_8py_source_1l00590"/>00590 &#32;&#32;&#32;&#32;f&#32;=&#32;<link linkend="_classexamples_1_1rover_1_1_normalized_input_fn">NormalizedInputFn</link>(f,&#32;raw_x_range)
+<anchor xml:id="_rover_8py_source_1l00591"/>00591 &#32;&#32;&#32;&#32;x_range&#32;=&#32;f.get_range()
+<anchor xml:id="_rover_8py_source_1l00592"/>00592 
+<anchor xml:id="_rover_8py_source_1l00593"/>00593 &#32;&#32;&#32;&#32;bounds&#32;=&#32;Bounds(x_range[0],&#32;x_range[1])&#32;
+<anchor xml:id="_rover_8py_source_1l00594"/>00594 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_rover_8py_source_1l00595"/>00595 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis>negated(x):&#32;<emphasis role="comment">#&#32;negation&#32;because&#32;we&#32;minimize</emphasis>
+<anchor xml:id="_rover_8py_source_1l00596"/>00596 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;-f(x)
+<anchor xml:id="_rover_8py_source_1l00597"/>00597 &#32;&#32;&#32;&#32;
+<anchor xml:id="_rover_8py_source_1l00598"/>00598 &#32;&#32;&#32;&#32;logger.info(<emphasis role="stringliteral">&quot;rover&#32;retry.minimize(wrap(f,&#32;dim),&#32;bounds,&#32;De_cpp(10000),&#32;num_retries=32)&quot;</emphasis>)
+<anchor xml:id="_rover_8py_source_1l00599"/>00599 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(20):
+<anchor xml:id="_rover_8py_source_1l00600"/>00600 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;retry.minimize(<link linkend="_classfcmaes_1_1optimizer_1_1wrapper">wrapper</link>(negated),&#32;bounds,&#32;optimizer=<link linkend="_classfcmaes_1_1optimizer_1_1_de__cpp">De_cpp</link>(10000),&#32;num_retries=32)
+<anchor xml:id="_rover_8py_source_1l00601"/>00601 
+<anchor xml:id="_rover_8py_source_1l00602"/>00602 &#32;&#32;&#32;&#32;logger.info(<emphasis role="stringliteral">&quot;rover&#32;retry.minimize(wrap(f,&#32;dim),&#32;bounds,&#32;Bite_cpp(10000),&#32;num_retries=32)&quot;</emphasis>)
+<anchor xml:id="_rover_8py_source_1l00603"/>00603 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(20):
+<anchor xml:id="_rover_8py_source_1l00604"/>00604 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;retry.minimize(<link linkend="_classfcmaes_1_1optimizer_1_1wrapper">wrapper</link>(negated),&#32;bounds,&#32;optimizer=<link linkend="_classfcmaes_1_1optimizer_1_1_bite__cpp">Bite_cpp</link>(10000),&#32;num_retries=32)
+<anchor xml:id="_rover_8py_source_1l00605"/>00605 
+<anchor xml:id="_rover_8py_source_1l00606"/>00606 
+<anchor xml:id="_rover_8py_source_1l00607"/>00607 <emphasis role="keywordflow">if</emphasis>&#32;__name__&#32;==&#32;<emphasis role="stringliteral">&quot;__main__&quot;</emphasis>:
+<anchor xml:id="_rover_8py_source_1l00608"/>00608 &#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1rover_1a478b95bc30ea81b5ac1b26729cd9cf9f">main</link>()
+</programlisting></section>

@@ -1,0 +1,1012 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.13.2" xml:lang="en-US">
+  <compounddef id="namespacefcmaes_1_1moretry" kind="namespace" language="Python">
+    <compoundname>fcmaes::moretry</compoundname>
+    <innerclass refid="classfcmaes_1_1moretry_1_1mo__wrapper" prot="public">fcmaes::moretry::mo_wrapper</innerclass>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="namespacefcmaes_1_1moretry_1aba66691a21a53975863acf44cac52eda" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Tuple[np.ndarray, np.ndarray]</type>
+        <definition> Tuple[np.ndarray, np.ndarray] fcmaes.moretry.minimize</definition>
+        <argsstring>(Callable[[ArrayLike], float] fun, Bounds bounds, Bounds weight_bounds, Optional[int] ncon=0, Optional[float] value_exp=2.0, Optional[ArrayLike] value_limits=None, Optional[int] num_retries=1024, Optional[int] workers=mp.cpu_count(), Optional[int] popsize=31, Optional[int] max_evaluations=50000, Optional[int] capacity=None, Optional[Optimizer] optimizer=None, Optional[int] statistic_num=0, Optional[str] plot_name=None)</argsstring>
+        <name>minimize</name>
+        <qualifiedname>fcmaes.moretry.minimize</qualifiedname>
+        <param>
+          <type>Callable</type>
+          <defname>fun</defname>
+          <array>[[ArrayLike]</array>
+        </param>
+        <param>
+          <type>float]</type>
+          <declname>fun</declname>
+          <defname>bounds</defname>
+        </param>
+        <param>
+          <type>Bounds</type>
+          <declname>bounds</declname>
+          <defname>weight_bounds</defname>
+        </param>
+        <param>
+          <type>Bounds</type>
+          <declname>weight_bounds</declname>
+          <defname>ncon</defname>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>ncon</declname>
+          <defname>value_exp</defname>
+          <array>[int]</array>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>value_exp</declname>
+          <defname>value_limits</defname>
+          <array>[float]</array>
+          <defval>2.0</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>value_limits</declname>
+          <defname>num_retries</defname>
+          <array>[ArrayLike]</array>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>num_retries</declname>
+          <defname>workers</defname>
+          <array>[int]</array>
+          <defval>1024</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>workers</declname>
+          <defname>popsize</defname>
+          <array>[int]</array>
+          <defval>mp.cpu_count()</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>popsize</declname>
+          <defname>max_evaluations</defname>
+          <array>[int]</array>
+          <defval>31</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>max_evaluations</declname>
+          <defname>capacity</defname>
+          <array>[int]</array>
+          <defval>50000</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>capacity</declname>
+          <defname>optimizer</defname>
+          <array>[int]</array>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>optimizer</declname>
+          <defname>statistic_num</defname>
+          <array>[Optimizer]</array>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>statistic_num</declname>
+          <defname>plot_name</defname>
+          <array>[int]</array>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>plot_name</declname>
+          <array>[str]</array>
+          <defval>None</defval>
+        </param>
+        <briefdescription>
+<para>Minimization of a multi objective function of one or more variables using parallel optimization retry. </para>
+        </briefdescription>
+        <detaileddescription>
+<sect1 id="namespacefcmaes_1_1moretry_1autotoc_md16_1s1"><sect2 id="namespacefcmaes_1_1moretry_1autotoc_md16">
+<title>Parameters</title><para>fun callable The objective function to be minimized. <computeroutput>fun(x) -&gt; float</computeroutput> where <computeroutput>x</computeroutput> is an 1-D array with shape (n,) bounds sequence or <computeroutput>Bounds</computeroutput>, optional Bounds on variables. There are two ways to specify the bounds:<orderedlist>
+<listitem><para>Instance of the <computeroutput>scipy.Bounds</computeroutput> class.</para>
+</listitem><listitem><para>Sequence of <computeroutput>(min, max)</computeroutput> pairs for each element in <computeroutput>x</computeroutput>. None is used to specify no bound. weight_bounds <computeroutput>Bounds</computeroutput>, optional Bounds on objective weights. ncon int, optional number of constraints value_exp float, optional exponent applied to the objective values for the weighted sum. value_limits sequence of floats, optional Upper limit for optimized objective values to be stored. num_retries int, optional Number of optimization retries. workers int, optional number of parallel processes used. Default is mp.cpu_count() <programlisting><codeline><highlight class="normal">popsize<sp/>=<sp/>int,<sp/>optional</highlight></codeline>
+</programlisting> CMA-ES population size used for all CMA-ES runs. Not used for differential evolution. Ignored if parameter optimizer is defined. max_evaluations int, optional Forced termination of all optimization runs after <computeroutput>max_evaluations</computeroutput> function evaluations. Only used if optimizer is undefined, otherwise this setting is defined in the optimizer. capacity int, optional capacity of the evaluation store. optimizer <ref refid="classfcmaes_1_1optimizer_1_1_optimizer" kindref="compound">optimizer.Optimizer</ref>, optional optimizer to use. Default is a sequence of differential evolution and CMA-ES. plot_name plot_name, optional if defined the pareto front is plotted during the optimization to monitor progress</para>
+</listitem></orderedlist>
+</para>
+</sect2></sect1>
+<sect1 id="namespacefcmaes_1_1moretry_1autotoc_md17_1s1"><sect2 id="namespacefcmaes_1_1moretry_1autotoc_md17">
+<title>Returns</title><para>xs, ys: list of argument vectors and corresponding value vectors of the optimization results. </para>
+</sect2></sect1>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="fcmaes/moretry.py" line="94" column="1" bodyfile="fcmaes/moretry.py" bodystart="108" bodyend="121"/>
+        <references refid="namespacefcmaes_1_1moretry_1a795e0edbefdcbbf2bc2b0446d59d5903" compoundref="moretry_8py" startline="160" endline="171">fcmaes.moretry.mo_retry</references>
+        <referencedby refid="namespacefcmaes_1_1moretry_1a9afe8f9041254063275650e3dc56b77e" compoundref="moretry_8py" startline="387" endline="401">fcmaes.moretry.minimize_plot</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespacefcmaes_1_1moretry_1a795e0edbefdcbbf2bc2b0446d59d5903" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>fcmaes.moretry.mo_retry</definition>
+        <argsstring>(Callable[[ArrayLike], float] fun, Bounds weight_bounds, int ncon, float y_exp, store, Callable optimize, int num_retries, ArrayLike value_limits, Optional[int] workers=mp.cpu_count())</argsstring>
+        <name>mo_retry</name>
+        <qualifiedname>fcmaes.moretry.mo_retry</qualifiedname>
+        <param>
+          <type>Callable</type>
+          <defname>fun</defname>
+          <array>[[ArrayLike]</array>
+        </param>
+        <param>
+          <type>float]</type>
+          <declname>fun</declname>
+          <defname>weight_bounds</defname>
+        </param>
+        <param>
+          <type>Bounds</type>
+          <declname>weight_bounds</declname>
+          <defname>ncon</defname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ncon</declname>
+          <defname>y_exp</defname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>y_exp</declname>
+          <defname>store</defname>
+        </param>
+        <param>
+          <type>store</type>
+          <defname>optimize</defname>
+        </param>
+        <param>
+          <type>Callable</type>
+          <declname>optimize</declname>
+          <defname>num_retries</defname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>num_retries</declname>
+          <defname>value_limits</defname>
+        </param>
+        <param>
+          <type>ArrayLike</type>
+          <declname>value_limits</declname>
+          <defname>workers</defname>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>workers</declname>
+          <array>[int]</array>
+          <defval>mp.cpu_count()</defval>
+        </param>
+        <briefdescription>
+<para>Executes a multi-objective optimization with retry functionality by distributing work across multiple processes. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function performs optimization by spawning multiple processes, each executing a retry loop targeting a specific optimizer and constraints. The retries ensure robustness against failures or subpar outcomes in individual optimization attempts across the workers.</para>
+<para><verbatim>   fun (Callable[[ArrayLike], float]): The objective function to optimize. It must accept
+       an input vector and return a scalar cost or objective value.
+</verbatim> <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>weight_bounds</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bounds for the weights, defining constraints on the optimization </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>variables.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ncon</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of constraints to enforce during the optimization process. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>y_exp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The expected value used as a threshold or benchmark for optimization outcomes. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>store</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>An object for storing and managing results during optimization. Must support <computeroutput>sort</computeroutput> and <computeroutput>dump</computeroutput> methods, among others. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>optimize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optimization function or solver to be used within the retry loop. It must be callable and compatible with the function and constraints provided. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>num_retries</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of retries per process, ensuring multiple attempts for robust optimization results. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>value_limits</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Array-like structure specifying the acceptable limits for values during optimization. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>workers</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of processes to spawn for parallel optimization. Defaults to the total available CPU count.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para></para>
+</simplesect>
+<simplesect kind="return"><para>xs_view A view or representation of the sorted results stored in the <computeroutput>store</computeroutput> after the optimization process is complete. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="fcmaes/moretry.py" line="152" column="1" bodyfile="fcmaes/moretry.py" bodystart="160" bodyend="171"/>
+        <referencedby refid="namespacefcmaes_1_1moretry_1aba66691a21a53975863acf44cac52eda" compoundref="moretry_8py" startline="108" endline="121">fcmaes.moretry.minimize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespacefcmaes_1_1moretry_1a2015c92ea717d0ce4849a00282a56d96" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>fcmaes.moretry._retry_loop</definition>
+        <argsstring>(pid, rgs, fun, weight_bounds, ncon, y_exp, store, optimize, num_retries, value_limits)</argsstring>
+        <name>_retry_loop</name>
+        <qualifiedname>fcmaes.moretry._retry_loop</qualifiedname>
+        <param>
+          <type>pid</type>
+          <defname>pid</defname>
+        </param>
+        <param>
+          <type>rgs</type>
+          <defname>rgs</defname>
+        </param>
+        <param>
+          <type>fun</type>
+          <defname>fun</defname>
+        </param>
+        <param>
+          <type>weight_bounds</type>
+          <defname>weight_bounds</defname>
+        </param>
+        <param>
+          <type>ncon</type>
+          <defname>ncon</defname>
+        </param>
+        <param>
+          <type>y_exp</type>
+          <defname>y_exp</defname>
+        </param>
+        <param>
+          <type>store</type>
+          <defname>store</defname>
+        </param>
+        <param>
+          <type>optimize</type>
+          <defname>optimize</defname>
+        </param>
+        <param>
+          <type>num_retries</type>
+          <defname>num_retries</defname>
+        </param>
+        <param>
+          <type>value_limits</type>
+          <defname>value_limits</defname>
+        </param>
+        <briefdescription>
+<para>Executes a retry loop strategy for multi-objective optimization. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This process includes generating random weights, scaling them to match constraints, optimizing the given function, and storing the results if they meet specific criteria. Additionally, it may generate and save plots of results for visualization.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Process ID to identify and manage the random state specific to the process. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rgs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>List of random number generators associated with each process. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>fun</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The function to be optimized in the retry loop. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>weight_bounds</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The lower and upper bounds for the weights used for scaling in the optimization process. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ncon</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of constraints to account for during the optimization process. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>y_exp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Exponent used to adjust the scaling of weights in the optimization process. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>store</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Instance of a class responsible for managing optimization results and storing data. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>optimize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optimization function that evaluates the objective or constraints based on inputs. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>num_retries</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of retries allowed for achieving a successful optimization result. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>value_limits</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional limits enforced on the objective values from the optimization results. If None, no objective value constraints are applied. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="fcmaes/moretry.py" line="203" column="1" bodyfile="fcmaes/moretry.py" bodystart="204" bodyend="230"/>
+        <references refid="namespacefcmaes_1_1moretry_1ac6f83723e5f5c51274e705d503b7133f" compoundref="moretry_8py" startline="511" endline="516">fcmaes.moretry._avg_exp</references>
+        <references refid="namespacefcmaes_1_1moretry_1a47b95fe506257996c19d9189f3f005c5" compoundref="moretry_8py" startline="425" endline="445">fcmaes.moretry.plot</references>
+      </memberdef>
+      <memberdef kind="function" id="namespacefcmaes_1_1moretry_1a76f8b50c1782e6def55706f648e3e819" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>fcmaes.moretry.pareto</definition>
+        <argsstring>(np.ndarray xs, np.ndarray ys)</argsstring>
+        <name>pareto</name>
+        <qualifiedname>fcmaes.moretry.pareto</qualifiedname>
+        <param>
+          <type>np.ndarray</type>
+          <declname>xs</declname>
+        </param>
+        <param>
+          <type>np.ndarray</type>
+          <declname>ys</declname>
+        </param>
+        <briefdescription>
+<para>Filter and sort elements based on Pareto efficiency. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function calculates the Pareto front for the provided arrays, <computeroutput>xs</computeroutput> and <computeroutput>ys</computeroutput>. The Pareto front contains elements that are not dominated by any other element in the dataset. The function returns the filtered and sorted elements that belong to the Pareto front sorted by the values in the associated <computeroutput>ys</computeroutput> array.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>xs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A NumPy array representing the input data values. The <computeroutput>xs</computeroutput> array contains the attributes aligned with <computeroutput>ys</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ys</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A NumPy array indicating the criteria or objectives that the Pareto efficiency is calculated upon.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A tuple containing two NumPy arrays:<itemizedlist>
+<listitem><para>A filtered and sorted array of elements from <computeroutput>xs</computeroutput> corresponding to the Pareto front.</para>
+</listitem><listitem><para>A filtered and sorted array of elements from <computeroutput>ys</computeroutput> corresponding to the Pareto front. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="fcmaes/moretry.py" line="253" column="1" bodyfile="fcmaes/moretry.py" bodystart="253" bodyend="259"/>
+        <references refid="namespacefcmaes_1_1moretry_1a56d8f2ec5777046d87dcd9a79c8168f9" compoundref="moretry_8py" startline="563" endline="574">fcmaes.moretry._pareto</references>
+        <referencedby refid="namespacefcmaes_1_1moretry_1a6059f5a7788b8fb7273d3e5900426199" compoundref="moretry_8py" startline="479" endline="493">fcmaes.moretry.adv_minimize_plot</referencedby>
+        <referencedby refid="namespacefcmaes_1_1moretry_1a47b95fe506257996c19d9189f3f005c5" compoundref="moretry_8py" startline="425" endline="445">fcmaes.moretry.plot</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespacefcmaes_1_1moretry_1a9afe8f9041254063275650e3dc56b77e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>fcmaes.moretry.minimize_plot</definition>
+        <argsstring>(str name, Optimizer optimizer, Callable[[ArrayLike], float] fun, Bounds bounds, weight_bounds, Optional[int] ncon=0, Optional[ArrayLike] value_limits=None, Optional[int] num_retries=1024, Optional[float] exp=2.0, Optional[int] workers=mp.cpu_count(), statistic_num=0, plot_name=None)</argsstring>
+        <name>minimize_plot</name>
+        <qualifiedname>fcmaes.moretry.minimize_plot</qualifiedname>
+        <param>
+          <type>str</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type><ref refid="classfcmaes_1_1optimizer_1_1_optimizer" kindref="compound">Optimizer</ref></type>
+          <declname>optimizer</declname>
+        </param>
+        <param>
+          <type>Callable</type>
+          <defname>fun</defname>
+          <array>[[ArrayLike]</array>
+        </param>
+        <param>
+          <type>float]</type>
+          <declname>fun</declname>
+          <defname>bounds</defname>
+        </param>
+        <param>
+          <type>Bounds</type>
+          <declname>bounds</declname>
+          <defname>weight_bounds</defname>
+        </param>
+        <param>
+          <type>weight_bounds</type>
+          <defname>ncon</defname>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>ncon</declname>
+          <defname>value_limits</defname>
+          <array>[int]</array>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>value_limits</declname>
+          <defname>num_retries</defname>
+          <array>[ArrayLike]</array>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>num_retries</declname>
+          <defname>exp</defname>
+          <array>[int]</array>
+          <defval>1024</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>exp</declname>
+          <defname>workers</defname>
+          <array>[float]</array>
+          <defval>2.0</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>workers</declname>
+          <defname>statistic_num</defname>
+          <array>[int]</array>
+          <defval>mp.cpu_count()</defval>
+        </param>
+        <param>
+          <type>statistic_num</type>
+          <defname>plot_name</defname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>plot_name</type>
+          <defval>None</defval>
+        </param>
+        <briefdescription>
+<para>Minimizes a given function using a specified optimizer and plots the results. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function performs optimization on a target function within the specified bounds and additional constraints. The results of the optimization, including inputs and outputs, are saved to a compressed file, and a plot is generated to visualize the optimization results.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The base name for the output files and plots. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>optimizer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The optimization algorithm to be used. fun (Callable[[ArrayLike], float]): The target function to minimize. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bounds</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The bounds within which the optimization is performed. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>weight_bounds</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Constraints on weight values for optimization. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ncon</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of constraints in optimization. Defaults to 0. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>value_limits</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Limits for input values in the optimization process. Defaults to None. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>num_retries</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of retries for optimization in case of failure or randomness. Defaults to 1024. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>exp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Exponent for value weighting during optimization. Defaults to 2.0. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>workers</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of parallel workers used during optimization. Defaults to the number of CPU cores available. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>statistic_num</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Statistical parameter to control optimization behavior. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>plot_name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Custom name for the output plot. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="fcmaes/moretry.py" line="377" column="1" bodyfile="fcmaes/moretry.py" bodystart="387" bodyend="401"/>
+        <references refid="namespacefcmaes_1_1moretry_1aba66691a21a53975863acf44cac52eda" compoundref="moretry_8py" startline="108" endline="121">fcmaes.moretry.minimize</references>
+        <references refid="namespacefcmaes_1_1moretry_1a47b95fe506257996c19d9189f3f005c5" compoundref="moretry_8py" startline="425" endline="445">fcmaes.moretry.plot</references>
+      </memberdef>
+      <memberdef kind="function" id="namespacefcmaes_1_1moretry_1a47b95fe506257996c19d9189f3f005c5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>fcmaes.moretry.plot</definition>
+        <argsstring>(name, ncon, xs, ys, eps=1E-2, all=True, interp=False, plot3d=False)</argsstring>
+        <name>plot</name>
+        <qualifiedname>fcmaes.moretry.plot</qualifiedname>
+        <param>
+          <type>name</type>
+          <defname>name</defname>
+        </param>
+        <param>
+          <type>ncon</type>
+          <defname>ncon</defname>
+        </param>
+        <param>
+          <type>xs</type>
+          <defname>xs</defname>
+        </param>
+        <param>
+          <type>ys</type>
+          <defname>ys</defname>
+        </param>
+        <param>
+          <type>eps</type>
+          <defname>eps</defname>
+          <defval>1E-2</defval>
+        </param>
+        <param>
+          <type>all</type>
+          <defname>all</defname>
+          <defval>True</defval>
+        </param>
+        <param>
+          <type>interp</type>
+          <defname>interp</defname>
+          <defval>False</defval>
+        </param>
+        <param>
+          <type>plot3d</type>
+          <defname>plot3d</defname>
+          <defval>False</defval>
+        </param>
+        <briefdescription>
+<para>Plots the feasible solution space and Pareto front for a given set of data points. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function processes data points and constraints to determine the feasible region and subsequently calculates the Pareto-optimal front. It can also generate visualizations of all solutions and the Pareto front if required.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The name for the visualization files. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ncon</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of constraint functions. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>xs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A collection of decision variable values. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ys</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A collection of corresponding objective function values. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>eps</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Tolerance value for feasibility conditions. Default is 1E-2. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>all</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flag to indicate if plotting all solutions is required. Default is True. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>interp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flag to determine if interpolation is applied to the Pareto front plot. Default is False. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>plot3d</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flag indicating whether to create a 3D Pareto front plot. Default is False.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>Exception</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If an error occurs during computation or plotting. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="fcmaes/moretry.py" line="425" column="1" bodyfile="fcmaes/moretry.py" bodystart="425" bodyend="445"/>
+        <references refid="namespacefcmaes_1_1moretry_1a76f8b50c1782e6def55706f648e3e819" compoundref="moretry_8py" startline="253" endline="259">fcmaes.moretry.pareto</references>
+        <referencedby refid="namespacefcmaes_1_1moretry_1a2015c92ea717d0ce4849a00282a56d96" compoundref="moretry_8py" startline="204" endline="230">fcmaes.moretry._retry_loop</referencedby>
+        <referencedby refid="namespacefcmaes_1_1moretry_1a9afe8f9041254063275650e3dc56b77e" compoundref="moretry_8py" startline="387" endline="401">fcmaes.moretry.minimize_plot</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespacefcmaes_1_1moretry_1a6059f5a7788b8fb7273d3e5900426199" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>fcmaes.moretry.adv_minimize_plot</definition>
+        <argsstring>(str name, Optimizer optimizer, Callable[[ArrayLike], float] fun, Optional[Bounds] bounds, Optional[float] value_limit=np.inf, Optional[int] num_retries=1024, Optional[int] statistic_num=0)</argsstring>
+        <name>adv_minimize_plot</name>
+        <qualifiedname>fcmaes.moretry.adv_minimize_plot</qualifiedname>
+        <param>
+          <type>str</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type><ref refid="classfcmaes_1_1optimizer_1_1_optimizer" kindref="compound">Optimizer</ref></type>
+          <declname>optimizer</declname>
+        </param>
+        <param>
+          <type>Callable</type>
+          <defname>fun</defname>
+          <array>[[ArrayLike]</array>
+        </param>
+        <param>
+          <type>float]</type>
+          <declname>fun</declname>
+          <defname>bounds</defname>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>bounds</declname>
+          <defname>value_limit</defname>
+          <array>[Bounds]</array>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>value_limit</declname>
+          <defname>num_retries</defname>
+          <array>[float]</array>
+          <defval>np.inf</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>num_retries</declname>
+          <defname>statistic_num</defname>
+          <array>[int]</array>
+          <defval>1024</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>statistic_num</declname>
+          <array>[int]</array>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+<para>Minimizes a given function using the provided optimizer, retries for better results, plots the outcomes, and saves the results. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function performs a smart optimization by leveraging retry strategies to achieve better outcomes. It evaluates the function over all inputs after optimization, generates convergence plots, and computes a Pareto front, saving the associated data and visuals.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The base name for the output files generated during the optimization process. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>optimizer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The optimization algorithm to be used for minimizing the function. fun (Callable[[ArrayLike], float]): The objective function to minimize. It should accept an input array-like variable and return a float score. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bounds</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bounds for the optimization process. Defines the variable limits for the optimization. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>value_limit</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A threshold to terminate the optimization early when the function&apos;s value is below this limit. Default is infinity. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>num_retries</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of retries for optimization to improve results when the process fails or is suboptimal. Default is 1024. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>statistic_num</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A statistic counter for internal use during <programlisting><codeline><highlight class="normal">optimization<sp/></highlight><highlight class="keywordflow">or</highlight><highlight class="normal"><sp/>retries.<sp/>Default<sp/></highlight><highlight class="keywordflow">is</highlight><highlight class="normal"><sp/>0.</highlight></codeline>
+</programlisting> </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="fcmaes/moretry.py" line="473" column="1" bodyfile="fcmaes/moretry.py" bodystart="479" bodyend="493"/>
+        <references refid="namespacefcmaes_1_1moretry_1a76f8b50c1782e6def55706f648e3e819" compoundref="moretry_8py" startline="253" endline="259">fcmaes.moretry.pareto</references>
+      </memberdef>
+      <memberdef kind="function" id="namespacefcmaes_1_1moretry_1ac6f83723e5f5c51274e705d503b7133f" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>fcmaes.moretry._avg_exp</definition>
+        <argsstring>(y, y_exp)</argsstring>
+        <name>_avg_exp</name>
+        <qualifiedname>fcmaes.moretry._avg_exp</qualifiedname>
+        <param>
+          <type>y</type>
+          <defname>y</defname>
+        </param>
+        <param>
+          <type>y_exp</type>
+          <defname>y_exp</defname>
+        </param>
+        <briefdescription>
+<para>Calculates the generalized mean (also known as the power mean) of a list of numbers. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function computes a weighted generalized mean of a list of numbers <computeroutput>y</computeroutput> using the specified exponent <computeroutput>y_exp</computeroutput>. The calculation involves summing the power of each element in the list to the given exponent and then applying the inverse of the same exponent to the resulting sum.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>List or iterable of numbers for which the generalized mean will be calculated. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>y_exp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Exponent parameter to control the type of mean (e.g., arithmetic, geometric).</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Weighted generalized mean computed from the input list based on the provided exponent. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="fcmaes/moretry.py" line="511" column="1" bodyfile="fcmaes/moretry.py" bodystart="511" bodyend="516"/>
+        <referencedby refid="namespacefcmaes_1_1moretry_1a2015c92ea717d0ce4849a00282a56d96" compoundref="moretry_8py" startline="204" endline="230">fcmaes.moretry._retry_loop</referencedby>
+        <referencedby refid="classfcmaes_1_1moretry_1_1mo__wrapper_1a9f091a54dc6f2c2fefb4c6a90ab108a2" compoundref="moretry_8py" startline="327" endline="335">fcmaes.moretry.mo_wrapper.eval</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespacefcmaes_1_1moretry_1a6c5d049111477ebbf03ca1dbd174bbbd" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>fcmaes.moretry._pareto_values</definition>
+        <argsstring>(ys)</argsstring>
+        <name>_pareto_values</name>
+        <qualifiedname>fcmaes.moretry._pareto_values</qualifiedname>
+        <param>
+          <type>ys</type>
+          <defname>ys</defname>
+        </param>
+        <briefdescription>
+<para>Determines the Pareto-optimal solutions from a given set of objective values. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The function processes a given 2D array of objective values and identifies the Pareto-optimal points among them. Pareto-optimal solutions are those that cannot be dominated by any other solutions in all objectives.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ys</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A 2D array where each row represents a solution, and each column corresponds to an objective.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para></para>
+</simplesect>
+<simplesect kind="return"><para>numpy A 2D array containing only the Pareto-optimal solutions from the input. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="fcmaes/moretry.py" line="534" column="1" bodyfile="fcmaes/moretry.py" bodystart="534" bodyend="544"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacefcmaes_1_1moretry_1a56d8f2ec5777046d87dcd9a79c8168f9" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>fcmaes.moretry._pareto</definition>
+        <argsstring>(ys)</argsstring>
+        <name>_pareto</name>
+        <qualifiedname>fcmaes.moretry._pareto</qualifiedname>
+        <param>
+          <type>ys</type>
+          <defname>ys</defname>
+        </param>
+        <briefdescription>
+<para>Identifies the Pareto-optimal points from the given set of points. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Pareto-optimal points are those for which no other point dominates them. A point dominates another if it is less than or equal to the other point in all dimensions and strictly less in at least one dimension. This function removes dominated points from the dataset iteratively.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ys</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A 2D array where each row represents a point in a multidimensional space, and each column corresponds to a dimension.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para></para>
+</simplesect>
+<simplesect kind="return"><para>np An array of indices representing the Pareto-optimal points in the provided dataset. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="fcmaes/moretry.py" line="563" column="1" bodyfile="fcmaes/moretry.py" bodystart="563" bodyend="574"/>
+        <referencedby refid="namespacefcmaes_1_1moretry_1a76f8b50c1782e6def55706f648e3e819" compoundref="moretry_8py" startline="253" endline="259">fcmaes.moretry.pareto</referencedby>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="fcmaes/moretry.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

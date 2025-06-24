@@ -1,0 +1,185 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_classfcmaes_1_1optimizer_1_1wrapper" xml:lang="en-US">
+<title>fcmaes.optimizer.wrapper Class Reference</title>
+<indexterm><primary>fcmaes.optimizer.wrapper</primary></indexterm>
+<para>
+
+<para>Wrapper for optimization evaluation and logging. </para>
+ 
+</para>
+Collaboration diagram for fcmaes.optimizer.wrapper:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1optimizer_1_1wrapper__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Public Member Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1optimizer_1_1wrapper_1aed261250f7e3866c2dcf79a3e2f99e8d">__init__</link> (self, Callable[[ArrayLike], float] <link linkend="_classfcmaes_1_1optimizer_1_1wrapper_1a79dcdc4f646076fb112f0f41de73f2d5">fit</link>)</para>
+
+<para>Initializes the class with a fitness evaluation function, shared evaluation counts, best result achieved, and initial time measurement. </para>
+</listitem>
+            <listitem><para>float <link linkend="_classfcmaes_1_1optimizer_1_1wrapper_1a430bf153bd7cabe32d29db369f16b53e">__call__</link> (self, ArrayLike x)</para>
+
+<para>Executes the callable object with the given input <computeroutput>x</computeroutput>, tracking its evaluations and logging improvements. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Public Attributes    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1optimizer_1_1wrapper_1a79dcdc4f646076fb112f0f41de73f2d5">fit</link> = fit</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1optimizer_1_1wrapper_1aa70a5066e0c47fb11d70e9f59485ae19">evals</link> = mp.RawValue(ct.c_int, 0)</para>
+
+<para>A shared integer. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1optimizer_1_1wrapper_1adec55deddde66d5eeaa8e51681f3c094">best_y</link> = mp.RawValue(ct.c_double, np.inf)</para>
+
+<para>A shared double. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1optimizer_1_1wrapper_1aea57e451cd341d8ec740d1beedb095f3">t0</link> = time.perf_counter()</para>
+
+<para>The timestamp (in seconds) when the wrapper is. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>Wrapper for optimization evaluation and logging. </para>
+
+
+
+<para>This class serves as a wrapper around a user-defined objective function (<computeroutput>fit</computeroutput>). It tracks the number of function evaluations, the best evaluation value found so far, and provides logging functionality. The wrapper is typically used in optimization tasks to facilitate performance tracking and debug information.</para>
+
+<para><literallayout><computeroutput>   fit (Callable[[ArrayLike], float]): The objective function to be
+       instantiated. Used for tracking elapsed time.
+</computeroutput></literallayout> </para>
+<para>
+Definition at line <link linkend="_optimizer_8py_source_1l00203">203</link> of file <link linkend="_optimizer_8py_source">optimizer.py</link>.</para>
+</section>
+<section>
+<title>Constructor &amp; Destructor Documentation</title>
+<anchor xml:id="_classfcmaes_1_1optimizer_1_1wrapper_1aed261250f7e3866c2dcf79a3e2f99e8d"/><section>
+    <title>__init__()</title>
+<indexterm><primary>__init__</primary><secondary>fcmaes.optimizer.wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.optimizer.wrapper</primary><secondary>__init__</secondary></indexterm>
+<para><computeroutput>fcmaes.optimizer.wrapper.__init__ ( self, Callable[[ArrayLike], float] fit)</computeroutput></para><para>
+
+<para>Initializes the class with a fitness evaluation function, shared evaluation counts, best result achieved, and initial time measurement. </para>
+</para>
+
+<para><literallayout><computeroutput>fit (Callable[[ArrayLike], float]): A callable function that evaluates the fitness of
+    an array-like input and returns a float score.
+</computeroutput></literallayout> </para>
+<para>
+Definition at line <link linkend="_optimizer_8py_source_1l00228">228</link> of file <link linkend="_optimizer_8py_source">optimizer.py</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Function Documentation</title>
+<anchor xml:id="_classfcmaes_1_1optimizer_1_1wrapper_1a430bf153bd7cabe32d29db369f16b53e"/><section>
+    <title>__call__()</title>
+<indexterm><primary>__call__</primary><secondary>fcmaes.optimizer.wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.optimizer.wrapper</primary><secondary>__call__</secondary></indexterm>
+<para><computeroutput> float fcmaes.optimizer.wrapper.__call__ ( self, ArrayLike x)</computeroutput></para><para>
+
+<para>Executes the callable object with the given input <computeroutput>x</computeroutput>, tracking its evaluations and logging improvements. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method evaluates the function with the provided input array-like `x`, updates the best result seen so far,
+   and logs the details if an improvement occurs. If an exception is raised during execution, it prints the error
+   and returns the maximum float value.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>x</entry><entry>
+<para>The input to be evaluated by the callable object.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>float The result of the evaluation, or the maximum float value in case of an exception. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_optimizer_8py_source_1l00248">248</link> of file <link linkend="_optimizer_8py_source">optimizer.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1optimizer_1_1wrapper_a430bf153bd7cabe32d29db369f16b53e_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+<section>
+<title>Member Data Documentation</title>
+<anchor xml:id="_classfcmaes_1_1optimizer_1_1wrapper_1adec55deddde66d5eeaa8e51681f3c094"/><section>
+    <title>best_y</title>
+<indexterm><primary>best_y</primary><secondary>fcmaes.optimizer.wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.optimizer.wrapper</primary><secondary>best_y</secondary></indexterm>
+<para><computeroutput>fcmaes.optimizer.wrapper.best_y = mp.RawValue(ct.c_double, np.inf)</computeroutput></para><para>
+
+<para>A shared double. </para>
+</para>
+<para>
+Definition at line <link linkend="_optimizer_8py_source_1l00232">232</link> of file <link linkend="_optimizer_8py_source">optimizer.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1optimizer_1_1wrapper_1aa70a5066e0c47fb11d70e9f59485ae19"/><section>
+    <title>evals</title>
+<indexterm><primary>evals</primary><secondary>fcmaes.optimizer.wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.optimizer.wrapper</primary><secondary>evals</secondary></indexterm>
+<para><computeroutput>fcmaes.optimizer.wrapper.evals = mp.RawValue(ct.c_int, 0)</computeroutput></para><para>
+
+<para>A shared integer. </para>
+</para>
+<para>
+Definition at line <link linkend="_optimizer_8py_source_1l00231">231</link> of file <link linkend="_optimizer_8py_source">optimizer.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1optimizer_1_1wrapper_1a79dcdc4f646076fb112f0f41de73f2d5"/><section>
+    <title>fit</title>
+<indexterm><primary>fit</primary><secondary>fcmaes.optimizer.wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.optimizer.wrapper</primary><secondary>fit</secondary></indexterm>
+<para><computeroutput>fcmaes.optimizer.wrapper.fit = fit</computeroutput></para><para>
+Definition at line <link linkend="_optimizer_8py_source_1l00230">230</link> of file <link linkend="_optimizer_8py_source">optimizer.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1optimizer_1_1wrapper_1aea57e451cd341d8ec740d1beedb095f3"/><section>
+    <title>t0</title>
+<indexterm><primary>t0</primary><secondary>fcmaes.optimizer.wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.optimizer.wrapper</primary><secondary>t0</secondary></indexterm>
+<para><computeroutput>fcmaes.optimizer.wrapper.t0 = time.perf_counter()</computeroutput></para><para>
+
+<para>The timestamp (in seconds) when the wrapper is. </para>
+</para>
+<para>
+Definition at line <link linkend="_optimizer_8py_source_1l00233">233</link> of file <link linkend="_optimizer_8py_source">optimizer.py</link>.</para>
+</section>
+<para>
+The documentation for this class was generated from the following file:</para>
+fcmaes/<link linkend="_optimizer_8py">optimizer.py</link></section>
+</section>

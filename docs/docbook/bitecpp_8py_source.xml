@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_bitecpp_8py_source" xml:lang="en-US">
+<title>bitecpp.py</title>
+<indexterm><primary>fcmaes/bitecpp.py</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_bitecpp_8py_source_1l00001"/><link linkend="_namespacefcmaes_1_1bitecpp">00001</link> <emphasis role="comment">#&#32;-*-&#32;coding:&#32;utf-8&#32;-*-</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00002"/>00002 <emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00003"/>00003 <emphasis role="stringliteral">=============================================================================</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00004"/>00004 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00005"/>00005 <emphasis role="stringliteral">&#32;Fast&#32;CMA-ES&#32;-&#32;version&#32;1.6.11</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00006"/>00006 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00007"/>00007 <emphasis role="stringliteral">&#32;(c)&#32;2025&#32;–&#32;Dietmar&#32;Wolz</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00008"/>00008 <emphasis role="stringliteral">&#32;(c)&#32;2025&#32;–&#32;Latitude</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00009"/>00009 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00010"/>00010 <emphasis role="stringliteral">&#32;License:&#32;MIT</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00011"/>00011 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00012"/>00012 <emphasis role="stringliteral">&#32;File:</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00013"/>00013 <emphasis role="stringliteral">&#32;&#32;-&#32;bitecpp.py</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00014"/>00014 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00015"/>00015 <emphasis role="stringliteral">&#32;Description:</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00016"/>00016 <emphasis role="stringliteral">&#32;&#32;-&#32;This&#32;module&#32;implements&#32;a&#32;stochastic&#32;non-linear&#32;bound-constrained&#32;derivative-free&#32;optimization&#32;method.</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00017"/>00017 <emphasis role="stringliteral">&#32;&#32;-&#32;It&#32;is&#32;a&#32;Python&#32;wrapper&#32;for&#32;the&#32;C++&#32;implementation&#32;of&#32;the&#32;BiteOpt&#32;algorithm.</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00018"/>00018 <emphasis role="stringliteral">&#32;&#32;-&#32;The&#32;BiteOpt&#32;algorithm&#32;is&#32;designed&#32;for&#32;efficient&#32;optimization&#32;in&#32;high-dimensional&#32;spaces.</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00019"/>00019 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00020"/>00020 <emphasis role="stringliteral">&#32;Authors:</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00021"/>00021 <emphasis role="stringliteral">&#32;&#32;-&#32;Dietmar&#32;Wolz</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00022"/>00022 <emphasis role="stringliteral">&#32;&#32;-&#32;romain.despoullains@latitude.eu</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00023"/>00023 <emphasis role="stringliteral">&#32;&#32;-&#32;corentin.generet@latitude.eu</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00024"/>00024 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00025"/>00025 <emphasis role="stringliteral">&#32;References:</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00026"/>00026 <emphasis role="stringliteral">&#32;&#32;-&#32;[1]&#32;https://github.com/dietmarwo/fast-cma-es</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00027"/>00027 <emphasis role="stringliteral">&#32;&#32;-&#32;[2]&#32;https://github.com/avaneev/biteopt</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00028"/>00028 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00029"/>00029 <emphasis role="stringliteral">&#32;Documentation:</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00030"/>00030 <emphasis role="stringliteral">&#32;&#32;-</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00031"/>00031 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00032"/>00032 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00033"/>00033 <emphasis role="stringliteral">=============================================================================</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00034"/>00034 <emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00035"/>00035 
+<anchor xml:id="_bitecpp_8py_source_1l00036"/>00036 
+<anchor xml:id="_bitecpp_8py_source_1l00037"/>00037 
+<anchor xml:id="_bitecpp_8py_source_1l00038"/>00038 <emphasis role="keyword">import</emphasis>&#32;sys
+<anchor xml:id="_bitecpp_8py_source_1l00039"/>00039 <emphasis role="keyword">import</emphasis>&#32;os
+<anchor xml:id="_bitecpp_8py_source_1l00040"/>00040 <emphasis role="keyword">import</emphasis>&#32;math
+<anchor xml:id="_bitecpp_8py_source_1l00041"/>00041 <emphasis role="keyword">import</emphasis>&#32;ctypes&#32;<emphasis role="keyword">as</emphasis>&#32;ct
+<anchor xml:id="_bitecpp_8py_source_1l00042"/>00042 <emphasis role="keyword">import</emphasis>&#32;numpy&#32;<emphasis role="keyword">as</emphasis>&#32;np
+<anchor xml:id="_bitecpp_8py_source_1l00043"/>00043 <emphasis role="keyword">from</emphasis>&#32;numpy.random&#32;<emphasis role="keyword">import</emphasis>&#32;PCG64DXSM,&#32;Generator
+<anchor xml:id="_bitecpp_8py_source_1l00044"/>00044 <emphasis role="keyword">from</emphasis>&#32;scipy.optimize&#32;<emphasis role="keyword">import</emphasis>&#32;OptimizeResult,&#32;Bounds
+<anchor xml:id="_bitecpp_8py_source_1l00045"/>00045 <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1evaluator">fcmaes.evaluator</link>&#32;<emphasis role="keyword">import</emphasis>&#32;_check_bounds,&#32;mo_call_back_type,&#32;callback_so,&#32;libcmalib
+<anchor xml:id="_bitecpp_8py_source_1l00046"/>00046 
+<anchor xml:id="_bitecpp_8py_source_1l00047"/>00047 <emphasis role="keyword">from</emphasis>&#32;typing&#32;<emphasis role="keyword">import</emphasis>&#32;Optional,&#32;Callable
+<anchor xml:id="_bitecpp_8py_source_1l00048"/>00048 <emphasis role="keyword">from</emphasis>&#32;numpy.typing&#32;<emphasis role="keyword">import</emphasis>&#32;ArrayLike
+<anchor xml:id="_bitecpp_8py_source_1l00049"/>00049 
+<anchor xml:id="_bitecpp_8py_source_1l00050"/>00050 os.environ[<emphasis role="stringliteral">&apos;MKL_DEBUG_CPU_TYPE&apos;</emphasis>]&#32;=&#32;<emphasis role="stringliteral">&apos;5&apos;</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00051"/>00051 
+<anchor xml:id="_bitecpp_8py_source_1l00052"/>00052 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefcmaes_1_1bitecpp_1a02c6a2143e70721f9ad360505914f9ba">minimize</link>(fun:&#32;Callable[[ArrayLike],&#32;float],
+<anchor xml:id="_bitecpp_8py_source_1l00053"/>00053 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;bounds:&#32;Optional[Bounds]&#32;=&#32;<emphasis role="keywordtype">None</emphasis>,
+<anchor xml:id="_bitecpp_8py_source_1l00054"/>00054 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x0:&#32;Optional[ArrayLike]&#32;=&#32;<emphasis role="keywordtype">None</emphasis>,
+<anchor xml:id="_bitecpp_8py_source_1l00055"/>00055 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_evaluations:&#32;Optional[int]&#32;=&#32;100000,
+<anchor xml:id="_bitecpp_8py_source_1l00056"/>00056 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;stop_fitness:&#32;Optional[float]&#32;=&#32;-np.inf,
+<anchor xml:id="_bitecpp_8py_source_1l00057"/>00057 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;M:&#32;Optional[int]&#32;=&#32;1,
+<anchor xml:id="_bitecpp_8py_source_1l00058"/>00058 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;popsize:&#32;Optional[int]&#32;=&#32;0,
+<anchor xml:id="_bitecpp_8py_source_1l00059"/>00059 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;stall_criterion:&#32;Optional[int]&#32;&#32;=&#32;0,
+<anchor xml:id="_bitecpp_8py_source_1l00060"/>00060 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;rg:&#32;Optional[Generator]&#32;&#32;=&#32;Generator(PCG64DXSM()),
+<anchor xml:id="_bitecpp_8py_source_1l00061"/>00061 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;runid:&#32;Optional[int]&#32;=&#32;0)&#32;-&gt;&#32;OptimizeResult:
+<anchor xml:id="_bitecpp_8py_source_1l00062"/>00062 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00063"/>00063 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Minimize&#32;an&#32;objective&#32;function&#32;using&#32;the&#32;optimizer.</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00064"/>00064 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00065"/>00065 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;This&#32;function&#32;performs&#32;optimization&#32;on&#32;a&#32;given&#32;callable&#32;objective&#32;function&#32;by&#32;utilizing&#32;specified</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00066"/>00066 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;bounds,&#32;constraints,&#32;and&#32;other&#32;parameters.&#32;The&#32;optimizer&#32;iteratively&#32;adjusts&#32;the&#32;input&#32;variables</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00067"/>00067 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;to&#32;reach&#32;an&#32;optimal&#32;solution&#32;that&#32;minimizes&#32;the&#32;objective&#32;function.</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00068"/>00068 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00069"/>00069 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00070"/>00070 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fun:&#32;A&#32;callable&#32;objective&#32;function&#32;that&#32;accepts&#32;an&#32;array-like&#32;input&#32;and&#32;returns&#32;a&#32;float&#32;value</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00071"/>00071 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;representing&#32;the&#32;function&#32;value&#32;to&#32;be&#32;minimized.</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00072"/>00072 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;bounds:&#32;Optional&#32;bounds&#32;for&#32;the&#32;input&#32;variables,&#32;which&#32;must&#32;be&#32;consistent&#32;with&#32;the&#32;search&#32;space.</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00073"/>00073 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x0:&#32;Optional&#32;initial&#32;guess&#32;for&#32;the&#32;input&#32;variables;&#32;used&#32;to&#32;initialize&#32;the&#32;search&#32;process.</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00074"/>00074 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_evaluations:&#32;Maximum&#32;number&#32;of&#32;function&#32;evaluations&#32;allowed&#32;during&#32;optimization.</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00075"/>00075 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;stop_fitness:&#32;Optional&#32;stopping&#32;criterion&#32;based&#32;on&#32;achieving&#32;a&#32;particular&#32;fitness&#32;value.</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00076"/>00076 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;M:&#32;Optional&#32;parameter&#32;for&#32;additional&#32;optimization&#32;configuration.</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00077"/>00077 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;popsize:&#32;Optional&#32;population&#32;size&#32;parameter&#32;for&#32;optimization&#32;algorithms&#32;requiring&#32;population-based</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00078"/>00078 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;computations.</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00079"/>00079 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;stall_criterion:&#32;Optional&#32;criterion&#32;to&#32;stop&#32;the&#32;search&#32;when&#32;no&#32;significant&#32;improvement&#32;is&#32;seen.</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00080"/>00080 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;rg:&#32;Optional&#32;random&#32;number&#32;generator,&#32;used&#32;for&#32;ensuring&#32;reproducibility&#32;and&#32;randomness&#32;in&#32;the</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00081"/>00081 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;optimization.</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00082"/>00082 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;runid:&#32;Optional&#32;identifier&#32;for&#32;the&#32;specific&#32;optimization&#32;run;&#32;used&#32;for&#32;tracking&#32;and&#32;reporting.</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00083"/>00083 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00084"/><link linkend="_namespacefcmaes_1_1bitecpp_1a02c6a2143e70721f9ad360505914f9ba">00084</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Returns:</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00085"/>00085 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;OptimizeResult:&#32;A&#32;data&#32;structure&#32;containing&#32;the&#32;optimization&#32;results,&#32;including&#32;the&#32;best&#32;solution</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00086"/>00086 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;found,&#32;its&#32;corresponding&#32;function&#32;value,&#32;number&#32;of&#32;function&#32;evaluations,&#32;number&#32;of&#32;iterations</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00087"/>00087 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;performed,&#32;status,&#32;and&#32;a&#32;boolean&#32;indicating&#32;success&#32;or&#32;failure.</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00088"/>00088 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00089"/>00089 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Raises:</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00090"/>00090 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Exception:&#32;Raised&#32;for&#32;any&#32;unexpected&#32;errors&#32;encountered&#32;during&#32;the&#32;optimization&#32;process.</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00091"/>00091 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_bitecpp_8py_source_1l00092"/>00092 &#32;&#32;&#32;&#32;
+<anchor xml:id="_bitecpp_8py_source_1l00093"/>00093 &#32;&#32;&#32;&#32;lower,&#32;upper,&#32;guess&#32;=&#32;_check_bounds(bounds,&#32;x0,&#32;rg)&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_bitecpp_8py_source_1l00094"/>00094 &#32;&#32;&#32;&#32;dim&#32;=&#32;guess.size&#32;&#32;&#32;
+<anchor xml:id="_bitecpp_8py_source_1l00095"/>00095 &#32;&#32;&#32;&#32;array_type&#32;=&#32;ct.c_double&#32;*&#32;dim&#32;
+<anchor xml:id="_bitecpp_8py_source_1l00096"/>00096 &#32;&#32;&#32;&#32;c_callback&#32;=&#32;mo_call_back_type(<link linkend="_classfcmaes_1_1evaluator_1_1callback__so">callback_so</link>(fun,&#32;dim))
+<anchor xml:id="_bitecpp_8py_source_1l00097"/>00097 &#32;&#32;&#32;&#32;res&#32;=&#32;np.empty(dim+4)
+<anchor xml:id="_bitecpp_8py_source_1l00098"/>00098 &#32;&#32;&#32;&#32;res_p&#32;=&#32;res.ctypes.data_as(ct.POINTER(ct.c_double))
+<anchor xml:id="_bitecpp_8py_source_1l00099"/>00099 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">try</emphasis>:
+<anchor xml:id="_bitecpp_8py_source_1l00100"/>00100 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_namespacefcmaes_1_1bitecpp_1a3e9029aaa882c4646cc176749bd3c5cd">optimizeBite_C</link>(runid,&#32;c_callback,&#32;dim,&#32;int(rg.uniform(0,&#32;2**32&#32;-&#32;1)),&#32;
+<anchor xml:id="_bitecpp_8py_source_1l00101"/>00101 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">None</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>&#32;x0&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>&#32;<emphasis role="keywordflow">else</emphasis>&#32;array_type(*guess),&#32;
+<anchor xml:id="_bitecpp_8py_source_1l00102"/>00102 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">None</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>&#32;lower&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>&#32;<emphasis role="keywordflow">else</emphasis>&#32;array_type(*lower),&#32;
+<anchor xml:id="_bitecpp_8py_source_1l00103"/>00103 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">None</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>&#32;upper&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>&#32;<emphasis role="keywordflow">else</emphasis>&#32;array_type(*upper),&#32;
+<anchor xml:id="_bitecpp_8py_source_1l00104"/>00104 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_evaluations,&#32;stop_fitness,&#32;M,&#32;popsize,&#32;stall_criterion,&#32;res_p)
+<anchor xml:id="_bitecpp_8py_source_1l00105"/>00105 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x&#32;=&#32;res[:dim]
+<anchor xml:id="_bitecpp_8py_source_1l00106"/>00106 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;val&#32;=&#32;res[dim]
+<anchor xml:id="_bitecpp_8py_source_1l00107"/>00107 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;evals&#32;=&#32;int(res[dim+1])
+<anchor xml:id="_bitecpp_8py_source_1l00108"/>00108 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;iterations&#32;=&#32;int(res[dim+2])
+<anchor xml:id="_bitecpp_8py_source_1l00109"/>00109 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;stop&#32;=&#32;int(res[dim+3])
+<anchor xml:id="_bitecpp_8py_source_1l00110"/>00110 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;OptimizeResult(x=x,&#32;fun=val,&#32;nfev=evals,&#32;nit=iterations,&#32;status=stop,&#32;success=<emphasis role="keyword">True</emphasis>)
+<anchor xml:id="_bitecpp_8py_source_1l00111"/>00111 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">except</emphasis>&#32;Exception&#32;<emphasis role="keyword">as</emphasis>&#32;ex:
+<anchor xml:id="_bitecpp_8py_source_1l00112"/>00112 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;OptimizeResult(x=<emphasis role="keywordtype">None</emphasis>,&#32;fun=sys.float_info.max,&#32;nfev=0,&#32;nit=0,&#32;status=-1,&#32;success=<emphasis role="keyword">False</emphasis>)
+<anchor xml:id="_bitecpp_8py_source_1l00113"/>00113 
+<anchor xml:id="_bitecpp_8py_source_1l00114"/>00114 <emphasis role="keywordflow">if</emphasis>&#32;<emphasis role="keywordflow">not</emphasis>&#32;libcmalib&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>:&#32;
+<anchor xml:id="_bitecpp_8py_source_1l00115"/>00115 &#32;&#32;&#32;&#32;
+<anchor xml:id="_bitecpp_8py_source_1l00116"/>00116 &#32;&#32;&#32;&#32;optimizeBite_C&#32;=&#32;libcmalib.optimizeBite_C
+<anchor xml:id="_bitecpp_8py_source_1l00117"/>00117 &#32;&#32;&#32;&#32;optimizeBite_C.argtypes&#32;=&#32;[ct.c_long,&#32;mo_call_back_type,&#32;ct.c_int,&#32;ct.c_int,&#32;\
+<anchor xml:id="_bitecpp_8py_source_1l00118"/><link linkend="_namespacefcmaes_1_1bitecpp_1a3e9029aaa882c4646cc176749bd3c5cd">00118</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ct.POINTER(ct.c_double),&#32;ct.POINTER(ct.c_double),&#32;ct.POINTER(ct.c_double),&#32;\
+<anchor xml:id="_bitecpp_8py_source_1l00119"/><link linkend="_namespacefcmaes_1_1bitecpp_1a135989ea655d889da4b8651d0d305968">00119</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ct.c_int,&#32;ct.c_double,&#32;ct.c_int,&#32;ct.c_int,&#32;ct.c_int,&#32;ct.POINTER(ct.c_double)]
+<anchor xml:id="_bitecpp_8py_source_1l00120"/>00120 &#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_bitecpp_8py_source_1l00121"/>00121 
+<anchor xml:id="_bitecpp_8py_source_1l00122"/>00122 
+</programlisting></section>

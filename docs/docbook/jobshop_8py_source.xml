@@ -1,0 +1,295 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_jobshop_8py_source" xml:lang="en-US">
+<title>jobshop.py</title>
+<indexterm><primary>examples/jobshop.py</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_jobshop_8py_source_1l00001"/><link linkend="_namespaceexamples_1_1jobshop">00001</link> <emphasis role="comment">#&#32;Copyright&#32;(c)&#32;Dietmar&#32;Wolz.</emphasis>
+<anchor xml:id="_jobshop_8py_source_1l00002"/>00002 <emphasis role="comment">#</emphasis>
+<anchor xml:id="_jobshop_8py_source_1l00003"/>00003 <emphasis role="comment">#&#32;This&#32;source&#32;code&#32;is&#32;licensed&#32;under&#32;the&#32;MIT&#32;license&#32;found&#32;in&#32;the</emphasis>
+<anchor xml:id="_jobshop_8py_source_1l00004"/>00004 <emphasis role="comment">#&#32;LICENSE&#32;file&#32;in&#32;the&#32;root&#32;directory.</emphasis>
+<anchor xml:id="_jobshop_8py_source_1l00005"/>00005 <emphasis role="comment">#&#32;</emphasis>
+<anchor xml:id="_jobshop_8py_source_1l00006"/>00006 <emphasis role="comment">#&#32;This&#32;code&#32;implements&#32;the&#32;multi&#32;objective&#32;flexible&#32;job&#32;shop&#32;problem.&#32;It&#32;supports&#32;both&#32;the&#32;</emphasis>
+<anchor xml:id="_jobshop_8py_source_1l00007"/>00007 <emphasis role="comment">#&#32;multiobjective&#32;and&#32;the&#32;single&#32;objective&#32;variant&#32;utilizing&#32;Numba&#32;and&#32;the&#32;optimizers</emphasis>
+<anchor xml:id="_jobshop_8py_source_1l00008"/>00008 <emphasis role="comment">#&#32;https://github.com/dietmarwo/fast-cma-es/blob/master/_fcmaescpp/modeoptimizer.cpp&#32;(MO)&#32;and</emphasis>
+<anchor xml:id="_jobshop_8py_source_1l00009"/>00009 <emphasis role="comment">#&#32;https://github.com/dietmarwo/fast-cma-es/blob/master/_fcmaescpp/include/biteopt.h&#32;(SO).</emphasis>
+<anchor xml:id="_jobshop_8py_source_1l00010"/>00010 
+<anchor xml:id="_jobshop_8py_source_1l00011"/>00011 <emphasis role="comment">#&#32;FJSP&#32;is&#32;to&#32;determine&#32;the&#32;most&#32;appropriate&#32;machine&#32;for&#32;each&#32;operation&#32;(called&#32;machine&#32;selection)</emphasis>
+<anchor xml:id="_jobshop_8py_source_1l00012"/>00012 <emphasis role="comment">#&#32;and&#32;the&#32;sequence&#32;of&#32;the&#32;operations&#32;on&#32;machines&#32;(called&#32;operation&#32;sequencing).&#32;The&#32;optimization</emphasis>
+<anchor xml:id="_jobshop_8py_source_1l00013"/>00013 <emphasis role="comment">#&#32;objective&#32;of&#32;the&#32;FJSP&#32;is&#32;to&#32;minimize&#32;some&#32;indicators,&#32;e.g.&#32;makespan,&#32;maximum&#32;tardiness&#32;and&#32;total&#32;flow</emphasis>
+<anchor xml:id="_jobshop_8py_source_1l00014"/>00014 <emphasis role="comment">#&#32;time</emphasis>
+<anchor xml:id="_jobshop_8py_source_1l00015"/>00015 <emphasis role="comment">#&#32;</emphasis>
+<anchor xml:id="_jobshop_8py_source_1l00016"/>00016 <emphasis role="comment">#&#32;See&#32;https://www.honda-ri.de/pubs/pdf/3949.pdf&#32;for&#32;an&#32;alternative&#32;implementation&#32;of&#32;the&#32;same&#32;problem.</emphasis>
+<anchor xml:id="_jobshop_8py_source_1l00017"/>00017 <emphasis role="comment">#&#32;See&#32;https://github.com/dietmarwo/fast-cma-es/blob/master/tutorials/JobShop.adoc&#32;for&#32;a&#32;detailed&#32;description.</emphasis>
+<anchor xml:id="_jobshop_8py_source_1l00018"/>00018 
+<anchor xml:id="_jobshop_8py_source_1l00019"/>00019 <emphasis role="comment">#&#32;Tested&#32;using&#32;https://docs.conda.io/en/main/miniconda.html&#32;on&#32;Linux&#32;Mint&#32;21.2</emphasis>
+<anchor xml:id="_jobshop_8py_source_1l00020"/>00020 
+<anchor xml:id="_jobshop_8py_source_1l00021"/>00021 <emphasis role="keyword">import</emphasis>&#32;math
+<anchor xml:id="_jobshop_8py_source_1l00022"/>00022 <emphasis role="keyword">import</emphasis>&#32;pandas&#32;<emphasis role="keyword">as</emphasis>&#32;pd
+<anchor xml:id="_jobshop_8py_source_1l00023"/>00023 <emphasis role="keyword">import</emphasis>&#32;numpy&#32;<emphasis role="keyword">as</emphasis>&#32;np
+<anchor xml:id="_jobshop_8py_source_1l00024"/>00024 <emphasis role="keyword">import</emphasis>&#32;sys,&#32;math,&#32;time
+<anchor xml:id="_jobshop_8py_source_1l00025"/>00025 <emphasis role="keyword">from</emphasis>&#32;pathlib&#32;<emphasis role="keyword">import</emphasis>&#32;Path
+<anchor xml:id="_jobshop_8py_source_1l00026"/>00026 <emphasis role="keyword">from</emphasis>&#32;fcmaes&#32;<emphasis role="keyword">import</emphasis>&#32;retry,&#32;advretry,&#32;mode,&#32;modecpp,&#32;moretry
+<anchor xml:id="_jobshop_8py_source_1l00027"/>00027 <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1optimizer">fcmaes.optimizer</link>&#32;<emphasis role="keyword">import</emphasis>&#32;Bite_cpp,&#32;Cma_cpp,&#32;De_cpp,&#32;de_cma,&#32;dtime,&#32;Differential_evolution
+<anchor xml:id="_jobshop_8py_source_1l00028"/>00028 <emphasis role="keyword">from</emphasis>&#32;scipy.optimize&#32;<emphasis role="keyword">import</emphasis>&#32;Bounds
+<anchor xml:id="_jobshop_8py_source_1l00029"/>00029 <emphasis role="keyword">import</emphasis>&#32;ctypes&#32;<emphasis role="keyword">as</emphasis>&#32;ct
+<anchor xml:id="_jobshop_8py_source_1l00030"/>00030 <emphasis role="keyword">import</emphasis>&#32;multiprocessing&#32;<emphasis role="keyword">as</emphasis>&#32;mp&#32;
+<anchor xml:id="_jobshop_8py_source_1l00031"/>00031 <emphasis role="keyword">from</emphasis>&#32;numba&#32;<emphasis role="keyword">import</emphasis>&#32;njit,&#32;numba
+<anchor xml:id="_jobshop_8py_source_1l00032"/>00032 <emphasis role="keyword">import</emphasis>&#32;seaborn&#32;<emphasis role="keyword">as</emphasis>&#32;sns
+<anchor xml:id="_jobshop_8py_source_1l00033"/>00033 <emphasis role="keyword">import</emphasis>&#32;matplotlib.pyplot&#32;<emphasis role="keyword">as</emphasis>&#32;plt
+<anchor xml:id="_jobshop_8py_source_1l00034"/>00034 
+<anchor xml:id="_jobshop_8py_source_1l00035"/>00035 <emphasis role="keyword">import</emphasis>&#32;sys&#32;
+<anchor xml:id="_jobshop_8py_source_1l00036"/>00036 <emphasis role="keyword">from</emphasis>&#32;loguru&#32;<emphasis role="keyword">import</emphasis>&#32;logger
+<anchor xml:id="_jobshop_8py_source_1l00037"/>00037 
+<anchor xml:id="_jobshop_8py_source_1l00038"/>00038 logger.remove()
+<anchor xml:id="_jobshop_8py_source_1l00039"/><link linkend="_namespaceexamples_1_1jobshop_1ae54cecc127c4cbd68811b9d513a1fdd1">00039</link> logger.add(sys.stdout,&#32;format=<emphasis role="stringliteral">&quot;{time:HH:mm:ss.SS}&#32;|&#32;{process}&#32;|&#32;{level}&#32;|&#32;{message}&quot;</emphasis>,&#32;level=<emphasis role="stringliteral">&quot;INFO&quot;</emphasis>)
+<anchor xml:id="_jobshop_8py_source_1l00040"/>00040 logger.add(<emphasis role="stringliteral">&quot;log_{time}.txt&quot;</emphasis>,&#32;format=<emphasis role="stringliteral">&quot;{time:HH:mm:ss.SS}&#32;|&#32;{process}&#32;|&#32;{level}&#32;|&#32;{message}&quot;</emphasis>,&#32;level=<emphasis role="stringliteral">&quot;INFO&quot;</emphasis>)
+<anchor xml:id="_jobshop_8py_source_1l00041"/>00041 
+<anchor xml:id="_jobshop_8py_source_1l00042"/><link linkend="_namespaceexamples_1_1jobshop_1a6346fe9e3884169bb758fec8c703bec4">00042</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1jobshop_1a6346fe9e3884169bb758fec8c703bec4">read_fjs</link>(filename):
+<anchor xml:id="_jobshop_8py_source_1l00043"/>00043 &#32;&#32;&#32;&#32;inf&#32;=&#32;1000000
+<anchor xml:id="_jobshop_8py_source_1l00044"/>00044 &#32;&#32;&#32;&#32;<emphasis role="keyword">with</emphasis>&#32;open(filename)&#32;<emphasis role="keyword">as</emphasis>&#32;f:
+<anchor xml:id="_jobshop_8py_source_1l00045"/>00045 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;lines&#32;=&#32;f.readlines()
+<anchor xml:id="_jobshop_8py_source_1l00046"/>00046 &#32;&#32;&#32;&#32;first_line&#32;=&#32;lines[0].split()
+<anchor xml:id="_jobshop_8py_source_1l00047"/>00047 &#32;&#32;&#32;&#32;n_jobs&#32;=&#32;int(first_line[0])
+<anchor xml:id="_jobshop_8py_source_1l00048"/>00048 &#32;&#32;&#32;&#32;n_machines&#32;=&#32;int(first_line[1])
+<anchor xml:id="_jobshop_8py_source_1l00049"/>00049 &#32;&#32;&#32;&#32;nb_operations&#32;=&#32;[int(lines[j&#32;+&#32;1].split()[0])&#32;<emphasis role="keywordflow">for</emphasis>&#32;j&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(n_jobs)]
+<anchor xml:id="_jobshop_8py_source_1l00050"/>00050 &#32;&#32;&#32;&#32;n_operations&#32;=&#32;np.sum(nb_operations)
+<anchor xml:id="_jobshop_8py_source_1l00051"/>00051 &#32;&#32;&#32;&#32;nb_tasks&#32;=&#32;sum(nb_operations[j]&#32;<emphasis role="keywordflow">for</emphasis>&#32;j&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(n_jobs))
+<anchor xml:id="_jobshop_8py_source_1l00052"/>00052 &#32;&#32;&#32;&#32;processing_time&#32;=&#32;[[inf&#32;<emphasis role="keywordflow">for</emphasis>&#32;m&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(n_machines)]&#32;<emphasis role="keywordflow">for</emphasis>&#32;t&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(nb_tasks)]
+<anchor xml:id="_jobshop_8py_source_1l00053"/>00053 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;For&#32;each&#32;job,&#32;for&#32;each&#32;operation,&#32;the&#32;corresponding&#32;task&#32;id</emphasis>
+<anchor xml:id="_jobshop_8py_source_1l00054"/>00054 &#32;&#32;&#32;&#32;operation_task&#32;=&#32;[[0&#32;<emphasis role="keywordflow">for</emphasis>&#32;o&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(nb_operations[j])]&#32;<emphasis role="keywordflow">for</emphasis>&#32;j&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(n_jobs)]
+<anchor xml:id="_jobshop_8py_source_1l00055"/>00055 &#32;&#32;&#32;&#32;sum_time&#32;=&#32;0
+<anchor xml:id="_jobshop_8py_source_1l00056"/>00056 &#32;&#32;&#32;&#32;id&#32;=&#32;0
+<anchor xml:id="_jobshop_8py_source_1l00057"/>00057 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;j&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(n_jobs):
+<anchor xml:id="_jobshop_8py_source_1l00058"/>00058 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;line&#32;=&#32;lines[j&#32;+&#32;1].split()
+<anchor xml:id="_jobshop_8py_source_1l00059"/>00059 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;tmp&#32;=&#32;0
+<anchor xml:id="_jobshop_8py_source_1l00060"/>00060 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;o&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(nb_operations[j]):
+<anchor xml:id="_jobshop_8py_source_1l00061"/>00061 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;n_machines_operation&#32;=&#32;int(line[tmp&#32;+&#32;o&#32;+&#32;1])
+<anchor xml:id="_jobshop_8py_source_1l00062"/>00062 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(n_machines_operation):
+<anchor xml:id="_jobshop_8py_source_1l00063"/>00063 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;machine&#32;=&#32;int(line[tmp&#32;+&#32;o&#32;+&#32;2&#32;*&#32;i&#32;+&#32;2])&#32;-&#32;1
+<anchor xml:id="_jobshop_8py_source_1l00064"/>00064 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;time&#32;=&#32;int(line[tmp&#32;+&#32;o&#32;+&#32;2&#32;*&#32;i&#32;+&#32;3])
+<anchor xml:id="_jobshop_8py_source_1l00065"/>00065 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;processing_time[id][machine]&#32;=&#32;time
+<anchor xml:id="_jobshop_8py_source_1l00066"/>00066 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;sum_time&#32;+=&#32;time
+<anchor xml:id="_jobshop_8py_source_1l00067"/>00067 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;operation_task[j][o]&#32;=&#32;id
+<anchor xml:id="_jobshop_8py_source_1l00068"/>00068 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;id&#32;+=&#32;1
+<anchor xml:id="_jobshop_8py_source_1l00069"/>00069 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;tmp&#32;+=&#32;2&#32;*&#32;n_machines_operation
+<anchor xml:id="_jobshop_8py_source_1l00070"/>00070 &#32;&#32;&#32;&#32;tasks&#32;=&#32;[]
+<anchor xml:id="_jobshop_8py_source_1l00071"/>00071 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;job&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(n_jobs):
+<anchor xml:id="_jobshop_8py_source_1l00072"/>00072 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;jtasks&#32;=&#32;operation_task[job]
+<anchor xml:id="_jobshop_8py_source_1l00073"/>00073 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;task&#32;<emphasis role="keywordflow">in</emphasis>&#32;jtasks:
+<anchor xml:id="_jobshop_8py_source_1l00074"/>00074 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;times&#32;=&#32;processing_time[task]
+<anchor xml:id="_jobshop_8py_source_1l00075"/>00075 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;machine&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(n_machines):
+<anchor xml:id="_jobshop_8py_source_1l00076"/>00076 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;time&#32;=&#32;times[machine]
+<anchor xml:id="_jobshop_8py_source_1l00077"/>00077 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;time&#32;&lt;&#32;inf:
+<anchor xml:id="_jobshop_8py_source_1l00078"/>00078 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;tasks.append((job,&#32;task,&#32;machine,&#32;time))
+<anchor xml:id="_jobshop_8py_source_1l00079"/>00079 &#32;&#32;&#32;&#32;
+<anchor xml:id="_jobshop_8py_source_1l00080"/>00080 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;np.array(tasks),&#32;n_jobs,&#32;n_machines,&#32;n_operations,&#32;sum_time
+<anchor xml:id="_jobshop_8py_source_1l00081"/>00081 
+<anchor xml:id="_jobshop_8py_source_1l00082"/><link linkend="_namespaceexamples_1_1jobshop_1aeffe05b3358ef00e6271d4eed4eb540f">00082</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1jobshop_1aeffe05b3358ef00e6271d4eed4eb540f">gantt</link>(data):
+<anchor xml:id="_jobshop_8py_source_1l00083"/>00083 &#32;&#32;&#32;&#32;df&#32;=&#32;pd.DataFrame.from_dict(data)
+<anchor xml:id="_jobshop_8py_source_1l00084"/>00084 &#32;&#32;&#32;&#32;df[<emphasis role="stringliteral">&apos;duration&apos;</emphasis>]=df.end-df.start&#32;&#32;&#32;&#32;
+<anchor xml:id="_jobshop_8py_source_1l00085"/>00085 &#32;&#32;&#32;&#32;p_start=df.start.min()
+<anchor xml:id="_jobshop_8py_source_1l00086"/>00086 &#32;&#32;&#32;&#32;p_end=df.end.max()
+<anchor xml:id="_jobshop_8py_source_1l00087"/>00087 &#32;&#32;&#32;&#32;p_duration=(p_end-p_start+1)
+<anchor xml:id="_jobshop_8py_source_1l00088"/>00088 &#32;&#32;&#32;&#32;df[<emphasis role="stringliteral">&apos;rel_start&apos;</emphasis>]=df.start.apply(<emphasis role="keyword">lambda</emphasis>&#32;x:&#32;(x-p_start))
+<anchor xml:id="_jobshop_8py_source_1l00089"/>00089 &#32;&#32;&#32;&#32;x_ticks=[i&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(int(p_duration+1))]
+<anchor xml:id="_jobshop_8py_source_1l00090"/>00090 &#32;&#32;&#32;&#32;x_labels=[(p_start+i)&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;x_ticks]&#32;&#32;&#32;
+<anchor xml:id="_jobshop_8py_source_1l00091"/>00091 &#32;&#32;&#32;&#32;plt.figure(figsize=(8,4))
+<anchor xml:id="_jobshop_8py_source_1l00092"/>00092 &#32;&#32;&#32;&#32;cols&#32;=&#32;sns.color_palette()
+<anchor xml:id="_jobshop_8py_source_1l00093"/>00093 &#32;&#32;&#32;&#32;machines&#32;=&#32;list(df.machine)&#32;
+<anchor xml:id="_jobshop_8py_source_1l00094"/>00094 &#32;&#32;&#32;&#32;mi&#32;=&#32;np.argsort(machines)&#32;
+<anchor xml:id="_jobshop_8py_source_1l00095"/>00095 &#32;&#32;&#32;&#32;y&#32;=&#32;0
+<anchor xml:id="_jobshop_8py_source_1l00096"/>00096 &#32;&#32;&#32;&#32;last&#32;=&#32;machines[mi[0]]
+<anchor xml:id="_jobshop_8py_source_1l00097"/>00097 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;mi:
+<anchor xml:id="_jobshop_8py_source_1l00098"/>00098 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;machines[i]&#32;!=&#32;last:
+<anchor xml:id="_jobshop_8py_source_1l00099"/>00099 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;last&#32;=&#32;machines[i]
+<anchor xml:id="_jobshop_8py_source_1l00100"/>00100 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;y&#32;+=&#32;1
+<anchor xml:id="_jobshop_8py_source_1l00101"/>00101 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;plt.barh(y=<emphasis role="stringliteral">&apos;M&apos;</emphasis>&#32;+&#32;str(machines[i]),&#32;left=df.rel_start[i],&#32;
+<anchor xml:id="_jobshop_8py_source_1l00102"/>00102 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;width=df.duration[i],&#32;&#32;color=cols[df.job[i]&#32;%&#32;len(cols)])
+<anchor xml:id="_jobshop_8py_source_1l00103"/>00103 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;plt.text(x=df.rel_start[i],&#32;y=y,&#32;s&#32;=&#32;str(df.task[i]))
+<anchor xml:id="_jobshop_8py_source_1l00104"/>00104 &#32;&#32;&#32;&#32;plt.gca().invert_yaxis()
+<anchor xml:id="_jobshop_8py_source_1l00105"/>00105 &#32;&#32;&#32;&#32;plt.xticks(ticks=x_ticks,&#32;labels=x_labels)
+<anchor xml:id="_jobshop_8py_source_1l00106"/>00106 &#32;&#32;&#32;&#32;plt.title(<emphasis role="stringliteral">&apos;Gantt&#32;Chart&apos;</emphasis>)
+<anchor xml:id="_jobshop_8py_source_1l00107"/>00107 &#32;&#32;&#32;&#32;plt.xticks(rotation=60)
+<anchor xml:id="_jobshop_8py_source_1l00108"/>00108 &#32;&#32;&#32;&#32;plt.grid(axis=<emphasis role="stringliteral">&apos;x&apos;</emphasis>,&#32;alpha=0.5)
+<anchor xml:id="_jobshop_8py_source_1l00109"/>00109 &#32;&#32;&#32;&#32;plt.savefig(<emphasis role="stringliteral">&apos;gantt.png&apos;</emphasis>)
+<anchor xml:id="_jobshop_8py_source_1l00110"/>00110 &#32;&#32;&#32;&#32;plt.show()
+<anchor xml:id="_jobshop_8py_source_1l00111"/>00111 
+<anchor xml:id="_jobshop_8py_source_1l00112"/><link linkend="_namespaceexamples_1_1jobshop_1a3673511507c121e07cc4fbdb1a8241ca">00112</link> <emphasis role="keyword">def&#32;</emphasis>scheduling(tasks,&#32;n_jobs,&#32;n_machines):
+<anchor xml:id="_jobshop_8py_source_1l00113"/>00113 &#32;&#32;&#32;&#32;machine_time&#32;=&#32;np.zeros(n_machines)
+<anchor xml:id="_jobshop_8py_source_1l00114"/>00114 &#32;&#32;&#32;&#32;job_time&#32;=&#32;np.zeros(n_jobs)
+<anchor xml:id="_jobshop_8py_source_1l00115"/>00115 &#32;&#32;&#32;&#32;solution&#32;=&#32;{<emphasis role="stringliteral">&apos;machine&apos;</emphasis>:&#32;[],&#32;<emphasis role="stringliteral">&apos;start&apos;</emphasis>:&#32;[],&#32;<emphasis role="stringliteral">&apos;end&apos;</emphasis>:&#32;[],&#32;<emphasis role="stringliteral">&apos;job&apos;</emphasis>:&#32;[],&#32;<emphasis role="stringliteral">&apos;task&apos;</emphasis>:[]}
+<anchor xml:id="_jobshop_8py_source_1l00116"/>00116 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;task&#32;<emphasis role="keywordflow">in</emphasis>&#32;tasks:
+<anchor xml:id="_jobshop_8py_source_1l00117"/>00117 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;job&#32;=&#32;int(task[0])
+<anchor xml:id="_jobshop_8py_source_1l00118"/>00118 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;machine&#32;=&#32;int(task[2])
+<anchor xml:id="_jobshop_8py_source_1l00119"/>00119 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;time&#32;=&#32;task[3]
+<anchor xml:id="_jobshop_8py_source_1l00120"/>00120 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;previous&#32;task&#32;needs&#32;to&#32;be&#32;finished&#32;and&#32;machine&#32;needs&#32;to&#32;be&#32;available</emphasis>
+<anchor xml:id="_jobshop_8py_source_1l00121"/>00121 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;start&#32;=&#32;max(machine_time[machine],&#32;job_time[job])
+<anchor xml:id="_jobshop_8py_source_1l00122"/>00122 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;end&#32;=&#32;start&#32;+&#32;time
+<anchor xml:id="_jobshop_8py_source_1l00123"/>00123 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;machine_time[machine]&#32;=&#32;end
+<anchor xml:id="_jobshop_8py_source_1l00124"/>00124 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;job_time[job]&#32;=&#32;end&#32;&#32;
+<anchor xml:id="_jobshop_8py_source_1l00125"/>00125 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;solution[<emphasis role="stringliteral">&apos;machine&apos;</emphasis>].append(int(machine))
+<anchor xml:id="_jobshop_8py_source_1l00126"/>00126 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;solution[<emphasis role="stringliteral">&apos;start&apos;</emphasis>].append(int(start))
+<anchor xml:id="_jobshop_8py_source_1l00127"/>00127 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;solution[<emphasis role="stringliteral">&apos;end&apos;</emphasis>].append(int(end))
+<anchor xml:id="_jobshop_8py_source_1l00128"/>00128 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;solution[<emphasis role="stringliteral">&apos;job&apos;</emphasis>].append(int(job))
+<anchor xml:id="_jobshop_8py_source_1l00129"/>00129 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;solution[<emphasis role="stringliteral">&apos;task&apos;</emphasis>].append(int(task[1]))
+<anchor xml:id="_jobshop_8py_source_1l00130"/>00130 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;solution
+<anchor xml:id="_jobshop_8py_source_1l00131"/>00131 
+<anchor xml:id="_jobshop_8py_source_1l00132"/><link linkend="_namespaceexamples_1_1jobshop_1abb824d6bc21e433ddb4298dd88d9ca28">00132</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1jobshop_1abb824d6bc21e433ddb4298dd88d9ca28">chart</link>(tasks,&#32;n_jobs,&#32;n_machines):
+<anchor xml:id="_jobshop_8py_source_1l00133"/>00133 &#32;&#32;&#32;&#32;solution&#32;=&#32;scheduling(tasks,&#32;n_jobs,&#32;n_machines)
+<anchor xml:id="_jobshop_8py_source_1l00134"/>00134 &#32;&#32;&#32;&#32;logger.info(solution)
+<anchor xml:id="_jobshop_8py_source_1l00135"/>00135 &#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1jobshop_1aeffe05b3358ef00e6271d4eed4eb540f">gantt</link>(solution)
+<anchor xml:id="_jobshop_8py_source_1l00136"/>00136 &#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_jobshop_8py_source_1l00137"/>00137 <emphasis role="preprocessor">@njit(fastmath=True)</emphasis>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_jobshop_8py_source_1l00138"/><link linkend="_namespaceexamples_1_1jobshop_1a4189c2c7b394fe5aa8a0e4b244443333">00138</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1jobshop_1a4189c2c7b394fe5aa8a0e4b244443333">job_indices</link>(tasks):
+<anchor xml:id="_jobshop_8py_source_1l00139"/>00139 &#32;&#32;&#32;&#32;indices&#32;=&#32;[]
+<anchor xml:id="_jobshop_8py_source_1l00140"/>00140 &#32;&#32;&#32;&#32;ids&#32;=&#32;[]
+<anchor xml:id="_jobshop_8py_source_1l00141"/>00141 &#32;&#32;&#32;&#32;n&#32;=&#32;tasks.shape[0]
+<anchor xml:id="_jobshop_8py_source_1l00142"/>00142 &#32;&#32;&#32;&#32;j&#32;=&#32;0
+<anchor xml:id="_jobshop_8py_source_1l00143"/>00143 &#32;&#32;&#32;&#32;last&#32;=&#32;tasks[0]
+<anchor xml:id="_jobshop_8py_source_1l00144"/>00144 &#32;&#32;&#32;&#32;indices.append(j)
+<anchor xml:id="_jobshop_8py_source_1l00145"/>00145 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(n+1):
+<anchor xml:id="_jobshop_8py_source_1l00146"/>00146 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;i&#32;==&#32;n&#32;<emphasis role="keywordflow">or</emphasis>&#32;tasks[i][0]&#32;!=&#32;last[0]&#32;<emphasis role="keywordflow">or</emphasis>&#32;tasks[i][1]&#32;!=&#32;last[1]:&#32;<emphasis role="comment">#&#32;new&#32;operation</emphasis>
+<anchor xml:id="_jobshop_8py_source_1l00147"/>00147 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ids.append(last[0])
+<anchor xml:id="_jobshop_8py_source_1l00148"/>00148 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(i&#32;&lt;&#32;n&#32;<emphasis role="keywordflow">and</emphasis>&#32;tasks[i][0]&#32;!=&#32;last[0]):
+<anchor xml:id="_jobshop_8py_source_1l00149"/>00149 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;indices.append(j+1)
+<anchor xml:id="_jobshop_8py_source_1l00150"/>00150 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;j&#32;+=&#32;1
+<anchor xml:id="_jobshop_8py_source_1l00151"/>00151 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;i&#32;&lt;&#32;n:&#32;&#32;&#32;&#32;
+<anchor xml:id="_jobshop_8py_source_1l00152"/>00152 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;last&#32;=&#32;tasks[i]
+<anchor xml:id="_jobshop_8py_source_1l00153"/>00153 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;np.array(indices),&#32;np.array(ids)
+<anchor xml:id="_jobshop_8py_source_1l00154"/>00154 
+<anchor xml:id="_jobshop_8py_source_1l00155"/>00155 <emphasis role="preprocessor">@njit(fastmath=True)</emphasis>&#32;
+<anchor xml:id="_jobshop_8py_source_1l00156"/><link linkend="_namespaceexamples_1_1jobshop_1a51c2115b043ef1e6627c7e92383cb656">00156</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1jobshop_1a51c2115b043ef1e6627c7e92383cb656">reorder</link>(tasks,&#32;order,&#32;n_operations,&#32;job_ids,&#32;job_indices):
+<anchor xml:id="_jobshop_8py_source_1l00157"/>00157 &#32;&#32;&#32;&#32;ids&#32;=&#32;job_ids[order]
+<anchor xml:id="_jobshop_8py_source_1l00158"/>00158 &#32;&#32;&#32;&#32;ordered&#32;=&#32;np.empty((n_operations,4))
+<anchor xml:id="_jobshop_8py_source_1l00159"/>00159 &#32;&#32;&#32;&#32;op_index&#32;=&#32;np.zeros(n_operations,&#32;dtype=numba.int32)
+<anchor xml:id="_jobshop_8py_source_1l00160"/>00160 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(n_operations):
+<anchor xml:id="_jobshop_8py_source_1l00161"/>00161 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;machine&#32;=&#32;ids[i]
+<anchor xml:id="_jobshop_8py_source_1l00162"/>00162 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;index&#32;=&#32;job_indices[machine]&#32;+&#32;op_index[machine]
+<anchor xml:id="_jobshop_8py_source_1l00163"/>00163 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;op_index[machine]&#32;+=&#32;1
+<anchor xml:id="_jobshop_8py_source_1l00164"/>00164 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ordered[i]&#32;=&#32;tasks[index]
+<anchor xml:id="_jobshop_8py_source_1l00165"/>00165 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;ordered
+<anchor xml:id="_jobshop_8py_source_1l00166"/>00166 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_jobshop_8py_source_1l00167"/>00167 <emphasis role="preprocessor">@njit(fastmath=True)</emphasis>&#32;
+<anchor xml:id="_jobshop_8py_source_1l00168"/><link linkend="_namespaceexamples_1_1jobshop_1a3bfeb2d540dcef3a8111193fd5990f23">00168</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1jobshop_1a3bfeb2d540dcef3a8111193fd5990f23">exec_tasks</link>(tasks,&#32;n_jobs,&#32;n_machines):
+<anchor xml:id="_jobshop_8py_source_1l00169"/>00169 &#32;&#32;&#32;&#32;machine_time&#32;=&#32;np.zeros(n_machines)
+<anchor xml:id="_jobshop_8py_source_1l00170"/>00170 &#32;&#32;&#32;&#32;machine_work_time&#32;=&#32;np.zeros(n_machines)
+<anchor xml:id="_jobshop_8py_source_1l00171"/>00171 &#32;&#32;&#32;&#32;job_time&#32;=&#32;np.zeros(n_jobs)
+<anchor xml:id="_jobshop_8py_source_1l00172"/>00172 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;task&#32;<emphasis role="keywordflow">in</emphasis>&#32;tasks:
+<anchor xml:id="_jobshop_8py_source_1l00173"/>00173 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;job&#32;=&#32;int(task[0])
+<anchor xml:id="_jobshop_8py_source_1l00174"/>00174 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;machine&#32;=&#32;int(task[2])
+<anchor xml:id="_jobshop_8py_source_1l00175"/>00175 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;time&#32;=&#32;task[3]
+<anchor xml:id="_jobshop_8py_source_1l00176"/>00176 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;previous&#32;task&#32;needs&#32;to&#32;be&#32;finished&#32;and&#32;machine&#32;needs&#32;to&#32;be&#32;available</emphasis>
+<anchor xml:id="_jobshop_8py_source_1l00177"/>00177 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;end_time&#32;=&#32;max(machine_time[machine],&#32;job_time[job])&#32;+&#32;time
+<anchor xml:id="_jobshop_8py_source_1l00178"/>00178 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;machine_time[machine]&#32;=&#32;end_time
+<anchor xml:id="_jobshop_8py_source_1l00179"/>00179 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;job_time[job]&#32;=&#32;end_time&#32;&#32;
+<anchor xml:id="_jobshop_8py_source_1l00180"/>00180 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;machine_work_time[machine]&#32;+=&#32;time
+<anchor xml:id="_jobshop_8py_source_1l00181"/>00181 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#print(&quot;exec&#32;job&#32;{0}&#32;task&#32;{1}&#32;machine&#32;{2}&#32;start&#32;{3}&#32;end&#32;{4}&quot;.format(job,&#32;int(task[1]),&#32;machine,&#32;end_time-time,&#32;end_time))</emphasis>
+<anchor xml:id="_jobshop_8py_source_1l00182"/>00182 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;machine_time,&#32;job_time,&#32;machine_work_time
+<anchor xml:id="_jobshop_8py_source_1l00183"/>00183 
+<anchor xml:id="_jobshop_8py_source_1l00184"/>00184 <emphasis role="preprocessor">@njit(fastmath=True)</emphasis>&#32;
+<anchor xml:id="_jobshop_8py_source_1l00185"/><link linkend="_namespaceexamples_1_1jobshop_1a750acc4c674962244544953c8738f08a">00185</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1jobshop_1a750acc4c674962244544953c8738f08a">filter_tasks</link>(x,&#32;tasks,&#32;n_operations,&#32;n_machines):
+<anchor xml:id="_jobshop_8py_source_1l00186"/>00186 &#32;&#32;&#32;&#32;n&#32;=&#32;tasks.shape[0]
+<anchor xml:id="_jobshop_8py_source_1l00187"/>00187 &#32;&#32;&#32;&#32;operations&#32;=&#32;np.empty((n_operations,4))
+<anchor xml:id="_jobshop_8py_source_1l00188"/>00188 &#32;&#32;&#32;&#32;j&#32;=&#32;0
+<anchor xml:id="_jobshop_8py_source_1l00189"/>00189 &#32;&#32;&#32;&#32;last&#32;=&#32;tasks[0]
+<anchor xml:id="_jobshop_8py_source_1l00190"/>00190 &#32;&#32;&#32;&#32;last_i&#32;=&#32;0
+<anchor xml:id="_jobshop_8py_source_1l00191"/>00191 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(n+1):
+<anchor xml:id="_jobshop_8py_source_1l00192"/>00192 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;i&#32;==&#32;n&#32;<emphasis role="keywordflow">or</emphasis>&#32;tasks[i][0]&#32;!=&#32;last[0]&#32;<emphasis role="keywordflow">or</emphasis>&#32;tasks[i][1]&#32;!=&#32;last[1]:&#32;<emphasis role="comment">#&#32;new&#32;operation</emphasis>
+<anchor xml:id="_jobshop_8py_source_1l00193"/>00193 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;m&#32;=&#32;i&#32;-&#32;last_i
+<anchor xml:id="_jobshop_8py_source_1l00194"/>00194 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;sel_i&#32;=&#32;int(x[j]*10*n_machines)&#32;%&#32;m
+<anchor xml:id="_jobshop_8py_source_1l00195"/>00195 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;selected&#32;=&#32;tasks[last_i&#32;+&#32;sel_i]
+<anchor xml:id="_jobshop_8py_source_1l00196"/>00196 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;operations[j,:]&#32;=&#32;selected
+<anchor xml:id="_jobshop_8py_source_1l00197"/>00197 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;last_i&#32;=&#32;i
+<anchor xml:id="_jobshop_8py_source_1l00198"/>00198 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;j&#32;+=&#32;1
+<anchor xml:id="_jobshop_8py_source_1l00199"/>00199 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;i&#32;&lt;&#32;n:&#32;&#32;&#32;&#32;
+<anchor xml:id="_jobshop_8py_source_1l00200"/>00200 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;last&#32;=&#32;tasks[i]
+<anchor xml:id="_jobshop_8py_source_1l00201"/>00201 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;operations
+<anchor xml:id="_jobshop_8py_source_1l00202"/>00202 
+<anchor xml:id="_jobshop_8py_source_1l00203"/>00203 <emphasis role="preprocessor">@njit(fastmath=True)</emphasis>
+<anchor xml:id="_jobshop_8py_source_1l00204"/><link linkend="_namespaceexamples_1_1jobshop_1aa5e76ed2d482c6572421cff829f9da68">00204</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1jobshop_1aa5e76ed2d482c6572421cff829f9da68">filtered_tasks</link>(x,&#32;task_data,&#32;n_operations,&#32;n_machines,&#32;job_indices,&#32;job_ids):
+<anchor xml:id="_jobshop_8py_source_1l00205"/>00205 &#32;&#32;&#32;&#32;operations&#32;=&#32;<link linkend="_namespaceexamples_1_1jobshop_1a750acc4c674962244544953c8738f08a">filter_tasks</link>(x,&#32;task_data,&#32;n_operations,&#32;n_machines)
+<anchor xml:id="_jobshop_8py_source_1l00206"/>00206 &#32;&#32;&#32;&#32;order&#32;=&#32;np.argsort(x[n_operations:])
+<anchor xml:id="_jobshop_8py_source_1l00207"/>00207 &#32;&#32;&#32;&#32;tasks&#32;=&#32;<link linkend="_namespaceexamples_1_1jobshop_1a51c2115b043ef1e6627c7e92383cb656">reorder</link>(operations,&#32;order,&#32;n_operations,&#32;job_ids,&#32;job_indices)
+<anchor xml:id="_jobshop_8py_source_1l00208"/>00208 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;tasks
+<anchor xml:id="_jobshop_8py_source_1l00209"/>00209 
+<anchor xml:id="_jobshop_8py_source_1l00210"/><link linkend="_classexamples_1_1jobshop_1_1fitness">00210</link> <emphasis role="keyword">class&#32;</emphasis><link linkend="_classexamples_1_1jobshop_1_1fitness">fitness</link>:&#32;
+<anchor xml:id="_jobshop_8py_source_1l00211"/>00211 
+<anchor xml:id="_jobshop_8py_source_1l00212"/><link linkend="_classexamples_1_1jobshop_1_1fitness_1a36837d685fafe51e15b3485ffab58eff">00212</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1jobshop_1_1fitness_1a36837d685fafe51e15b3485ffab58eff">__init__</link>(self,&#32;task_data,&#32;bounds,&#32;n_jobs,&#32;n_operations,&#32;n_machines,&#32;name):
+<anchor xml:id="_jobshop_8py_source_1l00213"/><link linkend="_classexamples_1_1jobshop_1_1fitness_1aef018505894519a72df356d42c4c6d72">00213</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1jobshop_1_1fitness_1aef018505894519a72df356d42c4c6d72">evals</link>&#32;=&#32;mp.RawValue(ct.c_long,&#32;0)&#32;&#32;<emphasis role="comment">#&#32;writable&#32;across&#32;python&#32;processes</emphasis>
+<anchor xml:id="_jobshop_8py_source_1l00214"/><link linkend="_classexamples_1_1jobshop_1_1fitness_1a0983086fe5e1ad65b0705e7eef52cf57">00214</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1jobshop_1_1fitness_1a0983086fe5e1ad65b0705e7eef52cf57">best_y</link>&#32;=&#32;mp.RawValue(ct.c_double,&#32;np.inf)&#32;<emphasis role="comment">#&#32;writable&#32;across&#32;python&#32;processes</emphasis>
+<anchor xml:id="_jobshop_8py_source_1l00215"/><link linkend="_classexamples_1_1jobshop_1_1fitness_1acc27d0fb31438fceefb1222643e315ad">00215</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1jobshop_1_1fitness_1acc27d0fb31438fceefb1222643e315ad">t0</link>&#32;=&#32;time.perf_counter()
+<anchor xml:id="_jobshop_8py_source_1l00216"/><link linkend="_classexamples_1_1jobshop_1_1fitness_1a7e2c5c07d96ad3f5ca01911202bc31fb">00216</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1jobshop_1_1fitness_1a7e2c5c07d96ad3f5ca01911202bc31fb">task_data</link>&#32;=&#32;task_data&#32;&#32;&#32;
+<anchor xml:id="_jobshop_8py_source_1l00217"/><link linkend="_classexamples_1_1jobshop_1_1fitness_1a58dda2b3cc271437a42e1c25fbbd8d79">00217</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1jobshop_1_1fitness_1a58dda2b3cc271437a42e1c25fbbd8d79">n_jobs</link>&#32;=&#32;n_jobs
+<anchor xml:id="_jobshop_8py_source_1l00218"/><link linkend="_classexamples_1_1jobshop_1_1fitness_1a03d0bc2d19ef688e81badc24e828f0d3">00218</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1jobshop_1_1fitness_1a03d0bc2d19ef688e81badc24e828f0d3">n_operations</link>&#32;=&#32;n_operations
+<anchor xml:id="_jobshop_8py_source_1l00219"/><link linkend="_classexamples_1_1jobshop_1_1fitness_1a91b1681ba789472a1e6a8a628a386582">00219</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1jobshop_1_1fitness_1a91b1681ba789472a1e6a8a628a386582">n_machines</link>&#32;=&#32;n_machines&#32;
+<anchor xml:id="_jobshop_8py_source_1l00220"/><link linkend="_classexamples_1_1jobshop_1_1fitness_1af2a6fe9d692d05db14d4256d583af5c4">00220</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1jobshop_1_1fitness_1af2a6fe9d692d05db14d4256d583af5c4">bounds</link>&#32;=&#32;bounds
+<anchor xml:id="_jobshop_8py_source_1l00221"/><link linkend="_classexamples_1_1jobshop_1_1fitness_1a0077590ffb70ed4a4311f3abfc2ec156">00221</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1jobshop_1_1fitness_1a0077590ffb70ed4a4311f3abfc2ec156">name</link>&#32;=&#32;name
+<anchor xml:id="_jobshop_8py_source_1l00222"/><link linkend="_classexamples_1_1jobshop_1_1fitness_1acaf99377698f869f95b80ce6856dab34">00222</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1jobshop_1_1fitness_1acaf99377698f869f95b80ce6856dab34">nobj</link>&#32;=&#32;3
+<anchor xml:id="_jobshop_8py_source_1l00223"/><link linkend="_classexamples_1_1jobshop_1_1fitness_1a1b2e2aff8fad66c46ac50a13938ea994">00223</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1jobshop_1_1fitness_1a1b2e2aff8fad66c46ac50a13938ea994">ncon</link>&#32;=&#32;0
+<anchor xml:id="_jobshop_8py_source_1l00224"/><link linkend="_classexamples_1_1jobshop_1_1fitness_1a87dcab98144aaa1557e230f89e710a6f">00224</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1jobshop_1_1fitness_1a87dcab98144aaa1557e230f89e710a6f">weights</link>&#32;=&#32;np.array([1.0,&#32;0.02,&#32;0.001])&#32;<emphasis role="comment">#&#32;only&#32;used&#32;for&#32;single&#32;objective&#32;optimization</emphasis>
+<anchor xml:id="_jobshop_8py_source_1l00225"/><link linkend="_classexamples_1_1jobshop_1_1fitness_1a3e1ed42a68b5e6fbe96b7507db888a14">00225</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1jobshop_1_1fitness_1a2b3febf6797fd4b041a9b940237da76f">job_indices</link>,&#32;self.<link linkend="_classexamples_1_1jobshop_1_1fitness_1a3e1ed42a68b5e6fbe96b7507db888a14">job_ids</link>&#32;=&#32;<link linkend="_classexamples_1_1jobshop_1_1fitness_1a2b3febf6797fd4b041a9b940237da76f">job_indices</link>(task_data)
+<anchor xml:id="_jobshop_8py_source_1l00226"/>00226 &#32;&#32;&#32;&#32;
+<anchor xml:id="_jobshop_8py_source_1l00227"/><link linkend="_classexamples_1_1jobshop_1_1fitness_1ac15543b2da616ca5c0286391fe3c7b3a">00227</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1jobshop_1_1fitness_1ac15543b2da616ca5c0286391fe3c7b3a">chart</link>(self,&#32;x):
+<anchor xml:id="_jobshop_8py_source_1l00228"/>00228 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;tasks&#32;=&#32;<link linkend="_namespaceexamples_1_1jobshop_1aa5e76ed2d482c6572421cff829f9da68">filtered_tasks</link>(x,&#32;self.<link linkend="_classexamples_1_1jobshop_1_1fitness_1a7e2c5c07d96ad3f5ca01911202bc31fb">task_data</link>,&#32;self.<link linkend="_classexamples_1_1jobshop_1_1fitness_1a03d0bc2d19ef688e81badc24e828f0d3">n_operations</link>,&#32;self.<link linkend="_classexamples_1_1jobshop_1_1fitness_1a91b1681ba789472a1e6a8a628a386582">n_machines</link>,
+<anchor xml:id="_jobshop_8py_source_1l00229"/>00229 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1jobshop_1_1fitness_1a2b3febf6797fd4b041a9b940237da76f">job_indices</link>,&#32;self.<link linkend="_classexamples_1_1jobshop_1_1fitness_1a3e1ed42a68b5e6fbe96b7507db888a14">job_ids</link>)
+<anchor xml:id="_jobshop_8py_source_1l00230"/>00230 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classexamples_1_1jobshop_1_1fitness_1ac15543b2da616ca5c0286391fe3c7b3a">chart</link>(tasks,&#32;self.<link linkend="_classexamples_1_1jobshop_1_1fitness_1a58dda2b3cc271437a42e1c25fbbd8d79">n_jobs</link>,&#32;self.<link linkend="_classexamples_1_1jobshop_1_1fitness_1a91b1681ba789472a1e6a8a628a386582">n_machines</link>)
+<anchor xml:id="_jobshop_8py_source_1l00231"/>00231 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_jobshop_8py_source_1l00232"/><link linkend="_classexamples_1_1jobshop_1_1fitness_1a38ad69646f0c310cddd2d489743c2837">00232</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1jobshop_1_1fitness_1a38ad69646f0c310cddd2d489743c2837">fun</link>(self,&#32;x):&#32;<emphasis role="comment">#&#32;multi&#32;objective&#32;function&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_jobshop_8py_source_1l00233"/>00233 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;tasks&#32;=&#32;<link linkend="_namespaceexamples_1_1jobshop_1aa5e76ed2d482c6572421cff829f9da68">filtered_tasks</link>(x,&#32;self.<link linkend="_classexamples_1_1jobshop_1_1fitness_1a7e2c5c07d96ad3f5ca01911202bc31fb">task_data</link>,&#32;self.<link linkend="_classexamples_1_1jobshop_1_1fitness_1a03d0bc2d19ef688e81badc24e828f0d3">n_operations</link>,&#32;self.<link linkend="_classexamples_1_1jobshop_1_1fitness_1a91b1681ba789472a1e6a8a628a386582">n_machines</link>,
+<anchor xml:id="_jobshop_8py_source_1l00234"/>00234 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1jobshop_1_1fitness_1a2b3febf6797fd4b041a9b940237da76f">job_indices</link>,&#32;self.<link linkend="_classexamples_1_1jobshop_1_1fitness_1a3e1ed42a68b5e6fbe96b7507db888a14">job_ids</link>)
+<anchor xml:id="_jobshop_8py_source_1l00235"/>00235 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;machine_time,&#32;job_time,&#32;machine_work_time&#32;=&#32;<link linkend="_namespaceexamples_1_1jobshop_1a3bfeb2d540dcef3a8111193fd5990f23">exec_tasks</link>(tasks,&#32;self.<link linkend="_classexamples_1_1jobshop_1_1fitness_1a58dda2b3cc271437a42e1c25fbbd8d79">n_jobs</link>,&#32;self.<link linkend="_classexamples_1_1jobshop_1_1fitness_1a91b1681ba789472a1e6a8a628a386582">n_machines</link>)
+<anchor xml:id="_jobshop_8py_source_1l00236"/>00236 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;span&#32;=&#32;np.amax(machine_time)
+<anchor xml:id="_jobshop_8py_source_1l00237"/>00237 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;work&#32;=&#32;np.sum(machine_work_time)
+<anchor xml:id="_jobshop_8py_source_1l00238"/>00238 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;wmax&#32;=&#32;np.amax(machine_work_time)
+<anchor xml:id="_jobshop_8py_source_1l00239"/>00239 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ys&#32;=&#32;np.array([span,&#32;work,&#32;wmax])&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_jobshop_8py_source_1l00240"/>00240 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;y&#32;=&#32;sum(self.<link linkend="_classexamples_1_1jobshop_1_1fitness_1a87dcab98144aaa1557e230f89e710a6f">weights</link>*ys)&#32;<emphasis role="comment">#&#32;weighted&#32;sum&#32;&#32;</emphasis>
+<anchor xml:id="_jobshop_8py_source_1l00241"/>00241 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1jobshop_1_1fitness_1aef018505894519a72df356d42c4c6d72">evals</link>.value&#32;+=&#32;1
+<anchor xml:id="_jobshop_8py_source_1l00242"/>00242 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;y&#32;&lt;&#32;self.<link linkend="_classexamples_1_1jobshop_1_1fitness_1a0983086fe5e1ad65b0705e7eef52cf57">best_y</link>.value:
+<anchor xml:id="_jobshop_8py_source_1l00243"/>00243 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1jobshop_1_1fitness_1a0983086fe5e1ad65b0705e7eef52cf57">best_y</link>.value&#32;=&#32;y&#32;&#32;
+<anchor xml:id="_jobshop_8py_source_1l00244"/>00244 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;logger.info(<emphasis role="stringliteral">&quot;evals&#32;=&#32;{0}:&#32;time&#32;=&#32;{1:.1f}&#32;y&#32;=&#32;{2:.2f}&#32;s&#32;=&#32;{3:.0f}&#32;w&#32;=&#32;{4:.0f}&#32;m&#32;=&#32;{5:.0f}&#32;m=&#32;{6:s}&#32;j=&#32;{7:s}&#32;w=&#32;{8:s}&quot;</emphasis>
+<anchor xml:id="_jobshop_8py_source_1l00245"/>00245 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;.<link linkend="_namespaceexamples_1_1jobshop_1ae54cecc127c4cbd68811b9d513a1fdd1">format</link>(self.<link linkend="_classexamples_1_1jobshop_1_1fitness_1aef018505894519a72df356d42c4c6d72">evals</link>.value,&#32;dtime(self.<link linkend="_classexamples_1_1jobshop_1_1fitness_1acc27d0fb31438fceefb1222643e315ad">t0</link>),&#32;y,&#32;span,&#32;work,&#32;wmax,
+<anchor xml:id="_jobshop_8py_source_1l00246"/>00246 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;str([int(si)&#32;<emphasis role="keywordflow">for</emphasis>&#32;si&#32;<emphasis role="keywordflow">in</emphasis>&#32;machine_time]),
+<anchor xml:id="_jobshop_8py_source_1l00247"/>00247 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;str([int(oi)&#32;<emphasis role="keywordflow">for</emphasis>&#32;oi&#32;<emphasis role="keywordflow">in</emphasis>&#32;job_time]),
+<anchor xml:id="_jobshop_8py_source_1l00248"/>00248 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;str([int(oi)&#32;<emphasis role="keywordflow">for</emphasis>&#32;oi&#32;<emphasis role="keywordflow">in</emphasis>&#32;machine_work_time]),
+<anchor xml:id="_jobshop_8py_source_1l00249"/>00249 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;))
+<anchor xml:id="_jobshop_8py_source_1l00250"/>00250 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;ys&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_jobshop_8py_source_1l00251"/>00251 
+<anchor xml:id="_jobshop_8py_source_1l00252"/><link linkend="_classexamples_1_1jobshop_1_1fitness_1a65088d25d52805209f6dfec80ed1aa9f">00252</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1jobshop_1_1fitness_1a65088d25d52805209f6dfec80ed1aa9f">__call__</link>(self,&#32;x):&#32;<emphasis role="comment">#&#32;single&#32;objective&#32;function&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_jobshop_8py_source_1l00253"/>00253 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ys&#32;=&#32;self.<link linkend="_classexamples_1_1jobshop_1_1fitness_1a38ad69646f0c310cddd2d489743c2837">fun</link>(x)
+<anchor xml:id="_jobshop_8py_source_1l00254"/>00254 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;sum(self.<link linkend="_classexamples_1_1jobshop_1_1fitness_1a87dcab98144aaa1557e230f89e710a6f">weights</link>*ys)&#32;<emphasis role="comment">#&#32;weighted&#32;sum&#32;&#32;</emphasis>
+<anchor xml:id="_jobshop_8py_source_1l00255"/>00255 &#32;
+<anchor xml:id="_jobshop_8py_source_1l00256"/><link linkend="_namespaceexamples_1_1jobshop_1a3ce73ee1f522f98827b73e440f09683d">00256</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1jobshop_1a3ce73ee1f522f98827b73e440f09683d">optall</link>(multi_objective&#32;=&#32;True):
+<anchor xml:id="_jobshop_8py_source_1l00257"/>00257 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(1,16):
+<anchor xml:id="_jobshop_8py_source_1l00258"/>00258 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1jobshop_1ab7d20451a09c85673eb6f79306479319">optimize</link>(i,&#32;multi_objective)
+<anchor xml:id="_jobshop_8py_source_1l00259"/>00259 
+<anchor xml:id="_jobshop_8py_source_1l00260"/><link linkend="_namespaceexamples_1_1jobshop_1ab7d20451a09c85673eb6f79306479319">00260</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1jobshop_1ab7d20451a09c85673eb6f79306479319">optimize</link>(bi,&#32;multi_objective&#32;=&#32;True):&#32;
+<anchor xml:id="_jobshop_8py_source_1l00261"/>00261 &#32;&#32;&#32;&#32;name&#32;=&#32;<emphasis role="stringliteral">&quot;BrandimarteMk&quot;</emphasis>&#32;+&#32;str(bi)
+<anchor xml:id="_jobshop_8py_source_1l00262"/>00262 &#32;&#32;&#32;&#32;tasks,&#32;n_jobs,&#32;n_machines,&#32;n_operations,&#32;_&#32;=&#32;<link linkend="_namespaceexamples_1_1jobshop_1a6346fe9e3884169bb758fec8c703bec4">read_fjs</link>(<emphasis role="stringliteral">&quot;data/1_Brandimarte/&quot;</emphasis>&#32;+&#32;name&#32;+&#32;<emphasis role="stringliteral">&quot;.fjs&quot;</emphasis>)
+<anchor xml:id="_jobshop_8py_source_1l00263"/>00263 &#32;&#32;&#32;&#32;
+<anchor xml:id="_jobshop_8py_source_1l00264"/>00264 &#32;&#32;&#32;&#32;dim&#32;=&#32;2*n_operations
+<anchor xml:id="_jobshop_8py_source_1l00265"/>00265 &#32;&#32;&#32;&#32;lower_bound&#32;=&#32;np.zeros(dim)
+<anchor xml:id="_jobshop_8py_source_1l00266"/>00266 &#32;&#32;&#32;&#32;lower_bound[:]&#32;=&#32;0.0000001&#32;
+<anchor xml:id="_jobshop_8py_source_1l00267"/>00267 &#32;&#32;&#32;&#32;upper_bound&#32;=&#32;np.zeros(dim)
+<anchor xml:id="_jobshop_8py_source_1l00268"/>00268 &#32;&#32;&#32;&#32;upper_bound[:]&#32;=&#32;0.9999999
+<anchor xml:id="_jobshop_8py_source_1l00269"/>00269 &#32;&#32;&#32;&#32;bounds&#32;=&#32;Bounds(lower_bound,&#32;upper_bound)
+<anchor xml:id="_jobshop_8py_source_1l00270"/>00270 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_jobshop_8py_source_1l00271"/>00271 &#32;&#32;&#32;&#32;fit&#32;=&#32;<link linkend="_classexamples_1_1jobshop_1_1fitness">fitness</link>(tasks,&#32;bounds,&#32;n_jobs,&#32;n_operations,&#32;n_machines,&#32;name)
+<anchor xml:id="_jobshop_8py_source_1l00272"/>00272 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;multi_objective:
+<anchor xml:id="_jobshop_8py_source_1l00273"/>00273 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xs,&#32;front&#32;=&#32;modecpp.retry(fit.fun,&#32;fit.nobj,&#32;fit.ncon,&#32;fit.bounds,&#32;num_retries=32,&#32;popsize&#32;=&#32;48,&#32;
+<anchor xml:id="_jobshop_8py_source_1l00274"/>00274 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_evaluations&#32;=&#32;960000,&#32;nsga_update&#32;=&#32;<emphasis role="keyword">True</emphasis>,&#32;workers=16)
+<anchor xml:id="_jobshop_8py_source_1l00275"/>00275 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;logger.info(name&#32;+&#32;<emphasis role="stringliteral">&quot;&#32;modecpp.retry(num_retries=32,&#32;popsize&#32;=&#32;48,&#32;max_evals&#32;=&#32;960000,&#32;nsga_update&#32;=&#32;True,&#32;workers=16&quot;</emphasis>&#32;)
+<anchor xml:id="_jobshop_8py_source_1l00276"/>00276 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;logger.info(str([tuple(y)&#32;<emphasis role="keywordflow">for</emphasis>&#32;y&#32;<emphasis role="keywordflow">in</emphasis>&#32;front]))
+<anchor xml:id="_jobshop_8py_source_1l00277"/>00277 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>:&#32;&#32;&#32;&#32;
+<anchor xml:id="_jobshop_8py_source_1l00278"/>00278 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;store&#32;=&#32;<link linkend="_classfcmaes_1_1retry_1_1_store">retry.Store</link>(fit,&#32;bounds)&#32;
+<anchor xml:id="_jobshop_8py_source_1l00279"/>00279 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;logger.info(name&#32;+&#32;<emphasis role="stringliteral">&quot;&#32;Bite_cpp(960000,M=1).minimize,&#32;num_retries=256)&quot;</emphasis>&#32;)
+<anchor xml:id="_jobshop_8py_source_1l00280"/>00280 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;retry.retry(store,&#32;<link linkend="_classfcmaes_1_1optimizer_1_1_bite__cpp">Bite_cpp</link>(960000,M=1).minimize,&#32;num_retries=256)&#32;&#32;&#32;&#32;
+<anchor xml:id="_jobshop_8py_source_1l00281"/>00281 &#32;&#32;&#32;&#32;
+<anchor xml:id="_jobshop_8py_source_1l00282"/>00282 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;fit,&#32;xs
+<anchor xml:id="_jobshop_8py_source_1l00283"/>00283 &#32;&#32;&#32;&#32;
+<anchor xml:id="_jobshop_8py_source_1l00284"/><link linkend="_namespaceexamples_1_1jobshop_1a01494c8d6d33a9c47a72cda71efcd5e2">00284</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1jobshop_1a01494c8d6d33a9c47a72cda71efcd5e2">main</link>():
+<anchor xml:id="_jobshop_8py_source_1l00285"/>00285 &#32;&#32;&#32;&#32;<emphasis role="comment">#optall(multi_objective&#32;=&#32;True)</emphasis>
+<anchor xml:id="_jobshop_8py_source_1l00286"/>00286 &#32;&#32;&#32;&#32;fit,&#32;xs&#32;=&#32;<link linkend="_namespaceexamples_1_1jobshop_1ab7d20451a09c85673eb6f79306479319">optimize</link>(1,&#32;multi_objective&#32;=&#32;<emphasis role="keyword">True</emphasis>)
+<anchor xml:id="_jobshop_8py_source_1l00287"/>00287 &#32;&#32;&#32;&#32;fit.chart(xs[0])&#32;
+<anchor xml:id="_jobshop_8py_source_1l00288"/>00288 &#32;&#32;&#32;&#32;
+<anchor xml:id="_jobshop_8py_source_1l00289"/>00289 <emphasis role="keywordflow">if</emphasis>&#32;__name__&#32;==&#32;<emphasis role="stringliteral">&apos;__main__&apos;</emphasis>:
+<anchor xml:id="_jobshop_8py_source_1l00290"/>00290 &#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1jobshop_1a01494c8d6d33a9c47a72cda71efcd5e2">main</link>()
+</programlisting></section>

@@ -1,0 +1,195 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_solo__mgar_8py_source" xml:lang="en-US">
+<title>solo_mgar.py</title>
+<indexterm><primary>examples/solo_mgar.py</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_solo__mgar_8py_source_1l00001"/><link linkend="_namespaceexamples_1_1solo__mgar">00001</link> <emphasis role="comment">#&#32;Copyright&#32;(c)&#32;Dietmar&#32;Wolz.</emphasis>
+<anchor xml:id="_solo__mgar_8py_source_1l00002"/>00002 <emphasis role="comment">#</emphasis>
+<anchor xml:id="_solo__mgar_8py_source_1l00003"/>00003 <emphasis role="comment">#&#32;This&#32;source&#32;code&#32;is&#32;licensed&#32;under&#32;the&#32;MIT&#32;license&#32;found&#32;in&#32;the</emphasis>
+<anchor xml:id="_solo__mgar_8py_source_1l00004"/>00004 <emphasis role="comment">#&#32;LICENSE&#32;file&#32;in&#32;the&#32;root&#32;directory.</emphasis>
+<anchor xml:id="_solo__mgar_8py_source_1l00005"/>00005 
+<anchor xml:id="_solo__mgar_8py_source_1l00006"/>00006 <emphasis role="comment">#&#32;This&#32;code&#32;is&#32;derived&#32;from&#32;https://github.com/esa/pykep/pull/127&#32;</emphasis>
+<anchor xml:id="_solo__mgar_8py_source_1l00007"/>00007 <emphasis role="comment">#&#32;originally&#32;developed&#32;by&#32;Moritz&#32;v.&#32;Looz&#32;@mlooz&#32;.&#32;</emphasis>
+<anchor xml:id="_solo__mgar_8py_source_1l00008"/>00008 <emphasis role="comment">#&#32;It&#32;was&#32;modified&#32;following&#32;suggestions&#32;from&#32;Waldemar&#32;Martens&#32;@MartensWaldemar_gitlab</emphasis>
+<anchor xml:id="_solo__mgar_8py_source_1l00009"/>00009 
+<anchor xml:id="_solo__mgar_8py_source_1l00010"/>00010 <emphasis role="comment">#&#32;Solar&#32;orbiter&#32;is&#32;quite&#32;a&#32;challenge&#32;for&#32;state&#32;of&#32;the&#32;art&#32;optimizers,&#32;but</emphasis>
+<anchor xml:id="_solo__mgar_8py_source_1l00011"/>00011 <emphasis role="comment">#&#32;good&#32;solutions&#32;fulfilling&#32;the&#32;requirements&#32;can&#32;be&#32;found&#32;and&#32;an&#32;example&#32;is</emphasis>
+<anchor xml:id="_solo__mgar_8py_source_1l00012"/>00012 <emphasis role="comment">#&#32;shown&#32;in&#32;check_good_solution()&#32;.&#32;At&#32;</emphasis>
+<anchor xml:id="_solo__mgar_8py_source_1l00013"/>00013 <emphasis role="comment">#&#32;https://gist.github.com/dietmarwo/86f24e1b9a702e18615b767e226e883f&#32;you&#32;may&#32;find&#32;good&#32;solutions</emphasis>
+<anchor xml:id="_solo__mgar_8py_source_1l00014"/>00014 <emphasis role="comment">#&#32;for&#32;this&#32;and&#32;two&#32;other&#32;solo&#32;models.&#32;&#32;</emphasis>
+<anchor xml:id="_solo__mgar_8py_source_1l00015"/>00015 <emphasis role="comment">#</emphasis>
+<anchor xml:id="_solo__mgar_8py_source_1l00016"/>00016 <emphasis role="comment">#&#32;See&#32;https://www.esa.int/Science_Exploration/Space_Science/Solar_Orbiter</emphasis>
+<anchor xml:id="_solo__mgar_8py_source_1l00017"/>00017 
+<anchor xml:id="_solo__mgar_8py_source_1l00018"/>00018 <emphasis role="comment">#&#32;Requires&#32;pykep&#32;which&#32;needs&#32;python&#32;3.8,&#32;</emphasis>
+<anchor xml:id="_solo__mgar_8py_source_1l00019"/>00019 <emphasis role="comment">#&#32;Create&#32;an&#32;python&#32;3.8&#32;environment:</emphasis>
+<anchor xml:id="_solo__mgar_8py_source_1l00020"/>00020 
+<anchor xml:id="_solo__mgar_8py_source_1l00021"/>00021 <emphasis role="comment">#&#32;mamba&#32;create&#32;-n&#32;env38&#32;python=3.8</emphasis>
+<anchor xml:id="_solo__mgar_8py_source_1l00022"/>00022 <emphasis role="comment">#&#32;conda&#32;activate&#32;env38</emphasis>
+<anchor xml:id="_solo__mgar_8py_source_1l00023"/>00023 
+<anchor xml:id="_solo__mgar_8py_source_1l00024"/>00024 <emphasis role="comment">#&#32;Install&#32;dependencies:</emphasis>
+<anchor xml:id="_solo__mgar_8py_source_1l00025"/>00025 <emphasis role="comment">#&#32;pip&#32;install&#32;pykep&#32;</emphasis>
+<anchor xml:id="_solo__mgar_8py_source_1l00026"/>00026 
+<anchor xml:id="_solo__mgar_8py_source_1l00027"/>00027 <emphasis role="comment">#&#32;Tested&#32;using&#32;https://docs.conda.io/en/main/miniconda.html&#32;on&#32;Linux&#32;Mint&#32;21.</emphasis>
+<anchor xml:id="_solo__mgar_8py_source_1l00028"/>00028 
+<anchor xml:id="_solo__mgar_8py_source_1l00029"/>00029 <emphasis role="keyword">import</emphasis>&#32;math
+<anchor xml:id="_solo__mgar_8py_source_1l00030"/>00030 <emphasis role="keyword">from</emphasis>&#32;math&#32;<emphasis role="keyword">import</emphasis>&#32;cos,&#32;pi,&#32;sin,&#32;sqrt
+<anchor xml:id="_solo__mgar_8py_source_1l00031"/>00031 <emphasis role="keyword">from</emphasis>&#32;fcmaes&#32;<emphasis role="keyword">import</emphasis>&#32;retry,&#32;advretry,&#32;modecpp,&#32;mode
+<anchor xml:id="_solo__mgar_8py_source_1l00032"/>00032 <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1optimizer">fcmaes.optimizer</link>&#32;<emphasis role="keyword">import</emphasis>&#32;de_cma,&#32;single_objective,&#32;de,&#32;Bite_cpp
+<anchor xml:id="_solo__mgar_8py_source_1l00033"/>00033 <emphasis role="keyword">import</emphasis>&#32;numpy&#32;<emphasis role="keyword">as</emphasis>&#32;np
+<anchor xml:id="_solo__mgar_8py_source_1l00034"/>00034 <emphasis role="keyword">import</emphasis>&#32;matplotlib.pyplot&#32;<emphasis role="keyword">as</emphasis>&#32;plt
+<anchor xml:id="_solo__mgar_8py_source_1l00035"/>00035 <emphasis role="keyword">from</emphasis>&#32;pykep&#32;<emphasis role="keyword">import</emphasis>&#32;RAD2DEG,&#32;AU
+<anchor xml:id="_solo__mgar_8py_source_1l00036"/>00036 
+<anchor xml:id="_solo__mgar_8py_source_1l00037"/>00037 <emphasis role="keyword">from</emphasis>&#32;solo_mgar_udp&#32;<emphasis role="keyword">import</emphasis>&#32;solo_mgar_udp
+<anchor xml:id="_solo__mgar_8py_source_1l00038"/>00038 
+<anchor xml:id="_solo__mgar_8py_source_1l00039"/>00039 <emphasis role="keyword">import</emphasis>&#32;sys&#32;
+<anchor xml:id="_solo__mgar_8py_source_1l00040"/>00040 <emphasis role="keyword">from</emphasis>&#32;loguru&#32;<emphasis role="keyword">import</emphasis>&#32;logger
+<anchor xml:id="_solo__mgar_8py_source_1l00041"/>00041 
+<anchor xml:id="_solo__mgar_8py_source_1l00042"/>00042 logger.remove()
+<anchor xml:id="_solo__mgar_8py_source_1l00043"/><link linkend="_namespaceexamples_1_1solo__mgar_1a2e9f09869c9b5f20e4c9ce69cd138968">00043</link> logger.add(sys.stdout,&#32;format=<emphasis role="stringliteral">&quot;{time:HH:mm:ss.SS}&#32;|&#32;{process}&#32;|&#32;{level}&#32;|&#32;{message}&quot;</emphasis>,&#32;level=<emphasis role="stringliteral">&quot;INFO&quot;</emphasis>)
+<anchor xml:id="_solo__mgar_8py_source_1l00044"/>00044 logger.add(<emphasis role="stringliteral">&quot;log_{time}.txt&quot;</emphasis>,&#32;format=<emphasis role="stringliteral">&quot;{time:HH:mm:ss.SS}&#32;|&#32;{process}&#32;|&#32;{level}&#32;|&#32;{message}&quot;</emphasis>,&#32;level=<emphasis role="stringliteral">&quot;INFO&quot;</emphasis>)
+<anchor xml:id="_solo__mgar_8py_source_1l00045"/>00045 
+<anchor xml:id="_solo__mgar_8py_source_1l00046"/><link linkend="_namespaceexamples_1_1solo__mgar_1aa279c9f78f2ec004e4903d58ca983e1b">00046</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1solo__mgar_1aa279c9f78f2ec004e4903d58ca983e1b">read_solutions</link>(fname):
+<anchor xml:id="_solo__mgar_8py_source_1l00047"/>00047 &#32;&#32;&#32;&#32;ys&#32;=&#32;[]
+<anchor xml:id="_solo__mgar_8py_source_1l00048"/>00048 &#32;&#32;&#32;&#32;xs&#32;=&#32;[]&#32;
+<anchor xml:id="_solo__mgar_8py_source_1l00049"/>00049 &#32;&#32;&#32;&#32;<emphasis role="keyword">with</emphasis>&#32;open(fname)&#32;<emphasis role="keyword">as</emphasis>&#32;csvfile:
+<anchor xml:id="_solo__mgar_8py_source_1l00050"/>00050 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;lines&#32;=&#32;csvfile.readlines()
+<anchor xml:id="_solo__mgar_8py_source_1l00051"/>00051 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;line&#32;<emphasis role="keywordflow">in</emphasis>&#32;lines:
+<anchor xml:id="_solo__mgar_8py_source_1l00052"/>00052 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;row&#32;=&#32;line.split(<emphasis role="stringliteral">&apos;&#32;&apos;</emphasis>)
+<anchor xml:id="_solo__mgar_8py_source_1l00053"/>00053 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;len(row)&#32;&lt;&#32;12:
+<anchor xml:id="_solo__mgar_8py_source_1l00054"/>00054 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>
+<anchor xml:id="_solo__mgar_8py_source_1l00055"/>00055 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ys.append(float(row[0]))
+<anchor xml:id="_solo__mgar_8py_source_1l00056"/>00056 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x&#32;=&#32;[]
+<anchor xml:id="_solo__mgar_8py_source_1l00057"/>00057 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;i&#32;=&#32;-1
+<anchor xml:id="_solo__mgar_8py_source_1l00058"/>00058 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;while(<emphasis role="keyword">True</emphasis>):
+<anchor xml:id="_solo__mgar_8py_source_1l00059"/>00059 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xi&#32;=&#32;row[i]
+<anchor xml:id="_solo__mgar_8py_source_1l00060"/>00060 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">while</emphasis>&#32;<emphasis role="keywordflow">not</emphasis>&#32;xi[-1].isdigit():
+<anchor xml:id="_solo__mgar_8py_source_1l00061"/>00061 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xi&#32;=&#32;xi[:-1]
+<anchor xml:id="_solo__mgar_8py_source_1l00062"/>00062 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;<emphasis role="keywordflow">not</emphasis>&#32;(xi[0].isdigit()&#32;<emphasis role="keywordflow">or</emphasis>&#32;xi[0]&#32;==&#32;<emphasis role="stringliteral">&apos;-&apos;</emphasis>):
+<anchor xml:id="_solo__mgar_8py_source_1l00063"/>00063 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xi&#32;=&#32;xi[1:]
+<anchor xml:id="_solo__mgar_8py_source_1l00064"/>00064 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x.insert(0,&#32;float(xi))
+<anchor xml:id="_solo__mgar_8py_source_1l00065"/>00065 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>
+<anchor xml:id="_solo__mgar_8py_source_1l00066"/>00066 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x.insert(0,&#32;float(xi))
+<anchor xml:id="_solo__mgar_8py_source_1l00067"/>00067 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;i&#32;-=&#32;1
+<anchor xml:id="_solo__mgar_8py_source_1l00068"/>00068 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xs.append(x)
+<anchor xml:id="_solo__mgar_8py_source_1l00069"/>00069 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;ys,&#32;xs
+<anchor xml:id="_solo__mgar_8py_source_1l00070"/>00070 &#32;
+<anchor xml:id="_solo__mgar_8py_source_1l00071"/>00071 
+<anchor xml:id="_solo__mgar_8py_source_1l00072"/><link linkend="_namespaceexamples_1_1solo__mgar_1a1e0a732208df5c3b8f3702ae71c93015">00072</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1solo__mgar_1a1e0a732208df5c3b8f3702ae71c93015">verify</link>(ys,&#32;xs):
+<anchor xml:id="_solo__mgar_8py_source_1l00073"/>00073 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(len(ys)):
+<anchor xml:id="_solo__mgar_8py_source_1l00074"/>00074 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;solo_mgar&#32;=&#32;<link linkend="_classexamples_1_1solo__mgar__udp_1_1solo__mgar__udp">solo_mgar_udp</link>([7000,&#32;8000])&#32;&#32;
+<anchor xml:id="_solo__mgar_8py_source_1l00075"/>00075 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;y0&#32;=&#32;ys[i]
+<anchor xml:id="_solo__mgar_8py_source_1l00076"/>00076 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x&#32;=&#32;xs[i]
+<anchor xml:id="_solo__mgar_8py_source_1l00077"/>00077 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;len(x)&#32;!=&#32;10:
+<anchor xml:id="_solo__mgar_8py_source_1l00078"/>00078 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>
+<anchor xml:id="_solo__mgar_8py_source_1l00079"/>00079 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;lambert_legs&#32;=&#32;[]
+<anchor xml:id="_solo__mgar_8py_source_1l00080"/>00080 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;resonances&#32;=&#32;[]
+<anchor xml:id="_solo__mgar_8py_source_1l00081"/>00081 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;solo_mgar._compute_dvs(x,&#32;lambert_legs,&#32;resonances)
+<anchor xml:id="_solo__mgar_8py_source_1l00082"/>00082 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;resos&#32;=&#32;[reso._resonance&#32;<emphasis role="keywordflow">for</emphasis>&#32;reso&#32;<emphasis role="keywordflow">in</emphasis>&#32;resonances]
+<anchor xml:id="_solo__mgar_8py_source_1l00083"/>00083 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;assert&#32;resos0&#32;==&#32;&#32;resos</emphasis>
+<anchor xml:id="_solo__mgar_8py_source_1l00084"/>00084 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;y&#32;=&#32;solo_mgar.fitness(x)[0]
+<anchor xml:id="_solo__mgar_8py_source_1l00085"/>00085 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;print(y0,&#32;y,&#32;y0-y)
+<anchor xml:id="_solo__mgar_8py_source_1l00086"/>00086 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">assert</emphasis>&#32;abs(y0&#32;-&#32;y&#32;&lt;&#32;0.23)
+<anchor xml:id="_solo__mgar_8py_source_1l00087"/>00087 
+<anchor xml:id="_solo__mgar_8py_source_1l00088"/><link linkend="_namespaceexamples_1_1solo__mgar_1a19767315305fd46d53086fc0fe52085e">00088</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1solo__mgar_1a19767315305fd46d53086fc0fe52085e">check_good_solution</link>(x):
+<anchor xml:id="_solo__mgar_8py_source_1l00089"/>00089 &#32;&#32;&#32;&#32;<emphasis role="keyword">import</emphasis>&#32;pygmo&#32;<emphasis role="keyword">as</emphasis>&#32;pg
+<anchor xml:id="_solo__mgar_8py_source_1l00090"/>00090 &#32;&#32;&#32;&#32;solo_mgar&#32;=&#32;<link linkend="_classexamples_1_1solo__mgar__udp_1_1solo__mgar__udp">solo_mgar_udp</link>([7000,&#32;8000])&#32;&#32;
+<anchor xml:id="_solo__mgar_8py_source_1l00091"/>00091 &#32;&#32;&#32;&#32;prob&#32;=&#32;pg.problem(solo_mgar)
+<anchor xml:id="_solo__mgar_8py_source_1l00092"/>00092 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">print</emphasis>&#32;(str(prob.fitness(x)))&#32;
+<anchor xml:id="_solo__mgar_8py_source_1l00093"/>00093 &#32;&#32;&#32;&#32;solo_mgar.pretty(x)
+<anchor xml:id="_solo__mgar_8py_source_1l00094"/>00094 &#32;&#32;&#32;&#32;solo_mgar.plot(x)
+<anchor xml:id="_solo__mgar_8py_source_1l00095"/>00095 &#32;&#32;&#32;&#32;solo_mgar.plot_distance_and_flybys(x)
+<anchor xml:id="_solo__mgar_8py_source_1l00096"/>00096 
+<anchor xml:id="_solo__mgar_8py_source_1l00097"/><link linkend="_namespaceexamples_1_1solo__mgar_1a212c6d5afb67588b11013c8d2b8cc819">00097</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1solo__mgar_1a212c6d5afb67588b11013c8d2b8cc819">print_good_solutions</link>(xs):
+<anchor xml:id="_solo__mgar_8py_source_1l00098"/>00098 &#32;&#32;&#32;&#32;<emphasis role="keyword">from</emphasis>&#32;functools&#32;<emphasis role="keyword">import</emphasis>&#32;reduce
+<anchor xml:id="_solo__mgar_8py_source_1l00099"/>00099 &#32;&#32;&#32;&#32;
+<anchor xml:id="_solo__mgar_8py_source_1l00100"/>00100 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(len(xs)):
+<anchor xml:id="_solo__mgar_8py_source_1l00101"/>00101 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;solo_mgar&#32;=&#32;<link linkend="_classexamples_1_1solo__mgar__udp_1_1solo__mgar__udp">solo_mgar_udp</link>([7000,&#32;8000])&#32;&#32;
+<anchor xml:id="_solo__mgar_8py_source_1l00102"/>00102 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;lambert_legs&#32;=&#32;[]
+<anchor xml:id="_solo__mgar_8py_source_1l00103"/>00103 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;resos&#32;=&#32;[]
+<anchor xml:id="_solo__mgar_8py_source_1l00104"/>00104 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x&#32;=&#32;xs[i]
+<anchor xml:id="_solo__mgar_8py_source_1l00105"/>00105 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;rvt_outs,&#32;rvt_ins,&#32;rvt_pls,&#32;_,&#32;_&#32;=&#32;solo_mgar._compute_dvs(x,&#32;lambert_legs,&#32;resos)&#32;&#32;&#32;&#32;
+<anchor xml:id="_solo__mgar_8py_source_1l00106"/>00106 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#rvt_outs&#32;=&#32;[rvt.rotate(solo_mgar._rotation_axis,&#32;solo_mgar._theta)&#32;for&#32;rvt&#32;in&#32;rvt_outs]</emphasis>
+<anchor xml:id="_solo__mgar_8py_source_1l00107"/>00107 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;rvt_out&#32;=&#32;rvt_outs[-1].rotate(solo_mgar._rotation_axis,&#32;solo_mgar._theta)&#32;<emphasis role="comment">#&#32;rotate</emphasis>
+<anchor xml:id="_solo__mgar_8py_source_1l00108"/>00108 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;a,&#32;e,&#32;incl,&#32;_,&#32;_,&#32;_&#32;=&#32;rvt_out.kepler()
+<anchor xml:id="_solo__mgar_8py_source_1l00109"/>00109 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;orbit&#32;should&#32;be&#32;as&#32;polar&#32;as&#32;possible,&#32;but&#32;we&#32;do&#32;not&#32;care&#32;about&#32;prograde/retrograde</emphasis>
+<anchor xml:id="_solo__mgar_8py_source_1l00110"/>00110 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;corrected_inclination&#32;=&#32;abs(abs(incl)&#32;%&#32;pi&#32;-&#32;pi&#32;/&#32;2)&#32;*&#32;RAD2DEG
+<anchor xml:id="_solo__mgar_8py_source_1l00111"/>00111 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;final_perhelion&#32;=&#32;a&#32;*&#32;(1&#32;-&#32;e)&#32;/&#32;AU
+<anchor xml:id="_solo__mgar_8py_source_1l00112"/>00112 
+<anchor xml:id="_solo__mgar_8py_source_1l00113"/>00113 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;y&#32;=&#32;solo_mgar.fitness(x)
+<anchor xml:id="_solo__mgar_8py_source_1l00114"/>00114 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;resos&#32;=&#32;[str(resos[i]._resonance)&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(len(resos))]
+<anchor xml:id="_solo__mgar_8py_source_1l00115"/>00115 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;resos&#32;=&#32;reduce((<emphasis role="keyword">lambda</emphasis>&#32;x,&#32;y:&#32;x&#32;+&#32;<emphasis role="stringliteral">&apos;,&apos;</emphasis>&#32;+&#32;y),&#32;resos)
+<anchor xml:id="_solo__mgar_8py_source_1l00116"/>00116 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">print</emphasis>&#32;(str(i)&#32;+&#32;<emphasis role="stringliteral">&apos;&#32;&apos;</emphasis>&#32;+&#32;str(incl*RAD2DEG)&#32;+&#32;<emphasis role="stringliteral">&apos;&#32;&apos;</emphasis>&#32;+&#32;str(final_perhelion)&#32;+&#32;<emphasis role="stringliteral">&apos;&#32;[&apos;</emphasis>&#32;+&#32;str(y[0]),&#32;<emphasis role="stringliteral">&apos;,&#32;[&apos;</emphasis>&#32;+&#32;resos&#32;+&#32;<emphasis role="stringliteral">&apos;],&#32;&apos;</emphasis>&#32;+&#32;str(x)&#32;+&#32;<emphasis role="stringliteral">&apos;],&apos;</emphasis>)
+<anchor xml:id="_solo__mgar_8py_source_1l00117"/>00117 &#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_solo__mgar_8py_source_1l00118"/><link linkend="_namespaceexamples_1_1solo__mgar_1aad03af6f9c89ae3a7a0bbdbab890adf5">00118</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1solo__mgar_1aad03af6f9c89ae3a7a0bbdbab890adf5">optimize</link>():&#32;&#32;&#32;
+<anchor xml:id="_solo__mgar_8py_source_1l00119"/>00119 &#32;&#32;&#32;&#32;<emphasis role="keyword">from</emphasis>&#32;scipy.optimize&#32;<emphasis role="keyword">import</emphasis>&#32;Bounds
+<anchor xml:id="_solo__mgar_8py_source_1l00120"/>00120 &#32;&#32;&#32;&#32;solo_mgar&#32;=&#32;<link linkend="_classexamples_1_1solo__mgar__udp_1_1solo__mgar__udp">solo_mgar_udp</link>([7000,&#32;8000])&#32;&#32;
+<anchor xml:id="_solo__mgar_8py_source_1l00121"/>00121 &#32;&#32;&#32;&#32;
+<anchor xml:id="_solo__mgar_8py_source_1l00122"/>00122 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis>fun(x):
+<anchor xml:id="_solo__mgar_8py_source_1l00123"/>00123 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">try</emphasis>:
+<anchor xml:id="_solo__mgar_8py_source_1l00124"/>00124 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;solo_mgar.fitness(x)[0]
+<anchor xml:id="_solo__mgar_8py_source_1l00125"/>00125 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">except</emphasis>&#32;Exception&#32;<emphasis role="keyword">as</emphasis>&#32;ex:
+<anchor xml:id="_solo__mgar_8py_source_1l00126"/>00126 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;1E99
+<anchor xml:id="_solo__mgar_8py_source_1l00127"/>00127 
+<anchor xml:id="_solo__mgar_8py_source_1l00128"/>00128 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis>mofun(x):
+<anchor xml:id="_solo__mgar_8py_source_1l00129"/>00129 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">try</emphasis>:
+<anchor xml:id="_solo__mgar_8py_source_1l00130"/>00130 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;solo_mgar.mo_fitness(x)
+<anchor xml:id="_solo__mgar_8py_source_1l00131"/>00131 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">except</emphasis>&#32;Exception&#32;<emphasis role="keyword">as</emphasis>&#32;ex:
+<anchor xml:id="_solo__mgar_8py_source_1l00132"/>00132 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;np.array([1E99]*6)
+<anchor xml:id="_solo__mgar_8py_source_1l00133"/>00133 
+<anchor xml:id="_solo__mgar_8py_source_1l00134"/>00134 &#32;&#32;&#32;&#32;bounds&#32;=&#32;solo_mgar.get_bounds()
+<anchor xml:id="_solo__mgar_8py_source_1l00135"/>00135 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_solo__mgar_8py_source_1l00136"/>00136 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;logger.info(&apos;solar&#32;orbiter&apos;&#32;+&#32;&apos;&#32;de&#32;-&gt;&#32;cmaes&#32;c++&#32;smart&#32;retry&apos;)</emphasis>
+<anchor xml:id="_solo__mgar_8py_source_1l00137"/>00137 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;ret&#32;=&#32;advretry.minimize(fun,&#32;bounds=Bounds(bounds[0],&#32;bounds[1]),&#32;num_retries&#32;=&#32;60000,&#32;</emphasis>
+<anchor xml:id="_solo__mgar_8py_source_1l00138"/>00138 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;&#32;&#32;&#32;&#32;optimizer=de_cma(2000))</emphasis>
+<anchor xml:id="_solo__mgar_8py_source_1l00139"/>00139 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#optimizer=bite_cma(2000))</emphasis>
+<anchor xml:id="_solo__mgar_8py_source_1l00140"/>00140 &#32;&#32;&#32;&#32;
+<anchor xml:id="_solo__mgar_8py_source_1l00141"/>00141 &#32;&#32;&#32;&#32;logger.info(<emphasis role="stringliteral">&apos;solar&#32;orbiter&apos;</emphasis>&#32;+&#32;<emphasis role="stringliteral">&apos;&#32;BiteOpt&#32;parallel&#32;retry&apos;</emphasis>)&#32;&#32;&#32;&#32;
+<anchor xml:id="_solo__mgar_8py_source_1l00142"/>00142 &#32;&#32;&#32;&#32;ret&#32;=&#32;retry.minimize(fun,&#32;bounds=Bounds(bounds[0],&#32;bounds[1]),&#32;num_retries&#32;=&#32;32000,&#32;
+<anchor xml:id="_solo__mgar_8py_source_1l00143"/>00143 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;optimizer=<link linkend="_classfcmaes_1_1optimizer_1_1_bite__cpp">Bite_cpp</link>(200000,&#32;M=6))
+<anchor xml:id="_solo__mgar_8py_source_1l00144"/>00144 &#32;&#32;&#32;&#32;
+<anchor xml:id="_solo__mgar_8py_source_1l00145"/>00145 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;x,&#32;y&#32;=&#32;modecpp.retry(mode.wrapper(mofun,&#32;3,&#32;interval&#32;=&#32;1000000000),&#32;3,&#32;3,</emphasis>
+<anchor xml:id="_solo__mgar_8py_source_1l00146"/>00146 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Bounds(bounds[0],&#32;bounds[1]),&#32;popsize&#32;=&#32;128,&#32;</emphasis>
+<anchor xml:id="_solo__mgar_8py_source_1l00147"/>00147 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_evaluations&#32;=&#32;300000,&#32;</emphasis>
+<anchor xml:id="_solo__mgar_8py_source_1l00148"/>00148 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;nsga_update=False,&#32;num_retries&#32;=&#32;32000,</emphasis>
+<anchor xml:id="_solo__mgar_8py_source_1l00149"/>00149 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;workers=32)</emphasis>
+<anchor xml:id="_solo__mgar_8py_source_1l00150"/>00150 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;ret
+<anchor xml:id="_solo__mgar_8py_source_1l00151"/>00151 
+<anchor xml:id="_solo__mgar_8py_source_1l00152"/><link linkend="_namespaceexamples_1_1solo__mgar_1a973fceab6e9884b725a995f604136e91">00152</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1solo__mgar_1a973fceab6e9884b725a995f604136e91">archipelago</link>():&#32;&#32;&#32;
+<anchor xml:id="_solo__mgar_8py_source_1l00153"/>00153 &#32;&#32;&#32;&#32;<emphasis role="keyword">import</emphasis>&#32;pygmo&#32;<emphasis role="keyword">as</emphasis>&#32;pg&#32;
+<anchor xml:id="_solo__mgar_8py_source_1l00154"/>00154 &#32;&#32;&#32;&#32;udp&#32;=&#32;<link linkend="_classexamples_1_1solo__mgar__udp_1_1solo__mgar__udp">solo_mgar_udp</link>([7000,&#32;8000])&#32;&#32;
+<anchor xml:id="_solo__mgar_8py_source_1l00155"/>00155 &#32;&#32;&#32;&#32;<emphasis role="comment">#uda&#32;=&#32;pg.sga(gen&#32;=&#32;6000)</emphasis>
+<anchor xml:id="_solo__mgar_8py_source_1l00156"/>00156 &#32;&#32;&#32;&#32;uda&#32;=&#32;pg.sade(memory=<emphasis role="keyword">True</emphasis>,variant=1,gen=6000)
+<anchor xml:id="_solo__mgar_8py_source_1l00157"/>00157 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;instantiate&#32;an&#32;unconnected&#32;archipelago</emphasis>
+<anchor xml:id="_solo__mgar_8py_source_1l00158"/>00158 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;_&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(1000):
+<anchor xml:id="_solo__mgar_8py_source_1l00159"/>00159 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;archi&#32;=&#32;pg.archipelago(t&#32;=&#32;pg.topologies.unconnected())
+<anchor xml:id="_solo__mgar_8py_source_1l00160"/>00160 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;_&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(32):
+<anchor xml:id="_solo__mgar_8py_source_1l00161"/>00161 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;alg&#32;=&#32;pg.algorithm(uda)
+<anchor xml:id="_solo__mgar_8py_source_1l00162"/>00162 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#alg.set_verbosity(1)&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_solo__mgar_8py_source_1l00163"/>00163 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;prob&#32;=&#32;pg.problem(udp)
+<anchor xml:id="_solo__mgar_8py_source_1l00164"/>00164 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pop&#32;=&#32;pg.population(prob,&#32;20)&#32;&#32;&#32;&#32;
+<anchor xml:id="_solo__mgar_8py_source_1l00165"/>00165 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;isl&#32;=&#32;pg.island(algo=alg,&#32;pop=pop)
+<anchor xml:id="_solo__mgar_8py_source_1l00166"/>00166 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;archi.push_back(isl)&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_solo__mgar_8py_source_1l00167"/>00167 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;archi.evolve()
+<anchor xml:id="_solo__mgar_8py_source_1l00168"/>00168 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;archi.wait_check()
+<anchor xml:id="_solo__mgar_8py_source_1l00169"/>00169 
+<anchor xml:id="_solo__mgar_8py_source_1l00170"/><link linkend="_namespaceexamples_1_1solo__mgar_1acaf2dae83ca2b5af9010501f1a0dde2a">00170</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1solo__mgar_1acaf2dae83ca2b5af9010501f1a0dde2a">optimize_pagmo</link>():&#32;&#32;
+<anchor xml:id="_solo__mgar_8py_source_1l00171"/>00171 &#32;&#32;&#32;&#32;<emphasis role="keyword">import</emphasis>&#32;pygmo&#32;<emphasis role="keyword">as</emphasis>&#32;pg&#32;&#32;
+<anchor xml:id="_solo__mgar_8py_source_1l00172"/>00172 &#32;&#32;&#32;&#32;solo_mgar&#32;=&#32;<link linkend="_classexamples_1_1solo__mgar__udp_1_1solo__mgar__udp">solo_mgar_udp</link>([7000,&#32;8000])&#32;&#32;
+<anchor xml:id="_solo__mgar_8py_source_1l00173"/>00173 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(6000):
+<anchor xml:id="_solo__mgar_8py_source_1l00174"/>00174 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;prob&#32;=&#32;pg.problem(solo_mgar)&#32;&#32;&#32;
+<anchor xml:id="_solo__mgar_8py_source_1l00175"/>00175 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pop&#32;=&#32;pg.population(prob=prob,&#32;size=32)
+<anchor xml:id="_solo__mgar_8py_source_1l00176"/>00176 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;alg&#32;=&#32;pg.algorithm(pg.sade(memory=<emphasis role="keyword">True</emphasis>,gen=1))
+<anchor xml:id="_solo__mgar_8py_source_1l00177"/>00177 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pop&#32;=&#32;alg.evolve(pop)
+<anchor xml:id="_solo__mgar_8py_source_1l00178"/>00178 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;print(i,&#32;pop.champion_f,&#32;solo_mgar.fitness(pop.champion_x))
+<anchor xml:id="_solo__mgar_8py_source_1l00179"/>00179 
+<anchor xml:id="_solo__mgar_8py_source_1l00180"/>00180 <emphasis role="keywordflow">if</emphasis>&#32;__name__&#32;==&#32;<emphasis role="stringliteral">&apos;__main__&apos;</emphasis>:
+<anchor xml:id="_solo__mgar_8py_source_1l00181"/>00181 &#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1solo__mgar_1aad03af6f9c89ae3a7a0bbdbab890adf5">optimize</link>()
+<anchor xml:id="_solo__mgar_8py_source_1l00182"/>00182 &#32;&#32;&#32;&#32;<emphasis role="comment">#archipelago()</emphasis>
+<anchor xml:id="_solo__mgar_8py_source_1l00183"/><link linkend="_namespaceexamples_1_1solo__mgar_1a9587198ac3bbb25456c3249544bc5d6e">00183</link> &#32;&#32;&#32;&#32;ys,&#32;xs&#32;=&#32;<link linkend="_namespaceexamples_1_1solo__mgar_1aa279c9f78f2ec004e4903d58ca983e1b">read_solutions</link>(<emphasis role="stringliteral">&apos;data/solo_results.txt&apos;</emphasis>)
+<anchor xml:id="_solo__mgar_8py_source_1l00184"/>00184 &#32;&#32;&#32;&#32;<emphasis role="comment">#print_good_solutions(xs)&#32;</emphasis>
+<anchor xml:id="_solo__mgar_8py_source_1l00185"/>00185 &#32;&#32;&#32;&#32;<emphasis role="comment">#verify(ys,&#32;xs)</emphasis>
+<anchor xml:id="_solo__mgar_8py_source_1l00186"/>00186 &#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1solo__mgar_1a19767315305fd46d53086fc0fe52085e">check_good_solution</link>(xs[0])&#32;&#32;
+<anchor xml:id="_solo__mgar_8py_source_1l00187"/>00187 &#32;&#32;&#32;&#32;plt.show()
+<anchor xml:id="_solo__mgar_8py_source_1l00188"/>00188 &#32;&#32;&#32;
+<anchor xml:id="_solo__mgar_8py_source_1l00189"/>00189 
+<anchor xml:id="_solo__mgar_8py_source_1l00190"/>00190 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">pass</emphasis>
+</programlisting></section>

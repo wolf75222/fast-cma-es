@@ -1,0 +1,1612 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.13.2" xml:lang="en-US">
+  <compounddef id="class_c_bite_pop" kind="class" language="C++" prot="public">
+    <compoundname>CBitePop</compoundname>
+    <derivedcompoundref refid="class_c_bite_par_pops" prot="public" virt="virtual">CBiteParPops&lt; ptype &gt;</derivedcompoundref>
+    <includes refid="biteaux_8h" local="no">biteaux.h</includes>
+    <templateparamlist>
+      <param>
+        <type>typename ptype</type>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="protected-static-attrib">
+      <memberdef kind="variable" id="class_c_bite_pop_1a8009a96dd8a678daaefc9410ba2e0a76" prot="protected" static="yes" mutable="no">
+        <type>const int</type>
+        <definition>const int CBitePop&lt; ptype &gt;::IntOverBits</definition>
+        <argsstring></argsstring>
+        <name>IntOverBits</name>
+        <qualifiedname>CBitePop::IntOverBits</qualifiedname>
+        <initializer>= ( sizeof( ptype ) &gt; 4 ? 5 : 3 )</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>The number of bits of precision required for integer centroid calculation and overflows. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="1154" column="18" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="1154" bodyend="-1"/>
+        <referencedby refid="class_c_bite_pop_1a7850902dad276dcecea68559eaccc168" compoundref="biteaux_8h" startline="795" endline="873">CBitePop&lt; ptype &gt;::updateCentroid</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_bite_pop_1ac9adf8849ed7251dadd94815e20bdee8" prot="protected" static="yes" mutable="no">
+        <type>const int</type>
+        <definition>const int CBitePop&lt; ptype &gt;::IntMantBits</definition>
+        <argsstring></argsstring>
+        <name>IntMantBits</name>
+        <qualifiedname>CBitePop::IntMantBits</qualifiedname>
+        <initializer>= sizeof( ptype ) * 8 - 1 - <ref refid="class_c_bite_pop_1a8009a96dd8a678daaefc9410ba2e0a76" kindref="member">IntOverBits</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Mantissa size of the integer parameter values (higher by 1 bit in practice for real value 1.0). Accounts for a sign bit, and possible accumulation overflows. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="1157" column="18" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="1157" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_bite_pop_1a1302e3c2e578dd650aedb57e18645092" prot="protected" static="yes" mutable="no">
+        <type>const int64_t</type>
+        <definition>const int64_t CBitePop&lt; ptype &gt;::IntMantMult</definition>
+        <argsstring></argsstring>
+        <name>IntMantMult</name>
+        <qualifiedname>CBitePop::IntMantMult</qualifiedname>
+        <initializer>= 1LL &lt;&lt; <ref refid="class_c_bite_pop_1ac9adf8849ed7251dadd94815e20bdee8" kindref="member">IntMantBits</ref></initializer>
+        <briefdescription>
+<para>multiplier. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Mantissa </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="1161" column="22" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="1161" bodyend="-1"/>
+        <referencedby refid="class_c_bite_pop_1aecaac61269e65bda93cb2dc1a3a26091" compoundref="biteaux_8h" startline="1318" endline="1330">CBitePop&lt; ptype &gt;::getGaussianInt</referencedby>
+        <referencedby refid="class_c_bite_opt_base_1ac2ee22488c24887a922a30dd15d898e6" compoundref="biteaux_8h" startline="1744" endline="1766">CBiteOptBase&lt; ptype &gt;::updateDiffValues</referencedby>
+        <referencedby refid="class_c_bite_pop_1a3b7e8d2276455475bd761e29c8c72ac6" compoundref="biteaux_8h" startline="1256" endline="1307">CBitePop&lt; ptype &gt;::wrapParam</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_bite_pop_1aeba03d86b17ed01a97dc8225c5598b2d" prot="protected" static="yes" mutable="no">
+        <type>const int64_t</type>
+        <definition>const int64_t CBitePop&lt; ptype &gt;::IntMantMultM</definition>
+        <argsstring></argsstring>
+        <name>IntMantMultM</name>
+        <qualifiedname>CBitePop::IntMantMultM</qualifiedname>
+        <initializer>= -<ref refid="class_c_bite_pop_1a1302e3c2e578dd650aedb57e18645092" kindref="member">IntMantMult</ref></initializer>
+        <briefdescription>
+<para>IntMantMult. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Negative </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="1163" column="22" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="1163" bodyend="-1"/>
+        <referencedby refid="class_c_bite_pop_1a3b7e8d2276455475bd761e29c8c72ac6" compoundref="biteaux_8h" startline="1256" endline="1307">CBitePop&lt; ptype &gt;::wrapParam</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_bite_pop_1a8c64d2e83f225b034df818b06b09ecd2" prot="protected" static="yes" mutable="no">
+        <type>const int64_t</type>
+        <definition>const int64_t CBitePop&lt; ptype &gt;::IntMantMult2</definition>
+        <argsstring></argsstring>
+        <name>IntMantMult2</name>
+        <qualifiedname>CBitePop::IntMantMult2</qualifiedname>
+        <initializer>= ( <ref refid="class_c_bite_pop_1a1302e3c2e578dd650aedb57e18645092" kindref="member">IntMantMult</ref> &lt;&lt; 1 )</initializer>
+        <briefdescription>
+<para>IntMantMult * 2. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>= </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="1165" column="22" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="1165" bodyend="-1"/>
+        <referencedby refid="class_c_bite_pop_1a3b7e8d2276455475bd761e29c8c72ac6" compoundref="biteaux_8h" startline="1256" endline="1307">CBitePop&lt; ptype &gt;::wrapParam</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_bite_pop_1a27448c9be1bed517e4a48aa656ca4f76" prot="protected" static="yes" mutable="no">
+        <type>const int64_t</type>
+        <definition>const int64_t CBitePop&lt; ptype &gt;::IntMantMask</definition>
+        <argsstring></argsstring>
+        <name>IntMantMask</name>
+        <qualifiedname>CBitePop::IntMantMask</qualifiedname>
+        <initializer>= <ref refid="class_c_bite_pop_1a1302e3c2e578dd650aedb57e18645092" kindref="member">IntMantMult</ref> - 1</initializer>
+        <briefdescription>
+<para>corresponds to mantissa. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Mask that </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="1167" column="22" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="1167" bodyend="-1"/>
+        <referencedby refid="class_c_bite_pop_1a3b7e8d2276455475bd761e29c8c72ac6" compoundref="biteaux_8h" startline="1256" endline="1307">CBitePop&lt; ptype &gt;::wrapParam</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="class_c_bite_pop_1a0dc6f7b3a19db513e349e68c3471f9fa" prot="protected" static="no" mutable="no">
+        <type>int</type>
+        <definition>int CBitePop&lt; ptype &gt;::ParamCount</definition>
+        <argsstring></argsstring>
+        <name>ParamCount</name>
+        <qualifiedname>CBitePop::ParamCount</qualifiedname>
+        <briefdescription>
+<para>The total number of internal parameter values in use. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="1170" column="5" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="1170" bodyend="-1"/>
+        <referencedby refid="class_c_bite_pop_1ad427518ed1d47fbe3c2222b3a11badb7" compoundref="biteaux_8h" startline="672" endline="681">CBitePop&lt; ptype &gt;::CBitePop</referencedby>
+        <referencedby refid="class_c_bite_pop_1a73402384f4b75abf6d956dc086ccf36e" compoundref="biteaux_8h" startline="683" endline="690">CBitePop&lt; ptype &gt;::CBitePop</referencedby>
+        <referencedby refid="class_c_bite_pop_1a3fc2d887ae91be62fd9fc3100268e53c" compoundref="biteaux_8h" startline="760" endline="786">CBitePop&lt; ptype &gt;::copy</referencedby>
+        <referencedby refid="class_c_bite_pop_1a24130fea35014433f142e3b9ed0f8929" compoundref="biteaux_8h" startline="1229" endline="1232">CBitePop&lt; ptype &gt;::copyParams</referencedby>
+        <referencedby refid="class_c_bite_pop_1a57e751582761922bbabff1ddb7af277b" compoundref="biteaux_8h" startline="1241" endline="1244">CBitePop&lt; ptype &gt;::copyValues</referencedby>
+        <referencedby refid="class_c_bite_par_pops_1afa8a97732cea882b664c2d0fbedf2289" compoundref="biteaux_8h" startline="1417" endline="1512">CBiteParPops&lt; ptype &gt;::getMinDistParPop</referencedby>
+        <referencedby refid="class_c_bite_opt_base_1a5c53a8eb3a4269a746d990282452d71e" compoundref="biteaux_8h" startline="1684" endline="1696">CBiteOptBase&lt; ptype &gt;::initBuffers</referencedby>
+        <referencedby refid="class_c_bite_pop_1a7488531e6b12accb61f068bbe654f580" compoundref="biteaux_8h" startline="719" endline="750">CBitePop&lt; ptype &gt;::initBuffers</referencedby>
+        <referencedby refid="class_c_bite_opt_base_1a768362da5c773eea5a8649d44676eeed" compoundref="biteaux_8h" startline="1717" endline="1737">CBiteOptBase&lt; ptype &gt;::initCommonVars</referencedby>
+        <referencedby refid="class_c_bite_pop_1a7850902dad276dcecea68559eaccc168" compoundref="biteaux_8h" startline="795" endline="873">CBitePop&lt; ptype &gt;::updateCentroid</referencedby>
+        <referencedby refid="class_c_bite_opt_base_1ac2ee22488c24887a922a30dd15d898e6" compoundref="biteaux_8h" startline="1744" endline="1766">CBiteOptBase&lt; ptype &gt;::updateDiffValues</referencedby>
+        <referencedby refid="class_c_bite_pop_1aad999ddc8a2ed72ffaee0db7732c9f76" compoundref="biteaux_8h" startline="1039" endline="1151">CBitePop&lt; ptype &gt;::updatePop</referencedby>
+        <referencedby refid="class_c_bite_pop_1a0d5ab322641bb1a091df91ff7ee630c4" compoundref="biteaux_8h" startline="1217" endline="1220">CBitePop&lt; ptype &gt;::zeroParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_bite_pop_1a884c9ad4c0327aaa0110a23a89f5697a" prot="protected" static="no" mutable="no">
+        <type>double</type>
+        <definition>double CBitePop&lt; ptype &gt;::ParamCountI</definition>
+        <argsstring></argsstring>
+        <name>ParamCountI</name>
+        <qualifiedname>CBitePop::ParamCountI</qualifiedname>
+        <briefdescription>
+<para>= 1.0 / ParamCount. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="1171" column="8" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="1171" bodyend="-1"/>
+        <referencedby refid="class_c_bite_pop_1a7488531e6b12accb61f068bbe654f580" compoundref="biteaux_8h" startline="719" endline="750">CBitePop&lt; ptype &gt;::initBuffers</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_bite_pop_1a58e3bf5abc2fb4b1e173aa6cb3477bfb" prot="protected" static="no" mutable="no">
+        <type>int</type>
+        <definition>int CBitePop&lt; ptype &gt;::PopSize</definition>
+        <argsstring></argsstring>
+        <name>PopSize</name>
+        <qualifiedname>CBitePop::PopSize</qualifiedname>
+        <briefdescription>
+<para>The size of population in use (maximal). </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="1172" column="5" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="1172" bodyend="-1"/>
+        <referencedby refid="class_c_bite_pop_1ad427518ed1d47fbe3c2222b3a11badb7" compoundref="biteaux_8h" startline="672" endline="681">CBitePop&lt; ptype &gt;::CBitePop</referencedby>
+        <referencedby refid="class_c_bite_pop_1a73402384f4b75abf6d956dc086ccf36e" compoundref="biteaux_8h" startline="683" endline="690">CBitePop&lt; ptype &gt;::CBitePop</referencedby>
+        <referencedby refid="class_c_bite_pop_1a3fc2d887ae91be62fd9fc3100268e53c" compoundref="biteaux_8h" startline="760" endline="786">CBitePop&lt; ptype &gt;::copy</referencedby>
+        <referencedby refid="class_c_bite_pop_1a7488531e6b12accb61f068bbe654f580" compoundref="biteaux_8h" startline="719" endline="750">CBitePop&lt; ptype &gt;::initBuffers</referencedby>
+        <referencedby refid="class_c_bite_pop_1a767519aa2fcc2667dc135a131bc9fd85" compoundref="biteaux_8h" startline="981" endline="990">CBitePop&lt; ptype &gt;::resetCurPopPos</referencedby>
+        <referencedby refid="class_c_bite_pop_1a7850902dad276dcecea68559eaccc168" compoundref="biteaux_8h" startline="795" endline="873">CBitePop&lt; ptype &gt;::updateCentroid</referencedby>
+        <referencedby refid="class_c_bite_pop_1aad999ddc8a2ed72ffaee0db7732c9f76" compoundref="biteaux_8h" startline="1039" endline="1151">CBitePop&lt; ptype &gt;::updatePop</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_bite_pop_1a0b64743a84d5af143d44e7f6e9f02ada" prot="protected" static="no" mutable="no">
+        <type>int</type>
+        <definition>int CBitePop&lt; ptype &gt;::PopSize1</definition>
+        <argsstring></argsstring>
+        <name>PopSize1</name>
+        <qualifiedname>CBitePop::PopSize1</qualifiedname>
+        <briefdescription>
+<para>= PopSize - 1. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="1173" column="5" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="1173" bodyend="-1"/>
+        <referencedby refid="class_c_bite_pop_1a7488531e6b12accb61f068bbe654f580" compoundref="biteaux_8h" startline="719" endline="750">CBitePop&lt; ptype &gt;::initBuffers</referencedby>
+        <referencedby refid="class_c_bite_pop_1a767519aa2fcc2667dc135a131bc9fd85" compoundref="biteaux_8h" startline="981" endline="990">CBitePop&lt; ptype &gt;::resetCurPopPos</referencedby>
+        <referencedby refid="class_c_bite_pop_1aad999ddc8a2ed72ffaee0db7732c9f76" compoundref="biteaux_8h" startline="1039" endline="1151">CBitePop&lt; ptype &gt;::updatePop</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_bite_pop_1adc98fbdebc2671ef0826245d8c472cc5" prot="protected" static="no" mutable="no">
+        <type>int</type>
+        <definition>int CBitePop&lt; ptype &gt;::CurPopSize</definition>
+        <argsstring></argsstring>
+        <name>CurPopSize</name>
+        <qualifiedname>CBitePop::CurPopSize</qualifiedname>
+        <briefdescription>
+<para>Current population size. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="1174" column="5" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="1174" bodyend="-1"/>
+        <referencedby refid="class_c_bite_pop_1a3fc2d887ae91be62fd9fc3100268e53c" compoundref="biteaux_8h" startline="760" endline="786">CBitePop&lt; ptype &gt;::copy</referencedby>
+        <referencedby refid="class_c_bite_pop_1a4656171c63f1944ae045d6f222d9d33a" compoundref="biteaux_8h" startline="1013" endline="1020">CBitePop&lt; ptype &gt;::decrCurPopSize</referencedby>
+        <referencedby refid="class_c_bite_pop_1a5aef425d751172e1fff38a455cb51d34" compoundref="biteaux_8h" startline="959" endline="962">CBitePop&lt; ptype &gt;::getCurPopSize</referencedby>
+        <referencedby refid="class_c_bite_pop_1a48d6ede5c82534c973e0458726e820dd" compoundref="biteaux_8h" startline="998" endline="1005">CBitePop&lt; ptype &gt;::incrCurPopSize</referencedby>
+        <referencedby refid="class_c_bite_pop_1a767519aa2fcc2667dc135a131bc9fd85" compoundref="biteaux_8h" startline="981" endline="990">CBitePop&lt; ptype &gt;::resetCurPopPos</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_bite_pop_1a26b81c70200085e410cf83258e139f9b" prot="protected" static="no" mutable="no">
+        <type>int</type>
+        <definition>int CBitePop&lt; ptype &gt;::CurPopSize1</definition>
+        <argsstring></argsstring>
+        <name>CurPopSize1</name>
+        <qualifiedname>CBitePop::CurPopSize1</qualifiedname>
+        <briefdescription>
+<para>= CurPopSize - 1. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="1175" column="5" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="1175" bodyend="-1"/>
+        <referencedby refid="class_c_bite_pop_1a3fc2d887ae91be62fd9fc3100268e53c" compoundref="biteaux_8h" startline="760" endline="786">CBitePop&lt; ptype &gt;::copy</referencedby>
+        <referencedby refid="class_c_bite_pop_1a4656171c63f1944ae045d6f222d9d33a" compoundref="biteaux_8h" startline="1013" endline="1020">CBitePop&lt; ptype &gt;::decrCurPopSize</referencedby>
+        <referencedby refid="class_c_bite_pop_1a48d6ede5c82534c973e0458726e820dd" compoundref="biteaux_8h" startline="998" endline="1005">CBitePop&lt; ptype &gt;::incrCurPopSize</referencedby>
+        <referencedby refid="class_c_bite_pop_1a767519aa2fcc2667dc135a131bc9fd85" compoundref="biteaux_8h" startline="981" endline="990">CBitePop&lt; ptype &gt;::resetCurPopPos</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_bite_pop_1aa5105ca75379f9a760dc9f0b9ea30ea7" prot="protected" static="no" mutable="no">
+        <type>double</type>
+        <definition>double CBitePop&lt; ptype &gt;::CurPopSizeI</definition>
+        <argsstring></argsstring>
+        <name>CurPopSizeI</name>
+        <qualifiedname>CBitePop::CurPopSizeI</qualifiedname>
+        <briefdescription>
+<para>= 1.0 / CurPopSize. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="1176" column="8" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="1176" bodyend="-1"/>
+        <referencedby refid="class_c_bite_pop_1a3fc2d887ae91be62fd9fc3100268e53c" compoundref="biteaux_8h" startline="760" endline="786">CBitePop&lt; ptype &gt;::copy</referencedby>
+        <referencedby refid="class_c_bite_pop_1a4656171c63f1944ae045d6f222d9d33a" compoundref="biteaux_8h" startline="1013" endline="1020">CBitePop&lt; ptype &gt;::decrCurPopSize</referencedby>
+        <referencedby refid="class_c_bite_pop_1a48d6ede5c82534c973e0458726e820dd" compoundref="biteaux_8h" startline="998" endline="1005">CBitePop&lt; ptype &gt;::incrCurPopSize</referencedby>
+        <referencedby refid="class_c_bite_pop_1a767519aa2fcc2667dc135a131bc9fd85" compoundref="biteaux_8h" startline="981" endline="990">CBitePop&lt; ptype &gt;::resetCurPopPos</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_bite_pop_1aa7c87b9148768d6104f8d3dfb5abebce" prot="protected" static="no" mutable="no">
+        <type>int</type>
+        <definition>int CBitePop&lt; ptype &gt;::CurPopPos</definition>
+        <argsstring></argsstring>
+        <name>CurPopPos</name>
+        <qualifiedname>CBitePop::CurPopPos</qualifiedname>
+        <briefdescription>
+<para>update. This variable should be initialized by the optimizer. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Current population position, for initial population </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="1177" column="5" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="1177" bodyend="-1"/>
+        <referencedby refid="class_c_bite_pop_1a3fc2d887ae91be62fd9fc3100268e53c" compoundref="biteaux_8h" startline="760" endline="786">CBitePop&lt; ptype &gt;::copy</referencedby>
+        <referencedby refid="class_c_bite_pop_1a0053ae41c70babe967c5931f491ea865" compoundref="biteaux_8h" startline="950" endline="953">CBitePop&lt; ptype &gt;::getCurParams</referencedby>
+        <referencedby refid="class_c_bite_pop_1a7e1fbb7f7e9aaf8f73eb865fa4610185" compoundref="biteaux_8h" startline="968" endline="971">CBitePop&lt; ptype &gt;::getCurPopPos</referencedby>
+        <referencedby refid="class_c_bite_pop_1a767519aa2fcc2667dc135a131bc9fd85" compoundref="biteaux_8h" startline="981" endline="990">CBitePop&lt; ptype &gt;::resetCurPopPos</referencedby>
+        <referencedby refid="class_c_bite_pop_1aad999ddc8a2ed72ffaee0db7732c9f76" compoundref="biteaux_8h" startline="1039" endline="1151">CBitePop&lt; ptype &gt;::updatePop</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_bite_pop_1a2bf725291723a8dcaa215496e3175471" prot="protected" static="no" mutable="no">
+        <type>int</type>
+        <definition>int CBitePop&lt; ptype &gt;::CnsCount</definition>
+        <argsstring></argsstring>
+        <name>CnsCount</name>
+        <qualifiedname>CBitePop::CnsCount</qualifiedname>
+        <briefdescription>
+<para>The number of constraints per solution. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="1179" column="5" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="1179" bodyend="-1"/>
+        <referencedby refid="class_c_bite_pop_1ad427518ed1d47fbe3c2222b3a11badb7" compoundref="biteaux_8h" startline="672" endline="681">CBitePop&lt; ptype &gt;::CBitePop</referencedby>
+        <referencedby refid="class_c_bite_pop_1a73402384f4b75abf6d956dc086ccf36e" compoundref="biteaux_8h" startline="683" endline="690">CBitePop&lt; ptype &gt;::CBitePop</referencedby>
+        <referencedby refid="class_c_bite_pop_1a3fc2d887ae91be62fd9fc3100268e53c" compoundref="biteaux_8h" startline="760" endline="786">CBitePop&lt; ptype &gt;::copy</referencedby>
+        <referencedby refid="class_c_bite_pop_1a7488531e6b12accb61f068bbe654f580" compoundref="biteaux_8h" startline="719" endline="750">CBitePop&lt; ptype &gt;::initBuffers</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_bite_pop_1a2f7c6a4707e23c21197ab32b71d900c7" prot="protected" static="no" mutable="no">
+        <type>int</type>
+        <definition>int CBitePop&lt; ptype &gt;::ObjCount</definition>
+        <argsstring></argsstring>
+        <name>ObjCount</name>
+        <qualifiedname>CBitePop::ObjCount</qualifiedname>
+        <briefdescription>
+<para>The number of objectives per solution. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="1180" column="5" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="1180" bodyend="-1"/>
+        <referencedby refid="class_c_bite_pop_1ad427518ed1d47fbe3c2222b3a11badb7" compoundref="biteaux_8h" startline="672" endline="681">CBitePop&lt; ptype &gt;::CBitePop</referencedby>
+        <referencedby refid="class_c_bite_pop_1a73402384f4b75abf6d956dc086ccf36e" compoundref="biteaux_8h" startline="683" endline="690">CBitePop&lt; ptype &gt;::CBitePop</referencedby>
+        <referencedby refid="class_c_bite_pop_1a3fc2d887ae91be62fd9fc3100268e53c" compoundref="biteaux_8h" startline="760" endline="786">CBitePop&lt; ptype &gt;::copy</referencedby>
+        <referencedby refid="class_c_bite_pop_1a7488531e6b12accb61f068bbe654f580" compoundref="biteaux_8h" startline="719" endline="750">CBitePop&lt; ptype &gt;::initBuffers</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_bite_pop_1ac69b014720b11a472509b22588eaf6c3" prot="protected" static="no" mutable="no">
+        <type>uint8_t *</type>
+        <definition>uint8_t* CBitePop&lt; ptype &gt;::PopParamsBuf</definition>
+        <argsstring></argsstring>
+        <name>PopParamsBuf</name>
+        <qualifiedname>CBitePop::PopParamsBuf</qualifiedname>
+        <briefdescription>
+<para>Buffer for all PopParams vectors. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="1181" column="9" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="1181" bodyend="-1"/>
+        <referencedby refid="class_c_bite_pop_1ad427518ed1d47fbe3c2222b3a11badb7" compoundref="biteaux_8h" startline="672" endline="681">CBitePop&lt; ptype &gt;::CBitePop</referencedby>
+        <referencedby refid="class_c_bite_pop_1a73402384f4b75abf6d956dc086ccf36e" compoundref="biteaux_8h" startline="683" endline="690">CBitePop&lt; ptype &gt;::CBitePop</referencedby>
+        <referencedby refid="class_c_bite_pop_1a47de1dedd30171e9fc9ae9475998d51d" compoundref="biteaux_8h" startline="1204" endline="1209">CBitePop&lt; ptype &gt;::deleteBuffers</referencedby>
+        <referencedby refid="class_c_bite_pop_1a7488531e6b12accb61f068bbe654f580" compoundref="biteaux_8h" startline="719" endline="750">CBitePop&lt; ptype &gt;::initBuffers</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_bite_pop_1a0c41790e473b70c5ec37986d0fb1f9a2" prot="protected" static="no" mutable="no">
+        <type>ptype **</type>
+        <definition>ptype** CBitePop&lt; ptype &gt;::PopParams</definition>
+        <argsstring></argsstring>
+        <name>PopParams</name>
+        <qualifiedname>CBitePop::PopParams</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Population parameter vectors. Always kept sorted in ascending cost order. Each vector represents a complex item, with additional data stored after parameter values (see Offs constants). </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="1182" column="7" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="1182" bodyend="-1"/>
+        <referencedby refid="class_c_bite_pop_1ad427518ed1d47fbe3c2222b3a11badb7" compoundref="biteaux_8h" startline="672" endline="681">CBitePop&lt; ptype &gt;::CBitePop</referencedby>
+        <referencedby refid="class_c_bite_pop_1a73402384f4b75abf6d956dc086ccf36e" compoundref="biteaux_8h" startline="683" endline="690">CBitePop&lt; ptype &gt;::CBitePop</referencedby>
+        <referencedby refid="class_c_bite_pop_1a3fc2d887ae91be62fd9fc3100268e53c" compoundref="biteaux_8h" startline="760" endline="786">CBitePop&lt; ptype &gt;::copy</referencedby>
+        <referencedby refid="class_c_bite_pop_1a47de1dedd30171e9fc9ae9475998d51d" compoundref="biteaux_8h" startline="1204" endline="1209">CBitePop&lt; ptype &gt;::deleteBuffers</referencedby>
+        <referencedby refid="class_c_bite_pop_1a0053ae41c70babe967c5931f491ea865" compoundref="biteaux_8h" startline="950" endline="953">CBitePop&lt; ptype &gt;::getCurParams</referencedby>
+        <referencedby refid="class_c_bite_pop_1aaa8e3f180accfedf21218cbed8ffbb79" compoundref="biteaux_8h" startline="893" endline="896">CBitePop&lt; ptype &gt;::getParamsOrdered</referencedby>
+        <referencedby refid="class_c_bite_pop_1ac2a01e9eb6b884a0b318e4b914273acf" compoundref="biteaux_8h" startline="939" endline="942">CBitePop&lt; ptype &gt;::getPopParams</referencedby>
+        <referencedby refid="class_c_bite_pop_1a7488531e6b12accb61f068bbe654f580" compoundref="biteaux_8h" startline="719" endline="750">CBitePop&lt; ptype &gt;::initBuffers</referencedby>
+        <referencedby refid="class_c_bite_pop_1a7850902dad276dcecea68559eaccc168" compoundref="biteaux_8h" startline="795" endline="873">CBitePop&lt; ptype &gt;::updateCentroid</referencedby>
+        <referencedby refid="class_c_bite_pop_1aad999ddc8a2ed72ffaee0db7732c9f76" compoundref="biteaux_8h" startline="1039" endline="1151">CBitePop&lt; ptype &gt;::updatePop</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_bite_pop_1a6d4a3479ca9e60de6cf4667d5b2937a5" prot="protected" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t CBitePop&lt; ptype &gt;::PopCnsOffs</definition>
+        <argsstring></argsstring>
+        <name>PopCnsOffs</name>
+        <qualifiedname>CBitePop::PopCnsOffs</qualifiedname>
+        <briefdescription>
+<para>a population item. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Byte offset to the constraint values within </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="1186" column="8" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="1186" bodyend="-1"/>
+        <referencedby refid="class_c_bite_pop_1ad38d886687357797479e69098759476a" compoundref="biteaux_8h" startline="905" endline="908">CBitePop&lt; ptype &gt;::getCnsPtr</referencedby>
+        <referencedby refid="class_c_bite_pop_1a7488531e6b12accb61f068bbe654f580" compoundref="biteaux_8h" startline="719" endline="750">CBitePop&lt; ptype &gt;::initBuffers</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_bite_pop_1a98e2af75120c4184b271c14d22acf9d4" prot="protected" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t CBitePop&lt; ptype &gt;::PopObjOffs</definition>
+        <argsstring></argsstring>
+        <name>PopObjOffs</name>
+        <qualifiedname>CBitePop::PopObjOffs</qualifiedname>
+        <briefdescription>
+<para>population item. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Byte offset to the objective values within a </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="1188" column="8" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="1188" bodyend="-1"/>
+        <referencedby refid="class_c_bite_pop_1ad6cbe6cfbf9954dcb6f8a223a5e1f36b" compoundref="biteaux_8h" startline="917" endline="920">CBitePop&lt; ptype &gt;::getObjPtr</referencedby>
+        <referencedby refid="class_c_bite_pop_1a7488531e6b12accb61f068bbe654f580" compoundref="biteaux_8h" startline="719" endline="750">CBitePop&lt; ptype &gt;::initBuffers</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_bite_pop_1a3ecc4ffcf1c6f3f9b4e4e5a873c481fe" prot="protected" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t CBitePop&lt; ptype &gt;::PopRankOffs</definition>
+        <argsstring></argsstring>
+        <name>PopRankOffs</name>
+        <qualifiedname>CBitePop::PopRankOffs</qualifiedname>
+        <briefdescription>
+<para>item. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Byte offset to the rank value within a population </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="1190" column="8" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="1190" bodyend="-1"/>
+        <referencedby refid="class_c_bite_pop_1aa4f3255c9607f72eff280f8c3c09143f" compoundref="biteaux_8h" startline="929" endline="932">CBitePop&lt; ptype &gt;::getRankPtr</referencedby>
+        <referencedby refid="class_c_bite_pop_1a7488531e6b12accb61f068bbe654f580" compoundref="biteaux_8h" startline="719" endline="750">CBitePop&lt; ptype &gt;::initBuffers</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_bite_pop_1a3cdac0ad2cf5c8403f1f7676171f4e76" prot="protected" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t CBitePop&lt; ptype &gt;::PopItemSize</definition>
+        <argsstring></argsstring>
+        <name>PopItemSize</name>
+        <qualifiedname>CBitePop::PopItemSize</qualifiedname>
+        <briefdescription>
+<para>Size in bytes of population item. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="1192" column="8" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="1192" bodyend="-1"/>
+        <referencedby refid="class_c_bite_pop_1a3fc2d887ae91be62fd9fc3100268e53c" compoundref="biteaux_8h" startline="760" endline="786">CBitePop&lt; ptype &gt;::copy</referencedby>
+        <referencedby refid="class_c_bite_pop_1a7488531e6b12accb61f068bbe654f580" compoundref="biteaux_8h" startline="719" endline="750">CBitePop&lt; ptype &gt;::initBuffers</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_bite_pop_1ac31d95bc1f383828e72bcf1eb499e949" prot="protected" static="no" mutable="no">
+        <type>ptype *</type>
+        <definition>ptype* CBitePop&lt; ptype &gt;::CentParams</definition>
+        <argsstring></argsstring>
+        <name>CentParams</name>
+        <qualifiedname>CBitePop::CentParams</qualifiedname>
+        <briefdescription>
+<para>Centroid of the parameter vectors. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="1193" column="7" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="1193" bodyend="-1"/>
+        <referencedby refid="class_c_bite_pop_1ad427518ed1d47fbe3c2222b3a11badb7" compoundref="biteaux_8h" startline="672" endline="681">CBitePop&lt; ptype &gt;::CBitePop</referencedby>
+        <referencedby refid="class_c_bite_pop_1a73402384f4b75abf6d956dc086ccf36e" compoundref="biteaux_8h" startline="683" endline="690">CBitePop&lt; ptype &gt;::CBitePop</referencedby>
+        <referencedby refid="class_c_bite_pop_1a3fc2d887ae91be62fd9fc3100268e53c" compoundref="biteaux_8h" startline="760" endline="786">CBitePop&lt; ptype &gt;::copy</referencedby>
+        <referencedby refid="class_c_bite_pop_1a47de1dedd30171e9fc9ae9475998d51d" compoundref="biteaux_8h" startline="1204" endline="1209">CBitePop&lt; ptype &gt;::deleteBuffers</referencedby>
+        <referencedby refid="class_c_bite_pop_1a5e6ccebb178353b084084f841b09042d" compoundref="biteaux_8h" startline="881" endline="884">CBitePop&lt; ptype &gt;::getCentroid</referencedby>
+        <referencedby refid="class_c_bite_pop_1a7488531e6b12accb61f068bbe654f580" compoundref="biteaux_8h" startline="719" endline="750">CBitePop&lt; ptype &gt;::initBuffers</referencedby>
+        <referencedby refid="class_c_bite_pop_1a7850902dad276dcecea68559eaccc168" compoundref="biteaux_8h" startline="795" endline="873">CBitePop&lt; ptype &gt;::updateCentroid</referencedby>
+        <referencedby refid="class_c_bite_pop_1aad999ddc8a2ed72ffaee0db7732c9f76" compoundref="biteaux_8h" startline="1039" endline="1151">CBitePop&lt; ptype &gt;::updatePop</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_bite_pop_1a41f29468becc588bea6ff3f842db93ea" prot="protected" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool CBitePop&lt; ptype &gt;::NeedCentUpdate</definition>
+        <argsstring></argsstring>
+        <name>NeedCentUpdate</name>
+        <qualifiedname>CBitePop::NeedCentUpdate</qualifiedname>
+        <briefdescription>
+<para>&quot;True&quot; if centroid update is needed. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="1194" column="6" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="1194" bodyend="-1"/>
+        <referencedby refid="class_c_bite_pop_1a3fc2d887ae91be62fd9fc3100268e53c" compoundref="biteaux_8h" startline="760" endline="786">CBitePop&lt; ptype &gt;::copy</referencedby>
+        <referencedby refid="class_c_bite_pop_1a4656171c63f1944ae045d6f222d9d33a" compoundref="biteaux_8h" startline="1013" endline="1020">CBitePop&lt; ptype &gt;::decrCurPopSize</referencedby>
+        <referencedby refid="class_c_bite_pop_1a48d6ede5c82534c973e0458726e820dd" compoundref="biteaux_8h" startline="998" endline="1005">CBitePop&lt; ptype &gt;::incrCurPopSize</referencedby>
+        <referencedby refid="class_c_bite_pop_1a7488531e6b12accb61f068bbe654f580" compoundref="biteaux_8h" startline="719" endline="750">CBitePop&lt; ptype &gt;::initBuffers</referencedby>
+        <referencedby refid="class_c_bite_pop_1a767519aa2fcc2667dc135a131bc9fd85" compoundref="biteaux_8h" startline="981" endline="990">CBitePop&lt; ptype &gt;::resetCurPopPos</referencedby>
+        <referencedby refid="class_c_bite_pop_1a7850902dad276dcecea68559eaccc168" compoundref="biteaux_8h" startline="795" endline="873">CBitePop&lt; ptype &gt;::updateCentroid</referencedby>
+        <referencedby refid="class_c_bite_pop_1aad999ddc8a2ed72ffaee0db7732c9f76" compoundref="biteaux_8h" startline="1039" endline="1151">CBitePop&lt; ptype &gt;::updatePop</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_bite_pop_1ab6dec63b0ee3955563c2a3f815614f31" prot="protected" static="no" mutable="no">
+        <type>double</type>
+        <definition>double CBitePop&lt; ptype &gt;::CentLPC</definition>
+        <argsstring></argsstring>
+        <name>CentLPC</name>
+        <qualifiedname>CBitePop::CentLPC</qualifiedname>
+        <briefdescription>
+<para>Centroid averaging filter coefficient. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="1195" column="8" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="1195" bodyend="-1"/>
+        <referencedby refid="class_c_bite_pop_1a3fc2d887ae91be62fd9fc3100268e53c" compoundref="biteaux_8h" startline="760" endline="786">CBitePop&lt; ptype &gt;::copy</referencedby>
+        <referencedby refid="class_c_bite_pop_1a4656171c63f1944ae045d6f222d9d33a" compoundref="biteaux_8h" startline="1013" endline="1020">CBitePop&lt; ptype &gt;::decrCurPopSize</referencedby>
+        <referencedby refid="class_c_bite_pop_1a48d6ede5c82534c973e0458726e820dd" compoundref="biteaux_8h" startline="998" endline="1005">CBitePop&lt; ptype &gt;::incrCurPopSize</referencedby>
+        <referencedby refid="class_c_bite_pop_1a7488531e6b12accb61f068bbe654f580" compoundref="biteaux_8h" startline="719" endline="750">CBitePop&lt; ptype &gt;::initBuffers</referencedby>
+        <referencedby refid="class_c_bite_pop_1a767519aa2fcc2667dc135a131bc9fd85" compoundref="biteaux_8h" startline="981" endline="990">CBitePop&lt; ptype &gt;::resetCurPopPos</referencedby>
+        <referencedby refid="class_c_bite_pop_1aad999ddc8a2ed72ffaee0db7732c9f76" compoundref="biteaux_8h" startline="1039" endline="1151">CBitePop&lt; ptype &gt;::updatePop</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_c_bite_pop_1acae90e3584dca8b6c08c70d7bd317729" prot="protected" static="no" mutable="no">
+        <type>ptype *</type>
+        <definition>ptype* CBitePop&lt; ptype &gt;::TmpParams</definition>
+        <argsstring></argsstring>
+        <name>TmpParams</name>
+        <qualifiedname>CBitePop::TmpParams</qualifiedname>
+        <briefdescription>
+<para>element of the PopParams array. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Temporary parameter vector, points to the last </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="1196" column="7" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="1196" bodyend="-1"/>
+        <referencedby refid="class_c_bite_pop_1a7488531e6b12accb61f068bbe654f580" compoundref="biteaux_8h" startline="719" endline="750">CBitePop&lt; ptype &gt;::initBuffers</referencedby>
+        <referencedby refid="class_c_bite_pop_1a7850902dad276dcecea68559eaccc168" compoundref="biteaux_8h" startline="795" endline="873">CBitePop&lt; ptype &gt;::updateCentroid</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_c_bite_pop_1ad427518ed1d47fbe3c2222b3a11badb7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>CBitePop&lt; ptype &gt;::CBitePop</definition>
+        <argsstring>()</argsstring>
+        <name>CBitePop</name>
+        <qualifiedname>CBitePop::CBitePop</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="672" column="1" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="672" bodyend="681"/>
+        <references refid="class_c_bite_pop_1ac31d95bc1f383828e72bcf1eb499e949" compoundref="biteaux_8h" startline="1193">CBitePop&lt; ptype &gt;::CentParams</references>
+        <references refid="class_c_bite_pop_1a2bf725291723a8dcaa215496e3175471" compoundref="biteaux_8h" startline="1179">CBitePop&lt; ptype &gt;::CnsCount</references>
+        <references refid="class_c_bite_pop_1a2f7c6a4707e23c21197ab32b71d900c7" compoundref="biteaux_8h" startline="1180">CBitePop&lt; ptype &gt;::ObjCount</references>
+        <references refid="class_c_bite_pop_1a0dc6f7b3a19db513e349e68c3471f9fa" compoundref="biteaux_8h" startline="1170">CBitePop&lt; ptype &gt;::ParamCount</references>
+        <references refid="class_c_bite_pop_1a0c41790e473b70c5ec37986d0fb1f9a2" compoundref="biteaux_8h" startline="1182">CBitePop&lt; ptype &gt;::PopParams</references>
+        <references refid="class_c_bite_pop_1ac69b014720b11a472509b22588eaf6c3" compoundref="biteaux_8h" startline="1181">CBitePop&lt; ptype &gt;::PopParamsBuf</references>
+        <references refid="class_c_bite_pop_1a58e3bf5abc2fb4b1e173aa6cb3477bfb" compoundref="biteaux_8h" startline="1172">CBitePop&lt; ptype &gt;::PopSize</references>
+        <referencedby refid="class_c_bite_pop_1a73402384f4b75abf6d956dc086ccf36e" compoundref="biteaux_8h" startline="683" endline="690">CBitePop&lt; ptype &gt;::CBitePop</referencedby>
+        <referencedby refid="class_c_bite_pop_1a3fc2d887ae91be62fd9fc3100268e53c" compoundref="biteaux_8h" startline="760" endline="786">CBitePop&lt; ptype &gt;::copy</referencedby>
+        <referencedby refid="class_c_bite_pop_1ab18cf322db6ab186db1e19b53e34c232" compoundref="biteaux_8h" startline="697" endline="701">CBitePop&lt; ptype &gt;::operator=</referencedby>
+        <referencedby refid="class_c_bite_par_pops_1a24cc3d1978b4dbe57fad8a6f6d7efd8a" compoundref="biteaux_8h" startline="1392" endline="1405">CBiteParPops&lt; ptype &gt;::setParPopCount</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_c_bite_pop_1a73402384f4b75abf6d956dc086ccf36e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>CBitePop&lt; ptype &gt;::CBitePop</definition>
+        <argsstring>(const CBitePop &amp;s)</argsstring>
+        <name>CBitePop</name>
+        <qualifiedname>CBitePop::CBitePop</qualifiedname>
+        <param>
+          <type>const <ref refid="class_c_bite_pop" kindref="compound">CBitePop</ref> &amp;</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="683" column="1" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="683" bodyend="690"/>
+        <references refid="class_c_bite_pop_1ad427518ed1d47fbe3c2222b3a11badb7" compoundref="biteaux_8h" startline="672" endline="681">CBitePop&lt; ptype &gt;::CBitePop</references>
+        <references refid="class_c_bite_pop_1ac31d95bc1f383828e72bcf1eb499e949" compoundref="biteaux_8h" startline="1193">CBitePop&lt; ptype &gt;::CentParams</references>
+        <references refid="class_c_bite_pop_1a2bf725291723a8dcaa215496e3175471" compoundref="biteaux_8h" startline="1179">CBitePop&lt; ptype &gt;::CnsCount</references>
+        <references refid="class_c_bite_pop_1a3fc2d887ae91be62fd9fc3100268e53c" compoundref="biteaux_8h" startline="760" endline="786">CBitePop&lt; ptype &gt;::copy</references>
+        <references refid="class_c_bite_pop_1a7488531e6b12accb61f068bbe654f580" compoundref="biteaux_8h" startline="719" endline="750">CBitePop&lt; ptype &gt;::initBuffers</references>
+        <references refid="class_c_bite_pop_1a2f7c6a4707e23c21197ab32b71d900c7" compoundref="biteaux_8h" startline="1180">CBitePop&lt; ptype &gt;::ObjCount</references>
+        <references refid="class_c_bite_pop_1a0dc6f7b3a19db513e349e68c3471f9fa" compoundref="biteaux_8h" startline="1170">CBitePop&lt; ptype &gt;::ParamCount</references>
+        <references refid="class_c_bite_pop_1a0c41790e473b70c5ec37986d0fb1f9a2" compoundref="biteaux_8h" startline="1182">CBitePop&lt; ptype &gt;::PopParams</references>
+        <references refid="class_c_bite_pop_1ac69b014720b11a472509b22588eaf6c3" compoundref="biteaux_8h" startline="1181">CBitePop&lt; ptype &gt;::PopParamsBuf</references>
+        <references refid="class_c_bite_pop_1a58e3bf5abc2fb4b1e173aa6cb3477bfb" compoundref="biteaux_8h" startline="1172">CBitePop&lt; ptype &gt;::PopSize</references>
+      </memberdef>
+      <memberdef kind="function" id="class_c_bite_pop_1ac386e4638d6fc6bd5370eeae895347c3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual CBitePop&lt; ptype &gt;::~CBitePop</definition>
+        <argsstring>()</argsstring>
+        <name>~CBitePop</name>
+        <qualifiedname>CBitePop::~CBitePop</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="692" column="9" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="692" bodyend="695"/>
+        <references refid="class_c_bite_pop_1a47de1dedd30171e9fc9ae9475998d51d" compoundref="biteaux_8h" startline="1204" endline="1209">CBitePop&lt; ptype &gt;::deleteBuffers</references>
+      </memberdef>
+      <memberdef kind="function" id="class_c_bite_pop_1ab18cf322db6ab186db1e19b53e34c232" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_c_bite_pop" kindref="compound">CBitePop</ref> &amp;</type>
+        <definition>CBitePop &amp; CBitePop&lt; ptype &gt;::operator=</definition>
+        <argsstring>(const CBitePop &amp;s)</argsstring>
+        <name>operator=</name>
+        <qualifiedname>CBitePop::operator=</qualifiedname>
+        <param>
+          <type>const <ref refid="class_c_bite_pop" kindref="compound">CBitePop</ref> &amp;</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="697" column="10" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="697" bodyend="701"/>
+        <references refid="class_c_bite_pop_1ad427518ed1d47fbe3c2222b3a11badb7" compoundref="biteaux_8h" startline="672" endline="681">CBitePop&lt; ptype &gt;::CBitePop</references>
+        <references refid="class_c_bite_pop_1a3fc2d887ae91be62fd9fc3100268e53c" compoundref="biteaux_8h" startline="760" endline="786">CBitePop&lt; ptype &gt;::copy</references>
+      </memberdef>
+      <memberdef kind="function" id="class_c_bite_pop_1a7488531e6b12accb61f068bbe654f580" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void CBitePop&lt; ptype &gt;::initBuffers</definition>
+        <argsstring>(const int aParamCount, const int aPopSize, const int aCnsCount=0, const int aObjCount=1)</argsstring>
+        <name>initBuffers</name>
+        <qualifiedname>CBitePop::initBuffers</qualifiedname>
+        <reimplementedby refid="class_c_bite_opt_base_1a5c53a8eb3a4269a746d990282452d71e">initBuffers</reimplementedby>
+        <reimplementedby refid="class_c_bite_opt_base_1a5c53a8eb3a4269a746d990282452d71e">initBuffers</reimplementedby>
+        <reimplementedby refid="class_c_bite_opt_base_1a5c53a8eb3a4269a746d990282452d71e">initBuffers</reimplementedby>
+        <reimplementedby refid="class_c_bite_ort_1a7f99eac373be63d512a4660ea9eaf040">initBuffers</reimplementedby>
+        <reimplementedby refid="class_c_n_m_seq_opt_1a523bc7d383b7a2cfeef8d2a4edc12b5f">initBuffers</reimplementedby>
+        <reimplementedby refid="class_c_spher_opt_1a00c0facb71cb0ef24498e77ce68e6c04">initBuffers</reimplementedby>
+        <param>
+          <type>const int</type>
+          <declname>aParamCount</declname>
+        </param>
+        <param>
+          <type>const int</type>
+          <declname>aPopSize</declname>
+        </param>
+        <param>
+          <type>const int</type>
+          <declname>aCnsCount</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>const int</type>
+          <declname>aObjCount</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Function initializes all common buffers, and &quot;PopSize&quot; variables. This function should be called when population&apos;s dimensions were changed. This function calls the <ref refid="class_c_bite_pop_1a47de1dedd30171e9fc9ae9475998d51d" kindref="member">deleteBuffers()</ref> function to release any derived classes&apos; allocated buffers. Allocates an additional vector for temporary use, which is at the same the last vector in the PopParams array. Derived classes should call this function of the base class.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>aParamCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>New parameter count. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>aPopSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>New population size. If &lt;= 0, population buffers will not be allocated. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>aCnsCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>New constraint value count. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>aObjCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>New objective value count. If equals 0, a rank element will not be auto-added. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="719" column="14" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="719" bodyend="750"/>
+        <references refid="class_c_bite_pop_1ad4e3a3c5b7a25ad02ef0231bd3fe8388" compoundref="biteaux_8h" startline="1339" endline="1345">CBitePop&lt; ptype &gt;::calcLP1Coeff</references>
+        <references refid="class_c_bite_pop_1ab6dec63b0ee3955563c2a3f815614f31" compoundref="biteaux_8h" startline="1195">CBitePop&lt; ptype &gt;::CentLPC</references>
+        <references refid="class_c_bite_pop_1ac31d95bc1f383828e72bcf1eb499e949" compoundref="biteaux_8h" startline="1193">CBitePop&lt; ptype &gt;::CentParams</references>
+        <references refid="class_c_bite_pop_1a2bf725291723a8dcaa215496e3175471" compoundref="biteaux_8h" startline="1179">CBitePop&lt; ptype &gt;::CnsCount</references>
+        <references refid="class_c_bite_pop_1a47de1dedd30171e9fc9ae9475998d51d" compoundref="biteaux_8h" startline="1204" endline="1209">CBitePop&lt; ptype &gt;::deleteBuffers</references>
+        <references refid="class_c_bite_pop_1a41f29468becc588bea6ff3f842db93ea" compoundref="biteaux_8h" startline="1194">CBitePop&lt; ptype &gt;::NeedCentUpdate</references>
+        <references refid="class_c_bite_pop_1a2f7c6a4707e23c21197ab32b71d900c7" compoundref="biteaux_8h" startline="1180">CBitePop&lt; ptype &gt;::ObjCount</references>
+        <references refid="class_c_bite_pop_1a0dc6f7b3a19db513e349e68c3471f9fa" compoundref="biteaux_8h" startline="1170">CBitePop&lt; ptype &gt;::ParamCount</references>
+        <references refid="class_c_bite_pop_1a884c9ad4c0327aaa0110a23a89f5697a" compoundref="biteaux_8h" startline="1171">CBitePop&lt; ptype &gt;::ParamCountI</references>
+        <references refid="class_c_bite_pop_1a6d4a3479ca9e60de6cf4667d5b2937a5" compoundref="biteaux_8h" startline="1186">CBitePop&lt; ptype &gt;::PopCnsOffs</references>
+        <references refid="class_c_bite_pop_1a3cdac0ad2cf5c8403f1f7676171f4e76" compoundref="biteaux_8h" startline="1192">CBitePop&lt; ptype &gt;::PopItemSize</references>
+        <references refid="class_c_bite_pop_1a98e2af75120c4184b271c14d22acf9d4" compoundref="biteaux_8h" startline="1188">CBitePop&lt; ptype &gt;::PopObjOffs</references>
+        <references refid="class_c_bite_pop_1a0c41790e473b70c5ec37986d0fb1f9a2" compoundref="biteaux_8h" startline="1182">CBitePop&lt; ptype &gt;::PopParams</references>
+        <references refid="class_c_bite_pop_1ac69b014720b11a472509b22588eaf6c3" compoundref="biteaux_8h" startline="1181">CBitePop&lt; ptype &gt;::PopParamsBuf</references>
+        <references refid="class_c_bite_pop_1a3ecc4ffcf1c6f3f9b4e4e5a873c481fe" compoundref="biteaux_8h" startline="1190">CBitePop&lt; ptype &gt;::PopRankOffs</references>
+        <references refid="class_c_bite_pop_1a58e3bf5abc2fb4b1e173aa6cb3477bfb" compoundref="biteaux_8h" startline="1172">CBitePop&lt; ptype &gt;::PopSize</references>
+        <references refid="class_c_bite_pop_1a0b64743a84d5af143d44e7f6e9f02ada" compoundref="biteaux_8h" startline="1173">CBitePop&lt; ptype &gt;::PopSize1</references>
+        <references refid="class_c_bite_pop_1acae90e3584dca8b6c08c70d7bd317729" compoundref="biteaux_8h" startline="1196">CBitePop&lt; ptype &gt;::TmpParams</references>
+        <referencedby refid="class_c_bite_pop_1a73402384f4b75abf6d956dc086ccf36e" compoundref="biteaux_8h" startline="683" endline="690">CBitePop&lt; ptype &gt;::CBitePop</referencedby>
+        <referencedby refid="class_c_bite_pop_1a3fc2d887ae91be62fd9fc3100268e53c" compoundref="biteaux_8h" startline="760" endline="786">CBitePop&lt; ptype &gt;::copy</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_c_bite_pop_1a3fc2d887ae91be62fd9fc3100268e53c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void CBitePop&lt; ptype &gt;::copy</definition>
+        <argsstring>(const CBitePop &amp;s)</argsstring>
+        <name>copy</name>
+        <qualifiedname>CBitePop::copy</qualifiedname>
+        <param>
+          <type>const <ref refid="class_c_bite_pop" kindref="compound">CBitePop</ref> &amp;</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Function copies population from the specified source population. If *this population has a different size, or is uninitialized, it will be initialized to source&apos;s population size.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>s</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source population to copy. Should be initalized. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="760" column="6" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="760" bodyend="786"/>
+        <references refid="class_c_bite_pop_1ad427518ed1d47fbe3c2222b3a11badb7" compoundref="biteaux_8h" startline="672" endline="681">CBitePop&lt; ptype &gt;::CBitePop</references>
+        <references refid="class_c_bite_pop_1ab6dec63b0ee3955563c2a3f815614f31" compoundref="biteaux_8h" startline="1195">CBitePop&lt; ptype &gt;::CentLPC</references>
+        <references refid="class_c_bite_pop_1ac31d95bc1f383828e72bcf1eb499e949" compoundref="biteaux_8h" startline="1193">CBitePop&lt; ptype &gt;::CentParams</references>
+        <references refid="class_c_bite_pop_1a2bf725291723a8dcaa215496e3175471" compoundref="biteaux_8h" startline="1179">CBitePop&lt; ptype &gt;::CnsCount</references>
+        <references refid="class_c_bite_pop_1a24130fea35014433f142e3b9ed0f8929" compoundref="biteaux_8h" startline="1229" endline="1232">CBitePop&lt; ptype &gt;::copyParams</references>
+        <references refid="class_c_bite_pop_1aa7c87b9148768d6104f8d3dfb5abebce" compoundref="biteaux_8h" startline="1177">CBitePop&lt; ptype &gt;::CurPopPos</references>
+        <references refid="class_c_bite_pop_1adc98fbdebc2671ef0826245d8c472cc5" compoundref="biteaux_8h" startline="1174">CBitePop&lt; ptype &gt;::CurPopSize</references>
+        <references refid="class_c_bite_pop_1a26b81c70200085e410cf83258e139f9b" compoundref="biteaux_8h" startline="1175">CBitePop&lt; ptype &gt;::CurPopSize1</references>
+        <references refid="class_c_bite_pop_1aa5105ca75379f9a760dc9f0b9ea30ea7" compoundref="biteaux_8h" startline="1176">CBitePop&lt; ptype &gt;::CurPopSizeI</references>
+        <references refid="class_c_bite_pop_1a7488531e6b12accb61f068bbe654f580" compoundref="biteaux_8h" startline="719" endline="750">CBitePop&lt; ptype &gt;::initBuffers</references>
+        <references refid="class_c_bite_pop_1a41f29468becc588bea6ff3f842db93ea" compoundref="biteaux_8h" startline="1194">CBitePop&lt; ptype &gt;::NeedCentUpdate</references>
+        <references refid="class_c_bite_pop_1a2f7c6a4707e23c21197ab32b71d900c7" compoundref="biteaux_8h" startline="1180">CBitePop&lt; ptype &gt;::ObjCount</references>
+        <references refid="class_c_bite_pop_1a0dc6f7b3a19db513e349e68c3471f9fa" compoundref="biteaux_8h" startline="1170">CBitePop&lt; ptype &gt;::ParamCount</references>
+        <references refid="class_c_bite_pop_1a3cdac0ad2cf5c8403f1f7676171f4e76" compoundref="biteaux_8h" startline="1192">CBitePop&lt; ptype &gt;::PopItemSize</references>
+        <references refid="class_c_bite_pop_1a0c41790e473b70c5ec37986d0fb1f9a2" compoundref="biteaux_8h" startline="1182">CBitePop&lt; ptype &gt;::PopParams</references>
+        <references refid="class_c_bite_pop_1a58e3bf5abc2fb4b1e173aa6cb3477bfb" compoundref="biteaux_8h" startline="1172">CBitePop&lt; ptype &gt;::PopSize</references>
+        <referencedby refid="class_c_bite_pop_1a73402384f4b75abf6d956dc086ccf36e" compoundref="biteaux_8h" startline="683" endline="690">CBitePop&lt; ptype &gt;::CBitePop</referencedby>
+        <referencedby refid="class_c_bite_pop_1ab18cf322db6ab186db1e19b53e34c232" compoundref="biteaux_8h" startline="697" endline="701">CBitePop&lt; ptype &gt;::operator=</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_c_bite_pop_1a7850902dad276dcecea68559eaccc168" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void CBitePop&lt; ptype &gt;::updateCentroid</definition>
+        <argsstring>()</argsstring>
+        <name>updateCentroid</name>
+        <qualifiedname>CBitePop::updateCentroid</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Function recalculates centroid based on the current population size. The NeedCentUpdate variable can be checked if centroid update is needed. This function resets the NeedCentUpdate to &quot;false&quot;. This function should only be called after the population is filled. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="795" column="6" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="795" bodyend="873"/>
+        <references refid="class_c_bite_pop_1ac31d95bc1f383828e72bcf1eb499e949" compoundref="biteaux_8h" startline="1193">CBitePop&lt; ptype &gt;::CentParams</references>
+        <references refid="class_c_bite_pop_1a24130fea35014433f142e3b9ed0f8929" compoundref="biteaux_8h" startline="1229" endline="1232">CBitePop&lt; ptype &gt;::copyParams</references>
+        <references refid="class_c_bite_pop_1a8009a96dd8a678daaefc9410ba2e0a76" compoundref="biteaux_8h" startline="1154">CBitePop&lt; ptype &gt;::IntOverBits</references>
+        <references refid="class_c_bite_pop_1a41f29468becc588bea6ff3f842db93ea" compoundref="biteaux_8h" startline="1194">CBitePop&lt; ptype &gt;::NeedCentUpdate</references>
+        <references refid="class_c_bite_pop_1a0dc6f7b3a19db513e349e68c3471f9fa" compoundref="biteaux_8h" startline="1170">CBitePop&lt; ptype &gt;::ParamCount</references>
+        <references refid="class_c_bite_pop_1a0c41790e473b70c5ec37986d0fb1f9a2" compoundref="biteaux_8h" startline="1182">CBitePop&lt; ptype &gt;::PopParams</references>
+        <references refid="class_c_bite_pop_1a58e3bf5abc2fb4b1e173aa6cb3477bfb" compoundref="biteaux_8h" startline="1172">CBitePop&lt; ptype &gt;::PopSize</references>
+        <references refid="class_c_bite_pop_1acae90e3584dca8b6c08c70d7bd317729" compoundref="biteaux_8h" startline="1196">CBitePop&lt; ptype &gt;::TmpParams</references>
+      </memberdef>
+      <memberdef kind="function" id="class_c_bite_pop_1a5e6ccebb178353b084084f841b09042d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const ptype *</type>
+        <definition>const ptype * CBitePop&lt; ptype &gt;::getCentroid</definition>
+        <argsstring>() const</argsstring>
+        <name>getCentroid</name>
+        <qualifiedname>CBitePop::getCentroid</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Function returns pointer to the centroid vector. The NeedUpdateCent should be checked and and if it is equal to &quot;true&quot;, the <ref refid="class_c_bite_pop_1a7850902dad276dcecea68559eaccc168" kindref="member">updateCentroid()</ref> function called. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="881" column="13" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="881" bodyend="884"/>
+        <references refid="class_c_bite_pop_1ac31d95bc1f383828e72bcf1eb499e949" compoundref="biteaux_8h" startline="1193">CBitePop&lt; ptype &gt;::CentParams</references>
+        <referencedby refid="class_c_bite_par_pops_1afa8a97732cea882b664c2d0fbedf2289" compoundref="biteaux_8h" startline="1417" endline="1512">CBiteParPops&lt; ptype &gt;::getMinDistParPop</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_c_bite_pop_1aaa8e3f180accfedf21218cbed8ffbb79" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const ptype *</type>
+        <definition>const ptype * CBitePop&lt; ptype &gt;::getParamsOrdered</definition>
+        <argsstring>(const int i) const</argsstring>
+        <name>getParamsOrdered</name>
+        <qualifiedname>CBitePop::getParamsOrdered</qualifiedname>
+        <param>
+          <type>const int</type>
+          <declname>i</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Function returns population&apos;s parameter vector by the specified index from the ordered list.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>i</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Parameter vector index. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="893" column="13" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="893" bodyend="896"/>
+        <references refid="class_c_bite_pop_1a0c41790e473b70c5ec37986d0fb1f9a2" compoundref="biteaux_8h" startline="1182">CBitePop&lt; ptype &gt;::PopParams</references>
+        <referencedby refid="class_c_bite_opt_1aaf2f5bc8a214a95532426c9a9b38fdb8" compoundref="biteopt_8h" startline="598" endline="682">CBiteOpt::generateSol1</referencedby>
+        <referencedby refid="class_c_bite_opt_1abd6c435c82a97476332139663d9a1c82" compoundref="biteopt_8h" startline="738" endline="779">CBiteOpt::generateSol2b</referencedby>
+        <referencedby refid="class_c_bite_opt_1a01e7f5a94a2ae837844f8c60ddf21db6" compoundref="biteopt_8h" startline="1029" endline="1061">CBiteOpt::generateSol5</referencedby>
+        <referencedby refid="class_c_bite_opt_1aac1bd4dd832e20880872b94b07773946" compoundref="biteopt_8h" startline="1068" endline="1115">CBiteOpt::generateSol5b</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_c_bite_pop_1ad38d886687357797479e69098759476a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>double *</type>
+        <definition>double * CBitePop&lt; ptype &gt;::getCnsPtr</definition>
+        <argsstring>(ptype *const pp) const</argsstring>
+        <name>getCnsPtr</name>
+        <qualifiedname>CBitePop::getCnsPtr</qualifiedname>
+        <param>
+          <type>ptype *const</type>
+          <declname>pp</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Function returns pointer to constraint values sub-array within the specified population vector.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Population vector pointer (usually within PopParams). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="905" column="8" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="905" bodyend="908"/>
+        <references refid="class_c_bite_pop_1a6d4a3479ca9e60de6cf4667d5b2937a5" compoundref="biteaux_8h" startline="1186">CBitePop&lt; ptype &gt;::PopCnsOffs</references>
+      </memberdef>
+      <memberdef kind="function" id="class_c_bite_pop_1ad6cbe6cfbf9954dcb6f8a223a5e1f36b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>double *</type>
+        <definition>double * CBitePop&lt; ptype &gt;::getObjPtr</definition>
+        <argsstring>(ptype *const pp) const</argsstring>
+        <name>getObjPtr</name>
+        <qualifiedname>CBitePop::getObjPtr</qualifiedname>
+        <param>
+          <type>ptype *const</type>
+          <declname>pp</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Function returns pointer to objective values sub-array within the specified population vector.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Population vector pointer (usually within PopParams). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="917" column="8" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="917" bodyend="920"/>
+        <references refid="class_c_bite_pop_1a98e2af75120c4184b271c14d22acf9d4" compoundref="biteaux_8h" startline="1188">CBitePop&lt; ptype &gt;::PopObjOffs</references>
+        <referencedby refid="class_c_bite_pop_1aad999ddc8a2ed72ffaee0db7732c9f76" compoundref="biteaux_8h" startline="1039" endline="1151">CBitePop&lt; ptype &gt;::updatePop</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_c_bite_pop_1aa4f3255c9607f72eff280f8c3c09143f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>double *</type>
+        <definition>double * CBitePop&lt; ptype &gt;::getRankPtr</definition>
+        <argsstring>(ptype *const pp) const</argsstring>
+        <name>getRankPtr</name>
+        <qualifiedname>CBitePop::getRankPtr</qualifiedname>
+        <param>
+          <type>ptype *const</type>
+          <declname>pp</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Function returns pointer to the rank value sub-array within the specified population vector.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Population vector pointer (usually within PopParams). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="929" column="8" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="929" bodyend="932"/>
+        <references refid="class_c_bite_pop_1a3ecc4ffcf1c6f3f9b4e4e5a873c481fe" compoundref="biteaux_8h" startline="1190">CBitePop&lt; ptype &gt;::PopRankOffs</references>
+        <referencedby refid="class_c_bite_pop_1aad999ddc8a2ed72ffaee0db7732c9f76" compoundref="biteaux_8h" startline="1039" endline="1151">CBitePop&lt; ptype &gt;::updatePop</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_c_bite_pop_1ac2a01e9eb6b884a0b318e4b914273acf" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const ptype **</type>
+        <definition>const ptype ** CBitePop&lt; ptype &gt;::getPopParams</definition>
+        <argsstring>() const</argsstring>
+        <name>getPopParams</name>
+        <qualifiedname>CBitePop::getPopParams</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Function returns a pointer to array of population vector pointers, which are sorted in the ascending cost order. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="939" column="13" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="939" bodyend="942"/>
+        <references refid="class_c_bite_pop_1a0c41790e473b70c5ec37986d0fb1f9a2" compoundref="biteaux_8h" startline="1182">CBitePop&lt; ptype &gt;::PopParams</references>
+        <referencedby refid="class_c_bite_ort_1ab718877f7b3014357fc44bc34391d827" compoundref="biteort_8h" startline="180" endline="298">CBiteOrt::update</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_c_bite_pop_1a0053ae41c70babe967c5931f491ea865" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>ptype *</type>
+        <definition>ptype * CBitePop&lt; ptype &gt;::getCurParams</definition>
+        <argsstring>() const</argsstring>
+        <name>getCurParams</name>
+        <qualifiedname>CBitePop::getCurParams</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Function returns pointer to the next available parameter vector, at the initialization stage. When the population was filled, the function returns pointer to a temporary vector. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="950" column="7" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="950" bodyend="953"/>
+        <references refid="class_c_bite_pop_1aa7c87b9148768d6104f8d3dfb5abebce" compoundref="biteaux_8h" startline="1177">CBitePop&lt; ptype &gt;::CurPopPos</references>
+        <references refid="class_c_bite_pop_1a0c41790e473b70c5ec37986d0fb1f9a2" compoundref="biteaux_8h" startline="1182">CBitePop&lt; ptype &gt;::PopParams</references>
+      </memberdef>
+      <memberdef kind="function" id="class_c_bite_pop_1a5aef425d751172e1fff38a455cb51d34" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int CBitePop&lt; ptype &gt;::getCurPopSize</definition>
+        <argsstring>() const</argsstring>
+        <name>getCurPopSize</name>
+        <qualifiedname>CBitePop::getCurPopSize</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Function returns current population size. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="959" column="5" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="959" bodyend="962"/>
+        <references refid="class_c_bite_pop_1adc98fbdebc2671ef0826245d8c472cc5" compoundref="biteaux_8h" startline="1174">CBitePop&lt; ptype &gt;::CurPopSize</references>
+        <referencedby refid="class_c_bite_opt_1aaf2f5bc8a214a95532426c9a9b38fdb8" compoundref="biteopt_8h" startline="598" endline="682">CBiteOpt::generateSol1</referencedby>
+        <referencedby refid="class_c_bite_opt_1a01e7f5a94a2ae837844f8c60ddf21db6" compoundref="biteopt_8h" startline="1029" endline="1061">CBiteOpt::generateSol5</referencedby>
+        <referencedby refid="class_c_bite_opt_1aac1bd4dd832e20880872b94b07773946" compoundref="biteopt_8h" startline="1068" endline="1115">CBiteOpt::generateSol5b</referencedby>
+        <referencedby refid="class_c_bite_ort_1ab718877f7b3014357fc44bc34391d827" compoundref="biteort_8h" startline="180" endline="298">CBiteOrt::update</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_c_bite_pop_1a7e1fbb7f7e9aaf8f73eb865fa4610185" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int CBitePop&lt; ptype &gt;::getCurPopPos</definition>
+        <argsstring>() const</argsstring>
+        <name>getCurPopPos</name>
+        <qualifiedname>CBitePop::getCurPopPos</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Function returns current population position. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="968" column="5" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="968" bodyend="971"/>
+        <references refid="class_c_bite_pop_1aa7c87b9148768d6104f8d3dfb5abebce" compoundref="biteaux_8h" startline="1177">CBitePop&lt; ptype &gt;::CurPopPos</references>
+      </memberdef>
+      <memberdef kind="function" id="class_c_bite_pop_1a767519aa2fcc2667dc135a131bc9fd85" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void CBitePop&lt; ptype &gt;::resetCurPopPos</definition>
+        <argsstring>()</argsstring>
+        <name>resetCurPopPos</name>
+        <qualifiedname>CBitePop::resetCurPopPos</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Function resets the current population position to zero, and sets CurPopSize to PopSize. This function is usually called when the population needs to be completely changed. This function should be called before any updates to *this population (usually during optimizer&apos;s initialization). </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="981" column="6" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="981" bodyend="990"/>
+        <references refid="class_c_bite_pop_1ad4e3a3c5b7a25ad02ef0231bd3fe8388" compoundref="biteaux_8h" startline="1339" endline="1345">CBitePop&lt; ptype &gt;::calcLP1Coeff</references>
+        <references refid="class_c_bite_pop_1ab6dec63b0ee3955563c2a3f815614f31" compoundref="biteaux_8h" startline="1195">CBitePop&lt; ptype &gt;::CentLPC</references>
+        <references refid="class_c_bite_pop_1aa7c87b9148768d6104f8d3dfb5abebce" compoundref="biteaux_8h" startline="1177">CBitePop&lt; ptype &gt;::CurPopPos</references>
+        <references refid="class_c_bite_pop_1adc98fbdebc2671ef0826245d8c472cc5" compoundref="biteaux_8h" startline="1174">CBitePop&lt; ptype &gt;::CurPopSize</references>
+        <references refid="class_c_bite_pop_1a26b81c70200085e410cf83258e139f9b" compoundref="biteaux_8h" startline="1175">CBitePop&lt; ptype &gt;::CurPopSize1</references>
+        <references refid="class_c_bite_pop_1aa5105ca75379f9a760dc9f0b9ea30ea7" compoundref="biteaux_8h" startline="1176">CBitePop&lt; ptype &gt;::CurPopSizeI</references>
+        <references refid="class_c_bite_pop_1a41f29468becc588bea6ff3f842db93ea" compoundref="biteaux_8h" startline="1194">CBitePop&lt; ptype &gt;::NeedCentUpdate</references>
+        <references refid="class_c_bite_pop_1a58e3bf5abc2fb4b1e173aa6cb3477bfb" compoundref="biteaux_8h" startline="1172">CBitePop&lt; ptype &gt;::PopSize</references>
+        <references refid="class_c_bite_pop_1a0b64743a84d5af143d44e7f6e9f02ada" compoundref="biteaux_8h" startline="1173">CBitePop&lt; ptype &gt;::PopSize1</references>
+        <referencedby refid="class_c_bite_opt_base_1a768362da5c773eea5a8649d44676eeed" compoundref="biteaux_8h" startline="1717" endline="1737">CBiteOptBase&lt; ptype &gt;::initCommonVars</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_c_bite_pop_1a48d6ede5c82534c973e0458726e820dd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void CBitePop&lt; ptype &gt;::incrCurPopSize</definition>
+        <argsstring>()</argsstring>
+        <name>incrCurPopSize</name>
+        <qualifiedname>CBitePop::incrCurPopSize</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Function increases current population size, and updates the required variables. This function can only be called if CurPopSize is less than PopSize, and previously the whole population was filled. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="998" column="6" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="998" bodyend="1005"/>
+        <references refid="class_c_bite_pop_1ad4e3a3c5b7a25ad02ef0231bd3fe8388" compoundref="biteaux_8h" startline="1339" endline="1345">CBitePop&lt; ptype &gt;::calcLP1Coeff</references>
+        <references refid="class_c_bite_pop_1ab6dec63b0ee3955563c2a3f815614f31" compoundref="biteaux_8h" startline="1195">CBitePop&lt; ptype &gt;::CentLPC</references>
+        <references refid="class_c_bite_pop_1adc98fbdebc2671ef0826245d8c472cc5" compoundref="biteaux_8h" startline="1174">CBitePop&lt; ptype &gt;::CurPopSize</references>
+        <references refid="class_c_bite_pop_1a26b81c70200085e410cf83258e139f9b" compoundref="biteaux_8h" startline="1175">CBitePop&lt; ptype &gt;::CurPopSize1</references>
+        <references refid="class_c_bite_pop_1aa5105ca75379f9a760dc9f0b9ea30ea7" compoundref="biteaux_8h" startline="1176">CBitePop&lt; ptype &gt;::CurPopSizeI</references>
+        <references refid="class_c_bite_pop_1a41f29468becc588bea6ff3f842db93ea" compoundref="biteaux_8h" startline="1194">CBitePop&lt; ptype &gt;::NeedCentUpdate</references>
+      </memberdef>
+      <memberdef kind="function" id="class_c_bite_pop_1a4656171c63f1944ae045d6f222d9d33a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void CBitePop&lt; ptype &gt;::decrCurPopSize</definition>
+        <argsstring>()</argsstring>
+        <name>decrCurPopSize</name>
+        <qualifiedname>CBitePop::decrCurPopSize</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Function decreases current population size, and updates the required variables. This function can only be called if CurPopSize is greater than 1, and the whole population was filled. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="1013" column="6" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="1013" bodyend="1020"/>
+        <references refid="class_c_bite_pop_1ad4e3a3c5b7a25ad02ef0231bd3fe8388" compoundref="biteaux_8h" startline="1339" endline="1345">CBitePop&lt; ptype &gt;::calcLP1Coeff</references>
+        <references refid="class_c_bite_pop_1ab6dec63b0ee3955563c2a3f815614f31" compoundref="biteaux_8h" startline="1195">CBitePop&lt; ptype &gt;::CentLPC</references>
+        <references refid="class_c_bite_pop_1adc98fbdebc2671ef0826245d8c472cc5" compoundref="biteaux_8h" startline="1174">CBitePop&lt; ptype &gt;::CurPopSize</references>
+        <references refid="class_c_bite_pop_1a26b81c70200085e410cf83258e139f9b" compoundref="biteaux_8h" startline="1175">CBitePop&lt; ptype &gt;::CurPopSize1</references>
+        <references refid="class_c_bite_pop_1aa5105ca75379f9a760dc9f0b9ea30ea7" compoundref="biteaux_8h" startline="1176">CBitePop&lt; ptype &gt;::CurPopSizeI</references>
+        <references refid="class_c_bite_pop_1a41f29468becc588bea6ff3f842db93ea" compoundref="biteaux_8h" startline="1194">CBitePop&lt; ptype &gt;::NeedCentUpdate</references>
+      </memberdef>
+      <memberdef kind="function" id="class_c_bite_pop_1aad999ddc8a2ed72ffaee0db7732c9f76" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int CBitePop&lt; ptype &gt;::updatePop</definition>
+        <argsstring>(double UpdCost, const ptype *const UpdParams, const bool DoUpdateCentroid, const bool CanRejectCost=true)</argsstring>
+        <name>updatePop</name>
+        <qualifiedname>CBitePop::updatePop</qualifiedname>
+        <param>
+          <type>double</type>
+          <declname>UpdCost</declname>
+        </param>
+        <param>
+          <type>const ptype *const</type>
+          <declname>UpdParams</declname>
+        </param>
+        <param>
+          <type>const bool</type>
+          <declname>DoUpdateCentroid</declname>
+        </param>
+        <param>
+          <type>const bool</type>
+          <declname>CanRejectCost</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Function replaces the highest-cost previous solution, updates centroid. This function considers the value of the CurPopPos variable - if it is smaller than the PopSize, the new solution will be added to population without any checks.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>UpdCost</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Cost of the new solution. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>UpdParams</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>New parameter values. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DoUpdateCentroid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>&quot;True&quot; if centroid should be updated using running sum. This update is done for parallel populations. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CanRejectCost</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If &quot;true&quot;, solution with a duplicate cost will be rejected; this may provide a performance improvement. Solutions can only be rejected when the whole population was filled. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Insertion position, &quot;&gt;=CurPopSize&quot; if the cost constraint was not met. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="1039" column="5" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="1039" bodyend="1151"/>
+        <references refid="class_c_bite_pop_1ab6dec63b0ee3955563c2a3f815614f31" compoundref="biteaux_8h" startline="1195">CBitePop&lt; ptype &gt;::CentLPC</references>
+        <references refid="class_c_bite_pop_1ac31d95bc1f383828e72bcf1eb499e949" compoundref="biteaux_8h" startline="1193">CBitePop&lt; ptype &gt;::CentParams</references>
+        <references refid="class_c_bite_pop_1a24130fea35014433f142e3b9ed0f8929" compoundref="biteaux_8h" startline="1229" endline="1232">CBitePop&lt; ptype &gt;::copyParams</references>
+        <references refid="class_c_bite_pop_1aa7c87b9148768d6104f8d3dfb5abebce" compoundref="biteaux_8h" startline="1177">CBitePop&lt; ptype &gt;::CurPopPos</references>
+        <references refid="class_c_bite_pop_1ad6cbe6cfbf9954dcb6f8a223a5e1f36b" compoundref="biteaux_8h" startline="917" endline="920">CBitePop&lt; ptype &gt;::getObjPtr</references>
+        <references refid="class_c_bite_pop_1aa4f3255c9607f72eff280f8c3c09143f" compoundref="biteaux_8h" startline="929" endline="932">CBitePop&lt; ptype &gt;::getRankPtr</references>
+        <references refid="class_c_bite_pop_1a41f29468becc588bea6ff3f842db93ea" compoundref="biteaux_8h" startline="1194">CBitePop&lt; ptype &gt;::NeedCentUpdate</references>
+        <references refid="class_c_bite_pop_1a0dc6f7b3a19db513e349e68c3471f9fa" compoundref="biteaux_8h" startline="1170">CBitePop&lt; ptype &gt;::ParamCount</references>
+        <references refid="class_c_bite_pop_1a0c41790e473b70c5ec37986d0fb1f9a2" compoundref="biteaux_8h" startline="1182">CBitePop&lt; ptype &gt;::PopParams</references>
+        <references refid="class_c_bite_pop_1a58e3bf5abc2fb4b1e173aa6cb3477bfb" compoundref="biteaux_8h" startline="1172">CBitePop&lt; ptype &gt;::PopSize</references>
+        <references refid="class_c_bite_pop_1a0b64743a84d5af143d44e7f6e9f02ada" compoundref="biteaux_8h" startline="1173">CBitePop&lt; ptype &gt;::PopSize1</references>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_c_bite_pop_1a47de1dedd30171e9fc9ae9475998d51d" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void CBitePop&lt; ptype &gt;::deleteBuffers</definition>
+        <argsstring>()</argsstring>
+        <name>deleteBuffers</name>
+        <qualifiedname>CBitePop::deleteBuffers</qualifiedname>
+        <reimplementedby refid="class_c_bite_opt_base_1aed59421f7102fb6921e4af39acfb8369">deleteBuffers</reimplementedby>
+        <reimplementedby refid="class_c_bite_opt_base_1aed59421f7102fb6921e4af39acfb8369">deleteBuffers</reimplementedby>
+        <reimplementedby refid="class_c_bite_opt_base_1aed59421f7102fb6921e4af39acfb8369">deleteBuffers</reimplementedby>
+        <reimplementedby refid="class_c_bite_ort_1a34a09edcccffb93ecb83ad4f8cd8365d">deleteBuffers</reimplementedby>
+        <reimplementedby refid="class_c_n_m_seq_opt_1a76ae39736ff317e9aa048d24872e7084">deleteBuffers</reimplementedby>
+        <reimplementedby refid="class_c_spher_opt_1a6491915dd708c2791682a529005c035e">deleteBuffers</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Function deletes buffers previously allocated via the <ref refid="class_c_bite_pop_1a7488531e6b12accb61f068bbe654f580" kindref="member">initBuffers()</ref> function. Derived classes should call this function of the base class. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="1204" column="14" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="1204" bodyend="1209"/>
+        <references refid="class_c_bite_pop_1ac31d95bc1f383828e72bcf1eb499e949" compoundref="biteaux_8h" startline="1193">CBitePop&lt; ptype &gt;::CentParams</references>
+        <references refid="class_c_bite_pop_1a0c41790e473b70c5ec37986d0fb1f9a2" compoundref="biteaux_8h" startline="1182">CBitePop&lt; ptype &gt;::PopParams</references>
+        <references refid="class_c_bite_pop_1ac69b014720b11a472509b22588eaf6c3" compoundref="biteaux_8h" startline="1181">CBitePop&lt; ptype &gt;::PopParamsBuf</references>
+        <referencedby refid="class_c_bite_pop_1a7488531e6b12accb61f068bbe654f580" compoundref="biteaux_8h" startline="719" endline="750">CBitePop&lt; ptype &gt;::initBuffers</referencedby>
+        <referencedby refid="class_c_bite_pop_1ac386e4638d6fc6bd5370eeae895347c3" compoundref="biteaux_8h" startline="692" endline="695">CBitePop&lt; ptype &gt;::~CBitePop</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_c_bite_pop_1a0d5ab322641bb1a091df91ff7ee630c4" prot="protected" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void CBitePop&lt; ptype &gt;::zeroParams</definition>
+        <argsstring>(ptype *const dst) const</argsstring>
+        <name>zeroParams</name>
+        <qualifiedname>CBitePop::zeroParams</qualifiedname>
+        <param>
+          <type>ptype *const</type>
+          <declname>dst</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>An aux function that resets a parameter vector to zero values.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="out">dst</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination vector. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="1217" column="6" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="1217" bodyend="1220"/>
+        <references refid="class_c_bite_pop_1a0dc6f7b3a19db513e349e68c3471f9fa" compoundref="biteaux_8h" startline="1170">CBitePop&lt; ptype &gt;::ParamCount</references>
+      </memberdef>
+      <memberdef kind="function" id="class_c_bite_pop_1a24130fea35014433f142e3b9ed0f8929" prot="protected" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void CBitePop&lt; ptype &gt;::copyParams</definition>
+        <argsstring>(ptype *const dst, const ptype *const src) const</argsstring>
+        <name>copyParams</name>
+        <qualifiedname>CBitePop::copyParams</qualifiedname>
+        <param>
+          <type>ptype *const</type>
+          <declname>dst</declname>
+        </param>
+        <param>
+          <type>const ptype *const</type>
+          <declname>src</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>An aux function that copies a parameter vector.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="out">dst</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination vector. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">src</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source vector. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="1229" column="6" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="1229" bodyend="1232"/>
+        <references refid="class_c_bite_pop_1a0dc6f7b3a19db513e349e68c3471f9fa" compoundref="biteaux_8h" startline="1170">CBitePop&lt; ptype &gt;::ParamCount</references>
+        <referencedby refid="class_c_bite_pop_1a3fc2d887ae91be62fd9fc3100268e53c" compoundref="biteaux_8h" startline="760" endline="786">CBitePop&lt; ptype &gt;::copy</referencedby>
+        <referencedby refid="class_c_bite_pop_1a7850902dad276dcecea68559eaccc168" compoundref="biteaux_8h" startline="795" endline="873">CBitePop&lt; ptype &gt;::updateCentroid</referencedby>
+        <referencedby refid="class_c_bite_pop_1aad999ddc8a2ed72ffaee0db7732c9f76" compoundref="biteaux_8h" startline="1039" endline="1151">CBitePop&lt; ptype &gt;::updatePop</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_c_bite_pop_1a57e751582761922bbabff1ddb7af277b" prot="protected" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void CBitePop&lt; ptype &gt;::copyValues</definition>
+        <argsstring>(double *const dst, const double *const src) const</argsstring>
+        <name>copyValues</name>
+        <qualifiedname>CBitePop::copyValues</qualifiedname>
+        <param>
+          <type>double *const</type>
+          <declname>dst</declname>
+        </param>
+        <param>
+          <type>const double *const</type>
+          <declname>src</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>An aux function that copies a real solution vector.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="out">dst</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination vector. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">src</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source vector. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="1241" column="6" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="1241" bodyend="1244"/>
+        <references refid="class_c_bite_pop_1a0dc6f7b3a19db513e349e68c3471f9fa" compoundref="biteaux_8h" startline="1170">CBitePop&lt; ptype &gt;::ParamCount</references>
+        <referencedby refid="class_c_bite_opt_base_1a9e49b98f5f6a2470d060282b2fd26a53" compoundref="biteaux_8h" startline="1779" endline="1793">CBiteOptBase&lt; ptype &gt;::updateBestCost</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-static-func">
+      <memberdef kind="function" id="class_c_bite_pop_1a3b7e8d2276455475bd761e29c8c72ac6" prot="protected" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>ptype</type>
+        <definition>static ptype CBitePop&lt; ptype &gt;::wrapParam</definition>
+        <argsstring>(CBiteRnd &amp;rnd, const ptype v)</argsstring>
+        <name>wrapParam</name>
+        <qualifiedname>CBitePop::wrapParam</qualifiedname>
+        <param>
+          <type><ref refid="class_c_bite_rnd" kindref="compound">CBiteRnd</ref> &amp;</type>
+          <declname>rnd</declname>
+        </param>
+        <param>
+          <type>const ptype</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Function wraps the specified parameter value so that it stays in the [0.0; 1.0] range (including in integer range), by wrapping it over the boundaries using random operator. This operation improves convergence in comparison to clamping.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>v</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Parameter value to wrap. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Wrapped parameter value. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="1256" column="14" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="1256" bodyend="1307"/>
+        <references refid="class_c_bite_rnd_1afdb77334884f1a612780def0dec0a326" compoundref="biteaux_8h" startline="115" endline="118">CBiteRnd::get</references>
+        <references refid="class_c_bite_rnd_1a6e9234ff0489b0d3d38ef71be159b34d" compoundref="biteaux_8h" startline="256" endline="259">CBiteRnd::getRaw</references>
+        <references refid="class_c_bite_pop_1a27448c9be1bed517e4a48aa656ca4f76" compoundref="biteaux_8h" startline="1167">CBitePop&lt; ptype &gt;::IntMantMask</references>
+        <references refid="class_c_bite_pop_1a1302e3c2e578dd650aedb57e18645092" compoundref="biteaux_8h" startline="1161">CBitePop&lt; ptype &gt;::IntMantMult</references>
+        <references refid="class_c_bite_pop_1a8c64d2e83f225b034df818b06b09ecd2" compoundref="biteaux_8h" startline="1165">CBitePop&lt; ptype &gt;::IntMantMult2</references>
+        <references refid="class_c_bite_pop_1aeba03d86b17ed01a97dc8225c5598b2d" compoundref="biteaux_8h" startline="1163">CBitePop&lt; ptype &gt;::IntMantMultM</references>
+      </memberdef>
+      <memberdef kind="function" id="class_c_bite_pop_1aecaac61269e65bda93cb2dc1a3a26091" prot="protected" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>ptype</type>
+        <definition>static ptype CBitePop&lt; ptype &gt;::getGaussianInt</definition>
+        <argsstring>(CBiteRnd &amp;rnd, const double sd, const ptype meanInt)</argsstring>
+        <name>getGaussianInt</name>
+        <qualifiedname>CBitePop::getGaussianInt</qualifiedname>
+        <param>
+          <type><ref refid="class_c_bite_rnd" kindref="compound">CBiteRnd</ref> &amp;</type>
+          <declname>rnd</declname>
+        </param>
+        <param>
+          <type>const double</type>
+          <declname>sd</declname>
+        </param>
+        <param>
+          <type>const ptype</type>
+          <declname>meanInt</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Function generates a Gaussian-distributed pseudo-random number, in integer scale, with the specified mean and std.dev.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>rnd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Uniform PRNG. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Standard deviation multiplier. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>meanInt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mean value, in integer scale. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="1318" column="14" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="1318" bodyend="1330"/>
+        <references refid="class_c_bite_rnd_1a3f6c22ff1f6f19de24f7c837530f31c4" compoundref="biteaux_8h" startline="282" endline="310">CBiteRnd::getGaussian</references>
+        <references refid="class_c_bite_pop_1a1302e3c2e578dd650aedb57e18645092" compoundref="biteaux_8h" startline="1161">CBitePop&lt; ptype &gt;::IntMantMult</references>
+      </memberdef>
+      <memberdef kind="function" id="class_c_bite_pop_1ad4e3a3c5b7a25ad02ef0231bd3fe8388" prot="protected" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>static double CBitePop&lt; ptype &gt;::calcLP1Coeff</definition>
+        <argsstring>(const double Count)</argsstring>
+        <name>calcLP1Coeff</name>
+        <qualifiedname>CBitePop::calcLP1Coeff</qualifiedname>
+        <param>
+          <type>const double</type>
+          <declname>Count</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Function calculates averaging coefficient of a &quot;leaky integrator&quot; 1st order low-pass filter.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Count</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>An approximate number of samples to average. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/include/biteaux.h" line="1339" column="15" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="1339" bodyend="1345"/>
+        <referencedby refid="class_c_bite_pop_1a4656171c63f1944ae045d6f222d9d33a" compoundref="biteaux_8h" startline="1013" endline="1020">CBitePop&lt; ptype &gt;::decrCurPopSize</referencedby>
+        <referencedby refid="class_c_bite_pop_1a48d6ede5c82534c973e0458726e820dd" compoundref="biteaux_8h" startline="998" endline="1005">CBitePop&lt; ptype &gt;::incrCurPopSize</referencedby>
+        <referencedby refid="class_c_bite_pop_1a7488531e6b12accb61f068bbe654f580" compoundref="biteaux_8h" startline="719" endline="750">CBitePop&lt; ptype &gt;::initBuffers</referencedby>
+        <referencedby refid="class_c_bite_pop_1a767519aa2fcc2667dc135a131bc9fd85" compoundref="biteaux_8h" startline="981" endline="990">CBitePop&lt; ptype &gt;::resetCurPopPos</referencedby>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Class implements storage of population parameter vectors, costs, centroid, and ordering. Note that the derived classes should delete allocated buffers in their destructors, not relying on a single <ref refid="class_c_bite_pop_1a47de1dedd30171e9fc9ae9475998d51d" kindref="member">deleteBuffers()</ref> call.</para>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>ptype</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Parameter value storage type. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="5">
+        <label>CBiteOpt</label>
+        <link refid="class_c_bite_opt"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>CBiteOpt::CParOpt&lt; CNMSeqOpt &gt;</label>
+        <link refid="class_c_bite_opt_1_1_c_par_opt"/>
+        <childnode refid="9" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>CBiteOpt::CParOpt&lt; CSpherOpt &gt;</label>
+        <link refid="class_c_bite_opt_1_1_c_par_opt"/>
+        <childnode refid="12" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>CBiteOptBase&lt; double &gt;</label>
+        <link refid="class_c_bite_opt_base"/>
+        <childnode refid="3" relation="template-instance">
+          <edgelabel>&lt; double &gt;</edgelabel>
+        </childnode>
+        <childnode refid="15" relation="protected-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>CBiteOptBase&lt; int64_t &gt;</label>
+        <link refid="class_c_bite_opt_base"/>
+        <childnode refid="3" relation="template-instance">
+          <edgelabel>&lt; int64_t &gt;</edgelabel>
+        </childnode>
+        <childnode refid="14" relation="protected-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>CBiteOptBase&lt; ptype &gt;</label>
+        <link refid="class_c_bite_opt_base"/>
+        <childnode refid="2" relation="protected-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>CBiteOptDeep::CBiteOptWrap</label>
+        <link refid="class_c_bite_opt_deep_1_1_c_bite_opt_wrap"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>CBiteOrt</label>
+        <link refid="class_c_bite_ort"/>
+        <childnode refid="17" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>CBiteParPops&lt; double &gt;</label>
+        <link refid="class_c_bite_par_pops"/>
+        <childnode refid="2" relation="template-instance">
+          <edgelabel>&lt; double &gt;</edgelabel>
+        </childnode>
+        <childnode refid="17" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>CBiteParPops&lt; int64_t &gt;</label>
+        <link refid="class_c_bite_par_pops"/>
+        <childnode refid="2" relation="template-instance">
+          <edgelabel>&lt; int64_t &gt;</edgelabel>
+        </childnode>
+        <childnode refid="16" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>CBiteParPops&lt; ptype &gt;</label>
+        <link refid="class_c_bite_par_pops"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>CBitePop&lt; double &gt;</label>
+        <link refid="class_c_bite_pop"/>
+        <childnode refid="1" relation="template-instance">
+          <edgelabel>&lt; double &gt;</edgelabel>
+        </childnode>
+      </node>
+      <node id="16">
+        <label>CBitePop&lt; int64_t &gt;</label>
+        <link refid="class_c_bite_pop"/>
+        <childnode refid="1" relation="template-instance">
+          <edgelabel>&lt; int64_t &gt;</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>CBitePop&lt; ptype &gt;</label>
+        <link refid="class_c_bite_pop"/>
+      </node>
+      <node id="7">
+        <label>CDEOpt</label>
+        <link refid="class_c_d_e_opt"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>CNMSeqOpt</label>
+        <link refid="class_c_n_m_seq_opt"/>
+        <childnode refid="8" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>CSMAESOpt</label>
+        <link refid="class_c_s_m_a_e_s_opt"/>
+        <childnode refid="8" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>CSpherOpt</label>
+        <link refid="class_c_spher_opt"/>
+        <childnode refid="8" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>CBitePop&lt; ptype &gt;</label>
+        <link refid="class_c_bite_pop"/>
+      </node>
+    </collaborationgraph>
+    <location file="_fcmaescpp/include/biteaux.h" line="669" column="1" bodyfile="_fcmaescpp/include/biteaux.h" bodystart="670" bodyend="1346"/>
+    <listofallmembers>
+      <member refid="class_c_bite_pop_1ad4e3a3c5b7a25ad02ef0231bd3fe8388" prot="protected" virt="non-virtual"><scope>CBitePop</scope><name>calcLP1Coeff</name></member>
+      <member refid="class_c_bite_pop_1ad427518ed1d47fbe3c2222b3a11badb7" prot="public" virt="non-virtual"><scope>CBitePop</scope><name>CBitePop</name></member>
+      <member refid="class_c_bite_pop_1a73402384f4b75abf6d956dc086ccf36e" prot="public" virt="non-virtual"><scope>CBitePop</scope><name>CBitePop</name></member>
+      <member refid="class_c_bite_pop_1ab6dec63b0ee3955563c2a3f815614f31" prot="protected" virt="non-virtual"><scope>CBitePop</scope><name>CentLPC</name></member>
+      <member refid="class_c_bite_pop_1ac31d95bc1f383828e72bcf1eb499e949" prot="protected" virt="non-virtual"><scope>CBitePop</scope><name>CentParams</name></member>
+      <member refid="class_c_bite_pop_1a2bf725291723a8dcaa215496e3175471" prot="protected" virt="non-virtual"><scope>CBitePop</scope><name>CnsCount</name></member>
+      <member refid="class_c_bite_pop_1a3fc2d887ae91be62fd9fc3100268e53c" prot="public" virt="non-virtual"><scope>CBitePop</scope><name>copy</name></member>
+      <member refid="class_c_bite_pop_1a24130fea35014433f142e3b9ed0f8929" prot="protected" virt="non-virtual"><scope>CBitePop</scope><name>copyParams</name></member>
+      <member refid="class_c_bite_pop_1a57e751582761922bbabff1ddb7af277b" prot="protected" virt="non-virtual"><scope>CBitePop</scope><name>copyValues</name></member>
+      <member refid="class_c_bite_pop_1aa7c87b9148768d6104f8d3dfb5abebce" prot="protected" virt="non-virtual"><scope>CBitePop</scope><name>CurPopPos</name></member>
+      <member refid="class_c_bite_pop_1adc98fbdebc2671ef0826245d8c472cc5" prot="protected" virt="non-virtual"><scope>CBitePop</scope><name>CurPopSize</name></member>
+      <member refid="class_c_bite_pop_1a26b81c70200085e410cf83258e139f9b" prot="protected" virt="non-virtual"><scope>CBitePop</scope><name>CurPopSize1</name></member>
+      <member refid="class_c_bite_pop_1aa5105ca75379f9a760dc9f0b9ea30ea7" prot="protected" virt="non-virtual"><scope>CBitePop</scope><name>CurPopSizeI</name></member>
+      <member refid="class_c_bite_pop_1a4656171c63f1944ae045d6f222d9d33a" prot="public" virt="non-virtual"><scope>CBitePop</scope><name>decrCurPopSize</name></member>
+      <member refid="class_c_bite_pop_1a47de1dedd30171e9fc9ae9475998d51d" prot="protected" virt="virtual"><scope>CBitePop</scope><name>deleteBuffers</name></member>
+      <member refid="class_c_bite_pop_1a5e6ccebb178353b084084f841b09042d" prot="public" virt="non-virtual"><scope>CBitePop</scope><name>getCentroid</name></member>
+      <member refid="class_c_bite_pop_1ad38d886687357797479e69098759476a" prot="public" virt="non-virtual"><scope>CBitePop</scope><name>getCnsPtr</name></member>
+      <member refid="class_c_bite_pop_1a0053ae41c70babe967c5931f491ea865" prot="public" virt="non-virtual"><scope>CBitePop</scope><name>getCurParams</name></member>
+      <member refid="class_c_bite_pop_1a7e1fbb7f7e9aaf8f73eb865fa4610185" prot="public" virt="non-virtual"><scope>CBitePop</scope><name>getCurPopPos</name></member>
+      <member refid="class_c_bite_pop_1a5aef425d751172e1fff38a455cb51d34" prot="public" virt="non-virtual"><scope>CBitePop</scope><name>getCurPopSize</name></member>
+      <member refid="class_c_bite_pop_1aecaac61269e65bda93cb2dc1a3a26091" prot="protected" virt="non-virtual"><scope>CBitePop</scope><name>getGaussianInt</name></member>
+      <member refid="class_c_bite_pop_1ad6cbe6cfbf9954dcb6f8a223a5e1f36b" prot="public" virt="non-virtual"><scope>CBitePop</scope><name>getObjPtr</name></member>
+      <member refid="class_c_bite_pop_1aaa8e3f180accfedf21218cbed8ffbb79" prot="public" virt="non-virtual"><scope>CBitePop</scope><name>getParamsOrdered</name></member>
+      <member refid="class_c_bite_pop_1ac2a01e9eb6b884a0b318e4b914273acf" prot="public" virt="non-virtual"><scope>CBitePop</scope><name>getPopParams</name></member>
+      <member refid="class_c_bite_pop_1aa4f3255c9607f72eff280f8c3c09143f" prot="public" virt="non-virtual"><scope>CBitePop</scope><name>getRankPtr</name></member>
+      <member refid="class_c_bite_pop_1a48d6ede5c82534c973e0458726e820dd" prot="public" virt="non-virtual"><scope>CBitePop</scope><name>incrCurPopSize</name></member>
+      <member refid="class_c_bite_pop_1a7488531e6b12accb61f068bbe654f580" prot="public" virt="virtual"><scope>CBitePop</scope><name>initBuffers</name></member>
+      <member refid="class_c_bite_pop_1ac9adf8849ed7251dadd94815e20bdee8" prot="protected" virt="non-virtual"><scope>CBitePop</scope><name>IntMantBits</name></member>
+      <member refid="class_c_bite_pop_1a27448c9be1bed517e4a48aa656ca4f76" prot="protected" virt="non-virtual"><scope>CBitePop</scope><name>IntMantMask</name></member>
+      <member refid="class_c_bite_pop_1a1302e3c2e578dd650aedb57e18645092" prot="protected" virt="non-virtual"><scope>CBitePop</scope><name>IntMantMult</name></member>
+      <member refid="class_c_bite_pop_1a8c64d2e83f225b034df818b06b09ecd2" prot="protected" virt="non-virtual"><scope>CBitePop</scope><name>IntMantMult2</name></member>
+      <member refid="class_c_bite_pop_1aeba03d86b17ed01a97dc8225c5598b2d" prot="protected" virt="non-virtual"><scope>CBitePop</scope><name>IntMantMultM</name></member>
+      <member refid="class_c_bite_pop_1a8009a96dd8a678daaefc9410ba2e0a76" prot="protected" virt="non-virtual"><scope>CBitePop</scope><name>IntOverBits</name></member>
+      <member refid="class_c_bite_pop_1a41f29468becc588bea6ff3f842db93ea" prot="protected" virt="non-virtual"><scope>CBitePop</scope><name>NeedCentUpdate</name></member>
+      <member refid="class_c_bite_pop_1a2f7c6a4707e23c21197ab32b71d900c7" prot="protected" virt="non-virtual"><scope>CBitePop</scope><name>ObjCount</name></member>
+      <member refid="class_c_bite_pop_1ab18cf322db6ab186db1e19b53e34c232" prot="public" virt="non-virtual"><scope>CBitePop</scope><name>operator=</name></member>
+      <member refid="class_c_bite_pop_1a0dc6f7b3a19db513e349e68c3471f9fa" prot="protected" virt="non-virtual"><scope>CBitePop</scope><name>ParamCount</name></member>
+      <member refid="class_c_bite_pop_1a884c9ad4c0327aaa0110a23a89f5697a" prot="protected" virt="non-virtual"><scope>CBitePop</scope><name>ParamCountI</name></member>
+      <member refid="class_c_bite_pop_1a6d4a3479ca9e60de6cf4667d5b2937a5" prot="protected" virt="non-virtual"><scope>CBitePop</scope><name>PopCnsOffs</name></member>
+      <member refid="class_c_bite_pop_1a3cdac0ad2cf5c8403f1f7676171f4e76" prot="protected" virt="non-virtual"><scope>CBitePop</scope><name>PopItemSize</name></member>
+      <member refid="class_c_bite_pop_1a98e2af75120c4184b271c14d22acf9d4" prot="protected" virt="non-virtual"><scope>CBitePop</scope><name>PopObjOffs</name></member>
+      <member refid="class_c_bite_pop_1a0c41790e473b70c5ec37986d0fb1f9a2" prot="protected" virt="non-virtual"><scope>CBitePop</scope><name>PopParams</name></member>
+      <member refid="class_c_bite_pop_1ac69b014720b11a472509b22588eaf6c3" prot="protected" virt="non-virtual"><scope>CBitePop</scope><name>PopParamsBuf</name></member>
+      <member refid="class_c_bite_pop_1a3ecc4ffcf1c6f3f9b4e4e5a873c481fe" prot="protected" virt="non-virtual"><scope>CBitePop</scope><name>PopRankOffs</name></member>
+      <member refid="class_c_bite_pop_1a58e3bf5abc2fb4b1e173aa6cb3477bfb" prot="protected" virt="non-virtual"><scope>CBitePop</scope><name>PopSize</name></member>
+      <member refid="class_c_bite_pop_1a0b64743a84d5af143d44e7f6e9f02ada" prot="protected" virt="non-virtual"><scope>CBitePop</scope><name>PopSize1</name></member>
+      <member refid="class_c_bite_pop_1a767519aa2fcc2667dc135a131bc9fd85" prot="public" virt="non-virtual"><scope>CBitePop</scope><name>resetCurPopPos</name></member>
+      <member refid="class_c_bite_pop_1acae90e3584dca8b6c08c70d7bd317729" prot="protected" virt="non-virtual"><scope>CBitePop</scope><name>TmpParams</name></member>
+      <member refid="class_c_bite_pop_1a7850902dad276dcecea68559eaccc168" prot="public" virt="non-virtual"><scope>CBitePop</scope><name>updateCentroid</name></member>
+      <member refid="class_c_bite_pop_1aad999ddc8a2ed72ffaee0db7732c9f76" prot="public" virt="non-virtual"><scope>CBitePop</scope><name>updatePop</name></member>
+      <member refid="class_c_bite_pop_1a3b7e8d2276455475bd761e29c8c72ac6" prot="protected" virt="non-virtual"><scope>CBitePop</scope><name>wrapParam</name></member>
+      <member refid="class_c_bite_pop_1a0d5ab322641bb1a091df91ff7ee630c4" prot="protected" virt="non-virtual"><scope>CBitePop</scope><name>zeroParams</name></member>
+      <member refid="class_c_bite_pop_1ac386e4638d6fc6bd5370eeae895347c3" prot="public" virt="virtual"><scope>CBitePop</scope><name>~CBitePop</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

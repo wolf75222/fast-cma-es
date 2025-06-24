@@ -1,0 +1,527 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_namespacefcmaes_1_1modecpp" xml:lang="en-US">
+<title>fcmaes.modecpp Namespace Reference</title>
+<indexterm><primary>fcmaes.modecpp</primary></indexterm>
+<simplesect>
+    <title>Classes    </title>
+        <itemizedlist>
+            <listitem><para>class <link linkend="_classfcmaes_1_1modecpp_1_1_m_o_d_e___c">MODE_C</link></para>
+
+<para>A class for managing the MODE-C optimization algorithm. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para>Tuple[np.ndarray, np.ndarray] <link linkend="_namespacefcmaes_1_1modecpp_1a1fc7328d1bfb4cc8c339722697ea5429">minimize</link> (Callable[[ArrayLike], ArrayLike] mofun, int nobj, int ncon, Bounds bounds, Optional[np.ndarray] guess=None, Optional[int] popsize=64, Optional[int] max_evaluations=100000, Optional[int] workers=1, Optional[float] f=0.5, Optional[float] cr=0.9, Optional[float] pro_c=0.5, Optional[float] dis_c=15.0, Optional[float] pro_m=0.9, Optional[float] dis_m=20.0, Optional[bool] nsga_update=True, Optional[int] pareto_update=0, Optional[ArrayLike] ints=None, Optional[float] min_mutate=0.1, Optional[float] max_mutate=0.5, Optional[Generator] rg=Generator(PCG64DXSM()), Optional[<link linkend="_classfcmaes_1_1mode_1_1store">store</link>] <link linkend="_classfcmaes_1_1mode_1_1store">store</link>=None, Optional[int] runid=0)</para>
+
+<para>Minimizes a multi-objective optimization problem using evolutionary strategies. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1modecpp_1aecf03e3039759695759cbf7f028546d6">retry</link> (Callable[[ArrayLike], ArrayLike] mofun, int nobj, int ncon, Bounds bounds, Optional[np.ndarray] guess=None, Optional[int] num_retries=64, Optional[int] popsize=64, Optional[int] max_evaluations=100000, Optional[int] workers=mp.cpu_count(), Optional[bool] nsga_update=False, Optional[int] pareto_update=0, Optional[ArrayLike] ints=None, Optional[int] capacity=None)</para>
+
+<para>Retries a multi-objective optimization process in parallel to optimize given objective functions and constraints. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1modecpp_1ae779b2337bd3227701e148a6a6997a0a">_retry_loop</link> (num_retries, pid, rgs, mofun, nobj, ncon, bounds, guess, popsize, max_evaluations, workers, nsga_update, pareto_update, <link linkend="_classfcmaes_1_1mode_1_1store">store</link>, ints)</para>
+
+<para>Executes a retry loop for parallel optimization tasks, ensuring multiple minimization attempts are conducted until a sufficient number of results are added to the storage. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Variables    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_namespacefcmaes_1_1modecpp_1a7983baf5cae97002769592e7d8e8643b">initMODE_C</link> = libcmalib.initMODE_C</para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1modecpp_1aa26b72a8ba02fae562ed03e63087522b">argtypes</link></para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1modecpp_1a23ec54ef3fec9755ffc5d870d9d73c7a">restype</link></para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1modecpp_1a8667a04257d49d4eabd9d64d0e8301a4">destroyMODE_C</link> = libcmalib.destroyMODE_C</para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1modecpp_1a44851bd7f89116b8d2704123ae52b295">askMODE_C</link> = libcmalib.askMODE_C</para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1modecpp_1a3f5c0d6338d68c18374d7fbcaeba9930">tellMODE_C</link> = libcmalib.tellMODE_C</para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1modecpp_1a754aecb7c3cb6174c472f001c7b24e1f">tellMODE_switchC</link> = libcmalib.tellMODE_switchC</para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1modecpp_1ae6223aa5cb7a9c8f005870cb8f3c4d58">populationMODE_C</link> = libcmalib.populationMODE_C</para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1modecpp_1ad27774b75048f71df3a93ace96ffadf7">setPopulationMODE_C</link> = libcmalib.setPopulationMODE_C</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Function Documentation</title>
+<anchor xml:id="_namespacefcmaes_1_1modecpp_1ae779b2337bd3227701e148a6a6997a0a"/><section>
+    <title>_retry_loop()</title>
+<indexterm><primary>_retry_loop</primary><secondary>fcmaes.modecpp</secondary></indexterm>
+<indexterm><primary>fcmaes.modecpp</primary><secondary>_retry_loop</secondary></indexterm>
+<para><computeroutput>fcmaes.modecpp._retry_loop ( num_retries,  pid,  rgs,  mofun,  nobj,  ncon,  bounds,  guess,  popsize,  max_evaluations,  workers,  nsga_update,  pareto_update,  store,  ints)<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+
+<para>Executes a retry loop for parallel optimization tasks, ensuring multiple minimization attempts are conducted until a sufficient number of results are added to the storage. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>num_retries</entry><entry>
+<para>Number of retry attempts for the optimization loop. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>pid</entry><entry>
+<para>Process identifier used for dealing with random generators. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>rgs</entry><entry>
+<para>List of random number generators for each process. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>mofun</entry><entry>
+<para>Multi-objective function to be minimized. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>nobj</entry><entry>
+<para>Number of objectives in the optimization problem. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>ncon</entry><entry>
+<para>Number of constraints in the optimization problem. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>bounds</entry><entry>
+<para>Boundaries for the decision variables in the optimization problem. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>guess</entry><entry>
+<para>Initial guess values for the optimization variables. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>popsize</entry><entry>
+<para>Population size for the optimization algorithm. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>max_evaluations</entry><entry>
+<para>Maximum number of evaluations for each optimization attempt. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>workers</entry><entry>
+<para>Number of worker processes available for parallelization. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>nsga_update</entry><entry>
+<para>Callback or function for handling NSGA updates during optimization. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>pareto_update</entry><entry>
+<para>Callback or function for managing Pareto updates. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>store</entry><entry>
+<para>Storage object for managing results and tracking progress. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>ints</entry><entry>
+<para>Indices of decision variables that are integer-constrained. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_modecpp_8py_source_1l00292">292</link> of file <link linkend="_modecpp_8py_source">modecpp.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1modecpp_ae779b2337bd3227701e148a6a6997a0a_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1modecpp_1a1fc7328d1bfb4cc8c339722697ea5429"/><section>
+    <title>minimize()</title>
+<indexterm><primary>minimize</primary><secondary>fcmaes.modecpp</secondary></indexterm>
+<indexterm><primary>fcmaes.modecpp</primary><secondary>minimize</secondary></indexterm>
+<para><computeroutput> Tuple[np.ndarray, np.ndarray] fcmaes.modecpp.minimize (Callable[[ArrayLike], ArrayLike] mofun, int nobj, int ncon, Bounds bounds, Optional[np.ndarray]  guess = <computeroutput>None</computeroutput>
+, Optional[int]  popsize = <computeroutput>64</computeroutput>
+, Optional[int]  max_evaluations = <computeroutput>100000</computeroutput>
+, Optional[int]  workers = <computeroutput>1</computeroutput>
+, Optional[float]  f = <computeroutput>0.5</computeroutput>
+, Optional[float]  cr = <computeroutput>0.9</computeroutput>
+, Optional[float]  pro_c = <computeroutput>0.5</computeroutput>
+, Optional[float]  dis_c = <computeroutput>15.0</computeroutput>
+, Optional[float]  pro_m = <computeroutput>0.9</computeroutput>
+, Optional[float]  dis_m = <computeroutput>20.0</computeroutput>
+, Optional[bool]  nsga_update = <computeroutput>True</computeroutput>
+, Optional[int]  pareto_update = <computeroutput>0</computeroutput>
+, Optional[ArrayLike]  ints = <computeroutput>None</computeroutput>
+, Optional[float]  min_mutate = <computeroutput>0.1</computeroutput>
+, Optional[float]  max_mutate = <computeroutput>0.5</computeroutput>
+, Optional[Generator]  rg = <computeroutput>Generator(PCG64DXSM())</computeroutput>
+, Optional[<link linkend="_classfcmaes_1_1mode_1_1store">store</link>]  store = <computeroutput>None</computeroutput>
+, Optional[int]  runid = <computeroutput>0</computeroutput>
+)</computeroutput></para><para>
+
+<para>Minimizes a multi-objective optimization problem using evolutionary strategies. </para>
+</para>
+
+<para>This function implements a multi-objective optimization routine that supports various configurations such as population size, mutation and crossover probabilities, and constraints. It provides options for parallel computation and supports custom random number generation. Additionally, results can be stored in the provided storage object if specified.</para>
+
+<para><literallayout><computeroutput>   mofun (Callable[[ArrayLike], ArrayLike]): The objective function to be minimized.
+       It must accept a single numpy array as input and return an array of objective
+</computeroutput></literallayout> 
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>values.</entry><entry>
+<para></para>
+</entry>
+                            </row>
+                            <row>
+<entry>nobj</entry><entry>
+<para>The number of objectives in the problem. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>ncon</entry><entry>
+<para>The number of constraints in the problem. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>bounds</entry><entry>
+<para>The bounds for the decision variables. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>guess</entry><entry>
+<para>Optional initial guess for the decision variables. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>popsize</entry><entry>
+<para>Size of the population. Defaults to 64. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>max_evaluations</entry><entry>
+<para>Maximum number of function evaluations allowed. Defaults to 100,000. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>workers</entry><entry>
+<para>Number of workers for parallel computation. Defaults to 1 (serial). </para>
+</entry>
+                            </row>
+                            <row>
+<entry>f</entry><entry>
+<para>Differential weight used in mutation step. Defaults to 0.5. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>cr</entry><entry>
+<para>Crossover probability. Defaults to 0.9. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>pro_c</entry><entry>
+<para>Probability of crossover operation. Defaults to 0.5. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>dis_c</entry><entry>
+<para>Distribution index for crossover. Defaults to 15.0. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>pro_m</entry><entry>
+<para>Probability of mutation. Defaults to 0.9. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>dis_m</entry><entry>
+<para>Distribution index for mutation. Defaults to 20.0. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>nsga_update</entry><entry>
+<para>Whether to apply NSGA-II updates. Defaults to True. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>pareto_update</entry><entry>
+<para>Interval for Pareto front updates. Defaults to 0. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>ints</entry><entry>
+<para>Specifies which decision variables are integer-valued. Defaults to None. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>min_mutate</entry><entry>
+<para>Minimum mutation step size as fraction of variable range. Defaults to 0.1. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>max_mutate</entry><entry>
+<para>Maximum mutation step size as fraction of variable range. Defaults to 0.5. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>rg</entry><entry>
+<para>Random number generator. Defaults to <computeroutput>Generator(PCG64DXSM())</computeroutput>. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>store</entry><entry>
+<para>Storage object to store results if specified. Defaults to None. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>runid</entry><entry>
+<para>Identifier for the run. Can be used for logging or tracking. Defaults to 0.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>Tuple[np.ndarray, np.ndarray]: A tuple containing the population of solutions (decision variable values) and their objective function values.</para>
+</formalpara>
+
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>Exception</entry><entry>
+<para>If any error occurs during the optimization process. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_modecpp_8py_source_1l00148">148</link> of file <link linkend="_modecpp_8py_source">modecpp.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1modecpp_a1fc7328d1bfb4cc8c339722697ea5429_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1modecpp_1aecf03e3039759695759cbf7f028546d6"/><section>
+    <title>retry()</title>
+<indexterm><primary>retry</primary><secondary>fcmaes.modecpp</secondary></indexterm>
+<indexterm><primary>fcmaes.modecpp</primary><secondary>retry</secondary></indexterm>
+<para><computeroutput>fcmaes.modecpp.retry (Callable[[ArrayLike], ArrayLike] mofun, int nobj, int ncon, Bounds bounds, Optional[np.ndarray]  guess = <computeroutput>None</computeroutput>
+, Optional[int]  num_retries = <computeroutput>64</computeroutput>
+, Optional[int]  popsize = <computeroutput>64</computeroutput>
+, Optional[int]  max_evaluations = <computeroutput>100000</computeroutput>
+, Optional[int]  workers = <computeroutput>mp.cpu_count()</computeroutput>
+, Optional[bool]  nsga_update = <computeroutput>False</computeroutput>
+, Optional[int]  pareto_update = <computeroutput>0</computeroutput>
+, Optional[ArrayLike]  ints = <computeroutput>None</computeroutput>
+, Optional[int]  capacity = <computeroutput>None</computeroutput>
+)</computeroutput></para><para>
+
+<para>Retries a multi-objective optimization process in parallel to optimize given objective functions and constraints. </para>
+</para>
+
+<para>This function orchestrates the process of executing an optimization task multiple times across multiple workers, each working with different random seeds. It uses a population-based approach to iteratively search for optimal solutions for a given multi-objective problem, leveraging parallel computing to efficiently handle large workloads.</para>
+
+<para><literallayout><computeroutput>   mofun (Callable[[ArrayLike], ArrayLike]): The objective function to optimize,
+       mapping input parameters to objective and constraint values.
+</computeroutput></literallayout> 
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>nobj</entry><entry>
+<para>Number of objective functions in the optimization problem. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>ncon</entry><entry>
+<para>Number of constraints in the optimization problem. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>bounds</entry><entry>
+<para>The bounds for the decision variables. This defines the lower and upper bounds for optimization. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>guess</entry><entry>
+<para>Initial guess for the input variables. Default is None. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>num_retries</entry><entry>
+<para>Number of retries allowed for each worker. <literallayout><computeroutput>Default&#32;<emphasis role="keywordflow">is</emphasis>&#32;64.
+</computeroutput></literallayout> popsize (Optional[int]): The population size for the optimization algorithm. <literallayout><computeroutput>Default&#32;<emphasis role="keywordflow">is</emphasis>&#32;64.
+</computeroutput></literallayout> max_evaluations (Optional[int]): Maximum number of function evaluations <literallayout><computeroutput>allowed.&#32;Default&#32;<emphasis role="keywordflow">is</emphasis>&#32;100000.
+</computeroutput></literallayout> workers (Optional[int]): Number of workers to run in parallel. If not specified, it defaults to the number of CPUs available on the machine. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>nsga_update</entry><entry>
+<para>If True, enables an additional NSGA update step in the optimization. Default is False. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>pareto_update</entry><entry>
+<para>Frequency of updating the Pareto front during optimization. Default is 0 (no updates). </para>
+</entry>
+                            </row>
+                            <row>
+<entry>ints</entry><entry>
+<para>Indices of decision variables that are integers. Default is None. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>capacity</entry><entry>
+<para>Capacity of the storage system for maintaining results during optimization. If not provided, it defaults to 2048 times the population size.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>Tuple[np.ndarray, np.ndarray]: A tuple containing:<itemizedlist>
+<listitem>
+<para>xs: The input configurations corresponding to the Pareto-optimal solutions.</para>
+</listitem><listitem>
+<para>ys: The objective and constraint evaluation results for the Pareto-optimal solutions. </para>
+</listitem></itemizedlist>
+</para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_modecpp_8py_source_1l00237">237</link> of file <link linkend="_modecpp_8py_source">modecpp.py</link>.</para>
+</section>
+</section>
+<section>
+<title>Variable Documentation</title>
+<anchor xml:id="_namespacefcmaes_1_1modecpp_1aa26b72a8ba02fae562ed03e63087522b"/><section>
+    <title>argtypes</title>
+<indexterm><primary>argtypes</primary><secondary>fcmaes.modecpp</secondary></indexterm>
+<indexterm><primary>fcmaes.modecpp</primary><secondary>argtypes</secondary></indexterm>
+<para><computeroutput>fcmaes.modecpp.argtypes</computeroutput></para><para>
+Definition at line <link linkend="_modecpp_8py_source_1l00650">650</link> of file <link linkend="_modecpp_8py_source">modecpp.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1modecpp_1a44851bd7f89116b8d2704123ae52b295"/><section>
+    <title>askMODE_C</title>
+<indexterm><primary>askMODE_C</primary><secondary>fcmaes.modecpp</secondary></indexterm>
+<indexterm><primary>fcmaes.modecpp</primary><secondary>askMODE_C</secondary></indexterm>
+<para><computeroutput>fcmaes.modecpp.askMODE_C = libcmalib.askMODE_C</computeroutput></para><para>
+Definition at line <link linkend="_modecpp_8py_source_1l00660">660</link> of file <link linkend="_modecpp_8py_source">modecpp.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1modecpp_1a8667a04257d49d4eabd9d64d0e8301a4"/><section>
+    <title>destroyMODE_C</title>
+<indexterm><primary>destroyMODE_C</primary><secondary>fcmaes.modecpp</secondary></indexterm>
+<indexterm><primary>fcmaes.modecpp</primary><secondary>destroyMODE_C</secondary></indexterm>
+<para><computeroutput>fcmaes.modecpp.destroyMODE_C = libcmalib.destroyMODE_C</computeroutput></para><para>
+Definition at line <link linkend="_modecpp_8py_source_1l00657">657</link> of file <link linkend="_modecpp_8py_source">modecpp.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1modecpp_1a7983baf5cae97002769592e7d8e8643b"/><section>
+    <title>initMODE_C</title>
+<indexterm><primary>initMODE_C</primary><secondary>fcmaes.modecpp</secondary></indexterm>
+<indexterm><primary>fcmaes.modecpp</primary><secondary>initMODE_C</secondary></indexterm>
+<para><computeroutput>fcmaes.modecpp.initMODE_C = libcmalib.initMODE_C</computeroutput></para><para>
+Definition at line <link linkend="_modecpp_8py_source_1l00649">649</link> of file <link linkend="_modecpp_8py_source">modecpp.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1modecpp_1ae6223aa5cb7a9c8f005870cb8f3c4d58"/><section>
+    <title>populationMODE_C</title>
+<indexterm><primary>populationMODE_C</primary><secondary>fcmaes.modecpp</secondary></indexterm>
+<indexterm><primary>fcmaes.modecpp</primary><secondary>populationMODE_C</secondary></indexterm>
+<para><computeroutput>fcmaes.modecpp.populationMODE_C = libcmalib.populationMODE_C</computeroutput></para><para>
+Definition at line <link linkend="_modecpp_8py_source_1l00671">671</link> of file <link linkend="_modecpp_8py_source">modecpp.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1modecpp_1a23ec54ef3fec9755ffc5d870d9d73c7a"/><section>
+    <title>restype</title>
+<indexterm><primary>restype</primary><secondary>fcmaes.modecpp</secondary></indexterm>
+<indexterm><primary>fcmaes.modecpp</primary><secondary>restype</secondary></indexterm>
+<para><computeroutput>fcmaes.modecpp.restype</computeroutput></para><para>
+Definition at line <link linkend="_modecpp_8py_source_1l00655">655</link> of file <link linkend="_modecpp_8py_source">modecpp.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1modecpp_1ad27774b75048f71df3a93ace96ffadf7"/><section>
+    <title>setPopulationMODE_C</title>
+<indexterm><primary>setPopulationMODE_C</primary><secondary>fcmaes.modecpp</secondary></indexterm>
+<indexterm><primary>fcmaes.modecpp</primary><secondary>setPopulationMODE_C</secondary></indexterm>
+<para><computeroutput>fcmaes.modecpp.setPopulationMODE_C = libcmalib.setPopulationMODE_C</computeroutput></para><para>
+Definition at line <link linkend="_modecpp_8py_source_1l00674">674</link> of file <link linkend="_modecpp_8py_source">modecpp.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1modecpp_1a3f5c0d6338d68c18374d7fbcaeba9930"/><section>
+    <title>tellMODE_C</title>
+<indexterm><primary>tellMODE_C</primary><secondary>fcmaes.modecpp</secondary></indexterm>
+<indexterm><primary>fcmaes.modecpp</primary><secondary>tellMODE_C</secondary></indexterm>
+<para><computeroutput>fcmaes.modecpp.tellMODE_C = libcmalib.tellMODE_C</computeroutput></para><para>
+Definition at line <link linkend="_modecpp_8py_source_1l00663">663</link> of file <link linkend="_modecpp_8py_source">modecpp.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1modecpp_1a754aecb7c3cb6174c472f001c7b24e1f"/><section>
+    <title>tellMODE_switchC</title>
+<indexterm><primary>tellMODE_switchC</primary><secondary>fcmaes.modecpp</secondary></indexterm>
+<indexterm><primary>fcmaes.modecpp</primary><secondary>tellMODE_switchC</secondary></indexterm>
+<para><computeroutput>fcmaes.modecpp.tellMODE_switchC = libcmalib.tellMODE_switchC</computeroutput></para><para>
+Definition at line <link linkend="_modecpp_8py_source_1l00667">667</link> of file <link linkend="_modecpp_8py_source">modecpp.py</link>.</para>
+</section>
+</section>
+</section>

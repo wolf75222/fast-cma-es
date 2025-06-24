@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_tandem__minlp_8py_source" xml:lang="en-US">
+<title>tandem_minlp.py</title>
+<indexterm><primary>examples/tandem_minlp.py</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_tandem__minlp_8py_source_1l00001"/><link linkend="_namespaceexamples_1_1tandem__minlp">00001</link> <emphasis role="comment">#&#32;Copyright&#32;(c)&#32;Dietmar&#32;Wolz.</emphasis>
+<anchor xml:id="_tandem__minlp_8py_source_1l00002"/>00002 <emphasis role="comment">#</emphasis>
+<anchor xml:id="_tandem__minlp_8py_source_1l00003"/>00003 <emphasis role="comment">#&#32;This&#32;source&#32;code&#32;is&#32;licensed&#32;under&#32;the&#32;MIT&#32;license&#32;found&#32;in&#32;the</emphasis>
+<anchor xml:id="_tandem__minlp_8py_source_1l00004"/>00004 <emphasis role="comment">#&#32;LICENSE&#32;file&#32;in&#32;the&#32;root&#32;directory.</emphasis>
+<anchor xml:id="_tandem__minlp_8py_source_1l00005"/>00005 
+<anchor xml:id="_tandem__minlp_8py_source_1l00006"/>00006 <emphasis role="comment">#&#32;Tandem&#32;MINLP&#32;problem.&#32;</emphasis>
+<anchor xml:id="_tandem__minlp_8py_source_1l00007"/>00007 <emphasis role="comment">#&#32;Used&#32;to&#32;generate&#32;the&#32;results&#32;in&#32;https://github.com/dietmarwo/fast-cma-es/blob/master/tutorials/MINLP.adoc</emphasis>
+<anchor xml:id="_tandem__minlp_8py_source_1l00008"/>00008 
+<anchor xml:id="_tandem__minlp_8py_source_1l00009"/>00009 <emphasis role="comment">#&#32;Tested&#32;using&#32;https://docs.conda.io/en/main/miniconda.html&#32;on&#32;Linux&#32;Mint&#32;21.</emphasis>
+<anchor xml:id="_tandem__minlp_8py_source_1l00010"/>00010 
+<anchor xml:id="_tandem__minlp_8py_source_1l00011"/>00011 <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1astro">fcmaes.astro</link>&#32;<emphasis role="keyword">import</emphasis>&#32;Tandem_minlp,&#32;Tandem
+<anchor xml:id="_tandem__minlp_8py_source_1l00012"/>00012 <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1optimizer">fcmaes.optimizer</link>&#32;<emphasis role="keyword">import</emphasis>&#32;de_cma
+<anchor xml:id="_tandem__minlp_8py_source_1l00013"/>00013 <emphasis role="keyword">from</emphasis>&#32;fcmaes&#32;<emphasis role="keyword">import</emphasis>&#32;advretry,&#32;multiretry
+<anchor xml:id="_tandem__minlp_8py_source_1l00014"/>00014 
+<anchor xml:id="_tandem__minlp_8py_source_1l00015"/>00015 <emphasis role="keyword">import</emphasis>&#32;sys&#32;
+<anchor xml:id="_tandem__minlp_8py_source_1l00016"/>00016 <emphasis role="keyword">from</emphasis>&#32;loguru&#32;<emphasis role="keyword">import</emphasis>&#32;logger
+<anchor xml:id="_tandem__minlp_8py_source_1l00017"/>00017 
+<anchor xml:id="_tandem__minlp_8py_source_1l00018"/>00018 logger.remove()
+<anchor xml:id="_tandem__minlp_8py_source_1l00019"/><link linkend="_namespaceexamples_1_1tandem__minlp_1ac322aeac6acec7460f8af8e6a58744b4">00019</link> logger.add(sys.stdout,&#32;format=<emphasis role="stringliteral">&quot;{time:HH:mm:ss.SS}&#32;|&#32;{process}&#32;|&#32;{level}&#32;|&#32;{message}&quot;</emphasis>,&#32;level=<emphasis role="stringliteral">&quot;INFO&quot;</emphasis>)
+<anchor xml:id="_tandem__minlp_8py_source_1l00020"/>00020 logger.add(<emphasis role="stringliteral">&quot;log_{time}.txt&quot;</emphasis>,&#32;format=<emphasis role="stringliteral">&quot;{time:HH:mm:ss.SS}&#32;|&#32;{process}&#32;|&#32;{level}&#32;|&#32;{message}&quot;</emphasis>,&#32;level=<emphasis role="stringliteral">&quot;INFO&quot;</emphasis>)
+<anchor xml:id="_tandem__minlp_8py_source_1l00021"/>00021 
+<anchor xml:id="_tandem__minlp_8py_source_1l00022"/>00022 <emphasis role="comment">#&#32;minlp&#32;approach,&#32;planet&#32;sequence&#32;is&#32;additional&#32;arguments</emphasis>
+<anchor xml:id="_tandem__minlp_8py_source_1l00023"/><link linkend="_namespaceexamples_1_1tandem__minlp_1a989c56c3ebd6182b717f0bc60cefdf62">00023</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1tandem__minlp_1a989c56c3ebd6182b717f0bc60cefdf62">test_optimizer</link>(opt,&#32;problem,&#32;num_retries&#32;=&#32;120000,&#32;num&#32;=&#32;100,&#32;
+<anchor xml:id="_tandem__minlp_8py_source_1l00024"/>00024 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;value_limit&#32;=&#32;-10.0):
+<anchor xml:id="_tandem__minlp_8py_source_1l00025"/>00025 &#32;&#32;&#32;&#32;logger.info(problem.name&#32;+&#32;<emphasis role="stringliteral">&apos;&#32;&apos;</emphasis>&#32;+&#32;opt.name)
+<anchor xml:id="_tandem__minlp_8py_source_1l00026"/>00026 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;_&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(num):
+<anchor xml:id="_tandem__minlp_8py_source_1l00027"/>00027 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ret&#32;=&#32;advretry.minimize(problem.fun,&#32;problem.bounds,&#32;value_limit,&#32;
+<anchor xml:id="_tandem__minlp_8py_source_1l00028"/>00028 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;num_retries,&#32;optimizer=opt)
+<anchor xml:id="_tandem__minlp_8py_source_1l00029"/>00029 
+<anchor xml:id="_tandem__minlp_8py_source_1l00030"/>00030 <emphasis role="comment">#&#32;simultaneous&#32;optimization&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_tandem__minlp_8py_source_1l00031"/><link linkend="_namespaceexamples_1_1tandem__minlp_1a4220480017c03fd1eb1031abc9f6fda3">00031</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1tandem__minlp_1a4220480017c03fd1eb1031abc9f6fda3">test_multiretry</link>(num_retries&#32;=&#32;512,&#32;
+<anchor xml:id="_tandem__minlp_8py_source_1l00032"/>00032 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;keep&#32;=&#32;0.7,&#32;optimizer&#32;=&#32;de_cma(1500),&#32;repeat&#32;=&#32;50):
+<anchor xml:id="_tandem__minlp_8py_source_1l00033"/>00033 &#32;&#32;&#32;&#32;seqs&#32;=&#32;<link linkend="_classfcmaes_1_1astro_1_1_tandem">Tandem</link>(0).seqs
+<anchor xml:id="_tandem__minlp_8py_source_1l00034"/>00034 &#32;&#32;&#32;&#32;n&#32;=&#32;len(seqs)
+<anchor xml:id="_tandem__minlp_8py_source_1l00035"/>00035 &#32;&#32;&#32;&#32;problems&#32;=&#32;[<link linkend="_classfcmaes_1_1astro_1_1_tandem">Tandem</link>(i)&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(n)]
+<anchor xml:id="_tandem__minlp_8py_source_1l00036"/>00036 &#32;&#32;&#32;&#32;ids&#32;=&#32;[str(seqs[i])&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(n)]
+<anchor xml:id="_tandem__minlp_8py_source_1l00037"/>00037 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;_&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(100):
+<anchor xml:id="_tandem__minlp_8py_source_1l00038"/>00038 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;problem_stats&#32;=&#32;multiretry.minimize(problems,&#32;ids,&#32;num_retries,&#32;keep,&#32;optimizer)
+<anchor xml:id="_tandem__minlp_8py_source_1l00039"/>00039 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ps&#32;=&#32;problem_stats[0]
+<anchor xml:id="_tandem__minlp_8py_source_1l00040"/>00040 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;_&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(repeat):
+<anchor xml:id="_tandem__minlp_8py_source_1l00041"/>00041 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;logger.info(<emphasis role="stringliteral">&quot;problem&#32;&quot;</emphasis>&#32;+&#32;ps.prob.name&#32;+&#32;<emphasis role="stringliteral">&apos;&#32;&apos;</emphasis>&#32;+&#32;str(ps.id))
+<anchor xml:id="_tandem__minlp_8py_source_1l00042"/>00042 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ps.retry(optimizer)
+<anchor xml:id="_tandem__minlp_8py_source_1l00043"/>00043 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_tandem__minlp_8py_source_1l00044"/><link linkend="_namespaceexamples_1_1tandem__minlp_1a9dfca19c3f1a75d4015416930751b3d3">00044</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1tandem__minlp_1a9dfca19c3f1a75d4015416930751b3d3">main</link>():
+<anchor xml:id="_tandem__minlp_8py_source_1l00045"/>00045 &#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1tandem__minlp_1a989c56c3ebd6182b717f0bc60cefdf62">test_optimizer</link>(de_cma(1500),&#32;<link linkend="_classfcmaes_1_1astro_1_1_tandem__minlp">Tandem_minlp</link>())&#32;
+<anchor xml:id="_tandem__minlp_8py_source_1l00046"/>00046 &#32;&#32;&#32;&#32;<emphasis role="comment">#test_multiretry(repeat&#32;=&#32;50)</emphasis>
+<anchor xml:id="_tandem__minlp_8py_source_1l00047"/>00047 &#32;&#32;&#32;&#32;
+<anchor xml:id="_tandem__minlp_8py_source_1l00048"/>00048 <emphasis role="keywordflow">if</emphasis>&#32;__name__&#32;==&#32;<emphasis role="stringliteral">&apos;__main__&apos;</emphasis>:
+<anchor xml:id="_tandem__minlp_8py_source_1l00049"/>00049 &#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1tandem__minlp_1a9dfca19c3f1a75d4015416930751b3d3">main</link>()
+<anchor xml:id="_tandem__minlp_8py_source_1l00050"/>00050 &#32;&#32;&#32;&#32;
+</programlisting></section>

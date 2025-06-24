@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_pgpe_8cpp" xml:lang="en-US">
+<title>_fcmaescpp/pgpe.cpp File Reference</title>
+<indexterm><primary>_fcmaescpp/pgpe.cpp</primary></indexterm>
+<programlisting linenumbering="unnumbered">#include &lt;Eigen/Core&gt;<?linebreak?>#include &lt;iostream&gt;<?linebreak?>#include &lt;fstream&gt;<?linebreak?>#include &lt;float.h&gt;<?linebreak?>#include &lt;stdint.h&gt;<?linebreak?>#include &lt;ctime&gt;<?linebreak?>#include &lt;random&gt;<?linebreak?>#include &lt;queue&gt;<?linebreak?>#include &lt;tuple&gt;<?linebreak?>#include &quot;evaluator.h&quot;<?linebreak?></programlisting>Include dependency graph for pgpe.cpp:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="pgpe_8cpp__incl.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Classes    </title>
+        <itemizedlist>
+            <listitem><para>class <link linkend="_classpgpe_1_1_a_d_a_m">pgpe::ADAM</link></para>
+</listitem>
+            <listitem><para>class <link linkend="_classpgpe_1_1_p_g_p_e_optimizer">pgpe::PGPEOptimizer</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Namespaces    </title>
+        <itemizedlist>
+            <listitem><para>namespace <link linkend="_namespacepgpe">pgpe</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para>double <link linkend="_namespacepgpe_1acf8eb800c548fcaacd7f2cce47367122">pgpe::sdev</link> (<link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> v)</para>
+</listitem>
+            <listitem><para>void <link linkend="_pgpe_8cpp_1a83f6d1c91509d2c28e236afbea4bd172">optimizePGPE_C</link> (int64_t runid, <link linkend="_evaluator_8h_1a1adc681c70e547867358d25d5cf7eedc">callback_parallel</link> func_par, int dim, double *init, double *lower, double *upper, double *sigma, int maxEvals, double stopfitness, int popsize, int64_t seed, int lr_decay_steps, bool use_ranking, double center_learning_rate, double stdev_learning_rate, double stdev_max_change, double b1, double b2, double eps, double decay_coef, bool normalize, double *res)</para>
+</listitem>
+            <listitem><para>uintptr_t <link linkend="_pgpe_8cpp_1a15e7e7ada6ad4ab26263681ac00ac55b">initPGPE_C</link> (int64_t runid, int dim, double *init, double *lower, double *upper, double *sigma, int popsize, int64_t seed, int lr_decay_steps, bool use_ranking, double center_learning_rate, double stdev_learning_rate, double stdev_max_change, double b1, double b2, double eps, double decay_coef, bool normalize)</para>
+</listitem>
+            <listitem><para>void <link linkend="_pgpe_8cpp_1a8909d326ed046a0387b7dd37e0c52619">destroyPGPE_C</link> (uintptr_t ptr)</para>
+</listitem>
+            <listitem><para>void <link linkend="_pgpe_8cpp_1a5243162be40907ba17766c126035e413">askPGPE_C</link> (uintptr_t ptr, double *xs)</para>
+</listitem>
+            <listitem><para>int <link linkend="_pgpe_8cpp_1a20da2826016ed209c84182f30949d436">tellPGPE_C</link> (uintptr_t ptr, double *ys)</para>
+</listitem>
+            <listitem><para>int <link linkend="_pgpe_8cpp_1a2143eeef8d1b83e3c6f1d7818cffaa40">populationPGPE_C</link> (uintptr_t ptr, double *xs)</para>
+</listitem>
+            <listitem><para>int <link linkend="_pgpe_8cpp_1abd7f5b28d4595d7f9102a532a9f8c367">resultPGPE_C</link> (uintptr_t ptr, double *res)</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Function Documentation</title>
+<anchor xml:id="_pgpe_8cpp_1a5243162be40907ba17766c126035e413"/><section>
+    <title>askPGPE_C()</title>
+<indexterm><primary>askPGPE_C</primary><secondary>pgpe.cpp</secondary></indexterm>
+<indexterm><primary>pgpe.cpp</primary><secondary>askPGPE_C</secondary></indexterm>
+<para><computeroutput>void askPGPE_C (uintptr_t ptr, double * xs)</computeroutput></para><para>
+Definition at line <link linkend="_pgpe_8cpp_source_1l00397">397</link> of file <link linkend="_pgpe_8cpp_source">pgpe.cpp</link>.</para>
+</section>
+<anchor xml:id="_pgpe_8cpp_1a8909d326ed046a0387b7dd37e0c52619"/><section>
+    <title>destroyPGPE_C()</title>
+<indexterm><primary>destroyPGPE_C</primary><secondary>pgpe.cpp</secondary></indexterm>
+<indexterm><primary>pgpe.cpp</primary><secondary>destroyPGPE_C</secondary></indexterm>
+<para><computeroutput>void destroyPGPE_C (uintptr_t ptr)</computeroutput></para><para>
+Definition at line <link linkend="_pgpe_8cpp_source_1l00390">390</link> of file <link linkend="_pgpe_8cpp_source">pgpe.cpp</link>.</para>
+</section>
+<anchor xml:id="_pgpe_8cpp_1a15e7e7ada6ad4ab26263681ac00ac55b"/><section>
+    <title>initPGPE_C()</title>
+<indexterm><primary>initPGPE_C</primary><secondary>pgpe.cpp</secondary></indexterm>
+<indexterm><primary>pgpe.cpp</primary><secondary>initPGPE_C</secondary></indexterm>
+<para><computeroutput>uintptr_t initPGPE_C (int64_t runid, int dim, double * init, double * lower, double * upper, double * sigma, int popsize, int64_t seed, int lr_decay_steps, bool use_ranking, double center_learning_rate, double stdev_learning_rate, double stdev_max_change, double b1, double b2, double eps, double decay_coef, bool normalize)</computeroutput></para><para>
+Definition at line <link linkend="_pgpe_8cpp_source_1l00358">358</link> of file <link linkend="_pgpe_8cpp_source">pgpe.cpp</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="pgpe_8cpp_a15e7e7ada6ad4ab26263681ac00ac55b_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_pgpe_8cpp_1a83f6d1c91509d2c28e236afbea4bd172"/><section>
+    <title>optimizePGPE_C()</title>
+<indexterm><primary>optimizePGPE_C</primary><secondary>pgpe.cpp</secondary></indexterm>
+<indexterm><primary>pgpe.cpp</primary><secondary>optimizePGPE_C</secondary></indexterm>
+<para><computeroutput>void optimizePGPE_C (int64_t runid, <link linkend="_evaluator_8h_1a1adc681c70e547867358d25d5cf7eedc">callback_parallel</link> func_par, int dim, double * init, double * lower, double * upper, double * sigma, int maxEvals, double stopfitness, int popsize, int64_t seed, int lr_decay_steps, bool use_ranking, double center_learning_rate, double stdev_learning_rate, double stdev_max_change, double b1, double b2, double eps, double decay_coef, bool normalize, double * res)</computeroutput></para><para>
+Definition at line <link linkend="_pgpe_8cpp_source_1l00306">306</link> of file <link linkend="_pgpe_8cpp_source">pgpe.cpp</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="pgpe_8cpp_a83f6d1c91509d2c28e236afbea4bd172_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_pgpe_8cpp_1a2143eeef8d1b83e3c6f1d7818cffaa40"/><section>
+    <title>populationPGPE_C()</title>
+<indexterm><primary>populationPGPE_C</primary><secondary>pgpe.cpp</secondary></indexterm>
+<indexterm><primary>pgpe.cpp</primary><secondary>populationPGPE_C</secondary></indexterm>
+<para><computeroutput>int populationPGPE_C (uintptr_t ptr, double * xs)</computeroutput></para><para>
+Definition at line <link linkend="_pgpe_8cpp_source_1l00420">420</link> of file <link linkend="_pgpe_8cpp_source">pgpe.cpp</link>.</para>
+</section>
+<anchor xml:id="_pgpe_8cpp_1abd7f5b28d4595d7f9102a532a9f8c367"/><section>
+    <title>resultPGPE_C()</title>
+<indexterm><primary>resultPGPE_C</primary><secondary>pgpe.cpp</secondary></indexterm>
+<indexterm><primary>pgpe.cpp</primary><secondary>resultPGPE_C</secondary></indexterm>
+<para><computeroutput>int resultPGPE_C (uintptr_t ptr, double * res)</computeroutput></para><para>
+Definition at line <link linkend="_pgpe_8cpp_source_1l00433">433</link> of file <link linkend="_pgpe_8cpp_source">pgpe.cpp</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="pgpe_8cpp_abd7f5b28d4595d7f9102a532a9f8c367_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_pgpe_8cpp_1a20da2826016ed209c84182f30949d436"/><section>
+    <title>tellPGPE_C()</title>
+<indexterm><primary>tellPGPE_C</primary><secondary>pgpe.cpp</secondary></indexterm>
+<indexterm><primary>pgpe.cpp</primary><secondary>tellPGPE_C</secondary></indexterm>
+<para><computeroutput>int tellPGPE_C (uintptr_t ptr, double * ys)</computeroutput></para><para>
+Definition at line <link linkend="_pgpe_8cpp_source_1l00410">410</link> of file <link linkend="_pgpe_8cpp_source">pgpe.cpp</link>.</para>
+</section>
+</section>
+</section>

@@ -1,0 +1,511 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_evaluator_8h_source" xml:lang="en-US">
+<title>evaluator.h</title>
+<indexterm><primary>_fcmaescpp/include/evaluator.h</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_evaluator_8h_source_1l00001"/>00001 <emphasis role="comment">/*</emphasis>
+<anchor xml:id="_evaluator_8h_source_1l00002"/>00002 <emphasis role="comment">&#32;*&#32;evaluator.hpp</emphasis>
+<anchor xml:id="_evaluator_8h_source_1l00003"/>00003 <emphasis role="comment">&#32;*</emphasis>
+<anchor xml:id="_evaluator_8h_source_1l00004"/>00004 <emphasis role="comment">&#32;*&#32;&#32;Created&#32;on:&#32;Jul&#32;12,&#32;2021</emphasis>
+<anchor xml:id="_evaluator_8h_source_1l00005"/>00005 <emphasis role="comment">&#32;*&#32;&#32;&#32;&#32;&#32;&#32;Author:&#32;Dietmar&#32;Wolz</emphasis>
+<anchor xml:id="_evaluator_8h_source_1l00006"/>00006 <emphasis role="comment">&#32;*/</emphasis>
+<anchor xml:id="_evaluator_8h_source_1l00007"/>00007 
+<anchor xml:id="_evaluator_8h_source_1l00008"/>00008 <emphasis role="preprocessor">#ifndef&#32;EVALUATOR_HPP_</emphasis>
+<anchor xml:id="_evaluator_8h_source_1l00009"/>00009 <emphasis role="preprocessor">#define&#32;EVALUATOR_HPP_</emphasis>
+<anchor xml:id="_evaluator_8h_source_1l00010"/>00010 
+<anchor xml:id="_evaluator_8h_source_1l00011"/>00011 <emphasis role="preprocessor">#include&#32;&lt;Eigen/Core&gt;</emphasis>
+<anchor xml:id="_evaluator_8h_source_1l00012"/>00012 <emphasis role="preprocessor">#include&#32;&lt;iostream&gt;</emphasis>
+<anchor xml:id="_evaluator_8h_source_1l00013"/>00013 <emphasis role="preprocessor">#include&#32;&lt;algorithm&gt;</emphasis>
+<anchor xml:id="_evaluator_8h_source_1l00014"/>00014 <emphasis role="preprocessor">#include&#32;&lt;queue&gt;</emphasis>
+<anchor xml:id="_evaluator_8h_source_1l00015"/>00015 <emphasis role="preprocessor">#include&#32;&lt;mutex&gt;</emphasis>
+<anchor xml:id="_evaluator_8h_source_1l00016"/>00016 <emphasis role="preprocessor">#include&#32;&lt;thread&gt;</emphasis>
+<anchor xml:id="_evaluator_8h_source_1l00017"/>00017 <emphasis role="preprocessor">#include&#32;&lt;random&gt;</emphasis>
+<anchor xml:id="_evaluator_8h_source_1l00018"/>00018 <emphasis role="preprocessor">#include&#32;&lt;iostream&gt;</emphasis>
+<anchor xml:id="_evaluator_8h_source_1l00019"/>00019 <emphasis role="preprocessor">#include&#32;&lt;thread&gt;</emphasis>
+<anchor xml:id="_evaluator_8h_source_1l00020"/>00020 <emphasis role="preprocessor">#include&#32;&lt;vector&gt;</emphasis>
+<anchor xml:id="_evaluator_8h_source_1l00021"/>00021 <emphasis role="preprocessor">#include&#32;&lt;chrono&gt;</emphasis>
+<anchor xml:id="_evaluator_8h_source_1l00022"/>00022 <emphasis role="preprocessor">#include&#32;&lt;condition_variable&gt;</emphasis>
+<anchor xml:id="_evaluator_8h_source_1l00023"/>00023 
+<anchor xml:id="_evaluator_8h_source_1l00024"/><link linkend="_evaluator_8h_1ab911b458d875aed088497f4823d543ae">00024</link> <emphasis role="preprocessor">#define&#32;EIGEN_VECTORIZE_SSE2</emphasis>
+<anchor xml:id="_evaluator_8h_source_1l00025"/>00025 <emphasis role="preprocessor">#include&#32;&quot;pcg_random.hpp&quot;</emphasis>
+<anchor xml:id="_evaluator_8h_source_1l00026"/>00026 
+<anchor xml:id="_evaluator_8h_source_1l00027"/><link linkend="_evaluator_8h_1a19bfb27380067c74ae297dd7dad5fb37">00027</link> <emphasis role="keyword">using&#32;</emphasis><link linkend="_evaluator_8h_1a19bfb27380067c74ae297dd7dad5fb37">Clock</link>&#32;=&#32;std::chrono::steady_clock;
+<anchor xml:id="_evaluator_8h_source_1l00028"/>00028 <emphasis role="keyword">using&#32;</emphasis>std::chrono::time_point;
+<anchor xml:id="_evaluator_8h_source_1l00029"/>00029 <emphasis role="keyword">using&#32;</emphasis>std::chrono::duration_cast;
+<anchor xml:id="_evaluator_8h_source_1l00030"/>00030 <emphasis role="keyword">using&#32;</emphasis>std::chrono::milliseconds;
+<anchor xml:id="_evaluator_8h_source_1l00031"/>00031 
+<anchor xml:id="_evaluator_8h_source_1l00032"/>00032 <emphasis role="keyword">template</emphasis>&lt;<emphasis role="keyword">typename</emphasis>&#32;T&gt;
+<anchor xml:id="_evaluator_8h_source_1l00033"/><link linkend="_classblocking__queue">00033</link> <emphasis role="keyword">class&#32;</emphasis><link linkend="_classblocking__queue_1aa80c0526fd4282dbd3a537e050f45757">blocking_queue</link>&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00034"/>00034 
+<anchor xml:id="_evaluator_8h_source_1l00035"/>00035 <emphasis role="keyword">private</emphasis>:
+<anchor xml:id="_evaluator_8h_source_1l00036"/><link linkend="_classblocking__queue_1a2c33ed2e7a23141fd39cce581856876c">00036</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">size_t</emphasis>&#32;<link linkend="_classblocking__queue_1a2c33ed2e7a23141fd39cce581856876c">_capacity</link>;
+<anchor xml:id="_evaluator_8h_source_1l00037"/><link linkend="_classblocking__queue_1a8f6f27d4596ce964f00897ebeeafa992">00037</link> &#32;&#32;&#32;&#32;std::queue&lt;T&gt;&#32;<link linkend="_classblocking__queue_1a8f6f27d4596ce964f00897ebeeafa992">_queue</link>;
+<anchor xml:id="_evaluator_8h_source_1l00038"/><link linkend="_classblocking__queue_1a13f1090b20fcc4c35c45c89c16af5c17">00038</link> &#32;&#32;&#32;&#32;std::mutex&#32;<link linkend="_classblocking__queue_1a13f1090b20fcc4c35c45c89c16af5c17">_mutex</link>;
+<anchor xml:id="_evaluator_8h_source_1l00039"/><link linkend="_classblocking__queue_1a3b8b273812e1cc86624b5f6820c56dc2">00039</link> &#32;&#32;&#32;&#32;std::condition_variable&#32;<link linkend="_classblocking__queue_1a3b8b273812e1cc86624b5f6820c56dc2">_not_full</link>;
+<anchor xml:id="_evaluator_8h_source_1l00040"/><link linkend="_classblocking__queue_1a35fddf01ee4f71752ab9e8e1ad1a2938">00040</link> &#32;&#32;&#32;&#32;std::condition_variable&#32;<link linkend="_classblocking__queue_1a35fddf01ee4f71752ab9e8e1ad1a2938">_not_empty</link>;
+<anchor xml:id="_evaluator_8h_source_1l00041"/>00041 
+<anchor xml:id="_evaluator_8h_source_1l00042"/>00042 <emphasis role="keyword">public</emphasis>:
+<anchor xml:id="_evaluator_8h_source_1l00043"/><link linkend="_classblocking__queue_1aa80c0526fd4282dbd3a537e050f45757">00043</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">inline</emphasis>&#32;<link linkend="_classblocking__queue_1aa80c0526fd4282dbd3a537e050f45757">blocking_queue</link>(<emphasis role="keywordtype">size_t</emphasis>&#32;capacity)&#32;:
+<anchor xml:id="_evaluator_8h_source_1l00044"/>00044 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classblocking__queue_1a2c33ed2e7a23141fd39cce581856876c">_capacity</link>(capacity)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00045"/>00045 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00046"/>00046 
+<anchor xml:id="_evaluator_8h_source_1l00047"/><link linkend="_classblocking__queue_1a33cda0a4f4daedc90e64d9761e826575">00047</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">inline</emphasis>&#32;<emphasis role="keywordtype">size_t</emphasis>&#32;<link linkend="_classblocking__queue_1a33cda0a4f4daedc90e64d9761e826575">size</link>()&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00048"/>00048 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;std::unique_lock&lt;std::mutex&gt;&#32;lock(<link linkend="_classblocking__queue_1a13f1090b20fcc4c35c45c89c16af5c17">_mutex</link>);
+<anchor xml:id="_evaluator_8h_source_1l00049"/>00049 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_classblocking__queue_1a8f6f27d4596ce964f00897ebeeafa992">_queue</link>.size();
+<anchor xml:id="_evaluator_8h_source_1l00050"/>00050 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00051"/>00051 
+<anchor xml:id="_evaluator_8h_source_1l00052"/>00052 &#32;&#32;&#32;&#32;<emphasis role="comment">//Inserts&#32;the&#32;specified&#32;element&#32;into&#32;this&#32;queue,</emphasis>
+<anchor xml:id="_evaluator_8h_source_1l00053"/>00053 &#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;waiting&#32;if&#32;necessary&#32;for&#32;space&#32;to&#32;become&#32;available.</emphasis>
+<anchor xml:id="_evaluator_8h_source_1l00054"/><link linkend="_classblocking__queue_1a092ad63d2f69ac2d669a91c21fb2eb37">00054</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">inline</emphasis>&#32;<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_classblocking__queue_1a092ad63d2f69ac2d669a91c21fb2eb37">put</link>(<emphasis role="keyword">const</emphasis>&#32;T&#32;&amp;elem)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00055"/>00055 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00056"/>00056 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;std::unique_lock&lt;std::mutex&gt;&#32;lock(<link linkend="_classblocking__queue_1a13f1090b20fcc4c35c45c89c16af5c17">_mutex</link>);
+<anchor xml:id="_evaluator_8h_source_1l00057"/>00057 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">while</emphasis>&#32;(<link linkend="_classblocking__queue_1a8f6f27d4596ce964f00897ebeeafa992">_queue</link>.size()&#32;&gt;=&#32;<link linkend="_classblocking__queue_1a2c33ed2e7a23141fd39cce581856876c">_capacity</link>)
+<anchor xml:id="_evaluator_8h_source_1l00058"/>00058 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classblocking__queue_1a3b8b273812e1cc86624b5f6820c56dc2">_not_full</link>.wait(lock);
+<anchor xml:id="_evaluator_8h_source_1l00059"/>00059 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classblocking__queue_1a8f6f27d4596ce964f00897ebeeafa992">_queue</link>.push(elem);
+<anchor xml:id="_evaluator_8h_source_1l00060"/>00060 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00061"/>00061 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classblocking__queue_1a35fddf01ee4f71752ab9e8e1ad1a2938">_not_empty</link>.notify_one();
+<anchor xml:id="_evaluator_8h_source_1l00062"/>00062 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00063"/>00063 
+<anchor xml:id="_evaluator_8h_source_1l00064"/>00064 &#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;Retrieves&#32;and&#32;removes&#32;the&#32;head&#32;of&#32;this&#32;queue,</emphasis>
+<anchor xml:id="_evaluator_8h_source_1l00065"/>00065 &#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;waiting&#32;if&#32;necessary&#32;until&#32;an&#32;element&#32;becomes&#32;available.</emphasis>
+<anchor xml:id="_evaluator_8h_source_1l00066"/><link linkend="_classblocking__queue_1af79de0306312960a6818b90ffbcee65a">00066</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">inline</emphasis>&#32;<emphasis role="keyword">const</emphasis>&#32;T&amp;&#32;<link linkend="_classblocking__queue_1af79de0306312960a6818b90ffbcee65a">take</link>()&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00067"/>00067 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;std::unique_lock&lt;std::mutex&gt;&#32;lock(<link linkend="_classblocking__queue_1a13f1090b20fcc4c35c45c89c16af5c17">_mutex</link>);
+<anchor xml:id="_evaluator_8h_source_1l00068"/>00068 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">while</emphasis>&#32;(<link linkend="_classblocking__queue_1a8f6f27d4596ce964f00897ebeeafa992">_queue</link>.size()&#32;==&#32;0)
+<anchor xml:id="_evaluator_8h_source_1l00069"/>00069 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classblocking__queue_1a35fddf01ee4f71752ab9e8e1ad1a2938">_not_empty</link>.wait(lock);
+<anchor xml:id="_evaluator_8h_source_1l00070"/>00070 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;T&#32;&amp;front&#32;=&#32;<link linkend="_classblocking__queue_1a8f6f27d4596ce964f00897ebeeafa992">_queue</link>.front();
+<anchor xml:id="_evaluator_8h_source_1l00071"/>00071 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classblocking__queue_1a8f6f27d4596ce964f00897ebeeafa992">_queue</link>.pop();
+<anchor xml:id="_evaluator_8h_source_1l00072"/>00072 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classblocking__queue_1a3b8b273812e1cc86624b5f6820c56dc2">_not_full</link>.notify_one();
+<anchor xml:id="_evaluator_8h_source_1l00073"/>00073 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;front;
+<anchor xml:id="_evaluator_8h_source_1l00074"/>00074 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00075"/>00075 };
+<anchor xml:id="_evaluator_8h_source_1l00076"/>00076 
+<anchor xml:id="_evaluator_8h_source_1l00077"/><link linkend="_evaluator_8h_1aeb2fc0d8c764908dd0b77ed5ab437c3f">00077</link> <emphasis role="keyword">typedef</emphasis>&#32;Eigen::Matrix&lt;double,&#32;Eigen::Dynamic,&#32;1&gt;&#32;<link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>;
+<anchor xml:id="_evaluator_8h_source_1l00078"/><link linkend="_evaluator_8h_1aa45a218a6a9d424e78898121d21f082d">00078</link> <emphasis role="keyword">typedef</emphasis>&#32;Eigen::Matrix&lt;int,&#32;Eigen::Dynamic,&#32;1&gt;&#32;<link linkend="_daoptimizer_8cpp_1aa45a218a6a9d424e78898121d21f082d">ivec</link>;
+<anchor xml:id="_evaluator_8h_source_1l00079"/><link linkend="_evaluator_8h_1af0f7533253586ad2aba962e9537d90bc">00079</link> <emphasis role="keyword">typedef</emphasis>&#32;Eigen::Matrix&lt;double,&#32;Eigen::Dynamic,&#32;Eigen::Dynamic&gt;&#32;<link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link>;
+<anchor xml:id="_evaluator_8h_source_1l00080"/><link linkend="_evaluator_8h_1abf39fef19e3ec51cce88f380c3370bff">00080</link> <emphasis role="keyword">typedef</emphasis>&#32;Eigen::Matrix&lt;int,&#32;Eigen::Dynamic,&#32;Eigen::Dynamic&gt;&#32;<link linkend="_evaluator_8h_1abf39fef19e3ec51cce88f380c3370bff">imat</link>;
+<anchor xml:id="_evaluator_8h_source_1l00081"/>00081 
+<anchor xml:id="_evaluator_8h_source_1l00082"/><link linkend="_evaluator_8h_1af419da391481d5e767cbe038009da309">00082</link> <emphasis role="keyword">typedef</emphasis>&#32;bool&#32;(*<link linkend="_evaluator_8h_1af419da391481d5e767cbe038009da309">callback_type</link>)(int,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>*,&#32;<emphasis role="keywordtype">double</emphasis>*);
+<anchor xml:id="_evaluator_8h_source_1l00083"/>00083 
+<anchor xml:id="_evaluator_8h_source_1l00084"/><link linkend="_evaluator_8h_1a1adc681c70e547867358d25d5cf7eedc">00084</link> <emphasis role="keyword">typedef</emphasis>&#32;void&#32;(*<link linkend="_evaluator_8h_1a1adc681c70e547867358d25d5cf7eedc">callback_parallel</link>)(int,&#32;int,&#32;<emphasis role="keywordtype">double</emphasis>*,&#32;<emphasis role="keywordtype">double</emphasis>*);
+<anchor xml:id="_evaluator_8h_source_1l00085"/>00085 
+<anchor xml:id="_evaluator_8h_source_1l00086"/><link linkend="_evaluator_8h_1ad0943ebd623281f526e5aee2aa818895">00086</link> <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">bool</emphasis>&#32;<link linkend="_evaluator_8h_1ad0943ebd623281f526e5aee2aa818895">noop_callback</link>(<emphasis role="keywordtype">int</emphasis>&#32;popsize,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;*x,&#32;<emphasis role="keywordtype">double</emphasis>&#32;*y)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00087"/>00087 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">true</emphasis>;
+<anchor xml:id="_evaluator_8h_source_1l00088"/>00088 }
+<anchor xml:id="_evaluator_8h_source_1l00089"/>00089 
+<anchor xml:id="_evaluator_8h_source_1l00090"/><link linkend="_evaluator_8h_1ac05c49788a31e5f7cb8efbe8ca3b548e">00090</link> <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_evaluator_8h_1ac05c49788a31e5f7cb8efbe8ca3b548e">noop_callback_par</link>(<emphasis role="keywordtype">int</emphasis>&#32;popsize,&#32;<emphasis role="keywordtype">int</emphasis>&#32;dim,&#32;<emphasis role="keywordtype">double</emphasis>&#32;*x,&#32;<emphasis role="keywordtype">double</emphasis>&#32;*y)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00091"/>00091 }
+<anchor xml:id="_evaluator_8h_source_1l00092"/>00092 
+<anchor xml:id="_evaluator_8h_source_1l00093"/><link linkend="_evaluator_8h_1a287b4a368f58519084aafdb8b9ff2142">00093</link> <emphasis role="keyword">static</emphasis>&#32;std::uniform_real_distribution&lt;&gt;&#32;<link linkend="_evaluator_8h_1a287b4a368f58519084aafdb8b9ff2142">distr_01</link>&#32;=
+<anchor xml:id="_evaluator_8h_source_1l00094"/>00094 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;std::uniform_real_distribution&lt;&gt;(0,&#32;1);
+<anchor xml:id="_evaluator_8h_source_1l00095"/>00095 
+<anchor xml:id="_evaluator_8h_source_1l00096"/><link linkend="_evaluator_8h_1a74490c9b525b6b9b79b11e2d0f2fc0be">00096</link> <emphasis role="keyword">static</emphasis>&#32;std::normal_distribution&lt;&gt;&#32;<link linkend="_evaluator_8h_1a74490c9b525b6b9b79b11e2d0f2fc0be">gauss_01</link>&#32;=&#32;std::normal_distribution&lt;&gt;(0,&#32;1);
+<anchor xml:id="_evaluator_8h_source_1l00097"/>00097 
+<anchor xml:id="_evaluator_8h_source_1l00098"/><link linkend="_evaluator_8h_1a231544ac51b3f9312c104a3b7a3c49a6">00098</link> <emphasis role="keyword">static</emphasis>&#32;Eigen::MatrixXd&#32;<link linkend="_evaluator_8h_1a231544ac51b3f9312c104a3b7a3c49a6">normal</link>(<emphasis role="keywordtype">int</emphasis>&#32;dx,&#32;<emphasis role="keywordtype">int</emphasis>&#32;dy,&#32;pcg64&#32;&amp;rs)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00099"/>00099 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;Eigen::MatrixXd::NullaryExpr(dx,&#32;dy,&#32;[&amp;]()&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00100"/>00100 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_evaluator_8h_1a74490c9b525b6b9b79b11e2d0f2fc0be">gauss_01</link>(rs);
+<anchor xml:id="_evaluator_8h_source_1l00101"/>00101 &#32;&#32;&#32;&#32;});
+<anchor xml:id="_evaluator_8h_source_1l00102"/>00102 }
+<anchor xml:id="_evaluator_8h_source_1l00103"/>00103 
+<anchor xml:id="_evaluator_8h_source_1l00104"/><link linkend="_evaluator_8h_1a5b652df2286e1f0c4dae7d4dd841bb8f">00104</link> <emphasis role="keyword">static</emphasis>&#32;Eigen::MatrixXd&#32;<link linkend="_evaluator_8h_1a5b652df2286e1f0c4dae7d4dd841bb8f">normalVec</link>(<emphasis role="keywordtype">int</emphasis>&#32;dim,&#32;pcg64&#32;&amp;rs)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00105"/>00105 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;Eigen::MatrixXd::NullaryExpr(dim,&#32;1,&#32;[&amp;]()&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00106"/>00106 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_evaluator_8h_1a74490c9b525b6b9b79b11e2d0f2fc0be">gauss_01</link>(rs);
+<anchor xml:id="_evaluator_8h_source_1l00107"/>00107 &#32;&#32;&#32;&#32;});
+<anchor xml:id="_evaluator_8h_source_1l00108"/>00108 }
+<anchor xml:id="_evaluator_8h_source_1l00109"/>00109 
+<anchor xml:id="_evaluator_8h_source_1l00110"/><link linkend="_evaluator_8h_1ad408c1ac0c479863b2d1291c483c5593">00110</link> <emphasis role="keyword">static</emphasis>&#32;Eigen::MatrixXd&#32;<link linkend="_evaluator_8h_1ad408c1ac0c479863b2d1291c483c5593">uniform</link>(<emphasis role="keywordtype">int</emphasis>&#32;dx,&#32;<emphasis role="keywordtype">int</emphasis>&#32;dy,&#32;pcg64&#32;&amp;rs)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00111"/>00111 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;Eigen::MatrixXd::NullaryExpr(dx,&#32;dy,&#32;[&amp;]()&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00112"/>00112 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_evaluator_8h_1a287b4a368f58519084aafdb8b9ff2142">distr_01</link>(rs);
+<anchor xml:id="_evaluator_8h_source_1l00113"/>00113 &#32;&#32;&#32;&#32;});
+<anchor xml:id="_evaluator_8h_source_1l00114"/>00114 }
+<anchor xml:id="_evaluator_8h_source_1l00115"/>00115 
+<anchor xml:id="_evaluator_8h_source_1l00116"/><link linkend="_evaluator_8h_1a28d3e754a2edfdf68753c5562acd87d0">00116</link> <emphasis role="keyword">static</emphasis>&#32;Eigen::MatrixXd&#32;<link linkend="_evaluator_8h_1a28d3e754a2edfdf68753c5562acd87d0">uniformVec</link>(<emphasis role="keywordtype">int</emphasis>&#32;dim,&#32;pcg64&#32;&amp;rs)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00117"/>00117 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;Eigen::MatrixXd::NullaryExpr(dim,&#32;1,&#32;[&amp;]()&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00118"/>00118 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_evaluator_8h_1a287b4a368f58519084aafdb8b9ff2142">distr_01</link>(rs);
+<anchor xml:id="_evaluator_8h_source_1l00119"/>00119 &#32;&#32;&#32;&#32;});
+<anchor xml:id="_evaluator_8h_source_1l00120"/>00120 }
+<anchor xml:id="_evaluator_8h_source_1l00121"/>00121 
+<anchor xml:id="_evaluator_8h_source_1l00122"/><link linkend="_evaluator_8h_1a0007d50439e7d7122b6dd54d05c7c45b">00122</link> <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_evaluator_8h_1a0007d50439e7d7122b6dd54d05c7c45b">rand01</link>(pcg64&#32;&amp;rs)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00123"/>00123 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_evaluator_8h_1a287b4a368f58519084aafdb8b9ff2142">distr_01</link>(rs);
+<anchor xml:id="_evaluator_8h_source_1l00124"/>00124 }
+<anchor xml:id="_evaluator_8h_source_1l00125"/>00125 
+<anchor xml:id="_evaluator_8h_source_1l00126"/><link linkend="_evaluator_8h_1a3f89a72cbd8f38570fbb77117bdc7cbb">00126</link> <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_evaluator_8h_1a3f89a72cbd8f38570fbb77117bdc7cbb">randInt</link>(pcg64&#32;&amp;rs,&#32;<emphasis role="keywordtype">int</emphasis>&#32;max)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00127"/>00127 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>)&#32;(max&#32;*&#32;<link linkend="_evaluator_8h_1a287b4a368f58519084aafdb8b9ff2142">distr_01</link>(rs));
+<anchor xml:id="_evaluator_8h_source_1l00128"/>00128 }
+<anchor xml:id="_evaluator_8h_source_1l00129"/>00129 
+<anchor xml:id="_evaluator_8h_source_1l00130"/><link linkend="_evaluator_8h_1aa3d770d0f4bda035e2cc8c6f5c1b0aee">00130</link> <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_evaluator_8h_1aa3d770d0f4bda035e2cc8c6f5c1b0aee">normreal</link>(pcg64&#32;&amp;rs,&#32;<emphasis role="keywordtype">double</emphasis>&#32;mu,&#32;<emphasis role="keywordtype">double</emphasis>&#32;sdev)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00131"/>00131 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_evaluator_8h_1a74490c9b525b6b9b79b11e2d0f2fc0be">gauss_01</link>(rs)&#32;*&#32;sdev&#32;+&#32;mu;
+<anchor xml:id="_evaluator_8h_source_1l00132"/>00132 }
+<anchor xml:id="_evaluator_8h_source_1l00133"/>00133 
+<anchor xml:id="_evaluator_8h_source_1l00134"/><link linkend="_evaluator_8h_1a26c726f0e49c18836df96a8489dc9147">00134</link> <emphasis role="keyword">static</emphasis>&#32;<link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;<link linkend="_evaluator_8h_1a5b652df2286e1f0c4dae7d4dd841bb8f">normalVec</link>(<emphasis role="keyword">const</emphasis>&#32;<link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;&amp;mean,&#32;<emphasis role="keyword">const</emphasis>&#32;<link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;&amp;sdev,&#32;<emphasis role="keywordtype">int</emphasis>&#32;dim,&#32;pcg64&#32;&amp;rs)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00135"/>00135 &#32;&#32;&#32;&#32;<link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;nv&#32;=&#32;<link linkend="_evaluator_8h_1a5b652df2286e1f0c4dae7d4dd841bb8f">normalVec</link>(dim,&#32;rs);
+<anchor xml:id="_evaluator_8h_source_1l00136"/>00136 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;(nv.array()&#32;*&#32;sdev.array()).matrix()&#32;+&#32;mean;
+<anchor xml:id="_evaluator_8h_source_1l00137"/>00137 }
+<anchor xml:id="_evaluator_8h_source_1l00138"/>00138 
+<anchor xml:id="_evaluator_8h_source_1l00139"/><link linkend="_evaluator_8h_1a909812174fa9829bc49f6e00edb00b90">00139</link> <emphasis role="keyword">static</emphasis>&#32;<link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;<link linkend="_evaluator_8h_1a909812174fa9829bc49f6e00edb00b90">zeros</link>(<emphasis role="keywordtype">int</emphasis>&#32;n)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00140"/>00140 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;Eigen::MatrixXd::Zero(n,&#32;1);
+<anchor xml:id="_evaluator_8h_source_1l00141"/>00141 }
+<anchor xml:id="_evaluator_8h_source_1l00142"/>00142 
+<anchor xml:id="_evaluator_8h_source_1l00143"/><link linkend="_evaluator_8h_1ae5c3f13d61f9d2fc9daf17f7c1c56c98">00143</link> <emphasis role="keyword">static</emphasis>&#32;<link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link>&#32;<link linkend="_evaluator_8h_1a909812174fa9829bc49f6e00edb00b90">zeros</link>(<emphasis role="keywordtype">int</emphasis>&#32;n,&#32;<emphasis role="keywordtype">int</emphasis>&#32;m)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00144"/>00144 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;Eigen::MatrixXd::Zero(n,&#32;m);
+<anchor xml:id="_evaluator_8h_source_1l00145"/>00145 }
+<anchor xml:id="_evaluator_8h_source_1l00146"/>00146 
+<anchor xml:id="_evaluator_8h_source_1l00147"/><link linkend="_evaluator_8h_1a493b3a74ec3481711548e4b506b009cd">00147</link> <emphasis role="keyword">static</emphasis>&#32;<link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;<link linkend="_evaluator_8h_1a493b3a74ec3481711548e4b506b009cd">constant</link>(<emphasis role="keywordtype">int</emphasis>&#32;n,&#32;<emphasis role="keywordtype">double</emphasis>&#32;val)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00148"/>00148 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;Eigen::MatrixXd::Constant(n,&#32;1,&#32;val);
+<anchor xml:id="_evaluator_8h_source_1l00149"/>00149 }
+<anchor xml:id="_evaluator_8h_source_1l00150"/>00150 
+<anchor xml:id="_evaluator_8h_source_1l00151"/><link linkend="_evaluator_8h_1af16be3da823298a97b79f99d38769f75">00151</link> <emphasis role="keyword">static</emphasis>&#32;<link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link>&#32;<link linkend="_evaluator_8h_1a493b3a74ec3481711548e4b506b009cd">constant</link>(<emphasis role="keywordtype">int</emphasis>&#32;n,&#32;<emphasis role="keywordtype">int</emphasis>&#32;m,&#32;<emphasis role="keywordtype">double</emphasis>&#32;val)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00152"/>00152 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;Eigen::MatrixXd::Constant(n,&#32;m,&#32;val);
+<anchor xml:id="_evaluator_8h_source_1l00153"/>00153 }
+<anchor xml:id="_evaluator_8h_source_1l00154"/>00154 
+<anchor xml:id="_evaluator_8h_source_1l00155"/><link linkend="_struct_index_val">00155</link> <emphasis role="keyword">struct&#32;</emphasis><link linkend="_struct_index_val">IndexVal</link>&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00156"/><link linkend="_struct_index_val_1a22dbaf9b662c668008e740239224f208">00156</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_struct_index_val_1a22dbaf9b662c668008e740239224f208">index</link>;
+<anchor xml:id="_evaluator_8h_source_1l00157"/><link linkend="_struct_index_val_1a912365899c31aab0e77ec045f32a0b42">00157</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_struct_index_val_1a912365899c31aab0e77ec045f32a0b42">val</link>;
+<anchor xml:id="_evaluator_8h_source_1l00158"/>00158 };
+<anchor xml:id="_evaluator_8h_source_1l00159"/>00159 
+<anchor xml:id="_evaluator_8h_source_1l00160"/><link linkend="_evaluator_8h_1a85426eb5cecc23caa06090d795034e5c">00160</link> <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">bool</emphasis>&#32;<link linkend="_evaluator_8h_1a85426eb5cecc23caa06090d795034e5c">compareIndexVal</link>(<link linkend="_struct_index_val">IndexVal</link>&#32;i1,&#32;<link linkend="_struct_index_val">IndexVal</link>&#32;i2)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00161"/>00161 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;(i1.<link linkend="_struct_index_val_1a912365899c31aab0e77ec045f32a0b42">val</link>&#32;&lt;&#32;i2.<link linkend="_struct_index_val_1a912365899c31aab0e77ec045f32a0b42">val</link>);
+<anchor xml:id="_evaluator_8h_source_1l00162"/>00162 }
+<anchor xml:id="_evaluator_8h_source_1l00163"/>00163 
+<anchor xml:id="_evaluator_8h_source_1l00164"/><link linkend="_evaluator_8h_1a7689f88ea48c85c22d9b34208decd67c">00164</link> <emphasis role="keyword">static</emphasis>&#32;<link linkend="_daoptimizer_8cpp_1aa45a218a6a9d424e78898121d21f082d">ivec</link>&#32;<link linkend="_evaluator_8h_1a7689f88ea48c85c22d9b34208decd67c">sort_index</link>(<emphasis role="keyword">const</emphasis>&#32;<link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;&amp;x)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00165"/>00165 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;size&#32;=&#32;x.size();
+<anchor xml:id="_evaluator_8h_source_1l00166"/>00166 &#32;&#32;&#32;&#32;<link linkend="_struct_index_val">IndexVal</link>&#32;ivals[size];
+<anchor xml:id="_evaluator_8h_source_1l00167"/>00167 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;size;&#32;i++)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00168"/>00168 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ivals[i].<link linkend="_struct_index_val_1a22dbaf9b662c668008e740239224f208">index</link>&#32;=&#32;i;
+<anchor xml:id="_evaluator_8h_source_1l00169"/>00169 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ivals[i].<link linkend="_struct_index_val_1a912365899c31aab0e77ec045f32a0b42">val</link>&#32;=&#32;x[i];
+<anchor xml:id="_evaluator_8h_source_1l00170"/>00170 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00171"/>00171 &#32;&#32;&#32;&#32;std::sort(ivals,&#32;ivals&#32;+&#32;size,&#32;<link linkend="_evaluator_8h_1a85426eb5cecc23caa06090d795034e5c">compareIndexVal</link>);
+<anchor xml:id="_evaluator_8h_source_1l00172"/>00172 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;Eigen::MatrixXi::NullaryExpr(size,&#32;1,&#32;[&amp;ivals](<emphasis role="keywordtype">int</emphasis>&#32;i)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00173"/>00173 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;ivals[i].<link linkend="_struct_index_val_1a22dbaf9b662c668008e740239224f208">index</link>;
+<anchor xml:id="_evaluator_8h_source_1l00174"/>00174 &#32;&#32;&#32;&#32;});
+<anchor xml:id="_evaluator_8h_source_1l00175"/>00175 }
+<anchor xml:id="_evaluator_8h_source_1l00176"/>00176 
+<anchor xml:id="_evaluator_8h_source_1l00177"/><link linkend="_evaluator_8h_1a5f25c709f7baaf3ad28d4523f16fa93e">00177</link> <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_evaluator_8h_1a5f25c709f7baaf3ad28d4523f16fa93e">index_min</link>(<link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;&amp;v)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00178"/>00178 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;minv&#32;=&#32;DBL_MAX;
+<anchor xml:id="_evaluator_8h_source_1l00179"/>00179 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;mi&#32;=&#32;-1;
+<anchor xml:id="_evaluator_8h_source_1l00180"/>00180 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;v.size();&#32;i++)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00181"/>00181 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(v[i]&#32;&lt;&#32;minv)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00182"/>00182 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;mi&#32;=&#32;i;
+<anchor xml:id="_evaluator_8h_source_1l00183"/>00183 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;minv&#32;=&#32;v[i];
+<anchor xml:id="_evaluator_8h_source_1l00184"/>00184 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00185"/>00185 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00186"/>00186 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;mi;
+<anchor xml:id="_evaluator_8h_source_1l00187"/>00187 }
+<anchor xml:id="_evaluator_8h_source_1l00188"/>00188 
+<anchor xml:id="_evaluator_8h_source_1l00189"/>00189 <emphasis role="comment">//&#32;wrapper&#32;around&#32;the&#32;fitness&#32;function,&#32;scales&#32;according&#32;to&#32;boundaries</emphasis>
+<anchor xml:id="_evaluator_8h_source_1l00190"/>00190 
+<anchor xml:id="_evaluator_8h_source_1l00191"/><link linkend="_class_fitness">00191</link> <emphasis role="keyword">class&#32;</emphasis><link linkend="_class_fitness_1a810378027f4bbbefc1b6fe1e42c0abb2">Fitness</link>&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00192"/>00192 
+<anchor xml:id="_evaluator_8h_source_1l00193"/>00193 <emphasis role="keyword">public</emphasis>:
+<anchor xml:id="_evaluator_8h_source_1l00194"/>00194 
+<anchor xml:id="_evaluator_8h_source_1l00195"/><link linkend="_class_fitness_1a810378027f4bbbefc1b6fe1e42c0abb2">00195</link> &#32;&#32;&#32;&#32;<link linkend="_class_fitness_1a810378027f4bbbefc1b6fe1e42c0abb2">Fitness</link>(<link linkend="_evaluator_8h_1af419da391481d5e767cbe038009da309">callback_type</link>&#32;func,&#32;<link linkend="_evaluator_8h_1a1adc681c70e547867358d25d5cf7eedc">callback_parallel</link>&#32;func_par_,&#32;<emphasis role="keywordtype">int</emphasis>&#32;dim,&#32;<emphasis role="keywordtype">int</emphasis>&#32;nobj,
+<anchor xml:id="_evaluator_8h_source_1l00196"/>00196 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<link linkend="_evaluator_8h_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;&amp;lower,&#32;<emphasis role="keyword">const</emphasis>&#32;<link linkend="_evaluator_8h_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;&amp;upper)&#32;:
+<anchor xml:id="_evaluator_8h_source_1l00197"/>00197 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_fitness_1a4a7797a662230b7f29774339a5a32b73">_func</link>(func),&#32;<link linkend="_class_fitness_1aeb85d0ee0818d8c995c2e829dbc44c3a">_func_par</link>(func_par_),&#32;<link linkend="_class_fitness_1a573c650b339da5518a559d444e28eae4">_dim</link>(dim),&#32;<link linkend="_class_fitness_1af000c91778d06c45b09cd36c83d76d9f">_nobj</link>(nobj),&#32;<link linkend="_class_fitness_1abd64428a6046b128b3b142a2a030968f">_lower</link>(
+<anchor xml:id="_evaluator_8h_source_1l00198"/>00198 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;lower),&#32;<link linkend="_class_fitness_1acc824dbf4b0d84fa1a291bd6b16403ee">_upper</link>(upper)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00199"/>00199 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_class_fitness_1abd64428a6046b128b3b142a2a030968f">_lower</link>.size()&#32;&gt;&#32;0)&#32;{&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;bounds&#32;defined</emphasis>
+<anchor xml:id="_evaluator_8h_source_1l00200"/>00200 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;_scale&#32;=&#32;&#32;_upper&#32;-&#32;_lower;
+<anchor xml:id="_evaluator_8h_source_1l00201"/>00201 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;_typx&#32;=&#32;0.5&#32;*&#32;(_upper&#32;+&#32;_lower);
+<anchor xml:id="_evaluator_8h_source_1l00202"/>00202 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}&#32;<emphasis role="keywordflow">else</emphasis>&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00203"/>00203 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;_scale&#32;=&#32;constant(dim,&#32;1.0);
+<anchor xml:id="_evaluator_8h_source_1l00204"/>00204 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;_typx&#32;=&#32;zeros(dim);
+<anchor xml:id="_evaluator_8h_source_1l00205"/>00205 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00206"/>00206 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_fitness_1a37d7bfa82125022b6c648f5976fd5275">_evaluationCounter</link>&#32;=&#32;0;
+<anchor xml:id="_evaluator_8h_source_1l00207"/>00207 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_fitness_1ad522e44cbf9016953cd3ecaa5aaf657e">_normalize</link>&#32;=&#32;<emphasis role="keyword">false</emphasis>;
+<anchor xml:id="_evaluator_8h_source_1l00208"/>00208 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_fitness_1a14b92585c6089d0ee1dc7663c9868d5d">_terminate</link>&#32;=&#32;<emphasis role="keyword">false</emphasis>;
+<anchor xml:id="_evaluator_8h_source_1l00209"/>00209 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_fitness_1a573c650b339da5518a559d444e28eae4">_dim</link>&#32;=&#32;dim;
+<anchor xml:id="_evaluator_8h_source_1l00210"/>00210 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00211"/>00211 
+<anchor xml:id="_evaluator_8h_source_1l00212"/><link linkend="_class_fitness_1a08a70acdfa7636ae3285e3576c9e3d11">00212</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">bool</emphasis>&#32;<link linkend="_class_fitness_1a08a70acdfa7636ae3285e3576c9e3d11">terminate</link>()&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00213"/>00213 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_class_fitness_1a14b92585c6089d0ee1dc7663c9868d5d">_terminate</link>;
+<anchor xml:id="_evaluator_8h_source_1l00214"/>00214 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00215"/>00215 
+<anchor xml:id="_evaluator_8h_source_1l00216"/><link linkend="_class_fitness_1aad187f1bc51d22a4dbca1a2dc8633bc2">00216</link> &#32;&#32;&#32;&#32;<link linkend="_evaluator_8h_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;<link linkend="_class_fitness_1aad187f1bc51d22a4dbca1a2dc8633bc2">eval</link>(<emphasis role="keyword">const</emphasis>&#32;<link linkend="_evaluator_8h_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;&amp;X)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00217"/>00217 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;res[<link linkend="_class_fitness_1af000c91778d06c45b09cd36c83d76d9f">_nobj</link>];
+<anchor xml:id="_evaluator_8h_source_1l00218"/>00218 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_fitness_1a14b92585c6089d0ee1dc7663c9868d5d">_terminate</link>&#32;=&#32;<link linkend="_class_fitness_1a14b92585c6089d0ee1dc7663c9868d5d">_terminate</link>&#32;||&#32;<link linkend="_class_fitness_1a4a7797a662230b7f29774339a5a32b73">_func</link>(<link linkend="_class_fitness_1a573c650b339da5518a559d444e28eae4">_dim</link>,&#32;X.data(),&#32;res);
+<anchor xml:id="_evaluator_8h_source_1l00219"/>00219 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;<link linkend="_class_fitness_1af000c91778d06c45b09cd36c83d76d9f">_nobj</link>;&#32;i++)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00220"/>00220 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(std::isnan(res[i])&#32;||&#32;!std::isfinite(res[i]))
+<anchor xml:id="_evaluator_8h_source_1l00221"/>00221 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;res[i]&#32;=&#32;1E99;
+<anchor xml:id="_evaluator_8h_source_1l00222"/>00222 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00223"/>00223 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_fitness_1a37d7bfa82125022b6c648f5976fd5275">_evaluationCounter</link>++;
+<anchor xml:id="_evaluator_8h_source_1l00224"/>00224 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_evaluator_8h_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;rvec&#32;=&#32;Eigen::Map&lt;vec,&#32;Eigen::Unaligned&gt;(res,&#32;<link linkend="_class_fitness_1af000c91778d06c45b09cd36c83d76d9f">_nobj</link>);
+<anchor xml:id="_evaluator_8h_source_1l00225"/>00225 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;rvec;
+<anchor xml:id="_evaluator_8h_source_1l00226"/>00226 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00227"/>00227 
+<anchor xml:id="_evaluator_8h_source_1l00228"/><link linkend="_class_fitness_1ad7d85700ac92bf7e332fcc3c4855e55c">00228</link> &#32;&#32;&#32;&#32;<link linkend="_evaluator_8h_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;<link linkend="_class_fitness_1ad7d85700ac92bf7e332fcc3c4855e55c">eval</link>(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">double</emphasis>&#32;*<emphasis role="keyword">const</emphasis>&#32;p)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00229"/>00229 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;res[<link linkend="_class_fitness_1af000c91778d06c45b09cd36c83d76d9f">_nobj</link>];
+<anchor xml:id="_evaluator_8h_source_1l00230"/>00230 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_fitness_1a14b92585c6089d0ee1dc7663c9868d5d">_terminate</link>&#32;=&#32;<link linkend="_class_fitness_1a14b92585c6089d0ee1dc7663c9868d5d">_terminate</link>&#32;||&#32;<link linkend="_class_fitness_1a4a7797a662230b7f29774339a5a32b73">_func</link>(<link linkend="_class_fitness_1a573c650b339da5518a559d444e28eae4">_dim</link>,&#32;p,&#32;res);
+<anchor xml:id="_evaluator_8h_source_1l00231"/>00231 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;<link linkend="_class_fitness_1af000c91778d06c45b09cd36c83d76d9f">_nobj</link>;&#32;i++)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00232"/>00232 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(std::isnan(res[i])&#32;||&#32;!std::isfinite(res[i]))
+<anchor xml:id="_evaluator_8h_source_1l00233"/>00233 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;res[i]&#32;=&#32;1E99;
+<anchor xml:id="_evaluator_8h_source_1l00234"/>00234 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00235"/>00235 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_fitness_1a37d7bfa82125022b6c648f5976fd5275">_evaluationCounter</link>++;
+<anchor xml:id="_evaluator_8h_source_1l00236"/>00236 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_evaluator_8h_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;rvec&#32;=&#32;Eigen::Map&lt;vec,&#32;Eigen::Unaligned&gt;(res,&#32;<link linkend="_class_fitness_1af000c91778d06c45b09cd36c83d76d9f">_nobj</link>);
+<anchor xml:id="_evaluator_8h_source_1l00237"/>00237 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;rvec;
+<anchor xml:id="_evaluator_8h_source_1l00238"/>00238 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00239"/>00239 
+<anchor xml:id="_evaluator_8h_source_1l00240"/><link linkend="_class_fitness_1a2085e5ce1a0afa5949366f580d5ec5a4">00240</link> &#32;&#32;&#32;&#32;<link linkend="_evaluator_8h_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;<link linkend="_class_fitness_1a2085e5ce1a0afa5949366f580d5ec5a4">getClosestFeasible</link>(<emphasis role="keyword">const</emphasis>&#32;<link linkend="_evaluator_8h_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;&amp;X)<emphasis role="keyword">&#32;const&#32;</emphasis>{
+<anchor xml:id="_evaluator_8h_source_1l00241"/>00241 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_class_fitness_1abd64428a6046b128b3b142a2a030968f">_lower</link>.size()&#32;&gt;&#32;0)
+<anchor xml:id="_evaluator_8h_source_1l00242"/>00242 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;X.cwiseMin(<link linkend="_class_fitness_1acc824dbf4b0d84fa1a291bd6b16403ee">_upper</link>).cwiseMax(<link linkend="_class_fitness_1abd64428a6046b128b3b142a2a030968f">_lower</link>);
+<anchor xml:id="_evaluator_8h_source_1l00243"/>00243 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;X;
+<anchor xml:id="_evaluator_8h_source_1l00244"/>00244 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00245"/>00245 
+<anchor xml:id="_evaluator_8h_source_1l00246"/><link linkend="_class_fitness_1a1bc40ec5454b560389975e2a9ef8942e">00246</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_class_fitness_1a1bc40ec5454b560389975e2a9ef8942e">getClosestFeasible_i</link>(<emphasis role="keywordtype">int</emphasis>&#32;i,&#32;<emphasis role="keywordtype">double</emphasis>&#32;x_i)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00247"/>00247 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_class_fitness_1abd64428a6046b128b3b142a2a030968f">_lower</link>.size()&#32;==&#32;0&#32;?&#32;x_i&#32;:&#32;std::min(<link linkend="_class_fitness_1acc824dbf4b0d84fa1a291bd6b16403ee">_upper</link>[i],&#32;std::max(<link linkend="_class_fitness_1abd64428a6046b128b3b142a2a030968f">_lower</link>[i],&#32;x_i));
+<anchor xml:id="_evaluator_8h_source_1l00248"/>00248 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00249"/>00249 
+<anchor xml:id="_evaluator_8h_source_1l00250"/><link linkend="_class_fitness_1aba037e55263004819068b5076532b4bf">00250</link> &#32;&#32;&#32;&#32;<link linkend="_evaluator_8h_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;<link linkend="_class_fitness_1aba037e55263004819068b5076532b4bf">getClosestFeasibleNormed</link>(<emphasis role="keyword">const</emphasis>&#32;<link linkend="_evaluator_8h_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;&amp;X)<emphasis role="keyword">&#32;const&#32;</emphasis>{
+<anchor xml:id="_evaluator_8h_source_1l00251"/>00251 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_class_fitness_1abd64428a6046b128b3b142a2a030968f">_lower</link>.size()&#32;&gt;&#32;0)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00252"/>00252 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_class_fitness_1ad522e44cbf9016953cd3ecaa5aaf657e">_normalize</link>)
+<anchor xml:id="_evaluator_8h_source_1l00253"/>00253 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;X.cwiseMin(1.0).cwiseMax(-1.0);
+<anchor xml:id="_evaluator_8h_source_1l00254"/>00254 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>
+<anchor xml:id="_evaluator_8h_source_1l00255"/>00255 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;X.cwiseMin(<link linkend="_class_fitness_1acc824dbf4b0d84fa1a291bd6b16403ee">_upper</link>).cwiseMax(<link linkend="_class_fitness_1abd64428a6046b128b3b142a2a030968f">_lower</link>);
+<anchor xml:id="_evaluator_8h_source_1l00256"/>00256 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00257"/>00257 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;X;
+<anchor xml:id="_evaluator_8h_source_1l00258"/>00258 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00259"/>00259 
+<anchor xml:id="_evaluator_8h_source_1l00260"/><link linkend="_class_fitness_1a8f1605fc965e423d17c837cfba3dc4c6">00260</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_class_fitness_1a8f1605fc965e423d17c837cfba3dc4c6">setClosestFeasible</link>(<link linkend="_evaluator_8h_1af0f7533253586ad2aba962e9537d90bc">mat</link>&#32;&amp;X)<emphasis role="keyword">&#32;const&#32;</emphasis>{
+<anchor xml:id="_evaluator_8h_source_1l00261"/>00261 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_class_fitness_1abd64428a6046b128b3b142a2a030968f">_lower</link>.size()&#32;&gt;&#32;0)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00262"/>00262 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;X.cols();&#32;i++)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00263"/>00263 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_class_fitness_1ad522e44cbf9016953cd3ecaa5aaf657e">_normalize</link>)
+<anchor xml:id="_evaluator_8h_source_1l00264"/>00264 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;X.col(i)&#32;=&#32;X.col(i).cwiseMin(1.0).cwiseMax(-1.0);
+<anchor xml:id="_evaluator_8h_source_1l00265"/>00265 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>
+<anchor xml:id="_evaluator_8h_source_1l00266"/>00266 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;X.col(i)&#32;=&#32;X.col(i).cwiseMin(<link linkend="_class_fitness_1acc824dbf4b0d84fa1a291bd6b16403ee">_upper</link>).cwiseMax(<link linkend="_class_fitness_1abd64428a6046b128b3b142a2a030968f">_lower</link>);
+<anchor xml:id="_evaluator_8h_source_1l00267"/>00267 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00268"/>00268 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00269"/>00269 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00270"/>00270 
+<anchor xml:id="_evaluator_8h_source_1l00271"/><link linkend="_class_fitness_1ac9bd4bd8b140939a1fd9507160bc0b07">00271</link> &#32;&#32;&#32;&#32;<link linkend="_evaluator_8h_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;<link linkend="_class_fitness_1ac9bd4bd8b140939a1fd9507160bc0b07">norm</link>(<emphasis role="keyword">const</emphasis>&#32;<link linkend="_evaluator_8h_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;&amp;X)<emphasis role="keyword">&#32;const&#32;</emphasis>{
+<anchor xml:id="_evaluator_8h_source_1l00272"/>00272 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_class_fitness_1abd64428a6046b128b3b142a2a030968f">_lower</link>.size()&#32;==&#32;0)
+<anchor xml:id="_evaluator_8h_source_1l00273"/>00273 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;std::cout&#32;&lt;&lt;&#32;<emphasis role="stringliteral">&quot;no&#32;bounds&#32;error&quot;</emphasis>&#32;&lt;&lt;&#32;std::endl;
+<anchor xml:id="_evaluator_8h_source_1l00274"/>00274 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;((X&#32;-&#32;<link linkend="_class_fitness_1abd64428a6046b128b3b142a2a030968f">_lower</link>).array()&#32;/&#32;<link linkend="_class_fitness_1abc2f2bdcf8f5eafe359d6f7492f0a302">_scale</link>.array()).matrix();
+<anchor xml:id="_evaluator_8h_source_1l00275"/>00275 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00276"/>00276 
+<anchor xml:id="_evaluator_8h_source_1l00277"/><link linkend="_class_fitness_1a57913ab2b23ab85ae2eab0f0a3a27961">00277</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_class_fitness_1a57913ab2b23ab85ae2eab0f0a3a27961">norm_i</link>(<emphasis role="keywordtype">int</emphasis>&#32;i,&#32;<emphasis role="keywordtype">double</emphasis>&#32;x)<emphasis role="keyword">&#32;const&#32;</emphasis>{
+<anchor xml:id="_evaluator_8h_source_1l00278"/>00278 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_class_fitness_1abd64428a6046b128b3b142a2a030968f">_lower</link>.size()&#32;==&#32;0)
+<anchor xml:id="_evaluator_8h_source_1l00279"/>00279 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;std::cout&#32;&lt;&lt;&#32;<emphasis role="stringliteral">&quot;no&#32;bounds&#32;error&quot;</emphasis>&#32;&lt;&lt;&#32;std::endl;
+<anchor xml:id="_evaluator_8h_source_1l00280"/>00280 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;std::max(0.0,&#32;std::min(1.0,&#32;(x&#32;-&#32;<link linkend="_class_fitness_1abd64428a6046b128b3b142a2a030968f">_lower</link>[i])&#32;/&#32;<link linkend="_class_fitness_1abc2f2bdcf8f5eafe359d6f7492f0a302">_scale</link>[i]));&#32;<emphasis role="comment">//&#32;avoid&#32;Nan&#32;errors</emphasis>
+<anchor xml:id="_evaluator_8h_source_1l00281"/>00281 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00282"/>00282 
+<anchor xml:id="_evaluator_8h_source_1l00283"/><link linkend="_class_fitness_1a5d1edacb197d16faf0d3b2c035ab2308">00283</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">bool</emphasis>&#32;<link linkend="_class_fitness_1a5d1edacb197d16faf0d3b2c035ab2308">feasible</link>(<emphasis role="keywordtype">int</emphasis>&#32;i,&#32;<emphasis role="keywordtype">double</emphasis>&#32;x)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00284"/>00284 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_class_fitness_1abd64428a6046b128b3b142a2a030968f">_lower</link>.size()&#32;==&#32;0&#32;||&#32;(x&#32;&gt;=&#32;<link linkend="_class_fitness_1abd64428a6046b128b3b142a2a030968f">_lower</link>[i]&#32;&amp;&amp;&#32;x&#32;&lt;=&#32;<link linkend="_class_fitness_1acc824dbf4b0d84fa1a291bd6b16403ee">_upper</link>[i]);
+<anchor xml:id="_evaluator_8h_source_1l00285"/>00285 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00286"/>00286 
+<anchor xml:id="_evaluator_8h_source_1l00287"/><link linkend="_class_fitness_1a171aed8b88b47ea516a37453cb958948">00287</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">bool</emphasis>&#32;<link linkend="_class_fitness_1a171aed8b88b47ea516a37453cb958948">hasBounds</link>()&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00288"/>00288 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_class_fitness_1abd64428a6046b128b3b142a2a030968f">_lower</link>.size()&#32;!=&#32;0;
+<anchor xml:id="_evaluator_8h_source_1l00289"/>00289 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00290"/>00290 
+<anchor xml:id="_evaluator_8h_source_1l00291"/><link linkend="_class_fitness_1a0bfcc395cf728a4b91e740f4197f927b">00291</link> &#32;&#32;&#32;&#32;<link linkend="_evaluator_8h_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;<link linkend="_class_fitness_1a0bfcc395cf728a4b91e740f4197f927b">sample</link>(pcg64&#32;&amp;rs)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00292"/>00292 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_class_fitness_1abd64428a6046b128b3b142a2a030968f">_lower</link>.size()&#32;==&#32;0)
+<anchor xml:id="_evaluator_8h_source_1l00293"/>00293 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;std::cout&#32;&lt;&lt;&#32;<emphasis role="stringliteral">&quot;no&#32;bounds&#32;error&quot;</emphasis>&#32;&lt;&lt;&#32;std::endl;
+<anchor xml:id="_evaluator_8h_source_1l00294"/>00294 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_evaluator_8h_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;rv&#32;=&#32;<link linkend="_evaluator_8h_1a28d3e754a2edfdf68753c5562acd87d0">uniformVec</link>(<link linkend="_class_fitness_1a573c650b339da5518a559d444e28eae4">_dim</link>,&#32;rs);
+<anchor xml:id="_evaluator_8h_source_1l00295"/>00295 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;(rv.array()&#32;*&#32;<link linkend="_class_fitness_1abc2f2bdcf8f5eafe359d6f7492f0a302">_scale</link>.array()).matrix()&#32;+&#32;<link linkend="_class_fitness_1abd64428a6046b128b3b142a2a030968f">_lower</link>;
+<anchor xml:id="_evaluator_8h_source_1l00296"/>00296 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00297"/>00297 
+<anchor xml:id="_evaluator_8h_source_1l00298"/><link linkend="_class_fitness_1ae05d628784c7ca1954d012f23e82abf5">00298</link> &#32;&#32;&#32;&#32;<link linkend="_evaluator_8h_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;<link linkend="_class_fitness_1ae05d628784c7ca1954d012f23e82abf5">sample</link>(pcg64&#32;&amp;rs,&#32;<link linkend="_evaluator_8h_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;&amp;up,&#32;<link linkend="_evaluator_8h_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;&amp;lo)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00299"/>00299 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_evaluator_8h_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;rv&#32;=&#32;<link linkend="_evaluator_8h_1a28d3e754a2edfdf68753c5562acd87d0">uniformVec</link>(<link linkend="_class_fitness_1a573c650b339da5518a559d444e28eae4">_dim</link>,&#32;rs);
+<anchor xml:id="_evaluator_8h_source_1l00300"/>00300 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;(rv.array()&#32;*&#32;(up&#32;-&#32;lo).array()).matrix()&#32;+&#32;lo;
+<anchor xml:id="_evaluator_8h_source_1l00301"/>00301 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00302"/>00302 
+<anchor xml:id="_evaluator_8h_source_1l00303"/><link linkend="_class_fitness_1a517d31dc4378bfb8d94db9ccedaf948b">00303</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_class_fitness_1a517d31dc4378bfb8d94db9ccedaf948b">sample_i</link>(<emphasis role="keywordtype">int</emphasis>&#32;i,&#32;pcg64&#32;&amp;rs)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00304"/>00304 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_class_fitness_1abd64428a6046b128b3b142a2a030968f">_lower</link>.size()&#32;==&#32;0)
+<anchor xml:id="_evaluator_8h_source_1l00305"/>00305 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;std::cout&#32;&lt;&lt;&#32;<emphasis role="stringliteral">&quot;no&#32;bounds&#32;error&quot;</emphasis>&#32;&lt;&lt;&#32;std::endl;
+<anchor xml:id="_evaluator_8h_source_1l00306"/>00306 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_class_fitness_1abd64428a6046b128b3b142a2a030968f">_lower</link>[i]&#32;+&#32;<link linkend="_class_fitness_1abc2f2bdcf8f5eafe359d6f7492f0a302">_scale</link>[i]&#32;*&#32;<link linkend="_evaluator_8h_1a287b4a368f58519084aafdb8b9ff2142">distr_01</link>(rs);
+<anchor xml:id="_evaluator_8h_source_1l00307"/>00307 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00308"/>00308 
+<anchor xml:id="_evaluator_8h_source_1l00309"/><link linkend="_class_fitness_1a34d84883637889310f026e2aed3d1bf3">00309</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;<link linkend="_class_fitness_1a34d84883637889310f026e2aed3d1bf3">sample_i</link>(<emphasis role="keywordtype">int</emphasis>&#32;i,&#32;pcg64&#32;&amp;rs,&#32;<link linkend="_evaluator_8h_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;&amp;up,&#32;<link linkend="_evaluator_8h_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;&amp;lo)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00310"/>00310 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;lo[i]&#32;+&#32;(up[i]&#32;-&#32;lo[i])&#32;*&#32;<link linkend="_evaluator_8h_1a287b4a368f58519084aafdb8b9ff2142">distr_01</link>(rs);
+<anchor xml:id="_evaluator_8h_source_1l00311"/>00311 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00312"/>00312 
+<anchor xml:id="_evaluator_8h_source_1l00313"/><link linkend="_class_fitness_1aba60038eac4e0e15d995e57f4ba079e1">00313</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_class_fitness_1aba60038eac4e0e15d995e57f4ba079e1">evaluations</link>()&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00314"/>00314 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_class_fitness_1a37d7bfa82125022b6c648f5976fd5275">_evaluationCounter</link>;
+<anchor xml:id="_evaluator_8h_source_1l00315"/>00315 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00316"/>00316 
+<anchor xml:id="_evaluator_8h_source_1l00317"/><link linkend="_class_fitness_1adc49c4f7f25822a081a412af0acb51c4">00317</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_class_fitness_1adc49c4f7f25822a081a412af0acb51c4">resetEvaluations</link>()&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00318"/>00318 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_fitness_1a37d7bfa82125022b6c648f5976fd5275">_evaluationCounter</link>&#32;=&#32;0;
+<anchor xml:id="_evaluator_8h_source_1l00319"/>00319 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00320"/>00320 
+<anchor xml:id="_evaluator_8h_source_1l00321"/><link linkend="_class_fitness_1a4ebdd48fa1e3dea8040c9c7bcf98aa17">00321</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_class_fitness_1a4ebdd48fa1e3dea8040c9c7bcf98aa17">incrEvaluations</link>()&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00322"/>00322 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_fitness_1a37d7bfa82125022b6c648f5976fd5275">_evaluationCounter</link>++;
+<anchor xml:id="_evaluator_8h_source_1l00323"/>00323 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00324"/>00324 
+<anchor xml:id="_evaluator_8h_source_1l00325"/><link linkend="_class_fitness_1a13571dee4e75e03d9c421a42cae811b3">00325</link> &#32;&#32;&#32;&#32;<link linkend="_evaluator_8h_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;<link linkend="_class_fitness_1a13571dee4e75e03d9c421a42cae811b3">scale</link>()&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00326"/>00326 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_class_fitness_1abc2f2bdcf8f5eafe359d6f7492f0a302">_scale</link>;
+<anchor xml:id="_evaluator_8h_source_1l00327"/>00327 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00328"/>00328 
+<anchor xml:id="_evaluator_8h_source_1l00329"/><link linkend="_class_fitness_1a28d387d040da4d881537965535892e8a">00329</link> &#32;&#32;&#32;&#32;<link linkend="_evaluator_8h_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;<link linkend="_class_fitness_1a28d387d040da4d881537965535892e8a">typx</link>()&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00330"/>00330 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_class_fitness_1a576f73240084816d6a42e61d04290a2e">_typx</link>;
+<anchor xml:id="_evaluator_8h_source_1l00331"/>00331 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00332"/>00332 
+<anchor xml:id="_evaluator_8h_source_1l00333"/><link linkend="_class_fitness_1a31beb7ecb5fa49ac03b43abe444ab9a6">00333</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_class_fitness_1a31beb7ecb5fa49ac03b43abe444ab9a6">setNormalize</link>(<emphasis role="keywordtype">bool</emphasis>&#32;normalize)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00334"/>00334 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_fitness_1ad522e44cbf9016953cd3ecaa5aaf657e">_normalize</link>&#32;=&#32;normalize;
+<anchor xml:id="_evaluator_8h_source_1l00335"/>00335 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00336"/>00336 
+<anchor xml:id="_evaluator_8h_source_1l00337"/><link linkend="_class_fitness_1ac511c0bb7aaf678184edfca41d4e1a81">00337</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_class_fitness_1ac511c0bb7aaf678184edfca41d4e1a81">setTerminate</link>()&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00338"/>00338 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_fitness_1a14b92585c6089d0ee1dc7663c9868d5d">_terminate</link>&#32;=&#32;<emphasis role="keyword">true</emphasis>;
+<anchor xml:id="_evaluator_8h_source_1l00339"/>00339 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00340"/>00340 
+<anchor xml:id="_evaluator_8h_source_1l00341"/><link linkend="_class_fitness_1ab56956f8f382ffe1b9de9d35d156a65e">00341</link> &#32;&#32;&#32;&#32;<link linkend="_evaluator_8h_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;<link linkend="_class_fitness_1ab56956f8f382ffe1b9de9d35d156a65e">encode</link>(<emphasis role="keyword">const</emphasis>&#32;<link linkend="_evaluator_8h_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;&amp;X)<emphasis role="keyword">&#32;const&#32;</emphasis>{
+<anchor xml:id="_evaluator_8h_source_1l00342"/>00342 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_class_fitness_1ad522e44cbf9016953cd3ecaa5aaf657e">_normalize</link>)
+<anchor xml:id="_evaluator_8h_source_1l00343"/>00343 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;2&#32;*&#32;(X&#32;-&#32;<link linkend="_class_fitness_1a576f73240084816d6a42e61d04290a2e">_typx</link>).array()&#32;/&#32;<link linkend="_class_fitness_1abc2f2bdcf8f5eafe359d6f7492f0a302">_scale</link>.array();
+<anchor xml:id="_evaluator_8h_source_1l00344"/>00344 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>
+<anchor xml:id="_evaluator_8h_source_1l00345"/>00345 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;X;
+<anchor xml:id="_evaluator_8h_source_1l00346"/>00346 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00347"/>00347 
+<anchor xml:id="_evaluator_8h_source_1l00348"/><link linkend="_class_fitness_1a7fdca1fda75e3976b91e1e9e0eb12057">00348</link> &#32;&#32;&#32;&#32;<link linkend="_evaluator_8h_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;<link linkend="_class_fitness_1a7fdca1fda75e3976b91e1e9e0eb12057">decode</link>(<emphasis role="keyword">const</emphasis>&#32;<link linkend="_evaluator_8h_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;&amp;X)<emphasis role="keyword">&#32;const&#32;</emphasis>{
+<anchor xml:id="_evaluator_8h_source_1l00349"/>00349 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_class_fitness_1ad522e44cbf9016953cd3ecaa5aaf657e">_normalize</link>)
+<anchor xml:id="_evaluator_8h_source_1l00350"/>00350 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;0.5&#32;*&#32;(X.array()&#32;*&#32;<link linkend="_class_fitness_1abc2f2bdcf8f5eafe359d6f7492f0a302">_scale</link>.array()).matrix()&#32;+&#32;<link linkend="_class_fitness_1a576f73240084816d6a42e61d04290a2e">_typx</link>;
+<anchor xml:id="_evaluator_8h_source_1l00351"/>00351 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>
+<anchor xml:id="_evaluator_8h_source_1l00352"/>00352 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;X;
+<anchor xml:id="_evaluator_8h_source_1l00353"/>00353 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00354"/>00354 
+<anchor xml:id="_evaluator_8h_source_1l00355"/><link linkend="_class_fitness_1a780edd5ddec4867c4d59c4cd3995f6ce">00355</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_class_fitness_1a780edd5ddec4867c4d59c4cd3995f6ce">values</link>(<emphasis role="keyword">const</emphasis>&#32;<link linkend="_evaluator_8h_1af0f7533253586ad2aba962e9537d90bc">mat</link>&#32;&amp;popX,&#32;<link linkend="_evaluator_8h_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;&amp;ys)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00356"/>00356 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;popsize&#32;=&#32;popX.cols();
+<anchor xml:id="_evaluator_8h_source_1l00357"/>00357 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;n&#32;=&#32;popX.rows();
+<anchor xml:id="_evaluator_8h_source_1l00358"/>00358 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;pargs[popsize&#32;*&#32;n];
+<anchor xml:id="_evaluator_8h_source_1l00359"/>00359 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">double</emphasis>&#32;res[popsize];
+<anchor xml:id="_evaluator_8h_source_1l00360"/>00360 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;p&#32;=&#32;0;&#32;p&#32;&lt;&#32;popsize;&#32;p++)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00361"/>00361 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_evaluator_8h_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;x&#32;=&#32;<link linkend="_class_fitness_1a2085e5ce1a0afa5949366f580d5ec5a4">getClosestFeasible</link>(<link linkend="_class_fitness_1a7fdca1fda75e3976b91e1e9e0eb12057">decode</link>(popX.col(p)));
+<anchor xml:id="_evaluator_8h_source_1l00362"/>00362 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;n;&#32;i++)
+<anchor xml:id="_evaluator_8h_source_1l00363"/>00363 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pargs[p&#32;*&#32;n&#32;+&#32;i]&#32;=&#32;x(i);
+<anchor xml:id="_evaluator_8h_source_1l00364"/>00364 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00365"/>00365 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_fitness_1aeb85d0ee0818d8c995c2e829dbc44c3a">_func_par</link>(popsize,&#32;n,&#32;pargs,&#32;res);
+<anchor xml:id="_evaluator_8h_source_1l00366"/>00366 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;p&#32;=&#32;0;&#32;p&#32;&lt;&#32;popX.cols();&#32;p++)
+<anchor xml:id="_evaluator_8h_source_1l00367"/>00367 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ys[p]&#32;=&#32;res[p];
+<anchor xml:id="_evaluator_8h_source_1l00368"/>00368 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_fitness_1a37d7bfa82125022b6c648f5976fd5275">_evaluationCounter</link>&#32;+=&#32;popsize;
+<anchor xml:id="_evaluator_8h_source_1l00369"/>00369 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00370"/>00370 
+<anchor xml:id="_evaluator_8h_source_1l00371"/><link linkend="_class_fitness_1a233793c918d3978ec0e52ef8431102b6">00371</link> &#32;&#32;&#32;&#32;<link linkend="_evaluator_8h_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;<link linkend="_class_fitness_1a233793c918d3978ec0e52ef8431102b6">violations</link>(<emphasis role="keyword">const</emphasis>&#32;<link linkend="_evaluator_8h_1af0f7533253586ad2aba962e9537d90bc">mat</link>&#32;&amp;X,&#32;<emphasis role="keywordtype">double</emphasis>&#32;penalty_coef)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00372"/>00372 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_evaluator_8h_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;<link linkend="_class_fitness_1a233793c918d3978ec0e52ef8431102b6">violations</link>&#32;=&#32;<link linkend="_evaluator_8h_1a909812174fa9829bc49f6e00edb00b90">zeros</link>(X.cols());
+<anchor xml:id="_evaluator_8h_source_1l00373"/>00373 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_class_fitness_1abd64428a6046b128b3b142a2a030968f">_lower</link>.size()&#32;&gt;&#32;0)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00374"/>00374 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;X.cols();&#32;i++)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00375"/>00375 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_evaluator_8h_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;x&#32;=&#32;<link linkend="_class_fitness_1a7fdca1fda75e3976b91e1e9e0eb12057">decode</link>(X.col(i));
+<anchor xml:id="_evaluator_8h_source_1l00376"/>00376 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_fitness_1a233793c918d3978ec0e52ef8431102b6">violations</link>[i]&#32;=&#32;penalty_coef
+<anchor xml:id="_evaluator_8h_source_1l00377"/>00377 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;*&#32;((<link linkend="_class_fitness_1abd64428a6046b128b3b142a2a030968f">_lower</link>&#32;-&#32;x).cwiseMax(0).sum()
+<anchor xml:id="_evaluator_8h_source_1l00378"/>00378 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;+&#32;(x&#32;-&#32;<link linkend="_class_fitness_1acc824dbf4b0d84fa1a291bd6b16403ee">_upper</link>).cwiseMax(0).sum());
+<anchor xml:id="_evaluator_8h_source_1l00379"/>00379 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00380"/>00380 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00381"/>00381 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_class_fitness_1a233793c918d3978ec0e52ef8431102b6">violations</link>;
+<anchor xml:id="_evaluator_8h_source_1l00382"/>00382 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00383"/>00383 
+<anchor xml:id="_evaluator_8h_source_1l00384"/><link linkend="_class_fitness_1a437e35b1a2557879b07e22de801a9855">00384</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_class_fitness_1a437e35b1a2557879b07e22de801a9855">getMinValues</link>(<emphasis role="keywordtype">double</emphasis>&#32;*<emphasis role="keyword">const</emphasis>&#32;p)<emphasis role="keyword">&#32;const&#32;</emphasis>{
+<anchor xml:id="_evaluator_8h_source_1l00385"/>00385 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;<link linkend="_class_fitness_1abd64428a6046b128b3b142a2a030968f">_lower</link>.size();&#32;i++)
+<anchor xml:id="_evaluator_8h_source_1l00386"/>00386 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;p[i]&#32;=&#32;<link linkend="_class_fitness_1abd64428a6046b128b3b142a2a030968f">_lower</link>[i];
+<anchor xml:id="_evaluator_8h_source_1l00387"/>00387 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00388"/>00388 
+<anchor xml:id="_evaluator_8h_source_1l00389"/><link linkend="_class_fitness_1ab25d3d92db939b7e739f97ea73907a71">00389</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_class_fitness_1ab25d3d92db939b7e739f97ea73907a71">getMaxValues</link>(<emphasis role="keywordtype">double</emphasis>&#32;*<emphasis role="keyword">const</emphasis>&#32;p)<emphasis role="keyword">&#32;const&#32;</emphasis>{
+<anchor xml:id="_evaluator_8h_source_1l00390"/>00390 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;<link linkend="_class_fitness_1acc824dbf4b0d84fa1a291bd6b16403ee">_upper</link>.size();&#32;i++)
+<anchor xml:id="_evaluator_8h_source_1l00391"/>00391 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;p[i]&#32;=&#32;<link linkend="_class_fitness_1acc824dbf4b0d84fa1a291bd6b16403ee">_upper</link>[i];
+<anchor xml:id="_evaluator_8h_source_1l00392"/>00392 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00393"/>00393 
+<anchor xml:id="_evaluator_8h_source_1l00394"/>00394 <emphasis role="keyword">private</emphasis>:
+<anchor xml:id="_evaluator_8h_source_1l00395"/><link linkend="_class_fitness_1a4a7797a662230b7f29774339a5a32b73">00395</link> &#32;&#32;&#32;&#32;<link linkend="_evaluator_8h_1af419da391481d5e767cbe038009da309">callback_type</link>&#32;<link linkend="_class_fitness_1a4a7797a662230b7f29774339a5a32b73">_func</link>;
+<anchor xml:id="_evaluator_8h_source_1l00396"/><link linkend="_class_fitness_1aeb85d0ee0818d8c995c2e829dbc44c3a">00396</link> &#32;&#32;&#32;&#32;<link linkend="_evaluator_8h_1a1adc681c70e547867358d25d5cf7eedc">callback_parallel</link>&#32;<link linkend="_class_fitness_1aeb85d0ee0818d8c995c2e829dbc44c3a">_func_par</link>;
+<anchor xml:id="_evaluator_8h_source_1l00397"/><link linkend="_class_fitness_1a573c650b339da5518a559d444e28eae4">00397</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_class_fitness_1a573c650b339da5518a559d444e28eae4">_dim</link>;
+<anchor xml:id="_evaluator_8h_source_1l00398"/><link linkend="_class_fitness_1af000c91778d06c45b09cd36c83d76d9f">00398</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_class_fitness_1af000c91778d06c45b09cd36c83d76d9f">_nobj</link>;
+<anchor xml:id="_evaluator_8h_source_1l00399"/><link linkend="_class_fitness_1abd64428a6046b128b3b142a2a030968f">00399</link> &#32;&#32;&#32;&#32;<link linkend="_evaluator_8h_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;<link linkend="_class_fitness_1abd64428a6046b128b3b142a2a030968f">_lower</link>;
+<anchor xml:id="_evaluator_8h_source_1l00400"/><link linkend="_class_fitness_1acc824dbf4b0d84fa1a291bd6b16403ee">00400</link> &#32;&#32;&#32;&#32;<link linkend="_evaluator_8h_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;<link linkend="_class_fitness_1acc824dbf4b0d84fa1a291bd6b16403ee">_upper</link>;
+<anchor xml:id="_evaluator_8h_source_1l00401"/><link linkend="_class_fitness_1abc2f2bdcf8f5eafe359d6f7492f0a302">00401</link> &#32;&#32;&#32;&#32;<link linkend="_evaluator_8h_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;<link linkend="_class_fitness_1abc2f2bdcf8f5eafe359d6f7492f0a302">_scale</link>;
+<anchor xml:id="_evaluator_8h_source_1l00402"/><link linkend="_class_fitness_1a576f73240084816d6a42e61d04290a2e">00402</link> &#32;&#32;&#32;&#32;<link linkend="_evaluator_8h_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;<link linkend="_class_fitness_1a576f73240084816d6a42e61d04290a2e">_typx</link>;
+<anchor xml:id="_evaluator_8h_source_1l00403"/><link linkend="_class_fitness_1ad522e44cbf9016953cd3ecaa5aaf657e">00403</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">bool</emphasis>&#32;<link linkend="_class_fitness_1ad522e44cbf9016953cd3ecaa5aaf657e">_normalize</link>;
+<anchor xml:id="_evaluator_8h_source_1l00404"/><link linkend="_class_fitness_1a14b92585c6089d0ee1dc7663c9868d5d">00404</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">bool</emphasis>&#32;<link linkend="_class_fitness_1a14b92585c6089d0ee1dc7663c9868d5d">_terminate</link>;
+<anchor xml:id="_evaluator_8h_source_1l00405"/><link linkend="_class_fitness_1a37d7bfa82125022b6c648f5976fd5275">00405</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">long</emphasis>&#32;<link linkend="_class_fitness_1a37d7bfa82125022b6c648f5976fd5275">_evaluationCounter</link>;
+<anchor xml:id="_evaluator_8h_source_1l00406"/>00406 };
+<anchor xml:id="_evaluator_8h_source_1l00407"/>00407 
+<anchor xml:id="_evaluator_8h_source_1l00408"/><link linkend="_structvec__id">00408</link> <emphasis role="keyword">struct&#32;</emphasis><link linkend="_structvec__id_1a8f6fc0f6104128193ec755ab84ad5c69">vec_id</link>&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00409"/>00409 <emphasis role="keyword">public</emphasis>:
+<anchor xml:id="_evaluator_8h_source_1l00410"/>00410 
+<anchor xml:id="_evaluator_8h_source_1l00411"/><link linkend="_structvec__id_1a8f6fc0f6104128193ec755ab84ad5c69">00411</link> &#32;&#32;&#32;&#32;<link linkend="_structvec__id_1a8f6fc0f6104128193ec755ab84ad5c69">vec_id</link>(<emphasis role="keyword">const</emphasis>&#32;<link linkend="_evaluator_8h_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;&amp;v,&#32;<emphasis role="keywordtype">int</emphasis>&#32;<emphasis role="keywordtype">id</emphasis>)&#32;:
+<anchor xml:id="_evaluator_8h_source_1l00412"/>00412 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_structvec__id_1a126c3cb731d047e25c08742f735f0f13">_id</link>(id),&#32;<link linkend="_structvec__id_1af5bf436ff9f915e145a897a73e4cdac9">_v</link>(v)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00413"/>00413 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00414"/>00414 
+<anchor xml:id="_evaluator_8h_source_1l00415"/><link linkend="_structvec__id_1a126c3cb731d047e25c08742f735f0f13">00415</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_structvec__id_1a126c3cb731d047e25c08742f735f0f13">_id</link>;
+<anchor xml:id="_evaluator_8h_source_1l00416"/><link linkend="_structvec__id_1af5bf436ff9f915e145a897a73e4cdac9">00416</link> &#32;&#32;&#32;&#32;<link linkend="_evaluator_8h_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;<link linkend="_structvec__id_1af5bf436ff9f915e145a897a73e4cdac9">_v</link>;
+<anchor xml:id="_evaluator_8h_source_1l00417"/>00417 };
+<anchor xml:id="_evaluator_8h_source_1l00418"/>00418 
+<anchor xml:id="_evaluator_8h_source_1l00419"/><link linkend="_classevaluator">00419</link> <emphasis role="keyword">class&#32;</emphasis><link linkend="_classevaluator_1ad503d1b0d07dc0123f2619f613fe2365">evaluator</link>&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00420"/>00420 <emphasis role="keyword">public</emphasis>:
+<anchor xml:id="_evaluator_8h_source_1l00421"/>00421 
+<anchor xml:id="_evaluator_8h_source_1l00422"/><link linkend="_classevaluator_1ad503d1b0d07dc0123f2619f613fe2365">00422</link> &#32;&#32;&#32;&#32;<link linkend="_classevaluator_1ad503d1b0d07dc0123f2619f613fe2365">evaluator</link>(<link linkend="_class_fitness">Fitness</link>&#32;*fit,&#32;<emphasis role="keywordtype">int</emphasis>&#32;nobj,&#32;<emphasis role="keywordtype">int</emphasis>&#32;workers)&#32;:
+<anchor xml:id="_evaluator_8h_source_1l00423"/>00423 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classevaluator_1a55728e92361122eb506a3f53d7ca7965">_fit</link>(fit),&#32;<link linkend="_classevaluator_1aa9acff16e9a1fff7e8374d02bcb5897b">_nobj</link>(nobj),&#32;<link linkend="_classevaluator_1a01d0a89d9e703daa46c72471b2245727">_workers</link>(workers),&#32;<link linkend="_classevaluator_1a475abe7cc16b726f9257c4c99170903c">_stop</link>(false)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00424"/>00424 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classevaluator_1a52c19bb405788ea2d4de4915dfcce2e0">_requests</link>&#32;=&#32;<emphasis role="keyword">new</emphasis>&#32;<link linkend="_classblocking__queue">blocking_queue&lt;vec_id*&gt;</link>(2&#32;*&#32;workers);
+<anchor xml:id="_evaluator_8h_source_1l00425"/>00425 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classevaluator_1af0459baf3cf0e1917cd7254a041825f3">_evaled</link>&#32;=&#32;<emphasis role="keyword">new</emphasis>&#32;<link linkend="_classblocking__queue">blocking_queue&lt;vec_id*&gt;</link>(2&#32;*&#32;workers);
+<anchor xml:id="_evaluator_8h_source_1l00426"/>00426 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classevaluator_1a91dbe1e8f9bc305dbdd890718ce890c8">_t0</link>&#32;=&#32;Clock::now();
+<anchor xml:id="_evaluator_8h_source_1l00427"/>00427 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_classevaluator_1a01d0a89d9e703daa46c72471b2245727">_workers</link>&#32;&lt;=&#32;0)
+<anchor xml:id="_evaluator_8h_source_1l00428"/>00428 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classevaluator_1a01d0a89d9e703daa46c72471b2245727">_workers</link>&#32;=&#32;std::thread::hardware_concurrency();
+<anchor xml:id="_evaluator_8h_source_1l00429"/>00429 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;thread_id&#32;=&#32;0;&#32;thread_id&#32;&lt;&#32;<link linkend="_classevaluator_1a01d0a89d9e703daa46c72471b2245727">_workers</link>;&#32;thread_id++)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00430"/>00430 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classevaluator_1aaa142677c82d588bf35f42c80ae932e3">_jobs</link>.push_back(<link linkend="_classevaluator_1_1evaluator__job">evaluator_job</link>(thread_id,&#32;<emphasis role="keyword">this</emphasis>));
+<anchor xml:id="_evaluator_8h_source_1l00431"/>00431 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00432"/>00432 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00433"/>00433 
+<anchor xml:id="_evaluator_8h_source_1l00434"/><link linkend="_classevaluator_1a68ea26494aa55c644bbab86b39d29d9d">00434</link> &#32;&#32;&#32;&#32;<link linkend="_classevaluator_1a68ea26494aa55c644bbab86b39d29d9d">~evaluator</link>()&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00435"/>00435 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classevaluator_1aaedd24a31a5d9e98e59596ba5e86cae2">join</link>();
+<anchor xml:id="_evaluator_8h_source_1l00436"/>00436 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">delete</emphasis>&#32;<link linkend="_classevaluator_1a52c19bb405788ea2d4de4915dfcce2e0">_requests</link>;
+<anchor xml:id="_evaluator_8h_source_1l00437"/>00437 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">delete</emphasis>&#32;<link linkend="_classevaluator_1af0459baf3cf0e1917cd7254a041825f3">_evaled</link>;
+<anchor xml:id="_evaluator_8h_source_1l00438"/>00438 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00439"/>00439 
+<anchor xml:id="_evaluator_8h_source_1l00440"/><link linkend="_classevaluator_1a62e9fb557b5a2ecfabc49a01eb7f59d5">00440</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_classevaluator_1a62e9fb557b5a2ecfabc49a01eb7f59d5">evaluate</link>(<link linkend="_evaluator_8h_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;&amp;x,&#32;<emphasis role="keywordtype">int</emphasis>&#32;<emphasis role="keywordtype">id</emphasis>)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00441"/>00441 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classevaluator_1a52c19bb405788ea2d4de4915dfcce2e0">_requests</link>-&gt;put(<emphasis role="keyword">new</emphasis>&#32;<link linkend="_structvec__id">vec_id</link>(x,&#32;<emphasis role="keywordtype">id</emphasis>));
+<anchor xml:id="_evaluator_8h_source_1l00442"/>00442 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00443"/>00443 
+<anchor xml:id="_evaluator_8h_source_1l00444"/>00444 &#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;needs&#32;to&#32;be&#32;deleted</emphasis>
+<anchor xml:id="_evaluator_8h_source_1l00445"/><link linkend="_classevaluator_1a71fc6fd970c9d9f19af8202500c51b05">00445</link> &#32;&#32;&#32;&#32;<link linkend="_structvec__id">vec_id</link>*&#32;<link linkend="_classevaluator_1a71fc6fd970c9d9f19af8202500c51b05">result</link>()&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00446"/>00446 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_classevaluator_1af0459baf3cf0e1917cd7254a041825f3">_evaled</link>-&gt;take();
+<anchor xml:id="_evaluator_8h_source_1l00447"/>00447 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00448"/>00448 
+<anchor xml:id="_evaluator_8h_source_1l00449"/><link linkend="_classevaluator_1a39a80a3c8535b71a004ef2b395015ade">00449</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_classevaluator_1a39a80a3c8535b71a004ef2b395015ade">execute</link>(<emphasis role="keywordtype">int</emphasis>&#32;thread_id)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00450"/>00450 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">while</emphasis>&#32;(!<link linkend="_classevaluator_1a475abe7cc16b726f9257c4c99170903c">_stop</link>)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00451"/>00451 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_structvec__id">vec_id</link>&#32;*vid&#32;=&#32;<link linkend="_classevaluator_1a52c19bb405788ea2d4de4915dfcce2e0">_requests</link>-&gt;take();
+<anchor xml:id="_evaluator_8h_source_1l00452"/>00452 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(!<link linkend="_classevaluator_1a475abe7cc16b726f9257c4c99170903c">_stop</link>)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00453"/>00453 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">try</emphasis>&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00454"/>00454 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_evaluator_8h_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;x&#32;=&#32;<link linkend="_classevaluator_1a55728e92361122eb506a3f53d7ca7965">_fit</link>-&gt;getClosestFeasible(<link linkend="_classevaluator_1a55728e92361122eb506a3f53d7ca7965">_fit</link>-&gt;decode(vid-&gt;<link linkend="_structvec__id_1af5bf436ff9f915e145a897a73e4cdac9">_v</link>));
+<anchor xml:id="_evaluator_8h_source_1l00455"/>00455 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;vid-&gt;<link linkend="_structvec__id_1af5bf436ff9f915e145a897a73e4cdac9">_v</link>&#32;=&#32;<link linkend="_classevaluator_1a55728e92361122eb506a3f53d7ca7965">_fit</link>-&gt;eval(x);
+<anchor xml:id="_evaluator_8h_source_1l00456"/>00456 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}&#32;<emphasis role="keywordflow">catch</emphasis>&#32;(std::exception&#32;&amp;e)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00457"/>00457 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;std::cout&#32;&lt;&lt;&#32;e.what()&#32;&lt;&lt;&#32;std::endl;
+<anchor xml:id="_evaluator_8h_source_1l00458"/>00458 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;vid-&gt;<link linkend="_structvec__id_1af5bf436ff9f915e145a897a73e4cdac9">_v</link>&#32;=&#32;<link linkend="_evaluator_8h_1a493b3a74ec3481711548e4b506b009cd">constant</link>(<link linkend="_classevaluator_1aa9acff16e9a1fff7e8374d02bcb5897b">_nobj</link>,&#32;DBL_MAX);
+<anchor xml:id="_evaluator_8h_source_1l00459"/>00459 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00460"/>00460 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classevaluator_1af0459baf3cf0e1917cd7254a041825f3">_evaled</link>-&gt;put(vid);
+<anchor xml:id="_evaluator_8h_source_1l00461"/>00461 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}&#32;<emphasis role="keywordflow">else</emphasis>
+<anchor xml:id="_evaluator_8h_source_1l00462"/>00462 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">delete</emphasis>&#32;vid;
+<anchor xml:id="_evaluator_8h_source_1l00463"/>00463 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00464"/>00464 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00465"/>00465 
+<anchor xml:id="_evaluator_8h_source_1l00466"/><link linkend="_classevaluator_1aaedd24a31a5d9e98e59596ba5e86cae2">00466</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_classevaluator_1aaedd24a31a5d9e98e59596ba5e86cae2">join</link>()&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00467"/>00467 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classevaluator_1a475abe7cc16b726f9257c4c99170903c">_stop</link>&#32;=&#32;<emphasis role="keyword">true</emphasis>;
+<anchor xml:id="_evaluator_8h_source_1l00468"/>00468 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_evaluator_8h_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link>&#32;x(0);
+<anchor xml:id="_evaluator_8h_source_1l00469"/>00469 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;to&#32;release&#32;all&#32;locks</emphasis>
+<anchor xml:id="_evaluator_8h_source_1l00470"/>00470 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keyword">auto</emphasis>&#32;&amp;job&#32;:&#32;<link linkend="_classevaluator_1aaa142677c82d588bf35f42c80ae932e3">_jobs</link>)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00471"/>00471 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classevaluator_1a52c19bb405788ea2d4de4915dfcce2e0">_requests</link>-&gt;put(<emphasis role="keyword">new</emphasis>&#32;<link linkend="_structvec__id">vec_id</link>(x,&#32;0));
+<anchor xml:id="_evaluator_8h_source_1l00472"/>00472 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00473"/>00473 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keyword">auto</emphasis>&#32;&amp;job&#32;:&#32;<link linkend="_classevaluator_1aaa142677c82d588bf35f42c80ae932e3">_jobs</link>)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00474"/>00474 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;job.join();
+<anchor xml:id="_evaluator_8h_source_1l00475"/>00475 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00476"/>00476 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00477"/>00477 
+<anchor xml:id="_evaluator_8h_source_1l00478"/>00478 <emphasis role="keyword">private</emphasis>:
+<anchor xml:id="_evaluator_8h_source_1l00479"/>00479 
+<anchor xml:id="_evaluator_8h_source_1l00480"/><link linkend="_classevaluator_1_1evaluator__job">00480</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">class&#32;</emphasis><link linkend="_classevaluator_1_1evaluator__job_1ac1577bf4f13621bd5549090a62168e64">evaluator_job</link>&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00481"/>00481 
+<anchor xml:id="_evaluator_8h_source_1l00482"/>00482 &#32;&#32;&#32;&#32;<emphasis role="keyword">public</emphasis>:
+<anchor xml:id="_evaluator_8h_source_1l00483"/><link linkend="_classevaluator_1_1evaluator__job_1ac1577bf4f13621bd5549090a62168e64">00483</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classevaluator_1_1evaluator__job_1ac1577bf4f13621bd5549090a62168e64">evaluator_job</link>(<emphasis role="keywordtype">int</emphasis>&#32;<emphasis role="keywordtype">id</emphasis>,&#32;<link linkend="_classevaluator_1ad503d1b0d07dc0123f2619f613fe2365">evaluator</link>&#32;*exec)&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00484"/>00484 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classevaluator_1_1evaluator__job_1a71ac7a8c335ace505cdccd614a872e7b">_thread</link>&#32;=&#32;std::thread(&amp;<link linkend="_classevaluator_1a39a80a3c8535b71a004ef2b395015ade">evaluator::execute</link>,&#32;exec,&#32;<emphasis role="keywordtype">id</emphasis>);
+<anchor xml:id="_evaluator_8h_source_1l00485"/>00485 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00486"/>00486 
+<anchor xml:id="_evaluator_8h_source_1l00487"/><link linkend="_classevaluator_1_1evaluator__job_1a89e3493b53e70cc64148d9d9aabfb138">00487</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_classevaluator_1_1evaluator__job_1a89e3493b53e70cc64148d9d9aabfb138">join</link>()&#32;{
+<anchor xml:id="_evaluator_8h_source_1l00488"/>00488 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_classevaluator_1_1evaluator__job_1a71ac7a8c335ace505cdccd614a872e7b">_thread</link>.joinable())
+<anchor xml:id="_evaluator_8h_source_1l00489"/>00489 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classevaluator_1_1evaluator__job_1a71ac7a8c335ace505cdccd614a872e7b">_thread</link>.join();
+<anchor xml:id="_evaluator_8h_source_1l00490"/>00490 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_evaluator_8h_source_1l00491"/>00491 
+<anchor xml:id="_evaluator_8h_source_1l00492"/>00492 &#32;&#32;&#32;&#32;<emphasis role="keyword">private</emphasis>:
+<anchor xml:id="_evaluator_8h_source_1l00493"/><link linkend="_classevaluator_1_1evaluator__job_1a71ac7a8c335ace505cdccd614a872e7b">00493</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;std::thread&#32;<link linkend="_classevaluator_1_1evaluator__job_1a71ac7a8c335ace505cdccd614a872e7b">_thread</link>;
+<anchor xml:id="_evaluator_8h_source_1l00494"/>00494 &#32;&#32;&#32;&#32;};
+<anchor xml:id="_evaluator_8h_source_1l00495"/>00495 
+<anchor xml:id="_evaluator_8h_source_1l00496"/><link linkend="_classevaluator_1a55728e92361122eb506a3f53d7ca7965">00496</link> &#32;&#32;&#32;&#32;<link linkend="_class_fitness">Fitness</link>&#32;*<link linkend="_classevaluator_1a55728e92361122eb506a3f53d7ca7965">_fit</link>;
+<anchor xml:id="_evaluator_8h_source_1l00497"/><link linkend="_classevaluator_1aa9acff16e9a1fff7e8374d02bcb5897b">00497</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_classevaluator_1aa9acff16e9a1fff7e8374d02bcb5897b">_nobj</link>;
+<anchor xml:id="_evaluator_8h_source_1l00498"/><link linkend="_classevaluator_1a01d0a89d9e703daa46c72471b2245727">00498</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_classevaluator_1a01d0a89d9e703daa46c72471b2245727">_workers</link>;
+<anchor xml:id="_evaluator_8h_source_1l00499"/><link linkend="_classevaluator_1a475abe7cc16b726f9257c4c99170903c">00499</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">bool</emphasis>&#32;<link linkend="_classevaluator_1a475abe7cc16b726f9257c4c99170903c">_stop</link>;
+<anchor xml:id="_evaluator_8h_source_1l00500"/><link linkend="_classevaluator_1a52c19bb405788ea2d4de4915dfcce2e0">00500</link> &#32;&#32;&#32;&#32;<link linkend="_classblocking__queue">blocking_queue&lt;vec_id*&gt;</link>&#32;*<link linkend="_classevaluator_1a52c19bb405788ea2d4de4915dfcce2e0">_requests</link>;
+<anchor xml:id="_evaluator_8h_source_1l00501"/><link linkend="_classevaluator_1af0459baf3cf0e1917cd7254a041825f3">00501</link> &#32;&#32;&#32;&#32;<link linkend="_classblocking__queue">blocking_queue&lt;vec_id*&gt;</link>&#32;*<link linkend="_classevaluator_1af0459baf3cf0e1917cd7254a041825f3">_evaled</link>;
+<anchor xml:id="_evaluator_8h_source_1l00502"/><link linkend="_classevaluator_1aaa142677c82d588bf35f42c80ae932e3">00502</link> &#32;&#32;&#32;&#32;std::vector&lt;evaluator_job&gt;&#32;<link linkend="_classevaluator_1aaa142677c82d588bf35f42c80ae932e3">_jobs</link>;
+<anchor xml:id="_evaluator_8h_source_1l00503"/><link linkend="_classevaluator_1a91dbe1e8f9bc305dbdd890718ce890c8">00503</link> &#32;&#32;&#32;&#32;time_point&lt;Clock&gt;&#32;<link linkend="_classevaluator_1a91dbe1e8f9bc305dbdd890718ce890c8">_t0</link>;
+<anchor xml:id="_evaluator_8h_source_1l00504"/>00504 };
+<anchor xml:id="_evaluator_8h_source_1l00505"/>00505 
+<anchor xml:id="_evaluator_8h_source_1l00506"/>00506 <emphasis role="preprocessor">#endif&#32;</emphasis><emphasis role="comment">/*&#32;EVALUATOR_HPP_&#32;*/</emphasis><emphasis role="preprocessor"></emphasis>
+</programlisting></section>

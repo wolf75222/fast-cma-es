@@ -1,0 +1,946 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_namespacefcmaes_1_1mapelites" xml:lang="en-US">
+<title>fcmaes.mapelites Namespace Reference</title>
+<indexterm><primary>fcmaes.mapelites</primary></indexterm>
+<simplesect>
+    <title>Classes    </title>
+        <itemizedlist>
+            <listitem><para>class <link linkend="_classfcmaes_1_1mapelites_1_1_archive">Archive</link></para>
+
+<para>Handles the storage, organization, and management of solutions in a multi-dimensional archive for Quality-Diversity optimization. </para>
+</listitem>
+            <listitem><para>class <link linkend="_classfcmaes_1_1mapelites_1_1in__niche__filter">in_niche_filter</link></para>
+
+<para>Filters and evaluates data based on niche and fitness criteria. </para>
+</listitem>
+            <listitem><para>class <link linkend="_classfcmaes_1_1mapelites_1_1wrapper">wrapper</link></para>
+
+<para>A callable class designed to fit and evaluate a function with given inputs. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1_archive">Archive</link> <link linkend="_namespacefcmaes_1_1mapelites_1a028f687a02a53b2626abc9f046a77aa2">optimize_map_elites</link> (Callable[[ArrayLike], Tuple[float, np.ndarray]] qd_fitness, Bounds bounds, Bounds qd_bounds, Optional[int] niche_num=4000, Optional[int] samples_per_niche=20, Optional[int] workers=mp.cpu_count(), Optional[int] iterations=100, Optional[<link linkend="_classfcmaes_1_1mapelites_1_1_archive">Archive</link>] archive=None, Optional[Dict] me_params={}, Optional[Dict] cma_params={}, Optional[bool] use_stats=False)</para>
+
+<para>Optimizes a map-elites evolutionary algorithm to find diverse and high-performing solutions by distributing samples into niches, iteratively evolving them, and maintaining an archive to store the found solutions. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1_archive">Archive</link> <link linkend="_namespacefcmaes_1_1mapelites_1a49c2831aa0bf9634663977bbd6321afc">empty_archive</link> (int dim, Bounds qd_bounds, int niche_num, int samples_per_niche, Optional[bool] use_stats=False)</para>
+
+<para>Creates and initializes an archive for quality diversity (QD) experiments. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1mapelites_1ace0194d76906adbf0c0dd3db084f177c">set_KDTree</link> (<link linkend="_classfcmaes_1_1mapelites_1_1_archive">Archive</link> archive, Optional[np.ndarray] centers=None, Optional[int] niche_num=None, Optional[Bounds] qd_bounds=None, Optional[int] samples_per_niche=100)</para>
+
+<para>Sets up a KDTree for the given archive using specified or default parameters. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1_archive">Archive</link> <link linkend="_namespacefcmaes_1_1mapelites_1a9430b58efcd2bccef1537defe6b7e8db">load_archive</link> (str name, Bounds bounds, Bounds qd_bounds, Optional[int] niche_num=10000, Optional[bool] use_stats=False)</para>
+
+<para>Loads an archive based on the provided parameters. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1mapelites_1ad2ec9edcc53986935aa2f2e1127d458d">optimize_map_elites_</link> (archive, fitness, bounds, workers, me_params, cma_params)</para>
+
+<para>Optimize a solution using Map-Elites algorithm via multi-processing. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1mapelites_1a04bcf57530df0bef091b00ceb8e9d44a">run_map_elites_</link> (archive, fitness, bounds, rg, me_params, cma_params)</para>
+
+<para>Runs the MAP-Elites algorithm with optional SBX (Simulated Binary Crossover) or iso+line variation, followed by CMA-ES optimization. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1mapelites_1addca945e57b8fc097ca552903b98187f">optimize_cma_</link> (archive, fitness, bounds, rg, cma_params)</para>
+
+<para>Optimizes a solution using the Covariance Matrix Adaptation Evolution Strategy (CMA-ES). </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1mapelites_1a86f7f0503dc82b70b87a882b49a95f23">update_archive</link> (<link linkend="_classfcmaes_1_1mapelites_1_1_archive">Archive</link> archive, np.ndarray xs, Optional[Callable[[ArrayLike], Tuple[float, np.ndarray]]] fitness=None, Optional[ArrayLike] yds=None)</para>
+
+<para>Evaluates a population, updates the archive with new solutions, and determines rankings. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1mapelites_1a5c3c74816cffd5997c0f9e897205abc8">get_grid_indices</link> (ds, capacity, lb, ub)</para>
+
+<para>Computes and returns grid indices for a dataset based on the provided grid capacity, lower, and upper bounds. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1mapelites_1a5f70b23800f6a77b08d918f5aa0f9b3d">variation_</link> (pop, lower, upper, rg, dis_c=20, dis_m=20)</para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1mapelites_1aa557fd895bcaf40f495273ef16953c11">iso_dd_</link> (x1, x2, lower, upper, rg, iso_sigma=0.01, line_sigma=0.2)</para>
+
+<para>Generates isotropic deviation data within specified bounds. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1mapelites_1a1cd72ab87d7aa999a255ad854895d3aa">get_centers_</link> (niche_num, dim, samples_per_niche)</para>
+
+<para>Determines and returns the centers of niches in a defined space using k-means clustering. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Variables    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_namespacefcmaes_1_1mapelites_1ae3ff11934566d45300958dca5961a6ca">rng</link> = default_rng()</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Function Documentation</title>
+<anchor xml:id="_namespacefcmaes_1_1mapelites_1a49c2831aa0bf9634663977bbd6321afc"/><section>
+    <title>empty_archive()</title>
+<indexterm><primary>empty_archive</primary><secondary>fcmaes.mapelites</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites</primary><secondary>empty_archive</secondary></indexterm>
+<para><computeroutput> <link linkend="_classfcmaes_1_1mapelites_1_1_archive">Archive</link> fcmaes.mapelites.empty_archive (int dim, Bounds qd_bounds, int niche_num, int samples_per_niche, Optional[bool]  use_stats = <computeroutput>False</computeroutput>
+)</computeroutput></para><para>
+
+<para>Creates and initializes an archive for quality diversity (QD) experiments. </para>
+</para>
+
+<para>This function creates an <link linkend="_classfcmaes_1_1mapelites_1_1_archive">Archive</link> object with the specified dimensions, bounding box, number of niches, and optionally enables statistics collection. It also initializes the niches in the archive with a specified number of samples per niche.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>dim</entry><entry>
+<para>Dimensionality of the search/grid space for the archive. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>qd_bounds</entry><entry>
+<para>Bounds specifying the range for niche space coordinates. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>niche_num</entry><entry>
+<para>Number of niches to be created in the archive. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>samples_per_niche</entry><entry>
+<para>Number of samples to initialize in each niche. use_stats (Optional[bool], optional): If True, statistics collection will be enabled in the archive. Defaults to False.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para><link linkend="_classfcmaes_1_1mapelites_1_1_archive">Archive</link> The initialized archive object for QD experiments. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l00196">196</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1mapelites_1a1cd72ab87d7aa999a255ad854895d3aa"/><section>
+    <title>get_centers_()</title>
+<indexterm><primary>get_centers_</primary><secondary>fcmaes.mapelites</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites</primary><secondary>get_centers_</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.get_centers_ ( niche_num,  dim,  samples_per_niche)</computeroutput></para><para>
+
+<para>Determines and returns the centers of niches in a defined space using k-means clustering. </para>
+</para>
+
+<para>If the data is cached, it loads the cached centers for faster access. Otherwise, it computes the centers by applying k-means clustering on randomly generated samples and caches the result for future use.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>niche_num</entry><entry>
+<para>Number of niches or clusters to determine centers for. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>dim</entry><entry>
+<para>Dimensionality of the space where the niches are located. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>samples_per_niche</entry><entry>
+<para>Number of samples used per niche to compute the centers.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>numpy An array representing the determined centers of the niches. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l01535">1535</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1mapelites_a1cd72ab87d7aa999a255ad854895d3aa_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1mapelites_1a5c3c74816cffd5997c0f9e897205abc8"/><section>
+    <title>get_grid_indices()</title>
+<indexterm><primary>get_grid_indices</primary><secondary>fcmaes.mapelites</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites</primary><secondary>get_grid_indices</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.get_grid_indices ( ds,  capacity,  lb,  ub)</computeroutput></para><para>
+
+<para>Computes and returns grid indices for a dataset based on the provided grid capacity, lower, and upper bounds. </para>
+</para>
+
+<para>Each point in the dataset is normalized and then converted into a grid index using the specified parameters.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>ds</entry><entry>
+<para>Input dataset (2D numpy array) where each row is a point in a multi-dimensional space. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>capacity</entry><entry>
+<para>Total number of grid cells (capacity of the grid). </para>
+</entry>
+                            </row>
+                            <row>
+<entry>lb</entry><entry>
+<para>Lower bounds of the dataset in each dimension. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>ub</entry><entry>
+<para>Upper bounds of the dataset in each dimension.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>np An array of grid indices, where each index corresponds to a point in the input dataset. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l00469">469</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1mapelites_a5c3c74816cffd5997c0f9e897205abc8_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1mapelites_1aa557fd895bcaf40f495273ef16953c11"/><section>
+    <title>iso_dd_()</title>
+<indexterm><primary>iso_dd_</primary><secondary>fcmaes.mapelites</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites</primary><secondary>iso_dd_</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.iso_dd_ ( x1,  x2,  lower,  upper,  rg,  iso_sigma = <computeroutput>0.01</computeroutput>
+,  line_sigma = <computeroutput>0.2</computeroutput>
+)</computeroutput></para><para>
+
+<para>Generates isotropic deviation data within specified bounds. </para>
+</para>
+
+<para>This function creates a variation of the input data <computeroutput>x1</computeroutput> influenced by Gaussian noise parameters for isotropic and line deviations. The result is clipped to remain within the range defined by the <computeroutput>lower</computeroutput> and <computeroutput>upper</computeroutput> bounds.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>x1</entry><entry>
+<para>The primary input array for generating isotropic deviation data. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>x2</entry><entry>
+<para>The secondary input array influencing line deviation calculation. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>lower</entry><entry>
+<para>The lower bound for clipping the resulting data. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>upper</entry><entry>
+<para>The upper bound for clipping the resulting data. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>rg</entry><entry>
+<para>Random generator object used for generating Gaussian noise. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>iso_sigma</entry><entry>
+<para>Standard deviation of the isotropic Gaussian noise. Defaults to 0.01. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>line_sigma</entry><entry>
+<para>Standard deviation of the line Gaussian noise. Defaults to </para>
+</entry>
+                            </row>
+                            <row>
+<entry>0.2.</entry><entry></entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>ndarray The processed array with isotropic and line deviations applied and bounded by the given limits. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l01515">1515</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1mapelites_aa557fd895bcaf40f495273ef16953c11_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1mapelites_1a9430b58efcd2bccef1537defe6b7e8db"/><section>
+    <title>load_archive()</title>
+<indexterm><primary>load_archive</primary><secondary>fcmaes.mapelites</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites</primary><secondary>load_archive</secondary></indexterm>
+<para><computeroutput> <link linkend="_classfcmaes_1_1mapelites_1_1_archive">Archive</link> fcmaes.mapelites.load_archive (str name, Bounds bounds, Bounds qd_bounds, Optional[int]  niche_num = <computeroutput>10000</computeroutput>
+, Optional[bool]  use_stats = <computeroutput>False</computeroutput>
+)</computeroutput></para><para>
+
+<para>Loads an archive based on the provided parameters. </para>
+</para>
+
+<para>This function creates and configures an <link linkend="_classfcmaes_1_1mapelites_1_1_archive">Archive</link> instance using the specified parameters. It initializes the <link linkend="_classfcmaes_1_1mapelites_1_1_archive">Archive</link> with bounds, QD bounds, niche number, and optional usage of statistics. After initialization, it loads the archive data from the provided file name.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>name</entry><entry>
+<para>The file name from which to load the archive. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>bounds</entry><entry>
+<para>The lower and upper bounds for the archive&apos;s dimensionality. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>qd_bounds</entry><entry>
+<para>The bounds specific to the QD optimization process. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>niche_num</entry><entry>
+<para>The number of niches in the archive. Defaults to 10000. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>use_stats</entry><entry>
+<para>Flag to indicate whether statistics should be used. Defaults to False.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para><link linkend="_classfcmaes_1_1mapelites_1_1_archive">Archive</link> An <link linkend="_classfcmaes_1_1mapelites_1_1_archive">Archive</link> instance loaded with the specified configurations and data. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l00258">258</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1mapelites_1addca945e57b8fc097ca552903b98187f"/><section>
+    <title>optimize_cma_()</title>
+<indexterm><primary>optimize_cma_</primary><secondary>fcmaes.mapelites</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites</primary><secondary>optimize_cma_</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.optimize_cma_ ( archive,  fitness,  bounds,  rg,  cma_params)</computeroutput></para><para>
+
+<para>Optimizes a solution using the Covariance Matrix Adaptation Evolution Strategy (CMA-ES). </para>
+</para>
+
+<para>The function utilizes the process of evolutionary optimization based on objective fitness, adaptive step size, and population-based approach. It leverages a provided archive to introduce variations in the space of potential solutions.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>archive</entry><entry>
+<para>An instance of a solution archive storing previously evaluated solutions and assisting in generating new candidate solutions. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>fitness</entry><entry>
+<para>A callable fitness function to evaluate the quality of solutions. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>bounds</entry><entry>
+<para>The bounds or constraints of the solution space to limit candidate solutions. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>rg</entry><entry>
+<para>A random generator instance used to introduce stochasticity in optimization steps. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>cma_params</entry><entry>
+<para>A dictionary containing configuration parameters for the CMA-ES optimizer, such as population size, sigma (step size), maximum iterations, and other hyperparameters.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>ValueError</entry><entry>
+<para>If parameters in cma_params are invalid (e.g., negative population size). </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l00374">374</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1mapelites_addca945e57b8fc097ca552903b98187f_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1mapelites_addca945e57b8fc097ca552903b98187f_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1mapelites_1a028f687a02a53b2626abc9f046a77aa2"/><section>
+    <title>optimize_map_elites()</title>
+<indexterm><primary>optimize_map_elites</primary><secondary>fcmaes.mapelites</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites</primary><secondary>optimize_map_elites</secondary></indexterm>
+<para><computeroutput> <link linkend="_classfcmaes_1_1mapelites_1_1_archive">Archive</link> fcmaes.mapelites.optimize_map_elites (Callable[[ArrayLike], Tuple[float, np.ndarray]] qd_fitness, Bounds bounds, Bounds qd_bounds, Optional[int]  niche_num = <computeroutput>4000</computeroutput>
+, Optional[int]  samples_per_niche = <computeroutput>20</computeroutput>
+, Optional[int]  workers = <computeroutput>mp.cpu_count()</computeroutput>
+, Optional[int]  iterations = <computeroutput>100</computeroutput>
+, Optional[<link linkend="_classfcmaes_1_1mapelites_1_1_archive">Archive</link>]  archive = <computeroutput>None</computeroutput>
+, Optional[Dict]  me_params = <computeroutput>{}</computeroutput>
+, Optional[Dict]  cma_params = <computeroutput>{}</computeroutput>
+, Optional[bool]  use_stats = <computeroutput>False</computeroutput>
+)</computeroutput></para><para>
+
+<para>Optimizes a map-elites evolutionary algorithm to find diverse and high-performing solutions by distributing samples into niches, iteratively evolving them, and maintaining an archive to store the found solutions. </para>
+</para>
+
+<para>This function leverages a map-elites approach to optimize solutions across a given feature space or behavioral space defined by the <computeroutput>qd_bounds</computeroutput> parameter. The objective of the optimization is to populate an archive with solutions that exhibit high fitness while ensuring diversity in behavior across the space. The archive is continuously updated and sorted during the iterations to reflect the best solutions in each niche. The performance is monitored throughout the optimization process.</para>
+
+<para><literallayout><computeroutput>   qd_fitness (Callable[[ArrayLike], Tuple[float, np.ndarray]]): The quantitative fitness
+       function used to evaluate the solutions. It must return a tuple containing the fitness
+       score and the corresponding feature descriptor/behavior representation.
+</computeroutput></literallayout> 
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>bounds</entry><entry>
+<para>Represents the variable bounds for the optimization space. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>qd_bounds</entry><entry>
+<para>Defines the range of the quality-diversity feature/behavioral space. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>niche_num</entry><entry>
+<para>The total number of niches in the archive. Determines how the solutions will be distributed across the feature space. Defaults to 4000. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>samples_per_niche</entry><entry>
+<para>The number of samples generated per niche during initialization. Defaults to 20. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>workers</entry><entry>
+<para>Number of CPU workers/threads to parallelize the process. Defaults to the number of CPUs available. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>iterations</entry><entry>
+<para>The total number of iterations to evolve the archive. Defaults to 100. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>archive</entry><entry>
+<para>Pre-existing archive object for storing solutions. If <computeroutput>None</computeroutput>, a new archive is initialized. Defaults to None. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>me_params</entry><entry>
+<para>Additional hyperparameters specific to the map-elites algorithm. Defaults to an empty dictionary. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>cma_params</entry><entry>
+<para>Hyperparameters specific to the CMA-ES algorithm used for evolutionary strategies. Defaults to an empty dictionary. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>use_stats</entry><entry>
+<para>Flag to determine whether statistical data should be collected and maintained in the archive. Defaults to False.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para><link linkend="_classfcmaes_1_1mapelites_1_1_archive">Archive</link> The final archive containing diverse high-performing solutions distributed across the quality-diversity space. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l00144">144</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1mapelites_a028f687a02a53b2626abc9f046a77aa2_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1mapelites_1ad2ec9edcc53986935aa2f2e1127d458d"/><section>
+    <title>optimize_map_elites_()</title>
+<indexterm><primary>optimize_map_elites_</primary><secondary>fcmaes.mapelites</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites</primary><secondary>optimize_map_elites_</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.optimize_map_elites_ ( archive,  fitness,  bounds,  workers,  me_params,  cma_params)</computeroutput></para><para>
+
+<para>Optimize a solution using Map-Elites algorithm via multi-processing. </para>
+</para>
+
+<para>This function orchestrates the execution of the Map-Elites optimization algorithm over multiple processes. Each process operates independently with its own random generator to explore the solution space. It uses CMA-ES to update solutions iteratively. The provided parameters configure the optimization behavior, such as the solution archive, fitness evaluation function, search bounds, and process settings specific to Map-Elites and CMA-ES.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>archive</entry><entry>
+<para>A data structure to store the solutions found during the optimization process and their corresponding evaluation. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>fitness</entry><entry>
+<para>A callable function that evaluates the quality of a solution. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>bounds</entry><entry>
+<para>A sequence of tuples defining the lower and upper bounds for each decision variable. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>workers</entry><entry>
+<para>An integer specifying the number of parallel processes to run during optimization. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>me_params</entry><entry>
+<para>A dictionary or configuration object with parameters for the Map-Elites algorithm. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>cma_params</entry><entry>
+<para>A dictionary or configuration object with parameters for the Covariance Matrix Adaptation Evolution Strategy (CMA-ES). </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l00294">294</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1mapelites_ad2ec9edcc53986935aa2f2e1127d458d_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1mapelites_1a04bcf57530df0bef091b00ceb8e9d44a"/><section>
+    <title>run_map_elites_()</title>
+<indexterm><primary>run_map_elites_</primary><secondary>fcmaes.mapelites</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites</primary><secondary>run_map_elites_</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.run_map_elites_ ( archive,  fitness,  bounds,  rg,  me_params,  cma_params)</computeroutput></para><para>
+
+<para>Runs the MAP-Elites algorithm with optional SBX (Simulated Binary Crossover) or iso+line variation, followed by CMA-ES optimization. </para>
+</para>
+
+<para>The algorithm iteratively updates the archive with new solutions, balancing exploration and exploitation over the specified number of generations.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>archive</entry><entry>
+<para>An archive object for storing solutions, descriptors, and their fitness values, supporting niche identification and updating mechanisms. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>fitness</entry><entry>
+<para>Callable that computes the fitness and descriptor of a given solution. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>bounds</entry><entry>
+<para>Bounds object holding the lower and upper bounds for the solutions during variation and optimization. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>rg</entry><entry>
+<para>A random generator instance used for stochastic operations within the </para>
+</entry>
+                            </row>
+                            <row>
+<entry>algorithm.</entry><entry>
+<para></para>
+</entry>
+                            </row>
+                            <row>
+<entry>me_params</entry><entry>
+<para>Dictionary containing tunable MAP-Elites parameters with keys such as &apos;generations&apos;, &apos;chunk_size&apos;, &apos;use_sbx&apos;, &apos;dis_c&apos;, &apos;dis_m&apos;, &apos;iso_sigma&apos;, and &apos;line_sigma&apos;. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>cma_params</entry><entry>
+<para>Dictionary containing CMA-ES-specific parameters such as &apos;cma_generations&apos;. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l00325">325</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1mapelites_a04bcf57530df0bef091b00ceb8e9d44a_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1mapelites_1ace0194d76906adbf0c0dd3db084f177c"/><section>
+    <title>set_KDTree()</title>
+<indexterm><primary>set_KDTree</primary><secondary>fcmaes.mapelites</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites</primary><secondary>set_KDTree</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.set_KDTree (<link linkend="_classfcmaes_1_1mapelites_1_1_archive">Archive</link> archive, Optional[np.ndarray]  centers = <computeroutput>None</computeroutput>
+, Optional[int]   niche_num = <computeroutput>None</computeroutput>
+, Optional[Bounds]  qd_bounds = <computeroutput>None</computeroutput>
+, Optional[int]  samples_per_niche = <computeroutput>100</computeroutput>
+)</computeroutput></para><para>
+
+<para>Sets up a KDTree for the given archive using specified or default parameters. </para>
+</para>
+
+<para>This function initializes a KDTree structure with the given or generated centers, enabling efficient spatial searches within the archive. If the centers are not provided, they will be generated using the <computeroutput>get_centers_</computeroutput> function based on the number of niches, dimensionality of the bounds, and the number of samples per niche. This KDTree is essential for spatial partitioning and querying in the archive.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>archive</entry><entry>
+<para>The archive object for which the KDTree will be set up. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>centers</entry><entry>
+<para>Coordinates of the centers to construct the KDTree. If <computeroutput>None</computeroutput>, they will be generated automatically. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>niche_num</entry><entry>
+<para>The number of niches used to determine the grid of centers if <computeroutput>centers</computeroutput> is not provided. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>qd_bounds</entry><entry>
+<para>The bounds within which the niches lie. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>samples_per_niche</entry><entry>
+<para>The number of sample centers per niche to generate when <computeroutput>centers</computeroutput> is not provided. Defaults to 100. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l00227">227</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1mapelites_ace0194d76906adbf0c0dd3db084f177c_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1mapelites_ace0194d76906adbf0c0dd3db084f177c_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1mapelites_1a86f7f0503dc82b70b87a882b49a95f23"/><section>
+    <title>update_archive()</title>
+<indexterm><primary>update_archive</primary><secondary>fcmaes.mapelites</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites</primary><secondary>update_archive</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.update_archive (<link linkend="_classfcmaes_1_1mapelites_1_1_archive">Archive</link> archive, np.ndarray xs, Optional[Callable[[ArrayLike], Tuple[float, np.ndarray]]]  fitness = <computeroutput>None</computeroutput>
+, Optional[ArrayLike]  yds = <computeroutput>None</computeroutput>
+)</computeroutput></para><para>
+
+<para>Evaluates a population, updates the archive with new solutions, and determines rankings. </para>
+</para>
+
+<para>This function processes a set of solutions and their associated descriptions or fitness evaluations. The solutions are compared against an archive to determine and store better solutions. It prioritizes updates to empty niches in the archive and normalizes improvements for comparisons. The function finally returns the improvement values and the real fitness values for the solutions.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>archive</entry><entry>
+<para>The archive object where solutions and corresponding fitness data are stored. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>xs</entry><entry>
+<para>A set of solutions to be evaluated and compared against the archive. fitness (Optional[Callable[[ArrayLike], Tuple[float, np.ndarray]]]): A callable function that evaluates a solution and returns its fitness value and description. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>yds</entry><entry>
+<para>Precomputed fitness values and descriptions, if available.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>Tuple[np.ndarray, np.ndarray]: A tuple containing:<itemizedlist>
+<listitem>
+<para>Improvement values compared to archive elite solutions.</para>
+</listitem><listitem>
+<para>The real fitness values evaluated for the given solutions.</para>
+</listitem></itemizedlist>
+</para>
+</formalpara>
+
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>ValueError</entry><entry>
+<para>If `ys` or `yds` contain invalid or mismatched content. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_mapelites_8py_source_1l00423">423</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1mapelites_a86f7f0503dc82b70b87a882b49a95f23_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1mapelites_1a5f70b23800f6a77b08d918f5aa0f9b3d"/><section>
+    <title>variation_()</title>
+<indexterm><primary>variation_</primary><secondary>fcmaes.mapelites</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites</primary><secondary>variation_</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.variation_ ( pop,  lower,  upper,  rg,  dis_c = <computeroutput>20</computeroutput>
+,  dis_m = <computeroutput>20</computeroutput>
+)</computeroutput></para><para>
+Definition at line <link linkend="_mapelites_8py_source_1l01459">1459</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1mapelites_a5f70b23800f6a77b08d918f5aa0f9b3d_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+<section>
+<title>Variable Documentation</title>
+<anchor xml:id="_namespacefcmaes_1_1mapelites_1ae3ff11934566d45300958dca5961a6ca"/><section>
+    <title>rng</title>
+<indexterm><primary>rng</primary><secondary>fcmaes.mapelites</secondary></indexterm>
+<indexterm><primary>fcmaes.mapelites</primary><secondary>rng</secondary></indexterm>
+<para><computeroutput>fcmaes.mapelites.rng = default_rng()</computeroutput></para><para>
+Definition at line <link linkend="_mapelites_8py_source_1l00103">103</link> of file <link linkend="_mapelites_8py_source">mapelites.py</link>.</para>
+</section>
+</section>
+</section>

@@ -1,0 +1,214 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_classfcmaes_1_1optimizer_1_1_sequence" xml:lang="en-US">
+<title>fcmaes.optimizer.Sequence Class Reference</title>
+<indexterm><primary>fcmaes.optimizer.Sequence</primary></indexterm>
+<para>
+
+<para>A class for sequentially combining multiple optimizers. </para>
+ 
+</para>
+Inheritance diagram for fcmaes.optimizer.Sequence:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1optimizer_1_1_sequence__inherit__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Collaboration diagram for fcmaes.optimizer.Sequence:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1optimizer_1_1_sequence__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Public Member Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1optimizer_1_1_sequence_1a66a64a03f89942b1f44ed1a5e4f251db">__init__</link> (self, ArrayLike <link linkend="_classfcmaes_1_1optimizer_1_1_sequence_1a4115470350e4b99353bd0ad57f11e1c7">optimizers</link>)</para>
+
+<para>Initializes the class with a list of optimizers, calculating the total number of evaluations and preparing the combined optimizer name. </para>
+</listitem>
+            <listitem><para>Tuple[np.ndarray, float, int] <link linkend="_classfcmaes_1_1optimizer_1_1_sequence_1adc63a6013eab2ee950d72914cb655e4e">minimize</link> (self, Callable[[ArrayLike], float] fun, Bounds bounds, Optional[ArrayLike] guess=None, Optional[Union[float, ArrayLike, Callable]] sdevs=None, Optional[Generator] rg=Generator(PCG64DXSM()), store=None)</para>
+
+<para>Minimizes a given objective function using multiple optimizers and evaluates respective results to find the optimal solution. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+Public Member Functions inherited from <link linkend="_classfcmaes_1_1optimizer_1_1_optimizer">fcmaes.optimizer.Optimizer</link>        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1optimizer_1_1_optimizer_1a51efe265d8e041b095d8210878d7d7c1">__init__</link> (self, Optional[int] <link linkend="_classfcmaes_1_1optimizer_1_1_optimizer_1a434f96f307e1bf0b0196933945d518e6">max_evaluations</link>=50000, Optional[str] <link linkend="_classfcmaes_1_1optimizer_1_1_optimizer_1ae0423ec54db7b25862e01d7863ab4708">name</link>=&apos;&apos;)</para>
+
+<para>Initializes the class with specific parameters including the maximum number of evaluations and the name. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1optimizer_1_1_optimizer_1adfc4b7f5b36503f186c68d521a9ede8a">max_eval_num</link> (self, store=None)</para>
+
+<para>Evaluates and returns the maximum number of evaluations based on the provided store or the object&apos;s default value. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1optimizer_1_1_optimizer_1acf09b9b314cc4faf25c9935e76ae1821">get_count_runs</link> (self, store=None)</para>
+
+<para>Gets the count of runs from the provided store. </para>
+</listitem>
+        </itemizedlist>
+<simplesect>
+    <title>Public Attributes    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1optimizer_1_1_sequence_1a4115470350e4b99353bd0ad57f11e1c7">optimizers</link> = optimizers</para>
+
+<para>List of optimizer instances to be executed. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+Public Attributes inherited from <link linkend="_classfcmaes_1_1optimizer_1_1_optimizer">fcmaes.optimizer.Optimizer</link>        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1optimizer_1_1_optimizer_1a434f96f307e1bf0b0196933945d518e6">max_evaluations</link> = max_evaluations</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1optimizer_1_1_optimizer_1ae0423ec54db7b25862e01d7863ab4708">name</link> = name</para>
+</listitem>
+        </itemizedlist>
+<section>
+<title>Detailed Description</title>
+
+<para>A class for sequentially combining multiple optimizers. </para>
+
+
+
+<para>The <link linkend="_classfcmaes_1_1optimizer_1_1_sequence">Sequence</link> class is designed to execute a series of optimizers sequentially. Each optimizer in the provided sequence takes over from the result of the previous one, allowing for a composite approach to optimization. The class inherits from the <link linkend="_classfcmaes_1_1optimizer_1_1_optimizer">Optimizer</link> base class.</para>
+
+<para><literallayout><computeroutput>       by arrows (&apos; -&gt; &apos;).
+</computeroutput></literallayout> </para>
+<para>
+Definition at line <link linkend="_optimizer_8py_source_1l00335">335</link> of file <link linkend="_optimizer_8py_source">optimizer.py</link>.</para>
+</section>
+<section>
+<title>Constructor &amp; Destructor Documentation</title>
+<anchor xml:id="_classfcmaes_1_1optimizer_1_1_sequence_1a66a64a03f89942b1f44ed1a5e4f251db"/><section>
+    <title>__init__()</title>
+<indexterm><primary>__init__</primary><secondary>fcmaes.optimizer.Sequence</secondary></indexterm>
+<indexterm><primary>fcmaes.optimizer.Sequence</primary><secondary>__init__</secondary></indexterm>
+<para><computeroutput>fcmaes.optimizer.Sequence.__init__ ( self, ArrayLike optimizers)</computeroutput></para><para>
+
+<para>Initializes the class with a list of optimizers, calculating the total number of evaluations and preparing the combined optimizer name. </para>
+</para>
+
+<para>Each optimizer from the provided list contributes its name and maximum evaluations to compose a combined metadata representation for the initialized object.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>optimizers</entry><entry>
+<para>A list or array-like object containing optimizer instances. Each optimizer should have a <computeroutput>name</computeroutput> attribute and a <computeroutput>max_evaluations</computeroutput> attribute. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_optimizer_8py_source_1l00363">363</link> of file <link linkend="_optimizer_8py_source">optimizer.py</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Function Documentation</title>
+<anchor xml:id="_classfcmaes_1_1optimizer_1_1_sequence_1adc63a6013eab2ee950d72914cb655e4e"/><section>
+    <title>minimize()</title>
+<indexterm><primary>minimize</primary><secondary>fcmaes.optimizer.Sequence</secondary></indexterm>
+<indexterm><primary>fcmaes.optimizer.Sequence</primary><secondary>minimize</secondary></indexterm>
+<para><computeroutput> Tuple[np.ndarray, float, int] fcmaes.optimizer.Sequence.minimize ( self, Callable[[ArrayLike], float] fun, Bounds bounds, Optional[ArrayLike]  guess = <computeroutput>None</computeroutput>
+, Optional[Union[float, ArrayLike, Callable]]  sdevs = <computeroutput>None</computeroutput>
+, Optional[Generator]  rg = <computeroutput>Generator(PCG64DXSM())</computeroutput>
+,  store = <computeroutput>None</computeroutput>
+)</computeroutput></para><para>
+
+<para>Minimizes a given objective function using multiple optimizers and evaluates respective results to find the optimal solution. </para>
+</para>
+
+<para>This function iteratively utilizes different optimizers to search for the minimum value of the objective function within specified bounds while updating the best guess during the process. The total function evaluations across all optimizers are accumulated.</para>
+
+<para><literallayout><computeroutput>       fun (Callable[[ArrayLike], float]): The objective function to minimize.
+           Must accept a variable of type ArrayLike and return a float.
+</computeroutput></literallayout> 
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>bounds</entry><entry>
+<para>The bounds within which the optimization is performed. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>guess</entry><entry>
+<para>An optional initial guess for the optimization. sdevs (Optional[Union[float, ArrayLike, Callable]]): Optional standard deviations or a callable defining standard deviation that supports </para>
+</entry>
+                            </row>
+                            <row>
+<entry>optimization.</entry><entry>
+<para></para>
+</entry>
+                            </row>
+                            <row>
+<entry>rg</entry><entry>
+<para>Random number generator for stochastic techniques, defaults to numpy&apos;s Generator(PCG64DXSM). </para>
+</entry>
+                            </row>
+                            <row>
+<entry>store</entry><entry>
+<para>Optional parameter to store intermediate results or data related to the optimization process.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>Tuple[np.ndarray, float, int]: A tuple containing:<itemizedlist>
+<listitem>
+<para>The optimal parameters as a numpy ndarray.</para>
+</listitem><listitem>
+<para>The minimum value of the function found.</para>
+</listitem><listitem>
+<para>Total function evaluations across all optimizers. </para>
+</listitem></itemizedlist>
+</para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_optimizer_8py_source_1l00398">398</link> of file <link linkend="_optimizer_8py_source">optimizer.py</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Data Documentation</title>
+<anchor xml:id="_classfcmaes_1_1optimizer_1_1_sequence_1a4115470350e4b99353bd0ad57f11e1c7"/><section>
+    <title>optimizers</title>
+<indexterm><primary>optimizers</primary><secondary>fcmaes.optimizer.Sequence</secondary></indexterm>
+<indexterm><primary>fcmaes.optimizer.Sequence</primary><secondary>optimizers</secondary></indexterm>
+<para><computeroutput>fcmaes.optimizer.Sequence.optimizers = optimizers</computeroutput></para><para>
+
+<para>List of optimizer instances to be executed. </para>
+</para>
+<para>
+Definition at line <link linkend="_optimizer_8py_source_1l00365">365</link> of file <link linkend="_optimizer_8py_source">optimizer.py</link>.</para>
+</section>
+<para>
+The documentation for this class was generated from the following file:</para>
+fcmaes/<link linkend="_optimizer_8py">optimizer.py</link></section>
+</section>

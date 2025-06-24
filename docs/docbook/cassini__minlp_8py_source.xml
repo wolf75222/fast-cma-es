@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_cassini__minlp_8py_source" xml:lang="en-US">
+<title>cassini_minlp.py</title>
+<indexterm><primary>examples/cassini_minlp.py</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_cassini__minlp_8py_source_1l00001"/><link linkend="_namespaceexamples_1_1cassini__minlp">00001</link> <emphasis role="comment">#&#32;Copyright&#32;(c)&#32;Dietmar&#32;Wolz.</emphasis>
+<anchor xml:id="_cassini__minlp_8py_source_1l00002"/>00002 <emphasis role="comment">#</emphasis>
+<anchor xml:id="_cassini__minlp_8py_source_1l00003"/>00003 <emphasis role="comment">#&#32;This&#32;source&#32;code&#32;is&#32;licensed&#32;under&#32;the&#32;MIT&#32;license&#32;found&#32;in&#32;the</emphasis>
+<anchor xml:id="_cassini__minlp_8py_source_1l00004"/>00004 <emphasis role="comment">#&#32;LICENSE&#32;file&#32;in&#32;the&#32;root&#32;directory.</emphasis>
+<anchor xml:id="_cassini__minlp_8py_source_1l00005"/>00005 
+<anchor xml:id="_cassini__minlp_8py_source_1l00006"/>00006 <emphasis role="comment">#&#32;See&#32;http://www.midaco-solver.com/data/pub/CEC2019_Schlueter_Munetomo.pdf&#32;for&#32;a&#32;description&#32;of&#32;the</emphasis>
+<anchor xml:id="_cassini__minlp_8py_source_1l00007"/>00007 <emphasis role="comment">#&#32;MINLP&#32;problem&#32;solved&#32;here.&#32;</emphasis>
+<anchor xml:id="_cassini__minlp_8py_source_1l00008"/>00008 <emphasis role="comment">#&#32;Used&#32;to&#32;generate&#32;the&#32;results&#32;in&#32;https://github.com/dietmarwo/fast-cma-es/blob/master/tutorials/MINLP.adoc</emphasis>
+<anchor xml:id="_cassini__minlp_8py_source_1l00009"/>00009 
+<anchor xml:id="_cassini__minlp_8py_source_1l00010"/>00010 <emphasis role="comment">#&#32;Tested&#32;using&#32;https://docs.conda.io/en/main/miniconda.html&#32;on&#32;Linux&#32;Mint&#32;21.2</emphasis>
+<anchor xml:id="_cassini__minlp_8py_source_1l00011"/>00011 
+<anchor xml:id="_cassini__minlp_8py_source_1l00012"/>00012 <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1astro">fcmaes.astro</link>&#32;<emphasis role="keyword">import</emphasis>&#32;Cassini1minlp,&#32;Cassini1multi,&#32;cassini1minlp
+<anchor xml:id="_cassini__minlp_8py_source_1l00013"/>00013 <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1optimizer">fcmaes.optimizer</link>&#32;<emphasis role="keyword">import</emphasis>&#32;de_cma
+<anchor xml:id="_cassini__minlp_8py_source_1l00014"/>00014 <emphasis role="keyword">from</emphasis>&#32;fcmaes&#32;<emphasis role="keyword">import</emphasis>&#32;advretry,&#32;multiretry
+<anchor xml:id="_cassini__minlp_8py_source_1l00015"/>00015 
+<anchor xml:id="_cassini__minlp_8py_source_1l00016"/>00016 <emphasis role="keyword">import</emphasis>&#32;sys&#32;
+<anchor xml:id="_cassini__minlp_8py_source_1l00017"/>00017 <emphasis role="keyword">from</emphasis>&#32;loguru&#32;<emphasis role="keyword">import</emphasis>&#32;logger
+<anchor xml:id="_cassini__minlp_8py_source_1l00018"/>00018 
+<anchor xml:id="_cassini__minlp_8py_source_1l00019"/>00019 logger.remove()
+<anchor xml:id="_cassini__minlp_8py_source_1l00020"/><link linkend="_namespaceexamples_1_1cassini__minlp_1ab9469e320da447d082b3731e59e08457">00020</link> logger.add(sys.stdout,&#32;format=<emphasis role="stringliteral">&quot;{time:HH:mm:ss.SS}&#32;|&#32;{process}&#32;|&#32;{level}&#32;|&#32;{message}&quot;</emphasis>,&#32;level=<emphasis role="stringliteral">&quot;INFO&quot;</emphasis>)
+<anchor xml:id="_cassini__minlp_8py_source_1l00021"/>00021 logger.add(<emphasis role="stringliteral">&quot;log_{time}.txt&quot;</emphasis>,&#32;format=<emphasis role="stringliteral">&quot;{time:HH:mm:ss.SS}&#32;|&#32;{process}&#32;|&#32;{level}&#32;|&#32;{message}&quot;</emphasis>,&#32;level=<emphasis role="stringliteral">&quot;INFO&quot;</emphasis>)
+<anchor xml:id="_cassini__minlp_8py_source_1l00022"/>00022 
+<anchor xml:id="_cassini__minlp_8py_source_1l00023"/>00023 <emphasis role="comment">#&#32;minlp&#32;approach,&#32;planet&#32;sequence&#32;is&#32;additional&#32;arguments</emphasis>
+<anchor xml:id="_cassini__minlp_8py_source_1l00024"/><link linkend="_namespaceexamples_1_1cassini__minlp_1aa466c84c83ff750d9f87a4db3c0ccd8e">00024</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1cassini__minlp_1aa466c84c83ff750d9f87a4db3c0ccd8e">test_optimizer</link>(opt,&#32;problem,&#32;num_retries&#32;=&#32;120000,&#32;num&#32;=&#32;100,&#32;value_limit&#32;=&#32;10.0):
+<anchor xml:id="_cassini__minlp_8py_source_1l00025"/>00025 &#32;&#32;&#32;&#32;logger.info(problem.name&#32;+&#32;<emphasis role="stringliteral">&apos;&#32;&apos;</emphasis>&#32;+&#32;opt.name)
+<anchor xml:id="_cassini__minlp_8py_source_1l00026"/>00026 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;_&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(num):
+<anchor xml:id="_cassini__minlp_8py_source_1l00027"/>00027 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ret&#32;=&#32;advretry.minimize(problem.fun,&#32;problem.bounds,&#32;value_limit,&#32;
+<anchor xml:id="_cassini__minlp_8py_source_1l00028"/>00028 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;num_retries,&#32;optimizer=opt)
+<anchor xml:id="_cassini__minlp_8py_source_1l00029"/>00029 
+<anchor xml:id="_cassini__minlp_8py_source_1l00030"/><link linkend="_namespaceexamples_1_1cassini__minlp_1a3f4fa3576b8750954c4b7713b129b8a5">00030</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1cassini__minlp_1a3f4fa3576b8750954c4b7713b129b8a5">sequences</link>():
+<anchor xml:id="_cassini__minlp_8py_source_1l00031"/>00031 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;p1&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(2,4):
+<anchor xml:id="_cassini__minlp_8py_source_1l00032"/>00032 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;p2&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(2,4):
+<anchor xml:id="_cassini__minlp_8py_source_1l00033"/>00033 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;p3&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(2,4):
+<anchor xml:id="_cassini__minlp_8py_source_1l00034"/>00034 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;p4&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(3,6):
+<anchor xml:id="_cassini__minlp_8py_source_1l00035"/>00035 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">yield</emphasis>[p1,p2,p3,p4]
+<anchor xml:id="_cassini__minlp_8py_source_1l00036"/>00036 
+<anchor xml:id="_cassini__minlp_8py_source_1l00037"/>00037 <emphasis role="comment">#&#32;simultaneous&#32;optimization&#32;</emphasis>
+<anchor xml:id="_cassini__minlp_8py_source_1l00038"/><link linkend="_namespaceexamples_1_1cassini__minlp_1a94bf22b64964bb0a72821a4c7b85d291">00038</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1cassini__minlp_1a94bf22b64964bb0a72821a4c7b85d291">test_multiretry</link>(retries_inc&#32;=&#32;128,&#32;
+<anchor xml:id="_cassini__minlp_8py_source_1l00039"/>00039 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;keep&#32;=&#32;0.7,&#32;optimizer&#32;=&#32;de_cma(1500),&#32;repeat&#32;=&#32;50):
+<anchor xml:id="_cassini__minlp_8py_source_1l00040"/>00040 &#32;&#32;&#32;&#32;problems&#32;=&#32;[]
+<anchor xml:id="_cassini__minlp_8py_source_1l00041"/>00041 &#32;&#32;&#32;&#32;ids&#32;=&#32;[]
+<anchor xml:id="_cassini__minlp_8py_source_1l00042"/>00042 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;seq&#32;<emphasis role="keywordflow">in</emphasis>&#32;<link linkend="_namespaceexamples_1_1cassini__minlp_1a3f4fa3576b8750954c4b7713b129b8a5">sequences</link>():
+<anchor xml:id="_cassini__minlp_8py_source_1l00043"/>00043 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;problems.append(<link linkend="_classfcmaes_1_1astro_1_1_cassini1minlp">Cassini1minlp</link>(planets&#32;=&#32;seq))
+<anchor xml:id="_cassini__minlp_8py_source_1l00044"/>00044 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ids.append(str(seq))
+<anchor xml:id="_cassini__minlp_8py_source_1l00045"/>00045 
+<anchor xml:id="_cassini__minlp_8py_source_1l00046"/>00046 &#32;&#32;&#32;&#32;problem_stats&#32;=&#32;multiretry.minimize(problems,&#32;ids,&#32;retries_inc,&#32;retries_inc*repeat,
+<anchor xml:id="_cassini__minlp_8py_source_1l00047"/>00047 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;keep,&#32;optimizer)
+<anchor xml:id="_cassini__minlp_8py_source_1l00048"/>00048 &#32;&#32;&#32;&#32;ps&#32;=&#32;problem_stats[0]
+<anchor xml:id="_cassini__minlp_8py_source_1l00049"/>00049 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;_&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(repeat):
+<anchor xml:id="_cassini__minlp_8py_source_1l00050"/>00050 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;logger.info(<emphasis role="stringliteral">&quot;problem&#32;&quot;</emphasis>&#32;+&#32;ps.prob.name&#32;+&#32;<emphasis role="stringliteral">&apos;&#32;&apos;</emphasis>&#32;+&#32;str(ps.id))
+<anchor xml:id="_cassini__minlp_8py_source_1l00051"/>00051 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ps.retry(optimizer)
+<anchor xml:id="_cassini__minlp_8py_source_1l00052"/>00052 
+<anchor xml:id="_cassini__minlp_8py_source_1l00053"/><link linkend="_namespaceexamples_1_1cassini__minlp_1a686d98230d20b74f09e6ad1839f06ffc">00053</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1cassini__minlp_1a686d98230d20b74f09e6ad1839f06ffc">main</link>():
+<anchor xml:id="_cassini__minlp_8py_source_1l00054"/>00054 <emphasis role="comment">#&#32;&#32;&#32;&#32;test_optimizer(de_cma(1500),&#32;Cassini1minlp())&#32;</emphasis>
+<anchor xml:id="_cassini__minlp_8py_source_1l00055"/>00055 &#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1cassini__minlp_1a94bf22b64964bb0a72821a4c7b85d291">test_multiretry</link>(repeat&#32;=&#32;50)
+<anchor xml:id="_cassini__minlp_8py_source_1l00056"/>00056 &#32;&#32;&#32;&#32;
+<anchor xml:id="_cassini__minlp_8py_source_1l00057"/>00057 <emphasis role="keywordflow">if</emphasis>&#32;__name__&#32;==&#32;<emphasis role="stringliteral">&apos;__main__&apos;</emphasis>:
+<anchor xml:id="_cassini__minlp_8py_source_1l00058"/>00058 &#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1cassini__minlp_1a686d98230d20b74f09e6ad1839f06ffc">main</link>()
+<anchor xml:id="_cassini__minlp_8py_source_1l00059"/>00059 &#32;&#32;&#32;&#32;
+</programlisting></section>

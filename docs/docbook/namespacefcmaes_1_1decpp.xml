@@ -1,0 +1,256 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_namespacefcmaes_1_1decpp" xml:lang="en-US">
+<title>fcmaes.decpp Namespace Reference</title>
+<indexterm><primary>fcmaes.decpp</primary></indexterm>
+<simplesect>
+    <title>Classes    </title>
+        <itemizedlist>
+            <listitem><para>class <link linkend="_classfcmaes_1_1decpp_1_1_d_e___c">DE_C</link></para>
+
+<para>A class to perform Differential Evolution (DE) algorithm using a C implementation backend. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para>OptimizeResult <link linkend="_namespacefcmaes_1_1decpp_1a5f109c8aa67919ea612f518860268ea3">minimize</link> (Callable[[ArrayLike], float] fun, Optional[int] dim=None, Optional[Bounds] bounds=None, Optional[int] popsize=31, Optional[int] max_evaluations=100000, Optional[float] stop_fitness=-np.inf, Optional[int] keep=200, Optional[float] f=0.5, Optional[float] cr=0.9, Optional[Generator] rg=Generator(PCG64DXSM()), Optional[ArrayLike] ints=None, Optional[float] min_mutate=0.1, Optional[float] max_mutate=0.5, Optional[int] workers=1, Optional[Callable[[ArrayLike, float], bool]] is_terminate=None, Optional[ArrayLike] x0=None, Optional[Union[float, ArrayLike, Callable]] input_sigma=None, Optional[float] min_sigma=0, Optional[int] runid=0)</para>
+
+<para>Performs optimization using the Differential Evolution algorithm. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Variables    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_namespacefcmaes_1_1decpp_1a890d0db67042ae71d4c7df9adec2d3ec">optimizeDE_C</link> = libcmalib.optimizeDE_C</para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1decpp_1a6f58a442e0eb6c6c1ec1396e794faf04">argtypes</link></para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1decpp_1ae77a3d487fdde3b54015c3fcb4758e17">initDE_C</link> = libcmalib.initDE_C</para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1decpp_1abe8daeb234f718819dbb5a946b16d39b">restype</link></para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1decpp_1adecb8709958be364970da9957340521a">destroyDE_C</link> = libcmalib.destroyDE_C</para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1decpp_1a63c8f68ce2fc471736fe8dbf0a9c297e">askDE_C</link> = libcmalib.askDE_C</para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1decpp_1a42e7c91ec427be0aca79ecf4bec8319f">tellDE_C</link> = libcmalib.tellDE_C</para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1decpp_1a83480897deb0e4a967b6de51edd57f3e">populationDE_C</link> = libcmalib.populationDE_C</para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1decpp_1af82bf7db3d2be348a9dbec6a24087b14">resultDE_C</link> = libcmalib.resultDE_C</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Function Documentation</title>
+<anchor xml:id="_namespacefcmaes_1_1decpp_1a5f109c8aa67919ea612f518860268ea3"/><section>
+    <title>minimize()</title>
+<indexterm><primary>minimize</primary><secondary>fcmaes.decpp</secondary></indexterm>
+<indexterm><primary>fcmaes.decpp</primary><secondary>minimize</secondary></indexterm>
+<para><computeroutput> OptimizeResult fcmaes.decpp.minimize (Callable[[ArrayLike], float] fun, Optional[int]  dim = <computeroutput>None</computeroutput>
+, Optional[Bounds]  bounds = <computeroutput>None</computeroutput>
+, Optional[int]  popsize = <computeroutput>31</computeroutput>
+, Optional[int]  max_evaluations = <computeroutput>100000</computeroutput>
+, Optional[float]  stop_fitness = <computeroutput>-np.inf</computeroutput>
+, Optional[int]  keep = <computeroutput>200</computeroutput>
+, Optional[float]  f = <computeroutput>0.5</computeroutput>
+, Optional[float]  cr = <computeroutput>0.9</computeroutput>
+, Optional[Generator]  rg = <computeroutput>Generator(PCG64DXSM())</computeroutput>
+, Optional[ArrayLike]  ints = <computeroutput>None</computeroutput>
+, Optional[float]  min_mutate = <computeroutput>0.1</computeroutput>
+, Optional[float]  max_mutate = <computeroutput>0.5</computeroutput>
+, Optional[int]  workers = <computeroutput>1</computeroutput>
+, Optional[Callable[[ArrayLike, float], bool]]  is_terminate = <computeroutput>None</computeroutput>
+, Optional[ArrayLike]  x0 = <computeroutput>None</computeroutput>
+, Optional[Union[float, ArrayLike, Callable]]  input_sigma = <computeroutput>None</computeroutput>
+, Optional[float]  min_sigma = <computeroutput>0</computeroutput>
+, Optional[int]  runid = <computeroutput>0</computeroutput>
+)</computeroutput></para><para>
+
+<para>Performs optimization using the Differential Evolution algorithm. </para>
+</para>
+
+<para>This function seeks to find the global minimum of a given objective function by employing the Differential Evolution strategy. It supports various configurable parameters, including bounds, population size, mutation factors, and customization of the optimization process through callbacks and other options.</para>
+
+<para><literallayout><computeroutput>   fun (Callable[[ArrayLike], float]): The objective function to minimize.
+       Must take an array-like input and return a scalar float value.
+</computeroutput></literallayout> 
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>dim</entry><entry>
+<para>Dimensionality of the input space. If bounds are provided, this should match the bounds&apos; dimensionality. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>bounds</entry><entry>
+<para>Bounds on the input parameters. Should be provided as a sequence of tuples (min, max) or equivalent. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>popsize</entry><entry>
+<para>Size of the population for evolution. Defaults to 31. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>max_evaluations</entry><entry>
+<para>Maximum number of function evaluations allowed. Defaults to 100000. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>stop_fitness</entry><entry>
+<para><link linkend="_class_fitness">Fitness</link> threshold at which optimization stops. Defaults to -infinity. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>keep</entry><entry>
+<para>Number of best individuals to retain in the current population for elitism purposes. Defaults to 200. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>f</entry><entry>
+<para>Differential weight for mutation [0, 2]. Defaults to </para>
+</entry>
+                            </row>
+                            <row>
+<entry>0.5.</entry><entry>
+<para></para>
+</entry>
+                            </row>
+                            <row>
+<entry>cr</entry><entry>
+<para>Crossover probability in the range [0, 1]. Defaults to 0.9. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>rg</entry><entry>
+<para>Random number generator instance. Defaults to Generator(PCG64DXSM()). </para>
+</entry>
+                            </row>
+                            <row>
+<entry>ints</entry><entry>
+<para>Boolean array indicating which dimensions should be treated as integers during optimization. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>min_mutate</entry><entry>
+<para>Minimum mutation factor. Defaults to 0.1. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>max_mutate</entry><entry>
+<para>Maximum mutation factor. Defaults to 0.5. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>workers</entry><entry>
+<para>Number of parallel threads for evaluation. Defaults to 1. Use 0 for single-threaded execution. is_terminate (Optional[Callable[[ArrayLike, float], bool]]): Callback to determine whether to terminate the optimization early. Takes the best solution and its fitness as input. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>x0</entry><entry>
+<para>Initial positions of the population. If not provided, it is randomly initialized within bounds. input_sigma (Optional[Union[float, ArrayLike, Callable]]): Standard deviation for initializing the population. If scalar, applies to all dimensions. If callable, it should generate the array. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>min_sigma</entry><entry>
+<para>Minimum allowable standard deviation for the population. Defaults to 0. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>runid</entry><entry>
+<para>Identifier for this particular optimization run. Defaults to 0.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>OptimizeResult Object containing optimization results such as the best solution (<computeroutput>x</computeroutput>), function value (<computeroutput>fun</computeroutput>), number of evaluations (<computeroutput>nfev</computeroutput>), number of iterations (<computeroutput>nit</computeroutput>), exit status (<computeroutput>status</computeroutput>), and success flag (<computeroutput>success</computeroutput>). </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_decpp_8py_source_1l00121">121</link> of file <link linkend="_decpp_8py_source">decpp.py</link>.</para>
+</section>
+</section>
+<section>
+<title>Variable Documentation</title>
+<anchor xml:id="_namespacefcmaes_1_1decpp_1a6f58a442e0eb6c6c1ec1396e794faf04"/><section>
+    <title>argtypes</title>
+<indexterm><primary>argtypes</primary><secondary>fcmaes.decpp</secondary></indexterm>
+<indexterm><primary>fcmaes.decpp</primary><secondary>argtypes</secondary></indexterm>
+<para><computeroutput>fcmaes.decpp.argtypes</computeroutput></para><para>
+Definition at line <link linkend="_decpp_8py_source_1l00434">434</link> of file <link linkend="_decpp_8py_source">decpp.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1decpp_1a63c8f68ce2fc471736fe8dbf0a9c297e"/><section>
+    <title>askDE_C</title>
+<indexterm><primary>askDE_C</primary><secondary>fcmaes.decpp</secondary></indexterm>
+<indexterm><primary>fcmaes.decpp</primary><secondary>askDE_C</secondary></indexterm>
+<para><computeroutput>fcmaes.decpp.askDE_C = libcmalib.askDE_C</computeroutput></para><para>
+Definition at line <link linkend="_decpp_8py_source_1l00455">455</link> of file <link linkend="_decpp_8py_source">decpp.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1decpp_1adecb8709958be364970da9957340521a"/><section>
+    <title>destroyDE_C</title>
+<indexterm><primary>destroyDE_C</primary><secondary>fcmaes.decpp</secondary></indexterm>
+<indexterm><primary>fcmaes.decpp</primary><secondary>destroyDE_C</secondary></indexterm>
+<para><computeroutput>fcmaes.decpp.destroyDE_C = libcmalib.destroyDE_C</computeroutput></para><para>
+Definition at line <link linkend="_decpp_8py_source_1l00452">452</link> of file <link linkend="_decpp_8py_source">decpp.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1decpp_1ae77a3d487fdde3b54015c3fcb4758e17"/><section>
+    <title>initDE_C</title>
+<indexterm><primary>initDE_C</primary><secondary>fcmaes.decpp</secondary></indexterm>
+<indexterm><primary>fcmaes.decpp</primary><secondary>initDE_C</secondary></indexterm>
+<para><computeroutput>fcmaes.decpp.initDE_C = libcmalib.initDE_C</computeroutput></para><para>
+Definition at line <link linkend="_decpp_8py_source_1l00442">442</link> of file <link linkend="_decpp_8py_source">decpp.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1decpp_1a890d0db67042ae71d4c7df9adec2d3ec"/><section>
+    <title>optimizeDE_C</title>
+<indexterm><primary>optimizeDE_C</primary><secondary>fcmaes.decpp</secondary></indexterm>
+<indexterm><primary>fcmaes.decpp</primary><secondary>optimizeDE_C</secondary></indexterm>
+<para><computeroutput>fcmaes.decpp.optimizeDE_C = libcmalib.optimizeDE_C</computeroutput></para><para>
+Definition at line <link linkend="_decpp_8py_source_1l00433">433</link> of file <link linkend="_decpp_8py_source">decpp.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1decpp_1a83480897deb0e4a967b6de51edd57f3e"/><section>
+    <title>populationDE_C</title>
+<indexterm><primary>populationDE_C</primary><secondary>fcmaes.decpp</secondary></indexterm>
+<indexterm><primary>fcmaes.decpp</primary><secondary>populationDE_C</secondary></indexterm>
+<para><computeroutput>fcmaes.decpp.populationDE_C = libcmalib.populationDE_C</computeroutput></para><para>
+Definition at line <link linkend="_decpp_8py_source_1l00462">462</link> of file <link linkend="_decpp_8py_source">decpp.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1decpp_1abe8daeb234f718819dbb5a946b16d39b"/><section>
+    <title>restype</title>
+<indexterm><primary>restype</primary><secondary>fcmaes.decpp</secondary></indexterm>
+<indexterm><primary>fcmaes.decpp</primary><secondary>restype</secondary></indexterm>
+<para><computeroutput>fcmaes.decpp.restype</computeroutput></para><para>
+Definition at line <link linkend="_decpp_8py_source_1l00450">450</link> of file <link linkend="_decpp_8py_source">decpp.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1decpp_1af82bf7db3d2be348a9dbec6a24087b14"/><section>
+    <title>resultDE_C</title>
+<indexterm><primary>resultDE_C</primary><secondary>fcmaes.decpp</secondary></indexterm>
+<indexterm><primary>fcmaes.decpp</primary><secondary>resultDE_C</secondary></indexterm>
+<para><computeroutput>fcmaes.decpp.resultDE_C = libcmalib.resultDE_C</computeroutput></para><para>
+Definition at line <link linkend="_decpp_8py_source_1l00465">465</link> of file <link linkend="_decpp_8py_source">decpp.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1decpp_1a42e7c91ec427be0aca79ecf4bec8319f"/><section>
+    <title>tellDE_C</title>
+<indexterm><primary>tellDE_C</primary><secondary>fcmaes.decpp</secondary></indexterm>
+<indexterm><primary>fcmaes.decpp</primary><secondary>tellDE_C</secondary></indexterm>
+<para><computeroutput>fcmaes.decpp.tellDE_C = libcmalib.tellDE_C</computeroutput></para><para>
+Definition at line <link linkend="_decpp_8py_source_1l00458">458</link> of file <link linkend="_decpp_8py_source">decpp.py</link>.</para>
+</section>
+</section>
+</section>

@@ -1,0 +1,185 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_evaluator_8py" xml:lang="en-US">
+<title>fcmaes/evaluator.py File Reference</title>
+<indexterm><primary>fcmaes/evaluator.py</primary></indexterm>
+<para>
+
+<para>============================================================================= </para>
+ 
+</para>
+<simplesect>
+    <title>Classes    </title>
+        <itemizedlist>
+            <listitem><para>class <link linkend="_classfcmaes_1_1evaluator_1_1_evaluator">fcmaes.evaluator.Evaluator</link></para>
+
+<para><link linkend="_classfcmaes_1_1evaluator_1_1_evaluator">Evaluator</link> class to manage the parallel evaluation of a function across multiple workers. </para>
+</listitem>
+            <listitem><para>class <link linkend="_classfcmaes_1_1evaluator_1_1__fitness">fcmaes.evaluator._fitness</link></para>
+
+<para>Represents a fitness evaluation system for optimization problems. </para>
+</listitem>
+            <listitem><para>class <link linkend="_classfcmaes_1_1evaluator_1_1parallel">fcmaes.evaluator.parallel</link></para>
+
+<para>Executes functions in parallel using a multi-worker setup. </para>
+</listitem>
+            <listitem><para>class <link linkend="_classfcmaes_1_1evaluator_1_1parallel__mo">fcmaes.evaluator.parallel_mo</link></para>
+
+<para>Manages parallel multi-objective evaluations. </para>
+</listitem>
+            <listitem><para>class <link linkend="_classfcmaes_1_1evaluator_1_1callback">fcmaes.evaluator.callback</link></para>
+
+<para>Represents a callable object to evaluate a function with input processing. </para>
+</listitem>
+            <listitem><para>class <link linkend="_classfcmaes_1_1evaluator_1_1callback__so">fcmaes.evaluator.callback_so</link></para>
+
+<para>Handles callback functionality for single-objective optimization purposes. </para>
+</listitem>
+            <listitem><para>class <link linkend="_classfcmaes_1_1evaluator_1_1callback__mo">fcmaes.evaluator.callback_mo</link></para>
+
+<para>Callable object for multi-objective optimization. </para>
+</listitem>
+            <listitem><para>class <link linkend="_classfcmaes_1_1evaluator_1_1callback__par">fcmaes.evaluator.callback_par</link></para>
+
+<para>Wrapper class for callable objects with functionality to process populations of data using provided functions. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Namespaces    </title>
+        <itemizedlist>
+            <listitem><para>namespace <link linkend="_namespacefcmaes">fcmaes</link></para>
+</listitem>
+            <listitem><para>namespace <link linkend="_namespacefcmaes_1_1evaluator">fcmaes.evaluator</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_namespacefcmaes_1_1evaluator_1ab8a6f2f441a50ed78841e55af7af2f5f">fcmaes.evaluator.is_log_level_active</link> (level)</para>
+
+<para>Determines if the specified log level is currently active. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1evaluator_1ab8164b41a79c6e2e9836dbcc301d3369">fcmaes.evaluator.is_debug_active</link> ()</para>
+
+<para>Determines if the debug log level is currently active. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1evaluator_1a629b44d3fbb8de96604cf0cedb48452e">fcmaes.evaluator.is_trace_active</link> ()</para>
+
+<para>Checks if the TRACE log level is currently active. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1evaluator_1a3f1de81bb9ebb3f1026990d51627f5e3">fcmaes.evaluator.eval_parallel</link> (ArrayLike xs, <link linkend="_classfcmaes_1_1evaluator_1_1_evaluator">Evaluator</link> <link linkend="_classevaluator">evaluator</link>)</para>
+
+<para>Evaluates a set of inputs in parallel using a provided evaluator function. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1evaluator_1a7fd3b71184ba68c9fc886a0da91030a1">fcmaes.evaluator.eval_parallel_mo</link> (ArrayLike xs, <link linkend="_classfcmaes_1_1evaluator_1_1_evaluator">Evaluator</link> <link linkend="_classevaluator">evaluator</link>, int nobj)</para>
+
+<para>Evaluates a population of solutions in parallel for a multi-objective optimization problem. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1evaluator_1afe255aa77cf706556cd5740a6d9dc120">fcmaes.evaluator._eval_parallel_segment</link> (xs, ys, i0, i1, <link linkend="_classevaluator">evaluator</link>)</para>
+
+<para>Evaluates a segment of data in parallel by sending and receiving data through a pipe. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1evaluator_1ad73ccd9d36e41634dfd83907b1fa2872">fcmaes.evaluator._evaluate</link> (fun, pipe, read_mutex, write_mutex)</para>
+
+<para>Execute a given function on inputs received from a communication pipe in a thread-safe manner and send results back through the pipe. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1evaluator_1a4cbc79347af4303863c4d9b57a251e0d">fcmaes.evaluator._check_bounds</link> (bounds, guess, rg)</para>
+
+<para>Checks and processes bounds, guesses, and random generator inputs for optimization. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1evaluator_1a8e9d001859be2ec90b8511ef634bfdda">fcmaes.evaluator._get_bounds</link> (dim, bounds, guess, rg)</para>
+
+<para>Configures and validates bounds, initial guesses, and dimensionality for a process. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1evaluator_1a91fda48468c86eb01e6ef3959d4087c8">fcmaes.evaluator.serial</link> (fun)</para>
+
+<para>Creates a function that applies a given function to each element in a list. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1evaluator_1a208b8277669b6cfffba7bbafa42702fe">fcmaes.evaluator._func_serial</link> (fun, num, pid, xs, ys)</para>
+
+<para>Applies a function to elements of a list in a serial manner based on a processing strategy using process ID and total number of processes. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1evaluator_1a2070228090b71531c5734270831835f1">fcmaes.evaluator._tryfun</link> (fun, x)</para>
+
+<para>Attempts to evaluate the specified function with a given input and handle errors gracefully. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Variables    </title>
+        <itemizedlist>
+            <listitem><para>int <link linkend="_namespacefcmaes_1_1evaluator_1a68d2ca2ef338645b599a081c8a9d47e8">fcmaes.evaluator.pipe_limit</link> = 64</para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1evaluator_1a7e6692c75e37badbe9b2a64268404720">fcmaes.evaluator.basepath</link> = os.path.dirname(os.path.abspath(__file__))</para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1evaluator_1a18b6b20a32631ee3da1b0728bb8aad22">fcmaes.evaluator.libcmalib</link> = ct.cdll.LoadLibrary(<link linkend="_namespacefcmaes_1_1evaluator_1a7e6692c75e37badbe9b2a64268404720">basepath</link> + &apos;/lib/libacmalib.so&apos;)</para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1evaluator_1a0cd19ddbe59785956b8547b6a0352f66">fcmaes.evaluator.mo_call_back_type</link> = ct.CFUNCTYPE(ct.c_bool, ct.c_int, ct.POINTER(ct.c_double), ct.POINTER(ct.c_double))</para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1evaluator_1ae4b67a512622d25a7afbdeb83357e371">fcmaes.evaluator.call_back_type</link> = ct.CFUNCTYPE(ct.c_double, ct.c_int, ct.POINTER(ct.c_double))</para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1evaluator_1a88261dcfd3a319b63ff1e856f1b3d84d">fcmaes.evaluator.call_back_par</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>============================================================================= </para>
+
+<para>Fast version 1.6.11</para>
+
+<para>(c) 2025 – Dietmar Wolz (c) 2025 – Latitude</para>
+
+<para>License MIT</para>
+
+<para><itemizedlist>
+<listitem>
+<para><link linkend="_evaluator_8py">evaluator.py</link></para>
+</listitem></itemizedlist>
+</para>
+
+<para><formalpara>
+<title>Description</title>
+<para><itemizedlist>
+<listitem>
+<para>This module provides parallel objective function evaluation and a serial objective function wrapper for cmaes.minimize.</para>
+</listitem><listitem>
+<para>The Evaluator class manages the parallel processes and pipes.</para>
+</listitem><listitem>
+<para>Parallel objective function evaluator. Uses pipes to avoid re-spawning new processes for each eval_parallel call. the objective function is distributed once to all processes and reused for all eval_parallel calls. Evaluator(fun) needs to be stopped after the whole optimization is finished to avoid a resource leak.</para>
+</listitem></itemizedlist>
+</para>
+</formalpara>
+<formalpara><title>Author</title>
+
+<para>:<itemizedlist>
+<listitem>
+<para>Dietmar Wolz <literallayout><computeroutput>-&#32;romain.despoullains<emphasis role="preprocessor">@latitude.eu</emphasis>
+-&#32;corentin.generet<emphasis role="preprocessor">@latitude.eu</emphasis>
+</computeroutput></literallayout></para>
+</listitem></itemizedlist>
+</para>
+</formalpara>
+<formalpara>
+<title>References</title>
+<para><itemizedlist>
+<listitem>
+<para>[1] <link xlink:href="https://github.com/dietmarwo/fast-cma-es">https://github.com/dietmarwo/fast-cma-es</link></para>
+</listitem></itemizedlist>
+</para>
+</formalpara>
+<formalpara>
+<title>Documentation</title>
+<para><itemizedlist>
+<listitem></listitem></itemizedlist>
+</para>
+</formalpara>
+<informaltable frame='bottom'><tgroup cols='1'><colspec align='center'/><tbody><row><entry align='center'>
+</entry></row></tbody></tgroup></informaltable>
+ </para>
+<para>
+Definition in file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+</section>
+</section>

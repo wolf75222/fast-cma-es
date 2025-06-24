@@ -1,0 +1,323 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_classfcmaes_1_1mode_1_1wrapper" xml:lang="en-US">
+<title>fcmaes.mode.wrapper Class Reference</title>
+<indexterm><primary>fcmaes.mode.wrapper</primary></indexterm>
+<para>
+
+<para>A wrapper class to manage function calls with additional features such as tracking progress, logging results, and storing or plotting outcomes. </para>
+ 
+</para>
+Collaboration diagram for fcmaes.mode.wrapper:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mode_1_1wrapper__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Public Member Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1wrapper_1acd6bb1258b7aae36e3f5f62696db4db4">__init__</link> (self, Callable[[ArrayLike], ArrayLike] <link linkend="_classfcmaes_1_1mode_1_1wrapper_1a3a69785db0897b0c68286388b7916276">fun</link>, int <link linkend="_classfcmaes_1_1mode_1_1wrapper_1ad2534786b7fbf2ce570b2d2503b85482">nobj</link>, Optional[<link linkend="_classfcmaes_1_1mode_1_1store">store</link>] <link linkend="_classfcmaes_1_1mode_1_1store">store</link>=None, Optional[int] <link linkend="_classfcmaes_1_1mode_1_1wrapper_1a28f164ad5617369d31a073342b0e0566">interval</link>=100000, Optional[bool] <link linkend="_classfcmaes_1_1mode_1_1wrapper_1a3c81297fbc84256960ada5e615b044f6">plot</link>=False, Optional[str] <link linkend="_classfcmaes_1_1mode_1_1wrapper_1ab935f5beea9753e260fcc858ea43386e">name</link>=None)</para>
+
+<para>Initializes an object for handling and tracking function evaluations, storing results, and optionally plotting performance data. </para>
+</listitem>
+            <listitem><para>np.ndarray <link linkend="_classfcmaes_1_1mode_1_1wrapper_1a3da595496f0fa1e7a64955db25dec429">__call__</link> (self, ArrayLike x)</para>
+
+<para>Executes the callable object with the input data, applies the function to evaluate the data, updates internal state related to evaluations and results, and performs logging, saving, and plotting based on specific conditions. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Public Attributes    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1wrapper_1a3a69785db0897b0c68286388b7916276">fun</link> = fun</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1wrapper_1ad2534786b7fbf2ce570b2d2503b85482">nobj</link> = nobj</para>
+
+<para>Number of objectives for the optimization or function evaluation. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1wrapper_1a01e4931ca3f69d0c311b89206fdb5a84">evals</link> = mp.RawValue(ct.c_long, 0)</para>
+
+<para>A shared counter tracking the number of function evaluations. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1wrapper_1a69f5f58f4deac7c580121b3deeae8e02">t0</link> = time.perf_counter()</para>
+
+<para>The time the wrapper instance was initialized, for logging purposes. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1wrapper_1ab4c73a985518883d0979e00ade17d3a3">best_y</link> = mp.RawArray(ct.c_double, <link linkend="_classfcmaes_1_1mode_1_1wrapper_1ad2534786b7fbf2ce570b2d2503b85482">nobj</link>)</para>
+
+<para>Array to store the best observed outcomes for each objective. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1wrapper_1a8aa88c436b49a51817ef990ecf103852">store</link> = <link linkend="_classfcmaes_1_1mode_1_1store">store</link></para>
+
+<para>Optional storage object to store function results. </para>
+</listitem>
+            <listitem><para>int <link linkend="_classfcmaes_1_1mode_1_1wrapper_1a28f164ad5617369d31a073342b0e0566">interval</link> = interval</para>
+
+<para>Specifies how often to log or perform certain actions,. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1wrapper_1a3c81297fbc84256960ada5e615b044f6">plot</link> = plot</para>
+
+<para>If True, enables plotting after storing results. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1wrapper_1ab935f5beea9753e260fcc858ea43386e">name</link> = name</para>
+
+<para>A name used for file save operations when the store is provided. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1wrapper_1abd5e47c70b9ebab11397eb565f1ac811">lock</link> = mp.Lock()</para>
+
+<para>A multiprocessing lock to manage access to shared resources safely. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>A wrapper class to manage function calls with additional features such as tracking progress, logging results, and storing or plotting outcomes. </para>
+
+
+
+<para>This class allows function evaluation with multiprocess support, tracks the number of evaluations, records the best observed outcomes, logs key metrics at specified intervals, and interfaces with optional storage or plotting mechanisms.</para>
+
+<para><literallayout><computeroutput>fun (Callable[[ArrayLike], ArrayLike]): The function to be wrapped and called.
+</computeroutput></literallayout> </para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l01294">1294</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<section>
+<title>Constructor &amp; Destructor Documentation</title>
+<anchor xml:id="_classfcmaes_1_1mode_1_1wrapper_1acd6bb1258b7aae36e3f5f62696db4db4"/><section>
+    <title>__init__()</title>
+<indexterm><primary>__init__</primary><secondary>fcmaes.mode.wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.wrapper</primary><secondary>__init__</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.wrapper.__init__ ( self, Callable[[ArrayLike], ArrayLike] fun, int nobj, Optional[<link linkend="_classfcmaes_1_1mode_1_1store">store</link>]  store = <computeroutput>None</computeroutput>
+, Optional[int]  interval = <computeroutput>100000</computeroutput>
+, Optional[bool]  plot = <computeroutput>False</computeroutput>
+, Optional[str]  name = <computeroutput>None</computeroutput>
+)</computeroutput></para><para>
+
+<para>Initializes an object for handling and tracking function evaluations, storing results, and optionally plotting performance data. </para>
+</para>
+
+<para><literallayout><computeroutput>       fun (Callable[[ArrayLike], ArrayLike]): The objective function to evaluate.
+</computeroutput></literallayout> 
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>nobj</entry><entry>
+<para>The number of objectives to optimize. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>store</entry><entry>
+<para>The storage mechanism for results. Defaults to None. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>interval</entry><entry>
+<para>The interval at which logs or updates occur. Defaults to 100000. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>plot</entry><entry>
+<para>Whether to enable plotting of performance data. Defaults to False. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>name</entry><entry>
+<para>A custom name for the object. Defaults to None. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l01339">1339</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Function Documentation</title>
+<anchor xml:id="_classfcmaes_1_1mode_1_1wrapper_1a3da595496f0fa1e7a64955db25dec429"/><section>
+    <title>__call__()</title>
+<indexterm><primary>__call__</primary><secondary>fcmaes.mode.wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.wrapper</primary><secondary>__call__</secondary></indexterm>
+<para><computeroutput> np.ndarray fcmaes.mode.wrapper.__call__ ( self, ArrayLike x)</computeroutput></para><para>
+
+<para>Executes the callable object with the input data, applies the function to evaluate the data, updates internal state related to evaluations and results, and performs logging, saving, and plotting based on specific conditions. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>x</entry><entry>
+<para>Input data to evaluate using the callable object&apos;s function.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>np Evaluated output from the function if successful, otherwise None. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l01370">1370</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mode_1_1wrapper_a3da595496f0fa1e7a64955db25dec429_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mode_1_1wrapper_a3da595496f0fa1e7a64955db25dec429_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+<section>
+<title>Member Data Documentation</title>
+<anchor xml:id="_classfcmaes_1_1mode_1_1wrapper_1ab4c73a985518883d0979e00ade17d3a3"/><section>
+    <title>best_y</title>
+<indexterm><primary>best_y</primary><secondary>fcmaes.mode.wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.wrapper</primary><secondary>best_y</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.wrapper.best_y = mp.RawArray(ct.c_double, <link linkend="_classfcmaes_1_1mode_1_1wrapper_1ad2534786b7fbf2ce570b2d2503b85482">nobj</link>)</computeroutput></para><para>
+
+<para>Array to store the best observed outcomes for each objective. </para>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l01350">1350</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1wrapper_1a01e4931ca3f69d0c311b89206fdb5a84"/><section>
+    <title>evals</title>
+<indexterm><primary>evals</primary><secondary>fcmaes.mode.wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.wrapper</primary><secondary>evals</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.wrapper.evals = mp.RawValue(ct.c_long, 0)</computeroutput></para><para>
+
+<para>A shared counter tracking the number of function evaluations. </para>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l01348">1348</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1wrapper_1a3a69785db0897b0c68286388b7916276"/><section>
+    <title>fun</title>
+<indexterm><primary>fun</primary><secondary>fcmaes.mode.wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.wrapper</primary><secondary>fun</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.wrapper.fun = fun</computeroutput></para><para>
+Definition at line <link linkend="_mode_8py_source_1l01346">1346</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1wrapper_1a28f164ad5617369d31a073342b0e0566"/><section>
+    <title>interval</title>
+<indexterm><primary>interval</primary><secondary>fcmaes.mode.wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.wrapper</primary><secondary>interval</secondary></indexterm>
+<para><computeroutput>int fcmaes.mode.wrapper.interval = interval</computeroutput></para><para>
+
+<para>Specifies how often to log or perform certain actions,. </para>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l01354">1354</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1wrapper_1abd5e47c70b9ebab11397eb565f1ac811"/><section>
+    <title>lock</title>
+<indexterm><primary>lock</primary><secondary>fcmaes.mode.wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.wrapper</primary><secondary>lock</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.wrapper.lock = mp.Lock()</computeroutput></para><para>
+
+<para>A multiprocessing lock to manage access to shared resources safely. </para>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l01357">1357</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1wrapper_1ab935f5beea9753e260fcc858ea43386e"/><section>
+    <title>name</title>
+<indexterm><primary>name</primary><secondary>fcmaes.mode.wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.wrapper</primary><secondary>name</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.wrapper.name = name</computeroutput></para><para>
+
+<para>A name used for file save operations when the store is provided. </para>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l01356">1356</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1wrapper_1ad2534786b7fbf2ce570b2d2503b85482"/><section>
+    <title>nobj</title>
+<indexterm><primary>nobj</primary><secondary>fcmaes.mode.wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.wrapper</primary><secondary>nobj</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.wrapper.nobj = nobj</computeroutput></para><para>
+
+<para>Number of objectives for the optimization or function evaluation. </para>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l01347">1347</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1wrapper_1a3c81297fbc84256960ada5e615b044f6"/><section>
+    <title>plot</title>
+<indexterm><primary>plot</primary><secondary>fcmaes.mode.wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.wrapper</primary><secondary>plot</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.wrapper.plot = plot</computeroutput></para><para>
+
+<para>If True, enables plotting after storing results. </para>
+</para>
+
+<para>Default is False. </para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l01355">1355</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1wrapper_1a8aa88c436b49a51817ef990ecf103852"/><section>
+    <title>store</title>
+<indexterm><primary>store</primary><secondary>fcmaes.mode.wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.wrapper</primary><secondary>store</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.wrapper.store = <link linkend="_classfcmaes_1_1mode_1_1store">store</link></computeroutput></para><para>
+
+<para>Optional storage object to store function results. </para>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l01353">1353</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1wrapper_1a69f5f58f4deac7c580121b3deeae8e02"/><section>
+    <title>t0</title>
+<indexterm><primary>t0</primary><secondary>fcmaes.mode.wrapper</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.wrapper</primary><secondary>t0</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.wrapper.t0 = time.perf_counter()</computeroutput></para><para>
+
+<para>The time the wrapper instance was initialized, for logging purposes. </para>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l01349">1349</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<para>
+The documentation for this class was generated from the following file:</para>
+fcmaes/<link linkend="_mode_8py">mode.py</link></section>
+</section>

@@ -1,0 +1,1249 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_classfcmaes_1_1mode_1_1_m_o_d_e" xml:lang="en-US">
+<title>fcmaes.mode.MODE Class Reference</title>
+<indexterm><primary>fcmaes.mode.MODE</primary></indexterm>
+<para>
+
+<para>Multi-Objective Differential Evolution (<link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e">MODE</link>) optimization algorithm. </para>
+ 
+</para>
+Collaboration diagram for fcmaes.mode.MODE:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mode_1_1_m_o_d_e__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Public Member Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1ad2876e7272901dcadf387a203a338648">__init__</link> (self, int <link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1ad8a88c6e8d55396b806493982cb1cdb5">nobj</link>, int <link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1a20adacf20c1411e271fe9be8f7504fa5">ncon</link>, Bounds bounds, Optional[int] <link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1ab0225e759a59fcf9af44411a93f195d6">popsize</link>=64, Optional[float] <link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1adf37ab4f0a77200880ad47b5387b9266">F</link>=0.5, Optional[float] <link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1a6afc083457c056ab0bf0612e1b71b647">Cr</link>=0.9, Optional[float] <link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1a81f79977661c7a4dc09bc7d4e6d891a1">pro_c</link>=0.5, Optional[float] <link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1ae93a68cfc0936c62f75b890c9a6b19d1">dis_c</link>=15.0, Optional[float] <link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1ab1df5291083b159bf2671c038c3e38e1">pro_m</link>=0.9, Optional[float] <link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1a2fde79913ea108d6f5b55ef509109ba5">dis_m</link>=20.0, Optional[bool] <link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1a57cf010ab62e26a06988d5f251c62b6e">nsga_update</link>=True, Optional[int] <link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1ac5a6b39d9c5736bfb80c744742609f46">pareto_update</link>=0, Optional[Generator] <link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1a76afedce7a0358acd6633c6b6c6241e1">rg</link>=Generator(PCG64DXSM()), Optional[ArrayLike] <link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1af3cea564c07f1d434bba95c39afc165c">ints</link>=None, Optional[float] <link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1a18459596315b3de8f34a62377c7b006c">min_mutate</link>=0.1, Optional[float] <link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1a7151073081d8ed1d9309c9f44870d035">max_mutate</link>=0.5, Callable <link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1a523b3fbb4e1cebe83a81574fce168104">modifier</link>=None)</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1af1ac6ae50db24a626f6649175bfecf96">set_guess</link> (self, guess, mofun, <link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1a76afedce7a0358acd6633c6b6c6241e1">rg</link>=None)</para>
+
+<para>Sets the initial guess values for an optimization or search algorithm. </para>
+</listitem>
+            <listitem><para>np.ndarray <link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1a1893dc839f866ab4d22f7fd13489bf73">ask</link> (self)</para>
+
+<para>Generates the next batch of candidate solutions and updates internal population. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1a8b928c29cf646933a1821566ec18d73a">tell</link> (self, np.ndarray ys, Optional[np.ndarray] xs=None)</para>
+
+<para>Updates the internal population data with the given <computeroutput>ys</computeroutput> values, and optionally, with the corresponding <computeroutput>xs</computeroutput> values, if provided. </para>
+</listitem>
+            <listitem><para>Tuple[np.ndarray, np.ndarray] <link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1a3b3a358c6fded3c638706495c88eff1a">minimize_ser</link> (self, Callable[[ArrayLike], ArrayLike] fun, Optional[int] max_evaluations=100000)</para>
+
+<para>Minimizes a given function using a custom optimization approach until the maximum number of evaluations is reached. </para>
+</listitem>
+            <listitem><para>Tuple[np.ndarray, np.ndarray] <link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1a6f479d982825465b97c89e528351bf36">minimize_par</link> (self, Callable[[ArrayLike], ArrayLike] fun, Optional[int] max_evaluations=100000, Optional[int] workers=mp.cpu_count())</para>
+
+<para>Minimizes the given multi-objective function in parallel, using a specified number of workers and an evaluation limit. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1a29791dbcb2e070361529475630de2052">pop_update</link> (self)</para>
+
+<para>Updates the population by performing non-dominated sorting, crowding distance sorting, and variation for optimization purposes. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Public Attributes    </title>
+        <itemizedlist>
+            <listitem><para>int <link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1ad8a88c6e8d55396b806493982cb1cdb5">nobj</link> = nobj</para>
+
+<para>Number of objectives to optimize. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1a20adacf20c1411e271fe9be8f7504fa5">ncon</link> = ncon</para>
+
+<para>Number of constraints. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1a5c09cc3172e92b1253fb3e742cf30366">dim</link></para>
+
+<para>Dimensionality of the search space, derived from the bounds. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1a58a39c1931ba9e160e53a6a5bb597214">lower</link> = self.modifier(<link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1aa0b5e8c7849badf7439bb4cd3ab1bfea">x</link>)</para>
+
+<para>Lower bounds for the search space dimensions. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1a49d3d6a1d92e1681a12bb5770a9f6c31">upper</link> = <link linkend="_namespacefcmaes_1_1mode_1a7437cac94470387e12001d7f424393af">_check_bounds</link>(bounds, None)</para>
+
+<para>Upper bounds for the search space dimensions. </para>
+</listitem>
+            <listitem><para>] <link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1ab0225e759a59fcf9af44411a93f195d6">popsize</link> = popsize</para>
+
+<para>Population size used for the optimization process. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1a76afedce7a0358acd6633c6b6c6241e1">rg</link> = rg</para>
+
+<para>Random number generator for reproducibility. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1aa68beb9a07ba893546bb695759b619f0">F0</link> = <link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1adf37ab4f0a77200880ad47b5387b9266">F</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1ac76f411eb1bbe4b5ae4b3f9925370096">Cr0</link> = <link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1a6afc083457c056ab0bf0612e1b71b647">Cr</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1a81f79977661c7a4dc09bc7d4e6d891a1">pro_c</link> = pro_c</para>
+
+<para>Probability for simulated binary crossover (SBX). </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1ae93a68cfc0936c62f75b890c9a6b19d1">dis_c</link> = dis_c</para>
+
+<para>Distribution index for SBX. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1ab1df5291083b159bf2671c038c3e38e1">pro_m</link> = pro_m</para>
+
+<para>Probability for polynomial mutation. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1a2fde79913ea108d6f5b55ef509109ba5">dis_m</link> = dis_m</para>
+
+<para>Distribution index for polynomial mutation. </para>
+</listitem>
+            <listitem><para># use NSGA-II update strategy. <link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1a57cf010ab62e26a06988d5f251c62b6e">nsga_update</link> = nsga_update</para>
+
+<para>Indicates whether NSGA-II update is enabled. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1ac5a6b39d9c5736bfb80c744742609f46">pareto_update</link> = pareto_update</para>
+
+<para>Determines pareto update intensity; allows more elite selection if greater. </para>
+</listitem>
+            <listitem><para>int <link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1a3877c96890ef6ce77a0eb464c9efc9eb">stop</link> = 0</para>
+</listitem>
+            <listitem><para>int <link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1a2088eee51e00dd89edfdc48c882c99f0">iterations</link> = 0</para>
+</listitem>
+            <listitem><para>int <link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1a76a2bef54f9de04b12fac1cecf6378b8">evals</link> = 0</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1ac4814f6a92ab2814c791c23e76d9e1b2">mutex</link> = mp.Lock()</para>
+</listitem>
+            <listitem><para>int <link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1a6823b36a4bb5daadeef62ec78b7c2281">p</link> = 0</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1af3cea564c07f1d434bba95c39afc165c">ints</link> = None if (ints is None or <link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1a57cf010ab62e26a06988d5f251c62b6e">nsga_update</link>) else np.array(ints)</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1a18459596315b3de8f34a62377c7b006c">min_mutate</link> = min_mutate</para>
+
+<para>Minimum possible mutation factor. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1a7151073081d8ed1d9309c9f44870d035">max_mutate</link> = max_mutate</para>
+
+<para>Maximum possible mutation factor. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1a523b3fbb4e1cebe83a81574fce168104">modifier</link> = self._modifier</para>
+
+<para>A function to modify variables, allowing for domain-specific constraints. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1aa0b5e8c7849badf7439bb4cd3ab1bfea">x</link> = np.empty((2*self.popsize, self.dim))</para>
+
+<para>Initializes the population matrices, decision variables, and objective values for a multi-objective optimization problem. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1a0dc84c88e30325bfc4bec42ab07cdc51">y</link> = np.empty((2*self.popsize, self.nobj + self.ncon))</para>
+
+<para>numpy.ndarray. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1a0386b1bcd3af523b5d82f8ba797c729d">vx</link> = self.x.copy()</para>
+
+<para>numpy.ndarray. </para>
+</listitem>
+            <listitem><para>int <link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1a84feff642eb583f7e1174057703a2c82">vp</link> = 0</para>
+
+<para>int. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1a8824bcdfb8fd5d5e3fc3af5beed5f699">ycon</link> = None</para>
+
+<para>None or type(related attribute if any). </para>
+</listitem>
+            <listitem><para>int <link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1a56041c14d6c40485bab6484b46b15cc5">eps</link> = 0</para>
+
+<para>int. </para>
+</listitem>
+            <listitem><para>float <link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1a6afc083457c056ab0bf0612e1b71b647">Cr</link> = 0 else self.Cr0</para>
+
+<para>Crossover probability for DE strategy. </para>
+</listitem>
+            <listitem><para>float <link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1adf37ab4f0a77200880ad47b5387b9266">F</link> = 0 else self.F0</para>
+
+<para>Control parameter for differential weight in DE strategy. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Protected Member Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1a762479149abbac45c113a9baf627a7d0">_init</link> (self)</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1a4e75c17eaa625b8be5fa0ccb0d64bd05">_next_x</link> (self, <link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1a6823b36a4bb5daadeef62ec78b7c2281">p</link>)</para>
+
+<para>Determines the next candidate solution vector based on the current population and the DE (Differential Evolution) strategy, including NSGA-II or standard DE/pareto/1 strategies. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1a8eb775858ef6da65ce5d71629503e622">_sample</link> (self)</para>
+
+<para>Generates a sampled value based on specific distribution boundaries. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1aa3f08e7e3d5e33149762ebf261b6c719">_feasible</link> (self, <link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1aa0b5e8c7849badf7439bb4cd3ab1bfea">x</link>)</para>
+
+<para>Ensures that the input value x is constrained within the specified bounds, if bounds are defined. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1ab6f842a65bbcbab7bc6821c25737d0aa">_modifier</link> (self, <link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1aa0b5e8c7849badf7439bb4cd3ab1bfea">x</link>)</para>
+
+<para>Modifies the given input array by mutating certain integer variables based on a specified mutation probability. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1aefce54c9125b2799dd00564d8b32a654">_is_dominated</link> (self, <link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1a0dc84c88e30325bfc4bec42ab07cdc51">y</link>, <link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1a6823b36a4bb5daadeef62ec78b7c2281">p</link>)</para>
+
+<para>Determines whether a given solution vector is dominated by another solution vector in a multi-objective optimization context. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>Multi-Objective Differential Evolution (<link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e">MODE</link>) optimization algorithm. </para>
+
+
+
+<para>This class implements a multi-objective optimization algorithm based on the Differential Evolution (DE) framework. It is designed to handle optimization problems with both multiple objectives and constraints. The algorithm aims to generate a set of Pareto-optimal solutions through evolutionary strategies while supporting parallel and serial execution for fitness evaluations. </para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00372">372</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<section>
+<title>Constructor &amp; Destructor Documentation</title>
+<anchor xml:id="_classfcmaes_1_1mode_1_1_m_o_d_e_1ad2876e7272901dcadf387a203a338648"/><section>
+    <title>__init__()</title>
+<indexterm><primary>__init__</primary><secondary>fcmaes.mode.MODE</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.MODE</primary><secondary>__init__</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.MODE.__init__ ( self, int nobj, int ncon, Bounds bounds, Optional[int]  popsize = <computeroutput>64</computeroutput>
+, Optional[float]  F = <computeroutput>0.5</computeroutput>
+, Optional[float]  Cr = <computeroutput>0.9</computeroutput>
+, Optional[float]  pro_c = <computeroutput>0.5</computeroutput>
+, Optional[float]  dis_c = <computeroutput>15.0</computeroutput>
+, Optional[float]  pro_m = <computeroutput>0.9</computeroutput>
+, Optional[float]  dis_m = <computeroutput>20.0</computeroutput>
+, Optional[bool]  nsga_update = <computeroutput>True</computeroutput>
+, Optional[int]  pareto_update = <computeroutput>0</computeroutput>
+, Optional[Generator]  rg = <computeroutput>Generator(PCG64DXSM())</computeroutput>
+, Optional[ArrayLike]  ints = <computeroutput>None</computeroutput>
+, Optional[float]  min_mutate = <computeroutput>0.1</computeroutput>
+, Optional[float]  max_mutate = <computeroutput>0.5</computeroutput>
+, Callable  modifier = <computeroutput>None</computeroutput>
+)</computeroutput></para><para>
+Definition at line <link linkend="_mode_8py_source_1l00462">462</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Function Documentation</title>
+<anchor xml:id="_classfcmaes_1_1mode_1_1_m_o_d_e_1aa3f08e7e3d5e33149762ebf261b6c719"/><section>
+    <title>_feasible()</title>
+<indexterm><primary>_feasible</primary><secondary>fcmaes.mode.MODE</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.MODE</primary><secondary>_feasible</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.MODE._feasible ( self,  x)<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+
+<para>Ensures that the input value x is constrained within the specified bounds, if bounds are defined. </para>
+</para>
+
+<para>If an upper bound is not specified, the original value is returned.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>x</entry><entry>
+<para>The input value to be checked or clipped.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>The input value x, clipped between the lower and upper bounds if bounds are defined, or the original value if no bounds are present. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00819">819</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1_m_o_d_e_1a762479149abbac45c113a9baf627a7d0"/><section>
+    <title>_init()</title>
+<indexterm><primary>_init</primary><secondary>fcmaes.mode.MODE</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.MODE</primary><secondary>_init</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.MODE._init ( self)<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_mode_8py_source_1l00610">610</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1_m_o_d_e_1aefce54c9125b2799dd00564d8b32a654"/><section>
+    <title>_is_dominated()</title>
+<indexterm><primary>_is_dominated</primary><secondary>fcmaes.mode.MODE</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.MODE</primary><secondary>_is_dominated</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.MODE._is_dominated ( self,  y,  p)<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+
+<para>Determines whether a given solution vector is dominated by another solution vector in a multi-objective optimization context. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>y</entry><entry>
+<para>A sequence representing the solution vector to be checked. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>p</entry><entry>
+<para>An integer index identifying the row number of the comparison vector in the multi-objective dataset.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>bool True if the solution vector <computeroutput>y</computeroutput> is dominated by the vector located at index <computeroutput>p</computeroutput> in the dataset, otherwise False. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00865">865</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1_m_o_d_e_1ab6f842a65bbcbab7bc6821c25737d0aa"/><section>
+    <title>_modifier()</title>
+<indexterm><primary>_modifier</primary><secondary>fcmaes.mode.MODE</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.MODE</primary><secondary>_modifier</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.MODE._modifier ( self,  x)<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+
+<para>Modifies the given input array by mutating certain integer variables based on a specified mutation probability. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>x</entry><entry>
+<para>The input array to be modified.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>np The modified array after applying integer mutations. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00838">838</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mode_1_1_m_o_d_e_ab6f842a65bbcbab7bc6821c25737d0aa_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1_m_o_d_e_1a4e75c17eaa625b8be5fa0ccb0d64bd05"/><section>
+    <title>_next_x()</title>
+<indexterm><primary>_next_x</primary><secondary>fcmaes.mode.MODE</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.MODE</primary><secondary>_next_x</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.MODE._next_x ( self,  p)<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+
+<para>Determines the next candidate solution vector based on the current population and the DE (Differential Evolution) strategy, including NSGA-II or standard DE/pareto/1 strategies. </para>
+</para>
+
+<para>This function applies specific update strategies to generate a feasible vector that follows the optimization constraints and the mutation/crossover mechanism. Depending on the selected strategy, it either takes from an elite subset or uses various sampling methods from the entire population. Differentiation is performed using a weighted mutation process on other population members.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>p</entry><entry>
+<para>Index of the current individual in the population that is being </para>
+</entry>
+                            </row>
+                            <row>
+<entry>processed.</entry><entry></entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>numpy A feasible vector based on the mutation and crossover operations, bounded within the defined lower and upper limits. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00754">754</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mode_1_1_m_o_d_e_a4e75c17eaa625b8be5fa0ccb0d64bd05_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1_m_o_d_e_1a8eb775858ef6da65ce5d71629503e622"/><section>
+    <title>_sample()</title>
+<indexterm><primary>_sample</primary><secondary>fcmaes.mode.MODE</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.MODE</primary><secondary>_sample</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.MODE._sample ( self)<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+
+<para>Generates a sampled value based on specific distribution boundaries. </para>
+</para>
+
+<para><literallayout><computeroutput>   If the `upper` attribute is not defined, a normal distribution value is
+   sampled. Otherwise, a uniform distribution value is sampled between
+   `lower` and `upper` attributes.
+</computeroutput></literallayout></para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>float A sampled value from the appropriate distribution. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00799">799</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mode_1_1_m_o_d_e_a8eb775858ef6da65ce5d71629503e622_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1_m_o_d_e_1a1893dc839f866ab4d22f7fd13489bf73"/><section>
+    <title>ask()</title>
+<indexterm><primary>ask</primary><secondary>fcmaes.mode.MODE</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.MODE</primary><secondary>ask</secondary></indexterm>
+<para><computeroutput> np.ndarray fcmaes.mode.MODE.ask ( self)</computeroutput></para><para>
+
+<para>Generates the next batch of candidate solutions and updates internal population. </para>
+</para>
+
+<para><literallayout><computeroutput>   Generates new solutions for the evolution strategy by iterating through the
+   given population size, updating the extended population array with new values.
+   Returns the array of newly generated solutions after the update.
+</computeroutput></literallayout></para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>np The newly generated candidate solutions array. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00559">559</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mode_1_1_m_o_d_e_a1893dc839f866ab4d22f7fd13489bf73_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mode_1_1_m_o_d_e_a1893dc839f866ab4d22f7fd13489bf73_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1_m_o_d_e_1a6f479d982825465b97c89e528351bf36"/><section>
+    <title>minimize_par()</title>
+<indexterm><primary>minimize_par</primary><secondary>fcmaes.mode.MODE</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.MODE</primary><secondary>minimize_par</secondary></indexterm>
+<para><computeroutput> Tuple[np.ndarray, np.ndarray] fcmaes.mode.MODE.minimize_par ( self, Callable[[ArrayLike], ArrayLike] fun, Optional[int]  max_evaluations = <computeroutput>100000</computeroutput>
+, Optional[int]  workers = <computeroutput>mp.cpu_count()</computeroutput>
+)</computeroutput></para><para>
+
+<para>Minimizes the given multi-objective function in parallel, using a specified number of workers and an evaluation limit. </para>
+</para>
+
+<para>This method leverages a parallel computation framework to evaluate the function across multiple populations simultaneously, improving efficiency for computationally expensive optimization tasks.</para>
+
+<para><literallayout><computeroutput>       fun (Callable[[ArrayLike], ArrayLike]): A function to be minimized. It takes
+           an array-like input and returns an array-like output.
+</computeroutput></literallayout> 
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>max_evaluations</entry><entry>
+<para>The maximum number of function evaluations to perform. Defaults to 100,000 if not specified. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>workers</entry><entry>
+<para>The number of parallel workers to use for function evaluation. Defaults to the number of CPU cores available.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>Tuple[np.ndarray, np.ndarray]: A tuple containing the final population of candidate solutions (xs) and the corresponding function evaluations (ys). </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00664">664</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mode_1_1_m_o_d_e_a6f479d982825465b97c89e528351bf36_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1_m_o_d_e_1a3b3a358c6fded3c638706495c88eff1a"/><section>
+    <title>minimize_ser()</title>
+<indexterm><primary>minimize_ser</primary><secondary>fcmaes.mode.MODE</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.MODE</primary><secondary>minimize_ser</secondary></indexterm>
+<para><computeroutput> Tuple[np.ndarray, np.ndarray] fcmaes.mode.MODE.minimize_ser ( self, Callable[[ArrayLike], ArrayLike] fun, Optional[int]  max_evaluations = <computeroutput>100000</computeroutput>
+)</computeroutput></para><para>
+
+<para>Minimizes a given function using a custom optimization approach until the maximum number of evaluations is reached. </para>
+</para>
+
+<para>The function utilizes a population-based strategy for optimization, where potential solutions are evaluated, and the results are used to iteratively improve the population.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>fun</entry><entry>
+<para>Callable function to be minimized. It takes an array-like input and returns an array-like output. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>max_evaluations</entry><entry>
+<para>Optional maximum number of function evaluations to perform. Defaults to 100000.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>A tuple consisting of the final population of solutions (xs) and their corresponding evaluated results (ys). </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00634">634</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mode_1_1_m_o_d_e_a3b3a358c6fded3c638706495c88eff1a_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1_m_o_d_e_1a29791dbcb2e070361529475630de2052"/><section>
+    <title>pop_update()</title>
+<indexterm><primary>pop_update</primary><secondary>fcmaes.mode.MODE</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.MODE</primary><secondary>pop_update</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.MODE.pop_update ( self)</computeroutput></para><para>
+
+<para>Updates the population by performing non-dominated sorting, crowding distance sorting, and variation for optimization purposes. </para>
+</para>
+
+<para>This function presorts objective values if only one objective exists, reallocates population members based on domination level, and sorts for crowding when necessary. It also applies variation operators to update the population diversity.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>ValueError</entry><entry>
+<para>If the total population size exceeds the specified `popsize`.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>None</entry><entry></entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>None </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00694">694</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mode_1_1_m_o_d_e_a29791dbcb2e070361529475630de2052_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mode_1_1_m_o_d_e_a29791dbcb2e070361529475630de2052_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1_m_o_d_e_1af1ac6ae50db24a626f6649175bfecf96"/><section>
+    <title>set_guess()</title>
+<indexterm><primary>set_guess</primary><secondary>fcmaes.mode.MODE</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.MODE</primary><secondary>set_guess</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.MODE.set_guess ( self,  guess,  mofun,  rg = <computeroutput>None</computeroutput>
+)</computeroutput></para><para>
+
+<para>Sets the initial guess values for an optimization or search algorithm. </para>
+</para>
+
+<para><literallayout><computeroutput>   This function allows setting up initial guesses for the population values
+   and their corresponding evaluations. Users can provide guesses as either
+   a NumPy array of candidate solutions or a tuple containing candidate
+   solutions and their objective function evaluations. Additionally, the
+   function provides flexibility in defining a random number generator for
+   sampling the guesses.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>guess</entry><entry>
+<para>A NumPy array containing candidate solution points, or a tuple (guess, ys), where <computeroutput>guess</computeroutput> is an array of candidate solutions, and <computeroutput>ys</computeroutput> contains objective evaluations corresponding to these solutions. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>mofun</entry><entry>
+<para>A callable that computes the objective value for a given candidate solution. This function is applied to <computeroutput>guess</computeroutput> if <computeroutput>guess</computeroutput> is a NumPy array. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>rg</entry><entry>
+<para>An optional random number generator (<computeroutput>numpy.random.Generator</computeroutput>) instance. If not specified, a default generator is created using </para>
+</entry>
+                            </row>
+                            <row>
+<entry>PCG64DXSM.</entry><entry>
+<para></para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00537">537</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mode_1_1_m_o_d_e_af1ac6ae50db24a626f6649175bfecf96_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1_m_o_d_e_1a8b928c29cf646933a1821566ec18d73a"/><section>
+    <title>tell()</title>
+<indexterm><primary>tell</primary><secondary>fcmaes.mode.MODE</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.MODE</primary><secondary>tell</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.MODE.tell ( self, np.ndarray ys, Optional[np.ndarray]  xs = <computeroutput>None</computeroutput>
+)</computeroutput></para><para>
+
+<para>Updates the internal population data with the given <computeroutput>ys</computeroutput> values, and optionally, with the corresponding <computeroutput>xs</computeroutput> values, if provided. </para>
+</para>
+
+<para>This method is used to record new evaluations for individuals in the population and subsequently triggers population update.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>ys</entry><entry>
+<para>Array containing the fitness values of the individuals to be updated in the population. xs (Optional[np.ndarray], optional): Array containing the decision variables of individuals to be updated in the population. Defaults to None. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00576">576</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mode_1_1_m_o_d_e_a8b928c29cf646933a1821566ec18d73a_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1mode_1_1_m_o_d_e_a8b928c29cf646933a1821566ec18d73a_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+<section>
+<title>Member Data Documentation</title>
+<anchor xml:id="_classfcmaes_1_1mode_1_1_m_o_d_e_1a6afc083457c056ab0bf0612e1b71b647"/><section>
+    <title>Cr</title>
+<indexterm><primary>Cr</primary><secondary>fcmaes.mode.MODE</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.MODE</primary><secondary>Cr</secondary></indexterm>
+<para><computeroutput>float fcmaes.mode.MODE.Cr = 0 else self.Cr0</computeroutput></para><para>
+
+<para>Crossover probability for DE strategy. </para>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00762">762</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1_m_o_d_e_1ac76f411eb1bbe4b5ae4b3f9925370096"/><section>
+    <title>Cr0</title>
+<indexterm><primary>Cr0</primary><secondary>fcmaes.mode.MODE</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.MODE</primary><secondary>Cr0</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.MODE.Cr0 = <link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1a6afc083457c056ab0bf0612e1b71b647">Cr</link></computeroutput></para><para>
+Definition at line <link linkend="_mode_8py_source_1l00490">490</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1_m_o_d_e_1a5c09cc3172e92b1253fb3e742cf30366"/><section>
+    <title>dim</title>
+<indexterm><primary>dim</primary><secondary>fcmaes.mode.MODE</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.MODE</primary><secondary>dim</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.MODE.dim</computeroutput></para><para>
+
+<para>Dimensionality of the search space, derived from the bounds. </para>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00482">482</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1_m_o_d_e_1ae93a68cfc0936c62f75b890c9a6b19d1"/><section>
+    <title>dis_c</title>
+<indexterm><primary>dis_c</primary><secondary>fcmaes.mode.MODE</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.MODE</primary><secondary>dis_c</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.MODE.dis_c = dis_c</computeroutput></para><para>
+
+<para>Distribution index for SBX. </para>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00492">492</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1_m_o_d_e_1a2fde79913ea108d6f5b55ef509109ba5"/><section>
+    <title>dis_m</title>
+<indexterm><primary>dis_m</primary><secondary>fcmaes.mode.MODE</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.MODE</primary><secondary>dis_m</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.MODE.dis_m = dis_m</computeroutput></para><para>
+
+<para>Distribution index for polynomial mutation. </para>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00494">494</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1_m_o_d_e_1a56041c14d6c40485bab6484b46b15cc5"/><section>
+    <title>eps</title>
+<indexterm><primary>eps</primary><secondary>fcmaes.mode.MODE</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.MODE</primary><secondary>eps</secondary></indexterm>
+<para><computeroutput>int fcmaes.mode.MODE.eps = 0</computeroutput></para><para>
+
+<para>int. </para>
+</para>
+
+<para>An auxiliary variable for numerical stability or algorithmic adjustments, initialized to 0. </para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00619">619</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1_m_o_d_e_1a76a2bef54f9de04b12fac1cecf6378b8"/><section>
+    <title>evals</title>
+<indexterm><primary>evals</primary><secondary>fcmaes.mode.MODE</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.MODE</primary><secondary>evals</secondary></indexterm>
+<para><computeroutput>int fcmaes.mode.MODE.evals = 0</computeroutput></para><para>
+Definition at line <link linkend="_mode_8py_source_1l00499">499</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1_m_o_d_e_1adf37ab4f0a77200880ad47b5387b9266"/><section>
+    <title>F</title>
+<indexterm><primary>F</primary><secondary>fcmaes.mode.MODE</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.MODE</primary><secondary>F</secondary></indexterm>
+<para><computeroutput>float fcmaes.mode.MODE.F = 0 else self.F0</computeroutput></para><para>
+
+<para>Control parameter for differential weight in DE strategy. </para>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00763">763</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1_m_o_d_e_1aa68beb9a07ba893546bb695759b619f0"/><section>
+    <title>F0</title>
+<indexterm><primary>F0</primary><secondary>fcmaes.mode.MODE</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.MODE</primary><secondary>F0</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.MODE.F0 = <link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1adf37ab4f0a77200880ad47b5387b9266">F</link></computeroutput></para><para>
+Definition at line <link linkend="_mode_8py_source_1l00489">489</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1_m_o_d_e_1af3cea564c07f1d434bba95c39afc165c"/><section>
+    <title>ints</title>
+<indexterm><primary>ints</primary><secondary>fcmaes.mode.MODE</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.MODE</primary><secondary>ints</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.MODE.ints = None if (ints is None or <link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1a57cf010ab62e26a06988d5f251c62b6e">nsga_update</link>) else np.array(ints)</computeroutput></para><para>
+Definition at line <link linkend="_mode_8py_source_1l00503">503</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1_m_o_d_e_1a2088eee51e00dd89edfdc48c882c99f0"/><section>
+    <title>iterations</title>
+<indexterm><primary>iterations</primary><secondary>fcmaes.mode.MODE</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.MODE</primary><secondary>iterations</secondary></indexterm>
+<para><computeroutput>int fcmaes.mode.MODE.iterations = 0</computeroutput></para><para>
+Definition at line <link linkend="_mode_8py_source_1l00498">498</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1_m_o_d_e_1a58a39c1931ba9e160e53a6a5bb597214"/><section>
+    <title>lower</title>
+<indexterm><primary>lower</primary><secondary>fcmaes.mode.MODE</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.MODE</primary><secondary>lower</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.MODE.lower = self.modifier(<link linkend="_classfcmaes_1_1mode_1_1_m_o_d_e_1aa0b5e8c7849badf7439bb4cd3ab1bfea">x</link>)</computeroutput></para><para>
+
+<para>Lower bounds for the search space dimensions. </para>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00482">482</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1_m_o_d_e_1a7151073081d8ed1d9309c9f44870d035"/><section>
+    <title>max_mutate</title>
+<indexterm><primary>max_mutate</primary><secondary>fcmaes.mode.MODE</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.MODE</primary><secondary>max_mutate</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.MODE.max_mutate = max_mutate</computeroutput></para><para>
+
+<para>Maximum possible mutation factor. </para>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00505">505</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1_m_o_d_e_1a18459596315b3de8f34a62377c7b006c"/><section>
+    <title>min_mutate</title>
+<indexterm><primary>min_mutate</primary><secondary>fcmaes.mode.MODE</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.MODE</primary><secondary>min_mutate</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.MODE.min_mutate = min_mutate</computeroutput></para><para>
+
+<para>Minimum possible mutation factor. </para>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00504">504</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1_m_o_d_e_1a523b3fbb4e1cebe83a81574fce168104"/><section>
+    <title>modifier</title>
+<indexterm><primary>modifier</primary><secondary>fcmaes.mode.MODE</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.MODE</primary><secondary>modifier</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.MODE.modifier = self._modifier</computeroutput></para><para>
+
+<para>A function to modify variables, allowing for domain-specific constraints. </para>
+</para>
+
+<para>Initializes the class with the given parameters and sets up the necessary attributes for the optimization process. This constructor validates the input bounds, adjusts the population size for NSGA updates, and sets default values for various optimization and mutation parameters.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>nobj</entry><entry>
+<para>The number of objectives for the optimization problem. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>ncon</entry><entry>
+<para>The number of constraints for the optimization problem. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>bounds</entry><entry>
+<para>The lower and upper bounds for the decision variables. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>popsize</entry><entry>
+<para>The size of the population for the optimization process. Default is 64. Adjusted to be even if nsga_update is True. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>F</entry><entry>
+<para>Mutation factor for DE-based updates. Default is 0.5. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>Cr</entry><entry>
+<para>Crossover probability for DE-based updates. Default is 0.9. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>pro_c</entry><entry>
+<para>Crossover probability in SBX (Simulated Binary Crossover). Default is 0.5. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>dis_c</entry><entry>
+<para>Distribution index for SBX. Default is 15.0. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>pro_m</entry><entry>
+<para>Mutation probability. Default is 0.9. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>dis_m</entry><entry>
+<para>Distribution index for mutation (polynomial). Default is 20.0. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>nsga_update</entry><entry>
+<para>Flag to enable NSGA (Non-dominated Sorting Genetic Algorithm) update. Default is True. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>pareto_update</entry><entry>
+<para>Criterion for updating Pareto front. Default is 0. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>rg</entry><entry>
+<para>Random number generator for the optimization process. Default is Generator(PCG64DXSM()). </para>
+</entry>
+                            </row>
+                            <row>
+<entry>ints</entry><entry>
+<para>Indices of integer decision variables. Used to support mixed-integer optimization. Automatically disabled if nsga_update is True. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>min_mutate</entry><entry>
+<para>Minimum mutation rate for the decision variables. Default is 0.1. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>max_mutate</entry><entry>
+<para>Maximum mutation rate for the decision variables. Default is 0.5. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>modifier</entry><entry>
+<para>Function to modify integer decision variables. If not provided, a default modifier is used when integer variables exist. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00510">510</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1_m_o_d_e_1ac4814f6a92ab2814c791c23e76d9e1b2"/><section>
+    <title>mutex</title>
+<indexterm><primary>mutex</primary><secondary>fcmaes.mode.MODE</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.MODE</primary><secondary>mutex</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.MODE.mutex = mp.Lock()</computeroutput></para><para>
+Definition at line <link linkend="_mode_8py_source_1l00500">500</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1_m_o_d_e_1a20adacf20c1411e271fe9be8f7504fa5"/><section>
+    <title>ncon</title>
+<indexterm><primary>ncon</primary><secondary>fcmaes.mode.MODE</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.MODE</primary><secondary>ncon</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.MODE.ncon = ncon</computeroutput></para><para>
+
+<para>Number of constraints. </para>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00481">481</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1_m_o_d_e_1ad8a88c6e8d55396b806493982cb1cdb5"/><section>
+    <title>nobj</title>
+<indexterm><primary>nobj</primary><secondary>fcmaes.mode.MODE</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.MODE</primary><secondary>nobj</secondary></indexterm>
+<para><computeroutput>int fcmaes.mode.MODE.nobj = nobj</computeroutput></para><para>
+
+<para>Number of objectives to optimize. </para>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00480">480</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1_m_o_d_e_1a57cf010ab62e26a06988d5f251c62b6e"/><section>
+    <title>nsga_update</title>
+<indexterm><primary>nsga_update</primary><secondary>fcmaes.mode.MODE</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.MODE</primary><secondary>nsga_update</secondary></indexterm>
+<para><computeroutput># use NSGA-II update strategy. fcmaes.mode.MODE.nsga_update = nsga_update</computeroutput></para><para>
+
+<para>Indicates whether NSGA-II update is enabled. </para>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00495">495</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1_m_o_d_e_1a6823b36a4bb5daadeef62ec78b7c2281"/><section>
+    <title>p</title>
+<indexterm><primary>p</primary><secondary>fcmaes.mode.MODE</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.MODE</primary><secondary>p</secondary></indexterm>
+<para><computeroutput>int fcmaes.mode.MODE.p = 0</computeroutput></para><para>
+Definition at line <link linkend="_mode_8py_source_1l00501">501</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1_m_o_d_e_1ac5a6b39d9c5736bfb80c744742609f46"/><section>
+    <title>pareto_update</title>
+<indexterm><primary>pareto_update</primary><secondary>fcmaes.mode.MODE</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.MODE</primary><secondary>pareto_update</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.MODE.pareto_update = pareto_update</computeroutput></para><para>
+
+<para>Determines pareto update intensity; allows more elite selection if greater. </para>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00496">496</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1_m_o_d_e_1ab0225e759a59fcf9af44411a93f195d6"/><section>
+    <title>popsize</title>
+<indexterm><primary>popsize</primary><secondary>fcmaes.mode.MODE</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.MODE</primary><secondary>popsize</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.MODE.popsize = popsize</computeroutput></para><para>
+
+<para>Population size used for the optimization process. </para>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00487">487</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1_m_o_d_e_1a81f79977661c7a4dc09bc7d4e6d891a1"/><section>
+    <title>pro_c</title>
+<indexterm><primary>pro_c</primary><secondary>fcmaes.mode.MODE</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.MODE</primary><secondary>pro_c</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.MODE.pro_c = pro_c</computeroutput></para><para>
+
+<para>Probability for simulated binary crossover (SBX). </para>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00491">491</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1_m_o_d_e_1ab1df5291083b159bf2671c038c3e38e1"/><section>
+    <title>pro_m</title>
+<indexterm><primary>pro_m</primary><secondary>fcmaes.mode.MODE</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.MODE</primary><secondary>pro_m</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.MODE.pro_m = pro_m</computeroutput></para><para>
+
+<para>Probability for polynomial mutation. </para>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00493">493</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1_m_o_d_e_1a76afedce7a0358acd6633c6b6c6241e1"/><section>
+    <title>rg</title>
+<indexterm><primary>rg</primary><secondary>fcmaes.mode.MODE</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.MODE</primary><secondary>rg</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.MODE.rg = rg</computeroutput></para><para>
+
+<para>Random number generator for reproducibility. </para>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00488">488</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1_m_o_d_e_1a3877c96890ef6ce77a0eb464c9efc9eb"/><section>
+    <title>stop</title>
+<indexterm><primary>stop</primary><secondary>fcmaes.mode.MODE</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.MODE</primary><secondary>stop</secondary></indexterm>
+<para><computeroutput>int fcmaes.mode.MODE.stop = 0</computeroutput></para><para>
+Definition at line <link linkend="_mode_8py_source_1l00497">497</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1_m_o_d_e_1a49d3d6a1d92e1681a12bb5770a9f6c31"/><section>
+    <title>upper</title>
+<indexterm><primary>upper</primary><secondary>fcmaes.mode.MODE</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.MODE</primary><secondary>upper</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.MODE.upper = <link linkend="_namespacefcmaes_1_1mode_1a7437cac94470387e12001d7f424393af">_check_bounds</link>(bounds, None)</computeroutput></para><para>
+
+<para>Upper bounds for the search space dimensions. </para>
+</para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00482">482</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1_m_o_d_e_1a84feff642eb583f7e1174057703a2c82"/><section>
+    <title>vp</title>
+<indexterm><primary>vp</primary><secondary>fcmaes.mode.MODE</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.MODE</primary><secondary>vp</secondary></indexterm>
+<para><computeroutput>int fcmaes.mode.MODE.vp = 0</computeroutput></para><para>
+
+<para>int. </para>
+</para>
+
+<para>An auxiliary variable initialized to 0 for optimization purposes. </para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00617">617</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1_m_o_d_e_1a0386b1bcd3af523b5d82f8ba797c729d"/><section>
+    <title>vx</title>
+<indexterm><primary>vx</primary><secondary>fcmaes.mode.MODE</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.MODE</primary><secondary>vx</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.MODE.vx = self.x.copy()</computeroutput></para><para>
+
+<para>numpy.ndarray. </para>
+</para>
+
+<para>A copy of the initial <computeroutput>x</computeroutput> matrix, used for intermediate calculations during optimization. </para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00616">616</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1_m_o_d_e_1aa0b5e8c7849badf7439bb4cd3ab1bfea"/><section>
+    <title>x</title>
+<indexterm><primary>x</primary><secondary>fcmaes.mode.MODE</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.MODE</primary><secondary>x</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.MODE.x = np.empty((2*self.popsize, self.dim))</computeroutput></para><para>
+
+<para>Initializes the population matrices, decision variables, and objective values for a multi-objective optimization problem. </para>
+</para>
+
+<para>It also initializes auxiliary variables used in optimization algorithms.</para>
+
+<para>numpy.ndarray. A matrix containing decision variables for the population. The shape is <computeroutput>(2 * popsize, dim)</computeroutput>. </para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00611">611</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1_m_o_d_e_1a0dc84c88e30325bfc4bec42ab07cdc51"/><section>
+    <title>y</title>
+<indexterm><primary>y</primary><secondary>fcmaes.mode.MODE</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.MODE</primary><secondary>y</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.MODE.y = np.empty((2*self.popsize, self.nobj + self.ncon))</computeroutput></para><para>
+
+<para>numpy.ndarray. </para>
+</para>
+
+<para>A matrix for storing objective and constraint evaluations. The shape is <computeroutput>(2 * popsize, nobj + ncon)</computeroutput>. </para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00612">612</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1mode_1_1_m_o_d_e_1a8824bcdfb8fd5d5e3fc3af5beed5f699"/><section>
+    <title>ycon</title>
+<indexterm><primary>ycon</primary><secondary>fcmaes.mode.MODE</secondary></indexterm>
+<indexterm><primary>fcmaes.mode.MODE</primary><secondary>ycon</secondary></indexterm>
+<para><computeroutput>fcmaes.mode.MODE.ycon = None</computeroutput></para><para>
+
+<para>None or type(related attribute if any). </para>
+</para>
+
+<para>A placeholder for constraint-related computations, initialized as None. </para>
+<para>
+Definition at line <link linkend="_mode_8py_source_1l00618">618</link> of file <link linkend="_mode_8py_source">mode.py</link>.</para>
+</section>
+<para>
+The documentation for this class was generated from the following file:</para>
+fcmaes/<link linkend="_mode_8py">mode.py</link></section>
+</section>

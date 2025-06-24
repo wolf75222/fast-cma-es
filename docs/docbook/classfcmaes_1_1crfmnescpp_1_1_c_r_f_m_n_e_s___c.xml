@@ -1,0 +1,433 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_classfcmaes_1_1crfmnescpp_1_1_c_r_f_m_n_e_s___c" xml:lang="en-US">
+<title>fcmaes.crfmnescpp.CRFMNES_C Class Reference</title>
+<indexterm><primary>fcmaes.crfmnescpp.CRFMNES_C</primary></indexterm>
+<para>
+
+<para>Minimization of a scalar function of one or more variables using a C++ CR-FM-NES implementation, interfaced via Python using ctypes. </para>
+ 
+</para>
+Collaboration diagram for fcmaes.crfmnescpp.CRFMNES_C:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1crfmnescpp_1_1_c_r_f_m_n_e_s___c__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Public Member Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1crfmnescpp_1_1_c_r_f_m_n_e_s___c_1ace27ab32b6fd227caa1a9877c52f54d1">__init__</link> (self, int <link linkend="_classfcmaes_1_1crfmnescpp_1_1_c_r_f_m_n_e_s___c_1a3a0ed9ee6a06fadc715153d6be9145b3">dim</link>, Optional[Bounds] bounds=None, Optional[ArrayLike] x0=None, Optional[Union[float, ArrayLike, Callable]] input_sigma=0.3, Optional[int] <link linkend="_classfcmaes_1_1crfmnescpp_1_1_c_r_f_m_n_e_s___c_1ad99f6494d91a596c6025dc5dceea0970">popsize</link>=32, Optional[Generator] rg=Generator(PCG64DXSM()), Optional[int] runid=0, Optional[bool] normalize=False, Optional[bool] use_constraint_violation=True, Optional[float] penalty_coef=1E5)</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1crfmnescpp_1_1_c_r_f_m_n_e_s___c_1a8108ee1a2f3dd941e1105a3491269572">__del__</link> (self)</para>
+
+<para>Destroys the current instance and releases associated resources. </para>
+</listitem>
+            <listitem><para>np.ndarray <link linkend="_classfcmaes_1_1crfmnescpp_1_1_c_r_f_m_n_e_s___c_1a70d038e8b7f0c094ef4eb618fffbb1ed">ask</link> (self)</para>
+
+<para>Generates a population of candidate solutions using the CR-FM-NES algorithm. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1crfmnescpp_1_1_c_r_f_m_n_e_s___c_1a30327c6b3f1ecc4add777f4a74e83533">tell</link> (self, np.ndarray ys)</para>
+
+<para>Provides functionality to send an array of numerical values to a specific C-based function, with error handling in place to detect and notify when issues occur during execution. </para>
+</listitem>
+            <listitem><para>np.ndarray <link linkend="_classfcmaes_1_1crfmnescpp_1_1_c_r_f_m_n_e_s___c_1a47083f6baea2a536011cbb100e69f4d5">population</link> (self)</para>
+
+<para>Generates and retrieves the current population of candidate solutions. </para>
+</listitem>
+            <listitem><para>OptimizeResult <link linkend="_classfcmaes_1_1crfmnescpp_1_1_c_r_f_m_n_e_s___c_1a9dec09b9656f828fa32d78a409cb51d4">result</link> (self)</para>
+
+<para>Computes the optimization result and returns it as an <computeroutput>OptimizeResult</computeroutput> object. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Public Attributes    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1crfmnescpp_1_1_c_r_f_m_n_e_s___c_1a5be4aaaff3704c64f6579594e6aa32fe">ptr</link></para>
+
+<para>Pointer to the underlying C++ object handling the optimization. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1crfmnescpp_1_1_c_r_f_m_n_e_s___c_1ad99f6494d91a596c6025dc5dceea0970">popsize</link> = popsize</para>
+
+<para>Population size used by the CMA-ES algorithm. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1crfmnescpp_1_1_c_r_f_m_n_e_s___c_1a3a0ed9ee6a06fadc715153d6be9145b3">dim</link> = dim</para>
+
+<para>Dimension of the decision variable vector being optimized. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>Minimization of a scalar function of one or more variables using a C++ CR-FM-NES implementation, interfaced via Python using ctypes. </para>
+
+
+
+<para>This class implements the Covariance Matrix Adaptation Evolution Strategy (CR-FM-NES) algorithm for numerical optimization problems. It relies on the underlying C++ implementation for the actual optimization and provides a Python wrapper for convenient usage. The algorithm aims to find the minimum of a scalar objective function and supports various configurations like bounds on variables, initialization parameters, and constraint handling. </para>
+<para>
+Definition at line <link linkend="_crfmnescpp_8py_source_1l00158">158</link> of file <link linkend="_crfmnescpp_8py_source">crfmnescpp.py</link>.</para>
+</section>
+<section>
+<title>Constructor &amp; Destructor Documentation</title>
+<anchor xml:id="_classfcmaes_1_1crfmnescpp_1_1_c_r_f_m_n_e_s___c_1ace27ab32b6fd227caa1a9877c52f54d1"/><section>
+    <title>__init__()</title>
+<indexterm><primary>__init__</primary><secondary>fcmaes.crfmnescpp.CRFMNES_C</secondary></indexterm>
+<indexterm><primary>fcmaes.crfmnescpp.CRFMNES_C</primary><secondary>__init__</secondary></indexterm>
+<para><computeroutput>fcmaes.crfmnescpp.CRFMNES_C.__init__ ( self, int dim, Optional[Bounds]  bounds = <computeroutput>None</computeroutput>
+, Optional[ArrayLike]  x0 = <computeroutput>None</computeroutput>
+, Optional[Union[float, ArrayLike, Callable]]  input_sigma = <computeroutput>0.3</computeroutput>
+, Optional[int]  popsize = <computeroutput>32</computeroutput>
+, Optional[Generator]  rg = <computeroutput>Generator(PCG64DXSM())</computeroutput>
+, Optional[int]  runid = <computeroutput>0</computeroutput>
+, Optional[bool]  normalize = <computeroutput>False</computeroutput>
+, Optional[bool]  use_constraint_violation = <computeroutput>True</computeroutput>
+, Optional[float]  penalty_coef = <computeroutput>1E5</computeroutput>
+)</computeroutput></para><para>
+Definition at line <link linkend="_crfmnescpp_8py_source_1l00189">189</link> of file <link linkend="_crfmnescpp_8py_source">crfmnescpp.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1crfmnescpp_1_1_c_r_f_m_n_e_s___c_1a8108ee1a2f3dd941e1105a3491269572"/><section>
+    <title>__del__()</title>
+<indexterm><primary>__del__</primary><secondary>fcmaes.crfmnescpp.CRFMNES_C</secondary></indexterm>
+<indexterm><primary>fcmaes.crfmnescpp.CRFMNES_C</primary><secondary>__del__</secondary></indexterm>
+<para><computeroutput>fcmaes.crfmnescpp.CRFMNES_C.__del__ ( self)</computeroutput></para><para>
+
+<para>Destroys the current instance and releases associated resources. </para>
+</para>
+
+<para><literallayout><computeroutput>   This destructor is called when the object is deleted, or goes out of scope
+   to ensure proper cleanup of resources tied to the object.
+
+
+       Any destruction-related error that may arise during the resource
+       release process.
+</computeroutput></literallayout> </para>
+<para>
+Definition at line <link linkend="_crfmnescpp_8py_source_1l00237">237</link> of file <link linkend="_crfmnescpp_8py_source">crfmnescpp.py</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Function Documentation</title>
+<anchor xml:id="_classfcmaes_1_1crfmnescpp_1_1_c_r_f_m_n_e_s___c_1a70d038e8b7f0c094ef4eb618fffbb1ed"/><section>
+    <title>ask()</title>
+<indexterm><primary>ask</primary><secondary>fcmaes.crfmnescpp.CRFMNES_C</secondary></indexterm>
+<indexterm><primary>fcmaes.crfmnescpp.CRFMNES_C</primary><secondary>ask</secondary></indexterm>
+<para><computeroutput> np.ndarray fcmaes.crfmnescpp.CRFMNES_C.ask ( self)</computeroutput></para><para>
+
+<para>Generates a population of candidate solutions using the CR-FM-NES algorithm. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method computes a new set of candidate solutions for the optimization
+   problem using internal state and algorithm properties. It uses the specified
+   population size and dimensionality of the problem.
+</computeroutput></literallayout></para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>np A 2D array where each row corresponds to a candidate solution.</para>
+</formalpara>
+
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>Exception</entry><entry>
+<para>If there is an error while generating the candidate solutions. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_crfmnescpp_8py_source_1l00253">253</link> of file <link linkend="_crfmnescpp_8py_source">crfmnescpp.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1crfmnescpp_1_1_c_r_f_m_n_e_s___c_a70d038e8b7f0c094ef4eb618fffbb1ed_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1crfmnescpp_1_1_c_r_f_m_n_e_s___c_1a47083f6baea2a536011cbb100e69f4d5"/><section>
+    <title>population()</title>
+<indexterm><primary>population</primary><secondary>fcmaes.crfmnescpp.CRFMNES_C</secondary></indexterm>
+<indexterm><primary>fcmaes.crfmnescpp.CRFMNES_C</primary><secondary>population</secondary></indexterm>
+<para><computeroutput> np.ndarray fcmaes.crfmnescpp.CRFMNES_C.population ( self)</computeroutput></para><para>
+
+<para>Generates and retrieves the current population of candidate solutions. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method computes the population of candidate solutions for the
+   problem space using the `populationCRFMNES_C` function. The population
+   data is organized as a two-dimensional NumPy array where each row
+   represents a candidate solution.
+</computeroutput></literallayout></para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>np A two-dimensional array where each row corresponds to a candidate solution in the population. Returns <computeroutput>None</computeroutput> in case of an exception.</para>
+</formalpara>
+
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>Exception</entry><entry>
+<para>If an error occurs during computation or while calling <computeroutput>populationCRFMNES_C</computeroutput>. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_crfmnescpp_8py_source_1l00307">307</link> of file <link linkend="_crfmnescpp_8py_source">crfmnescpp.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1crfmnescpp_1_1_c_r_f_m_n_e_s___c_1a9dec09b9656f828fa32d78a409cb51d4"/><section>
+    <title>result()</title>
+<indexterm><primary>result</primary><secondary>fcmaes.crfmnescpp.CRFMNES_C</secondary></indexterm>
+<indexterm><primary>fcmaes.crfmnescpp.CRFMNES_C</primary><secondary>result</secondary></indexterm>
+<para><computeroutput> OptimizeResult fcmaes.crfmnescpp.CRFMNES_C.result ( self)</computeroutput></para><para>
+
+<para>Computes the optimization result and returns it as an <computeroutput>OptimizeResult</computeroutput> object. </para>
+</para>
+
+<para><literallayout><computeroutput>   The function retrieves the optimization output, including the optimized variables, function value,
+   number of evaluations, number of iterations, and the status of the optimization. If an error
+   occurs during the computation, an `OptimizeResult` object indicating failure is returned.
+</computeroutput></literallayout></para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>OptimizeResult An object containing details of the optimization result, including the optimized variables (<computeroutput>x</computeroutput>), the function value at the optimized point (<computeroutput>fun</computeroutput>), the number of function evaluations (<computeroutput>nfev</computeroutput>), the number of iterations performed (<computeroutput>nit</computeroutput>), the optimization status (<computeroutput>status</computeroutput>), and whether the optimization was successful (<computeroutput>success</computeroutput>).</para>
+</formalpara>
+
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>Exception</entry><entry>
+<para>If an error occurs during the computation process, leading to the creation of a failure <computeroutput>OptimizeResult</computeroutput>. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_crfmnescpp_8py_source_1l00339">339</link> of file <link linkend="_crfmnescpp_8py_source">crfmnescpp.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1crfmnescpp_1_1_c_r_f_m_n_e_s___c_1a30327c6b3f1ecc4add777f4a74e83533"/><section>
+    <title>tell()</title>
+<indexterm><primary>tell</primary><secondary>fcmaes.crfmnescpp.CRFMNES_C</secondary></indexterm>
+<indexterm><primary>fcmaes.crfmnescpp.CRFMNES_C</primary><secondary>tell</secondary></indexterm>
+<para><computeroutput>fcmaes.crfmnescpp.CRFMNES_C.tell ( self, np.ndarray ys)</computeroutput></para><para>
+
+<para>Provides functionality to send an array of numerical values to a specific C-based function, with error handling in place to detect and notify when issues occur during execution. </para>
+</para>
+
+<para>This method is particularly useful for communicating with lower-level systems or libraries that require data in specific formats.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>ys</entry><entry>
+<para>An array of numerical values to be sent to the underlying C function.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>int Returns the result from the C function upon successful execution, or -1 if an exception occurs.</para>
+</formalpara>
+
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>Exception</entry><entry>
+<para>Captures and prints the exception message when an error is encountered during operation. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_crfmnescpp_8py_source_1l00282">282</link> of file <link linkend="_crfmnescpp_8py_source">crfmnescpp.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1crfmnescpp_1_1_c_r_f_m_n_e_s___c_a30327c6b3f1ecc4add777f4a74e83533_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+<section>
+<title>Member Data Documentation</title>
+<anchor xml:id="_classfcmaes_1_1crfmnescpp_1_1_c_r_f_m_n_e_s___c_1a3a0ed9ee6a06fadc715153d6be9145b3"/><section>
+    <title>dim</title>
+<indexterm><primary>dim</primary><secondary>fcmaes.crfmnescpp.CRFMNES_C</secondary></indexterm>
+<indexterm><primary>fcmaes.crfmnescpp.CRFMNES_C</primary><secondary>dim</secondary></indexterm>
+<para><computeroutput>fcmaes.crfmnescpp.CRFMNES_C.dim = dim</computeroutput></para><para>
+
+<para>Dimension of the decision variable vector being optimized. </para>
+</para>
+
+<para>Initializes an evolutionary optimization algorithm with constrained bounds and penalty-based constraint handling. Uses randomized initial guess for optimization and allows configuration of the population size and mutation parameters.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>dim</entry><entry>
+<para>The dimensionality of the optimization problem. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>bounds</entry><entry>
+<para>The search space boundaries. If not specified, no limits are imposed. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>x0</entry><entry>
+<para>Initial guess for the optimization problem. If None, a random guess is used. input_sigma (Optional[Union[float, ArrayLike, Callable]]): Initial distribution width for mutation. Default is 0.3. Callable functions are invoked and their result used. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>popsize</entry><entry>
+<para>Size of the population. Default is 32. If an odd value is provided, it is incremented to ensure compatibility. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>rg</entry><entry>
+<para>Random generator for sampling. Default is Generator(PCG64DXSM()). </para>
+</entry>
+                            </row>
+                            <row>
+<entry>runid</entry><entry>
+<para>Unique identifier for the optimization run. Default is 0. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>normalize</entry><entry>
+<para>Indicates whether the search space should be normalized. Default is False. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>use_constraint_violation</entry><entry>
+<para>Enables constraint violation handling during optimization. Default is True. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>penalty_coef</entry><entry>
+<para>Coefficient of the penalty term for constraints. Default is 1E5. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_crfmnescpp_8py_source_1l00222">222</link> of file <link linkend="_crfmnescpp_8py_source">crfmnescpp.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1crfmnescpp_1_1_c_r_f_m_n_e_s___c_1ad99f6494d91a596c6025dc5dceea0970"/><section>
+    <title>popsize</title>
+<indexterm><primary>popsize</primary><secondary>fcmaes.crfmnescpp.CRFMNES_C</secondary></indexterm>
+<indexterm><primary>fcmaes.crfmnescpp.CRFMNES_C</primary><secondary>popsize</secondary></indexterm>
+<para><computeroutput>fcmaes.crfmnescpp.CRFMNES_C.popsize = popsize</computeroutput></para><para>
+
+<para>Population size used by the CMA-ES algorithm. </para>
+</para>
+<para>
+Definition at line <link linkend="_crfmnescpp_8py_source_1l00221">221</link> of file <link linkend="_crfmnescpp_8py_source">crfmnescpp.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1crfmnescpp_1_1_c_r_f_m_n_e_s___c_1a5be4aaaff3704c64f6579594e6aa32fe"/><section>
+    <title>ptr</title>
+<indexterm><primary>ptr</primary><secondary>fcmaes.crfmnescpp.CRFMNES_C</secondary></indexterm>
+<indexterm><primary>fcmaes.crfmnescpp.CRFMNES_C</primary><secondary>ptr</secondary></indexterm>
+<para><computeroutput>fcmaes.crfmnescpp.CRFMNES_C.ptr</computeroutput></para><emphasis role="strong">Initial value:</emphasis><programlisting linenumbering="unnumbered">=&#32;&#32;<link linkend="_crfmnes_8cpp_1a8ad70c1b6cadd1ed7b3bfa0d60d96911">initCRFMNES_C</link>(runid,&#32;dim,&#32;array_type(*guess),
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;array_type(*lower),&#32;array_type(*upper),
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;input_sigma,&#32;popsize,&#32;int(rg.uniform(0,&#32;2**32&#32;-&#32;1)),&#32;penalty_coef,
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;use_constraint_violation,&#32;normalize)
+</programlisting><para>
+
+<para>Pointer to the underlying C++ object handling the optimization. </para>
+</para>
+<para>
+Definition at line <link linkend="_crfmnescpp_8py_source_1l00217">217</link> of file <link linkend="_crfmnescpp_8py_source">crfmnescpp.py</link>.</para>
+</section>
+<para>
+The documentation for this class was generated from the following file:</para>
+fcmaes/<link linkend="_crfmnescpp_8py">crfmnescpp.py</link></section>
+</section>

@@ -1,0 +1,577 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.13.2" xml:lang="en-US">
+  <compounddef id="multiretry_8py" kind="file" language="Python">
+    <compoundname>multiretry.py</compoundname>
+    <innerclass refid="classfcmaes_1_1multiretry_1_1problem__stats" prot="public">fcmaes::multiretry::problem_stats</innerclass>
+    <innerclass refid="classfcmaes_1_1multiretry_1_1multiretry" prot="public">fcmaes::multiretry::multiretry</innerclass>
+    <innernamespace refid="namespacefcmaes">fcmaes</innernamespace>
+    <innernamespace refid="namespacefcmaes_1_1multiretry">fcmaes::multiretry</innernamespace>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="namespacefcmaes_1_1multiretry_1a622afd956406ccabb7ebebdfdf9715b6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>List</type>
+        <definition> List fcmaes.multiretry.minimize</definition>
+        <argsstring>(ArrayLike problems, Optional[ArrayLike] ids=None, Optional[int] retries_inc=min(256, 8 *mp.cpu_count()), Optional[int] num_retries=10000, Optional[float] keep=0.7, Optional[Optimizer] optimizer=de_cma(1500), datafile=None)</argsstring>
+        <name>minimize</name>
+        <qualifiedname>fcmaes.multiretry.minimize</qualifiedname>
+        <param>
+          <type>ArrayLike</type>
+          <declname>problems</declname>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>ids</declname>
+          <array>[ArrayLike]</array>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>retries_inc</declname>
+          <array>[int]</array>
+          <defval>min(256, 8 *mp.cpu_count())</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>num_retries</declname>
+          <array>[int]</array>
+          <defval>10000</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>keep</declname>
+          <array>[float]</array>
+          <defval>0.7</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>optimizer</declname>
+          <array>[Optimizer]</array>
+          <defval>de_cma(1500)</defval>
+        </param>
+        <param>
+          <type>datafile</type>
+          <defname>datafile</defname>
+          <defval>None</defval>
+        </param>
+        <briefdescription>
+<para>Minimizes the given set of problems by iteratively applying the optimizer and removing the worst-performing solutions until only one remains. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Supports retries and optional data file usage for saving and loading intermediate results.</para>
+<para>Minimization of a list of optimization problems by first applying parallel retry to filter the best ones and then applying coordinated retry to evaluate these further. Can replace mixed integer optimization if the integer variables are narrowly bound. In this case all combinations of these integer values can be enumerated to generate a list of problem instances each representing one combination. See for instance <ulink url="https://www.esa.int/gsp/ACT/projects/gtop/tandem">https://www.esa.int/gsp/ACT/projects/gtop/tandem</ulink> where there is a problem instance for each planet sequence.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>problems</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>List or array-like structure containing the problems to be minimized. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ids</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>List or array-like structure containing IDs for the problems. Defaults to None, in which case IDs will be auto-generated as strings in ascending order starting from 1. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>retries_inc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of initial retries increment. Defaults to min(256, 8 times the number of CPU cores). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>num_retries</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Maximum number of retries for each problem. Defaults to 10000. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>keep</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Fraction of best-performing problems to retain in each iteration. Defaults to 0.7. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>optimizer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classfcmaes_1_1optimizer_1_1_optimizer" kindref="compound">Optimizer</ref> object used to minimize the problems. Defaults to de_cma(1500). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>datafile</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional parameter representing the file path to load and save intermediate results. Defaults to None.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para></para>
+</simplesect>
+<simplesect kind="return"><para>List Sorted list of all problem statistics after successful </para>
+</simplesect>
+<simplesect kind="return"><para>minimization. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="fcmaes/multiretry.py" line="83" column="1" bodyfile="fcmaes/multiretry.py" bodystart="89" bodyend="114"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>============================================================================= </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Fast version 1.6.11</para>
+<para>(c) 2025 – Dietmar Wolz (c) 2025 – Latitude</para>
+<para>License MIT</para>
+<para><itemizedlist>
+<listitem><para><ref refid="multiretry_8py" kindref="compound">multiretry.py</ref></para>
+</listitem></itemizedlist>
+</para>
+<para><simplesect kind="par"><title>Description</title><para><itemizedlist>
+<listitem><para>Parallel optimization retry of a list of problems.</para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+<simplesect kind="author"><para>:<itemizedlist>
+<listitem><para>Dietmar Wolz <programlisting><codeline><highlight class="normal">-<sp/>romain.despoullains</highlight><highlight class="preprocessor">@latitude.eu</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal">-<sp/>corentin.generet</highlight><highlight class="preprocessor">@latitude.eu</highlight></codeline>
+</programlisting></para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+<simplesect kind="par"><title>References</title><para><itemizedlist>
+<listitem><para>[1] <ulink url="https://github.com/dietmarwo/fast-cma-es">https://github.com/dietmarwo/fast-cma-es</ulink></para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+<simplesect kind="par"><title>Documentation</title><para><itemizedlist>
+<listitem><para><hruler/>
+ </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1" refid="namespacefcmaes_1_1multiretry" refkind="compound"><highlight class="comment">#<sp/>-*-<sp/>coding:<sp/>utf-8<sp/>-*-</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="3"><highlight class="stringliteral">=============================================================================</highlight></codeline>
+<codeline lineno="4"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="5"><highlight class="stringliteral"><sp/>Fast<sp/>CMA-ES<sp/>-<sp/>version<sp/>1.6.11</highlight></codeline>
+<codeline lineno="6"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="7"><highlight class="stringliteral"><sp/>(c)<sp/>2025<sp/>–<sp/>Dietmar<sp/>Wolz</highlight></codeline>
+<codeline lineno="8"><highlight class="stringliteral"><sp/>(c)<sp/>2025<sp/>–<sp/>Latitude</highlight></codeline>
+<codeline lineno="9"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="10"><highlight class="stringliteral"><sp/>License:<sp/>MIT</highlight></codeline>
+<codeline lineno="11"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="12"><highlight class="stringliteral"><sp/>File:</highlight></codeline>
+<codeline lineno="13"><highlight class="stringliteral"><sp/><sp/>-<sp/>multiretry.py</highlight></codeline>
+<codeline lineno="14"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="15"><highlight class="stringliteral"><sp/>Description:</highlight></codeline>
+<codeline lineno="16"><highlight class="stringliteral"><sp/><sp/>-<sp/>Parallel<sp/>optimization<sp/>retry<sp/>of<sp/>a<sp/>list<sp/>of<sp/>problems.</highlight></codeline>
+<codeline lineno="17"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="18"><highlight class="stringliteral"><sp/>Authors:</highlight></codeline>
+<codeline lineno="19"><highlight class="stringliteral"><sp/><sp/>-<sp/>Dietmar<sp/>Wolz</highlight></codeline>
+<codeline lineno="20"><highlight class="stringliteral"><sp/><sp/>-<sp/>romain.despoullains@latitude.eu</highlight></codeline>
+<codeline lineno="21"><highlight class="stringliteral"><sp/><sp/>-<sp/>corentin.generet@latitude.eu</highlight></codeline>
+<codeline lineno="22"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="23"><highlight class="stringliteral"><sp/>References:</highlight></codeline>
+<codeline lineno="24"><highlight class="stringliteral"><sp/><sp/>-<sp/>[1]<sp/>https://github.com/dietmarwo/fast-cma-es</highlight></codeline>
+<codeline lineno="25"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="26"><highlight class="stringliteral"><sp/>Documentation:</highlight></codeline>
+<codeline lineno="27"><highlight class="stringliteral"><sp/><sp/>-</highlight></codeline>
+<codeline lineno="28"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="29"><highlight class="stringliteral">=============================================================================</highlight></codeline>
+<codeline lineno="30"><highlight class="stringliteral">&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>numpy<sp/></highlight><highlight class="keyword">as</highlight><highlight class="normal"><sp/>np</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>_pickle<sp/></highlight><highlight class="keyword">as</highlight><highlight class="normal"><sp/>cPickle</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>bz2</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>multiprocessing<sp/></highlight><highlight class="keyword">as</highlight><highlight class="normal"><sp/>mp</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>scipy.optimize<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>OptimizeResult,<sp/>Bounds</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/><ref refid="namespacefcmaes_1_1optimizer" kindref="compound">fcmaes.optimizer</ref><sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>de_cma,<sp/>eprint,<sp/>Optimizer</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>fcmaes<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>advretry</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/><ref refid="namespacefcmaes_1_1evaluator" kindref="compound">fcmaes.evaluator</ref><sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>is_debug_active</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>loguru<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>logger</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>typing<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>Optional,<sp/>Callable,<sp/>Tuple,<sp/>List</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>numpy.typing<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>ArrayLike</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="namespacefcmaes_1_1multiretry_1a622afd956406ccabb7ebebdfdf9715b6" kindref="member">minimize</ref>(problems:<sp/>ArrayLike,<sp/></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ids:<sp/>Optional[ArrayLike]<sp/>=<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">,<sp/></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>retries_inc:<sp/>Optional[int]<sp/>=<sp/>min(256,<sp/>8*mp.cpu_count()),<sp/></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>num_retries:<sp/>Optional[int]<sp/>=<sp/>10000,</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>keep:<sp/>Optional[float]<sp/>=<sp/>0.7,<sp/></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>optimizer:<sp/>Optional[Optimizer]<sp/>=<sp/>de_cma(1500),<sp/></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>datafile<sp/>=<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">)<sp/>-&gt;<sp/>List:</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="55"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>Minimizes<sp/>the<sp/>given<sp/>set<sp/>of<sp/>problems<sp/>by<sp/>iteratively<sp/>applying<sp/>the<sp/>optimizer<sp/>and</highlight></codeline>
+<codeline lineno="56"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>removing<sp/>the<sp/>worst-performing<sp/>solutions<sp/>until<sp/>only<sp/>one<sp/>remains.<sp/>Supports</highlight></codeline>
+<codeline lineno="57"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>retries<sp/>and<sp/>optional<sp/>data<sp/>file<sp/>usage<sp/>for<sp/>saving<sp/>and<sp/>loading<sp/>intermediate</highlight></codeline>
+<codeline lineno="58"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>results.</highlight></codeline>
+<codeline lineno="59"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="60"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>Minimization<sp/>of<sp/>a<sp/>list<sp/>of<sp/>optimization<sp/>problems<sp/>by<sp/>first<sp/>applying<sp/>parallel<sp/>retry</highlight></codeline>
+<codeline lineno="61"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>to<sp/>filter<sp/>the<sp/>best<sp/>ones<sp/>and<sp/>then<sp/>applying<sp/>coordinated<sp/>retry<sp/>to<sp/>evaluate<sp/>these<sp/>further.</highlight></codeline>
+<codeline lineno="62"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>Can<sp/>replace<sp/>mixed<sp/>integer<sp/>optimization<sp/>if<sp/>the<sp/>integer<sp/>variables<sp/>are<sp/>narrowly<sp/>bound.</highlight></codeline>
+<codeline lineno="63"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>In<sp/>this<sp/>case<sp/>all<sp/>combinations<sp/>of<sp/>these<sp/>integer<sp/>values<sp/>can<sp/>be<sp/>enumerated<sp/>to<sp/>generate<sp/>a</highlight></codeline>
+<codeline lineno="64"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>list<sp/>of<sp/>problem<sp/>instances<sp/>each<sp/>representing<sp/>one<sp/>combination.<sp/>See<sp/>for<sp/>instance</highlight></codeline>
+<codeline lineno="65"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>https://www.esa.int/gsp/ACT/projects/gtop/tandem<sp/>where<sp/>there<sp/>is<sp/>a<sp/>problem<sp/>instance<sp/>for<sp/>each</highlight></codeline>
+<codeline lineno="66"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>planet<sp/>sequence.</highlight></codeline>
+<codeline lineno="67"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="68"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>Args:</highlight></codeline>
+<codeline lineno="69"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>problems<sp/>(ArrayLike):<sp/>List<sp/>or<sp/>array-like<sp/>structure<sp/>containing<sp/>the<sp/>problems</highlight></codeline>
+<codeline lineno="70"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>to<sp/>be<sp/>minimized.</highlight></codeline>
+<codeline lineno="71"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ids<sp/>(Optional[ArrayLike]):<sp/>List<sp/>or<sp/>array-like<sp/>structure<sp/>containing</highlight></codeline>
+<codeline lineno="72"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IDs<sp/>for<sp/>the<sp/>problems.<sp/>Defaults<sp/>to<sp/>None,<sp/>in<sp/>which<sp/>case<sp/>IDs<sp/>will</highlight></codeline>
+<codeline lineno="73"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>be<sp/>auto-generated<sp/>as<sp/>strings<sp/>in<sp/>ascending<sp/>order<sp/>starting<sp/>from<sp/>1.</highlight></codeline>
+<codeline lineno="74"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>retries_inc<sp/>(Optional[int]):<sp/>Number<sp/>of<sp/>initial<sp/>retries<sp/>increment.<sp/>Defaults</highlight></codeline>
+<codeline lineno="75"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>to<sp/>min(256,<sp/>8<sp/>times<sp/>the<sp/>number<sp/>of<sp/>CPU<sp/>cores).</highlight></codeline>
+<codeline lineno="76"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>num_retries<sp/>(Optional[int]):<sp/>Maximum<sp/>number<sp/>of<sp/>retries<sp/>for<sp/>each<sp/>problem.</highlight></codeline>
+<codeline lineno="77"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Defaults<sp/>to<sp/>10000.</highlight></codeline>
+<codeline lineno="78"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>keep<sp/>(Optional[float]):<sp/>Fraction<sp/>of<sp/>best-performing<sp/>problems<sp/>to<sp/>retain<sp/>in</highlight></codeline>
+<codeline lineno="79"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>each<sp/>iteration.<sp/>Defaults<sp/>to<sp/>0.7.</highlight></codeline>
+<codeline lineno="80"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>optimizer<sp/>(Optional[Optimizer]):<sp/>Optimizer<sp/>object<sp/>used<sp/>to<sp/>minimize<sp/>the</highlight></codeline>
+<codeline lineno="81"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>problems.<sp/>Defaults<sp/>to<sp/>de_cma(1500).</highlight></codeline>
+<codeline lineno="82"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>datafile:<sp/>Optional<sp/>parameter<sp/>representing<sp/>the<sp/>file<sp/>path<sp/>to<sp/>load<sp/>and<sp/>save</highlight></codeline>
+<codeline lineno="83" refid="namespacefcmaes_1_1multiretry_1a622afd956406ccabb7ebebdfdf9715b6" refkind="member"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>intermediate<sp/>results.<sp/>Defaults<sp/>to<sp/>None.</highlight></codeline>
+<codeline lineno="84"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="85"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>Returns:</highlight></codeline>
+<codeline lineno="86"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>List:<sp/>Sorted<sp/>list<sp/>of<sp/>all<sp/>problem<sp/>statistics<sp/>after<sp/>successful</highlight></codeline>
+<codeline lineno="87"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>minimization.</highlight></codeline>
+<codeline lineno="88"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/>solver<sp/>=<sp/><ref refid="classfcmaes_1_1multiretry_1_1multiretry" kindref="compound">multiretry</ref>()</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/>n<sp/>=<sp/>len(problems)</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>i<sp/></highlight><highlight class="keywordflow">in</highlight><highlight class="normal"><sp/>range(n):<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>id<sp/>=<sp/>str(i+1)<sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>ids<sp/></highlight><highlight class="keywordflow">is</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>ids[i]<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>solver.add(<ref refid="classfcmaes_1_1multiretry_1_1problem__stats" kindref="compound">problem_stats</ref>(problems[i],<sp/>id,<sp/>i,<sp/>retries_inc,<sp/>num_retries))</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">not</highlight><highlight class="normal"><sp/>datafile<sp/></highlight><highlight class="keywordflow">is</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>solver.load(datafile)</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>solver.size()<sp/>&gt;<sp/>1:<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>solver.retry(optimizer)</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>to_remove<sp/>=<sp/>int(round((1.0<sp/>-<sp/>keep)<sp/>*<sp/>solver.size()))</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>to_remove<sp/>==<sp/>0<sp/></highlight><highlight class="keywordflow">and</highlight><highlight class="normal"><sp/>keep<sp/>&lt;<sp/>1.0:</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>to_remove<sp/>=<sp/>1</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>solver.remove_worst(to_remove)</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>solver.dump()</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">not</highlight><highlight class="normal"><sp/>datafile<sp/></highlight><highlight class="keywordflow">is</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>solver.save(datafile)</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/>idx<sp/>=<sp/>solver.values_all().argsort()</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>list(np.asarray(solver.all_stats)[idx])</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classfcmaes_1_1multiretry_1_1problem__stats" kindref="compound">problem_stats</ref>:</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;Represents<sp/>statistics<sp/>and<sp/>operational<sp/>parameters<sp/>for<sp/>a<sp/>specific<sp/>problem.</highlight></codeline>
+<codeline lineno="115"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="116"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>This<sp/>class<sp/>encapsulates<sp/>the<sp/>problem&apos;s<sp/>parameters,<sp/>optimization<sp/>store,<sp/>retry<sp/>mechanism,</highlight></codeline>
+<codeline lineno="117"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>and<sp/>manages<sp/>retries<sp/>for<sp/>optimization<sp/>processes.<sp/>It<sp/>is<sp/>designed<sp/>to<sp/>handle<sp/>optimization</highlight></codeline>
+<codeline lineno="118"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>problems<sp/>with<sp/>adjustable<sp/>retry<sp/>increments<sp/>and<sp/>constraints.</highlight></codeline>
+<codeline lineno="119"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="120"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>Attributes:</highlight></codeline>
+<codeline lineno="121"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>prob:<sp/>The<sp/>problem<sp/>instance<sp/>containing<sp/>the<sp/>problem&apos;s<sp/>functions<sp/>and<sp/>bounds.</highlight></codeline>
+<codeline lineno="122"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>name<sp/>(str):<sp/>The<sp/>name<sp/>of<sp/>the<sp/>problem.</highlight></codeline>
+<codeline lineno="123" refid="classfcmaes_1_1multiretry_1_1problem__stats" refkind="compound"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fun:<sp/>The<sp/>function<sp/>representing<sp/>the<sp/>objective<sp/>of<sp/>the<sp/>problem.</highlight></codeline>
+<codeline lineno="124"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>retries_inc<sp/>(int):<sp/>The<sp/>number<sp/>of<sp/>retries<sp/>incrementally<sp/>added<sp/>on<sp/>each<sp/>retry<sp/>operation.</highlight></codeline>
+<codeline lineno="125"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>value<sp/>(float):<sp/>The<sp/>best<sp/>value<sp/>obtained<sp/>during<sp/>optimization.</highlight></codeline>
+<codeline lineno="126"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>id:<sp/>The<sp/>identifier<sp/>for<sp/>the<sp/>problem<sp/>instance.</highlight></codeline>
+<codeline lineno="127"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>index:<sp/>The<sp/>index<sp/>associated<sp/>with<sp/>the<sp/>problem<sp/>instance.</highlight></codeline>
+<codeline lineno="128"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classfcmaes_1_1multiretry_1_1problem__stats_1aa0f75cc24bf60c302db2476b7b536c08" kindref="member">__init__</ref>(self,<sp/>prob,<sp/>id,<sp/>index,<sp/>retries_inc<sp/>=<sp/>64,<sp/>num_retries<sp/>=<sp/>10000):</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="131"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Initializes<sp/>an<sp/>instance<sp/>of<sp/>the<sp/>class<sp/>with<sp/>the<sp/>given<sp/>problem,<sp/>identifier,<sp/>index,</highlight></codeline>
+<codeline lineno="132"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>optional<sp/>retries<sp/>increment<sp/>value,<sp/>and<sp/>number<sp/>of<sp/>retries.</highlight></codeline>
+<codeline lineno="133"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="134"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Args:</highlight></codeline>
+<codeline lineno="135"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>prob:<sp/>An<sp/>object<sp/>representing<sp/>the<sp/>problem<sp/>to<sp/>solve.</highlight></codeline>
+<codeline lineno="136"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>id:<sp/>An<sp/>identifier<sp/>associated<sp/>with<sp/>the<sp/>instance.</highlight></codeline>
+<codeline lineno="137"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>index:<sp/>An<sp/>integer<sp/>specifying<sp/>the<sp/>index<sp/>of<sp/>the<sp/>instance.</highlight></codeline>
+<codeline lineno="138"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>retries_inc:<sp/>Optional<sp/>integer<sp/>specifying<sp/>the<sp/>increment<sp/>for<sp/>retries<sp/>(default<sp/>64).</highlight></codeline>
+<codeline lineno="139"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>num_retries:<sp/>Optional<sp/>integer<sp/>specifying<sp/>the<sp/>total<sp/>number<sp/>of<sp/>retries<sp/>(default<sp/>10000).</highlight></codeline>
+<codeline lineno="140"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classfcmaes_1_1multiretry_1_1problem__stats_1ae367b1b41066f3652e4885add625054a" kindref="member">store</ref><sp/>=<sp/><ref refid="classfcmaes_1_1advretry_1_1_store" kindref="compound">advretry.Store</ref>(prob.fun,<sp/>prob.bounds,<sp/>num_retries=num_retries)</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classfcmaes_1_1multiretry_1_1problem__stats_1a609b88130dc53480e9b2482d528bdc9d" kindref="member">prob</ref><sp/>=<sp/>prob</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classfcmaes_1_1multiretry_1_1problem__stats_1a816013d97866561967441f7f5d469a60" kindref="member">name</ref><sp/>=<sp/>prob.name</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classfcmaes_1_1multiretry_1_1problem__stats_1aa692dda9e8785372877087a37861e73e" kindref="member">fun</ref><sp/>=<sp/>prob.fun</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classfcmaes_1_1multiretry_1_1problem__stats_1a9f91d58092173d90258dfdab875b1a63" kindref="member">retries_inc</ref><sp/>=<sp/>retries_inc</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classfcmaes_1_1multiretry_1_1problem__stats_1ac081ca6b75614526547d3be6c661cbb5" kindref="member">value</ref><sp/>=<sp/>0</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classfcmaes_1_1multiretry_1_1problem__stats_1aa558cc8f587b4b125d6761578f1be803" kindref="member">id</ref><sp/>=<sp/>id</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classfcmaes_1_1multiretry_1_1problem__stats_1a8ae48429f680e70a0447d7896be1d4eb" kindref="member">index</ref><sp/>=<sp/>index</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classfcmaes_1_1multiretry_1_1problem__stats_1acec8f2c5826ca9ebd4b5591ae90d8e69" kindref="member">ret</ref><sp/>=<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classfcmaes_1_1multiretry_1_1problem__stats_1ae367b1b41066f3652e4885add625054a" kindref="member">store</ref>.num_retries<sp/>=<sp/>self.<ref refid="classfcmaes_1_1multiretry_1_1problem__stats_1a9f91d58092173d90258dfdab875b1a63" kindref="member">retries_inc</ref></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">retry(self,<sp/>optimizer):</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="154"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Retries<sp/>the<sp/>optimization<sp/>process<sp/>and<sp/>updates<sp/>the<sp/>relevant<sp/>attributes<sp/>in<sp/>the<sp/>store.</highlight></codeline>
+<codeline lineno="155"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="156" refid="classfcmaes_1_1multiretry_1_1problem__stats_1aa0f75cc24bf60c302db2476b7b536c08" refkind="member"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>This<sp/>method<sp/>increments<sp/>the<sp/>retry<sp/>count<sp/>stored<sp/>in<sp/>the<sp/>store.<sp/>It<sp/>performs<sp/>an<sp/>optimization</highlight></codeline>
+<codeline lineno="157" refid="classfcmaes_1_1multiretry_1_1problem__stats_1ae367b1b41066f3652e4885add625054a" refkind="member"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>retry<sp/>using<sp/>the<sp/>provided<sp/>`optimizer`<sp/>and<sp/>updates<sp/>the<sp/>best<sp/>obtained<sp/>value<sp/>in<sp/>the</highlight></codeline>
+<codeline lineno="158" refid="classfcmaes_1_1multiretry_1_1problem__stats_1a609b88130dc53480e9b2482d528bdc9d" refkind="member"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>optimization<sp/>process.</highlight></codeline>
+<codeline lineno="159" refid="classfcmaes_1_1multiretry_1_1problem__stats_1a816013d97866561967441f7f5d469a60" refkind="member"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="160" refid="classfcmaes_1_1multiretry_1_1problem__stats_1aa692dda9e8785372877087a37861e73e" refkind="member"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Args:</highlight></codeline>
+<codeline lineno="161" refid="classfcmaes_1_1multiretry_1_1problem__stats_1a9f91d58092173d90258dfdab875b1a63" refkind="member"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>optimizer:<sp/>An<sp/>optimization<sp/>object<sp/>used<sp/>to<sp/>minimize<sp/>the<sp/>function.<sp/>It<sp/>must<sp/>provide</highlight></codeline>
+<codeline lineno="162" refid="classfcmaes_1_1multiretry_1_1problem__stats_1ac081ca6b75614526547d3be6c661cbb5" refkind="member"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>a<sp/>`minimize`<sp/>method<sp/>to<sp/>execute<sp/>the<sp/>optimization<sp/>operations.</highlight></codeline>
+<codeline lineno="163" refid="classfcmaes_1_1multiretry_1_1problem__stats_1aa558cc8f587b4b125d6761578f1be803" refkind="member"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="164" refid="classfcmaes_1_1multiretry_1_1problem__stats_1a8ae48429f680e70a0447d7896be1d4eb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classfcmaes_1_1multiretry_1_1problem__stats_1ae367b1b41066f3652e4885add625054a" kindref="member">store</ref>.num_retries<sp/>+=<sp/>self.<ref refid="classfcmaes_1_1multiretry_1_1problem__stats_1a9f91d58092173d90258dfdab875b1a63" kindref="member">retries_inc</ref></highlight></codeline>
+<codeline lineno="165" refid="classfcmaes_1_1multiretry_1_1problem__stats_1acec8f2c5826ca9ebd4b5591ae90d8e69" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classfcmaes_1_1multiretry_1_1problem__stats_1acec8f2c5826ca9ebd4b5591ae90d8e69" kindref="member">ret</ref><sp/>=<sp/>advretry.retry(self.<ref refid="classfcmaes_1_1multiretry_1_1problem__stats_1ae367b1b41066f3652e4885add625054a" kindref="member">store</ref>,<sp/>optimizer.minimize)</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classfcmaes_1_1multiretry_1_1problem__stats_1ac081ca6b75614526547d3be6c661cbb5" kindref="member">value</ref><sp/>=<sp/>self.<ref refid="classfcmaes_1_1multiretry_1_1problem__stats_1ae367b1b41066f3652e4885add625054a" kindref="member">store</ref>.get_y_best()</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classfcmaes_1_1multiretry_1_1multiretry" kindref="compound">multiretry</ref>:</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="170"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>A<sp/>class<sp/>for<sp/>managing<sp/>and<sp/>retrying<sp/>task<sp/>statistics<sp/>with<sp/>extended<sp/>functionalities<sp/>like<sp/>removing</highlight></codeline>
+<codeline lineno="171"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>worst-performing<sp/>tasks,<sp/>saving<sp/>and<sp/>loading<sp/>data,<sp/>and<sp/>retrieving<sp/>metrics.</highlight></codeline>
+<codeline lineno="172"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="173"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>The<sp/>class<sp/>is<sp/>designed<sp/>to<sp/>facilitate<sp/>the<sp/>management<sp/>of<sp/>task-related<sp/>statistics,<sp/>allowing</highlight></codeline>
+<codeline lineno="174"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>operations<sp/>such<sp/>as<sp/>retrying<sp/>tasks<sp/>with<sp/>an<sp/>optimizer,<sp/>sorting<sp/>tasks<sp/>based<sp/>on<sp/>performance,</highlight></codeline>
+<codeline lineno="175"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>and<sp/>persisting<sp/>data<sp/>for<sp/>external<sp/>use.<sp/>It<sp/>also<sp/>supports<sp/>evaluating<sp/>and<sp/>managing<sp/>both<sp/>primary</highlight></codeline>
+<codeline lineno="176"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>and<sp/>aggregated<sp/>statistics.</highlight></codeline>
+<codeline lineno="177"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="178"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>Attributes:</highlight></codeline>
+<codeline lineno="179" refid="classfcmaes_1_1multiretry_1_1problem__stats_1abff769ec9721100a3274ce5e4e1d7035" refkind="member"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>problem_stats<sp/>(list):<sp/>A<sp/>list<sp/>of<sp/>statistics<sp/>related<sp/>to<sp/>problems<sp/>currently<sp/>being<sp/>managed.</highlight></codeline>
+<codeline lineno="180"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>all_stats<sp/>(list):<sp/>A<sp/>comprehensive<sp/>list<sp/>of<sp/>all<sp/>statistics<sp/>including<sp/>completed<sp/>and</highlight></codeline>
+<codeline lineno="181"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ongoing<sp/>problems.</highlight></codeline>
+<codeline lineno="182"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classfcmaes_1_1multiretry_1_1problem__stats_1aa0f75cc24bf60c302db2476b7b536c08" kindref="member">__init__</ref>(self):</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="185"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Represents<sp/>a<sp/>container<sp/>designed<sp/>to<sp/>manage<sp/>problem<sp/>statistics<sp/>and<sp/>aggregate<sp/>data.</highlight></codeline>
+<codeline lineno="186"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="187"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Attributes:</highlight></codeline>
+<codeline lineno="188"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>problem_stats<sp/>(list):<sp/>A<sp/>list<sp/>designed<sp/>to<sp/>hold<sp/>statistics<sp/>related<sp/>specifically<sp/>to<sp/>problems.</highlight></codeline>
+<codeline lineno="189"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>all_stats<sp/>(list):<sp/>A<sp/>list<sp/>intended<sp/>to<sp/>store<sp/>aggregated<sp/>or<sp/>general<sp/>statistics.</highlight></codeline>
+<codeline lineno="190"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.problem_stats<sp/>=<sp/>[]</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.all_stats<sp/>=<sp/>[]</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">add(self,<sp/>stats):</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="196" refid="classfcmaes_1_1multiretry_1_1multiretry" refkind="compound"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Adds<sp/>the<sp/>provided<sp/>statistics<sp/>to<sp/>the<sp/>problem<sp/>and<sp/>all<sp/>statistics<sp/>lists.</highlight></codeline>
+<codeline lineno="197"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="198"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Args:</highlight></codeline>
+<codeline lineno="199"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>stats:<sp/>The<sp/>statistics<sp/>to<sp/>be<sp/>added<sp/>to<sp/>the<sp/>lists.</highlight></codeline>
+<codeline lineno="200"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classfcmaes_1_1multiretry_1_1multiretry_1a50eaad12e27a3c2850d1e34ac6050ab1" kindref="member">problem_stats</ref>.append(stats)</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classfcmaes_1_1multiretry_1_1multiretry_1a45317d4e99e798e661776de739d331b8" kindref="member">all_stats</ref>.append(stats)</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal">retry(self,<sp/>optimizer):</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="206"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Retries<sp/>optimization<sp/>for<sp/>each<sp/>problem<sp/>in<sp/>the<sp/>problem<sp/>statistics<sp/>list.</highlight></codeline>
+<codeline lineno="207"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="208"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>This<sp/>method<sp/>iterates<sp/>through<sp/>the<sp/>list<sp/>of<sp/>problem<sp/>statistics<sp/>and<sp/>attempts<sp/>to</highlight></codeline>
+<codeline lineno="209"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>retry<sp/>the<sp/>optimization<sp/>process<sp/>using<sp/>the<sp/>given<sp/>optimizer.</highlight></codeline>
+<codeline lineno="210"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="211"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Args:</highlight></codeline>
+<codeline lineno="212" refid="classfcmaes_1_1multiretry_1_1multiretry_1a77bf3a97684c97c11cbe30adcb54a74a" refkind="member"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>optimizer:<sp/>The<sp/>optimizer<sp/>instance<sp/>to<sp/>use<sp/>for<sp/>retrying<sp/>the<sp/>problems.</highlight></codeline>
+<codeline lineno="213" refid="classfcmaes_1_1multiretry_1_1multiretry_1a50eaad12e27a3c2850d1e34ac6050ab1" refkind="member"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="214" refid="classfcmaes_1_1multiretry_1_1multiretry_1a45317d4e99e798e661776de739d331b8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>ps<sp/></highlight><highlight class="keywordflow">in</highlight><highlight class="normal"><sp/>self.<ref refid="classfcmaes_1_1multiretry_1_1multiretry_1a50eaad12e27a3c2850d1e34ac6050ab1" kindref="member">problem_stats</ref>:</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>is_debug_active():</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logger.debug(</highlight><highlight class="stringliteral">&quot;problem<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/>ps.prob.name<sp/>+<sp/></highlight><highlight class="stringliteral">&apos;<sp/>&apos;</highlight><highlight class="normal"><sp/>+<sp/>str(ps.id))</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ps.retry(optimizer)</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classfcmaes_1_1multiretry_1_1multiretry_1a96427eba6d0685bada50f247b508580d" kindref="member">values</ref>(self):</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="221"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Generates<sp/>a<sp/>NumPy<sp/>array<sp/>from<sp/>the<sp/>values<sp/>of<sp/>the<sp/>`problem_stats`<sp/>attribute.</highlight></codeline>
+<codeline lineno="222" refid="classfcmaes_1_1multiretry_1_1multiretry_1a8cd2b04b9e59bbe46a34efeacc59f4f1" refkind="member"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="223"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Returns:</highlight></codeline>
+<codeline lineno="224"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>numpy.ndarray:<sp/>A<sp/>NumPy<sp/>array<sp/>containing<sp/>the<sp/>values<sp/>of<sp/>`problem_stats`,</highlight></codeline>
+<codeline lineno="225"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>converted<sp/>to<sp/>float<sp/>type.</highlight></codeline>
+<codeline lineno="226"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>np.fromiter((ps.value<sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>ps<sp/></highlight><highlight class="keywordflow">in</highlight><highlight class="normal"><sp/>self.<ref refid="classfcmaes_1_1multiretry_1_1multiretry_1a50eaad12e27a3c2850d1e34ac6050ab1" kindref="member">problem_stats</ref>),<sp/>dtype=float)</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classfcmaes_1_1multiretry_1_1multiretry_1a9be3531534aef30b5b4f3242da6a69db" kindref="member">remove_worst</ref>(self,<sp/>n<sp/>=<sp/>1):</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="231"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Removes<sp/>the<sp/>worst-performing<sp/>items<sp/>from<sp/>the<sp/>current<sp/>problem<sp/>statistics<sp/>list.</highlight></codeline>
+<codeline lineno="232"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="233"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>This<sp/>method<sp/>removes<sp/>items<sp/>from<sp/>the<sp/>problem<sp/>statistics<sp/>list<sp/>based<sp/>on<sp/>their</highlight></codeline>
+<codeline lineno="234"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>performance<sp/>metrics.<sp/>The<sp/>items<sp/>are<sp/>sorted<sp/>in<sp/>ascending<sp/>order<sp/>first,</highlight></codeline>
+<codeline lineno="235" refid="classfcmaes_1_1multiretry_1_1multiretry_1a55f05d04ff385042a990d3139b2c4f19" refkind="member"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>and<sp/>the<sp/>specified<sp/>number<sp/>of<sp/>worst-performing<sp/>items<sp/>(based<sp/>on<sp/>the<sp/>input<sp/>value)</highlight></codeline>
+<codeline lineno="236"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>are<sp/>removed<sp/>from<sp/>the<sp/>end<sp/>of<sp/>the<sp/>list.</highlight></codeline>
+<codeline lineno="237"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="238"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Args:</highlight></codeline>
+<codeline lineno="239"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>n<sp/>(int,<sp/>optional):<sp/>The<sp/>number<sp/>of<sp/>worst-performing<sp/>items<sp/>to<sp/>remove.<sp/>Defaults</highlight></codeline>
+<codeline lineno="240"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>to<sp/>1.</highlight></codeline>
+<codeline lineno="241"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="242"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>idx<sp/>=<sp/>self.<ref refid="classfcmaes_1_1multiretry_1_1multiretry_1a96427eba6d0685bada50f247b508580d" kindref="member">values</ref>().argsort()</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classfcmaes_1_1multiretry_1_1multiretry_1a50eaad12e27a3c2850d1e34ac6050ab1" kindref="member">problem_stats</ref><sp/>=<sp/>list(np.asarray(self.<ref refid="classfcmaes_1_1multiretry_1_1multiretry_1a50eaad12e27a3c2850d1e34ac6050ab1" kindref="member">problem_stats</ref>)[idx])</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>_<sp/></highlight><highlight class="keywordflow">in</highlight><highlight class="normal"><sp/>range(n):</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classfcmaes_1_1multiretry_1_1multiretry_1a50eaad12e27a3c2850d1e34ac6050ab1" kindref="member">problem_stats</ref>.pop(-1)</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"></highlight></codeline>
+<codeline lineno="248" refid="classfcmaes_1_1multiretry_1_1multiretry_1a96427eba6d0685bada50f247b508580d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classfcmaes_1_1multiretry_1_1multiretry_1a498ccce18e874dc891d0060bc2a77b7f" kindref="member">size</ref>(self):</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="250"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Calculates<sp/>and<sp/>returns<sp/>the<sp/>size<sp/>of<sp/>the<sp/>problem<sp/>statistics.</highlight></codeline>
+<codeline lineno="251"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="252"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>This<sp/>function<sp/>determines<sp/>the<sp/>size<sp/>based<sp/>on<sp/>the<sp/>number<sp/>of<sp/>entries</highlight></codeline>
+<codeline lineno="253"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>in<sp/>the<sp/>`problem_stats`<sp/>attribute.</highlight></codeline>
+<codeline lineno="254"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="255"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Returns:</highlight></codeline>
+<codeline lineno="256"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int:<sp/>The<sp/>number<sp/>of<sp/>entries<sp/>in<sp/>`problem_stats`.</highlight></codeline>
+<codeline lineno="257"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>len(self.<ref refid="classfcmaes_1_1multiretry_1_1multiretry_1a50eaad12e27a3c2850d1e34ac6050ab1" kindref="member">problem_stats</ref>)</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classfcmaes_1_1multiretry_1_1multiretry_1a7c6d566da882dd32bae574f6ed3fb38c" kindref="member">dump</ref>(self):</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="262"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Dumps<sp/>the<sp/>problem<sp/>statistics<sp/>for<sp/>debugging<sp/>purposes.</highlight></codeline>
+<codeline lineno="263"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="264" refid="classfcmaes_1_1multiretry_1_1multiretry_1a9be3531534aef30b5b4f3242da6a69db" refkind="member"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>This<sp/>method<sp/>is<sp/>intended<sp/>for<sp/>use<sp/>in<sp/>debugging<sp/>scenarios,<sp/>where<sp/>it<sp/>logs<sp/>the</highlight></codeline>
+<codeline lineno="265"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>problem<sp/>statistics<sp/>contained<sp/>in<sp/>the<sp/>object.<sp/>The<sp/>logging<sp/>only<sp/>occurs<sp/>if</highlight></codeline>
+<codeline lineno="266"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>debugging<sp/>is<sp/>active.</highlight></codeline>
+<codeline lineno="267"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="268"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Args:</highlight></codeline>
+<codeline lineno="269"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>None</highlight></codeline>
+<codeline lineno="270"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="271"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Raises:</highlight></codeline>
+<codeline lineno="272"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>None</highlight></codeline>
+<codeline lineno="273"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="274"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Returns:</highlight></codeline>
+<codeline lineno="275"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>None</highlight></codeline>
+<codeline lineno="276"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>is_debug_active():</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>i<sp/></highlight><highlight class="keywordflow">in</highlight><highlight class="normal"><sp/>range(self.<ref refid="classfcmaes_1_1multiretry_1_1multiretry_1a498ccce18e874dc891d0060bc2a77b7f" kindref="member">size</ref>()):</highlight></codeline>
+<codeline lineno="279" refid="classfcmaes_1_1multiretry_1_1multiretry_1a498ccce18e874dc891d0060bc2a77b7f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ps<sp/>=<sp/>self.<ref refid="classfcmaes_1_1multiretry_1_1multiretry_1a50eaad12e27a3c2850d1e34ac6050ab1" kindref="member">problem_stats</ref>[i]</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logger.debug(str(ps.id)<sp/>+<sp/></highlight><highlight class="stringliteral">&apos;<sp/>&apos;</highlight><highlight class="normal"><sp/>+<sp/>str(ps.value))</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classfcmaes_1_1multiretry_1_1multiretry_1a5760fc807f9695ac7cb1e50d83ffc1e1" kindref="member">dump_all</ref>(self):</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="284"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Dumps<sp/>all<sp/>statistics<sp/>in<sp/>a<sp/>sorted<sp/>manner<sp/>when<sp/>debug<sp/>mode<sp/>is<sp/>active.</highlight></codeline>
+<codeline lineno="285"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="286"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>This<sp/>method<sp/>sorts<sp/>the<sp/>internal<sp/>`all_stats`<sp/>attribute<sp/>based<sp/>on<sp/>the<sp/>indices</highlight></codeline>
+<codeline lineno="287"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>of<sp/>the<sp/>`values_all`<sp/>method&apos;s<sp/>results.<sp/>It<sp/>then<sp/>logs<sp/>each<sp/>statistic&apos;s<sp/>`id`<sp/>and</highlight></codeline>
+<codeline lineno="288"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>`value`<sp/>using<sp/>the<sp/>debug<sp/>logger.</highlight></codeline>
+<codeline lineno="289"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="290"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Raises:</highlight></codeline>
+<codeline lineno="291"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>None</highlight></codeline>
+<codeline lineno="292"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>is_debug_active():</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>idx<sp/>=<sp/>self.<ref refid="classfcmaes_1_1multiretry_1_1multiretry_1ac8076246ab84314be35894a67437a19e" kindref="member">values_all</ref>().argsort()</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classfcmaes_1_1multiretry_1_1multiretry_1a45317d4e99e798e661776de739d331b8" kindref="member">all_stats</ref><sp/>=<sp/>list(np.asarray(self.<ref refid="classfcmaes_1_1multiretry_1_1multiretry_1a45317d4e99e798e661776de739d331b8" kindref="member">all_stats</ref>)[idx])</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>i<sp/></highlight><highlight class="keywordflow">in</highlight><highlight class="normal"><sp/>range(len(self.<ref refid="classfcmaes_1_1multiretry_1_1multiretry_1a45317d4e99e798e661776de739d331b8" kindref="member">all_stats</ref>)):</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ps<sp/>=<sp/>self.<ref refid="classfcmaes_1_1multiretry_1_1multiretry_1a45317d4e99e798e661776de739d331b8" kindref="member">all_stats</ref>[i]</highlight></codeline>
+<codeline lineno="298" refid="classfcmaes_1_1multiretry_1_1multiretry_1a7c6d566da882dd32bae574f6ed3fb38c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logger.debug(str(ps.id)<sp/>+<sp/></highlight><highlight class="stringliteral">&apos;<sp/>&apos;</highlight><highlight class="normal"><sp/>+<sp/>str(ps.value))</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"></highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classfcmaes_1_1multiretry_1_1multiretry_1ac8076246ab84314be35894a67437a19e" kindref="member">values_all</ref>(self):</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="302"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Gets<sp/>the<sp/>values<sp/>of<sp/>all<sp/>stats<sp/>as<sp/>a<sp/>numpy<sp/>array.</highlight></codeline>
+<codeline lineno="303"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="304"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>This<sp/>method<sp/>iterates<sp/>over<sp/>all<sp/>stats<sp/>and<sp/>extracts<sp/>their<sp/>values,<sp/>returning<sp/>them</highlight></codeline>
+<codeline lineno="305"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>as<sp/>a<sp/>numpy<sp/>array<sp/>of<sp/>type<sp/>float.</highlight></codeline>
+<codeline lineno="306"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="307"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Returns:</highlight></codeline>
+<codeline lineno="308"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>numpy.ndarray:<sp/>A<sp/>numpy<sp/>array<sp/>containing<sp/>the<sp/>float<sp/>values<sp/>of<sp/>all<sp/>stats.</highlight></codeline>
+<codeline lineno="309"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>np.fromiter((ps.value<sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>ps<sp/></highlight><highlight class="keywordflow">in</highlight><highlight class="normal"><sp/>self.<ref refid="classfcmaes_1_1multiretry_1_1multiretry_1a45317d4e99e798e661776de739d331b8" kindref="member">all_stats</ref>),<sp/>dtype=float)</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/></highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classfcmaes_1_1multiretry_1_1multiretry_1a4901ed08a9e521c5c1c74c3ecc12a513" kindref="member">result</ref>(self):</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="314" refid="classfcmaes_1_1multiretry_1_1multiretry_1a5760fc807f9695ac7cb1e50d83ffc1e1" refkind="member"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Sorts<sp/>statistics<sp/>based<sp/>on<sp/>values<sp/>and<sp/>returns<sp/>a<sp/>list<sp/>of<sp/>optimization<sp/>results.</highlight></codeline>
+<codeline lineno="315"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="316"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>This<sp/>method<sp/>processes<sp/>the<sp/>data<sp/>contained<sp/>in<sp/>the<sp/>`all_stats`<sp/>attribute<sp/>by<sp/>sorting</highlight></codeline>
+<codeline lineno="317"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>it<sp/>using<sp/>the<sp/>`values_all`<sp/>method.<sp/>It<sp/>extracts<sp/>optimization-related<sp/>information,</highlight></codeline>
+<codeline lineno="318"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>such<sp/>as<sp/>the<sp/>best<sp/>solution,<sp/>function<sp/>value,<sp/>number<sp/>of<sp/>function<sp/>evaluations,<sp/>and</highlight></codeline>
+<codeline lineno="319"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>success<sp/>status,<sp/>for<sp/>each<sp/>statistics<sp/>entry.</highlight></codeline>
+<codeline lineno="320"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="321"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Returns:</highlight></codeline>
+<codeline lineno="322"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>List[List]:<sp/>A<sp/>list<sp/>containing<sp/>sublists,<sp/>where<sp/>each<sp/>sublist<sp/>consists<sp/>of<sp/>a</highlight></codeline>
+<codeline lineno="323"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>problem<sp/>instance<sp/>and<sp/>its<sp/>corresponding<sp/>optimization<sp/>outcome</highlight></codeline>
+<codeline lineno="324"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>encapsulated<sp/>in<sp/>an<sp/>`OptimizeResult`<sp/>object.</highlight></codeline>
+<codeline lineno="325"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>idx<sp/>=<sp/>self.<ref refid="classfcmaes_1_1multiretry_1_1multiretry_1ac8076246ab84314be35894a67437a19e" kindref="member">values_all</ref>().argsort()</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classfcmaes_1_1multiretry_1_1multiretry_1a45317d4e99e798e661776de739d331b8" kindref="member">all_stats</ref><sp/>=<sp/>list(np.asarray(self.<ref refid="classfcmaes_1_1multiretry_1_1multiretry_1a45317d4e99e798e661776de739d331b8" kindref="member">all_stats</ref>)[idx])</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ret<sp/>=<sp/>[]</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>i<sp/></highlight><highlight class="keywordflow">in</highlight><highlight class="normal"><sp/>range(len(self.<ref refid="classfcmaes_1_1multiretry_1_1multiretry_1a45317d4e99e798e661776de739d331b8" kindref="member">all_stats</ref>)):</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>problem<sp/>=<sp/>self.<ref refid="classfcmaes_1_1multiretry_1_1multiretry_1a45317d4e99e798e661776de739d331b8" kindref="member">all_stats</ref>[i].prob</highlight></codeline>
+<codeline lineno="331" refid="classfcmaes_1_1multiretry_1_1multiretry_1ac8076246ab84314be35894a67437a19e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>store<sp/>=<sp/>self.<ref refid="classfcmaes_1_1multiretry_1_1multiretry_1a45317d4e99e798e661776de739d331b8" kindref="member">all_stats</ref>[i].store</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ret.append([problem,<sp/></highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OptimizeResult(x=store.get_x_best(),<sp/>fun=store.get_y_best(),<sp/></highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>nfev=store.get_count_evals(),<sp/>success=</highlight><highlight class="keyword">True</highlight><highlight class="normal">)])</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>persist<sp/>all<sp/>stats</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classfcmaes_1_1multiretry_1_1multiretry_1a68046c0b4cc7c281cec9dfa673ce58fb" kindref="member">save</ref>(self,<sp/>name):</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="339"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Saves<sp/>the<sp/>data<sp/>returned<sp/>by<sp/>the<sp/>`get_data`<sp/>method<sp/>into<sp/>a<sp/>compressed<sp/>bz2<sp/>file</highlight></codeline>
+<codeline lineno="340"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>with<sp/>the<sp/>specified<sp/>name.</highlight></codeline>
+<codeline lineno="341"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="342"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>The<sp/>data<sp/>is<sp/>serialized<sp/>using<sp/>`cPickle`<sp/>and<sp/>saved<sp/>in<sp/>a<sp/>`bz2`<sp/>compressed<sp/>format.</highlight></codeline>
+<codeline lineno="343"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>If<sp/>an<sp/>error<sp/>occurs<sp/>during<sp/>this<sp/>process,<sp/>an<sp/>error<sp/>message<sp/>is<sp/>printed.</highlight></codeline>
+<codeline lineno="344"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="345"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Args:</highlight></codeline>
+<codeline lineno="346"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>name<sp/>(str):<sp/>The<sp/>base<sp/>name<sp/>of<sp/>the<sp/>file<sp/>where<sp/>the<sp/>data<sp/>will<sp/>be<sp/>saved.</highlight></codeline>
+<codeline lineno="347" refid="classfcmaes_1_1multiretry_1_1multiretry_1a4901ed08a9e521c5c1c74c3ecc12a513" refkind="member"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>The<sp/>`.pbz2`<sp/>extension<sp/>will<sp/>be<sp/>appended<sp/>automatically.</highlight></codeline>
+<codeline lineno="348"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">try</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">with</highlight><highlight class="normal"><sp/>bz2.BZ2File(name<sp/>+<sp/></highlight><highlight class="stringliteral">&apos;.pbz2&apos;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&apos;w&apos;</highlight><highlight class="normal">)<sp/></highlight><highlight class="keyword">as</highlight><highlight class="normal"><sp/>f:<sp/></highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cPickle.dump(self.<ref refid="classfcmaes_1_1multiretry_1_1multiretry_1a9f823aeb9dfd28ddc6ce5e4789013405" kindref="member">get_data</ref>(),<sp/>f)</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">except</highlight><highlight class="normal"><sp/>Exception<sp/></highlight><highlight class="keyword">as</highlight><highlight class="normal"><sp/>ex:</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>eprint(</highlight><highlight class="stringliteral">&apos;error<sp/>writing<sp/>data<sp/>file<sp/>&apos;</highlight><highlight class="normal"><sp/>+<sp/>name<sp/>+<sp/></highlight><highlight class="stringliteral">&apos;.pbz2<sp/>&apos;</highlight><highlight class="normal"><sp/>+<sp/>str(ex))</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"></highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classfcmaes_1_1multiretry_1_1multiretry_1a34c47ed6cd26370e8c8d5227791921b8" kindref="member">load</ref>(self,<sp/>name):</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="357"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Loads<sp/>data<sp/>from<sp/>a<sp/>compressed<sp/>pickle<sp/>(.pbz2)<sp/>file<sp/>and<sp/>sets<sp/>it<sp/>to<sp/>the<sp/>current<sp/>instance.</highlight></codeline>
+<codeline lineno="358"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="359"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>This<sp/>function<sp/>attempts<sp/>to<sp/>load<sp/>the<sp/>serialized<sp/>data<sp/>from<sp/>the<sp/>specified<sp/>file<sp/>name,<sp/>decompressing<sp/>it</highlight></codeline>
+<codeline lineno="360"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>necessary,<sp/>and<sp/>assigns<sp/>the<sp/>loaded<sp/>data<sp/>to<sp/>the<sp/>current<sp/>instance<sp/>using<sp/>the<sp/>`set_data`<sp/>method.<sp/>If</highlight></codeline>
+<codeline lineno="361"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>an<sp/>error<sp/>occurs<sp/>during<sp/>the<sp/>file<sp/>reading<sp/>or<sp/>deserialization<sp/>process,<sp/>an<sp/>error<sp/>message<sp/>is<sp/>printed</highlight></codeline>
+<codeline lineno="362"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>with<sp/>details<sp/>of<sp/>the<sp/>exception.</highlight></codeline>
+<codeline lineno="363"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="364"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Args:</highlight></codeline>
+<codeline lineno="365"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>name<sp/>(str):<sp/>Name<sp/>of<sp/>the<sp/>file<sp/>(without<sp/>the<sp/>extension)<sp/>from<sp/>which<sp/>the<sp/>data<sp/>is<sp/>to<sp/>be<sp/>loaded.</highlight></codeline>
+<codeline lineno="366"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="367"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Raises:</highlight></codeline>
+<codeline lineno="368"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Exception:<sp/>If<sp/>there<sp/>is<sp/>an<sp/>error<sp/>during<sp/>file<sp/>reading<sp/>or<sp/>data<sp/>deserialization.</highlight></codeline>
+<codeline lineno="369"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="370" refid="classfcmaes_1_1multiretry_1_1multiretry_1a68046c0b4cc7c281cec9dfa673ce58fb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">try</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>data<sp/>=<sp/>cPickle.load(bz2.BZ2File(name<sp/>+<sp/></highlight><highlight class="stringliteral">&apos;.pbz2&apos;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&apos;rb&apos;</highlight><highlight class="normal">))</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classfcmaes_1_1multiretry_1_1multiretry_1a21913764a493beb8b148d1fcb640d5df" kindref="member">set_data</ref>(data)</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">except</highlight><highlight class="normal"><sp/>Exception<sp/></highlight><highlight class="keyword">as</highlight><highlight class="normal"><sp/>ex:</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>eprint(</highlight><highlight class="stringliteral">&apos;error<sp/>reading<sp/>data<sp/>file<sp/>&apos;</highlight><highlight class="normal"><sp/>+<sp/>name<sp/>+<sp/></highlight><highlight class="stringliteral">&apos;.pbz2<sp/>&apos;</highlight><highlight class="normal"><sp/>+<sp/>str(ex))</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/></highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classfcmaes_1_1multiretry_1_1multiretry_1a9f823aeb9dfd28ddc6ce5e4789013405" kindref="member">get_data</ref>(self):</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="378"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Fetches<sp/>and<sp/>aggregates<sp/>data<sp/>from<sp/>all<sp/>stats<sp/>objects.</highlight></codeline>
+<codeline lineno="379"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="380"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>This<sp/>method<sp/>iterates<sp/>over<sp/>the<sp/>`all_stats`<sp/>collection,<sp/>retrieves<sp/>the</highlight></codeline>
+<codeline lineno="381"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>data<sp/>from<sp/>each<sp/>`store`<sp/>property<sp/>of<sp/>the<sp/>stats<sp/>objects,<sp/>and<sp/>appends</highlight></codeline>
+<codeline lineno="382"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>it<sp/>to<sp/>the<sp/>resulting<sp/>list.</highlight></codeline>
+<codeline lineno="383"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="384"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Returns:</highlight></codeline>
+<codeline lineno="385"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>list:<sp/>A<sp/>list<sp/>containing<sp/>the<sp/>aggregated<sp/>data<sp/>from<sp/>all<sp/>stats<sp/>objects.</highlight></codeline>
+<codeline lineno="386"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="387"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>data<sp/>=<sp/>[]</highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>stats<sp/></highlight><highlight class="keywordflow">in</highlight><highlight class="normal"><sp/>self.<ref refid="classfcmaes_1_1multiretry_1_1multiretry_1a45317d4e99e798e661776de739d331b8" kindref="member">all_stats</ref>:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>data.append(stats.store.get_data())</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>data</highlight></codeline>
+<codeline lineno="391" refid="classfcmaes_1_1multiretry_1_1multiretry_1a34c47ed6cd26370e8c8d5227791921b8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="392"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classfcmaes_1_1multiretry_1_1multiretry_1a21913764a493beb8b148d1fcb640d5df" kindref="member">set_data</ref>(self,<sp/>data):</highlight></codeline>
+<codeline lineno="393"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="394"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Sets<sp/>the<sp/>provided<sp/>`data`<sp/>to<sp/>the<sp/>corresponding<sp/>store<sp/>objects<sp/>in<sp/>`all_stats`.</highlight></codeline>
+<codeline lineno="395"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="396"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>This<sp/>method<sp/>iterates<sp/>over<sp/>the<sp/>`data`<sp/>list<sp/>and<sp/>assigns<sp/>each<sp/>element<sp/>of<sp/>`data`</highlight></codeline>
+<codeline lineno="397"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>to<sp/>the<sp/>store<sp/>of<sp/>the<sp/>corresponding<sp/>index<sp/>in<sp/>the<sp/>`all_stats`<sp/>list.</highlight></codeline>
+<codeline lineno="398"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="399"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Args:</highlight></codeline>
+<codeline lineno="400"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>data<sp/>(list):<sp/>A<sp/>list<sp/>where<sp/>each<sp/>element<sp/>corresponds<sp/>to<sp/>data<sp/>for<sp/>the<sp/>store<sp/>of</highlight></codeline>
+<codeline lineno="401"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>the<sp/>same<sp/>position<sp/>in<sp/>the<sp/>`all_stats`<sp/>list.</highlight></codeline>
+<codeline lineno="402"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="403"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>i<sp/></highlight><highlight class="keywordflow">in</highlight><highlight class="normal"><sp/>range(len(data)):</highlight></codeline>
+<codeline lineno="404"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classfcmaes_1_1multiretry_1_1multiretry_1a45317d4e99e798e661776de739d331b8" kindref="member">all_stats</ref>[i].store.set_data(data[i])</highlight></codeline>
+<codeline lineno="405"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="406"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+    </programlisting>
+    <location file="fcmaes/multiretry.py"/>
+  </compounddef>
+</doxygen>

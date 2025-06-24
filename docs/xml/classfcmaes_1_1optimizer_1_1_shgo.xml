@@ -1,0 +1,196 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.13.2" xml:lang="en-US">
+  <compounddef id="classfcmaes_1_1optimizer_1_1_shgo" kind="class" language="Python" prot="public">
+    <compoundname>fcmaes::optimizer::Shgo</compoundname>
+    <basecompoundref refid="classfcmaes_1_1optimizer_1_1_optimizer" prot="public" virt="non-virtual">fcmaes.optimizer.Optimizer</basecompoundref>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classfcmaes_1_1optimizer_1_1_shgo_1a1f41c6cfdd62200e3cb6de81ac0d49b7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>fcmaes.optimizer.Shgo.__init__</definition>
+        <argsstring>(self, max_evaluations=50000, store=None)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>fcmaes.optimizer.Shgo.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classfcmaes_1_1optimizer_1_1_optimizer_1a434f96f307e1bf0b0196933945d518e6" kindref="member">max_evaluations</ref></type>
+          <defname>max_evaluations</defname>
+          <defval>50000</defval>
+        </param>
+        <param>
+          <type>store</type>
+          <defname>store</defname>
+          <defval>None</defval>
+        </param>
+        <briefdescription>
+<para>Initializes a Scipy SHGO (Simplicial Homology Global Optimization) optimizer. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>   This constructor sets up the optimizer with a maximum number of evaluations
+   and an optional storage to manage optimization runs. It leverages the
+   `Optimizer` base class for initialization and specifies the use of the
+   SHGO algorithm.
+</verbatim></para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>max_evaluations</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>int The maximum number of function evaluations allowed during the optimization process. Defaults to 50000. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>store</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>object or None An optional parameter to store or manage optimization results. If not provided, defaults to None. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="fcmaes/optimizer.py" line="3105" column="1" bodyfile="fcmaes/optimizer.py" bodystart="3105" bodyend="3107"/>
+      </memberdef>
+      <memberdef kind="function" id="classfcmaes_1_1optimizer_1_1_shgo_1a58c5c9135b6b975bbbb07c8bbed731e2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Tuple[np.ndarray, float, int]</type>
+        <definition> Tuple[np.ndarray, float, int] fcmaes.optimizer.Shgo.minimize</definition>
+        <argsstring>(self, Callable[[ArrayLike], float] fun, Optional[Bounds] bounds, Optional[ArrayLike] guess=None, Optional[float] sdevs=None, rg=Generator(PCG64DXSM()), store=None)</argsstring>
+        <name>minimize</name>
+        <qualifiedname>fcmaes.optimizer.Shgo.minimize</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>Callable</type>
+          <defname>fun</defname>
+          <array>[[ArrayLike]</array>
+        </param>
+        <param>
+          <type>float]</type>
+          <declname>fun</declname>
+          <defname>bounds</defname>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>bounds</declname>
+          <defname>guess</defname>
+          <array>[Bounds]</array>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>guess</declname>
+          <defname>sdevs</defname>
+          <array>[ArrayLike]</array>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>sdevs</declname>
+          <defname>rg</defname>
+          <array>[float]</array>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>rg</type>
+          <defname>store</defname>
+          <defval>Generator(PCG64DXSM())</defval>
+        </param>
+        <param>
+          <type>store</type>
+          <defval>None</defval>
+        </param>
+        <briefdescription>
+<para>Minimizes a given callable function within specified bounds using a particular optimization algorithm. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>   This function leverages the SHGO (Simplicial Homology Global Optimization) algorithm to
+   identify the minimum of a user-provided objective function over given bounds. The optimization
+   process involves constraints, initial guesses, and additional configuration. The optimizer
+   returns the minimum parameters, the minimum function value, and the number of objective
+   function evaluations performed.
+
+
+       fun (Callable[[ArrayLike], float]): The objective function to minimize. It should be a
+           callable that accepts an array-like input and returns a scalar.
+</verbatim> <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>bounds</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The bounds for the search space, typically containing lower and upper limits for each dimension of the input. guess (Optional[ArrayLike], optional): An optional array providing an initial guess for the optimization. Defaults to None. sdevs (Optional[float], optional): A parameter intended for standard deviations, currently ignored in this implementation. Defaults to None. rg (Generator, optional): A random number generator used for reproducible optimization processes. Defaults to a PCG64DXSM generator instance. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>store</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A storage option to track evaluation or state during the optimization process. The exact format and use depend on user implementation.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Tuple[np.ndarray, float, int]: A tuple containing the following:<itemizedlist>
+<listitem><para>np.ndarray: The parameter values at the minimum point.</para>
+</listitem><listitem><para>float: The minimum value of the objective function.</para>
+</listitem><listitem><para>int: The total number of function evaluations performed during optimization. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="fcmaes/optimizer.py" line="3137" column="1" bodyfile="fcmaes/optimizer.py" bodystart="3143" bodyend="3147"/>
+        <references refid="classfcmaes_1_1optimizer_1_1_optimizer_1adfc4b7f5b36503f186c68d521a9ede8a" compoundref="optimizer_8py" startline="304" endline="307">fcmaes.optimizer.Optimizer.max_eval_num</references>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para><ref refid="classfcmaes_1_1optimizer_1_1_shgo" kindref="compound">Shgo</ref> optimizer for mathematical function minimization. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>This class leverages the scipy <computeroutput>shgo</computeroutput> optimization algorithm to minimize a given mathematical function within a specified set of bounds. It is particularly suitable for global optimization problems.</para>
+<para>The optimizer evaluates the function iteratively and searches for its minimum value, returning the optimal solution, the function&apos;s value at the solution, and the number of evaluations performed.</para>
+<para><verbatim>       in the optimization process.
+</verbatim> </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>fcmaes.optimizer.Shgo</label>
+        <link refid="classfcmaes_1_1optimizer_1_1_shgo"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>fcmaes.optimizer.Optimizer</label>
+        <link refid="classfcmaes_1_1optimizer_1_1_optimizer"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>fcmaes.optimizer.Shgo</label>
+        <link refid="classfcmaes_1_1optimizer_1_1_shgo"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>fcmaes.optimizer.Optimizer</label>
+        <link refid="classfcmaes_1_1optimizer_1_1_optimizer"/>
+      </node>
+    </collaborationgraph>
+    <location file="fcmaes/optimizer.py" line="3084" column="1" bodyfile="fcmaes/optimizer.py" bodystart="3084" bodyend="3147"/>
+    <listofallmembers>
+      <member refid="classfcmaes_1_1optimizer_1_1_shgo_1a1f41c6cfdd62200e3cb6de81ac0d49b7" prot="public" virt="non-virtual"><scope>fcmaes::optimizer::Shgo</scope><name>__init__</name></member>
+      <member refid="classfcmaes_1_1optimizer_1_1_optimizer_1acf09b9b314cc4faf25c9935e76ae1821" prot="public" virt="non-virtual"><scope>fcmaes::optimizer::Shgo</scope><name>get_count_runs</name></member>
+      <member refid="classfcmaes_1_1optimizer_1_1_optimizer_1adfc4b7f5b36503f186c68d521a9ede8a" prot="public" virt="non-virtual"><scope>fcmaes::optimizer::Shgo</scope><name>max_eval_num</name></member>
+      <member refid="classfcmaes_1_1optimizer_1_1_optimizer_1a434f96f307e1bf0b0196933945d518e6" prot="public" virt="non-virtual"><scope>fcmaes::optimizer::Shgo</scope><name>max_evaluations</name></member>
+      <member refid="classfcmaes_1_1optimizer_1_1_shgo_1a58c5c9135b6b975bbbb07c8bbed731e2" prot="public" virt="non-virtual"><scope>fcmaes::optimizer::Shgo</scope><name>minimize</name></member>
+      <member refid="classfcmaes_1_1optimizer_1_1_optimizer_1ae0423ec54db7b25862e01d7863ab4708" prot="public" virt="non-virtual"><scope>fcmaes::optimizer::Shgo</scope><name>name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

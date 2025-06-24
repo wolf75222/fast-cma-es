@@ -1,0 +1,198 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_classfcmaes_1_1astro_1_1_tandem__minlp" xml:lang="en-US">
+<title>fcmaes.astro.Tandem_minlp Class Reference</title>
+<indexterm><primary>fcmaes.astro.Tandem_minlp</primary></indexterm>
+<para>
+
+<para>Encapsulates a <link linkend="_classfcmaes_1_1astro_1_1_tandem">Tandem</link> optimization problem in the form of a mixed-integer nonlinear programming (MINLP) task. </para>
+ 
+</para>
+Collaboration diagram for fcmaes.astro.Tandem_minlp:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1astro_1_1_tandem__minlp__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Public Member Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1astro_1_1_tandem__minlp_1a13780d3723cb39e01929d7d82848dfe6">__init__</link> (self, constrained=True)</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1astro_1_1_tandem__minlp_1aa0c9717bee62a0dfeb50f4533d09a5a2">tandem_minlp</link> (self, xs)</para>
+
+<para>Evaluates a function using given sequence and array inputs. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Public Attributes    </title>
+        <itemizedlist>
+            <listitem><para>tuple <link linkend="_classfcmaes_1_1astro_1_1_tandem__minlp_1ae5334e0ccd190cefdaf55458e695d304">name</link> = (&apos;<link linkend="_classfcmaes_1_1astro_1_1_tandem">Tandem</link> minlp &apos; if constrained else &apos;<link linkend="_classfcmaes_1_1astro_1_1_tandem">Tandem</link> unconstrained minlp &apos;)</para>
+
+<para>Name of the MINLP problem, either constrained or unconstrained. </para>
+</listitem>
+            <listitem><para>str <link linkend="_classfcmaes_1_1astro_1_1_tandem__minlp_1a28656ec242ea92f2ab7ccc385d333a62">fun_c</link> = &quot;tandemC&quot; if constrained else &quot;tandemCu&quot;</para>
+
+<para>Name of the corresponding C function for the constrained or unconstrained computation. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1astro_1_1_tandem__minlp_1ab4f58a6afc6358ae6c4004395eb94ade">fun</link> = self.tandem_minlp</para>
+
+<para>Reference to the objective function (<computeroutput>tandem_minlp</computeroutput>). </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1astro_1_1_tandem__minlp_1a95a182a6b93b36922e8d3e120345e0e2">bounds</link></para>
+
+<para>Bounds for the optimization problem variables. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>Encapsulates a <link linkend="_classfcmaes_1_1astro_1_1_tandem">Tandem</link> optimization problem in the form of a mixed-integer nonlinear programming (MINLP) task. </para>
+
+
+
+<para>This class models and processes a constrained or unconstrained tandem optimization problem. It allows setting boundaries on variables, defining the objective function specific to the problem, and performing computations for the given input vector. The specific configuration is determined based on the <computeroutput>constrained</computeroutput> parameter. </para>
+<para>
+Definition at line <link linkend="_astro_8py_source_1l00500">500</link> of file <link linkend="_astro_8py_source">astro.py</link>.</para>
+</section>
+<section>
+<title>Constructor &amp; Destructor Documentation</title>
+<anchor xml:id="_classfcmaes_1_1astro_1_1_tandem__minlp_1a13780d3723cb39e01929d7d82848dfe6"/><section>
+    <title>__init__()</title>
+<indexterm><primary>__init__</primary><secondary>fcmaes.astro.Tandem_minlp</secondary></indexterm>
+<indexterm><primary>fcmaes.astro.Tandem_minlp</primary><secondary>__init__</secondary></indexterm>
+<para><computeroutput>fcmaes.astro.Tandem_minlp.__init__ ( self,  constrained = <computeroutput>True</computeroutput>
+)</computeroutput></para><para>
+Definition at line <link linkend="_astro_8py_source_1l00522">522</link> of file <link linkend="_astro_8py_source">astro.py</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Function Documentation</title>
+<anchor xml:id="_classfcmaes_1_1astro_1_1_tandem__minlp_1aa0c9717bee62a0dfeb50f4533d09a5a2"/><section>
+    <title>tandem_minlp()</title>
+<indexterm><primary>tandem_minlp</primary><secondary>fcmaes.astro.Tandem_minlp</secondary></indexterm>
+<indexterm><primary>fcmaes.astro.Tandem_minlp</primary><secondary>tandem_minlp</secondary></indexterm>
+<para><computeroutput>fcmaes.astro.Tandem_minlp.tandem_minlp ( self,  xs)</computeroutput></para><para>
+
+<para>Evaluates a function using given sequence and array inputs. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method processes the provided list of inputs, partitions it into
+   specific components, prepares the necessary C data types, and calls an
+   external function to compute the final value. If the function call fails
+   or the result is non-finite, a fallback default value is returned.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>xs</entry><entry>
+<para>A list of floats where the first part represents an array of values and the last three indicate sequence parameters.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>float The result of the computation provided by the external function. Defaults to 1E10 if the computation fails or produces a non-finite value. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_astro_8py_source_1l00548">548</link> of file <link linkend="_astro_8py_source">astro.py</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Data Documentation</title>
+<anchor xml:id="_classfcmaes_1_1astro_1_1_tandem__minlp_1a95a182a6b93b36922e8d3e120345e0e2"/><section>
+    <title>bounds</title>
+<indexterm><primary>bounds</primary><secondary>fcmaes.astro.Tandem_minlp</secondary></indexterm>
+<indexterm><primary>fcmaes.astro.Tandem_minlp</primary><secondary>bounds</secondary></indexterm>
+<para><computeroutput>fcmaes.astro.Tandem_minlp.bounds</computeroutput></para><emphasis role="strong">Initial value:</emphasis><programlisting linenumbering="unnumbered">=&#32;&#32;Bounds([5475,&#32;2.5,&#32;0,&#32;0,&#32;20,&#32;20,&#32;20,&#32;20,&#32;0.01,&#32;0.01,&#32;0.01,&#32;0.01,&#32;1.05,&#32;1.05,&#32;1.05,&#32;-math.pi,&#32;-math.pi,&#32;-math.pi,
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;1.51,1.51,1.51],
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[9132,&#32;4.9,&#32;1,&#32;1,&#32;2500,&#32;2500,&#32;2500,&#32;2500,&#32;0.99,&#32;0.99,&#32;0.99,&#32;0.99,&#32;10,&#32;10,&#32;10,&#32;math.pi,&#32;&#32;math.pi,&#32;&#32;math.pi,
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;3.49,4.49,5.49])
+</programlisting><para>
+
+<para>Bounds for the optimization problem variables. </para>
+</para>
+
+<para>Initializes the instance with attributes based on whether it is in a constrained or unconstrained state. Sets the name, function strings for constrained operations, function reference, and specific variable bounds.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>constrained</entry><entry>
+<para>Determines whether the instance is in the constrained state. Defaults to True. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_astro_8py_source_1l00526">526</link> of file <link linkend="_astro_8py_source">astro.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1astro_1_1_tandem__minlp_1ab4f58a6afc6358ae6c4004395eb94ade"/><section>
+    <title>fun</title>
+<indexterm><primary>fun</primary><secondary>fcmaes.astro.Tandem_minlp</secondary></indexterm>
+<indexterm><primary>fcmaes.astro.Tandem_minlp</primary><secondary>fun</secondary></indexterm>
+<para><computeroutput>fcmaes.astro.Tandem_minlp.fun = self.tandem_minlp</computeroutput></para><para>
+
+<para>Reference to the objective function (<computeroutput>tandem_minlp</computeroutput>). </para>
+</para>
+<para>
+Definition at line <link linkend="_astro_8py_source_1l00525">525</link> of file <link linkend="_astro_8py_source">astro.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1astro_1_1_tandem__minlp_1a28656ec242ea92f2ab7ccc385d333a62"/><section>
+    <title>fun_c</title>
+<indexterm><primary>fun_c</primary><secondary>fcmaes.astro.Tandem_minlp</secondary></indexterm>
+<indexterm><primary>fcmaes.astro.Tandem_minlp</primary><secondary>fun_c</secondary></indexterm>
+<para><computeroutput>str fcmaes.astro.Tandem_minlp.fun_c = &quot;tandemC&quot; if constrained else &quot;tandemCu&quot;</computeroutput></para><para>
+
+<para>Name of the corresponding C function for the constrained or unconstrained computation. </para>
+</para>
+<para>
+Definition at line <link linkend="_astro_8py_source_1l00524">524</link> of file <link linkend="_astro_8py_source">astro.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1astro_1_1_tandem__minlp_1ae5334e0ccd190cefdaf55458e695d304"/><section>
+    <title>name</title>
+<indexterm><primary>name</primary><secondary>fcmaes.astro.Tandem_minlp</secondary></indexterm>
+<indexterm><primary>fcmaes.astro.Tandem_minlp</primary><secondary>name</secondary></indexterm>
+<para><computeroutput>tuple fcmaes.astro.Tandem_minlp.name = (&apos;<link linkend="_classfcmaes_1_1astro_1_1_tandem">Tandem</link> minlp &apos; if constrained else &apos;<link linkend="_classfcmaes_1_1astro_1_1_tandem">Tandem</link> unconstrained minlp &apos;)</computeroutput></para><para>
+
+<para>Name of the MINLP problem, either constrained or unconstrained. </para>
+</para>
+<para>
+Definition at line <link linkend="_astro_8py_source_1l00523">523</link> of file <link linkend="_astro_8py_source">astro.py</link>.</para>
+</section>
+<para>
+The documentation for this class was generated from the following file:</para>
+fcmaes/<link linkend="_astro_8py">astro.py</link></section>
+</section>

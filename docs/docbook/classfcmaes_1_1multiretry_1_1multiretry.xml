@@ -1,0 +1,680 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_classfcmaes_1_1multiretry_1_1multiretry" xml:lang="en-US">
+<title>fcmaes.multiretry.multiretry Class Reference</title>
+<indexterm><primary>fcmaes.multiretry.multiretry</primary></indexterm>
+Collaboration diagram for fcmaes.multiretry.multiretry:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1multiretry_1_1multiretry__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Public Member Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1multiretry_1_1multiretry_1a77bf3a97684c97c11cbe30adcb54a74a">__init__</link> (self)</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1multiretry_1_1multiretry_1a8cd2b04b9e59bbe46a34efeacc59f4f1">add</link> (self, stats)</para>
+
+<para>Adds the provided statistics to the problem and all statistics lists. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1multiretry_1_1multiretry_1a55f05d04ff385042a990d3139b2c4f19">retry</link> (self, optimizer)</para>
+
+<para>Retries optimization for each problem in the problem statistics list. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1multiretry_1_1multiretry_1a96427eba6d0685bada50f247b508580d">values</link> (self)</para>
+
+<para>Generates a NumPy array from the values of the <computeroutput><link linkend="_classfcmaes_1_1multiretry_1_1problem__stats">problem_stats</link></computeroutput> attribute. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1multiretry_1_1multiretry_1a9be3531534aef30b5b4f3242da6a69db">remove_worst</link> (self, n=1)</para>
+
+<para>Removes the worst-performing items from the current problem statistics list. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1multiretry_1_1multiretry_1a498ccce18e874dc891d0060bc2a77b7f">size</link> (self)</para>
+
+<para>Calculates and returns the size of the problem statistics. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1multiretry_1_1multiretry_1a7c6d566da882dd32bae574f6ed3fb38c">dump</link> (self)</para>
+
+<para>Dumps the problem statistics for debugging purposes. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1multiretry_1_1multiretry_1a5760fc807f9695ac7cb1e50d83ffc1e1">dump_all</link> (self)</para>
+
+<para>Dumps all statistics in a sorted manner when debug mode is active. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1multiretry_1_1multiretry_1ac8076246ab84314be35894a67437a19e">values_all</link> (self)</para>
+
+<para>Gets the values of all stats as a numpy array. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1multiretry_1_1multiretry_1a4901ed08a9e521c5c1c74c3ecc12a513">result</link> (self)</para>
+
+<para>Sorts statistics based on values and returns a list of optimization results. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1multiretry_1_1multiretry_1a68046c0b4cc7c281cec9dfa673ce58fb">save</link> (self, name)</para>
+
+<para>Saves the data returned by the <computeroutput>get_data</computeroutput> method into a compressed bz2 file with the specified name. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1multiretry_1_1multiretry_1a34c47ed6cd26370e8c8d5227791921b8">load</link> (self, name)</para>
+
+<para>Loads data from a compressed pickle (.pbz2) file and sets it to the current instance. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1multiretry_1_1multiretry_1a9f823aeb9dfd28ddc6ce5e4789013405">get_data</link> (self)</para>
+
+<para>Fetches and aggregates data from all stats objects. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1multiretry_1_1multiretry_1a21913764a493beb8b148d1fcb640d5df">set_data</link> (self, data)</para>
+
+<para>Sets the provided <computeroutput>data</computeroutput> to the corresponding store objects in <computeroutput>all_stats</computeroutput>. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Public Attributes    </title>
+        <itemizedlist>
+            <listitem><para>list <link linkend="_classfcmaes_1_1multiretry_1_1multiretry_1a50eaad12e27a3c2850d1e34ac6050ab1">problem_stats</link> = []</para>
+
+<para>A list of statistics related to problems currently being managed. </para>
+</listitem>
+            <listitem><para>list <link linkend="_classfcmaes_1_1multiretry_1_1multiretry_1a45317d4e99e798e661776de739d331b8">all_stats</link> = []</para>
+
+<para>A comprehensive list of all statistics including completed and. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+<para>
+Definition at line <link linkend="_multiretry_8py_source_1l00196">196</link> of file <link linkend="_multiretry_8py_source">multiretry.py</link>.</para>
+</section>
+<section>
+<title>Constructor &amp; Destructor Documentation</title>
+<anchor xml:id="_classfcmaes_1_1multiretry_1_1multiretry_1a77bf3a97684c97c11cbe30adcb54a74a"/><section>
+    <title>__init__()</title>
+<indexterm><primary>__init__</primary><secondary>fcmaes.multiretry.multiretry</secondary></indexterm>
+<indexterm><primary>fcmaes.multiretry.multiretry</primary><secondary>__init__</secondary></indexterm>
+<para><computeroutput>fcmaes.multiretry.multiretry.__init__ ( self)</computeroutput></para><para>
+Definition at line <link linkend="_multiretry_8py_source_1l00212">212</link> of file <link linkend="_multiretry_8py_source">multiretry.py</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Function Documentation</title>
+<anchor xml:id="_classfcmaes_1_1multiretry_1_1multiretry_1a8cd2b04b9e59bbe46a34efeacc59f4f1"/><section>
+    <title>add()</title>
+<indexterm><primary>add</primary><secondary>fcmaes.multiretry.multiretry</secondary></indexterm>
+<indexterm><primary>fcmaes.multiretry.multiretry</primary><secondary>add</secondary></indexterm>
+<para><computeroutput>fcmaes.multiretry.multiretry.add ( self,  stats)</computeroutput></para><para>
+
+<para>Adds the provided statistics to the problem and all statistics lists. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>stats</entry><entry>
+<para>The statistics to be added to the lists. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_multiretry_8py_source_1l00222">222</link> of file <link linkend="_multiretry_8py_source">multiretry.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1multiretry_1_1multiretry_1a7c6d566da882dd32bae574f6ed3fb38c"/><section>
+    <title>dump()</title>
+<indexterm><primary>dump</primary><secondary>fcmaes.multiretry.multiretry</secondary></indexterm>
+<indexterm><primary>fcmaes.multiretry.multiretry</primary><secondary>dump</secondary></indexterm>
+<para><computeroutput>fcmaes.multiretry.multiretry.dump ( self)</computeroutput></para><para>
+
+<para>Dumps the problem statistics for debugging purposes. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method is intended for use in debugging scenarios, where it logs the
+   problem statistics contained in the object. The logging only occurs if
+   debugging is active.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>None</entry><entry></entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>None</entry><entry></entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>None </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_multiretry_8py_source_1l00298">298</link> of file <link linkend="_multiretry_8py_source">multiretry.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1multiretry_1_1multiretry_a7c6d566da882dd32bae574f6ed3fb38c_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1multiretry_1_1multiretry_a7c6d566da882dd32bae574f6ed3fb38c_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1multiretry_1_1multiretry_1a5760fc807f9695ac7cb1e50d83ffc1e1"/><section>
+    <title>dump_all()</title>
+<indexterm><primary>dump_all</primary><secondary>fcmaes.multiretry.multiretry</secondary></indexterm>
+<indexterm><primary>fcmaes.multiretry.multiretry</primary><secondary>dump_all</secondary></indexterm>
+<para><computeroutput>fcmaes.multiretry.multiretry.dump_all ( self)</computeroutput></para><para>
+
+<para>Dumps all statistics in a sorted manner when debug mode is active. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method sorts the internal `all_stats` attribute based on the indices
+   of the `values_all` method&apos;s results. It then logs each statistic&apos;s `id` and
+   `value` using the debug logger.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>None</entry><entry>
+<para></para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_multiretry_8py_source_1l00314">314</link> of file <link linkend="_multiretry_8py_source">multiretry.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1multiretry_1_1multiretry_a5760fc807f9695ac7cb1e50d83ffc1e1_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1multiretry_1_1multiretry_1a9f823aeb9dfd28ddc6ce5e4789013405"/><section>
+    <title>get_data()</title>
+<indexterm><primary>get_data</primary><secondary>fcmaes.multiretry.multiretry</secondary></indexterm>
+<indexterm><primary>fcmaes.multiretry.multiretry</primary><secondary>get_data</secondary></indexterm>
+<para><computeroutput>fcmaes.multiretry.multiretry.get_data ( self)</computeroutput></para><para>
+
+<para>Fetches and aggregates data from all stats objects. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method iterates over the `all_stats` collection, retrieves the
+   data from each `store` property of the stats objects, and appends
+   it to the resulting list.
+</computeroutput></literallayout></para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>list A list containing the aggregated data from all stats objects. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_multiretry_8py_source_1l00408">408</link> of file <link linkend="_multiretry_8py_source">multiretry.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1multiretry_1_1multiretry_a9f823aeb9dfd28ddc6ce5e4789013405_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1multiretry_1_1multiretry_1a34c47ed6cd26370e8c8d5227791921b8"/><section>
+    <title>load()</title>
+<indexterm><primary>load</primary><secondary>fcmaes.multiretry.multiretry</secondary></indexterm>
+<indexterm><primary>fcmaes.multiretry.multiretry</primary><secondary>load</secondary></indexterm>
+<para><computeroutput>fcmaes.multiretry.multiretry.load ( self,  name)</computeroutput></para><para>
+
+<para>Loads data from a compressed pickle (.pbz2) file and sets it to the current instance. </para>
+</para>
+
+<para><literallayout><computeroutput>   This function attempts to load the serialized data from the specified file name, decompressing it
+   if necessary, and assigns the loaded data to the current instance using the `set_data` method. If
+   an error occurs during the file reading or deserialization process, an error message is printed
+   with details of the exception.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>name</entry><entry>
+<para>Name of the file (without the extension) from which the data is to be loaded.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>Exception</entry><entry>
+<para>If there is an error during file reading or data deserialization. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_multiretry_8py_source_1l00391">391</link> of file <link linkend="_multiretry_8py_source">multiretry.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1multiretry_1_1multiretry_a34c47ed6cd26370e8c8d5227791921b8_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1multiretry_1_1multiretry_1a9be3531534aef30b5b4f3242da6a69db"/><section>
+    <title>remove_worst()</title>
+<indexterm><primary>remove_worst</primary><secondary>fcmaes.multiretry.multiretry</secondary></indexterm>
+<indexterm><primary>fcmaes.multiretry.multiretry</primary><secondary>remove_worst</secondary></indexterm>
+<para><computeroutput>fcmaes.multiretry.multiretry.remove_worst ( self,  n = <computeroutput>1</computeroutput>
+)</computeroutput></para><para>
+
+<para>Removes the worst-performing items from the current problem statistics list. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method removes items from the problem statistics list based on their
+   performance metrics. The items are sorted in ascending order first,
+   and the specified number of worst-performing items (based on the input value)
+   are removed from the end of the list.
+
+
+       n (int, optional): The number of worst-performing items to remove. Defaults
+           to 1.
+</computeroutput></literallayout> </para>
+<para>
+Definition at line <link linkend="_multiretry_8py_source_1l00264">264</link> of file <link linkend="_multiretry_8py_source">multiretry.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1multiretry_1_1multiretry_a9be3531534aef30b5b4f3242da6a69db_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1multiretry_1_1multiretry_1a4901ed08a9e521c5c1c74c3ecc12a513"/><section>
+    <title>result()</title>
+<indexterm><primary>result</primary><secondary>fcmaes.multiretry.multiretry</secondary></indexterm>
+<indexterm><primary>fcmaes.multiretry.multiretry</primary><secondary>result</secondary></indexterm>
+<para><computeroutput>fcmaes.multiretry.multiretry.result ( self)</computeroutput></para><para>
+
+<para>Sorts statistics based on values and returns a list of optimization results. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method processes the data contained in the `all_stats` attribute by sorting
+   it using the `values_all` method. It extracts optimization-related information,
+   such as the best solution, function value, number of function evaluations, and
+   success status, for each statistics entry.
+</computeroutput></literallayout></para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>List A list containing sublists, where each sublist consists of a problem instance and its corresponding optimization outcome encapsulated in an <computeroutput>OptimizeResult</computeroutput> object. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_multiretry_8py_source_1l00347">347</link> of file <link linkend="_multiretry_8py_source">multiretry.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1multiretry_1_1multiretry_a4901ed08a9e521c5c1c74c3ecc12a513_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1multiretry_1_1multiretry_1a55f05d04ff385042a990d3139b2c4f19"/><section>
+    <title>retry()</title>
+<indexterm><primary>retry</primary><secondary>fcmaes.multiretry.multiretry</secondary></indexterm>
+<indexterm><primary>fcmaes.multiretry.multiretry</primary><secondary>retry</secondary></indexterm>
+<para><computeroutput>fcmaes.multiretry.multiretry.retry ( self,  optimizer)</computeroutput></para><para>
+
+<para>Retries optimization for each problem in the problem statistics list. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method iterates through the list of problem statistics and attempts to
+   retry the optimization process using the given optimizer.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>optimizer</entry><entry>
+<para>The optimizer instance to use for retrying the problems. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_multiretry_8py_source_1l00235">235</link> of file <link linkend="_multiretry_8py_source">multiretry.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1multiretry_1_1multiretry_1a68046c0b4cc7c281cec9dfa673ce58fb"/><section>
+    <title>save()</title>
+<indexterm><primary>save</primary><secondary>fcmaes.multiretry.multiretry</secondary></indexterm>
+<indexterm><primary>fcmaes.multiretry.multiretry</primary><secondary>save</secondary></indexterm>
+<para><computeroutput>fcmaes.multiretry.multiretry.save ( self,  name)</computeroutput></para><para>
+
+<para>Saves the data returned by the <computeroutput>get_data</computeroutput> method into a compressed bz2 file with the specified name. </para>
+</para>
+
+<para>The data is serialized using <computeroutput>cPickle</computeroutput> and saved in a <computeroutput>bz2</computeroutput> compressed format. If an error occurs during this process, an error message is printed.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>name</entry><entry>
+<para>The base name of the file where the data will be saved. The <computeroutput>.pbz2</computeroutput> extension will be appended automatically. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_multiretry_8py_source_1l00370">370</link> of file <link linkend="_multiretry_8py_source">multiretry.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1multiretry_1_1multiretry_a68046c0b4cc7c281cec9dfa673ce58fb_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1multiretry_1_1multiretry_1a21913764a493beb8b148d1fcb640d5df"/><section>
+    <title>set_data()</title>
+<indexterm><primary>set_data</primary><secondary>fcmaes.multiretry.multiretry</secondary></indexterm>
+<indexterm><primary>fcmaes.multiretry.multiretry</primary><secondary>set_data</secondary></indexterm>
+<para><computeroutput>fcmaes.multiretry.multiretry.set_data ( self,  data)</computeroutput></para><para>
+
+<para>Sets the provided <computeroutput>data</computeroutput> to the corresponding store objects in <computeroutput>all_stats</computeroutput>. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method iterates over the `data` list and assigns each element of `data`
+   to the store of the corresponding index in the `all_stats` list.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>data</entry><entry>
+<para>A list where each element corresponds to data for the store of the same position in the <computeroutput>all_stats</computeroutput> list. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_multiretry_8py_source_1l00424">424</link> of file <link linkend="_multiretry_8py_source">multiretry.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1multiretry_1_1multiretry_a21913764a493beb8b148d1fcb640d5df_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1multiretry_1_1multiretry_1a498ccce18e874dc891d0060bc2a77b7f"/><section>
+    <title>size()</title>
+<indexterm><primary>size</primary><secondary>fcmaes.multiretry.multiretry</secondary></indexterm>
+<indexterm><primary>fcmaes.multiretry.multiretry</primary><secondary>size</secondary></indexterm>
+<para><computeroutput>fcmaes.multiretry.multiretry.size ( self)</computeroutput></para><para>
+
+<para>Calculates and returns the size of the problem statistics. </para>
+</para>
+
+<para><literallayout><computeroutput>   This function determines the size based on the number of entries
+   in the `problem_stats` attribute.
+</computeroutput></literallayout></para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>int The number of entries in <computeroutput><link linkend="_classfcmaes_1_1multiretry_1_1problem__stats">problem_stats</link></computeroutput>. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_multiretry_8py_source_1l00279">279</link> of file <link linkend="_multiretry_8py_source">multiretry.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1multiretry_1_1multiretry_a498ccce18e874dc891d0060bc2a77b7f_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1multiretry_1_1multiretry_1a96427eba6d0685bada50f247b508580d"/><section>
+    <title>values()</title>
+<indexterm><primary>values</primary><secondary>fcmaes.multiretry.multiretry</secondary></indexterm>
+<indexterm><primary>fcmaes.multiretry.multiretry</primary><secondary>values</secondary></indexterm>
+<para><computeroutput>fcmaes.multiretry.multiretry.values ( self)</computeroutput></para><para>
+
+<para>Generates a NumPy array from the values of the <computeroutput><link linkend="_classfcmaes_1_1multiretry_1_1problem__stats">problem_stats</link></computeroutput> attribute. </para>
+</para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>numpy A NumPy array containing the values of <computeroutput><link linkend="_classfcmaes_1_1multiretry_1_1problem__stats">problem_stats</link></computeroutput>, converted to float type. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_multiretry_8py_source_1l00248">248</link> of file <link linkend="_multiretry_8py_source">multiretry.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1multiretry_1_1multiretry_a96427eba6d0685bada50f247b508580d_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1multiretry_1_1multiretry_1ac8076246ab84314be35894a67437a19e"/><section>
+    <title>values_all()</title>
+<indexterm><primary>values_all</primary><secondary>fcmaes.multiretry.multiretry</secondary></indexterm>
+<indexterm><primary>fcmaes.multiretry.multiretry</primary><secondary>values_all</secondary></indexterm>
+<para><computeroutput>fcmaes.multiretry.multiretry.values_all ( self)</computeroutput></para><para>
+
+<para>Gets the values of all stats as a numpy array. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method iterates over all stats and extracts their values, returning them
+   as a numpy array of type float.
+</computeroutput></literallayout></para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>numpy A numpy array containing the float values of all stats. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_multiretry_8py_source_1l00331">331</link> of file <link linkend="_multiretry_8py_source">multiretry.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1multiretry_1_1multiretry_ac8076246ab84314be35894a67437a19e_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+<section>
+<title>Member Data Documentation</title>
+<anchor xml:id="_classfcmaes_1_1multiretry_1_1multiretry_1a45317d4e99e798e661776de739d331b8"/><section>
+    <title>all_stats</title>
+<indexterm><primary>all_stats</primary><secondary>fcmaes.multiretry.multiretry</secondary></indexterm>
+<indexterm><primary>fcmaes.multiretry.multiretry</primary><secondary>all_stats</secondary></indexterm>
+<para><computeroutput>fcmaes.multiretry.multiretry.all_stats = []</computeroutput></para><para>
+
+<para>A comprehensive list of all statistics including completed and. </para>
+</para>
+
+<para>A list intended to store aggregated or general statistics.</para>
+
+<para>Represents a container designed to manage problem statistics and aggregate data. </para>
+<para>
+Definition at line <link linkend="_multiretry_8py_source_1l00214">214</link> of file <link linkend="_multiretry_8py_source">multiretry.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1multiretry_1_1multiretry_1a50eaad12e27a3c2850d1e34ac6050ab1"/><section>
+    <title>problem_stats</title>
+<indexterm><primary>problem_stats</primary><secondary>fcmaes.multiretry.multiretry</secondary></indexterm>
+<indexterm><primary>fcmaes.multiretry.multiretry</primary><secondary>problem_stats</secondary></indexterm>
+<para><computeroutput>fcmaes.multiretry.multiretry.problem_stats = []</computeroutput></para><para>
+
+<para>A list of statistics related to problems currently being managed. </para>
+</para>
+
+<para>A list designed to hold statistics related specifically to problems. </para>
+<para>
+Definition at line <link linkend="_multiretry_8py_source_1l00213">213</link> of file <link linkend="_multiretry_8py_source">multiretry.py</link>.</para>
+</section>
+<para>
+The documentation for this class was generated from the following file:</para>
+fcmaes/<link linkend="_multiretry_8py">multiretry.py</link></section>
+</section>

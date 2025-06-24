@@ -1,0 +1,160 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_routing_8py_source" xml:lang="en-US">
+<title>routing.py</title>
+<indexterm><primary>examples/routing.py</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_routing_8py_source_1l00001"/><link linkend="_namespaceexamples_1_1routing">00001</link> <emphasis role="comment">#&#32;see&#32;https://github.com/krishna-praveen/Capacitated-Vehicle-Routing-Problem</emphasis>
+<anchor xml:id="_routing_8py_source_1l00002"/>00002 <emphasis role="comment">#&#32;See&#32;https://github.com/dietmarwo/fast-cma-es/blob/master/tutorials/Routing.adoc&#32;for&#32;a&#32;detailed&#32;description.</emphasis>
+<anchor xml:id="_routing_8py_source_1l00003"/>00003 
+<anchor xml:id="_routing_8py_source_1l00004"/>00004 <emphasis role="comment">#&#32;Tested&#32;using&#32;https://docs.conda.io/en/main/miniconda.html&#32;on&#32;Linux&#32;Mint&#32;21.2</emphasis>
+<anchor xml:id="_routing_8py_source_1l00005"/>00005 
+<anchor xml:id="_routing_8py_source_1l00006"/>00006 <emphasis role="keyword">import</emphasis>&#32;numpy&#32;<emphasis role="keyword">as</emphasis>&#32;np
+<anchor xml:id="_routing_8py_source_1l00007"/>00007 <emphasis role="keyword">from</emphasis>&#32;numba&#32;<emphasis role="keyword">import</emphasis>&#32;njit
+<anchor xml:id="_routing_8py_source_1l00008"/>00008 <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1optimizer">fcmaes.optimizer</link>&#32;<emphasis role="keyword">import</emphasis>&#32;Bite_cpp,&#32;De_cpp,&#32;Crfmnes_cpp,&#32;Crfmnes,&#32;Cma_cpp,&#32;de_cma,&#32;wrapper
+<anchor xml:id="_routing_8py_source_1l00009"/>00009 <emphasis role="keyword">from</emphasis>&#32;fcmaes&#32;<emphasis role="keyword">import</emphasis>&#32;mode,&#32;modecpp,&#32;moretry,&#32;retry
+<anchor xml:id="_routing_8py_source_1l00010"/>00010 <emphasis role="keyword">from</emphasis>&#32;scipy.optimize&#32;<emphasis role="keyword">import</emphasis>&#32;Bounds
+<anchor xml:id="_routing_8py_source_1l00011"/>00011 
+<anchor xml:id="_routing_8py_source_1l00012"/>00012 <emphasis role="keyword">import</emphasis>&#32;sys&#32;
+<anchor xml:id="_routing_8py_source_1l00013"/>00013 <emphasis role="keyword">from</emphasis>&#32;loguru&#32;<emphasis role="keyword">import</emphasis>&#32;logger
+<anchor xml:id="_routing_8py_source_1l00014"/>00014 
+<anchor xml:id="_routing_8py_source_1l00015"/>00015 logger.remove()
+<anchor xml:id="_routing_8py_source_1l00016"/><link linkend="_namespaceexamples_1_1routing_1a89239249a3c147f328a323e0cd5a3d68">00016</link> logger.add(sys.stdout,&#32;format=<emphasis role="stringliteral">&quot;{time:HH:mm:ss.SS}&#32;|&#32;{process}&#32;|&#32;{level}&#32;|&#32;{message}&quot;</emphasis>,&#32;level=<emphasis role="stringliteral">&quot;INFO&quot;</emphasis>)
+<anchor xml:id="_routing_8py_source_1l00017"/>00017 logger.add(<emphasis role="stringliteral">&quot;log_{time}.txt&quot;</emphasis>,&#32;format=<emphasis role="stringliteral">&quot;{time:HH:mm:ss.SS}&#32;|&#32;{process}&#32;|&#32;{level}&#32;|&#32;{message}&quot;</emphasis>,&#32;level=<emphasis role="stringliteral">&quot;INFO&quot;</emphasis>)
+<anchor xml:id="_routing_8py_source_1l00018"/>00018 
+<anchor xml:id="_routing_8py_source_1l00019"/>00019 <emphasis role="preprocessor">@njit(fastmath=True)</emphasis>
+<anchor xml:id="_routing_8py_source_1l00020"/><link linkend="_namespaceexamples_1_1routing_1a7c0135d03443b57db620ab0f8c763b69">00020</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1routing_1a7c0135d03443b57db620ab0f8c763b69">fitness_</link>(seq,&#32;distance,&#32;demands,&#32;capacity):
+<anchor xml:id="_routing_8py_source_1l00021"/>00021 &#32;&#32;&#32;&#32;n&#32;=&#32;len(seq)
+<anchor xml:id="_routing_8py_source_1l00022"/>00022 &#32;&#32;&#32;&#32;seq&#32;+=&#32;1
+<anchor xml:id="_routing_8py_source_1l00023"/>00023 &#32;&#32;&#32;&#32;sum_demand&#32;=&#32;0
+<anchor xml:id="_routing_8py_source_1l00024"/>00024 &#32;&#32;&#32;&#32;sum_dist&#32;=&#32;0
+<anchor xml:id="_routing_8py_source_1l00025"/>00025 &#32;&#32;&#32;&#32;last&#32;=&#32;0
+<anchor xml:id="_routing_8py_source_1l00026"/>00026 &#32;&#32;&#32;&#32;vehicles&#32;=&#32;1
+<anchor xml:id="_routing_8py_source_1l00027"/>00027 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(n+1):
+<anchor xml:id="_routing_8py_source_1l00028"/>00028 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;customer&#32;=&#32;seq[i]&#32;<emphasis role="keywordflow">if</emphasis>&#32;i&#32;&lt;&#32;n&#32;<emphasis role="keywordflow">else</emphasis>&#32;0
+<anchor xml:id="_routing_8py_source_1l00029"/>00029 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;demand&#32;=&#32;demands[customer]
+<anchor xml:id="_routing_8py_source_1l00030"/>00030 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;sum_demand&#32;+&#32;demand&#32;&gt;&#32;capacity:
+<anchor xml:id="_routing_8py_source_1l00031"/>00031 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;end&#32;vehicle&#32;tour,&#32;return&#32;to&#32;base</emphasis>
+<anchor xml:id="_routing_8py_source_1l00032"/>00032 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;sum_dist&#32;+=&#32;distance[last,&#32;0]
+<anchor xml:id="_routing_8py_source_1l00033"/>00033 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;sum_demand&#32;=&#32;0
+<anchor xml:id="_routing_8py_source_1l00034"/>00034 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;vehicles&#32;+=&#32;1
+<anchor xml:id="_routing_8py_source_1l00035"/>00035 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;last&#32;=&#32;0
+<anchor xml:id="_routing_8py_source_1l00036"/>00036 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;go&#32;to&#32;customer</emphasis>
+<anchor xml:id="_routing_8py_source_1l00037"/>00037 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;sum_demand&#32;+=&#32;demand
+<anchor xml:id="_routing_8py_source_1l00038"/>00038 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;sum_dist&#32;+=&#32;distance[last,&#32;customer]
+<anchor xml:id="_routing_8py_source_1l00039"/>00039 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;last&#32;=&#32;customer
+<anchor xml:id="_routing_8py_source_1l00040"/>00040 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;np.array([-float(vehicles),&#32;sum_dist])
+<anchor xml:id="_routing_8py_source_1l00041"/>00041 
+<anchor xml:id="_routing_8py_source_1l00042"/><link linkend="_namespaceexamples_1_1routing_1a814d077c3a27a0f9024e585934398fa0">00042</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1routing_1a814d077c3a27a0f9024e585934398fa0">parse</link>(filename):
+<anchor xml:id="_routing_8py_source_1l00043"/>00043 &#32;&#32;&#32;&#32;<emphasis role="keyword">with</emphasis>&#32;open(filename)&#32;<emphasis role="keyword">as</emphasis>&#32;csvfile:
+<anchor xml:id="_routing_8py_source_1l00044"/>00044 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;lines&#32;=&#32;csvfile.readlines()
+<anchor xml:id="_routing_8py_source_1l00045"/>00045 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;demands&#32;=&#32;[]
+<anchor xml:id="_routing_8py_source_1l00046"/>00046 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;coords&#32;=&#32;[]&#32;
+<anchor xml:id="_routing_8py_source_1l00047"/>00047 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;line&#32;<emphasis role="keywordflow">in</emphasis>&#32;lines:
+<anchor xml:id="_routing_8py_source_1l00048"/>00048 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;row&#32;=&#32;line.split()
+<anchor xml:id="_routing_8py_source_1l00049"/>00049 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;len(row)&#32;&lt;&#32;5&#32;<emphasis role="keywordflow">or</emphasis>&#32;<emphasis role="keywordflow">not</emphasis>&#32;row[0][0].isdigit():
+<anchor xml:id="_routing_8py_source_1l00050"/>00050 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>
+<anchor xml:id="_routing_8py_source_1l00051"/>00051 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;demands.append(float(row[3]))
+<anchor xml:id="_routing_8py_source_1l00052"/>00052 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;coords.append(np.array([float(row[1]),&#32;float(row[2])]))&#32;
+<anchor xml:id="_routing_8py_source_1l00053"/>00053 &#32;&#32;&#32;&#32;n&#32;=&#32;len(demands)
+<anchor xml:id="_routing_8py_source_1l00054"/>00054 &#32;&#32;&#32;&#32;distances&#32;=&#32;np.zeros((n,n))
+<anchor xml:id="_routing_8py_source_1l00055"/>00055 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(n):
+<anchor xml:id="_routing_8py_source_1l00056"/>00056 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;j&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(n):
+<anchor xml:id="_routing_8py_source_1l00057"/>00057 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;distances[i,j]&#32;=&#32;np.linalg.norm(coords[i]&#32;-&#32;coords[j])
+<anchor xml:id="_routing_8py_source_1l00058"/>00058 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;np.array(demands),&#32;distances
+<anchor xml:id="_routing_8py_source_1l00059"/>00059 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_routing_8py_source_1l00060"/><link linkend="_classexamples_1_1routing_1_1_routing">00060</link> <emphasis role="keyword">class&#32;</emphasis><link linkend="_classexamples_1_1routing_1_1_routing">Routing</link>():
+<anchor xml:id="_routing_8py_source_1l00061"/><link linkend="_classexamples_1_1routing_1_1_routing_1abb0e3c53692f8946841d2ea3d1c06141">00061</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1routing_1_1_routing_1abb0e3c53692f8946841d2ea3d1c06141">__init__</link>(self,&#32;filename,&#32;capacity):
+<anchor xml:id="_routing_8py_source_1l00062"/><link linkend="_classexamples_1_1routing_1_1_routing_1a3c4a10dd85b8ef3c7badcb1f4bf5ed8e">00062</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1routing_1_1_routing_1a3c4a10dd85b8ef3c7badcb1f4bf5ed8e">capacity</link>&#32;=&#32;capacity
+<anchor xml:id="_routing_8py_source_1l00063"/><link linkend="_classexamples_1_1routing_1_1_routing_1abee955773927e7a90890b285ee4be897">00063</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1routing_1_1_routing_1abee955773927e7a90890b285ee4be897">demands</link>,&#32;self.<link linkend="_classexamples_1_1routing_1_1_routing_1adf6658107ab5418cf8580de44d3ac8db">distance</link>&#32;=&#32;<link linkend="_namespaceexamples_1_1routing_1a814d077c3a27a0f9024e585934398fa0">parse</link>(filename)
+<anchor xml:id="_routing_8py_source_1l00064"/><link linkend="_classexamples_1_1routing_1_1_routing_1abbc61c3d537745ee4ee352aa37de50f7">00064</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1routing_1_1_routing_1abbc61c3d537745ee4ee352aa37de50f7">dim</link>&#32;=&#32;len(self.<link linkend="_classexamples_1_1routing_1_1_routing_1abee955773927e7a90890b285ee4be897">demands</link>)&#32;-&#32;1
+<anchor xml:id="_routing_8py_source_1l00065"/><link linkend="_classexamples_1_1routing_1_1_routing_1aaa6c830c5c0d5c7d080fd3093dc4a334">00065</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1routing_1_1_routing_1aaa6c830c5c0d5c7d080fd3093dc4a334">bounds</link>&#32;=&#32;Bounds([0]*self.<link linkend="_classexamples_1_1routing_1_1_routing_1abbc61c3d537745ee4ee352aa37de50f7">dim</link>,&#32;[1]*self.<link linkend="_classexamples_1_1routing_1_1_routing_1abbc61c3d537745ee4ee352aa37de50f7">dim</link>)
+<anchor xml:id="_routing_8py_source_1l00066"/><link linkend="_classexamples_1_1routing_1_1_routing_1a3035dc6bd0a47436292ad1e934eb0e1b">00066</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1routing_1_1_routing_1a3035dc6bd0a47436292ad1e934eb0e1b">bounds_capacity</link>&#32;=&#32;Bounds([40]&#32;+&#32;[0]*(self.<link linkend="_classexamples_1_1routing_1_1_routing_1abbc61c3d537745ee4ee352aa37de50f7">dim</link>),&#32;[500]&#32;+&#32;[1]*self.<link linkend="_classexamples_1_1routing_1_1_routing_1abbc61c3d537745ee4ee352aa37de50f7">dim</link>)
+<anchor xml:id="_routing_8py_source_1l00067"/>00067 
+<anchor xml:id="_routing_8py_source_1l00068"/><link linkend="_classexamples_1_1routing_1_1_routing_1abd93168d87b5678e916b090c6bcd080a">00068</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1routing_1_1_routing_1abd93168d87b5678e916b090c6bcd080a">fitness</link>(self,&#32;x):&#32;&#32;&#32;
+<anchor xml:id="_routing_8py_source_1l00069"/>00069 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_namespaceexamples_1_1routing_1a7c0135d03443b57db620ab0f8c763b69">fitness_</link>(np.argsort(x),&#32;self.<link linkend="_classexamples_1_1routing_1_1_routing_1adf6658107ab5418cf8580de44d3ac8db">distance</link>,&#32;self.<link linkend="_classexamples_1_1routing_1_1_routing_1abee955773927e7a90890b285ee4be897">demands</link>,&#32;self.<link linkend="_classexamples_1_1routing_1_1_routing_1a3c4a10dd85b8ef3c7badcb1f4bf5ed8e">capacity</link>)
+<anchor xml:id="_routing_8py_source_1l00070"/>00070 
+<anchor xml:id="_routing_8py_source_1l00071"/><link linkend="_classexamples_1_1routing_1_1_routing_1ae793230b0a62aff7921b2750eed3817a">00071</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1routing_1_1_routing_1ae793230b0a62aff7921b2750eed3817a">fitness_capacity</link>(self,&#32;x):&#32;&#32;&#32;
+<anchor xml:id="_routing_8py_source_1l00072"/>00072 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;y&#32;=&#32;<link linkend="_namespaceexamples_1_1routing_1a7c0135d03443b57db620ab0f8c763b69">fitness_</link>(np.argsort(x[1:]),&#32;self.<link linkend="_classexamples_1_1routing_1_1_routing_1adf6658107ab5418cf8580de44d3ac8db">distance</link>,&#32;self.<link linkend="_classexamples_1_1routing_1_1_routing_1abee955773927e7a90890b285ee4be897">demands</link>,&#32;x[0])
+<anchor xml:id="_routing_8py_source_1l00073"/>00073 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;np.array([x[0],&#32;y[1]])
+<anchor xml:id="_routing_8py_source_1l00074"/>00074 
+<anchor xml:id="_routing_8py_source_1l00075"/><link linkend="_classexamples_1_1routing_1_1_routing_1a2ec29234dfaac9bd2805420c2efc8479">00075</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1routing_1_1_routing_1a2ec29234dfaac9bd2805420c2efc8479">fitness_so</link>(self,&#32;x):&#32;&#32;&#32;
+<anchor xml:id="_routing_8py_source_1l00076"/>00076 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_namespaceexamples_1_1routing_1a7c0135d03443b57db620ab0f8c763b69">fitness_</link>(np.argsort(x),&#32;self.<link linkend="_classexamples_1_1routing_1_1_routing_1adf6658107ab5418cf8580de44d3ac8db">distance</link>,&#32;self.<link linkend="_classexamples_1_1routing_1_1_routing_1abee955773927e7a90890b285ee4be897">demands</link>,&#32;self.<link linkend="_classexamples_1_1routing_1_1_routing_1a3c4a10dd85b8ef3c7badcb1f4bf5ed8e">capacity</link>)[1]
+<anchor xml:id="_routing_8py_source_1l00077"/>00077 &#32;&#32;&#32;&#32;
+<anchor xml:id="_routing_8py_source_1l00078"/><link linkend="_classexamples_1_1routing_1_1_routing_1a15358173d0f3864be3de5ae2213baf66">00078</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1routing_1_1_routing_1a15358173d0f3864be3de5ae2213baf66">dump</link>(self,&#32;seq,&#32;y=0,&#32;capa=None):
+<anchor xml:id="_routing_8py_source_1l00079"/>00079 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;capa&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>:
+<anchor xml:id="_routing_8py_source_1l00080"/>00080 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;capa&#32;=&#32;self.<link linkend="_classexamples_1_1routing_1_1_routing_1a3c4a10dd85b8ef3c7badcb1f4bf5ed8e">capacity</link>
+<anchor xml:id="_routing_8py_source_1l00081"/>00081 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;n&#32;=&#32;len(seq)
+<anchor xml:id="_routing_8py_source_1l00082"/>00082 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;seq&#32;+=&#32;1
+<anchor xml:id="_routing_8py_source_1l00083"/>00083 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;sum_demand&#32;=&#32;0
+<anchor xml:id="_routing_8py_source_1l00084"/>00084 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;sum_dist&#32;=&#32;0
+<anchor xml:id="_routing_8py_source_1l00085"/>00085 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;last&#32;=&#32;0
+<anchor xml:id="_routing_8py_source_1l00086"/>00086 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;vehicles&#32;=&#32;1
+<anchor xml:id="_routing_8py_source_1l00087"/>00087 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;tour&#32;=&#32;[0]
+<anchor xml:id="_routing_8py_source_1l00088"/>00088 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">print</emphasis>&#32;(<emphasis role="stringliteral">&quot;tour&#32;&quot;</emphasis>,&#32;str(list(seq)))
+<anchor xml:id="_routing_8py_source_1l00089"/>00089 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">print</emphasis>&#32;(<emphasis role="stringliteral">&quot;y&#32;&quot;</emphasis>,&#32;y)
+<anchor xml:id="_routing_8py_source_1l00090"/>00090 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(n+1):
+<anchor xml:id="_routing_8py_source_1l00091"/>00091 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;customer&#32;=&#32;seq[i]&#32;<emphasis role="keywordflow">if</emphasis>&#32;i&#32;&lt;&#32;n&#32;<emphasis role="keywordflow">else</emphasis>&#32;0
+<anchor xml:id="_routing_8py_source_1l00092"/>00092 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;demand&#32;=&#32;self.<link linkend="_classexamples_1_1routing_1_1_routing_1abee955773927e7a90890b285ee4be897">demands</link>[customer]
+<anchor xml:id="_routing_8py_source_1l00093"/>00093 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;sum_demand&#32;+&#32;demand&#32;&gt;&#32;capa:
+<anchor xml:id="_routing_8py_source_1l00094"/>00094 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;sum_dist&#32;+=&#32;self.<link linkend="_classexamples_1_1routing_1_1_routing_1adf6658107ab5418cf8580de44d3ac8db">distance</link>[last,&#32;0]
+<anchor xml:id="_routing_8py_source_1l00095"/>00095 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">print</emphasis>&#32;(<emphasis role="stringliteral">&quot;vehicle&#32;&quot;</emphasis>,&#32;vehicles,&#32;<emphasis role="stringliteral">&quot;tour&quot;</emphasis>,&#32;tour&#32;+&#32;[0],&#32;<emphasis role="stringliteral">&quot;demands&quot;</emphasis>,&#32;sum_demand,&#32;<emphasis role="stringliteral">&quot;distance&quot;</emphasis>,&#32;sum_dist)
+<anchor xml:id="_routing_8py_source_1l00096"/>00096 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;sum_demand&#32;=&#32;0
+<anchor xml:id="_routing_8py_source_1l00097"/>00097 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;vehicles&#32;+=&#32;1
+<anchor xml:id="_routing_8py_source_1l00098"/>00098 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;tour&#32;=&#32;[0]
+<anchor xml:id="_routing_8py_source_1l00099"/>00099 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;last&#32;=&#32;0
+<anchor xml:id="_routing_8py_source_1l00100"/>00100 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;sum_demand&#32;+=&#32;demand
+<anchor xml:id="_routing_8py_source_1l00101"/>00101 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;sum_dist&#32;+=&#32;self.<link linkend="_classexamples_1_1routing_1_1_routing_1adf6658107ab5418cf8580de44d3ac8db">distance</link>[last,&#32;customer]
+<anchor xml:id="_routing_8py_source_1l00102"/>00102 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;tour.append(customer)
+<anchor xml:id="_routing_8py_source_1l00103"/>00103 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;last&#32;=&#32;customer
+<anchor xml:id="_routing_8py_source_1l00104"/>00104 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">print</emphasis>&#32;(<emphasis role="stringliteral">&quot;vehicle&#32;&quot;</emphasis>,&#32;vehicles,&#32;<emphasis role="stringliteral">&quot;tour&quot;</emphasis>,&#32;tour,&#32;<emphasis role="stringliteral">&quot;demands&quot;</emphasis>,&#32;sum_demand,&#32;<emphasis role="stringliteral">&quot;distance&quot;</emphasis>,&#32;sum_dist)
+<anchor xml:id="_routing_8py_source_1l00105"/>00105 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;np.array([float(vehicles),&#32;sum_dist])
+<anchor xml:id="_routing_8py_source_1l00106"/>00106 &#32;&#32;
+<anchor xml:id="_routing_8py_source_1l00107"/><link linkend="_namespaceexamples_1_1routing_1a968104978655bcf356ed27cf06e6bcee">00107</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1routing_1a968104978655bcf356ed27cf06e6bcee">optimize</link>(filename,&#32;capacity,&#32;popsize,&#32;max_evaluations):
+<anchor xml:id="_routing_8py_source_1l00108"/>00108 &#32;&#32;&#32;&#32;routing&#32;=&#32;<link linkend="_classexamples_1_1routing_1_1_routing">Routing</link>(filename,&#32;capacity)&#32;&#32;&#32;&#32;
+<anchor xml:id="_routing_8py_source_1l00109"/>00109 &#32;&#32;&#32;&#32;x,&#32;y&#32;=&#32;modecpp.retry(<link linkend="_classfcmaes_1_1mode_1_1wrapper">mode.wrapper</link>(routing.fitness,&#32;2,&#32;interval&#32;=&#32;10000000),&#32;2,&#32;0,
+<anchor xml:id="_routing_8py_source_1l00110"/>00110 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;routing.bounds,&#32;popsize&#32;=&#32;popsize,&#32;
+<anchor xml:id="_routing_8py_source_1l00111"/>00111 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_evaluations&#32;=&#32;max_evaluations,&#32;
+<anchor xml:id="_routing_8py_source_1l00112"/>00112 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;nsga_update=<emphasis role="keyword">True</emphasis>,&#32;num_retries&#32;=&#32;320)
+<anchor xml:id="_routing_8py_source_1l00113"/>00113 &#32;&#32;&#32;&#32;pname&#32;=&#32;<emphasis role="stringliteral">&quot;routing.&quot;</emphasis>&#32;+&#32;str(popsize)&#32;+&#32;<emphasis role="stringliteral">&quot;.&quot;</emphasis>&#32;+&#32;str(max_evaluations)
+<anchor xml:id="_routing_8py_source_1l00114"/>00114 &#32;&#32;&#32;&#32;np.savez_compressed(pname,&#32;xs=x,&#32;ys=y)
+<anchor xml:id="_routing_8py_source_1l00115"/>00115 &#32;&#32;&#32;&#32;moretry.plot(pname,&#32;0,&#32;x,&#32;y,&#32;all=<emphasis role="keyword">False</emphasis>,&#32;interp=<emphasis role="keyword">True</emphasis>)<emphasis role="comment">#,&#32;plot3d=True)</emphasis>
+<anchor xml:id="_routing_8py_source_1l00116"/>00116 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(len(y)):
+<anchor xml:id="_routing_8py_source_1l00117"/>00117 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;routing.dump(np.argsort(x[i]),&#32;y[i])
+<anchor xml:id="_routing_8py_source_1l00118"/>00118 
+<anchor xml:id="_routing_8py_source_1l00119"/><link linkend="_namespaceexamples_1_1routing_1aae9bc2f46194c49093d7aa0f36e6c315">00119</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1routing_1aae9bc2f46194c49093d7aa0f36e6c315">optimize_capacity</link>(filename,&#32;popsize,&#32;max_evaluations,&#32;num_retries&#32;=&#32;640):
+<anchor xml:id="_routing_8py_source_1l00120"/>00120 &#32;&#32;&#32;&#32;routing&#32;=&#32;<link linkend="_classexamples_1_1routing_1_1_routing">Routing</link>(filename,&#32;0)&#32;&#32;&#32;&#32;
+<anchor xml:id="_routing_8py_source_1l00121"/>00121 &#32;&#32;&#32;&#32;x,&#32;y&#32;=&#32;modecpp.retry(<link linkend="_classfcmaes_1_1mode_1_1wrapper">mode.wrapper</link>(routing.fitness_capacity,&#32;2,&#32;interval&#32;=&#32;10000000),&#32;2,&#32;0,
+<anchor xml:id="_routing_8py_source_1l00122"/>00122 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;routing.bounds_capacity,&#32;popsize&#32;=&#32;popsize,&#32;
+<anchor xml:id="_routing_8py_source_1l00123"/>00123 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_evaluations&#32;=&#32;max_evaluations,&#32;
+<anchor xml:id="_routing_8py_source_1l00124"/>00124 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;nsga_update=<emphasis role="keyword">True</emphasis>,&#32;num_retries&#32;=&#32;num_retries)
+<anchor xml:id="_routing_8py_source_1l00125"/>00125 &#32;&#32;&#32;&#32;pname&#32;=&#32;<emphasis role="stringliteral">&quot;routing.&quot;</emphasis>&#32;+&#32;str(popsize)&#32;+&#32;<emphasis role="stringliteral">&quot;.&quot;</emphasis>&#32;+&#32;str(max_evaluations)
+<anchor xml:id="_routing_8py_source_1l00126"/>00126 &#32;&#32;&#32;&#32;np.savez_compressed(pname,&#32;xs=x,&#32;ys=y)
+<anchor xml:id="_routing_8py_source_1l00127"/>00127 &#32;&#32;&#32;&#32;moretry.plot(pname,&#32;0,&#32;x,&#32;y,&#32;all=<emphasis role="keyword">False</emphasis>,&#32;interp=<emphasis role="keyword">True</emphasis>)<emphasis role="comment">#,&#32;plot3d=True)</emphasis>
+<anchor xml:id="_routing_8py_source_1l00128"/>00128 &#32;&#32;&#32;&#32;routing.dump(np.argsort(x[-1][1:]),&#32;y[-1],&#32;y[-1][0])
+<anchor xml:id="_routing_8py_source_1l00129"/>00129 &#32;&#32;&#32;
+<anchor xml:id="_routing_8py_source_1l00130"/><link linkend="_namespaceexamples_1_1routing_1a995ddf4fbc26aa967013e68e80cbc75e">00130</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1routing_1a995ddf4fbc26aa967013e68e80cbc75e">optimize_so</link>(filename,&#32;capacity,&#32;opt,&#32;num_retries&#32;=&#32;320):
+<anchor xml:id="_routing_8py_source_1l00131"/>00131 &#32;&#32;&#32;&#32;routing&#32;=&#32;<link linkend="_classexamples_1_1routing_1_1_routing">Routing</link>(filename,&#32;capacity)
+<anchor xml:id="_routing_8py_source_1l00132"/>00132 &#32;&#32;&#32;&#32;name&#32;=&#32;<emphasis role="stringliteral">&quot;routing.&quot;</emphasis>&#32;+&#32;str(opt.max_evaluations)&#32;&#32;&#32;&#32;
+<anchor xml:id="_routing_8py_source_1l00133"/>00133 &#32;&#32;&#32;&#32;ret&#32;=&#32;retry.minimize_plot(name,&#32;opt,&#32;<link linkend="_classfcmaes_1_1optimizer_1_1wrapper">wrapper</link>(routing.fitness_so),&#32;
+<anchor xml:id="_routing_8py_source_1l00134"/>00134 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;routing.bounds,&#32;num_retries&#32;=&#32;num_retries)
+<anchor xml:id="_routing_8py_source_1l00135"/>00135 &#32;&#32;&#32;&#32;routing.dump(np.argsort(ret.x),&#32;ret.fun)
+<anchor xml:id="_routing_8py_source_1l00136"/>00136 &#32;&#32;&#32;
+<anchor xml:id="_routing_8py_source_1l00137"/><link linkend="_namespaceexamples_1_1routing_1aedf81cfa24d1bc109fc199d6b9395ed0">00137</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1routing_1aedf81cfa24d1bc109fc199d6b9395ed0">dump</link>(filename,&#32;capacity,&#32;seq):
+<anchor xml:id="_routing_8py_source_1l00138"/>00138 &#32;&#32;&#32;&#32;routing&#32;=&#32;<link linkend="_classexamples_1_1routing_1_1_routing">Routing</link>(filename,&#32;capacity)&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_routing_8py_source_1l00139"/>00139 &#32;&#32;&#32;&#32;routing.dump(np.array(seq)-1)&#32;
+<anchor xml:id="_routing_8py_source_1l00140"/>00140 
+<anchor xml:id="_routing_8py_source_1l00141"/>00141 <emphasis role="keywordflow">if</emphasis>&#32;__name__&#32;==&#32;<emphasis role="stringliteral">&apos;__main__&apos;</emphasis>:
+<anchor xml:id="_routing_8py_source_1l00142"/><link linkend="_namespaceexamples_1_1routing_1af20f7439464bb10d90f1a4eed8fd3f35">00142</link> &#32;&#32;&#32;&#32;filename&#32;=&#32;<emphasis role="stringliteral">&quot;data/Input_Data.txt&quot;</emphasis>
+<anchor xml:id="_routing_8py_source_1l00143"/><link linkend="_namespaceexamples_1_1routing_1a516d080357c265eac4a9258cb89b05c1">00143</link> &#32;&#32;&#32;&#32;capacity&#32;=&#32;70
+<anchor xml:id="_routing_8py_source_1l00144"/><link linkend="_namespaceexamples_1_1routing_1a5a4800fbe52df6b0a5ff0b19c727cd55">00144</link> &#32;&#32;&#32;&#32;popsize&#32;=&#32;128
+<anchor xml:id="_routing_8py_source_1l00145"/><link linkend="_namespaceexamples_1_1routing_1a0b20d4e9fcb358442363b9c59b242cb0">00145</link> &#32;&#32;&#32;&#32;max_evaluations&#32;=&#32;100000
+<anchor xml:id="_routing_8py_source_1l00146"/>00146 &#32;&#32;&#32;&#32;
+<anchor xml:id="_routing_8py_source_1l00147"/>00147 &#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1routing_1aae9bc2f46194c49093d7aa0f36e6c315">optimize_capacity</link>(filename,&#32;2*popsize,&#32;2*max_evaluations)
+<anchor xml:id="_routing_8py_source_1l00148"/>00148 &#32;&#32;&#32;&#32;<emphasis role="comment">#optimize(filename,&#32;capacity,&#32;popsize,&#32;max_evaluations)</emphasis>
+<anchor xml:id="_routing_8py_source_1l00149"/>00149 &#32;&#32;&#32;&#32;<emphasis role="comment">#optimize_so(filename,&#32;capacity,&#32;Bite_cpp(max_evaluations))</emphasis>
+<anchor xml:id="_routing_8py_source_1l00150"/>00150 &#32;&#32;&#32;&#32;<emphasis role="comment">#optimize_so(filename,&#32;capacity,&#32;Crfmnes_cpp(max_evaluations,popsize=popsize))</emphasis>
+<anchor xml:id="_routing_8py_source_1l00151"/>00151 &#32;&#32;&#32;&#32;<emphasis role="comment">#optimize_so(filename,&#32;capacity,&#32;de_cma(max_evaluations,popsize=popsize))</emphasis>
+<anchor xml:id="_routing_8py_source_1l00152"/>00152 &#32;&#32;&#32;&#32;<emphasis role="comment">#optimize_so(filename,&#32;capacity,&#32;De_cpp(max_evaluations,popsize=popsize))</emphasis>
+<anchor xml:id="_routing_8py_source_1l00153"/>00153 &#32;&#32;&#32;&#32;<emphasis role="comment">#dump(filename,&#32;capacity,&#32;[1,&#32;2,&#32;4,&#32;3,&#32;5,&#32;16,&#32;14,&#32;12,&#32;10,&#32;11,&#32;13,&#32;17,&#32;18,&#32;19,&#32;15,&#32;7,&#32;6,&#32;9,&#32;8,&#32;20,&#32;24,&#32;25,&#32;23,&#32;22,&#32;21])</emphasis>
+<anchor xml:id="_routing_8py_source_1l00154"/>00154 
+<anchor xml:id="_routing_8py_source_1l00155"/>00155 &#32;&#32;&#32;&#32;
+</programlisting></section>

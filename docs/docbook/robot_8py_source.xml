@@ -1,0 +1,327 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_robot_8py_source" xml:lang="en-US">
+<title>robot.py</title>
+<indexterm><primary>examples/robot.py</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_robot_8py_source_1l00001"/><link linkend="_namespaceexamples_1_1robot">00001</link> <emphasis role="comment">#&#32;Adapted&#32;from&#32;https://github.com/zi-w/Ensemble-Bayesian-Optimization/tree/master/test_functions</emphasis>
+<anchor xml:id="_robot_8py_source_1l00002"/>00002 <emphasis role="comment">#&#32;See&#32;https://arxiv.org/pdf/1706.01445.pdf</emphasis>
+<anchor xml:id="_robot_8py_source_1l00003"/>00003 <emphasis role="comment">#&#32;See&#32;https://github.com/dietmarwo/fast-cma-es/blob/master/tutorials/RobotRover.adoc&#32;for&#32;a&#32;detailed&#32;description.</emphasis>
+<anchor xml:id="_robot_8py_source_1l00004"/>00004 
+<anchor xml:id="_robot_8py_source_1l00005"/>00005 <emphasis role="comment">#&#32;Install&#32;dependencies:</emphasis>
+<anchor xml:id="_robot_8py_source_1l00006"/>00006 <emphasis role="comment">#&#32;pip&#32;install&#32;more-itertools</emphasis>
+<anchor xml:id="_robot_8py_source_1l00007"/>00007 <emphasis role="comment">#&#32;pip&#32;install&#32;pygame</emphasis>
+<anchor xml:id="_robot_8py_source_1l00008"/>00008 <emphasis role="comment">#&#32;mamba&#32;install&#32;swig</emphasis>
+<anchor xml:id="_robot_8py_source_1l00009"/>00009 <emphasis role="comment">#&#32;mamba&#32;install&#32;box2d-py</emphasis>
+<anchor xml:id="_robot_8py_source_1l00010"/>00010 
+<anchor xml:id="_robot_8py_source_1l00011"/>00011 <emphasis role="comment">#&#32;Tested&#32;using&#32;https://docs.conda.io/en/main/miniconda.html&#32;on&#32;Linux&#32;Mint&#32;21.2</emphasis>
+<anchor xml:id="_robot_8py_source_1l00012"/>00012 
+<anchor xml:id="_robot_8py_source_1l00013"/>00013 <emphasis role="keyword">import</emphasis>&#32;numpy&#32;<emphasis role="keyword">as</emphasis>&#32;np
+<anchor xml:id="_robot_8py_source_1l00014"/>00014 
+<anchor xml:id="_robot_8py_source_1l00015"/>00015 <emphasis role="keyword">import</emphasis>&#32;pygame
+<anchor xml:id="_robot_8py_source_1l00016"/>00016 <emphasis role="keyword">from</emphasis>&#32;Box2D&#32;<emphasis role="keyword">import</emphasis>&#32;*
+<anchor xml:id="_robot_8py_source_1l00017"/>00017 <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespace_box2_d_1_1b2">Box2D.b2</link>&#32;<emphasis role="keyword">import</emphasis>&#32;*
+<anchor xml:id="_robot_8py_source_1l00018"/>00018 
+<anchor xml:id="_robot_8py_source_1l00019"/>00019 
+<anchor xml:id="_robot_8py_source_1l00020"/><link linkend="_classexamples_1_1robot_1_1gui_world">00020</link> <emphasis role="keyword">class&#32;</emphasis><link linkend="_classexamples_1_1robot_1_1gui_world">guiWorld</link>:
+<anchor xml:id="_robot_8py_source_1l00021"/><link linkend="_classexamples_1_1robot_1_1gui_world_1a2a72190b0879ff50cdeebe3cf3213d7d">00021</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1robot_1_1gui_world_1a2a72190b0879ff50cdeebe3cf3213d7d">__init__</link>(self,&#32;fps):
+<anchor xml:id="_robot_8py_source_1l00022"/><link linkend="_classexamples_1_1robot_1_1gui_world_1a03d57f981170d79d51d9033c04292594">00022</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1robot_1_1gui_world_1ad22538df02066ff8e529fdefde7a11ef">SCREEN_WIDTH</link>,&#32;self.<link linkend="_classexamples_1_1robot_1_1gui_world_1a03d57f981170d79d51d9033c04292594">SCREEN_HEIGHT</link>&#32;=&#32;1000,&#32;1000
+<anchor xml:id="_robot_8py_source_1l00023"/><link linkend="_classexamples_1_1robot_1_1gui_world_1a97e18c60d7c158fb93505ff1062f4215">00023</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1robot_1_1gui_world_1a97e18c60d7c158fb93505ff1062f4215">TARGET_FPS</link>&#32;=&#32;fps
+<anchor xml:id="_robot_8py_source_1l00024"/><link linkend="_classexamples_1_1robot_1_1gui_world_1ad6cabbaff2dd91875d324a223955033d">00024</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1robot_1_1gui_world_1ad6cabbaff2dd91875d324a223955033d">PPM</link>&#32;=&#32;10.0&#32;&#32;<emphasis role="comment">#&#32;pixels&#32;per&#32;meter</emphasis>
+<anchor xml:id="_robot_8py_source_1l00025"/><link linkend="_classexamples_1_1robot_1_1gui_world_1a4e6d908e38fe9362abbf8d42061d56ed">00025</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1robot_1_1gui_world_1a4e6d908e38fe9362abbf8d42061d56ed">screen</link>&#32;=&#32;pygame.display.set_mode((self.<link linkend="_classexamples_1_1robot_1_1gui_world_1ad22538df02066ff8e529fdefde7a11ef">SCREEN_WIDTH</link>,&#32;self.<link linkend="_classexamples_1_1robot_1_1gui_world_1a03d57f981170d79d51d9033c04292594">SCREEN_HEIGHT</link>),&#32;0,&#32;32)
+<anchor xml:id="_robot_8py_source_1l00026"/>00026 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pygame.display.set_caption(<emphasis role="stringliteral">&apos;push&#32;simulator&apos;</emphasis>)
+<anchor xml:id="_robot_8py_source_1l00027"/><link linkend="_classexamples_1_1robot_1_1gui_world_1af98ec11c04c1ba0765d4475cf383f29e">00027</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1robot_1_1gui_world_1af98ec11c04c1ba0765d4475cf383f29e">clock</link>&#32;=&#32;pygame.time.Clock()
+<anchor xml:id="_robot_8py_source_1l00028"/><link linkend="_classexamples_1_1robot_1_1gui_world_1af1fded6ed1528b22f0517f72bbad19f2">00028</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1robot_1_1gui_world_1af1fded6ed1528b22f0517f72bbad19f2">screen_origin</link>&#32;=&#32;b2Vec2(self.<link linkend="_classexamples_1_1robot_1_1gui_world_1ad22538df02066ff8e529fdefde7a11ef">SCREEN_WIDTH</link>&#32;/&#32;(2&#32;*&#32;self.<link linkend="_classexamples_1_1robot_1_1gui_world_1ad6cabbaff2dd91875d324a223955033d">PPM</link>),&#32;self.<link linkend="_classexamples_1_1robot_1_1gui_world_1a03d57f981170d79d51d9033c04292594">SCREEN_HEIGHT</link>&#32;/&#32;(self.<link linkend="_classexamples_1_1robot_1_1gui_world_1ad6cabbaff2dd91875d324a223955033d">PPM</link>&#32;*&#32;2))
+<anchor xml:id="_robot_8py_source_1l00029"/><link linkend="_classexamples_1_1robot_1_1gui_world_1a25335c34ece85a6399269d8c972ba1dd">00029</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1robot_1_1gui_world_1a25335c34ece85a6399269d8c972ba1dd">colors</link>&#32;=&#32;{
+<anchor xml:id="_robot_8py_source_1l00030"/>00030 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;b2_staticBody:&#32;(255,&#32;255,&#32;255,&#32;255),
+<anchor xml:id="_robot_8py_source_1l00031"/>00031 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;b2_dynamicBody:&#32;(163,&#32;209,&#32;224,&#32;255)
+<anchor xml:id="_robot_8py_source_1l00032"/>00032 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_robot_8py_source_1l00033"/>00033 
+<anchor xml:id="_robot_8py_source_1l00034"/><link linkend="_classexamples_1_1robot_1_1gui_world_1adab98b24ef2879406211e7c2325addd2">00034</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1robot_1_1gui_world_1adab98b24ef2879406211e7c2325addd2">draw</link>(self,&#32;bodies,&#32;bg_color=(64,&#32;64,&#32;64,&#32;0)):
+<anchor xml:id="_robot_8py_source_1l00035"/>00035 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis>my_draw_polygon(polygon,&#32;body,&#32;fixture):
+<anchor xml:id="_robot_8py_source_1l00036"/>00036 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;vertices&#32;=&#32;[(self.<link linkend="_classexamples_1_1robot_1_1gui_world_1af1fded6ed1528b22f0517f72bbad19f2">screen_origin</link>&#32;+&#32;body.transform&#32;*&#32;v)&#32;*&#32;self.<link linkend="_classexamples_1_1robot_1_1gui_world_1ad6cabbaff2dd91875d324a223955033d">PPM</link>&#32;<emphasis role="keywordflow">for</emphasis>&#32;v&#32;<emphasis role="keywordflow">in</emphasis>&#32;polygon.vertices]
+<anchor xml:id="_robot_8py_source_1l00037"/>00037 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;vertices&#32;=&#32;[(v[0],&#32;self.<link linkend="_classexamples_1_1robot_1_1gui_world_1a03d57f981170d79d51d9033c04292594">SCREEN_HEIGHT</link>&#32;-&#32;v[1])&#32;<emphasis role="keywordflow">for</emphasis>&#32;v&#32;<emphasis role="keywordflow">in</emphasis>&#32;vertices]
+<anchor xml:id="_robot_8py_source_1l00038"/>00038 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;color&#32;=&#32;self.<link linkend="_classexamples_1_1robot_1_1gui_world_1a25335c34ece85a6399269d8c972ba1dd">colors</link>[body.type]
+<anchor xml:id="_robot_8py_source_1l00039"/>00039 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;body.userData&#32;==&#32;<emphasis role="stringliteral">&quot;obs&quot;</emphasis>:
+<anchor xml:id="_robot_8py_source_1l00040"/>00040 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;color&#32;=&#32;(123,&#32;128,&#32;120,&#32;0)
+<anchor xml:id="_robot_8py_source_1l00041"/>00041 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;body.userData&#32;==&#32;<emphasis role="stringliteral">&quot;hand&quot;</emphasis>:
+<anchor xml:id="_robot_8py_source_1l00042"/>00042 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;color&#32;=&#32;(174,&#32;136,&#32;218,&#32;0)
+<anchor xml:id="_robot_8py_source_1l00043"/>00043 
+<anchor xml:id="_robot_8py_source_1l00044"/>00044 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pygame.draw.polygon(self.<link linkend="_classexamples_1_1robot_1_1gui_world_1a4e6d908e38fe9362abbf8d42061d56ed">screen</link>,&#32;color,&#32;vertices)
+<anchor xml:id="_robot_8py_source_1l00045"/>00045 
+<anchor xml:id="_robot_8py_source_1l00046"/>00046 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis>my_draw_circle(circle,&#32;body,&#32;fixture):
+<anchor xml:id="_robot_8py_source_1l00047"/>00047 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;position&#32;=&#32;(self.<link linkend="_classexamples_1_1robot_1_1gui_world_1af1fded6ed1528b22f0517f72bbad19f2">screen_origin</link>&#32;+&#32;body.transform&#32;*&#32;circle.pos)&#32;*&#32;self.<link linkend="_classexamples_1_1robot_1_1gui_world_1ad6cabbaff2dd91875d324a223955033d">PPM</link>
+<anchor xml:id="_robot_8py_source_1l00048"/>00048 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;position&#32;=&#32;(position[0],&#32;self.<link linkend="_classexamples_1_1robot_1_1gui_world_1a03d57f981170d79d51d9033c04292594">SCREEN_HEIGHT</link>&#32;-&#32;position[1])
+<anchor xml:id="_robot_8py_source_1l00049"/>00049 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;color&#32;=&#32;self.<link linkend="_classexamples_1_1robot_1_1gui_world_1a25335c34ece85a6399269d8c972ba1dd">colors</link>[body.type]
+<anchor xml:id="_robot_8py_source_1l00050"/>00050 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;body.userData&#32;==&#32;<emphasis role="stringliteral">&quot;hand&quot;</emphasis>:
+<anchor xml:id="_robot_8py_source_1l00051"/>00051 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;color&#32;=&#32;(174,&#32;136,&#32;218,&#32;0)
+<anchor xml:id="_robot_8py_source_1l00052"/>00052 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pygame.draw.circle(self.<link linkend="_classexamples_1_1robot_1_1gui_world_1a4e6d908e38fe9362abbf8d42061d56ed">screen</link>,&#32;color,&#32;[int(x)&#32;<emphasis role="keywordflow">for</emphasis>&#32;x&#32;<emphasis role="keywordflow">in</emphasis>
+<anchor xml:id="_robot_8py_source_1l00053"/>00053 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;position],&#32;int(circle.radius&#32;*&#32;self.<link linkend="_classexamples_1_1robot_1_1gui_world_1ad6cabbaff2dd91875d324a223955033d">PPM</link>))
+<anchor xml:id="_robot_8py_source_1l00054"/>00054 
+<anchor xml:id="_robot_8py_source_1l00055"/>00055 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;b2PolygonShape.draw&#32;=&#32;my_draw_polygon
+<anchor xml:id="_robot_8py_source_1l00056"/>00056 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;b2CircleShape.draw&#32;=&#32;my_draw_circle
+<anchor xml:id="_robot_8py_source_1l00057"/>00057 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;draw&#32;the&#32;world</emphasis>
+<anchor xml:id="_robot_8py_source_1l00058"/>00058 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1robot_1_1gui_world_1a4e6d908e38fe9362abbf8d42061d56ed">screen</link>.fill(bg_color)
+<anchor xml:id="_robot_8py_source_1l00059"/>00059 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1robot_1_1gui_world_1af98ec11c04c1ba0765d4475cf383f29e">clock</link>.tick(self.<link linkend="_classexamples_1_1robot_1_1gui_world_1a97e18c60d7c158fb93505ff1062f4215">TARGET_FPS</link>)
+<anchor xml:id="_robot_8py_source_1l00060"/>00060 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;body&#32;<emphasis role="keywordflow">in</emphasis>&#32;bodies:
+<anchor xml:id="_robot_8py_source_1l00061"/>00061 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;fixture&#32;<emphasis role="keywordflow">in</emphasis>&#32;body.fixtures:
+<anchor xml:id="_robot_8py_source_1l00062"/>00062 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fixture.shape.draw(body,&#32;fixture)
+<anchor xml:id="_robot_8py_source_1l00063"/>00063 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pygame.display.flip()
+<anchor xml:id="_robot_8py_source_1l00064"/>00064 
+<anchor xml:id="_robot_8py_source_1l00065"/>00065 <emphasis role="comment">#&#32;this&#32;is&#32;the&#32;interface&#32;to&#32;pybox2d</emphasis>
+<anchor xml:id="_robot_8py_source_1l00066"/><link linkend="_classexamples_1_1robot_1_1b2_world_interface">00066</link> <emphasis role="keyword">class&#32;</emphasis><link linkend="_classexamples_1_1robot_1_1b2_world_interface">b2WorldInterface</link>:
+<anchor xml:id="_robot_8py_source_1l00067"/><link linkend="_classexamples_1_1robot_1_1b2_world_interface_1a7092d6fe5d6e4a96ed9f28dbb8cec53d">00067</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1robot_1_1b2_world_interface_1a7092d6fe5d6e4a96ed9f28dbb8cec53d">__init__</link>(self,&#32;do_gui=True):
+<anchor xml:id="_robot_8py_source_1l00068"/><link linkend="_classexamples_1_1robot_1_1b2_world_interface_1ac80a9c52b51a2e8ac79bd1cc846d9fe4">00068</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1robot_1_1b2_world_interface_1ac80a9c52b51a2e8ac79bd1cc846d9fe4">world</link>&#32;=&#32;b2World(gravity=(0.0,&#32;0.0),&#32;doSleep=<emphasis role="keyword">True</emphasis>)
+<anchor xml:id="_robot_8py_source_1l00069"/><link linkend="_classexamples_1_1robot_1_1b2_world_interface_1a0297622078dd63ff335b12d8e2f01e96">00069</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1robot_1_1b2_world_interface_1a0297622078dd63ff335b12d8e2f01e96">do_gui</link>&#32;=&#32;do_gui
+<anchor xml:id="_robot_8py_source_1l00070"/><link linkend="_classexamples_1_1robot_1_1b2_world_interface_1a3068c28bda902f1197a0ad8518ac6520">00070</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1robot_1_1b2_world_interface_1a3068c28bda902f1197a0ad8518ac6520">TARGET_FPS</link>&#32;=&#32;100
+<anchor xml:id="_robot_8py_source_1l00071"/><link linkend="_classexamples_1_1robot_1_1b2_world_interface_1a3088f5f6eaed3eb11b77536cf4986d54">00071</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1robot_1_1b2_world_interface_1a3088f5f6eaed3eb11b77536cf4986d54">TIME_STEP</link>&#32;=&#32;1.0&#32;/&#32;self.<link linkend="_classexamples_1_1robot_1_1b2_world_interface_1a3068c28bda902f1197a0ad8518ac6520">TARGET_FPS</link>
+<anchor xml:id="_robot_8py_source_1l00072"/><link linkend="_classexamples_1_1robot_1_1b2_world_interface_1a9924b1e1dbbc852bd2e11ecb10b136d9">00072</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1robot_1_1b2_world_interface_1afc4889322670a65a8e3ea069ecd9d40e">VEL_ITERS</link>,&#32;self.<link linkend="_classexamples_1_1robot_1_1b2_world_interface_1a9924b1e1dbbc852bd2e11ecb10b136d9">POS_ITERS</link>&#32;=&#32;10,&#32;10
+<anchor xml:id="_robot_8py_source_1l00073"/><link linkend="_classexamples_1_1robot_1_1b2_world_interface_1a70a4c4e2f6a76b4b0cf12bc0a2393d79">00073</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1robot_1_1b2_world_interface_1a70a4c4e2f6a76b4b0cf12bc0a2393d79">bodies</link>&#32;=&#32;[]
+<anchor xml:id="_robot_8py_source_1l00074"/>00074 
+<anchor xml:id="_robot_8py_source_1l00075"/>00075 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;do_gui:
+<anchor xml:id="_robot_8py_source_1l00076"/><link linkend="_classexamples_1_1robot_1_1b2_world_interface_1a1e9b1f3344f161776e40174c1e7ee75d">00076</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1robot_1_1b2_world_interface_1a1e9b1f3344f161776e40174c1e7ee75d">gui_world</link>&#32;=&#32;<link linkend="_classexamples_1_1robot_1_1gui_world">guiWorld</link>(self.<link linkend="_classexamples_1_1robot_1_1b2_world_interface_1a3068c28bda902f1197a0ad8518ac6520">TARGET_FPS</link>)
+<anchor xml:id="_robot_8py_source_1l00077"/>00077 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;raw_input()</emphasis>
+<anchor xml:id="_robot_8py_source_1l00078"/>00078 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>:
+<anchor xml:id="_robot_8py_source_1l00079"/>00079 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1robot_1_1b2_world_interface_1a1e9b1f3344f161776e40174c1e7ee75d">gui_world</link>&#32;=&#32;<emphasis role="keywordtype">None</emphasis>
+<anchor xml:id="_robot_8py_source_1l00080"/>00080 
+<anchor xml:id="_robot_8py_source_1l00081"/><link linkend="_classexamples_1_1robot_1_1b2_world_interface_1a6a5b5a5e68fd32c55812e70e80ebead7">00081</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1robot_1_1b2_world_interface_1a6a5b5a5e68fd32c55812e70e80ebead7">initialize_gui</link>(self):
+<anchor xml:id="_robot_8py_source_1l00082"/>00082 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;self.<link linkend="_classexamples_1_1robot_1_1b2_world_interface_1a1e9b1f3344f161776e40174c1e7ee75d">gui_world</link>&#32;==&#32;<emphasis role="keywordtype">None</emphasis>:
+<anchor xml:id="_robot_8py_source_1l00083"/>00083 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1robot_1_1b2_world_interface_1a1e9b1f3344f161776e40174c1e7ee75d">gui_world</link>&#32;=&#32;<link linkend="_classexamples_1_1robot_1_1gui_world">guiWorld</link>(self.<link linkend="_classexamples_1_1robot_1_1b2_world_interface_1a3068c28bda902f1197a0ad8518ac6520">TARGET_FPS</link>)
+<anchor xml:id="_robot_8py_source_1l00084"/>00084 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1robot_1_1b2_world_interface_1a0297622078dd63ff335b12d8e2f01e96">do_gui</link>&#32;=&#32;<emphasis role="keyword">True</emphasis>
+<anchor xml:id="_robot_8py_source_1l00085"/>00085 
+<anchor xml:id="_robot_8py_source_1l00086"/><link linkend="_classexamples_1_1robot_1_1b2_world_interface_1a0f7a068ef4e840459a91d93f107a667b">00086</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1robot_1_1b2_world_interface_1a0f7a068ef4e840459a91d93f107a667b">stop_gui</link>(self):
+<anchor xml:id="_robot_8py_source_1l00087"/>00087 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1robot_1_1b2_world_interface_1a0297622078dd63ff335b12d8e2f01e96">do_gui</link>&#32;=&#32;<emphasis role="keyword">False</emphasis>
+<anchor xml:id="_robot_8py_source_1l00088"/>00088 
+<anchor xml:id="_robot_8py_source_1l00089"/>00089 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1robot_1_1b2_world_interface_1a34cf4ae4836ed555b32a1486642ce275">add_bodies</link>(self,&#32;new_bodies):
+<anchor xml:id="_robot_8py_source_1l00090"/><link linkend="_classexamples_1_1robot_1_1b2_world_interface_1a34cf4ae4836ed555b32a1486642ce275">00090</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;&#32;add&#32;a&#32;single&#32;b2Body&#32;or&#32;list&#32;of&#32;b2Bodies&#32;to&#32;the&#32;world&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_robot_8py_source_1l00091"/>00091 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;type(new_bodies)&#32;==&#32;list:
+<anchor xml:id="_robot_8py_source_1l00092"/>00092 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1robot_1_1b2_world_interface_1a70a4c4e2f6a76b4b0cf12bc0a2393d79">bodies</link>&#32;+=&#32;new_bodies
+<anchor xml:id="_robot_8py_source_1l00093"/>00093 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>:
+<anchor xml:id="_robot_8py_source_1l00094"/>00094 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1robot_1_1b2_world_interface_1a70a4c4e2f6a76b4b0cf12bc0a2393d79">bodies</link>.append(new_bodies)
+<anchor xml:id="_robot_8py_source_1l00095"/>00095 
+<anchor xml:id="_robot_8py_source_1l00096"/><link linkend="_classexamples_1_1robot_1_1b2_world_interface_1ab0ef17ea8a92dd7d0d28f2defc51540c">00096</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1robot_1_1b2_world_interface_1ab0ef17ea8a92dd7d0d28f2defc51540c">step</link>(self,&#32;show_display=True,&#32;idx=0):
+<anchor xml:id="_robot_8py_source_1l00097"/>00097 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1robot_1_1b2_world_interface_1ac80a9c52b51a2e8ac79bd1cc846d9fe4">world</link>.Step(self.<link linkend="_classexamples_1_1robot_1_1b2_world_interface_1a3088f5f6eaed3eb11b77536cf4986d54">TIME_STEP</link>,&#32;self.<link linkend="_classexamples_1_1robot_1_1b2_world_interface_1afc4889322670a65a8e3ea069ecd9d40e">VEL_ITERS</link>,&#32;self.<link linkend="_classexamples_1_1robot_1_1b2_world_interface_1a9924b1e1dbbc852bd2e11ecb10b136d9">POS_ITERS</link>)
+<anchor xml:id="_robot_8py_source_1l00098"/>00098 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;show_display&#32;<emphasis role="keywordflow">and</emphasis>&#32;self.<link linkend="_classexamples_1_1robot_1_1b2_world_interface_1a0297622078dd63ff335b12d8e2f01e96">do_gui</link>:
+<anchor xml:id="_robot_8py_source_1l00099"/>00099 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1robot_1_1b2_world_interface_1a1e9b1f3344f161776e40174c1e7ee75d">gui_world</link>.draw(self.<link linkend="_classexamples_1_1robot_1_1b2_world_interface_1a70a4c4e2f6a76b4b0cf12bc0a2393d79">bodies</link>)
+<anchor xml:id="_robot_8py_source_1l00100"/>00100 
+<anchor xml:id="_robot_8py_source_1l00101"/><link linkend="_classexamples_1_1robot_1_1end__effector">00101</link> <emphasis role="keyword">class&#32;</emphasis><link linkend="_classexamples_1_1robot_1_1end__effector">end_effector</link>:
+<anchor xml:id="_robot_8py_source_1l00102"/><link linkend="_classexamples_1_1robot_1_1end__effector_1a0de4d854fd164f2e08f91f9eefada154">00102</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1robot_1_1end__effector_1a0de4d854fd164f2e08f91f9eefada154">__init__</link>(self,&#32;b2world_interface,&#32;init_pos,&#32;base,&#32;init_angle,&#32;hand_shape=&apos;rectangle&apos;,&#32;hand_size=(0.3,&#32;1)):
+<anchor xml:id="_robot_8py_source_1l00103"/>00103 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;world&#32;=&#32;b2world_interface.world
+<anchor xml:id="_robot_8py_source_1l00104"/><link linkend="_classexamples_1_1robot_1_1end__effector_1a797dad778a18e493f3792c8469b2e9c6">00104</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1robot_1_1end__effector_1a797dad778a18e493f3792c8469b2e9c6">hand</link>&#32;=&#32;world.CreateDynamicBody(position=init_pos,&#32;angle=init_angle)
+<anchor xml:id="_robot_8py_source_1l00105"/><link linkend="_classexamples_1_1robot_1_1end__effector_1a72964828d20b8c4332f27f8e8852b7e7">00105</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1robot_1_1end__effector_1a72964828d20b8c4332f27f8e8852b7e7">hand_shape</link>&#32;=&#32;hand_shape
+<anchor xml:id="_robot_8py_source_1l00106"/><link linkend="_classexamples_1_1robot_1_1end__effector_1ac0b2cde5536ed4a0c2fbb1b14fe39dee">00106</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1robot_1_1end__effector_1ac0b2cde5536ed4a0c2fbb1b14fe39dee">hand_size</link>&#32;=&#32;hand_size
+<anchor xml:id="_robot_8py_source_1l00107"/>00107 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;forceunit&#32;for&#32;circle&#32;and&#32;rect</emphasis>
+<anchor xml:id="_robot_8py_source_1l00108"/>00108 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;hand_shape&#32;==&#32;<emphasis role="stringliteral">&apos;rectangle&apos;</emphasis>:
+<anchor xml:id="_robot_8py_source_1l00109"/>00109 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;rshape&#32;=&#32;b2PolygonShape(box=hand_size)
+<anchor xml:id="_robot_8py_source_1l00110"/><link linkend="_classexamples_1_1robot_1_1end__effector_1a93141201773012f21fa30a2a27be5f21">00110</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1robot_1_1end__effector_1a93141201773012f21fa30a2a27be5f21">forceunit</link>&#32;=&#32;30.0
+<anchor xml:id="_robot_8py_source_1l00111"/>00111 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">elif</emphasis>&#32;hand_shape&#32;==&#32;<emphasis role="stringliteral">&apos;circle&apos;</emphasis>:
+<anchor xml:id="_robot_8py_source_1l00112"/>00112 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;rshape&#32;=&#32;b2CircleShape(radius=hand_size)
+<anchor xml:id="_robot_8py_source_1l00113"/>00113 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1robot_1_1end__effector_1a93141201773012f21fa30a2a27be5f21">forceunit</link>&#32;=&#32;100.0
+<anchor xml:id="_robot_8py_source_1l00114"/>00114 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">elif</emphasis>&#32;hand_shape&#32;==&#32;<emphasis role="stringliteral">&apos;polygon&apos;</emphasis>:
+<anchor xml:id="_robot_8py_source_1l00115"/>00115 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;rshape&#32;=&#32;b2PolygonShape(vertices=hand_size)
+<anchor xml:id="_robot_8py_source_1l00116"/>00116 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>:
+<anchor xml:id="_robot_8py_source_1l00117"/>00117 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">raise</emphasis>&#32;Exception(<emphasis role="stringliteral">&quot;%s&#32;is&#32;not&#32;a&#32;correct&#32;shape&quot;</emphasis>&#32;%&#32;hand_shape)
+<anchor xml:id="_robot_8py_source_1l00118"/>00118 
+<anchor xml:id="_robot_8py_source_1l00119"/>00119 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1robot_1_1end__effector_1a797dad778a18e493f3792c8469b2e9c6">hand</link>.CreateFixture(
+<anchor xml:id="_robot_8py_source_1l00120"/>00120 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;shape=rshape,
+<anchor xml:id="_robot_8py_source_1l00121"/>00121 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;density=.1,
+<anchor xml:id="_robot_8py_source_1l00122"/>00122 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;friction=.1
+<anchor xml:id="_robot_8py_source_1l00123"/>00123 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;)
+<anchor xml:id="_robot_8py_source_1l00124"/>00124 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1robot_1_1end__effector_1a797dad778a18e493f3792c8469b2e9c6">hand</link>.userData&#32;=&#32;<emphasis role="stringliteral">&quot;hand&quot;</emphasis>
+<anchor xml:id="_robot_8py_source_1l00125"/>00125 
+<anchor xml:id="_robot_8py_source_1l00126"/>00126 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;friction_joint&#32;=&#32;world.CreateFrictionJoint(
+<anchor xml:id="_robot_8py_source_1l00127"/>00127 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;bodyA=base,
+<anchor xml:id="_robot_8py_source_1l00128"/>00128 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;bodyB=self.<link linkend="_classexamples_1_1robot_1_1end__effector_1a797dad778a18e493f3792c8469b2e9c6">hand</link>,
+<anchor xml:id="_robot_8py_source_1l00129"/>00129 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;maxForce=2,
+<anchor xml:id="_robot_8py_source_1l00130"/>00130 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;maxTorque=2,
+<anchor xml:id="_robot_8py_source_1l00131"/>00131 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;)
+<anchor xml:id="_robot_8py_source_1l00132"/>00132 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;b2world_interface.add_bodies(self.<link linkend="_classexamples_1_1robot_1_1end__effector_1a797dad778a18e493f3792c8469b2e9c6">hand</link>)
+<anchor xml:id="_robot_8py_source_1l00133"/>00133 
+<anchor xml:id="_robot_8py_source_1l00134"/><link linkend="_classexamples_1_1robot_1_1end__effector_1a2c76b9613ca2ddad07bf118ebcaaa4e4">00134</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1robot_1_1end__effector_1a2c76b9613ca2ddad07bf118ebcaaa4e4">set_pos</link>(self,&#32;pos,&#32;angle):
+<anchor xml:id="_robot_8py_source_1l00135"/>00135 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1robot_1_1end__effector_1a797dad778a18e493f3792c8469b2e9c6">hand</link>.position&#32;=&#32;pos
+<anchor xml:id="_robot_8py_source_1l00136"/>00136 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1robot_1_1end__effector_1a797dad778a18e493f3792c8469b2e9c6">hand</link>.angle&#32;=&#32;angle
+<anchor xml:id="_robot_8py_source_1l00137"/>00137 
+<anchor xml:id="_robot_8py_source_1l00138"/><link linkend="_classexamples_1_1robot_1_1end__effector_1a254df906f14175a25460e69206232c6d">00138</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1robot_1_1end__effector_1a254df906f14175a25460e69206232c6d">apply_wrench</link>(self,&#32;rlvel=(0,&#32;0),&#32;ravel=0):
+<anchor xml:id="_robot_8py_source_1l00139"/>00139 
+<anchor xml:id="_robot_8py_source_1l00140"/>00140 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;avel&#32;=&#32;self.<link linkend="_classexamples_1_1robot_1_1end__effector_1a797dad778a18e493f3792c8469b2e9c6">hand</link>.angularVelocity
+<anchor xml:id="_robot_8py_source_1l00141"/>00141 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;delta_avel&#32;=&#32;ravel&#32;-&#32;avel
+<anchor xml:id="_robot_8py_source_1l00142"/>00142 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;torque&#32;=&#32;self.<link linkend="_classexamples_1_1robot_1_1end__effector_1a797dad778a18e493f3792c8469b2e9c6">hand</link>.mass&#32;*&#32;delta_avel&#32;*&#32;30.0
+<anchor xml:id="_robot_8py_source_1l00143"/>00143 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1robot_1_1end__effector_1a797dad778a18e493f3792c8469b2e9c6">hand</link>.ApplyTorque(torque,&#32;wake=<emphasis role="keyword">True</emphasis>)
+<anchor xml:id="_robot_8py_source_1l00144"/>00144 
+<anchor xml:id="_robot_8py_source_1l00145"/>00145 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;lvel&#32;=&#32;self.<link linkend="_classexamples_1_1robot_1_1end__effector_1a797dad778a18e493f3792c8469b2e9c6">hand</link>.linearVelocity
+<anchor xml:id="_robot_8py_source_1l00146"/>00146 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;delta_lvel&#32;=&#32;b2Vec2(rlvel)&#32;-&#32;b2Vec2(lvel)
+<anchor xml:id="_robot_8py_source_1l00147"/>00147 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;force&#32;=&#32;self.<link linkend="_classexamples_1_1robot_1_1end__effector_1a797dad778a18e493f3792c8469b2e9c6">hand</link>.mass&#32;*&#32;delta_lvel&#32;*&#32;self.<link linkend="_classexamples_1_1robot_1_1end__effector_1a93141201773012f21fa30a2a27be5f21">forceunit</link>
+<anchor xml:id="_robot_8py_source_1l00148"/>00148 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1robot_1_1end__effector_1a797dad778a18e493f3792c8469b2e9c6">hand</link>.ApplyForce(force,&#32;self.<link linkend="_classexamples_1_1robot_1_1end__effector_1a797dad778a18e493f3792c8469b2e9c6">hand</link>.position,&#32;wake=<emphasis role="keyword">True</emphasis>)
+<anchor xml:id="_robot_8py_source_1l00149"/>00149 
+<anchor xml:id="_robot_8py_source_1l00150"/><link linkend="_classexamples_1_1robot_1_1end__effector_1a06b2e91a5ef8b9898b0fccfed7e0d562">00150</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1robot_1_1end__effector_1a06b2e91a5ef8b9898b0fccfed7e0d562">get_state</link>(self,&#32;verbose=False):
+<anchor xml:id="_robot_8py_source_1l00151"/>00151 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;state&#32;=&#32;list(self.<link linkend="_classexamples_1_1robot_1_1end__effector_1a797dad778a18e493f3792c8469b2e9c6">hand</link>.position)&#32;+&#32;[self.<link linkend="_classexamples_1_1robot_1_1end__effector_1a797dad778a18e493f3792c8469b2e9c6">hand</link>.angle]&#32;+&#32;\
+<anchor xml:id="_robot_8py_source_1l00152"/>00152 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;list(self.<link linkend="_classexamples_1_1robot_1_1end__effector_1a797dad778a18e493f3792c8469b2e9c6">hand</link>.linearVelocity)&#32;+&#32;[self.<link linkend="_classexamples_1_1robot_1_1end__effector_1a797dad778a18e493f3792c8469b2e9c6">hand</link>.angularVelocity]
+<anchor xml:id="_robot_8py_source_1l00153"/>00153 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;verbose:
+<anchor xml:id="_robot_8py_source_1l00154"/>00154 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;print_state&#32;=&#32;[<emphasis role="stringliteral">&quot;%.3f&quot;</emphasis>&#32;%&#32;x&#32;<emphasis role="keywordflow">for</emphasis>&#32;x&#32;<emphasis role="keywordflow">in</emphasis>&#32;state]
+<anchor xml:id="_robot_8py_source_1l00155"/>00155 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">print</emphasis>
+<anchor xml:id="_robot_8py_source_1l00156"/>00156 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;position,&#32;velocity:&#32;(%s),&#32;(%s)&#32;&quot;</emphasis>&#32;%&#32;\
+<anchor xml:id="_robot_8py_source_1l00157"/>00157 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;((<emphasis role="stringliteral">&quot;,&#32;&quot;</emphasis>).join(print_state[:3]),&#32;(<emphasis role="stringliteral">&quot;,&#32;&quot;</emphasis>).join(print_state[3:]))
+<anchor xml:id="_robot_8py_source_1l00158"/>00158 
+<anchor xml:id="_robot_8py_source_1l00159"/>00159 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;state
+<anchor xml:id="_robot_8py_source_1l00160"/>00160 
+<anchor xml:id="_robot_8py_source_1l00161"/><link linkend="_namespaceexamples_1_1robot_1a252c38079aadabb2799d5085b5eb4a48">00161</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1robot_1a252c38079aadabb2799d5085b5eb4a48">create_body</link>(base,&#32;b2world_interface,&#32;body_shape,&#32;body_size,&#32;body_friction,&#32;body_density,&#32;obj_loc):
+<anchor xml:id="_robot_8py_source_1l00162"/>00162 &#32;&#32;&#32;&#32;world&#32;=&#32;b2world_interface.world
+<anchor xml:id="_robot_8py_source_1l00163"/>00163 
+<anchor xml:id="_robot_8py_source_1l00164"/>00164 &#32;&#32;&#32;&#32;link&#32;=&#32;world.CreateDynamicBody(position=obj_loc)
+<anchor xml:id="_robot_8py_source_1l00165"/>00165 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;body_shape&#32;==&#32;<emphasis role="stringliteral">&apos;rectangle&apos;</emphasis>:
+<anchor xml:id="_robot_8py_source_1l00166"/>00166 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;linkshape&#32;=&#32;b2PolygonShape(box=body_size)
+<anchor xml:id="_robot_8py_source_1l00167"/>00167 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">elif</emphasis>&#32;body_shape&#32;==&#32;<emphasis role="stringliteral">&apos;circle&apos;</emphasis>:
+<anchor xml:id="_robot_8py_source_1l00168"/>00168 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;linkshape&#32;=&#32;b2CircleShape(radius=body_size)
+<anchor xml:id="_robot_8py_source_1l00169"/>00169 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">elif</emphasis>&#32;body_shape&#32;==&#32;<emphasis role="stringliteral">&apos;polygon&apos;</emphasis>:
+<anchor xml:id="_robot_8py_source_1l00170"/>00170 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;linkshape&#32;=&#32;b2PolygonShape(vertices=body_size)
+<anchor xml:id="_robot_8py_source_1l00171"/>00171 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>:
+<anchor xml:id="_robot_8py_source_1l00172"/>00172 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">raise</emphasis>&#32;Exception(<emphasis role="stringliteral">&quot;%s&#32;is&#32;not&#32;a&#32;correct&#32;shape&quot;</emphasis>&#32;%&#32;body_shape)
+<anchor xml:id="_robot_8py_source_1l00173"/>00173 
+<anchor xml:id="_robot_8py_source_1l00174"/>00174 &#32;&#32;&#32;&#32;link.CreateFixture(
+<anchor xml:id="_robot_8py_source_1l00175"/>00175 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;shape=linkshape,
+<anchor xml:id="_robot_8py_source_1l00176"/>00176 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;density=body_density,
+<anchor xml:id="_robot_8py_source_1l00177"/>00177 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;friction=body_friction,
+<anchor xml:id="_robot_8py_source_1l00178"/>00178 &#32;&#32;&#32;&#32;)
+<anchor xml:id="_robot_8py_source_1l00179"/>00179 &#32;&#32;&#32;&#32;friction_joint&#32;=&#32;world.CreateFrictionJoint(
+<anchor xml:id="_robot_8py_source_1l00180"/>00180 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;bodyA=base,
+<anchor xml:id="_robot_8py_source_1l00181"/>00181 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;bodyB=link,
+<anchor xml:id="_robot_8py_source_1l00182"/>00182 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;maxForce=5,
+<anchor xml:id="_robot_8py_source_1l00183"/>00183 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;maxTorque=2,
+<anchor xml:id="_robot_8py_source_1l00184"/>00184 &#32;&#32;&#32;&#32;)
+<anchor xml:id="_robot_8py_source_1l00185"/>00185 
+<anchor xml:id="_robot_8py_source_1l00186"/>00186 &#32;&#32;&#32;&#32;b2world_interface.add_bodies([link])
+<anchor xml:id="_robot_8py_source_1l00187"/>00187 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;link
+<anchor xml:id="_robot_8py_source_1l00188"/>00188 
+<anchor xml:id="_robot_8py_source_1l00189"/><link linkend="_namespaceexamples_1_1robot_1ac017cc6df6c6717fcc3f1bb730354cde">00189</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1robot_1ac017cc6df6c6717fcc3f1bb730354cde">make_base</link>(table_width,&#32;table_length,&#32;b2world_interface):
+<anchor xml:id="_robot_8py_source_1l00190"/>00190 &#32;&#32;&#32;&#32;world&#32;=&#32;b2world_interface.world
+<anchor xml:id="_robot_8py_source_1l00191"/>00191 &#32;&#32;&#32;&#32;base&#32;=&#32;world.CreateStaticBody(
+<anchor xml:id="_robot_8py_source_1l00192"/>00192 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;position=(0,&#32;0),
+<anchor xml:id="_robot_8py_source_1l00193"/>00193 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;shapes=b2PolygonShape(box=(table_length,&#32;table_width)),
+<anchor xml:id="_robot_8py_source_1l00194"/>00194 &#32;&#32;&#32;&#32;)
+<anchor xml:id="_robot_8py_source_1l00195"/>00195 
+<anchor xml:id="_robot_8py_source_1l00196"/>00196 &#32;&#32;&#32;&#32;b2world_interface.add_bodies([base])
+<anchor xml:id="_robot_8py_source_1l00197"/>00197 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;base
+<anchor xml:id="_robot_8py_source_1l00198"/>00198 
+<anchor xml:id="_robot_8py_source_1l00199"/><link linkend="_namespaceexamples_1_1robot_1ae951566f2aafee72e88b7889b7249481">00199</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1robot_1ae951566f2aafee72e88b7889b7249481">add_obstacles</link>(b2world_interface,&#32;obsverts):
+<anchor xml:id="_robot_8py_source_1l00200"/>00200 &#32;&#32;&#32;&#32;world&#32;=&#32;b2world_interface.world
+<anchor xml:id="_robot_8py_source_1l00201"/>00201 &#32;&#32;&#32;&#32;obs&#32;=&#32;[]
+<anchor xml:id="_robot_8py_source_1l00202"/>00202 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;verts&#32;<emphasis role="keywordflow">in</emphasis>&#32;obsverts:
+<anchor xml:id="_robot_8py_source_1l00203"/>00203 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;tmp&#32;=&#32;world.CreateStaticBody(
+<anchor xml:id="_robot_8py_source_1l00204"/>00204 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;position=(0,&#32;0),
+<anchor xml:id="_robot_8py_source_1l00205"/>00205 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;shapes=b2PolygonShape(vertices=verts),
+<anchor xml:id="_robot_8py_source_1l00206"/>00206 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;)
+<anchor xml:id="_robot_8py_source_1l00207"/>00207 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;tmp.userData&#32;=&#32;<emphasis role="stringliteral">&quot;obs&quot;</emphasis>
+<anchor xml:id="_robot_8py_source_1l00208"/>00208 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;obs.append(tmp)
+<anchor xml:id="_robot_8py_source_1l00209"/>00209 
+<anchor xml:id="_robot_8py_source_1l00210"/>00210 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;add&#32;boundaries</emphasis>
+<anchor xml:id="_robot_8py_source_1l00211"/>00211 &#32;&#32;&#32;&#32;x,&#32;y&#32;=&#32;sm.wbpolygon.exterior.xy
+<anchor xml:id="_robot_8py_source_1l00212"/>00212 &#32;&#32;&#32;&#32;minx,&#32;maxx,&#32;miny,&#32;maxy&#32;=&#32;np.min(x),&#32;np.max(x),&#32;np.min(y),&#32;np.max(y)
+<anchor xml:id="_robot_8py_source_1l00213"/>00213 &#32;&#32;&#32;&#32;centers&#32;=&#32;[(0,&#32;miny&#32;-&#32;1),&#32;(0,&#32;maxy&#32;+&#32;1),&#32;(minx&#32;-&#32;1,&#32;0),&#32;(maxx&#32;+&#32;1,&#32;0)]
+<anchor xml:id="_robot_8py_source_1l00214"/>00214 &#32;&#32;&#32;&#32;boxlen&#32;=&#32;[(maxx&#32;-&#32;minx,&#32;0.5),&#32;(maxx&#32;-&#32;minx,&#32;0.5),&#32;(0.5,&#32;maxy&#32;-&#32;miny),&#32;(0.5,&#32;maxy&#32;-&#32;miny)]
+<anchor xml:id="_robot_8py_source_1l00215"/>00215 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(pos,&#32;blen)&#32;<emphasis role="keywordflow">in</emphasis>&#32;zip(centers,&#32;boxlen):
+<anchor xml:id="_robot_8py_source_1l00216"/>00216 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;tmp&#32;=&#32;world.CreateStaticBody(
+<anchor xml:id="_robot_8py_source_1l00217"/>00217 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;position=pos,
+<anchor xml:id="_robot_8py_source_1l00218"/>00218 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;shapes=b2PolygonShape(box=blen),
+<anchor xml:id="_robot_8py_source_1l00219"/>00219 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;)
+<anchor xml:id="_robot_8py_source_1l00220"/>00220 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;obs.append(tmp)
+<anchor xml:id="_robot_8py_source_1l00221"/>00221 &#32;&#32;&#32;&#32;b2world_interface.add_bodies(obs)
+<anchor xml:id="_robot_8py_source_1l00222"/>00222 
+<anchor xml:id="_robot_8py_source_1l00223"/><link linkend="_namespaceexamples_1_1robot_1aa5b8f7a38272096913298ba3f11b72d8">00223</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1robot_1aa5b8f7a38272096913298ba3f11b72d8">run_simulation</link>(world,&#32;body,&#32;body2,&#32;robot,&#32;robot2,&#32;xvel,&#32;yvel,&#32;\
+<anchor xml:id="_robot_8py_source_1l00224"/>00224 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xvel2,&#32;yvel2,&#32;rtor,&#32;rtor2,&#32;simulation_steps,
+<anchor xml:id="_robot_8py_source_1l00225"/>00225 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;simulation_steps2):
+<anchor xml:id="_robot_8py_source_1l00226"/>00226 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;simulating&#32;push&#32;with&#32;fixed&#32;direction&#32;pointing&#32;from&#32;robot&#32;location&#32;to&#32;body&#32;location</emphasis>
+<anchor xml:id="_robot_8py_source_1l00227"/>00227 &#32;&#32;&#32;&#32;desired_vel&#32;=&#32;np.array([xvel,&#32;yvel])
+<anchor xml:id="_robot_8py_source_1l00228"/>00228 &#32;&#32;&#32;&#32;rvel&#32;=&#32;b2Vec2(desired_vel[0]&#32;+&#32;np.random.normal(0,&#32;0.01),&#32;desired_vel[1]&#32;+&#32;np.random.normal(0,&#32;0.01))
+<anchor xml:id="_robot_8py_source_1l00229"/>00229 
+<anchor xml:id="_robot_8py_source_1l00230"/>00230 &#32;&#32;&#32;&#32;desired_vel2&#32;=&#32;np.array([xvel2,&#32;yvel2])
+<anchor xml:id="_robot_8py_source_1l00231"/>00231 &#32;&#32;&#32;&#32;rvel2&#32;=&#32;b2Vec2(desired_vel2[0]&#32;+&#32;np.random.normal(0,&#32;0.01),&#32;desired_vel2[1]&#32;+&#32;np.random.normal(0,&#32;0.01))
+<anchor xml:id="_robot_8py_source_1l00232"/>00232 
+<anchor xml:id="_robot_8py_source_1l00233"/>00233 &#32;&#32;&#32;&#32;tmax&#32;=&#32;np.max([simulation_steps,&#32;simulation_steps2])
+<anchor xml:id="_robot_8py_source_1l00234"/>00234 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;t&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(tmax&#32;+&#32;100):
+<anchor xml:id="_robot_8py_source_1l00235"/>00235 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;t&#32;&lt;&#32;simulation_steps:
+<anchor xml:id="_robot_8py_source_1l00236"/>00236 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;robot.apply_wrench(rvel,&#32;rtor)
+<anchor xml:id="_robot_8py_source_1l00237"/>00237 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;t&#32;&lt;&#32;simulation_steps2:
+<anchor xml:id="_robot_8py_source_1l00238"/>00238 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;robot2.apply_wrench(rvel2,&#32;rtor2)
+<anchor xml:id="_robot_8py_source_1l00239"/>00239 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;world.step()
+<anchor xml:id="_robot_8py_source_1l00240"/>00240 
+<anchor xml:id="_robot_8py_source_1l00241"/>00241 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;(list(body.position),&#32;list(body2.position))
+<anchor xml:id="_robot_8py_source_1l00242"/>00242 
+<anchor xml:id="_robot_8py_source_1l00243"/><link linkend="_classexamples_1_1robot_1_1_push_reward">00243</link> <emphasis role="keyword">class&#32;</emphasis><link linkend="_classexamples_1_1robot_1_1_push_reward">PushReward</link>:
+<anchor xml:id="_robot_8py_source_1l00244"/><link linkend="_classexamples_1_1robot_1_1_push_reward_1a79391c66d4c7e5d3579fa0ef864999c4">00244</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1robot_1_1_push_reward_1a79391c66d4c7e5d3579fa0ef864999c4">__init__</link>(self,&#32;do_gui=False):
+<anchor xml:id="_robot_8py_source_1l00245"/>00245 
+<anchor xml:id="_robot_8py_source_1l00246"/>00246 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;domain&#32;of&#32;this&#32;function</emphasis>
+<anchor xml:id="_robot_8py_source_1l00247"/><link linkend="_classexamples_1_1robot_1_1_push_reward_1a12d01d1a6bda486ebef6fdf58bb16959">00247</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1robot_1_1_push_reward_1a12d01d1a6bda486ebef6fdf58bb16959">xmin</link>&#32;=&#32;[-5.,&#32;-5.,&#32;-10.,&#32;-10.,&#32;2.,&#32;0.,&#32;-5.,&#32;-5.,&#32;-10.,&#32;-10.,&#32;2.,&#32;0.,&#32;-5.,&#32;-5.]
+<anchor xml:id="_robot_8py_source_1l00248"/><link linkend="_classexamples_1_1robot_1_1_push_reward_1a8bcba3852110328e20e0b9c8890bd498">00248</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1robot_1_1_push_reward_1a8bcba3852110328e20e0b9c8890bd498">xmax</link>&#32;=&#32;[5.,&#32;5.,&#32;10.,&#32;10.,&#32;30.,&#32;2.*np.pi,&#32;5.,&#32;5.,&#32;10.,&#32;10.,&#32;30.,&#32;2.*np.pi,&#32;5.,&#32;5.]
+<anchor xml:id="_robot_8py_source_1l00249"/>00249 
+<anchor xml:id="_robot_8py_source_1l00250"/>00250 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;starting&#32;xy&#32;locations&#32;for&#32;the&#32;two&#32;objects</emphasis>
+<anchor xml:id="_robot_8py_source_1l00251"/><link linkend="_classexamples_1_1robot_1_1_push_reward_1ac1d9afbd054c2f7332a4bbd9f139d2ca">00251</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1robot_1_1_push_reward_1ac1d9afbd054c2f7332a4bbd9f139d2ca">sxy</link>&#32;=&#32;(0,&#32;2)
+<anchor xml:id="_robot_8py_source_1l00252"/><link linkend="_classexamples_1_1robot_1_1_push_reward_1a089bb19e4fbc8bbfa0e69686f1a07a74">00252</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1robot_1_1_push_reward_1a089bb19e4fbc8bbfa0e69686f1a07a74">sxy2</link>&#32;=&#32;(0,&#32;-2)
+<anchor xml:id="_robot_8py_source_1l00253"/>00253 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;goal&#32;xy&#32;locations&#32;for&#32;the&#32;two&#32;objects</emphasis>
+<anchor xml:id="_robot_8py_source_1l00254"/><link linkend="_classexamples_1_1robot_1_1_push_reward_1ac56d4765930f5f39be5ef19a42b4ebe7">00254</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1robot_1_1_push_reward_1ac56d4765930f5f39be5ef19a42b4ebe7">gxy</link>&#32;=&#32;[4,&#32;3.5]
+<anchor xml:id="_robot_8py_source_1l00255"/><link linkend="_classexamples_1_1robot_1_1_push_reward_1abc433b7d5ac069d7ac9b2ee60b168d43">00255</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1robot_1_1_push_reward_1abc433b7d5ac069d7ac9b2ee60b168d43">gxy2</link>&#32;=&#32;[-4,&#32;3.5]
+<anchor xml:id="_robot_8py_source_1l00256"/><link linkend="_classexamples_1_1robot_1_1_push_reward_1aa92457b63fd7c895077365c0ff63b5cf">00256</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1robot_1_1_push_reward_1aa92457b63fd7c895077365c0ff63b5cf">do_gui</link>&#32;=&#32;do_gui
+<anchor xml:id="_robot_8py_source_1l00257"/>00257 
+<anchor xml:id="_robot_8py_source_1l00258"/>00258 &#32;&#32;&#32;&#32;<emphasis role="preprocessor">@property</emphasis>
+<anchor xml:id="_robot_8py_source_1l00259"/><link linkend="_classexamples_1_1robot_1_1_push_reward_1a6e1df9cc36056fea745db2d21136b0b7">00259</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1robot_1_1_push_reward_1a6e1df9cc36056fea745db2d21136b0b7">f_max</link>(self):
+<anchor xml:id="_robot_8py_source_1l00260"/>00260 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;maximum&#32;value&#32;of&#32;this&#32;function</emphasis>
+<anchor xml:id="_robot_8py_source_1l00261"/><link linkend="_classexamples_1_1robot_1_1_push_reward_1ada3f0c35266a5467ac22b6b0c80a3ea9">00261</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;np.linalg.norm(np.array(self.<link linkend="_classexamples_1_1robot_1_1_push_reward_1ac56d4765930f5f39be5ef19a42b4ebe7">gxy</link>)&#32;-&#32;np.array(self.<link linkend="_classexamples_1_1robot_1_1_push_reward_1ac1d9afbd054c2f7332a4bbd9f139d2ca">sxy</link>))&#32;\
+<anchor xml:id="_robot_8py_source_1l00262"/>00262 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;+&#32;np.linalg.norm(np.array(self.<link linkend="_classexamples_1_1robot_1_1_push_reward_1abc433b7d5ac069d7ac9b2ee60b168d43">gxy2</link>)&#32;-&#32;np.array(self.<link linkend="_classexamples_1_1robot_1_1_push_reward_1a089bb19e4fbc8bbfa0e69686f1a07a74">sxy2</link>))
+<anchor xml:id="_robot_8py_source_1l00263"/>00263 &#32;&#32;&#32;&#32;<emphasis role="preprocessor">@property</emphasis>
+<anchor xml:id="_robot_8py_source_1l00264"/>00264 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1robot_1_1_push_reward_1a833013c53995102c560bfc6fe37b89d0">dx</link>(self):
+<anchor xml:id="_robot_8py_source_1l00265"/>00265 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;dimension&#32;of&#32;the&#32;input</emphasis>
+<anchor xml:id="_robot_8py_source_1l00266"/><link linkend="_classexamples_1_1robot_1_1_push_reward_1a833013c53995102c560bfc6fe37b89d0">00266</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;self._dx
+<anchor xml:id="_robot_8py_source_1l00267"/>00267 &#32;&#32;&#32;&#32;
+<anchor xml:id="_robot_8py_source_1l00268"/><link linkend="_classexamples_1_1robot_1_1_push_reward_1a1d2daca54b1e449ab25ff769faedba81">00268</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1robot_1_1_push_reward_1a12fdbdc7cace400a133572e73d6cc7d2">__call__</link>(self,&#32;argv):
+<anchor xml:id="_robot_8py_source_1l00269"/>00269 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;returns&#32;the&#32;reward&#32;of&#32;pushing&#32;two&#32;objects&#32;with&#32;two&#32;robots</emphasis>
+<anchor xml:id="_robot_8py_source_1l00270"/>00270 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;rx&#32;=&#32;float(argv[0])
+<anchor xml:id="_robot_8py_source_1l00271"/>00271 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ry&#32;=&#32;float(argv[1])
+<anchor xml:id="_robot_8py_source_1l00272"/><link linkend="_classexamples_1_1robot_1_1_push_reward_1a12fdbdc7cace400a133572e73d6cc7d2">00272</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xvel&#32;=&#32;float(argv[2])
+<anchor xml:id="_robot_8py_source_1l00273"/>00273 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;yvel&#32;=&#32;float(argv[3])
+<anchor xml:id="_robot_8py_source_1l00274"/>00274 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;simu_steps&#32;=&#32;int(float(argv[4])&#32;*&#32;10)
+<anchor xml:id="_robot_8py_source_1l00275"/>00275 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;init_angle&#32;=&#32;float(argv[5])
+<anchor xml:id="_robot_8py_source_1l00276"/>00276 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;rx2&#32;=&#32;float(argv[6])
+<anchor xml:id="_robot_8py_source_1l00277"/>00277 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ry2&#32;=&#32;float(argv[7])
+<anchor xml:id="_robot_8py_source_1l00278"/>00278 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xvel2&#32;=&#32;float(argv[8])
+<anchor xml:id="_robot_8py_source_1l00279"/>00279 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;yvel2&#32;=&#32;float(argv[9])
+<anchor xml:id="_robot_8py_source_1l00280"/>00280 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;simu_steps2&#32;=&#32;int(float(argv[10])&#32;*&#32;10)
+<anchor xml:id="_robot_8py_source_1l00281"/>00281 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;init_angle2&#32;=&#32;float(argv[11])
+<anchor xml:id="_robot_8py_source_1l00282"/>00282 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;rtor&#32;=&#32;float(argv[12])
+<anchor xml:id="_robot_8py_source_1l00283"/>00283 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;rtor2&#32;=&#32;float(argv[13])
+<anchor xml:id="_robot_8py_source_1l00284"/>00284 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_robot_8py_source_1l00285"/>00285 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;initial_dist&#32;=&#32;self.<link linkend="_classexamples_1_1robot_1_1_push_reward_1a6e1df9cc36056fea745db2d21136b0b7">f_max</link>
+<anchor xml:id="_robot_8py_source_1l00286"/>00286 
+<anchor xml:id="_robot_8py_source_1l00287"/>00287 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;world&#32;=&#32;<link linkend="_classexamples_1_1robot_1_1b2_world_interface">b2WorldInterface</link>(self.<link linkend="_classexamples_1_1robot_1_1_push_reward_1aa92457b63fd7c895077365c0ff63b5cf">do_gui</link>)
+<anchor xml:id="_robot_8py_source_1l00288"/>00288 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_robot_8py_source_1l00289"/>00289 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;oshape,&#32;osize,&#32;ofriction,&#32;odensity,&#32;bfriction,&#32;hand_shape,&#32;hand_size&#32;=&#32;\
+<anchor xml:id="_robot_8py_source_1l00290"/>00290 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&apos;circle&apos;</emphasis>,&#32;1,&#32;0.01,&#32;0.05,&#32;0.01,&#32;<emphasis role="stringliteral">&apos;rectangle&apos;</emphasis>,&#32;(1,&#32;0.3)
+<anchor xml:id="_robot_8py_source_1l00291"/>00291 
+<anchor xml:id="_robot_8py_source_1l00292"/>00292 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;base&#32;=&#32;<link linkend="_namespaceexamples_1_1robot_1ac017cc6df6c6717fcc3f1bb730354cde">make_base</link>(500,&#32;500,&#32;world)
+<anchor xml:id="_robot_8py_source_1l00293"/>00293 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;body&#32;=&#32;<link linkend="_namespaceexamples_1_1robot_1a252c38079aadabb2799d5085b5eb4a48">create_body</link>(base,&#32;world,&#32;<emphasis role="stringliteral">&apos;rectangle&apos;</emphasis>,&#32;(0.5,&#32;0.5),&#32;ofriction,&#32;odensity,&#32;self.<link linkend="_classexamples_1_1robot_1_1_push_reward_1ac1d9afbd054c2f7332a4bbd9f139d2ca">sxy</link>)
+<anchor xml:id="_robot_8py_source_1l00294"/>00294 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;body2&#32;=&#32;<link linkend="_namespaceexamples_1_1robot_1a252c38079aadabb2799d5085b5eb4a48">create_body</link>(base,&#32;world,&#32;<emphasis role="stringliteral">&apos;circle&apos;</emphasis>,&#32;1,&#32;ofriction,&#32;odensity,&#32;self.<link linkend="_classexamples_1_1robot_1_1_push_reward_1a089bb19e4fbc8bbfa0e69686f1a07a74">sxy2</link>)
+<anchor xml:id="_robot_8py_source_1l00295"/>00295 
+<anchor xml:id="_robot_8py_source_1l00296"/>00296 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;robot&#32;=&#32;<link linkend="_classexamples_1_1robot_1_1end__effector">end_effector</link>(world,&#32;(rx,ry),&#32;base,&#32;init_angle,&#32;hand_shape,&#32;hand_size)
+<anchor xml:id="_robot_8py_source_1l00297"/>00297 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;robot2&#32;=&#32;<link linkend="_classexamples_1_1robot_1_1end__effector">end_effector</link>(world,&#32;(rx2,ry2),&#32;base,&#32;init_angle2,&#32;hand_shape,&#32;hand_size)
+<anchor xml:id="_robot_8py_source_1l00298"/>00298 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;(ret1,&#32;ret2)&#32;=&#32;<link linkend="_namespaceexamples_1_1robot_1aa5b8f7a38272096913298ba3f11b72d8">run_simulation</link>(world,&#32;body,&#32;body2,&#32;robot,&#32;robot2,&#32;xvel,&#32;yvel,&#32;\
+<anchor xml:id="_robot_8py_source_1l00299"/>00299 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xvel2,&#32;yvel2,&#32;rtor,&#32;rtor2,&#32;simu_steps,&#32;simu_steps2)
+<anchor xml:id="_robot_8py_source_1l00300"/>00300 
+<anchor xml:id="_robot_8py_source_1l00301"/>00301 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ret1&#32;=&#32;np.linalg.norm(np.array(self.<link linkend="_classexamples_1_1robot_1_1_push_reward_1ac56d4765930f5f39be5ef19a42b4ebe7">gxy</link>)&#32;-&#32;ret1)
+<anchor xml:id="_robot_8py_source_1l00302"/>00302 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ret2&#32;=&#32;np.linalg.norm(np.array(self.<link linkend="_classexamples_1_1robot_1_1_push_reward_1abc433b7d5ac069d7ac9b2ee60b168d43">gxy2</link>)&#32;-&#32;ret2)
+<anchor xml:id="_robot_8py_source_1l00303"/>00303 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;-(initial_dist&#32;-&#32;ret1&#32;-&#32;ret2)&#32;<emphasis role="comment">#&#32;negated&#32;because&#32;we&#32;minimize&#32;</emphasis>
+<anchor xml:id="_robot_8py_source_1l00304"/>00304 
+<anchor xml:id="_robot_8py_source_1l00305"/>00305 <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1optimizer">fcmaes.optimizer</link>&#32;<emphasis role="keyword">import</emphasis>&#32;De_cpp,&#32;Bite_cpp,&#32;wrapper,&#32;logger
+<anchor xml:id="_robot_8py_source_1l00306"/>00306 <emphasis role="keyword">from</emphasis>&#32;fcmaes&#32;<emphasis role="keyword">import</emphasis>&#32;retry
+<anchor xml:id="_robot_8py_source_1l00307"/>00307 <emphasis role="keyword">from</emphasis>&#32;scipy.optimize&#32;<emphasis role="keyword">import</emphasis>&#32;Bounds
+<anchor xml:id="_robot_8py_source_1l00308"/>00308 
+<anchor xml:id="_robot_8py_source_1l00309"/>00309 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1robot_1ad7e10efd4ee195ca3e30475bbef6b25b">main</link>():
+<anchor xml:id="_robot_8py_source_1l00310"/>00310 &#32;&#32;&#32;&#32;f&#32;=&#32;<link linkend="_classexamples_1_1robot_1_1_push_reward">PushReward</link>()
+<anchor xml:id="_robot_8py_source_1l00311"/>00311 &#32;&#32;&#32;&#32;bounds&#32;=&#32;Bounds(f.xmin,&#32;f.xmax)&#32;
+<anchor xml:id="_robot_8py_source_1l00312"/>00312 &#32;&#32;
+<anchor xml:id="_robot_8py_source_1l00313"/><link linkend="_namespaceexamples_1_1robot_1ad7e10efd4ee195ca3e30475bbef6b25b">00313</link> &#32;&#32;&#32;&#32;logger.info(<emphasis role="stringliteral">&quot;push&#32;retry.minimize(wrap(f,&#32;dim),&#32;bounds,&#32;De_cpp(10000),&#32;num_retries=32)&quot;</emphasis>)
+<anchor xml:id="_robot_8py_source_1l00314"/>00314 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(20):
+<anchor xml:id="_robot_8py_source_1l00315"/>00315 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;retry.minimize(<link linkend="_classfcmaes_1_1optimizer_1_1wrapper">wrapper</link>(f),&#32;bounds,&#32;optimizer=<link linkend="_classfcmaes_1_1optimizer_1_1_de__cpp">De_cpp</link>(10000),&#32;num_retries=32)
+<anchor xml:id="_robot_8py_source_1l00316"/>00316 
+<anchor xml:id="_robot_8py_source_1l00317"/>00317 &#32;&#32;&#32;&#32;logger.info(<emphasis role="stringliteral">&quot;push&#32;retry.minimize(wrap(f,&#32;dim),&#32;bounds,&#32;Bite_cpp(10000),&#32;num_retries=32)&quot;</emphasis>)
+<anchor xml:id="_robot_8py_source_1l00318"/>00318 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(20):
+<anchor xml:id="_robot_8py_source_1l00319"/>00319 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;retry.minimize(<link linkend="_classfcmaes_1_1optimizer_1_1wrapper">wrapper</link>(f),&#32;bounds,&#32;optimizer=<link linkend="_classfcmaes_1_1optimizer_1_1_bite__cpp">Bite_cpp</link>(10000),&#32;num_retries=32)
+<anchor xml:id="_robot_8py_source_1l00320"/>00320 
+<anchor xml:id="_robot_8py_source_1l00321"/>00321 <emphasis role="keywordflow">if</emphasis>&#32;__name__&#32;==&#32;<emphasis role="stringliteral">&apos;__main__&apos;</emphasis>:
+<anchor xml:id="_robot_8py_source_1l00322"/>00322 &#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1robot_1ad7e10efd4ee195ca3e30475bbef6b25b">main</link>()
+</programlisting></section>

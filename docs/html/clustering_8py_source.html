@@ -1,0 +1,297 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>Fast CMA-ES: examples/clustering.py Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/TeX/AMSmath','[tex]/TeX/AMSsymbols']
+  },
+  tex: {
+    macros: {},
+    packages: ['base','configmacros','TeX/AMSmath','TeX/AMSsymbols']
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/jothepro/doxygen-awesome-css" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="fcames.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Fast CMA-ES
+   &#160;<span id="projectnumber">1.6.11</span>
+   </div>
+   <div id="projectbrief">Fast Covariance Matrix Adaptation Evolution Strategy (CMA-ES) implementation in C++ and Python</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.13.2 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('clustering_8py_source.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">clustering.py</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="clustering_8py.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1clustering.html">    1</a></span><span class="stringliteral">&quot;&quot;&quot;Cluster 200 cities in 4 equal groups to minimize sum of crossed distances.</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="stringliteral">Derived from https://github.com/google/or-tools/blob/stable/examples/python/clustering_sat.py</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="stringliteral">Please also try the original with 200 cities. </span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="stringliteral">See https://github.com/dietmarwo/fast-cma-es/blob/master/tutorials/Clustering.adoc for a detailed description.</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment"># Tested using https://docs.conda.io/en/main/miniconda.html on Linux Mint 21.2</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">from</span> numba <span class="keyword">import</span> njit</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">import</span> numba</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">from</span> <a class="code hl_namespace" href="namespacefcmaes_1_1optimizer.html">fcmaes.optimizer</a> <span class="keyword">import</span> Bite_cpp, wrapper</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">from</span> fcmaes <span class="keyword">import</span> retry</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">from</span> scipy.optimize <span class="keyword">import</span> Bounds</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">import</span> sys </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">from</span> loguru <span class="keyword">import</span> logger</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>logger.remove()</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1clustering.html#a11456775a0cb6c71d900fb46eb3f3624">   24</a></span>logger.add(sys.stdout, format=<span class="stringliteral">&quot;{time:HH:mm:ss.SS} | {process} | {level} | {message}&quot;</span>, level=<span class="stringliteral">&quot;INFO&quot;</span>)</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>logger.add(<span class="stringliteral">&quot;log_{time}.txt&quot;</span>, format=<span class="stringliteral">&quot;{time:HH:mm:ss.SS} | {process} | {level} | {message}&quot;</span>, level=<span class="stringliteral">&quot;INFO&quot;</span>)</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>   </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1clustering.html#a2c1a0f7c6153841d4c8aad2e493c98f2">   27</a></span>distance_matrix = [</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    [0, 10938, 4542, 2835, 29441, 2171, 1611, 9208, 9528, 11111, 16120, 22606, 22127, 20627, 21246, 23387, 16697, 33609, 26184, 24772, 22644, 20655, 30492, 23296, 32979, 18141, 19248, 17129, 17192, 15645, 12658, 11210, 12094, 13175, 18162, 4968, 12308, 10084, 13026, 15056],</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    [10938, 0, 6422, 9742, 18988, 12974, 11216, 19715, 19004, 18271, 25070, 31971, 31632, 30571, 31578, 33841, 27315, 43964, 36944, 35689, 33569, 31481, 41360, 33760, 43631, 28730, 29976, 27803, 28076, 26408, 23504, 22025, 22000, 13197, 14936, 15146, 23246, 20956, 23963, 25994],</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    [4542, 6422, 0, 3644, 25173, 6552, 5092, 13584, 13372, 13766, 19805, 26537, 26117, 24804, 25590, 27784, 21148, 37981, 30693, 29315, 27148, 25071, 34943, 27472, 37281, 22389, 23592, 21433, 21655, 20011, 17087, 15612, 15872, 11653, 15666, 8842, 16843, 14618, 17563, 19589],</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    [2835, 9742, 3644, 0, 28681, 3851, 4341, 11660, 12294, 13912, 18893, 25283, 24777, 23173, 23636, 25696, 18950, 35927, 28233, 26543, 24127, 21864, 31765, 24018, 33904, 19005, 20295, 18105, 18551, 16763, 13958, 12459, 12296, 10370, 15331, 5430, 14044, 12135, 14771, 16743],</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    [29441, 18988, 25173, 28681, 0, 31590, 29265, 37173, 35501, 32929, 40239, 47006, 46892, 46542, 48112, 50506, 44539, 60103, 54208, 53557, 51878, 50074, 59849, 52645, 62415, 47544, 48689, 46560, 46567, 45086, 42083, 40648, 40971, 29929, 28493, 34015, 41473, 38935, 42160, 44198],</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    [2171, 12974, 6552, 3851, 31590, 0, 3046, 7856, 8864, 11330, 15411, 21597, 21065, 19382, 19791, 21845, 15099, 32076, 24425, 22848, 20600, 18537, 28396, 21125, 30825, 15975, 17101, 14971, 15104, 13503, 10544, 9080, 9983, 13435, 18755, 2947, 10344, 8306, 11069, 13078],</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    [1611, 11216, 5092, 4341, 29265, 3046, 0, 8526, 8368, 9573, 14904, 21529, 21085, 19719, 20504, 22713, 16118, 32898, 25728, 24541, 22631, 20839, 30584, 23755, 33278, 18557, 19545, 17490, 17309, 15936, 12881, 11498, 12944, 14711, 19589, 5993, 12227, 9793, 12925, 14967],</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    [9208, 19715, 13584, 11660, 37173, 7856, 8526, 0, 3248, 7855, 8245, 13843, 13272, 11526, 12038, 14201, 7599, 24411, 17259, 16387, 15050, 13999, 23134, 17899, 26460, 12894, 13251, 11680, 10455, 9997, 7194, 6574, 10678, 20959, 26458, 8180, 5255, 2615, 5730, 7552],</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    [9528, 19004, 13372, 12294, 35501, 8864, 8368, 3248, 0, 4626, 6598, 13168, 12746, 11567, 12731, 15083, 9120, 25037, 18718, 18433, 17590, 16888, 25630, 20976, 29208, 16055, 16300, 14838, 13422, 13165, 10430, 9813, 13777, 22300, 27564, 10126, 8388, 5850, 8778, 10422],</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    [11111, 18271, 13766, 13912, 32929, 11330, 9573, 7855, 4626, 0, 7318, 14185, 14005, 13655, 15438, 17849, 12839, 27179, 21947, 22230, 21814, 21366, 29754, 25555, 33535, 20674, 20872, 19457, 17961, 17787, 15048, 14372, 18115, 24280, 29101, 13400, 13008, 10467, 13375, 14935],</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    [16120, 25070, 19805, 18893, 40239, 15411, 14904, 8245, 6598, 7318, 0, 6939, 6702, 6498, 8610, 10961, 7744, 19889, 15350, 16403, 16975, 17517, 24357, 22176, 28627, 18093, 17672, 16955, 14735, 15510, 13694, 13768, 18317, 28831, 34148, 16326, 11276, 9918, 11235, 11891],</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    [22606, 31971, 26537, 25283, 47006, 21597, 21529, 13843, 13168, 14185, 6939, 0, 793, 3401, 5562, 6839, 8923, 13433, 11264, 13775, 15853, 17629, 21684, 22315, 26411, 19539, 18517, 18636, 16024, 17632, 16948, 17587, 22131, 34799, 40296, 21953, 14739, 14568, 14366, 14002],</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    [22127, 31632, 26117, 24777, 46892, 21065, 21085, 13272, 12746, 14005, 6702, 793, 0, 2608, 4809, 6215, 8151, 13376, 10702, 13094, 15099, 16845, 21039, 21535, 25744, 18746, 17725, 17845, 15232, 16848, 16197, 16859, 21391, 34211, 39731, 21345, 14006, 13907, 13621, 13225],</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    [20627, 30571, 24804, 23173, 46542, 19382, 19719, 11526, 11567, 13655, 6498, 3401, 2608, 0, 2556, 4611, 5630, 13586, 9157, 11005, 12681, 14285, 19044, 18996, 23644, 16138, 15126, 15240, 12625, 14264, 13736, 14482, 18958, 32292, 37879, 19391, 11621, 11803, 11188, 10671],</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    [21246, 31578, 25590, 23636, 48112, 19791, 20504, 12038, 12731, 15438, 8610, 5562, 4809, 2556, 0, 2411, 4917, 12395, 6757, 8451, 10292, 12158, 16488, 16799, 21097, 14374, 13194, 13590, 10943, 12824, 12815, 13779, 18042, 32259, 37918, 19416, 10975, 11750, 10424, 9475],</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    [23387, 33841, 27784, 25696, 50506, 21845, 22713, 14201, 15083, 17849, 10961, 6839, 6215, 4611, 2411, 0, 6760, 10232, 4567, 7010, 9607, 12003, 14846, 16408, 19592, 14727, 13336, 14109, 11507, 13611, 14104, 15222, 19237, 34013, 39703, 21271, 12528, 13657, 11907, 10633],</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    [16697, 27315, 21148, 18950, 44539, 15099, 16118, 7599, 9120, 12839, 7744, 8923, 8151, 5630, 4917, 6760, 0, 16982, 9699, 9400, 9302, 9823, 16998, 14534, 21042, 10911, 10190, 9900, 7397, 8758, 8119, 8948, 13353, 27354, 33023, 14542, 6106, 6901, 5609, 5084],</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    [33609, 43964, 37981, 35927, 60103, 32076, 32898, 24411, 25037, 27179, 19889, 13433, 13376, 13586, 12395, 10232, 16982, 0, 8843, 12398, 16193, 19383, 16423, 22583, 20997, 22888, 21194, 22640, 20334, 22636, 23801, 25065, 28675, 44048, 49756, 31426, 22528, 23862, 21861, 20315],</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    [26184, 36944, 30693, 28233, 54208, 24425, 25728, 17259, 18718, 21947, 15350, 11264, 10702, 9157, 6757, 4567, 9699, 8843, 0, 3842, 7518, 10616, 10666, 14237, 15515, 14053, 12378, 13798, 11537, 13852, 15276, 16632, 19957, 35660, 41373, 23361, 14333, 16125, 13624, 11866],</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    [24772, 35689, 29315, 26543, 53557, 22848, 24541, 16387, 18433, 22230, 16403, 13775, 13094, 11005, 8451, 7010, 9400, 12398, 3842, 0, 3795, 7014, 8053, 10398, 12657, 10633, 8889, 10569, 8646, 10938, 12906, 14366, 17106, 33171, 38858, 21390, 12507, 14748, 11781, 9802],</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    [22644, 33569, 27148, 24127, 51878, 20600, 22631, 15050, 17590, 21814, 16975, 15853, 15099, 12681, 10292, 9607, 9302, 16193, 7518, 3795, 0, 3250, 8084, 6873, 11763, 6949, 5177, 7050, 5619, 7730, 10187, 11689, 13792, 30012, 35654, 18799, 10406, 12981, 9718, 7682],</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    [20655, 31481, 25071, 21864, 50074, 18537, 20839, 13999, 16888, 21366, 17517, 17629, 16845, 14285, 12158, 12003, 9823, 19383, 10616, 7014, 3250, 0, 9901, 4746, 12531, 3737, 1961, 4036, 3588, 5109, 7996, 9459, 10846, 27094, 32690, 16451, 8887, 11624, 8304, 6471],</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    [30492, 41360, 34943, 31765, 59849, 28396, 30584, 23134, 25630, 29754, 24357, 21684, 21039, 19044, 16488, 14846, 16998, 16423, 10666, 8053, 8084, 9901, 0, 9363, 4870, 13117, 11575, 13793, 13300, 15009, 17856, 19337, 20454, 36551, 42017, 26352, 18403, 21033, 17737, 15720],</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    [23296, 33760, 27472, 24018, 52645, 21125, 23755, 17899, 20976, 25555, 22176, 22315, 21535, 18996, 16799, 16408, 14534, 22583, 14237, 10398, 6873, 4746, 9363, 0, 10020, 5211, 4685, 6348, 7636, 8010, 11074, 12315, 11926, 27537, 32880, 18634, 12644, 15358, 12200, 10674],</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    [32979, 43631, 37281, 33904, 62415, 30825, 33278, 26460, 29208, 33535, 28627, 26411, 25744, 23644, 21097, 19592, 21042, 20997, 15515, 12657, 11763, 12531, 4870, 10020, 0, 14901, 13738, 15855, 16118, 17348, 20397, 21793, 21936, 37429, 42654, 28485, 21414, 24144, 20816, 18908],</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    [18141, 28730, 22389, 19005, 47544, 15975, 18557, 12894, 16055, 20674, 18093, 19539, 18746, 16138, 14374, 14727, 10911, 22888, 14053, 10633, 6949, 3737, 13117, 5211, 14901, 0, 1777, 1217, 3528, 2896, 5892, 7104, 7338, 23517, 29068, 13583, 7667, 10304, 7330, 6204],</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    [19248, 29976, 23592, 20295, 48689, 17101, 19545, 13251, 16300, 20872, 17672, 18517, 17725, 15126, 13194, 13336, 10190, 21194, 12378, 8889, 5177, 1961, 11575, 4685, 13738, 1777, 0, 2217, 2976, 3610, 6675, 8055, 8965, 25197, 30774, 14865, 8007, 10742, 7532, 6000],</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    [17129, 27803, 21433, 18105, 46560, 14971, 17490, 11680, 14838, 19457, 16955, 18636, 17845, 15240, 13590, 14109, 9900, 22640, 13798, 10569, 7050, 4036, 13793, 6348, 15855, 1217, 2217, 0, 2647, 1686, 4726, 6000, 6810, 23060, 28665, 12674, 6450, 9094, 6117, 5066],</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    [17192, 28076, 21655, 18551, 46567, 15104, 17309, 10455, 13422, 17961, 14735, 16024, 15232, 12625, 10943, 11507, 7397, 20334, 11537, 8646, 5619, 3588, 13300, 7636, 16118, 3528, 2976, 2647, 0, 2320, 4593, 6093, 8479, 24542, 30219, 13194, 5301, 8042, 4735, 3039],</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    [15645, 26408, 20011, 16763, 45086, 13503, 15936, 9997, 13165, 17787, 15510, 17632, 16848, 14264, 12824, 13611, 8758, 22636, 13852, 10938, 7730, 5109, 15009, 8010, 17348, 2896, 3610, 1686, 2320, 0, 3086, 4444, 6169, 22301, 27963, 11344, 4780, 7408, 4488, 3721],</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    [12658, 23504, 17087, 13958, 42083, 10544, 12881, 7194, 10430, 15048, 13694, 16948, 16197, 13736, 12815, 14104, 8119, 23801, 15276, 12906, 10187, 7996, 17856, 11074, 20397, 5892, 6675, 4726, 4593, 3086, 0, 1501, 5239, 20390, 26101, 8611, 2418, 4580, 2599, 3496],</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    [11210, 22025, 15612, 12459, 40648, 9080, 11498, 6574, 9813, 14372, 13768, 17587, 16859, 14482, 13779, 15222, 8948, 25065, 16632, 14366, 11689, 9459, 19337, 12315, 21793, 7104, 8055, 6000, 6093, 4444, 1501, 0, 4608, 19032, 24747, 7110, 2860, 4072, 3355, 4772],</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    [12094, 22000, 15872, 12296, 40971, 9983, 12944, 10678, 13777, 18115, 18317, 22131, 21391, 18958, 18042, 19237, 13353, 28675, 19957, 17106, 13792, 10846, 20454, 11926, 21936, 7338, 8965, 6810, 8479, 6169, 5239, 4608, 0, 16249, 21866, 7146, 7403, 8446, 7773, 8614],</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    [13175, 13197, 11653, 10370, 29929, 13435, 14711, 20959, 22300, 24280, 28831, 34799, 34211, 32292, 32259, 34013, 27354, 44048, 35660, 33171, 30012, 27094, 36551, 27537, 37429, 23517, 25197, 23060, 24542, 22301, 20390, 19032, 16249, 0, 5714, 12901, 21524, 20543, 22186, 23805],</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    [18162, 14936, 15666, 15331, 28493, 18755, 19589, 26458, 27564, 29101, 34148, 40296, 39731, 37879, 37918, 39703, 33023, 49756, 41373, 38858, 35654, 32690, 42017, 32880, 42654, 29068, 30774, 28665, 30219, 27963, 26101, 24747, 21866, 5714, 0, 18516, 27229, 26181, 27895, 29519],</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    [4968, 15146, 8842, 5430, 34015, 2947, 5993, 8180, 10126, 13400, 16326, 21953, 21345, 19391, 19416, 21271, 14542, 31426, 23361, 21390, 18799, 16451, 26352, 18634, 28485, 13583, 14865, 12674, 13194, 11344, 8611, 7110, 7146, 12901, 18516, 0, 9029, 7668, 9742, 11614],</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    [12308, 23246, 16843, 14044, 41473, 10344, 12227, 5255, 8388, 13008, 11276, 14739, 14006, 11621, 10975, 12528, 6106, 22528, 14333, 12507, 10406, 8887, 18403, 12644, 21414, 7667, 8007, 6450, 5301, 4780, 2418, 2860, 7403, 21524, 27229, 9029, 0, 2747, 726, 2749],</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    [10084, 20956, 14618, 12135, 38935, 8306, 9793, 2615, 5850, 10467, 9918, 14568, 13907, 11803, 11750, 13657, 6901, 23862, 16125, 14748, 12981, 11624, 21033, 15358, 24144, 10304, 10742, 9094, 8042, 7408, 4580, 4072, 8446, 20543, 26181, 7668, 2747, 0, 3330, 5313],</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    [13026, 23963, 17563, 14771, 42160, 11069, 12925, 5730, 8778, 13375, 11235, 14366, 13621, 11188, 10424, 11907, 5609, 21861, 13624, 11781, 9718, 8304, 17737, 12200, 20816, 7330, 7532, 6117, 4735, 4488, 2599, 3355, 7773, 22186, 27895, 9742, 726, 3330, 0, 2042],</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    [15056, 25994, 19589, 16743, 44198, 13078, 14967, 7552, 10422, 14935, 11891, 14002, 13225, 10671, 9475, 10633, 5084, 20315, 11866, 9802, 7682, 6471, 15720, 10674, 18908, 6204, 6000, 5066, 3039, 3721, 3496, 4772, 8614, 23805, 29519, 11614, 2749, 5313, 2042, 0],</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> ] <span class="comment"># yapf: disable</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="comment"># increase matrix from 40 to 200 cities</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1clustering.html#a85ceb44b790fbcebb039824f122ca84b">   71</a></span>repeat = 5</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>distance_matrix = np.array(distance_matrix)</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>distance_matrix = np.repeat(distance_matrix, repeat, 0)</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>distance_matrix = np.repeat(distance_matrix, repeat, 1)</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1clustering.html#a6db539b92ada28d4d19bff9faef164e1">   76</a></span>num_nodes = len(distance_matrix)</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="comment"># Number of groups to split the nodes, must divide num_nodes.</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1clustering.html#a8a1cd579f497af72e82d3bc9795622e4">   79</a></span>num_groups = 4</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1clustering.html#a8d19357740cd283ce14597219d2a193f">   80</a></span>group_size = num_nodes // num_groups</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="preprocessor">@njit(fastmath=True)</span></div>
+<div class="foldopen" id="foldopen00083" data-start="" data-end="">
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1clustering.html#a2b0696d94d5bb65cab882dc62228498a">   83</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1clustering.html#a2b0696d94d5bb65cab882dc62228498a">sum_distance</a>(s):</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    dist = 0</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    g = np.empty((num_groups, group_size), dtype=numba.int32)</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="keywordflow">for</span> i <span class="keywordflow">in</span> range(num_groups):</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        g[i] = s[i*group_size:(i+1)*group_size]</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="keywordflow">for</span> i <span class="keywordflow">in</span> range(num_groups):</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        <span class="keywordflow">for</span> v <span class="keywordflow">in</span> range(group_size):</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>            <span class="keywordflow">for</span> w <span class="keywordflow">in</span> range(group_size):</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>                dist += distance_matrix[g[i,v],g[i,w]]</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <span class="keywordflow">return</span> dist</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+</div>
+<div class="foldopen" id="foldopen00094" data-start="" data-end="">
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1clustering.html#a3abfba0cdea4b88b27ef19171a4e8179">   94</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1clustering.html#a3abfba0cdea4b88b27ef19171a4e8179">unique</a>(x):    </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <span class="keywordflow">return</span> np.argsort(x)</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
+</div>
+<div class="foldopen" id="foldopen00097" data-start="" data-end="">
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1clustering.html#a14d4f9f604e631d0140dffffb4f2cae6">   97</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1clustering.html#a14d4f9f604e631d0140dffffb4f2cae6">fitness</a>(x):</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceexamples_1_1clustering.html#a2b0696d94d5bb65cab882dc62228498a">sum_distance</a>(<a class="code hl_function" href="namespaceexamples_1_1clustering.html#a3abfba0cdea4b88b27ef19171a4e8179">unique</a>(x))</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
+</div>
+<div class="foldopen" id="foldopen00100" data-start="" data-end="">
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1clustering.html#a2e4522195ee18b33c6e344d71e0ed39d">  100</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1clustering.html#a2e4522195ee18b33c6e344d71e0ed39d">show</a>(s):</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    g = np.empty((num_groups,group_size), dtype=int)</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="keywordflow">for</span> i <span class="keywordflow">in</span> range(num_groups):</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        g[i] = s[i*group_size:(i+1)*group_size]</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    print(g, <a class="code hl_function" href="namespaceexamples_1_1clustering.html#a2b0696d94d5bb65cab882dc62228498a">sum_distance</a>(s))</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
+</div>
+<div class="foldopen" id="foldopen00106" data-start="" data-end="">
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1clustering.html#a8de29e7cf2101e2d46966e6af4940e5f">  106</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1clustering.html#a8de29e7cf2101e2d46966e6af4940e5f">opt</a>():    </div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    print(<span class="stringliteral">&#39;Num nodes =&#39;</span>, num_nodes)</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    res = retry.minimize(<a class="code hl_class" href="classfcmaes_1_1optimizer_1_1wrapper.html">wrapper</a>(fitness), </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>                         Bounds([0]*num_nodes, [1]*num_nodes), </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>                         optimizer=<a class="code hl_class" href="classfcmaes_1_1optimizer_1_1_bite__cpp.html">Bite_cpp</a>(500000, stall_criterion = 3), </div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>                         num_retries=32)</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <a class="code hl_function" href="namespaceexamples_1_1clustering.html#a2e4522195ee18b33c6e344d71e0ed39d">show</a>(<a class="code hl_function" href="namespaceexamples_1_1clustering.html#a3abfba0cdea4b88b27ef19171a4e8179">unique</a>(res.x))</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
+</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="keywordflow">if</span> __name__ == <span class="stringliteral">&#39;__main__&#39;</span>:</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    <a class="code hl_function" href="namespaceexamples_1_1clustering.html#a8de29e7cf2101e2d46966e6af4940e5f">opt</a>()</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    </div>
+<div class="ttc" id="aclassfcmaes_1_1optimizer_1_1_bite__cpp_html"><div class="ttname"><a href="classfcmaes_1_1optimizer_1_1_bite__cpp.html">fcmaes.optimizer.Bite_cpp</a></div><div class="ttdef"><b>Definition</b> <a href="optimizer_8py_source.html#l02617">optimizer.py:2617</a></div></div>
+<div class="ttc" id="aclassfcmaes_1_1optimizer_1_1wrapper_html"><div class="ttname"><a href="classfcmaes_1_1optimizer_1_1wrapper.html">fcmaes.optimizer.wrapper</a></div><div class="ttdoc">Wrapper for optimization evaluation and logging.</div><div class="ttdef"><b>Definition</b> <a href="optimizer_8py_source.html#l00203">optimizer.py:203</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1clustering_html_a14d4f9f604e631d0140dffffb4f2cae6"><div class="ttname"><a href="namespaceexamples_1_1clustering.html#a14d4f9f604e631d0140dffffb4f2cae6">examples.clustering.fitness</a></div><div class="ttdeci">fitness(x)</div><div class="ttdef"><b>Definition</b> <a href="#l00097">clustering.py:97</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1clustering_html_a2b0696d94d5bb65cab882dc62228498a"><div class="ttname"><a href="namespaceexamples_1_1clustering.html#a2b0696d94d5bb65cab882dc62228498a">examples.clustering.sum_distance</a></div><div class="ttdeci">sum_distance(s)</div><div class="ttdef"><b>Definition</b> <a href="#l00083">clustering.py:83</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1clustering_html_a2e4522195ee18b33c6e344d71e0ed39d"><div class="ttname"><a href="namespaceexamples_1_1clustering.html#a2e4522195ee18b33c6e344d71e0ed39d">examples.clustering.show</a></div><div class="ttdeci">show(s)</div><div class="ttdef"><b>Definition</b> <a href="#l00100">clustering.py:100</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1clustering_html_a3abfba0cdea4b88b27ef19171a4e8179"><div class="ttname"><a href="namespaceexamples_1_1clustering.html#a3abfba0cdea4b88b27ef19171a4e8179">examples.clustering.unique</a></div><div class="ttdeci">unique(x)</div><div class="ttdef"><b>Definition</b> <a href="#l00094">clustering.py:94</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1clustering_html_a8de29e7cf2101e2d46966e6af4940e5f"><div class="ttname"><a href="namespaceexamples_1_1clustering.html#a8de29e7cf2101e2d46966e6af4940e5f">examples.clustering.opt</a></div><div class="ttdeci">opt()</div><div class="ttdef"><b>Definition</b> <a href="#l00106">clustering.py:106</a></div></div>
+<div class="ttc" id="anamespacefcmaes_1_1optimizer_html"><div class="ttname"><a href="namespacefcmaes_1_1optimizer.html">fcmaes.optimizer</a></div><div class="ttdef"><b>Definition</b> <a href="optimizer_8py_source.html#l00001">optimizer.py:1</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d28a4824dc47e487b107a5db32ef43c4.html">examples</a></li><li class="navelem"><a class="el" href="clustering_8py.html">clustering.py</a></li>
+    <li class="footer">Generated on Tue Jun 24 2025 15:36:01 for Fast CMA-ES by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+  </ul>
+</div>
+</body>
+</html>

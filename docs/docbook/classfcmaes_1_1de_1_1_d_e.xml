@@ -1,0 +1,1420 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_classfcmaes_1_1de_1_1_d_e" xml:lang="en-US">
+<title>fcmaes.de.DE Class Reference</title>
+<indexterm><primary>fcmaes.de.DE</primary></indexterm>
+<para>
+
+<para>A Differential Evolution (<link linkend="_classfcmaes_1_1de_1_1_d_e">DE</link>) optimization algorithm. </para>
+ 
+</para>
+Collaboration diagram for fcmaes.de.DE:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1de_1_1_d_e__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Public Member Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1de_1_1_d_e_1acb3ffe72d7d81180fdf03c9c293ba663">__init__</link> (self, int <link linkend="_classfcmaes_1_1de_1_1_d_e_1a82571c812edbae94b8dbe570a781e078">dim</link>, Bounds bounds, Optional[int] <link linkend="_classfcmaes_1_1de_1_1_d_e_1ac57257a177f51fb2637120cc3bf7ac55">popsize</link>=31, Optional[float] <link linkend="_classfcmaes_1_1de_1_1_d_e_1a22676b41ab3ab0d910bda941601cb9c4">stop_fitness</link>=-np.inf, Optional[int] <link linkend="_classfcmaes_1_1de_1_1_d_e_1a79b95ab48735e11bd612ddbbc65d82ba">keep</link>=200, Optional[float] <link linkend="_classfcmaes_1_1de_1_1_d_e_1a01a705e747ab78e6fac28e1e0b79d59a">F</link>=0.5, Optional[float] <link linkend="_classfcmaes_1_1de_1_1_d_e_1aa02d15c526823d8e56c8248067637c7c">Cr</link>=0.9, Optional[Generator] <link linkend="_classfcmaes_1_1de_1_1_d_e_1a52523fe4b73185a4ff613238c05dfbe5">rg</link>=Generator(PCG64DXSM()), Optional <link linkend="_classfcmaes_1_1de_1_1_d_e_1aa235fc388bec48ff90cca10f3e82fcb2">filter</link>=None, Optional[ArrayLike] <link linkend="_classfcmaes_1_1de_1_1_d_e_1a801386a81a80f7c0f5a8c7657b6e8b9e">ints</link>=None, Optional[float] <link linkend="_classfcmaes_1_1de_1_1_d_e_1a32aa627efd58ac0864e1abab290d008a">min_mutate</link>=0.1, Optional[float] <link linkend="_classfcmaes_1_1de_1_1_d_e_1a87eeb5f5b78c7eb88f301ee8f02d0b1c">max_mutate</link>=0.5, Optional[Callable] <link linkend="_classfcmaes_1_1de_1_1_d_e_1a7698336acbd18cfc93652598fe8f253e">modifier</link>=None)</para>
+</listitem>
+            <listitem><para>np.ndarray <link linkend="_classfcmaes_1_1de_1_1_d_e_1acc2a7649411442c90167d856c673ccb4">ask</link> (self)</para>
+
+<para>Generates and returns the next set of samples to be evaluated based on the evolutionary strategy. </para>
+</listitem>
+            <listitem><para>int <link linkend="_classfcmaes_1_1de_1_1_d_e_1aa9de9d67ac999658a523d2ad8976954b">tell</link> (self, ArrayLike ys, Optional[ArrayLike] xs=None)</para>
+
+<para>Tells the algorithm about the function evaluations (objective values) for the proposed solutions and updates the state accordingly. </para>
+</listitem>
+            <listitem><para>np.ndarray <link linkend="_classfcmaes_1_1de_1_1_d_e_1a011bec0b481334ccc6d957fb89d306a7">population</link> (self)</para>
+
+<para>Retrieves the population data stored in the class. </para>
+</listitem>
+            <listitem><para>OptimizeResult <link linkend="_classfcmaes_1_1de_1_1_d_e_1ab58df13ca3623bcce727576e5d354bbc">result</link> (self)</para>
+
+<para>Returns an optimization result object containing the final outcome of the optimization process. </para>
+</listitem>
+            <listitem><para>Tuple[int, np.ndarray] <link linkend="_classfcmaes_1_1de_1_1_d_e_1a6e647b4dbacab60b482242c80b0a8582">ask_one</link> (self)</para>
+
+<para>Generates the next candidate from the population queue or computes a new one. </para>
+</listitem>
+            <listitem><para>int <link linkend="_classfcmaes_1_1de_1_1_d_e_1a882c7a58bf3f14c342d2a0e0700e31ef">tell_one</link> (self, int <link linkend="_classfcmaes_1_1de_1_1_d_e_1ac79e3e82f51ac3afc9945899353603e2">p</link>, float <link linkend="_classfcmaes_1_1de_1_1_d_e_1abc7d518a5e4b0099bf8bbaaa88cab8eb">y</link>, ArrayLike <link linkend="_classfcmaes_1_1de_1_1_d_e_1a7c0d515bba4c2bdaf12be9da6adc1c3d">x</link>)</para>
+
+<para>Process a single individual&apos;s evaluation update within a population-based optimization algorithm. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1de_1_1_d_e_1a4f28f983cc8d831a834065b9ad762dc1">apply_fun</link> (self, <link linkend="_classfcmaes_1_1de_1_1_d_e_1a7c0d515bba4c2bdaf12be9da6adc1c3d">x</link>, x_old, y_old)</para>
+
+<para>Applies the function to the input or returns a default fallback based on a filter. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1de_1_1_d_e_1a32845de73093acd3cc921a173958d818">do_optimize</link> (self, <link linkend="_classfcmaes_1_1de_1_1_d_e_1ad346a5d42fbaec4c0fa1eed13ca09757">fun</link>, <link linkend="_classfcmaes_1_1de_1_1_d_e_1acf33e850252a8c82db8a69cfa7e8ea9f">max_evals</link>)</para>
+
+<para>Optimizes a given objective function using a population-based strategy. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1de_1_1_d_e_1a2d6eb4d91b58018e74be863ecf71862b">do_optimize_delayed_update</link> (self, <link linkend="_classfcmaes_1_1de_1_1_d_e_1ad346a5d42fbaec4c0fa1eed13ca09757">fun</link>, <link linkend="_classfcmaes_1_1de_1_1_d_e_1acf33e850252a8c82db8a69cfa7e8ea9f">max_evals</link>, workers=mp.cpu_count())</para>
+
+<para>Performs a delayed update optimization process using multiple workers for parallel evaluation. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Public Attributes    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1de_1_1_d_e_1a82571c812edbae94b8dbe570a781e078">dim</link></para>
+
+<para>Dimensionality of the problem space. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1de_1_1_d_e_1abfb162caa78015d04524bf151b9dd823">lower</link></para>
+
+<para>Lower bounds for the problem space. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1de_1_1_d_e_1a779d053f6915d9a593bec26d7a4dab45">upper</link> = <link linkend="_namespacefcmaes_1_1de_1a43e9207e1c55b796ef2b78053589d8ed">_check_bounds</link>(bounds, <link linkend="_classfcmaes_1_1de_1_1_d_e_1a82571c812edbae94b8dbe570a781e078">dim</link>)</para>
+
+<para>Upper bounds for the problem space. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1de_1_1_d_e_1ac57257a177f51fb2637120cc3bf7ac55">popsize</link> = popsize</para>
+
+<para>Size of the population. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1de_1_1_d_e_1a22676b41ab3ab0d910bda941601cb9c4">stop_fitness</link> = stop_fitness</para>
+
+<para>Early stopping criterion based on fitness value. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1de_1_1_d_e_1a79b95ab48735e11bd612ddbbc65d82ba">keep</link> = keep</para>
+
+<para>Number of iterations to preserve local improvements. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1de_1_1_d_e_1a52523fe4b73185a4ff613238c05dfbe5">rg</link> = rg</para>
+
+<para>Random number generator for sampling operations. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1de_1_1_d_e_1aab11943c3f10fffbe188f1b187f93c6d">F0</link> = <link linkend="_classfcmaes_1_1de_1_1_d_e_1a01a705e747ab78e6fac28e1e0b79d59a">F</link></para>
+
+<para>Differential weight. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1de_1_1_d_e_1a9e6a1d8de9d1227bc0d069a0ad0df0f2">Cr0</link> = <link linkend="_classfcmaes_1_1de_1_1_d_e_1aa02d15c526823d8e56c8248067637c7c">Cr</link></para>
+
+<para>Crossover probability. </para>
+</listitem>
+            <listitem><para>int <link linkend="_classfcmaes_1_1de_1_1_d_e_1a34e8b51b9574c58baf0223914b3436d9">stop</link> = 0</para>
+
+<para>Termination condition flag. </para>
+</listitem>
+            <listitem><para>int <link linkend="_classfcmaes_1_1de_1_1_d_e_1a719a10d4fc296d619022bb065bb7fdbe">iterations</link> = 0</para>
+
+<para>Number of completed iterations. </para>
+</listitem>
+            <listitem><para>int <link linkend="_classfcmaes_1_1de_1_1_d_e_1a26f323c02bc649cb1d06c06de41b31bb">evals</link> = 0</para>
+
+<para>Number of function evaluations performed. </para>
+</listitem>
+            <listitem><para>int <link linkend="_classfcmaes_1_1de_1_1_d_e_1ac79e3e82f51ac3afc9945899353603e2">p</link> = 0</para>
+
+<para>Current index for population members. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1de_1_1_d_e_1ab06bd7ef3c26ed185460f070462df5e0">improves</link> = deque()</para>
+
+<para>Queue of improvement candidates observed in. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1de_1_1_d_e_1aa235fc388bec48ff90cca10f3e82fcb2">filter</link> = filter</para>
+
+<para>Optional filter for evaluating candidate solutions. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1de_1_1_d_e_1a801386a81a80f7c0f5a8c7657b6e8b9e">ints</link> = np.array(ints)</para>
+
+<para>Array indicating integer-constrained dimensions. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1de_1_1_d_e_1a32aa627efd58ac0864e1abab290d008a">min_mutate</link> = min_mutate</para>
+
+<para>Minimum mutation factor. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1de_1_1_d_e_1a87eeb5f5b78c7eb88f301ee8f02d0b1c">max_mutate</link> = max_mutate</para>
+
+<para>Maximum mutation factor. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1de_1_1_d_e_1a7698336acbd18cfc93652598fe8f253e">modifier</link> = self._modifier</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1de_1_1_d_e_1acc7ff6a5539d9f46c63aaf53152479fa">best_y</link> = mp.RawValue(ct.c_double, 1E99)</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1de_1_1_d_e_1a97c10b3a56ea2da4e71cb7cb927a6a5f">n_evals</link> = mp.RawValue(ct.c_long, 0)</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1de_1_1_d_e_1a976d25de99114d1eca7746bee992275a">time_0</link> = time()</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1de_1_1_d_e_1af99e0a33e3026139a617ba2f619455a6">asked</link> = xs</para>
+</listitem>
+            <listitem><para>int <link linkend="_classfcmaes_1_1de_1_1_d_e_1ab82523baab98d9c3ab365204dbdadd00">best_i</link> = <link linkend="_classfcmaes_1_1de_1_1_d_e_1ac79e3e82f51ac3afc9945899353603e2">p</link></para>
+
+<para>Index of the best solution in the population. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1de_1_1_d_e_1a7832310bdca0281b9cc91f4e2eae603e">best_x</link> = <link linkend="_classfcmaes_1_1de_1_1_d_e_1a7c0d515bba4c2bdaf12be9da6adc1c3d">x</link></para>
+
+<para>Best solution vector found so far. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1de_1_1_d_e_1ac06303559818f85d970746c3dc243e84">best_value</link> = <link linkend="_classfcmaes_1_1de_1_1_d_e_1abc7d518a5e4b0099bf8bbaaa88cab8eb">y</link></para>
+
+<para><link linkend="_class_fitness">Fitness</link> value of the best solution. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1de_1_1_d_e_1a7c0d515bba4c2bdaf12be9da6adc1c3d">x</link> = np.zeros((self.popsize, self.dim))</para>
+
+<para>Current population of candidate solutions. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1de_1_1_d_e_1a3eca7e626d9f80684912065519cb7652">x0</link> = np.zeros((self.popsize, self.dim))</para>
+
+<para>Previous population of candidate solutions. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1de_1_1_d_e_1abc7d518a5e4b0099bf8bbaaa88cab8eb">y</link> = np.empty(self.popsize)</para>
+
+<para><link linkend="_class_fitness">Fitness</link> values of the current population. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1de_1_1_d_e_1a4ae2c1ae1c81d24a5a5baf010063d492">pop_iter</link> = np.zeros(self.popsize)</para>
+
+<para>Array storing the iteration at which each member. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1de_1_1_d_e_1ad346a5d42fbaec4c0fa1eed13ca09757">fun</link> = fun</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1de_1_1_d_e_1acf33e850252a8c82db8a69cfa7e8ea9f">max_evals</link> = max_evals</para>
+</listitem>
+            <listitem><para>float <link linkend="_classfcmaes_1_1de_1_1_d_e_1aa02d15c526823d8e56c8248067637c7c">Cr</link> = 0 else self.Cr0</para>
+</listitem>
+            <listitem><para>float <link linkend="_classfcmaes_1_1de_1_1_d_e_1a01a705e747ab78e6fac28e1e0b79d59a">F</link> = 0 else self.F0</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Protected Member Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1de_1_1_d_e_1ab410b147f0676eb8f0cee48fd1625b0e">_init</link> (self)</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1de_1_1_d_e_1af65d189c855a19bc82ea60b185482757">_next_x</link> (self, <link linkend="_classfcmaes_1_1de_1_1_d_e_1ac79e3e82f51ac3afc9945899353603e2">p</link>)</para>
+
+<para>Determines the next vector in an evolutionary computation process. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1de_1_1_d_e_1a75e2c22d49dde6bd8f31572ef39152d7">_next_improve</link> (self, xb, <link linkend="_classfcmaes_1_1de_1_1_d_e_1a7c0d515bba4c2bdaf12be9da6adc1c3d">x</link>, xi)</para>
+
+<para>Compute the next feasible point to improve optimization. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1de_1_1_d_e_1adf6645de9d62c0900bad93d5a6934a4b">_sample</link> (self)</para>
+
+<para>Generates a sample from the specified distribution. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1de_1_1_d_e_1ac3453c9ebcc0897aedb6a53a8b93ffcd">_feasible</link> (self, <link linkend="_classfcmaes_1_1de_1_1_d_e_1a7c0d515bba4c2bdaf12be9da6adc1c3d">x</link>)</para>
+
+<para>Checks the feasibility of a value with respect to specified bounds and adjusts it if necessary by clipping it to the range defined by the lower and upper bounds. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1de_1_1_d_e_1a61072489f9cd73c41286fbaf8d89357b">_modifier</link> (self, <link linkend="_classfcmaes_1_1de_1_1_d_e_1a7c0d515bba4c2bdaf12be9da6adc1c3d">x</link>)</para>
+
+<para>Modifies integer elements of the input array based on mutation probability. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>A Differential Evolution (<link linkend="_classfcmaes_1_1de_1_1_d_e">DE</link>) optimization algorithm. </para>
+
+
+
+<para>This class implements a stochastic optimization algorithm called Differential Evolution. It is designed for solving optimization problems over continuous domains. The algorithm generates a population of candidate solutions and iteratively improves upon them using operations inspired by natural evolution. </para>
+<para>
+Definition at line <link linkend="_de_8py_source_1l00183">183</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+</section>
+<section>
+<title>Constructor &amp; Destructor Documentation</title>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1acb3ffe72d7d81180fdf03c9c293ba663"/><section>
+    <title>__init__()</title>
+<indexterm><primary>__init__</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>__init__</secondary></indexterm>
+<para><computeroutput>fcmaes.de.DE.__init__ ( self, int dim, Bounds bounds, Optional[int]  popsize = <computeroutput>31</computeroutput>
+, Optional[float]  stop_fitness = <computeroutput>-np.inf</computeroutput>
+, Optional[int]  keep = <computeroutput>200</computeroutput>
+, Optional[float]  F = <computeroutput>0.5</computeroutput>
+, Optional[float]  Cr = <computeroutput>0.9</computeroutput>
+, Optional[Generator]  rg = <computeroutput>Generator(PCG64DXSM())</computeroutput>
+, Optional  filter = <computeroutput>None</computeroutput>
+, Optional[ArrayLike]  ints = <computeroutput>None</computeroutput>
+, Optional[float]  min_mutate = <computeroutput>0.1</computeroutput>
+, Optional[float]  max_mutate = <computeroutput>0.5</computeroutput>
+, Optional[Callable]  modifier = <computeroutput>None</computeroutput>
+)</computeroutput></para><para>
+Definition at line <link linkend="_de_8py_source_1l00288">288</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Function Documentation</title>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1ac3453c9ebcc0897aedb6a53a8b93ffcd"/><section>
+    <title>_feasible()</title>
+<indexterm><primary>_feasible</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>_feasible</secondary></indexterm>
+<para><computeroutput>fcmaes.de.DE._feasible ( self,  x)<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+
+<para>Checks the feasibility of a value with respect to specified bounds and adjusts it if necessary by clipping it to the range defined by the lower and upper bounds. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>x</entry><entry>
+<para>The value to check and potentially adjust.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>The original value if it lies within the bounds or a clipped value adjusted to satisfy the bounds if it falls outside the range. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_de_8py_source_1l00797">797</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1de_1_1_d_e_ac3453c9ebcc0897aedb6a53a8b93ffcd_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1ab410b147f0676eb8f0cee48fd1625b0e"/><section>
+    <title>_init()</title>
+<indexterm><primary>_init</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>_init</secondary></indexterm>
+<para><computeroutput>fcmaes.de.DE._init ( self)<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_de_8py_source_1l00534">534</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1a61072489f9cd73c41286fbaf8d89357b"/><section>
+    <title>_modifier()</title>
+<indexterm><primary>_modifier</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>_modifier</secondary></indexterm>
+<para><computeroutput>fcmaes.de.DE._modifier ( self,  x)<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+
+<para>Modifies integer elements of the input array based on mutation probability. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method mutates specific elements of the input array, which are
+   specified by the attribute `ints`. Mutation is governed by random values
+   generated within the range defined by `min_mutate` and `max_mutate`.
+   The mutated values lie within the bounds specified by `lower` and `upper`.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>x</entry><entry>
+<para>Input array containing elements to mutate.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>np Mutated version of the input array. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_de_8py_source_1l00820">820</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1de_1_1_d_e_a61072489f9cd73c41286fbaf8d89357b_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1a75e2c22d49dde6bd8f31572ef39152d7"/><section>
+    <title>_next_improve()</title>
+<indexterm><primary>_next_improve</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>_next_improve</secondary></indexterm>
+<para><computeroutput>fcmaes.de.DE._next_improve ( self,  xb,  x,  xi)<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+
+<para>Compute the next feasible point to improve optimization. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method adjusts the provided point to ensure it meets feasibility
+   criteria and optionally applies a modifier to the point before returning.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>xb</entry><entry>
+<para>The base point for the improvement computation. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>x</entry><entry>
+<para>The current point to be adjusted. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>xi</entry><entry>
+<para>The initial guess or reference point for adjustment.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>The next feasible point after adjustment and optional modification. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_de_8py_source_1l00755">755</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1de_1_1_d_e_a75e2c22d49dde6bd8f31572ef39152d7_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1de_1_1_d_e_a75e2c22d49dde6bd8f31572ef39152d7_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1af65d189c855a19bc82ea60b185482757"/><section>
+    <title>_next_x()</title>
+<indexterm><primary>_next_x</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>_next_x</secondary></indexterm>
+<para><computeroutput>fcmaes.de.DE._next_x ( self,  p)<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+
+<para>Determines the next vector in an evolutionary computation process. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method calculates a new candidate vector based on differential
+   evolution principles. If a predefined number of iterations has been
+   reached and the process is in even iterations, certain parameters
+   (Cr and F) are halved. Random indices are selected to generate a
+   mutation vector, ensuring the indices do not overlap with the
+   current or best vector. A trial vector is then computed using a
+   crossover operation.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>p</entry><entry>
+<para>int Index of the current vector in the population.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>tuple: Contains the best vector (xb), the current vector (xp), and the newly generated vector (x). </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_de_8py_source_1l00716">716</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1de_1_1_d_e_af65d189c855a19bc82ea60b185482757_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1adf6645de9d62c0900bad93d5a6934a4b"/><section>
+    <title>_sample()</title>
+<indexterm><primary>_sample</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>_sample</secondary></indexterm>
+<para><computeroutput>fcmaes.de.DE._sample ( self)<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+
+<para>Generates a sample from the specified distribution. </para>
+</para>
+
+<para><literallayout><computeroutput>   If the `upper` attribute is not set, a random sample is drawn from a normal
+   distribution. Otherwise, a sample is generated from a uniform distribution
+   bounded by the `lower` and `upper` attributes. Optionally, a modifier function
+   can be applied to the generated value before returning it.
+</computeroutput></literallayout></para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>float A random sample from the specified distribution. If a modifier function is applied, the modified value is returned. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_de_8py_source_1l00775">775</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1de_1_1_d_e_adf6645de9d62c0900bad93d5a6934a4b_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1a4f28f983cc8d831a834065b9ad762dc1"/><section>
+    <title>apply_fun()</title>
+<indexterm><primary>apply_fun</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>apply_fun</secondary></indexterm>
+<para><computeroutput>fcmaes.de.DE.apply_fun ( self,  x,  x_old,  y_old)</computeroutput></para><para>
+
+<para>Applies the function to the input or returns a default fallback based on a filter. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method evaluates the given function `fun` for the input `x`. If a `filter`
+   is present, it checks the `filter` criteria to determine if the evaluation
+   should proceed. If the criteria are met, it applies the function and adds
+   the result to the filter, otherwise it returns a predefined fallback value
+   (1E99). If no `filter` exists, the function is always evaluated.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>x</entry><entry>
+<para>The current input to the function <computeroutput>fun</computeroutput> to be evaluated. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>x_old</entry><entry>
+<para>The previous input value in the process for comparison in the </para>
+</entry>
+                            </row>
+                            <row>
+<entry>filter.</entry><entry>
+<para></para>
+</entry>
+                            </row>
+                            <row>
+<entry>y_old</entry><entry>
+<para>The previous output value in the process for comparison in the </para>
+</entry>
+                            </row>
+                            <row>
+<entry>filter.</entry><entry></entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>The result of evaluating the function <computeroutput><link linkend="_classfcmaes_1_1de_1_1_d_e_1ad346a5d42fbaec4c0fa1eed13ca09757">fun(x)</link></computeroutput> if no filter exists or the filter criteria are fulfilled. Otherwise, returns the fallback value </para>
+
+<para>1E99. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_de_8py_source_1l00567">567</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1acc2a7649411442c90167d856c673ccb4"/><section>
+    <title>ask()</title>
+<indexterm><primary>ask</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>ask</secondary></indexterm>
+<para><computeroutput> np.ndarray fcmaes.de.DE.ask ( self)</computeroutput></para><para>
+
+<para>Generates and returns the next set of samples to be evaluated based on the evolutionary strategy. </para>
+</para>
+
+<para><literallayout><computeroutput>   The method ensures that all individuals in the population either utilize previously identified
+   improvements or are generated as new samples. If improvements are queued, they are integrated
+   into the population. Otherwise, new samples are generated for population members.
+</computeroutput></literallayout></para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>np An array containing the generated or improved samples for the entire population. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_de_8py_source_1l00343">343</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1de_1_1_d_e_acc2a7649411442c90167d856c673ccb4_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1de_1_1_d_e_acc2a7649411442c90167d856c673ccb4_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1a6e647b4dbacab60b482242c80b0a8582"/><section>
+    <title>ask_one()</title>
+<indexterm><primary>ask_one</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>ask_one</secondary></indexterm>
+<para><computeroutput> Tuple[int, np.ndarray] fcmaes.de.DE.ask_one ( self)</computeroutput></para><para>
+
+<para>Generates the next candidate from the population queue or computes a new one. </para>
+</para>
+
+<para><literallayout><computeroutput>   This function retrieves the next candidate solution for evaluation. If pre-generated
+   candidates are available in the queue (`self.improves`), it dequeues one. Otherwise,
+   it computes a new candidate based on the current population index.
+</computeroutput></literallayout></para>
+
+<para><formalpara><title>Returns</title>
+
+<para>Tuple[int, np.ndarray]: A tuple where the first element is the population index of the candidate, and the second element is the candidate solution in the form of a numpy array.</para>
+</formalpara>
+<literallayout><computeroutput>       No explicit exceptions are raised by this method.
+</computeroutput></literallayout> </para>
+<para>
+Definition at line <link linkend="_de_8py_source_1l00440">440</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1de_1_1_d_e_a6e647b4dbacab60b482242c80b0a8582_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1de_1_1_d_e_a6e647b4dbacab60b482242c80b0a8582_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1a32845de73093acd3cc921a173958d818"/><section>
+    <title>do_optimize()</title>
+<indexterm><primary>do_optimize</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>do_optimize</secondary></indexterm>
+<para><computeroutput>fcmaes.de.DE.do_optimize ( self,  fun,  max_evals)</computeroutput></para><para>
+
+<para>Optimizes a given objective function using a population-based strategy. </para>
+</para>
+
+<para>The optimization process is based on iterative improvements of candidate solutions to minimize the objective function value.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>fun</entry><entry>
+<para>Callable The objective function to be minimized. Must accept input vectors resembling the solution </para>
+</entry>
+                            </row>
+                            <row>
+<entry>representation.</entry><entry>
+<para></para>
+</entry>
+                            </row>
+                            <row>
+<entry>max_evals</entry><entry>
+<para>int The maximum number of function evaluations allowed during the optimization process.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>Tuple A tuple containing the following:<itemizedlist>
+<listitem>
+<para>best_x: Array or list representing the best solution found during the optimization.</para>
+</listitem><listitem>
+<para>best_value: float, the value of the objective function for the best solution.</para>
+</listitem><listitem>
+<para>evals: int, the total number of function evaluations performed.</para>
+</listitem><listitem>
+<para>iterations: int, the total number of iterations completed during the optimization process.</para>
+</listitem><listitem>
+<para>stop: int, an indicator explaining the stop condition (e.g., termination criteria met). </para>
+</listitem></itemizedlist>
+</para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_de_8py_source_1l00600">600</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1a2d6eb4d91b58018e74be863ecf71862b"/><section>
+    <title>do_optimize_delayed_update()</title>
+<indexterm><primary>do_optimize_delayed_update</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>do_optimize_delayed_update</secondary></indexterm>
+<para><computeroutput>fcmaes.de.DE.do_optimize_delayed_update ( self,  fun,  max_evals,  workers = <computeroutput>mp.cpu_count()</computeroutput>
+)</computeroutput></para><para>
+
+<para>Performs a delayed update optimization process using multiple workers for parallel evaluation. </para>
+</para>
+
+<para>The method initializes workers, evaluates population solutions, and determines the best solution through iterated queries and evaluations.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>fun</entry><entry>
+<para>Callable function to be optimized. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>max_evals</entry><entry>
+<para>Maximum number of function evaluations to perform. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>workers</entry><entry>
+<para>Integer specifying the number of workers for parallel execution. Defaults to the number of available CPU cores.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>A tuple containing:<itemizedlist>
+<listitem>
+<para>best_x: The best solution found during the optimization process.</para>
+</listitem><listitem>
+<para>best_value: The objective function value corresponding to the best solution.</para>
+</listitem><listitem>
+<para>evals: The total number of evaluations performed.</para>
+</listitem><listitem>
+<para>iterations: The number of optimization iterations completed.</para>
+</listitem><listitem>
+<para>stop: An integer representing the stopping criterion met. </para>
+</listitem></itemizedlist>
+</para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_de_8py_source_1l00658">658</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1de_1_1_d_e_a2d6eb4d91b58018e74be863ecf71862b_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1a011bec0b481334ccc6d957fb89d306a7"/><section>
+    <title>population()</title>
+<indexterm><primary>population</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>population</secondary></indexterm>
+<para><computeroutput> np.ndarray fcmaes.de.DE.population ( self)</computeroutput></para><para>
+
+<para>Retrieves the population data stored in the class. </para>
+</para>
+
+<para><literallayout><computeroutput>   The method returns the population data, which is stored in the object&apos;s state. It is expected
+   to be a NumPy array representing specific data related to the population.
+</computeroutput></literallayout></para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>np The population data stored in the object. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_de_8py_source_1l00401">401</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1ab58df13ca3623bcce727576e5d354bbc"/><section>
+    <title>result()</title>
+<indexterm><primary>result</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>result</secondary></indexterm>
+<para><computeroutput> OptimizeResult fcmaes.de.DE.result ( self)</computeroutput></para><para>
+
+<para>Returns an optimization result object containing the final outcome of the optimization process. </para>
+</para>
+
+<para>This method encapsulates the key output data in an <computeroutput>OptimizeResult</computeroutput> object, providing details about the best solution found during the optimization, the function value at that solution, the total number of function evaluations, the number of iterations performed, and the status of the optimizer.</para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>OptimizeResult An object containing the results of the optimization process, including details such as the optimal solution (<computeroutput>x</computeroutput>), the objective function value at that solution (<computeroutput>fun</computeroutput>), total function evaluations (<computeroutput>nfev</computeroutput>), number of iterations (<computeroutput>nit</computeroutput>), the stopping status (<computeroutput>status</computeroutput>), and a success flag (<computeroutput>success</computeroutput>). </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_de_8py_source_1l00420">420</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1aa9de9d67ac999658a523d2ad8976954b"/><section>
+    <title>tell()</title>
+<indexterm><primary>tell</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>tell</secondary></indexterm>
+<para><computeroutput> int fcmaes.de.DE.tell ( self, ArrayLike ys, Optional[ArrayLike]  xs = <computeroutput>None</computeroutput>
+)</computeroutput></para><para>
+
+<para>Tells the algorithm about the function evaluations (objective values) for the proposed solutions and updates the state accordingly. </para>
+</para>
+
+<para>This method is used to inform the algorithm of the results of one or more objective function evaluations. This information is essential for the algorithm to proceed with the optimization process and adjust its internal model or state.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>ys</entry><entry>
+<para>Array of function evaluation results (objective values) corresponding to the proposed solutions. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>xs</entry><entry>
+<para>Array of proposed solutions for which the objective values (ys) have been evaluated. If not provided, the method will use solutions that were previously &quot;asked&quot; by the algorithm.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>int An integer indicating the stop condition of the optimization process. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_de_8py_source_1l00380">380</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1de_1_1_d_e_aa9de9d67ac999658a523d2ad8976954b_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1de_1_1_d_e_aa9de9d67ac999658a523d2ad8976954b_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1a882c7a58bf3f14c342d2a0e0700e31ef"/><section>
+    <title>tell_one()</title>
+<indexterm><primary>tell_one</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>tell_one</secondary></indexterm>
+<para><computeroutput> int fcmaes.de.DE.tell_one ( self, int p, float  y, ArrayLike x)</computeroutput></para><para>
+
+<para>Process a single individual&apos;s evaluation update within a population-based optimization algorithm. </para>
+</para>
+
+<para>Updates the values of the provided population member based on the fitness of the given evaluation and decides whether to replace it with a new candidate. Tracks improvements and adjusts population state as necessary.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>p</entry><entry>
+<para>Index of the population member to update. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>y</entry><entry>
+<para>Evaluated fitness value of the candidate solution. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>x</entry><entry>
+<para>Candidate solution corresponding to the evaluated fitness.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>int Indicator for whether the optimization should stop (1 for stop, 0 for continue). </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_de_8py_source_1l00464">464</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1de_1_1_d_e_a882c7a58bf3f14c342d2a0e0700e31ef_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1de_1_1_d_e_a882c7a58bf3f14c342d2a0e0700e31ef_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+<section>
+<title>Member Data Documentation</title>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1af99e0a33e3026139a617ba2f619455a6"/><section>
+    <title>asked</title>
+<indexterm><primary>asked</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>asked</secondary></indexterm>
+<para><computeroutput>fcmaes.de.DE.asked = xs</computeroutput></para><para>
+Definition at line <link linkend="_de_8py_source_1l00359">359</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1ab82523baab98d9c3ab365204dbdadd00"/><section>
+    <title>best_i</title>
+<indexterm><primary>best_i</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>best_i</secondary></indexterm>
+<para><computeroutput>int fcmaes.de.DE.best_i = <link linkend="_classfcmaes_1_1de_1_1_d_e_1ac79e3e82f51ac3afc9945899353603e2">p</link></computeroutput></para><para>
+
+<para>Index of the best solution in the population. </para>
+</para>
+
+<para>Index of the current best solution in the population, initialized to 0. </para>
+<para>
+Definition at line <link linkend="_de_8py_source_1l00477">477</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1ac06303559818f85d970746c3dc243e84"/><section>
+    <title>best_value</title>
+<indexterm><primary>best_value</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>best_value</secondary></indexterm>
+<para><computeroutput>fcmaes.de.DE.best_value = <link linkend="_classfcmaes_1_1de_1_1_d_e_1abc7d518a5e4b0099bf8bbaaa88cab8eb">y</link></computeroutput></para><para>
+
+<para><link linkend="_class_fitness">Fitness</link> value of the best solution. </para>
+</para>
+
+<para>Objective value of the best solution found so far, initialized to infinity. </para>
+<para>
+Definition at line <link linkend="_de_8py_source_1l00480">480</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1a7832310bdca0281b9cc91f4e2eae603e"/><section>
+    <title>best_x</title>
+<indexterm><primary>best_x</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>best_x</secondary></indexterm>
+<para><computeroutput>fcmaes.de.DE.best_x = <link linkend="_classfcmaes_1_1de_1_1_d_e_1a7c0d515bba4c2bdaf12be9da6adc1c3d">x</link></computeroutput></para><para>
+
+<para>Best solution vector found so far. </para>
+</para>
+
+<para>Best solution found so far, initialized with the first individual of the population. </para>
+<para>
+Definition at line <link linkend="_de_8py_source_1l00479">479</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1acc7ff6a5539d9f46c63aaf53152479fa"/><section>
+    <title>best_y</title>
+<indexterm><primary>best_y</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>best_y</secondary></indexterm>
+<para><computeroutput>fcmaes.de.DE.best_y = mp.RawValue(ct.c_double, 1E99)</computeroutput></para><para>
+Definition at line <link linkend="_de_8py_source_1l00329">329</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1aa02d15c526823d8e56c8248067637c7c"/><section>
+    <title>Cr</title>
+<indexterm><primary>Cr</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>Cr</secondary></indexterm>
+<para><computeroutput>float fcmaes.de.DE.Cr = 0 else self.Cr0</computeroutput></para><para>
+Definition at line <link linkend="_de_8py_source_1l00719">719</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1a9e6a1d8de9d1227bc0d069a0ad0df0f2"/><section>
+    <title>Cr0</title>
+<indexterm><primary>Cr0</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>Cr0</secondary></indexterm>
+<para><computeroutput>fcmaes.de.DE.Cr0 = <link linkend="_classfcmaes_1_1de_1_1_d_e_1aa02d15c526823d8e56c8248067637c7c">Cr</link></computeroutput></para><para>
+
+<para>Crossover probability. </para>
+</para>
+<para>
+Definition at line <link linkend="_de_8py_source_1l00310">310</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1a82571c812edbae94b8dbe570a781e078"/><section>
+    <title>dim</title>
+<indexterm><primary>dim</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>dim</secondary></indexterm>
+<para><computeroutput>fcmaes.de.DE.dim</computeroutput></para><para>
+
+<para>Dimensionality of the problem space. </para>
+</para>
+<para>
+Definition at line <link linkend="_de_8py_source_1l00302">302</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1a26f323c02bc649cb1d06c06de41b31bb"/><section>
+    <title>evals</title>
+<indexterm><primary>evals</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>evals</secondary></indexterm>
+<para><computeroutput>fcmaes.de.DE.evals = 0</computeroutput></para><para>
+
+<para>Number of function evaluations performed. </para>
+</para>
+<para>
+Definition at line <link linkend="_de_8py_source_1l00313">313</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1a01a705e747ab78e6fac28e1e0b79d59a"/><section>
+    <title>F</title>
+<indexterm><primary>F</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>F</secondary></indexterm>
+<para><computeroutput>float fcmaes.de.DE.F = 0 else self.F0</computeroutput></para><para>
+Definition at line <link linkend="_de_8py_source_1l00720">720</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1aab11943c3f10fffbe188f1b187f93c6d"/><section>
+    <title>F0</title>
+<indexterm><primary>F0</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>F0</secondary></indexterm>
+<para><computeroutput>fcmaes.de.DE.F0 = <link linkend="_classfcmaes_1_1de_1_1_d_e_1a01a705e747ab78e6fac28e1e0b79d59a">F</link></computeroutput></para><para>
+
+<para>Differential weight. </para>
+</para>
+<para>
+Definition at line <link linkend="_de_8py_source_1l00309">309</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1aa235fc388bec48ff90cca10f3e82fcb2"/><section>
+    <title>filter</title>
+<indexterm><primary>filter</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>filter</secondary></indexterm>
+<para><computeroutput>fcmaes.de.DE.filter = filter</computeroutput></para><para>
+
+<para>Optional filter for evaluating candidate solutions. </para>
+</para>
+<para>
+Definition at line <link linkend="_de_8py_source_1l00316">316</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1ad346a5d42fbaec4c0fa1eed13ca09757"/><section>
+    <title>fun</title>
+<indexterm><primary>fun</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>fun</secondary></indexterm>
+<para><computeroutput>fcmaes.de.DE.fun = fun</computeroutput></para><para>
+Definition at line <link linkend="_de_8py_source_1l00601">601</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1ab06bd7ef3c26ed185460f070462df5e0"/><section>
+    <title>improves</title>
+<indexterm><primary>improves</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>improves</secondary></indexterm>
+<para><computeroutput>fcmaes.de.DE.improves = deque()</computeroutput></para><para>
+
+<para>Queue of improvement candidates observed in. </para>
+</para>
+<para>
+Definition at line <link linkend="_de_8py_source_1l00315">315</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1a801386a81a80f7c0f5a8c7657b6e8b9e"/><section>
+    <title>ints</title>
+<indexterm><primary>ints</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>ints</secondary></indexterm>
+<para><computeroutput>fcmaes.de.DE.ints = np.array(ints)</computeroutput></para><para>
+
+<para>Array indicating integer-constrained dimensions. </para>
+</para>
+<para>
+Definition at line <link linkend="_de_8py_source_1l00317">317</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1a719a10d4fc296d619022bb065bb7fdbe"/><section>
+    <title>iterations</title>
+<indexterm><primary>iterations</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>iterations</secondary></indexterm>
+<para><computeroutput>fcmaes.de.DE.iterations = 0</computeroutput></para><para>
+
+<para>Number of completed iterations. </para>
+</para>
+<para>
+Definition at line <link linkend="_de_8py_source_1l00312">312</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1a79b95ab48735e11bd612ddbbc65d82ba"/><section>
+    <title>keep</title>
+<indexterm><primary>keep</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>keep</secondary></indexterm>
+<para><computeroutput>fcmaes.de.DE.keep = keep</computeroutput></para><para>
+
+<para>Number of iterations to preserve local improvements. </para>
+</para>
+<para>
+Definition at line <link linkend="_de_8py_source_1l00307">307</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1abfb162caa78015d04524bf151b9dd823"/><section>
+    <title>lower</title>
+<indexterm><primary>lower</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>lower</secondary></indexterm>
+<para><computeroutput>fcmaes.de.DE.lower</computeroutput></para><para>
+
+<para>Lower bounds for the problem space. </para>
+</para>
+<para>
+Definition at line <link linkend="_de_8py_source_1l00302">302</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1acf33e850252a8c82db8a69cfa7e8ea9f"/><section>
+    <title>max_evals</title>
+<indexterm><primary>max_evals</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>max_evals</secondary></indexterm>
+<para><computeroutput>fcmaes.de.DE.max_evals = max_evals</computeroutput></para><para>
+Definition at line <link linkend="_de_8py_source_1l00602">602</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1a87eeb5f5b78c7eb88f301ee8f02d0b1c"/><section>
+    <title>max_mutate</title>
+<indexterm><primary>max_mutate</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>max_mutate</secondary></indexterm>
+<para><computeroutput>fcmaes.de.DE.max_mutate = max_mutate</computeroutput></para><para>
+
+<para>Maximum mutation factor. </para>
+</para>
+<para>
+Definition at line <link linkend="_de_8py_source_1l00319">319</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1a32aa627efd58ac0864e1abab290d008a"/><section>
+    <title>min_mutate</title>
+<indexterm><primary>min_mutate</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>min_mutate</secondary></indexterm>
+<para><computeroutput>fcmaes.de.DE.min_mutate = min_mutate</computeroutput></para><para>
+
+<para>Minimum mutation factor. </para>
+</para>
+<para>
+Definition at line <link linkend="_de_8py_source_1l00318">318</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1a7698336acbd18cfc93652598fe8f253e"/><section>
+    <title>modifier</title>
+<indexterm><primary>modifier</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>modifier</secondary></indexterm>
+<para><computeroutput>fcmaes.de.DE.modifier = self._modifier</computeroutput></para><para>
+Definition at line <link linkend="_de_8py_source_1l00324">324</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1a97c10b3a56ea2da4e71cb7cb927a6a5f"/><section>
+    <title>n_evals</title>
+<indexterm><primary>n_evals</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>n_evals</secondary></indexterm>
+<para><computeroutput>fcmaes.de.DE.n_evals = mp.RawValue(ct.c_long, 0)</computeroutput></para><para>
+Definition at line <link linkend="_de_8py_source_1l00330">330</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1ac79e3e82f51ac3afc9945899353603e2"/><section>
+    <title>p</title>
+<indexterm><primary>p</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>p</secondary></indexterm>
+<para><computeroutput>int fcmaes.de.DE.p = 0</computeroutput></para><para>
+
+<para>Current index for population members. </para>
+</para>
+<para>
+Definition at line <link linkend="_de_8py_source_1l00314">314</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1a4ae2c1ae1c81d24a5a5baf010063d492"/><section>
+    <title>pop_iter</title>
+<indexterm><primary>pop_iter</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>pop_iter</secondary></indexterm>
+<para><computeroutput>fcmaes.de.DE.pop_iter = np.zeros(self.popsize)</computeroutput></para><para>
+
+<para>Array storing the iteration at which each member. </para>
+</para>
+
+<para>Array to track the iteration or generation count for each individual in the population. </para>
+<para>
+Definition at line <link linkend="_de_8py_source_1l00544">544</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1ac57257a177f51fb2637120cc3bf7ac55"/><section>
+    <title>popsize</title>
+<indexterm><primary>popsize</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>popsize</secondary></indexterm>
+<para><computeroutput>fcmaes.de.DE.popsize = popsize</computeroutput></para><para>
+
+<para>Size of the population. </para>
+</para>
+<para>
+Definition at line <link linkend="_de_8py_source_1l00305">305</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1a52523fe4b73185a4ff613238c05dfbe5"/><section>
+    <title>rg</title>
+<indexterm><primary>rg</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>rg</secondary></indexterm>
+<para><computeroutput>fcmaes.de.DE.rg = rg</computeroutput></para><para>
+
+<para>Random number generator for sampling operations. </para>
+</para>
+<para>
+Definition at line <link linkend="_de_8py_source_1l00308">308</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1a34e8b51b9574c58baf0223914b3436d9"/><section>
+    <title>stop</title>
+<indexterm><primary>stop</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>stop</secondary></indexterm>
+<para><computeroutput>int fcmaes.de.DE.stop = 0</computeroutput></para><para>
+
+<para>Termination condition flag. </para>
+</para>
+<para>
+Definition at line <link linkend="_de_8py_source_1l00311">311</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1a22676b41ab3ab0d910bda941601cb9c4"/><section>
+    <title>stop_fitness</title>
+<indexterm><primary>stop_fitness</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>stop_fitness</secondary></indexterm>
+<para><computeroutput>fcmaes.de.DE.stop_fitness = stop_fitness</computeroutput></para><para>
+
+<para>Early stopping criterion based on fitness value. </para>
+</para>
+<para>
+Definition at line <link linkend="_de_8py_source_1l00306">306</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1a976d25de99114d1eca7746bee992275a"/><section>
+    <title>time_0</title>
+<indexterm><primary>time_0</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>time_0</secondary></indexterm>
+<para><computeroutput>fcmaes.de.DE.time_0 = time()</computeroutput></para><para>
+Definition at line <link linkend="_de_8py_source_1l00331">331</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1a779d053f6915d9a593bec26d7a4dab45"/><section>
+    <title>upper</title>
+<indexterm><primary>upper</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>upper</secondary></indexterm>
+<para><computeroutput>fcmaes.de.DE.upper = <link linkend="_namespacefcmaes_1_1de_1a43e9207e1c55b796ef2b78053589d8ed">_check_bounds</link>(bounds, <link linkend="_classfcmaes_1_1de_1_1_d_e_1a82571c812edbae94b8dbe570a781e078">dim</link>)</computeroutput></para><para>
+
+<para>Upper bounds for the problem space. </para>
+</para>
+<para>
+Definition at line <link linkend="_de_8py_source_1l00302">302</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1a7c0d515bba4c2bdaf12be9da6adc1c3d"/><section>
+    <title>x</title>
+<indexterm><primary>x</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>x</secondary></indexterm>
+<para><computeroutput>fcmaes.de.DE.x = np.zeros((self.popsize, self.dim))</computeroutput></para><para>
+
+<para>Current population of candidate solutions. </para>
+</para>
+
+<para>Initializes the optimization population and sets up initial values.</para>
+
+<para><literallayout><computeroutput>   This method initializes the population matrix and related attributes for an
+   optimization problem. It samples the initial values for the population, assigns
+   the initial objective values to infinity, and determines the placeholder for
+   the best solution and its corresponding value.
+</computeroutput></literallayout></para>
+
+<para>The population matrix of shape (popsize, dim), where each row represents an individual solution in the population. </para>
+<para>
+Definition at line <link linkend="_de_8py_source_1l00535">535</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1a3eca7e626d9f80684912065519cb7652"/><section>
+    <title>x0</title>
+<indexterm><primary>x0</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>x0</secondary></indexterm>
+<para><computeroutput>fcmaes.de.DE.x0 = np.zeros((self.popsize, self.dim))</computeroutput></para><para>
+
+<para>Previous population of candidate solutions. </para>
+</para>
+
+<para>A matrix of the initial population, identical to <computeroutput>x</computeroutput> at this. </para>
+<para>
+Definition at line <link linkend="_de_8py_source_1l00536">536</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1de_1_1_d_e_1abc7d518a5e4b0099bf8bbaaa88cab8eb"/><section>
+    <title>y</title>
+<indexterm><primary>y</primary><secondary>fcmaes.de.DE</secondary></indexterm>
+<indexterm><primary>fcmaes.de.DE</primary><secondary>y</secondary></indexterm>
+<para><computeroutput>fcmaes.de.DE.y = np.empty(self.popsize)</computeroutput></para><para>
+
+<para><link linkend="_class_fitness">Fitness</link> values of the current population. </para>
+</para>
+
+<para>Array of objective values for each individual in the.</para>
+
+<para>Initializes the optimizer with the specified parameters and configurations. This class is designed to manage and operate on populations of candidate solutions using specified rules and modifiers. It supports constraints like integer variables and bounds, and provides features such as mutation settings, filtering, and random number generation control.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>dim</entry><entry>
+<para>Dimensionality of the problem (number of variables to be optimized). </para>
+</entry>
+                            </row>
+                            <row>
+<entry>bounds</entry><entry>
+<para>An object specifying the lower and upper bounds for the variables. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>popsize</entry><entry>
+<para>Size of the population to be evolved. Default is 31. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>stop_fitness</entry><entry>
+<para>Stopping criterion based on fitness value. Default is -inf. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>keep</entry><entry>
+<para>Maximum number of generations to be stored for tracking. Default is 200. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>F</entry><entry>
+<para>Differential weight for mutation. Default is 0.5. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>Cr</entry><entry>
+<para>Crossover probability. Default is 0.9. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>rg</entry><entry>
+<para>Random number generator for stochastic operations. Default is <computeroutput>Generator(PCG64DXSM())</computeroutput>. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>filter</entry><entry>
+<para>Custom filter to apply on solutions during evolution. Default is None. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>ints</entry><entry>
+<para>Indices of integer variables in the solution. Default is None. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>min_mutate</entry><entry>
+<para>Minimum mutation value used for specific mutation rules. Default is 0.1. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>max_mutate</entry><entry>
+<para>Maximum mutation value applied during evolution. Default is 0.5. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>modifier</entry><entry>
+<para>A custom variable modifier function applied during evolution. If None and <computeroutput>ints</computeroutput> is not None, a default integer modifier is used. Default is None. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_de_8py_source_1l00537">537</link> of file <link linkend="_de_8py_source">de.py</link>.</para>
+</section>
+<para>
+The documentation for this class was generated from the following file:</para>
+fcmaes/<link linkend="_de_8py">de.py</link></section>
+</section>

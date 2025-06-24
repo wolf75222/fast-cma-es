@@ -1,0 +1,248 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_namespacefcmaes_1_1crfmnescpp" xml:lang="en-US">
+<title>fcmaes.crfmnescpp Namespace Reference</title>
+<indexterm><primary>fcmaes.crfmnescpp</primary></indexterm>
+<simplesect>
+    <title>Classes    </title>
+        <itemizedlist>
+            <listitem><para>class <link linkend="_classfcmaes_1_1crfmnescpp_1_1_c_r_f_m_n_e_s___c">CRFMNES_C</link></para>
+
+<para>Minimization of a scalar function of one or more variables using a C++ CR-FM-NES implementation, interfaced via Python using ctypes. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para>OptimizeResult <link linkend="_namespacefcmaes_1_1crfmnescpp_1ae1a2ee01cfe0465cbd01fbb78c4fbb89">minimize</link> (Callable[[ArrayLike], float] fun, Optional[Bounds] bounds=None, Optional[ArrayLike] x0=None, input_sigma=0.3, popsize=32, max_evaluations=100000, workers=None, stop_fitness=-np.inf, rg=Generator(PCG64DXSM()), runid=0, normalize=False, use_constraint_violation=True, penalty_coef=1E5)</para>
+
+<para>Minimizes a given objective function using the Covariance Matrix Adaptation Evolution Strategy with Constraint Handling (CR-FM-NES). </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Variables    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_namespacefcmaes_1_1crfmnescpp_1ab1e7635b7e619545987ebfc9380c88e4">optimizeCRFMNES_C</link> = libcmalib.optimizeCRFMNES_C</para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1crfmnescpp_1abc206b02ad5c66cfa53e924f992c530e">argtypes</link></para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1crfmnescpp_1a9084cdfaf4cdbde49738fac2a361d8a1">initCRFMNES_C</link> = libcmalib.initCRFMNES_C</para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1crfmnescpp_1a854e412144de71ef17b09d594acbd0e9">restype</link></para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1crfmnescpp_1a2049b510a55914b1482f4f4b188e557f">destroyCRFMNES_C</link> = libcmalib.destroyCRFMNES_C</para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1crfmnescpp_1a0414b501fcc51390ff9f8dfe00b73910">askCRFMNES_C</link> = libcmalib.askCRFMNES_C</para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1crfmnescpp_1aa685b7d7f9e93560a1f6f08a3984a2f1">tellCRFMNES_C</link> = libcmalib.tellCRFMNES_C</para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1crfmnescpp_1a4c655199ab31427cfb2afbdcdcd8dc68">populationCRFMNES_C</link> = libcmalib.populationCRFMNES_C</para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1crfmnescpp_1a248d281b148a66ee941821abcdb364c4">resultCRFMNES_C</link> = libcmalib.resultCRFMNES_C</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Function Documentation</title>
+<anchor xml:id="_namespacefcmaes_1_1crfmnescpp_1ae1a2ee01cfe0465cbd01fbb78c4fbb89"/><section>
+    <title>minimize()</title>
+<indexterm><primary>minimize</primary><secondary>fcmaes.crfmnescpp</secondary></indexterm>
+<indexterm><primary>fcmaes.crfmnescpp</primary><secondary>minimize</secondary></indexterm>
+<para><computeroutput> OptimizeResult fcmaes.crfmnescpp.minimize (Callable[[ArrayLike], float] fun, Optional[Bounds]  bounds = <computeroutput>None</computeroutput>
+, Optional[ArrayLike]  x0 = <computeroutput>None</computeroutput>
+,  input_sigma = <computeroutput>0.3</computeroutput>
+,  popsize = <computeroutput>32</computeroutput>
+,  max_evaluations = <computeroutput>100000</computeroutput>
+,  workers = <computeroutput>None</computeroutput>
+,  stop_fitness = <computeroutput>-np.inf</computeroutput>
+,  rg = <computeroutput>Generator(PCG64DXSM())</computeroutput>
+,  runid = <computeroutput>0</computeroutput>
+,  normalize = <computeroutput>False</computeroutput>
+,  use_constraint_violation = <computeroutput>True</computeroutput>
+,  penalty_coef = <computeroutput>1E5</computeroutput>
+)</computeroutput></para><para>
+
+<para>Minimizes a given objective function using the Covariance Matrix Adaptation Evolution Strategy with Constraint Handling (CR-FM-NES). </para>
+</para>
+
+<para>The optimization adjusts variables within the provided bounds to achieve the minimum value of the given objective function.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>fun</entry><entry>
+<para>The objective function to be minimized. It should be a callable that takes an array-like structure as input and returns a float value as output. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>bounds</entry><entry>
+<para>Optional bounds for the variables as a <computeroutput>Bounds</computeroutput> object. If not specified, the search is unbounded. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>x0</entry><entry>
+<para>Optional initial guess for the independent variables as an array-like structure. If not provided, it is created randomly within the bounds. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>input_sigma</entry><entry>
+<para>Initial step size(s) for the search. It can be a float or callable providing an initial sigma value. If multi-dimensional, the mean is used. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>popsize</entry><entry>
+<para>The population size for the evolution. Must be an even number. If not specified, defaults to 32. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>max_evaluations</entry><entry>
+<para>The maximum number of function evaluations allowed during optimization. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>workers</entry><entry>
+<para>Number of parallel workers to use for evaluation. If <computeroutput>None</computeroutput> or <computeroutput>workers</computeroutput> &lt;= 1, no parallelism is applied. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>stop_fitness</entry><entry>
+<para>The fitness value at which the optimization halts if surpassed. Default is negative infinity. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>rg</entry><entry>
+<para>A random generator to control stochastic behavior. Defaults to an instance of <computeroutput>Generator</computeroutput> with a <computeroutput>PCG64DXSM</computeroutput> bit generator. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>runid</entry><entry>
+<para>An identifier for this particular optimization run. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>normalize</entry><entry>
+<para>A boolean indicating whether to normalize the variables to the [0, 1] range during optimization. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>use_constraint_violation</entry><entry>
+<para>Whether to apply penalty-based handling for constraint violations during optimization. Defaults to True. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>penalty_coef</entry><entry>
+<para>Penalty coefficient for constraint violation handling. Default is 1E5.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>OptimizeResult An object containing the optimization results, such as the optimized variables (<computeroutput>x</computeroutput>), the function value at the solution (<computeroutput>fun</computeroutput>), the number of function evaluations performed (<computeroutput>nfev</computeroutput>), the number of iterations (<computeroutput>nit</computeroutput>), the exit status code (<computeroutput>status</computeroutput>), and whether the optimization was successful (<computeroutput>success</computeroutput>).</para>
+</formalpara>
+
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>Exception</entry><entry>
+<para>Raises an exception if the optimization failed, and an empty `OptimizeResult` is returned with default attributes indicating failure. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_crfmnescpp_8py_source_1l00095">95</link> of file <link linkend="_crfmnescpp_8py_source">crfmnescpp.py</link>.</para>
+</section>
+</section>
+<section>
+<title>Variable Documentation</title>
+<anchor xml:id="_namespacefcmaes_1_1crfmnescpp_1abc206b02ad5c66cfa53e924f992c530e"/><section>
+    <title>argtypes</title>
+<indexterm><primary>argtypes</primary><secondary>fcmaes.crfmnescpp</secondary></indexterm>
+<indexterm><primary>fcmaes.crfmnescpp</primary><secondary>argtypes</secondary></indexterm>
+<para><computeroutput>fcmaes.crfmnescpp.argtypes</computeroutput></para><para>
+Definition at line <link linkend="_crfmnescpp_8py_source_1l00357">357</link> of file <link linkend="_crfmnescpp_8py_source">crfmnescpp.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1crfmnescpp_1a0414b501fcc51390ff9f8dfe00b73910"/><section>
+    <title>askCRFMNES_C</title>
+<indexterm><primary>askCRFMNES_C</primary><secondary>fcmaes.crfmnescpp</secondary></indexterm>
+<indexterm><primary>fcmaes.crfmnescpp</primary><secondary>askCRFMNES_C</secondary></indexterm>
+<para><computeroutput>fcmaes.crfmnescpp.askCRFMNES_C = libcmalib.askCRFMNES_C</computeroutput></para><para>
+Definition at line <link linkend="_crfmnescpp_8py_source_1l00375">375</link> of file <link linkend="_crfmnescpp_8py_source">crfmnescpp.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1crfmnescpp_1a2049b510a55914b1482f4f4b188e557f"/><section>
+    <title>destroyCRFMNES_C</title>
+<indexterm><primary>destroyCRFMNES_C</primary><secondary>fcmaes.crfmnescpp</secondary></indexterm>
+<indexterm><primary>fcmaes.crfmnescpp</primary><secondary>destroyCRFMNES_C</secondary></indexterm>
+<para><computeroutput>fcmaes.crfmnescpp.destroyCRFMNES_C = libcmalib.destroyCRFMNES_C</computeroutput></para><para>
+Definition at line <link linkend="_crfmnescpp_8py_source_1l00372">372</link> of file <link linkend="_crfmnescpp_8py_source">crfmnescpp.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1crfmnescpp_1a9084cdfaf4cdbde49738fac2a361d8a1"/><section>
+    <title>initCRFMNES_C</title>
+<indexterm><primary>initCRFMNES_C</primary><secondary>fcmaes.crfmnescpp</secondary></indexterm>
+<indexterm><primary>fcmaes.crfmnescpp</primary><secondary>initCRFMNES_C</secondary></indexterm>
+<para><computeroutput>fcmaes.crfmnescpp.initCRFMNES_C = libcmalib.initCRFMNES_C</computeroutput></para><para>
+Definition at line <link linkend="_crfmnescpp_8py_source_1l00363">363</link> of file <link linkend="_crfmnescpp_8py_source">crfmnescpp.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1crfmnescpp_1ab1e7635b7e619545987ebfc9380c88e4"/><section>
+    <title>optimizeCRFMNES_C</title>
+<indexterm><primary>optimizeCRFMNES_C</primary><secondary>fcmaes.crfmnescpp</secondary></indexterm>
+<indexterm><primary>fcmaes.crfmnescpp</primary><secondary>optimizeCRFMNES_C</secondary></indexterm>
+<para><computeroutput>fcmaes.crfmnescpp.optimizeCRFMNES_C = libcmalib.optimizeCRFMNES_C</computeroutput></para><para>
+Definition at line <link linkend="_crfmnescpp_8py_source_1l00356">356</link> of file <link linkend="_crfmnescpp_8py_source">crfmnescpp.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1crfmnescpp_1a4c655199ab31427cfb2afbdcdcd8dc68"/><section>
+    <title>populationCRFMNES_C</title>
+<indexterm><primary>populationCRFMNES_C</primary><secondary>fcmaes.crfmnescpp</secondary></indexterm>
+<indexterm><primary>fcmaes.crfmnescpp</primary><secondary>populationCRFMNES_C</secondary></indexterm>
+<para><computeroutput>fcmaes.crfmnescpp.populationCRFMNES_C = libcmalib.populationCRFMNES_C</computeroutput></para><para>
+Definition at line <link linkend="_crfmnescpp_8py_source_1l00382">382</link> of file <link linkend="_crfmnescpp_8py_source">crfmnescpp.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1crfmnescpp_1a854e412144de71ef17b09d594acbd0e9"/><section>
+    <title>restype</title>
+<indexterm><primary>restype</primary><secondary>fcmaes.crfmnescpp</secondary></indexterm>
+<indexterm><primary>fcmaes.crfmnescpp</primary><secondary>restype</secondary></indexterm>
+<para><computeroutput>fcmaes.crfmnescpp.restype</computeroutput></para><para>
+Definition at line <link linkend="_crfmnescpp_8py_source_1l00370">370</link> of file <link linkend="_crfmnescpp_8py_source">crfmnescpp.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1crfmnescpp_1a248d281b148a66ee941821abcdb364c4"/><section>
+    <title>resultCRFMNES_C</title>
+<indexterm><primary>resultCRFMNES_C</primary><secondary>fcmaes.crfmnescpp</secondary></indexterm>
+<indexterm><primary>fcmaes.crfmnescpp</primary><secondary>resultCRFMNES_C</secondary></indexterm>
+<para><computeroutput>fcmaes.crfmnescpp.resultCRFMNES_C = libcmalib.resultCRFMNES_C</computeroutput></para><para>
+Definition at line <link linkend="_crfmnescpp_8py_source_1l00385">385</link> of file <link linkend="_crfmnescpp_8py_source">crfmnescpp.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1crfmnescpp_1aa685b7d7f9e93560a1f6f08a3984a2f1"/><section>
+    <title>tellCRFMNES_C</title>
+<indexterm><primary>tellCRFMNES_C</primary><secondary>fcmaes.crfmnescpp</secondary></indexterm>
+<indexterm><primary>fcmaes.crfmnescpp</primary><secondary>tellCRFMNES_C</secondary></indexterm>
+<para><computeroutput>fcmaes.crfmnescpp.tellCRFMNES_C = libcmalib.tellCRFMNES_C</computeroutput></para><para>
+Definition at line <link linkend="_crfmnescpp_8py_source_1l00378">378</link> of file <link linkend="_crfmnescpp_8py_source">crfmnescpp.py</link>.</para>
+</section>
+</section>
+</section>

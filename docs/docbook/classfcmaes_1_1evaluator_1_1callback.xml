@@ -1,0 +1,167 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_classfcmaes_1_1evaluator_1_1callback" xml:lang="en-US">
+<title>fcmaes.evaluator.callback Class Reference</title>
+<indexterm><primary>fcmaes.evaluator.callback</primary></indexterm>
+<para>
+
+<para>Represents a callable object to evaluate a function with input processing. </para>
+ 
+</para>
+Collaboration diagram for fcmaes.evaluator.callback:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1evaluator_1_1callback__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Public Member Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1evaluator_1_1callback_1aef60897b34bf16817406ca5d76f96acd">__init__</link> (self, Callable[[ArrayLike], float] <link linkend="_classfcmaes_1_1evaluator_1_1callback_1af1faa34e6c01adde25dc4c8daadf66a9">fun</link>)</para>
+
+<para>Initializes a callable function to be used. </para>
+</listitem>
+            <listitem><para>float <link linkend="_classfcmaes_1_1evaluator_1_1callback_1a2725c10a3383f79e36a236de01c56c53">__call__</link> (self, int n, ArrayLike x)</para>
+
+<para>Evaluates a function with input values derived from an array slice, returning a numerical result. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Public Attributes    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1evaluator_1_1callback_1af1faa34e6c01adde25dc4c8daadf66a9">fun</link> = fun</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>Represents a callable object to evaluate a function with input processing. </para>
+
+
+
+<para>This class serves as a wrapper for a given function, enabling it to be called with processed inputs. It evaluates the function on a subset of inputs, applies type conversion, and ensures that non-finite results are replaced with a fallback maximum float value.</para>
+
+<para><literallayout><computeroutput>   fun (Callable[[ArrayLike], float]): The function to be evaluated,
+       which takes an ArrayLike input and returns a float.
+</computeroutput></literallayout> </para>
+<para>
+Definition at line <link linkend="_evaluator_8py_source_1l00693">693</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+</section>
+<section>
+<title>Constructor &amp; Destructor Documentation</title>
+<anchor xml:id="_classfcmaes_1_1evaluator_1_1callback_1aef60897b34bf16817406ca5d76f96acd"/><section>
+    <title>__init__()</title>
+<indexterm><primary>__init__</primary><secondary>fcmaes.evaluator.callback</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator.callback</primary><secondary>__init__</secondary></indexterm>
+<para><computeroutput>fcmaes.evaluator.callback.__init__ ( self, Callable[[ArrayLike], float] fun)</computeroutput></para><para>
+
+<para>Initializes a callable function to be used. </para>
+</para>
+
+<para><literallayout><computeroutput>       fun (Callable[[ArrayLike], float]): A function that operates on an ArrayLike
+           object and returns a float.
+</computeroutput></literallayout> </para>
+<para>
+Definition at line <link linkend="_evaluator_8py_source_1l00701">701</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Function Documentation</title>
+<anchor xml:id="_classfcmaes_1_1evaluator_1_1callback_1a2725c10a3383f79e36a236de01c56c53"/><section>
+    <title>__call__()</title>
+<indexterm><primary>__call__</primary><secondary>fcmaes.evaluator.callback</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator.callback</primary><secondary>__call__</secondary></indexterm>
+<para><computeroutput> float fcmaes.evaluator.callback.__call__ ( self, int n, ArrayLike x)</computeroutput></para><para>
+
+<para>Evaluates a function with input values derived from an array slice, returning a numerical result. </para>
+</para>
+
+<para>If the result is not finite or an error occurs during computation, it returns the maximum finite float value.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>n</entry><entry>
+<para>The number of elements to consider from the array <computeroutput>x</computeroutput>. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>x</entry><entry>
+<para>An array-like object containing input values.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>float The computed result of the function or the maximum finite float value in case of an error or non-finite result.</para>
+</formalpara>
+
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>Exception</entry><entry>
+<para>Any exception encountered during the computation of the function will be caught, and the maximum float value will be returned </para>
+</entry>
+                            </row>
+                            <row>
+<entry>instead.</entry><entry>
+<para></para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_evaluator_8py_source_1l00723">723</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1evaluator_1_1callback_a2725c10a3383f79e36a236de01c56c53_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+<section>
+<title>Member Data Documentation</title>
+<anchor xml:id="_classfcmaes_1_1evaluator_1_1callback_1af1faa34e6c01adde25dc4c8daadf66a9"/><section>
+    <title>fun</title>
+<indexterm><primary>fun</primary><secondary>fcmaes.evaluator.callback</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator.callback</primary><secondary>fun</secondary></indexterm>
+<para><computeroutput>fcmaes.evaluator.callback.fun = fun</computeroutput></para><para>
+Definition at line <link linkend="_evaluator_8py_source_1l00702">702</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+</section>
+<para>
+The documentation for this class was generated from the following file:</para>
+fcmaes/<link linkend="_evaluator_8py">evaluator.py</link></section>
+</section>

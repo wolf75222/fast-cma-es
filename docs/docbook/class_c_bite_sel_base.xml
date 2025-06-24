@@ -1,0 +1,543 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_class_c_bite_sel_base" xml:lang="en-US">
+<title>CBiteSelBase Class Reference</title>
+<indexterm><primary>CBiteSelBase</primary></indexterm>
+<para>
+<computeroutput>#include &lt;biteaux.h&gt;</computeroutput>
+</para>
+Inheritance diagram for CBiteSelBase:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="class_c_bite_sel_base__inherit__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Collaboration diagram for CBiteSelBase:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="class_c_bite_sel_base__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Public Member Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_class_c_bite_sel_base_1ad36767758d2812ffdaa59d074b30099f">CBiteSelBase</link> (const int aCount)</para>
+</listitem>
+            <listitem><para><link linkend="_class_c_bite_sel_base_1a7b8a0dd2ad7a7031bfa968ff52189ab4">~CBiteSelBase</link> ()</para>
+</listitem>
+            <listitem><para>void <link linkend="_class_c_bite_sel_base_1a608b89514f2f4430e4e0a6ff6660c7cf">reset</link> (<link linkend="_class_c_bite_rnd">CBiteRnd</link> &amp;rnd, const int ParamCount)</para>
+</listitem>
+            <listitem><para>int <link linkend="_class_c_bite_sel_base_1a29da0dce87d2b658c696a1094367ef85">getChoiceCount</link> () const</para>
+</listitem>
+            <listitem><para>void <link linkend="_class_c_bite_sel_base_1aa1de251ac8527c6d77286c7aec210871">incr</link> (<link linkend="_class_c_bite_rnd">CBiteRnd</link> &amp;rnd, const double v=1.0)</para>
+</listitem>
+            <listitem><para>void <link linkend="_class_c_bite_sel_base_1ae8cab652e5ae42278ab060a3eb2513a2">decr</link> (<link linkend="_class_c_bite_rnd">CBiteRnd</link> &amp;rnd)</para>
+</listitem>
+            <listitem><para>int <link linkend="_class_c_bite_sel_base_1a8057363e3d0feb4fc8e23957a8806245">select</link> (<link linkend="_class_c_bite_rnd">CBiteRnd</link> &amp;rnd)</para>
+</listitem>
+            <listitem><para>int <link linkend="_class_c_bite_sel_base_1a94dd22328f70ff750a5cf088dcc5f18a">getSel</link> () const</para>
+</listitem>
+            <listitem><para>void <link linkend="_class_c_bite_sel_base_1a72e40d55a22571f3f55c977069aca42a">unsetIsSelected</link> ()</para>
+</listitem>
+            <listitem><para>bool <link linkend="_class_c_bite_sel_base_1a2543edb14cb215f3738564da2a236f93">getIsSelected</link> () const</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Protected Attributes    </title>
+        <itemizedlist>
+            <listitem><para>int <link linkend="_class_c_bite_sel_base_1aa9533e60d72366596dad8fcbf1d58546">Count</link></para>
+
+<para>The number of choices in use. </para>
+</listitem>
+            <listitem><para>int <link linkend="_class_c_bite_sel_base_1ae40825798948f1f8fb0f2e856001d81c">SparseMul</link></para>
+</listitem>
+            <listitem><para>int <link linkend="_class_c_bite_sel_base_1a8514c1122bad5eb24f3faecb3dde66dc">CountSp</link></para>
+
+<para>vector. </para>
+</listitem>
+            <listitem><para>int <link linkend="_class_c_bite_sel_base_1a861068aef7d05de32e3cf5b0b8cc9640">CountSp1</link></para>
+
+<para>= CountSp - 1. </para>
+</listitem>
+            <listitem><para>double <link linkend="_class_c_bite_sel_base_1a99f44ba4532f2f16cc0d347c8d8690dc">AccumCoeff</link></para>
+</listitem>
+            <listitem><para>double <link linkend="_class_c_bite_sel_base_1a74f1cdec6aa5ef6bfe2950371d7ad2b8">SlotAccums</link> [<link linkend="_class_c_bite_sel_base_1a81268a0bafd308583dc5a525c51cd5e7">SlotCount</link>]</para>
+
+<para>Slot score accumulators. </para>
+</listitem>
+            <listitem><para>int * <link linkend="_class_c_bite_sel_base_1a020042ee4772e7f05de9e2c31e44009e">Sels</link> [<link linkend="_class_c_bite_sel_base_1a81268a0bafd308583dc5a525c51cd5e7">SlotCount</link>]</para>
+
+<para>Choice vectors. </para>
+</listitem>
+            <listitem><para>int * <link linkend="_class_c_bite_sel_base_1a2cbe3935a3e6c218ad4ef402d45f43b3">SelBuf</link></para>
+
+<para>A singular buffer for Sels vectors. </para>
+</listitem>
+            <listitem><para>int <link linkend="_class_c_bite_sel_base_1a80e8dd1e42d0e8b1ed60c8a005be5cee">SelBufCapacity</link></para>
+
+<para>Capacity of SelBuf. </para>
+</listitem>
+            <listitem><para>int <link linkend="_class_c_bite_sel_base_1a90376539edbd802257bc22edd557dbe9">Sel</link></para>
+
+<para><link linkend="_class_c_bite_sel_base_1a8057363e3d0feb4fc8e23957a8806245">select()</link> function calls. </para>
+</listitem>
+            <listitem><para>int <link linkend="_class_c_bite_sel_base_1a96580bfdc4f144d3bb84edbf12f2e270">Selp</link></para>
+
+<para>The index of the choice in the Sels vector. </para>
+</listitem>
+            <listitem><para>int <link linkend="_class_c_bite_sel_base_1a26c67f4680fbbb93c5041a82c5413936">Slot</link></para>
+
+<para>The current Sels vector, depending on incr/decr. </para>
+</listitem>
+            <listitem><para>bool <link linkend="_class_c_bite_sel_base_1a3a4c0030d8667e0b827e703384266510">IsSelected</link></para>
+
+<para>&quot;True&quot; if selection was recently made. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Static Protected Attributes    </title>
+        <itemizedlist>
+            <listitem><para>static const int <link linkend="_class_c_bite_sel_base_1a81268a0bafd308583dc5a525c51cd5e7">SlotCount</link> = 5</para>
+
+<para>The number of choice vectors in use. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>Probabilistic selector class. Used to keep track of success of various choices. Updates probabilities of future choices based on the selection outcome.</para>
+
+<para>The current implementation uses bubble-sort-alike method to update a sparse vector of possible choices. The selection is made as a weighted-random draw of a value from this vector. Previously, the class used simple statistical accumulation of optimization outcomes, to derive probabilites. The current approach is superior in that it has no &quot;memory effects&quot; associated with statistical accumulation.</para>
+
+<para>The purpose of the class is to increase a chance of generating an acceptable solution. In practice, this class provides 10-15% more &quot;good&quot; solutions compared to uniformly-random choice selection. This, in turn, improves convergence smoothness and produces more diversity in outcomes in multiple solution attempts of complex multi-modal objective functions. </para>
+<para>
+Definition at line <link linkend="_biteaux_8h_source_1l00390">390</link> of file <link linkend="_biteaux_8h_source">biteaux.h</link>.</para>
+</section>
+<section>
+<title>Constructor &amp; Destructor Documentation</title>
+<anchor xml:id="_class_c_bite_sel_base_1ad36767758d2812ffdaa59d074b30099f"/><section>
+    <title>CBiteSelBase()</title>
+<indexterm><primary>CBiteSelBase</primary><secondary>CBiteSelBase</secondary></indexterm>
+<indexterm><primary>CBiteSelBase</primary><secondary>CBiteSelBase</secondary></indexterm>
+<para><computeroutput>CBiteSelBase::CBiteSelBase (const int aCount)<computeroutput>[inline]</computeroutput></computeroutput></para>
+<para>Constructor.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>Count</entry><entry>
+<para>The number of possible choices, greater than 1. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_biteaux_8h_source_1l00399">399</link> of file <link linkend="_biteaux_8h_source">biteaux.h</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="class_c_bite_sel_base_ad36767758d2812ffdaa59d074b30099f_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_class_c_bite_sel_base_1a7b8a0dd2ad7a7031bfa968ff52189ab4"/><section>
+    <title>~CBiteSelBase()</title>
+<indexterm><primary>~CBiteSelBase</primary><secondary>CBiteSelBase</secondary></indexterm>
+<indexterm><primary>CBiteSelBase</primary><secondary>~CBiteSelBase</secondary></indexterm>
+<para><computeroutput>CBiteSelBase::~CBiteSelBase ( )<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_biteaux_8h_source_1l00406">406</link> of file <link linkend="_biteaux_8h_source">biteaux.h</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Function Documentation</title>
+<anchor xml:id="_class_c_bite_sel_base_1ae8cab652e5ae42278ab060a3eb2513a2"/><section>
+    <title>decr()</title>
+<indexterm><primary>decr</primary><secondary>CBiteSelBase</secondary></indexterm>
+<indexterm><primary>CBiteSelBase</primary><secondary>decr</secondary></indexterm>
+<para><computeroutput>void CBiteSelBase::decr (<link linkend="_class_c_bite_rnd">CBiteRnd</link> &amp; rnd)<computeroutput>[inline]</computeroutput></computeroutput></para>
+<para>This function should be called when a certain choice is a failure. This function should only be called after a prior <link linkend="_class_c_bite_sel_base_1a8057363e3d0feb4fc8e23957a8806245">select()</link> calls.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>rnd</entry><entry>
+<para>PRNG object. May not be used. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_biteaux_8h_source_1l00543">543</link> of file <link linkend="_biteaux_8h_source">biteaux.h</link>.</para>
+</section>
+<anchor xml:id="_class_c_bite_sel_base_1a29da0dce87d2b658c696a1094367ef85"/><section>
+    <title>getChoiceCount()</title>
+<indexterm><primary>getChoiceCount</primary><secondary>CBiteSelBase</secondary></indexterm>
+<indexterm><primary>CBiteSelBase</primary><secondary>getChoiceCount</secondary></indexterm>
+<para><computeroutput>int CBiteSelBase::getChoiceCount ( ) const<computeroutput>[inline]</computeroutput></computeroutput></para>
+<para>An auxiliary function that returns choice count. </para>
+<para>
+Definition at line <link linkend="_biteaux_8h_source_1l00480">480</link> of file <link linkend="_biteaux_8h_source">biteaux.h</link>.</para>
+</section>
+<anchor xml:id="_class_c_bite_sel_base_1a2543edb14cb215f3738564da2a236f93"/><section>
+    <title>getIsSelected()</title>
+<indexterm><primary>getIsSelected</primary><secondary>CBiteSelBase</secondary></indexterm>
+<indexterm><primary>CBiteSelBase</primary><secondary>getIsSelected</secondary></indexterm>
+<para><computeroutput>bool CBiteSelBase::getIsSelected ( ) const<computeroutput>[inline]</computeroutput></computeroutput></para>
+<para>Function returns &quot;true&quot; if the selection was made since the recent increment or decrement. </para>
+<para>
+Definition at line <link linkend="_biteaux_8h_source_1l00615">615</link> of file <link linkend="_biteaux_8h_source">biteaux.h</link>.</para>
+</section>
+<anchor xml:id="_class_c_bite_sel_base_1a94dd22328f70ff750a5cf088dcc5f18a"/><section>
+    <title>getSel()</title>
+<indexterm><primary>getSel</primary><secondary>CBiteSelBase</secondary></indexterm>
+<indexterm><primary>CBiteSelBase</primary><secondary>getSel</secondary></indexterm>
+<para><computeroutput>int CBiteSelBase::getSel ( ) const<computeroutput>[inline]</computeroutput></computeroutput></para>
+<para>Function returns the latest made choice index. </para>
+<para>
+Definition at line <link linkend="_biteaux_8h_source_1l00596">596</link> of file <link linkend="_biteaux_8h_source">biteaux.h</link>.</para>
+</section>
+<anchor xml:id="_class_c_bite_sel_base_1aa1de251ac8527c6d77286c7aec210871"/><section>
+    <title>incr()</title>
+<indexterm><primary>incr</primary><secondary>CBiteSelBase</secondary></indexterm>
+<indexterm><primary>CBiteSelBase</primary><secondary>incr</secondary></indexterm>
+<para><computeroutput>void CBiteSelBase::incr (<link linkend="_class_c_bite_rnd">CBiteRnd</link> &amp; rnd, const double v = <computeroutput>1.0</computeroutput>
+)<computeroutput>[inline]</computeroutput></computeroutput></para>
+<para>This function should be called when a certain choice is successful. This function should only be called after a prior <link linkend="_class_c_bite_sel_base_1a8057363e3d0feb4fc8e23957a8806245">select()</link> calls.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>rnd</entry><entry>
+<para>PRNG object. May not be used. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>v</entry><entry>
+<para>Selection increment value (success score), [0; 1]. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_biteaux_8h_source_1l00493">493</link> of file <link linkend="_biteaux_8h_source">biteaux.h</link>.</para>
+</section>
+<anchor xml:id="_class_c_bite_sel_base_1a608b89514f2f4430e4e0a6ff6660c7cf"/><section>
+    <title>reset()</title>
+<indexterm><primary>reset</primary><secondary>CBiteSelBase</secondary></indexterm>
+<indexterm><primary>CBiteSelBase</primary><secondary>reset</secondary></indexterm>
+<para><computeroutput>void CBiteSelBase::reset (<link linkend="_class_c_bite_rnd">CBiteRnd</link> &amp; rnd, const int ParamCount)<computeroutput>[inline]</computeroutput></computeroutput></para>
+<para>This function resets *this object, should be called before calling other functions, including after object&apos;s construction.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>rnd</entry><entry>
+<para>PRNG object. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>ParamCount</entry><entry>
+<para>The number of dimensions being optimized. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_biteaux_8h_source_1l00419">419</link> of file <link linkend="_biteaux_8h_source">biteaux.h</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="class_c_bite_sel_base_a608b89514f2f4430e4e0a6ff6660c7cf_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="class_c_bite_sel_base_a608b89514f2f4430e4e0a6ff6660c7cf_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_class_c_bite_sel_base_1a8057363e3d0feb4fc8e23957a8806245"/><section>
+    <title>select()</title>
+<indexterm><primary>select</primary><secondary>CBiteSelBase</secondary></indexterm>
+<indexterm><primary>CBiteSelBase</primary><secondary>select</secondary></indexterm>
+<para><computeroutput>int CBiteSelBase::select (<link linkend="_class_c_bite_rnd">CBiteRnd</link> &amp; rnd)<computeroutput>[inline]</computeroutput></computeroutput></para>
+<para>Function produces a random choice index based on the current *this object&apos;s state. Note that &quot;select&quot; functions can only be called once for a given *this object during the optimize() function call.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>rnd</entry><entry>
+<para>PRNG object. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_biteaux_8h_source_1l00581">581</link> of file <link linkend="_biteaux_8h_source">biteaux.h</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="class_c_bite_sel_base_a8057363e3d0feb4fc8e23957a8806245_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="class_c_bite_sel_base_a8057363e3d0feb4fc8e23957a8806245_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_class_c_bite_sel_base_1a72e40d55a22571f3f55c977069aca42a"/><section>
+    <title>unsetIsSelected()</title>
+<indexterm><primary>unsetIsSelected</primary><secondary>CBiteSelBase</secondary></indexterm>
+<indexterm><primary>CBiteSelBase</primary><secondary>unsetIsSelected</secondary></indexterm>
+<para><computeroutput>void CBiteSelBase::unsetIsSelected ( )<computeroutput>[inline]</computeroutput></computeroutput></para>
+<para>Function sets IsSelected value to &quot;false&quot;. </para>
+<para>
+Definition at line <link linkend="_biteaux_8h_source_1l00605">605</link> of file <link linkend="_biteaux_8h_source">biteaux.h</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Data Documentation</title>
+<anchor xml:id="_class_c_bite_sel_base_1a99f44ba4532f2f16cc0d347c8d8690dc"/><section>
+    <title>AccumCoeff</title>
+<indexterm><primary>AccumCoeff</primary><secondary>CBiteSelBase</secondary></indexterm>
+<indexterm><primary>CBiteSelBase</primary><secondary>AccumCoeff</secondary></indexterm>
+<para><computeroutput>double CBiteSelBase::AccumCoeff<computeroutput>[protected]</computeroutput></computeroutput></para>
+<para>Slot score accumulator coefficient, depends on objective function&apos;s dimensions. Works as an &quot;inertia&quot; for the slot&apos;s score. </para>
+<para>
+Definition at line <link linkend="_biteaux_8h_source_1l00629">629</link> of file <link linkend="_biteaux_8h_source">biteaux.h</link>.</para>
+</section>
+<anchor xml:id="_class_c_bite_sel_base_1aa9533e60d72366596dad8fcbf1d58546"/><section>
+    <title>Count</title>
+<indexterm><primary>Count</primary><secondary>CBiteSelBase</secondary></indexterm>
+<indexterm><primary>CBiteSelBase</primary><secondary>Count</secondary></indexterm>
+<para><computeroutput>int CBiteSelBase::Count<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+
+<para>The number of choices in use. </para>
+</para>
+<para>
+Definition at line <link linkend="_biteaux_8h_source_1l00622">622</link> of file <link linkend="_biteaux_8h_source">biteaux.h</link>.</para>
+</section>
+<anchor xml:id="_class_c_bite_sel_base_1a8514c1122bad5eb24f3faecb3dde66dc"/><section>
+    <title>CountSp</title>
+<indexterm><primary>CountSp</primary><secondary>CBiteSelBase</secondary></indexterm>
+<indexterm><primary>CBiteSelBase</primary><secondary>CountSp</secondary></indexterm>
+<para><computeroutput>int CBiteSelBase::CountSp<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+
+<para>vector. </para>
+</para>
+
+<para>= Count * SparseMul. The actual length of the choice </para>
+<para>
+Definition at line <link linkend="_biteaux_8h_source_1l00626">626</link> of file <link linkend="_biteaux_8h_source">biteaux.h</link>.</para>
+</section>
+<anchor xml:id="_class_c_bite_sel_base_1a861068aef7d05de32e3cf5b0b8cc9640"/><section>
+    <title>CountSp1</title>
+<indexterm><primary>CountSp1</primary><secondary>CBiteSelBase</secondary></indexterm>
+<indexterm><primary>CBiteSelBase</primary><secondary>CountSp1</secondary></indexterm>
+<para><computeroutput>int CBiteSelBase::CountSp1<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+
+<para>= CountSp - 1. </para>
+</para>
+<para>
+Definition at line <link linkend="_biteaux_8h_source_1l00628">628</link> of file <link linkend="_biteaux_8h_source">biteaux.h</link>.</para>
+</section>
+<anchor xml:id="_class_c_bite_sel_base_1a3a4c0030d8667e0b827e703384266510"/><section>
+    <title>IsSelected</title>
+<indexterm><primary>IsSelected</primary><secondary>CBiteSelBase</secondary></indexterm>
+<indexterm><primary>CBiteSelBase</primary><secondary>IsSelected</secondary></indexterm>
+<para><computeroutput>bool CBiteSelBase::IsSelected<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+
+<para>&quot;True&quot; if selection was recently made. </para>
+</para>
+<para>
+Definition at line <link linkend="_biteaux_8h_source_1l00640">640</link> of file <link linkend="_biteaux_8h_source">biteaux.h</link>.</para>
+</section>
+<anchor xml:id="_class_c_bite_sel_base_1a90376539edbd802257bc22edd557dbe9"/><section>
+    <title>Sel</title>
+<indexterm><primary>Sel</primary><secondary>CBiteSelBase</secondary></indexterm>
+<indexterm><primary>CBiteSelBase</primary><secondary>Sel</secondary></indexterm>
+<para><computeroutput>int CBiteSelBase::Sel<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+
+<para><link linkend="_class_c_bite_sel_base_1a8057363e3d0feb4fc8e23957a8806245">select()</link> function calls. </para>
+</para>
+
+<para>The latest selected choice. Available only after the </para>
+<para>
+Definition at line <link linkend="_biteaux_8h_source_1l00636">636</link> of file <link linkend="_biteaux_8h_source">biteaux.h</link>.</para>
+</section>
+<anchor xml:id="_class_c_bite_sel_base_1a2cbe3935a3e6c218ad4ef402d45f43b3"/><section>
+    <title>SelBuf</title>
+<indexterm><primary>SelBuf</primary><secondary>CBiteSelBase</secondary></indexterm>
+<indexterm><primary>CBiteSelBase</primary><secondary>SelBuf</secondary></indexterm>
+<para><computeroutput>int* CBiteSelBase::SelBuf<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+
+<para>A singular buffer for Sels vectors. </para>
+</para>
+<para>
+Definition at line <link linkend="_biteaux_8h_source_1l00634">634</link> of file <link linkend="_biteaux_8h_source">biteaux.h</link>.</para>
+</section>
+<anchor xml:id="_class_c_bite_sel_base_1a80e8dd1e42d0e8b1ed60c8a005be5cee"/><section>
+    <title>SelBufCapacity</title>
+<indexterm><primary>SelBufCapacity</primary><secondary>CBiteSelBase</secondary></indexterm>
+<indexterm><primary>CBiteSelBase</primary><secondary>SelBufCapacity</secondary></indexterm>
+<para><computeroutput>int CBiteSelBase::SelBufCapacity<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+
+<para>Capacity of SelBuf. </para>
+</para>
+<para>
+Definition at line <link linkend="_biteaux_8h_source_1l00635">635</link> of file <link linkend="_biteaux_8h_source">biteaux.h</link>.</para>
+</section>
+<anchor xml:id="_class_c_bite_sel_base_1a96580bfdc4f144d3bb84edbf12f2e270"/><section>
+    <title>Selp</title>
+<indexterm><primary>Selp</primary><secondary>CBiteSelBase</secondary></indexterm>
+<indexterm><primary>CBiteSelBase</primary><secondary>Selp</secondary></indexterm>
+<para><computeroutput>int CBiteSelBase::Selp<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+
+<para>The index of the choice in the Sels vector. </para>
+</para>
+<para>
+Definition at line <link linkend="_biteaux_8h_source_1l00638">638</link> of file <link linkend="_biteaux_8h_source">biteaux.h</link>.</para>
+</section>
+<anchor xml:id="_class_c_bite_sel_base_1a020042ee4772e7f05de9e2c31e44009e"/><section>
+    <title>Sels</title>
+<indexterm><primary>Sels</primary><secondary>CBiteSelBase</secondary></indexterm>
+<indexterm><primary>CBiteSelBase</primary><secondary>Sels</secondary></indexterm>
+<para><computeroutput>int* CBiteSelBase::Sels[<link linkend="_class_c_bite_sel_base_1a81268a0bafd308583dc5a525c51cd5e7">SlotCount</link>]<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+
+<para>Choice vectors. </para>
+</para>
+<para>
+Definition at line <link linkend="_biteaux_8h_source_1l00633">633</link> of file <link linkend="_biteaux_8h_source">biteaux.h</link>.</para>
+</section>
+<anchor xml:id="_class_c_bite_sel_base_1a26c67f4680fbbb93c5041a82c5413936"/><section>
+    <title>Slot</title>
+<indexterm><primary>Slot</primary><secondary>CBiteSelBase</secondary></indexterm>
+<indexterm><primary>CBiteSelBase</primary><secondary>Slot</secondary></indexterm>
+<para><computeroutput>int CBiteSelBase::Slot<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+
+<para>The current Sels vector, depending on incr/decr. </para>
+</para>
+<para>
+Definition at line <link linkend="_biteaux_8h_source_1l00639">639</link> of file <link linkend="_biteaux_8h_source">biteaux.h</link>.</para>
+</section>
+<anchor xml:id="_class_c_bite_sel_base_1a74f1cdec6aa5ef6bfe2950371d7ad2b8"/><section>
+    <title>SlotAccums</title>
+<indexterm><primary>SlotAccums</primary><secondary>CBiteSelBase</secondary></indexterm>
+<indexterm><primary>CBiteSelBase</primary><secondary>SlotAccums</secondary></indexterm>
+<para><computeroutput>double CBiteSelBase::SlotAccums[<link linkend="_class_c_bite_sel_base_1a81268a0bafd308583dc5a525c51cd5e7">SlotCount</link>]<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+
+<para>Slot score accumulators. </para>
+</para>
+<para>
+Definition at line <link linkend="_biteaux_8h_source_1l00632">632</link> of file <link linkend="_biteaux_8h_source">biteaux.h</link>.</para>
+</section>
+<anchor xml:id="_class_c_bite_sel_base_1a81268a0bafd308583dc5a525c51cd5e7"/><section>
+    <title>SlotCount</title>
+<indexterm><primary>SlotCount</primary><secondary>CBiteSelBase</secondary></indexterm>
+<indexterm><primary>CBiteSelBase</primary><secondary>SlotCount</secondary></indexterm>
+<para><computeroutput>const int CBiteSelBase::SlotCount = 5<computeroutput>[static]</computeroutput>, <computeroutput>[protected]</computeroutput></computeroutput></para><para>
+
+<para>The number of choice vectors in use. </para>
+</para>
+<para>
+Definition at line <link linkend="_biteaux_8h_source_1l00621">621</link> of file <link linkend="_biteaux_8h_source">biteaux.h</link>.</para>
+</section>
+<anchor xml:id="_class_c_bite_sel_base_1ae40825798948f1f8fb0f2e856001d81c"/><section>
+    <title>SparseMul</title>
+<indexterm><primary>SparseMul</primary><secondary>CBiteSelBase</secondary></indexterm>
+<indexterm><primary>CBiteSelBase</primary><secondary>SparseMul</secondary></indexterm>
+<para><computeroutput>int CBiteSelBase::SparseMul<computeroutput>[protected]</computeroutput></computeroutput></para>
+<para>Multiplier used to obtain an actual length of the choice vector. This multiplier replicates choices in the vector, increasing precision of the resulting PDF and its stability. </para>
+<para>
+Definition at line <link linkend="_biteaux_8h_source_1l00623">623</link> of file <link linkend="_biteaux_8h_source">biteaux.h</link>.</para>
+</section>
+<para>
+The documentation for this class was generated from the following file:</para>
+_fcmaescpp/include/<link linkend="_biteaux_8h">biteaux.h</link></section>
+</section>

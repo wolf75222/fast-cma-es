@@ -1,0 +1,1117 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.13.2" xml:lang="en-US">
+  <compounddef id="namespacefcmaes_1_1mapelites" kind="namespace" language="Python">
+    <compoundname>fcmaes::mapelites</compoundname>
+    <innerclass refid="classfcmaes_1_1mapelites_1_1_archive" prot="public">fcmaes::mapelites::Archive</innerclass>
+    <innerclass refid="classfcmaes_1_1mapelites_1_1in__niche__filter" prot="public">fcmaes::mapelites::in_niche_filter</innerclass>
+    <innerclass refid="classfcmaes_1_1mapelites_1_1wrapper" prot="public">fcmaes::mapelites::wrapper</innerclass>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="namespacefcmaes_1_1mapelites_1ae3ff11934566d45300958dca5961a6ca" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>fcmaes::mapelites.rng</definition>
+        <argsstring></argsstring>
+        <name>rng</name>
+        <qualifiedname>fcmaes.mapelites.rng</qualifiedname>
+        <initializer>=  default_rng()</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="fcmaes/mapelites.py" line="103" column="1" bodyfile="fcmaes/mapelites.py" bodystart="103" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="namespacefcmaes_1_1mapelites_1a028f687a02a53b2626abc9f046a77aa2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classfcmaes_1_1mapelites_1_1_archive" kindref="compound">Archive</ref></type>
+        <definition> Archive fcmaes.mapelites.optimize_map_elites</definition>
+        <argsstring>(Callable[[ArrayLike], Tuple[float, np.ndarray]] qd_fitness, Bounds bounds, Bounds qd_bounds, Optional[int] niche_num=4000, Optional[int] samples_per_niche=20, Optional[int] workers=mp.cpu_count(), Optional[int] iterations=100, Optional[Archive] archive=None, Optional[Dict] me_params={}, Optional[Dict] cma_params={}, Optional[bool] use_stats=False)</argsstring>
+        <name>optimize_map_elites</name>
+        <qualifiedname>fcmaes.mapelites.optimize_map_elites</qualifiedname>
+        <param>
+          <type>Callable</type>
+          <defname>qd_fitness</defname>
+          <array>[[ArrayLike]</array>
+        </param>
+        <param>
+          <type>Tuple]</type>
+          <declname>qd_fitness</declname>
+          <defname>bounds</defname>
+          <array>[float, np.ndarray]</array>
+        </param>
+        <param>
+          <type>Bounds</type>
+          <declname>bounds</declname>
+          <defname>qd_bounds</defname>
+        </param>
+        <param>
+          <type>Bounds</type>
+          <declname>qd_bounds</declname>
+          <defname>niche_num</defname>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>niche_num</declname>
+          <defname>samples_per_niche</defname>
+          <array>[int]</array>
+          <defval>4000</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>samples_per_niche</declname>
+          <defname>workers</defname>
+          <array>[int]</array>
+          <defval>20</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>workers</declname>
+          <defname>iterations</defname>
+          <array>[int]</array>
+          <defval>mp.cpu_count()</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>iterations</declname>
+          <defname>archive</defname>
+          <array>[int]</array>
+          <defval>100</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>archive</declname>
+          <defname>me_params</defname>
+          <array>[Archive]</array>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>me_params</declname>
+          <defname>cma_params</defname>
+          <array>[Dict]</array>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>cma_params</declname>
+          <defname>use_stats</defname>
+          <array>[Dict]</array>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>use_stats</declname>
+          <array>[bool]</array>
+          <defval>False</defval>
+        </param>
+        <briefdescription>
+<para>Optimizes a map-elites evolutionary algorithm to find diverse and high-performing solutions by distributing samples into niches, iteratively evolving them, and maintaining an archive to store the found solutions. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function leverages a map-elites approach to optimize solutions across a given feature space or behavioral space defined by the <computeroutput>qd_bounds</computeroutput> parameter. The objective of the optimization is to populate an archive with solutions that exhibit high fitness while ensuring diversity in behavior across the space. The archive is continuously updated and sorted during the iterations to reflect the best solutions in each niche. The performance is monitored throughout the optimization process.</para>
+<para><verbatim>   qd_fitness (Callable[[ArrayLike], Tuple[float, np.ndarray]]): The quantitative fitness
+       function used to evaluate the solutions. It must return a tuple containing the fitness
+       score and the corresponding feature descriptor/behavior representation.
+</verbatim> <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>bounds</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Represents the variable bounds for the optimization space. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>qd_bounds</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Defines the range of the quality-diversity feature/behavioral space. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>niche_num</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The total number of niches in the archive. Determines how the solutions will be distributed across the feature space. Defaults to 4000. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>samples_per_niche</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of samples generated per niche during initialization. Defaults to 20. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>workers</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of CPU workers/threads to parallelize the process. Defaults to the number of CPUs available. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>iterations</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The total number of iterations to evolve the archive. Defaults to 100. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>archive</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pre-existing archive object for storing solutions. If <computeroutput>None</computeroutput>, a new archive is initialized. Defaults to None. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>me_params</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Additional hyperparameters specific to the map-elites algorithm. Defaults to an empty dictionary. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cma_params</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Hyperparameters specific to the CMA-ES algorithm used for evolutionary strategies. Defaults to an empty dictionary. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>use_stats</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flag to determine whether statistical data should be collected and maintained in the archive. Defaults to False.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para></para>
+</simplesect>
+<simplesect kind="return"><para><ref refid="classfcmaes_1_1mapelites_1_1_archive" kindref="compound">Archive</ref> The final archive containing diverse high-performing solutions distributed across the quality-diversity space. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="fcmaes/mapelites.py" line="144" column="1" bodyfile="fcmaes/mapelites.py" bodystart="155" bodyend="175"/>
+        <references refid="namespacefcmaes_1_1mapelites_1ad2ec9edcc53986935aa2f2e1127d458d" compoundref="mapelites_8py" startline="295" endline="303">fcmaes.mapelites.optimize_map_elites_</references>
+      </memberdef>
+      <memberdef kind="function" id="namespacefcmaes_1_1mapelites_1a49c2831aa0bf9634663977bbd6321afc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classfcmaes_1_1mapelites_1_1_archive" kindref="compound">Archive</ref></type>
+        <definition> Archive fcmaes.mapelites.empty_archive</definition>
+        <argsstring>(int dim, Bounds qd_bounds, int niche_num, int samples_per_niche, Optional[bool] use_stats=False)</argsstring>
+        <name>empty_archive</name>
+        <qualifiedname>fcmaes.mapelites.empty_archive</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>dim</declname>
+        </param>
+        <param>
+          <type>Bounds</type>
+          <declname>qd_bounds</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>niche_num</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>samples_per_niche</declname>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>use_stats</declname>
+          <array>[bool]</array>
+          <defval>False</defval>
+        </param>
+        <briefdescription>
+<para>Creates and initializes an archive for quality diversity (QD) experiments. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function creates an <ref refid="classfcmaes_1_1mapelites_1_1_archive" kindref="compound">Archive</ref> object with the specified dimensions, bounding box, number of niches, and optionally enables statistics collection. It also initializes the niches in the archive with a specified number of samples per niche.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dim</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Dimensionality of the search/grid space for the archive. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>qd_bounds</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bounds specifying the range for niche space coordinates. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>niche_num</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of niches to be created in the archive. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>samples_per_niche</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of samples to initialize in each niche. use_stats (Optional[bool], optional): If True, statistics collection will be enabled in the archive. Defaults to False.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para></para>
+</simplesect>
+<simplesect kind="return"><para><ref refid="classfcmaes_1_1mapelites_1_1_archive" kindref="compound">Archive</ref> The initialized archive object for QD experiments. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="fcmaes/mapelites.py" line="196" column="1" bodyfile="fcmaes/mapelites.py" bodystart="200" bodyend="206"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacefcmaes_1_1mapelites_1ace0194d76906adbf0c0dd3db084f177c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>fcmaes.mapelites.set_KDTree</definition>
+        <argsstring>(Archive archive, Optional[np.ndarray] centers=None, Optional[int] niche_num=None, Optional[Bounds] qd_bounds=None, Optional[int] samples_per_niche=100)</argsstring>
+        <name>set_KDTree</name>
+        <qualifiedname>fcmaes.mapelites.set_KDTree</qualifiedname>
+        <param>
+          <type><ref refid="classfcmaes_1_1mapelites_1_1_archive" kindref="compound">Archive</ref></type>
+          <declname>archive</declname>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>centers</declname>
+          <array>[np.ndarray]</array>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>niche_num</declname>
+          <array>[int]</array>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>qd_bounds</declname>
+          <array>[Bounds]</array>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>samples_per_niche</declname>
+          <array>[int]</array>
+          <defval>100</defval>
+        </param>
+        <briefdescription>
+<para>Sets up a KDTree for the given archive using specified or default parameters. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function initializes a KDTree structure with the given or generated centers, enabling efficient spatial searches within the archive. If the centers are not provided, they will be generated using the <computeroutput>get_centers_</computeroutput> function based on the number of niches, dimensionality of the bounds, and the number of samples per niche. This KDTree is essential for spatial partitioning and querying in the archive.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>archive</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The archive object for which the KDTree will be set up. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>centers</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Coordinates of the centers to construct the KDTree. If <computeroutput>None</computeroutput>, they will be generated automatically. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>niche_num</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of niches used to determine the grid of centers if <computeroutput>centers</computeroutput> is not provided. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>qd_bounds</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The bounds within which the niches lie. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>samples_per_niche</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of sample centers per niche to generate when <computeroutput>centers</computeroutput> is not provided. Defaults to 100. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="fcmaes/mapelites.py" line="227" column="1" bodyfile="fcmaes/mapelites.py" bodystart="231" bodyend="238"/>
+        <references refid="namespacefcmaes_1_1mapelites_1a1cd72ab87d7aa999a255ad854895d3aa" compoundref="mapelites_8py" startline="1535" endline="1551">fcmaes.mapelites.get_centers_</references>
+        <referencedby refid="classfcmaes_1_1mapelites_1_1_archive_1a62da9c6f511c298d1ef06d6af7600196" compoundref="mapelites_8py" startline="707" endline="728">fcmaes.mapelites.Archive.load</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespacefcmaes_1_1mapelites_1a9430b58efcd2bccef1537defe6b7e8db" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classfcmaes_1_1mapelites_1_1_archive" kindref="compound">Archive</ref></type>
+        <definition> Archive fcmaes.mapelites.load_archive</definition>
+        <argsstring>(str name, Bounds bounds, Bounds qd_bounds, Optional[int] niche_num=10000, Optional[bool] use_stats=False)</argsstring>
+        <name>load_archive</name>
+        <qualifiedname>fcmaes.mapelites.load_archive</qualifiedname>
+        <param>
+          <type>str</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>Bounds</type>
+          <declname>bounds</declname>
+        </param>
+        <param>
+          <type>Bounds</type>
+          <declname>qd_bounds</declname>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>niche_num</declname>
+          <array>[int]</array>
+          <defval>10000</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>use_stats</declname>
+          <array>[bool]</array>
+          <defval>False</defval>
+        </param>
+        <briefdescription>
+<para>Loads an archive based on the provided parameters. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function creates and configures an <ref refid="classfcmaes_1_1mapelites_1_1_archive" kindref="compound">Archive</ref> instance using the specified parameters. It initializes the <ref refid="classfcmaes_1_1mapelites_1_1_archive" kindref="compound">Archive</ref> with bounds, QD bounds, niche number, and optional usage of statistics. After initialization, it loads the archive data from the provided file name.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The file name from which to load the archive. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bounds</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The lower and upper bounds for the archive&apos;s dimensionality. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>qd_bounds</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The bounds specific to the QD optimization process. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>niche_num</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of niches in the archive. Defaults to 10000. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>use_stats</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flag to indicate whether statistics should be used. Defaults to False.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para></para>
+</simplesect>
+<simplesect kind="return"><para><ref refid="classfcmaes_1_1mapelites_1_1_archive" kindref="compound">Archive</ref> An <ref refid="classfcmaes_1_1mapelites_1_1_archive" kindref="compound">Archive</ref> instance loaded with the specified configurations and data. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="fcmaes/mapelites.py" line="258" column="1" bodyfile="fcmaes/mapelites.py" bodystart="263" bodyend="270"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacefcmaes_1_1mapelites_1ad2ec9edcc53986935aa2f2e1127d458d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>fcmaes.mapelites.optimize_map_elites_</definition>
+        <argsstring>(archive, fitness, bounds, workers, me_params, cma_params)</argsstring>
+        <name>optimize_map_elites_</name>
+        <qualifiedname>fcmaes.mapelites.optimize_map_elites_</qualifiedname>
+        <param>
+          <type>archive</type>
+          <defname>archive</defname>
+        </param>
+        <param>
+          <type>fitness</type>
+          <defname>fitness</defname>
+        </param>
+        <param>
+          <type>bounds</type>
+          <defname>bounds</defname>
+        </param>
+        <param>
+          <type>workers</type>
+          <defname>workers</defname>
+        </param>
+        <param>
+          <type>me_params</type>
+          <defname>me_params</defname>
+        </param>
+        <param>
+          <type>cma_params</type>
+          <defname>cma_params</defname>
+        </param>
+        <briefdescription>
+<para>Optimize a solution using Map-Elites algorithm via multi-processing. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function orchestrates the execution of the Map-Elites optimization algorithm over multiple processes. Each process operates independently with its own random generator to explore the solution space. It uses CMA-ES to update solutions iteratively. The provided parameters configure the optimization behavior, such as the solution archive, fitness evaluation function, search bounds, and process settings specific to Map-Elites and CMA-ES.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>archive</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A data structure to store the solutions found during the optimization process and their corresponding evaluation. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>fitness</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A callable function that evaluates the quality of a solution. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bounds</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A sequence of tuples defining the lower and upper bounds for each decision variable. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>workers</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>An integer specifying the number of parallel processes to run during optimization. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>me_params</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A dictionary or configuration object with parameters for the Map-Elites algorithm. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cma_params</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A dictionary or configuration object with parameters for the Covariance Matrix Adaptation Evolution Strategy (CMA-ES). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="fcmaes/mapelites.py" line="294" column="1" bodyfile="fcmaes/mapelites.py" bodystart="295" bodyend="303"/>
+        <referencedby refid="namespacefcmaes_1_1mapelites_1a028f687a02a53b2626abc9f046a77aa2" compoundref="mapelites_8py" startline="155" endline="175">fcmaes.mapelites.optimize_map_elites</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespacefcmaes_1_1mapelites_1a04bcf57530df0bef091b00ceb8e9d44a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>fcmaes.mapelites.run_map_elites_</definition>
+        <argsstring>(archive, fitness, bounds, rg, me_params, cma_params)</argsstring>
+        <name>run_map_elites_</name>
+        <qualifiedname>fcmaes.mapelites.run_map_elites_</qualifiedname>
+        <param>
+          <type>archive</type>
+          <defname>archive</defname>
+        </param>
+        <param>
+          <type>fitness</type>
+          <defname>fitness</defname>
+        </param>
+        <param>
+          <type>bounds</type>
+          <defname>bounds</defname>
+        </param>
+        <param>
+          <type>rg</type>
+          <defname>rg</defname>
+        </param>
+        <param>
+          <type>me_params</type>
+          <defname>me_params</defname>
+        </param>
+        <param>
+          <type>cma_params</type>
+          <defname>cma_params</defname>
+        </param>
+        <briefdescription>
+<para>Runs the MAP-Elites algorithm with optional SBX (Simulated Binary Crossover) or iso+line variation, followed by CMA-ES optimization. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The algorithm iteratively updates the archive with new solutions, balancing exploration and exploitation over the specified number of generations.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>archive</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>An archive object for storing solutions, descriptors, and their fitness values, supporting niche identification and updating mechanisms. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>fitness</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Callable that computes the fitness and descriptor of a given solution. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bounds</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bounds object holding the lower and upper bounds for the solutions during variation and optimization. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A random generator instance used for stochastic operations within the </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>algorithm.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>me_params</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Dictionary containing tunable MAP-Elites parameters with keys such as &apos;generations&apos;, &apos;chunk_size&apos;, &apos;use_sbx&apos;, &apos;dis_c&apos;, &apos;dis_m&apos;, &apos;iso_sigma&apos;, and &apos;line_sigma&apos;. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cma_params</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Dictionary containing CMA-ES-specific parameters such as &apos;cma_generations&apos;. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="fcmaes/mapelites.py" line="325" column="1" bodyfile="fcmaes/mapelites.py" bodystart="326" bodyend="355"/>
+        <references refid="namespacefcmaes_1_1mapelites_1aa557fd895bcaf40f495273ef16953c11" compoundref="mapelites_8py" startline="1515" endline="1520">fcmaes.mapelites.iso_dd_</references>
+        <references refid="namespacefcmaes_1_1mapelites_1addca945e57b8fc097ca552903b98187f" compoundref="mapelites_8py" startline="374" endline="398">fcmaes.mapelites.optimize_cma_</references>
+        <references refid="namespacefcmaes_1_1mapelites_1a5f70b23800f6a77b08d918f5aa0f9b3d" compoundref="mapelites_8py" startline="1459" endline="1490">fcmaes.mapelites.variation_</references>
+      </memberdef>
+      <memberdef kind="function" id="namespacefcmaes_1_1mapelites_1addca945e57b8fc097ca552903b98187f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>fcmaes.mapelites.optimize_cma_</definition>
+        <argsstring>(archive, fitness, bounds, rg, cma_params)</argsstring>
+        <name>optimize_cma_</name>
+        <qualifiedname>fcmaes.mapelites.optimize_cma_</qualifiedname>
+        <param>
+          <type>archive</type>
+          <defname>archive</defname>
+        </param>
+        <param>
+          <type>fitness</type>
+          <defname>fitness</defname>
+        </param>
+        <param>
+          <type>bounds</type>
+          <defname>bounds</defname>
+        </param>
+        <param>
+          <type>rg</type>
+          <defname>rg</defname>
+        </param>
+        <param>
+          <type>cma_params</type>
+          <defname>cma_params</defname>
+        </param>
+        <briefdescription>
+<para>Optimizes a solution using the Covariance Matrix Adaptation Evolution Strategy (CMA-ES). </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The function utilizes the process of evolutionary optimization based on objective fitness, adaptive step size, and population-based approach. It leverages a provided archive to introduce variations in the space of potential solutions.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>archive</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>An instance of a solution archive storing previously evaluated solutions and assisting in generating new candidate solutions. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>fitness</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A callable fitness function to evaluate the quality of solutions. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bounds</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The bounds or constraints of the solution space to limit candidate solutions. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A random generator instance used to introduce stochasticity in optimization steps. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cma_params</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A dictionary containing configuration parameters for the CMA-ES optimizer, such as population size, sigma (step size), maximum iterations, and other hyperparameters.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>ValueError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If parameters in cma_params are invalid (e.g., negative population size). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="fcmaes/mapelites.py" line="374" column="1" bodyfile="fcmaes/mapelites.py" bodystart="374" bodyend="398"/>
+        <references refid="namespacefcmaes_1_1mapelites_1a86f7f0503dc82b70b87a882b49a95f23" compoundref="mapelites_8py" startline="425" endline="451">fcmaes.mapelites.update_archive</references>
+        <referencedby refid="namespacefcmaes_1_1mapelites_1a04bcf57530df0bef091b00ceb8e9d44a" compoundref="mapelites_8py" startline="326" endline="355">fcmaes.mapelites.run_map_elites_</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespacefcmaes_1_1mapelites_1a86f7f0503dc82b70b87a882b49a95f23" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>fcmaes.mapelites.update_archive</definition>
+        <argsstring>(Archive archive, np.ndarray xs, Optional[Callable[[ArrayLike], Tuple[float, np.ndarray]]] fitness=None, Optional[ArrayLike] yds=None)</argsstring>
+        <name>update_archive</name>
+        <qualifiedname>fcmaes.mapelites.update_archive</qualifiedname>
+        <param>
+          <type><ref refid="classfcmaes_1_1mapelites_1_1_archive" kindref="compound">Archive</ref></type>
+          <declname>archive</declname>
+        </param>
+        <param>
+          <type>np.ndarray</type>
+          <declname>xs</declname>
+        </param>
+        <param>
+          <type>Optional</type>
+          <defname>fitness</defname>
+          <array>[Callable[[ArrayLike]</array>
+        </param>
+        <param>
+          <type>Tuple]]</type>
+          <declname>fitness</declname>
+          <defname>yds</defname>
+          <array>[float, np.ndarray]</array>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>yds</declname>
+          <array>[ArrayLike]</array>
+          <defval>None</defval>
+        </param>
+        <briefdescription>
+<para>Evaluates a population, updates the archive with new solutions, and determines rankings. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function processes a set of solutions and their associated descriptions or fitness evaluations. The solutions are compared against an archive to determine and store better solutions. It prioritizes updates to empty niches in the archive and normalizes improvements for comparisons. The function finally returns the improvement values and the real fitness values for the solutions.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>archive</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The archive object where solutions and corresponding fitness data are stored. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>xs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A set of solutions to be evaluated and compared against the archive. fitness (Optional[Callable[[ArrayLike], Tuple[float, np.ndarray]]]): A callable function that evaluates a solution and returns its fitness value and description. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>yds</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Precomputed fitness values and descriptions, if available.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Tuple[np.ndarray, np.ndarray]: A tuple containing:<itemizedlist>
+<listitem><para>Improvement values compared to archive elite solutions.</para>
+</listitem><listitem><para>The real fitness values evaluated for the given solutions.</para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>ValueError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If `ys` or `yds` contain invalid or mismatched content. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="fcmaes/mapelites.py" line="423" column="1" bodyfile="fcmaes/mapelites.py" bodystart="425" bodyend="451"/>
+        <referencedby refid="namespacefcmaes_1_1mapelites_1addca945e57b8fc097ca552903b98187f" compoundref="mapelites_8py" startline="374" endline="398">fcmaes.mapelites.optimize_cma_</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespacefcmaes_1_1mapelites_1a5c3c74816cffd5997c0f9e897205abc8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>fcmaes.mapelites.get_grid_indices</definition>
+        <argsstring>(ds, capacity, lb, ub)</argsstring>
+        <name>get_grid_indices</name>
+        <qualifiedname>fcmaes.mapelites.get_grid_indices</qualifiedname>
+        <param>
+          <type>ds</type>
+          <defname>ds</defname>
+        </param>
+        <param>
+          <type>capacity</type>
+          <defname>capacity</defname>
+        </param>
+        <param>
+          <type>lb</type>
+          <defname>lb</defname>
+        </param>
+        <param>
+          <type>ub</type>
+          <defname>ub</defname>
+        </param>
+        <briefdescription>
+<para>Computes and returns grid indices for a dataset based on the provided grid capacity, lower, and upper bounds. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Each point in the dataset is normalized and then converted into a grid index using the specified parameters.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ds</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input dataset (2D numpy array) where each row is a point in a multi-dimensional space. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>capacity</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Total number of grid cells (capacity of the grid). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>lb</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Lower bounds of the dataset in each dimension. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ub</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Upper bounds of the dataset in each dimension.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para></para>
+</simplesect>
+<simplesect kind="return"><para>np An array of grid indices, where each index corresponds to a point in the input dataset. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="fcmaes/mapelites.py" line="469" column="1" bodyfile="fcmaes/mapelites.py" bodystart="469" bodyend="481"/>
+        <referencedby refid="classfcmaes_1_1mapelites_1_1_archive_1ab4f4023cb427da5cbedcf919c4641bfa" compoundref="mapelites_8py" startline="739" endline="744">fcmaes.mapelites.Archive.index_of_niches</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespacefcmaes_1_1mapelites_1a5f70b23800f6a77b08d918f5aa0f9b3d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>fcmaes.mapelites.variation_</definition>
+        <argsstring>(pop, lower, upper, rg, dis_c=20, dis_m=20)</argsstring>
+        <name>variation_</name>
+        <qualifiedname>fcmaes.mapelites.variation_</qualifiedname>
+        <param>
+          <type>pop</type>
+          <defname>pop</defname>
+        </param>
+        <param>
+          <type>lower</type>
+          <defname>lower</defname>
+        </param>
+        <param>
+          <type>upper</type>
+          <defname>upper</defname>
+        </param>
+        <param>
+          <type>rg</type>
+          <defname>rg</defname>
+        </param>
+        <param>
+          <type>dis_c</type>
+          <defname>dis_c</defname>
+          <defval>20</defval>
+        </param>
+        <param>
+          <type>dis_m</type>
+          <defname>dis_m</defname>
+          <defval>20</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="fcmaes/mapelites.py" line="1459" column="1" bodyfile="fcmaes/mapelites.py" bodystart="1459" bodyend="1490"/>
+        <referencedby refid="namespacefcmaes_1_1mapelites_1a04bcf57530df0bef091b00ceb8e9d44a" compoundref="mapelites_8py" startline="326" endline="355">fcmaes.mapelites.run_map_elites_</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespacefcmaes_1_1mapelites_1aa557fd895bcaf40f495273ef16953c11" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>fcmaes.mapelites.iso_dd_</definition>
+        <argsstring>(x1, x2, lower, upper, rg, iso_sigma=0.01, line_sigma=0.2)</argsstring>
+        <name>iso_dd_</name>
+        <qualifiedname>fcmaes.mapelites.iso_dd_</qualifiedname>
+        <param>
+          <type>x1</type>
+          <defname>x1</defname>
+        </param>
+        <param>
+          <type>x2</type>
+          <defname>x2</defname>
+        </param>
+        <param>
+          <type>lower</type>
+          <defname>lower</defname>
+        </param>
+        <param>
+          <type>upper</type>
+          <defname>upper</defname>
+        </param>
+        <param>
+          <type>rg</type>
+          <defname>rg</defname>
+        </param>
+        <param>
+          <type>iso_sigma</type>
+          <defname>iso_sigma</defname>
+          <defval>0.01</defval>
+        </param>
+        <param>
+          <type>line_sigma</type>
+          <defname>line_sigma</defname>
+          <defval>0.2</defval>
+        </param>
+        <briefdescription>
+<para>Generates isotropic deviation data within specified bounds. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function creates a variation of the input data <computeroutput>x1</computeroutput> influenced by Gaussian noise parameters for isotropic and line deviations. The result is clipped to remain within the range defined by the <computeroutput>lower</computeroutput> and <computeroutput>upper</computeroutput> bounds.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The primary input array for generating isotropic deviation data. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>x2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The secondary input array influencing line deviation calculation. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>lower</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The lower bound for clipping the resulting data. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>upper</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The upper bound for clipping the resulting data. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Random generator object used for generating Gaussian noise. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>iso_sigma</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Standard deviation of the isotropic Gaussian noise. Defaults to 0.01. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>line_sigma</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Standard deviation of the line Gaussian noise. Defaults to </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>0.2.</parametername>
+</parameternamelist>
+<parameterdescription>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para></para>
+</simplesect>
+<simplesect kind="return"><para>ndarray The processed array with isotropic and line deviations applied and bounded by the given limits. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="fcmaes/mapelites.py" line="1515" column="1" bodyfile="fcmaes/mapelites.py" bodystart="1515" bodyend="1520"/>
+        <referencedby refid="namespacefcmaes_1_1mapelites_1a04bcf57530df0bef091b00ceb8e9d44a" compoundref="mapelites_8py" startline="326" endline="355">fcmaes.mapelites.run_map_elites_</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespacefcmaes_1_1mapelites_1a1cd72ab87d7aa999a255ad854895d3aa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>fcmaes.mapelites.get_centers_</definition>
+        <argsstring>(niche_num, dim, samples_per_niche)</argsstring>
+        <name>get_centers_</name>
+        <qualifiedname>fcmaes.mapelites.get_centers_</qualifiedname>
+        <param>
+          <type>niche_num</type>
+          <defname>niche_num</defname>
+        </param>
+        <param>
+          <type>dim</type>
+          <defname>dim</defname>
+        </param>
+        <param>
+          <type>samples_per_niche</type>
+          <defname>samples_per_niche</defname>
+        </param>
+        <briefdescription>
+<para>Determines and returns the centers of niches in a defined space using k-means clustering. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>If the data is cached, it loads the cached centers for faster access. Otherwise, it computes the centers by applying k-means clustering on randomly generated samples and caches the result for future use.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>niche_num</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of niches or clusters to determine centers for. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>dim</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Dimensionality of the space where the niches are located. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>samples_per_niche</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of samples used per niche to compute the centers.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para></para>
+</simplesect>
+<simplesect kind="return"><para>numpy An array representing the determined centers of the niches. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="fcmaes/mapelites.py" line="1535" column="1" bodyfile="fcmaes/mapelites.py" bodystart="1535" bodyend="1551"/>
+        <referencedby refid="namespacefcmaes_1_1mapelites_1ace0194d76906adbf0c0dd3db084f177c" compoundref="mapelites_8py" startline="231" endline="238">fcmaes.mapelites.set_KDTree</referencedby>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="fcmaes/mapelites.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

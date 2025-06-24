@@ -1,0 +1,202 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_classdual__annealing_1_1_strategy_chain" xml:lang="en-US">
+<title>dual_annealing::StrategyChain Class Reference</title>
+<indexterm><primary>dual_annealing::StrategyChain</primary></indexterm>
+Collaboration diagram for dual_annealing::StrategyChain:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classdual__annealing_1_1_strategy_chain__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Public Member Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classdual__annealing_1_1_strategy_chain_1a4ce4d3da5f8d7cd3551283663df76a83">StrategyChain</link> (double acceptance_param_, <link linkend="_classdual__annealing_1_1_visiting_distribution">VisitingDistribution</link> *vd_, <link linkend="_classdual__annealing_1_1_fitness">Fitness</link> *ofw_, pcg64 *rs_, <link linkend="_classdual__annealing_1_1_energy_state">EnergyState</link> *state_)</para>
+</listitem>
+            <listitem><para>void <link linkend="_classdual__annealing_1_1_strategy_chain_1ab2c87c327d546df01f2535d8d3d86418">accept_reject</link> (int j, double e, const <link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> &amp;x_visit)</para>
+</listitem>
+            <listitem><para>void <link linkend="_classdual__annealing_1_1_strategy_chain_1a668e78f845ae5a2f3955fc8cb6d20461">run</link> (int step, double temperature)</para>
+</listitem>
+            <listitem><para>void <link linkend="_classdual__annealing_1_1_strategy_chain_1a28557c3e98c19aeb5bde009fb8be3601">local_search</link> ()</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Private Attributes    </title>
+        <itemizedlist>
+            <listitem><para>double <link linkend="_classdual__annealing_1_1_strategy_chain_1ac126ef9be8f8b7f4209130a3a137e7ba">emin</link></para>
+</listitem>
+            <listitem><para><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> <link linkend="_classdual__annealing_1_1_strategy_chain_1a3a0358910020f79c26f94b38fd755f34">xmin</link></para>
+</listitem>
+            <listitem><para><link linkend="_classdual__annealing_1_1_energy_state">EnergyState</link> * <link linkend="_classdual__annealing_1_1_strategy_chain_1abc2cfd8cfafd95685d430fa4b60bbccf">state</link></para>
+</listitem>
+            <listitem><para>double <link linkend="_classdual__annealing_1_1_strategy_chain_1a4bd45a76ca10e2da7c55bb2443b7fb0b">acceptance_param</link></para>
+</listitem>
+            <listitem><para><link linkend="_classdual__annealing_1_1_visiting_distribution">VisitingDistribution</link> * <link linkend="_classdual__annealing_1_1_strategy_chain_1a11ec7898905e7efe0052469ca2d4bb4d">vd</link></para>
+</listitem>
+            <listitem><para>int <link linkend="_classdual__annealing_1_1_strategy_chain_1ab140b4425c3ab6ebe9ceffd5a433d8b4">not_improved_idx</link></para>
+</listitem>
+            <listitem><para>int <link linkend="_classdual__annealing_1_1_strategy_chain_1ad49c7b2e8ffbc90f236cb6c442386947">not_improved_max_idx</link></para>
+</listitem>
+            <listitem><para>pcg64 * <link linkend="_classdual__annealing_1_1_strategy_chain_1a1314379d4cb36007526aa01765e2959b">rs</link></para>
+</listitem>
+            <listitem><para><link linkend="_classdual__annealing_1_1_fitness">Fitness</link> * <link linkend="_classdual__annealing_1_1_strategy_chain_1ace3a1711d168fb56e10b18f2f0909612">ofw</link></para>
+</listitem>
+            <listitem><para>double <link linkend="_classdual__annealing_1_1_strategy_chain_1a1426934ad1afd5b8709841244d2baec0">temperature_step</link></para>
+</listitem>
+            <listitem><para>double <link linkend="_classdual__annealing_1_1_strategy_chain_1a41a2102a33462fda04c034561ccd0bd8">K</link></para>
+</listitem>
+            <listitem><para>bool <link linkend="_classdual__annealing_1_1_strategy_chain_1a6099c7e70349b2e72b4aa7de902eb0c2">state_improved</link> = false</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+<para>
+Definition at line <link linkend="_daoptimizer_8cpp_source_1l00412">412</link> of file <link linkend="_daoptimizer_8cpp_source">daoptimizer.cpp</link>.</para>
+</section>
+<section>
+<title>Constructor &amp; Destructor Documentation</title>
+<anchor xml:id="_classdual__annealing_1_1_strategy_chain_1a4ce4d3da5f8d7cd3551283663df76a83"/><section>
+    <title>StrategyChain()</title>
+<indexterm><primary>StrategyChain</primary><secondary>dual_annealing::StrategyChain</secondary></indexterm>
+<indexterm><primary>dual_annealing::StrategyChain</primary><secondary>StrategyChain</secondary></indexterm>
+<para><computeroutput>dual_annealing::StrategyChain::StrategyChain (double acceptance_param_, <link linkend="_classdual__annealing_1_1_visiting_distribution">VisitingDistribution</link> * vd_, <link linkend="_classdual__annealing_1_1_fitness">Fitness</link> * ofw_, pcg64 * rs_, <link linkend="_classdual__annealing_1_1_energy_state">EnergyState</link> * state_)<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_daoptimizer_8cpp_source_1l00417">417</link> of file <link linkend="_daoptimizer_8cpp_source">daoptimizer.cpp</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Function Documentation</title>
+<anchor xml:id="_classdual__annealing_1_1_strategy_chain_1ab2c87c327d546df01f2535d8d3d86418"/><section>
+    <title>accept_reject()</title>
+<indexterm><primary>accept_reject</primary><secondary>dual_annealing::StrategyChain</secondary></indexterm>
+<indexterm><primary>dual_annealing::StrategyChain</primary><secondary>accept_reject</secondary></indexterm>
+<para><computeroutput>void dual_annealing::StrategyChain::accept_reject (int j, double e, const <link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> &amp; x_visit)<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_daoptimizer_8cpp_source_1l00437">437</link> of file <link linkend="_daoptimizer_8cpp_source">daoptimizer.cpp</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classdual__annealing_1_1_strategy_chain_ab2c87c327d546df01f2535d8d3d86418_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classdual__annealing_1_1_strategy_chain_1a28557c3e98c19aeb5bde009fb8be3601"/><section>
+    <title>local_search()</title>
+<indexterm><primary>local_search</primary><secondary>dual_annealing::StrategyChain</secondary></indexterm>
+<indexterm><primary>dual_annealing::StrategyChain</primary><secondary>local_search</secondary></indexterm>
+<para><computeroutput>void dual_annealing::StrategyChain::local_search ( )<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_daoptimizer_8cpp_source_1l00489">489</link> of file <link linkend="_daoptimizer_8cpp_source">daoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classdual__annealing_1_1_strategy_chain_1a668e78f845ae5a2f3955fc8cb6d20461"/><section>
+    <title>run()</title>
+<indexterm><primary>run</primary><secondary>dual_annealing::StrategyChain</secondary></indexterm>
+<indexterm><primary>dual_annealing::StrategyChain</primary><secondary>run</secondary></indexterm>
+<para><computeroutput>void dual_annealing::StrategyChain::run (int step, double temperature)<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_daoptimizer_8cpp_source_1l00460">460</link> of file <link linkend="_daoptimizer_8cpp_source">daoptimizer.cpp</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classdual__annealing_1_1_strategy_chain_a668e78f845ae5a2f3955fc8cb6d20461_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+<section>
+<title>Member Data Documentation</title>
+<anchor xml:id="_classdual__annealing_1_1_strategy_chain_1a4bd45a76ca10e2da7c55bb2443b7fb0b"/><section>
+    <title>acceptance_param</title>
+<indexterm><primary>acceptance_param</primary><secondary>dual_annealing::StrategyChain</secondary></indexterm>
+<indexterm><primary>dual_annealing::StrategyChain</primary><secondary>acceptance_param</secondary></indexterm>
+<para><computeroutput>double dual_annealing::StrategyChain::acceptance_param<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_daoptimizer_8cpp_source_1l00539">539</link> of file <link linkend="_daoptimizer_8cpp_source">daoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classdual__annealing_1_1_strategy_chain_1ac126ef9be8f8b7f4209130a3a137e7ba"/><section>
+    <title>emin</title>
+<indexterm><primary>emin</primary><secondary>dual_annealing::StrategyChain</secondary></indexterm>
+<indexterm><primary>dual_annealing::StrategyChain</primary><secondary>emin</secondary></indexterm>
+<para><computeroutput>double dual_annealing::StrategyChain::emin<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_daoptimizer_8cpp_source_1l00536">536</link> of file <link linkend="_daoptimizer_8cpp_source">daoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classdual__annealing_1_1_strategy_chain_1a41a2102a33462fda04c034561ccd0bd8"/><section>
+    <title>K</title>
+<indexterm><primary>K</primary><secondary>dual_annealing::StrategyChain</secondary></indexterm>
+<indexterm><primary>dual_annealing::StrategyChain</primary><secondary>K</secondary></indexterm>
+<para><computeroutput>double dual_annealing::StrategyChain::K<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_daoptimizer_8cpp_source_1l00546">546</link> of file <link linkend="_daoptimizer_8cpp_source">daoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classdual__annealing_1_1_strategy_chain_1ab140b4425c3ab6ebe9ceffd5a433d8b4"/><section>
+    <title>not_improved_idx</title>
+<indexterm><primary>not_improved_idx</primary><secondary>dual_annealing::StrategyChain</secondary></indexterm>
+<indexterm><primary>dual_annealing::StrategyChain</primary><secondary>not_improved_idx</secondary></indexterm>
+<para><computeroutput>int dual_annealing::StrategyChain::not_improved_idx<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_daoptimizer_8cpp_source_1l00541">541</link> of file <link linkend="_daoptimizer_8cpp_source">daoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classdual__annealing_1_1_strategy_chain_1ad49c7b2e8ffbc90f236cb6c442386947"/><section>
+    <title>not_improved_max_idx</title>
+<indexterm><primary>not_improved_max_idx</primary><secondary>dual_annealing::StrategyChain</secondary></indexterm>
+<indexterm><primary>dual_annealing::StrategyChain</primary><secondary>not_improved_max_idx</secondary></indexterm>
+<para><computeroutput>int dual_annealing::StrategyChain::not_improved_max_idx<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_daoptimizer_8cpp_source_1l00542">542</link> of file <link linkend="_daoptimizer_8cpp_source">daoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classdual__annealing_1_1_strategy_chain_1ace3a1711d168fb56e10b18f2f0909612"/><section>
+    <title>ofw</title>
+<indexterm><primary>ofw</primary><secondary>dual_annealing::StrategyChain</secondary></indexterm>
+<indexterm><primary>dual_annealing::StrategyChain</primary><secondary>ofw</secondary></indexterm>
+<para><computeroutput><link linkend="_classdual__annealing_1_1_fitness">Fitness</link>* dual_annealing::StrategyChain::ofw<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_daoptimizer_8cpp_source_1l00544">544</link> of file <link linkend="_daoptimizer_8cpp_source">daoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classdual__annealing_1_1_strategy_chain_1a1314379d4cb36007526aa01765e2959b"/><section>
+    <title>rs</title>
+<indexterm><primary>rs</primary><secondary>dual_annealing::StrategyChain</secondary></indexterm>
+<indexterm><primary>dual_annealing::StrategyChain</primary><secondary>rs</secondary></indexterm>
+<para><computeroutput>pcg64* dual_annealing::StrategyChain::rs<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_daoptimizer_8cpp_source_1l00543">543</link> of file <link linkend="_daoptimizer_8cpp_source">daoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classdual__annealing_1_1_strategy_chain_1abc2cfd8cfafd95685d430fa4b60bbccf"/><section>
+    <title>state</title>
+<indexterm><primary>state</primary><secondary>dual_annealing::StrategyChain</secondary></indexterm>
+<indexterm><primary>dual_annealing::StrategyChain</primary><secondary>state</secondary></indexterm>
+<para><computeroutput><link linkend="_classdual__annealing_1_1_energy_state">EnergyState</link>* dual_annealing::StrategyChain::state<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_daoptimizer_8cpp_source_1l00538">538</link> of file <link linkend="_daoptimizer_8cpp_source">daoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classdual__annealing_1_1_strategy_chain_1a6099c7e70349b2e72b4aa7de902eb0c2"/><section>
+    <title>state_improved</title>
+<indexterm><primary>state_improved</primary><secondary>dual_annealing::StrategyChain</secondary></indexterm>
+<indexterm><primary>dual_annealing::StrategyChain</primary><secondary>state_improved</secondary></indexterm>
+<para><computeroutput>bool dual_annealing::StrategyChain::state_improved = false<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_daoptimizer_8cpp_source_1l00547">547</link> of file <link linkend="_daoptimizer_8cpp_source">daoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classdual__annealing_1_1_strategy_chain_1a1426934ad1afd5b8709841244d2baec0"/><section>
+    <title>temperature_step</title>
+<indexterm><primary>temperature_step</primary><secondary>dual_annealing::StrategyChain</secondary></indexterm>
+<indexterm><primary>dual_annealing::StrategyChain</primary><secondary>temperature_step</secondary></indexterm>
+<para><computeroutput>double dual_annealing::StrategyChain::temperature_step<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_daoptimizer_8cpp_source_1l00545">545</link> of file <link linkend="_daoptimizer_8cpp_source">daoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classdual__annealing_1_1_strategy_chain_1a11ec7898905e7efe0052469ca2d4bb4d"/><section>
+    <title>vd</title>
+<indexterm><primary>vd</primary><secondary>dual_annealing::StrategyChain</secondary></indexterm>
+<indexterm><primary>dual_annealing::StrategyChain</primary><secondary>vd</secondary></indexterm>
+<para><computeroutput><link linkend="_classdual__annealing_1_1_visiting_distribution">VisitingDistribution</link>* dual_annealing::StrategyChain::vd<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_daoptimizer_8cpp_source_1l00540">540</link> of file <link linkend="_daoptimizer_8cpp_source">daoptimizer.cpp</link>.</para>
+</section>
+<anchor xml:id="_classdual__annealing_1_1_strategy_chain_1a3a0358910020f79c26f94b38fd755f34"/><section>
+    <title>xmin</title>
+<indexterm><primary>xmin</primary><secondary>dual_annealing::StrategyChain</secondary></indexterm>
+<indexterm><primary>dual_annealing::StrategyChain</primary><secondary>xmin</secondary></indexterm>
+<para><computeroutput><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> dual_annealing::StrategyChain::xmin<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_daoptimizer_8cpp_source_1l00537">537</link> of file <link linkend="_daoptimizer_8cpp_source">daoptimizer.cpp</link>.</para>
+</section>
+<para>
+The documentation for this class was generated from the following file:</para>
+_fcmaescpp/<link linkend="_daoptimizer_8cpp">daoptimizer.cpp</link></section>
+</section>

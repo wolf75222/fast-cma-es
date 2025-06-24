@@ -1,0 +1,226 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_classfcmaes_1_1evaluator_1_1callback__so" xml:lang="en-US">
+<title>fcmaes.evaluator.callback_so Class Reference</title>
+<indexterm><primary>fcmaes.evaluator.callback_so</primary></indexterm>
+<para>
+
+<para>Handles callback functionality for single-objective optimization purposes. </para>
+ 
+</para>
+Collaboration diagram for fcmaes.evaluator.callback_so:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1evaluator_1_1callback__so__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Public Member Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1evaluator_1_1callback__so_1a413b8a2e726f488f4c2f1f79fa523bb5">__init__</link> (self, Callable[[ArrayLike], float] <link linkend="_classfcmaes_1_1evaluator_1_1callback__so_1a1df2acbb4dae1a64687b5b231a2d169a">fun</link>, int <link linkend="_classfcmaes_1_1evaluator_1_1callback__so_1a556242f6333ce0f2316798f6171a061c">dim</link>, Optional[Callable[[ArrayLike, float], bool]] <link linkend="_classfcmaes_1_1evaluator_1_1callback__so_1a9a0ab5f62f58416bd1a061cb7c4d9fbf">is_terminate</link>=None)</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1evaluator_1_1callback__so_1a91b3f73bc6c6999748aaf8bfb94cdd39">__call__</link> (self, <link linkend="_classfcmaes_1_1evaluator_1_1callback__so_1a556242f6333ce0f2316798f6171a061c">dim</link>, x, y)</para>
+
+<para>Invokes the callable object with given dimensions and inputs, processes the input buffers, computes the function output, and updates the output buffer. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Public Attributes    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1evaluator_1_1callback__so_1a1df2acbb4dae1a64687b5b231a2d169a">fun</link> = fun</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1evaluator_1_1callback__so_1a556242f6333ce0f2316798f6171a061c">dim</link> = dim</para>
+
+<para>Dimensionality of the input array passed to the objective. </para>
+</listitem>
+            <listitem><para>int <link linkend="_classfcmaes_1_1evaluator_1_1callback__so_1a527ef30b5556fea42a808c27c9ea22f6">nobj</link> = 1</para>
+
+<para>Number of objectives handled by the callback. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1evaluator_1_1callback__so_1a9a0ab5f62f58416bd1a061cb7c4d9fbf">is_terminate</link> = is_terminate</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>Handles callback functionality for single-objective optimization purposes. </para>
+
+
+
+<para>This class facilitates communication between external and Python-based optimization routines. It processes input vectors, evaluates the objective function, handles memory using ctypes, and determines if a termination condition has been met.</para>
+
+<para><literallayout><computeroutput>   fun (Callable[[ArrayLike], float]): Objective function that takes an
+       input array and returns a fitness value.
+       single-objective optimization.
+   is_terminate (Optional[Callable[[ArrayLike, float], bool]]): Optional
+       termination callback function. It evaluates the termination
+       condition given the input array and fitness value.
+</computeroutput></literallayout> </para>
+<para>
+Definition at line <link linkend="_evaluator_8py_source_1l00746">746</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+</section>
+<section>
+<title>Constructor &amp; Destructor Documentation</title>
+<anchor xml:id="_classfcmaes_1_1evaluator_1_1callback__so_1a413b8a2e726f488f4c2f1f79fa523bb5"/><section>
+    <title>__init__()</title>
+<indexterm><primary>__init__</primary><secondary>fcmaes.evaluator.callback_so</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator.callback_so</primary><secondary>__init__</secondary></indexterm>
+<para><computeroutput>fcmaes.evaluator.callback_so.__init__ ( self, Callable[[ArrayLike], float] fun, int dim, Optional[Callable[[ArrayLike, float], bool]]  is_terminate = <computeroutput>None</computeroutput>
+)</computeroutput></para><para>
+Definition at line <link linkend="_evaluator_8py_source_1l00767">767</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Function Documentation</title>
+<anchor xml:id="_classfcmaes_1_1evaluator_1_1callback__so_1a91b3f73bc6c6999748aaf8bfb94cdd39"/><section>
+    <title>__call__()</title>
+<indexterm><primary>__call__</primary><secondary>fcmaes.evaluator.callback_so</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator.callback_so</primary><secondary>__call__</secondary></indexterm>
+<para><computeroutput>fcmaes.evaluator.callback_so.__call__ ( self,  dim,  x,  y)</computeroutput></para><para>
+
+<para>Invokes the callable object with given dimensions and inputs, processes the input buffers, computes the function output, and updates the output buffer. </para>
+</para>
+
+<para>This method handles finite computations, manages buffer conversions, and determines whether a termination condition is met.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>dim</entry><entry>
+<para>The dimensional size of the input array. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>x</entry><entry>
+<para>A ctypes object representing the input buffer. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>y</entry><entry>
+<para>A ctypes object representing the output buffer.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>bool False if there is no termination condition, or the result of the termination condition check if it exists.</para>
+</formalpara>
+
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>Exception</entry><entry>
+<para>Generic exception raised for any unexpected issues during execution. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_evaluator_8py_source_1l00795">795</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1evaluator_1_1callback__so_a91b3f73bc6c6999748aaf8bfb94cdd39_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+<section>
+<title>Member Data Documentation</title>
+<anchor xml:id="_classfcmaes_1_1evaluator_1_1callback__so_1a556242f6333ce0f2316798f6171a061c"/><section>
+    <title>dim</title>
+<indexterm><primary>dim</primary><secondary>fcmaes.evaluator.callback_so</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator.callback_so</primary><secondary>dim</secondary></indexterm>
+<para><computeroutput>fcmaes.evaluator.callback_so.dim = dim</computeroutput></para><para>
+
+<para>Dimensionality of the input array passed to the objective. </para>
+</para>
+<para>
+Definition at line <link linkend="_evaluator_8py_source_1l00772">772</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1evaluator_1_1callback__so_1a1df2acbb4dae1a64687b5b231a2d169a"/><section>
+    <title>fun</title>
+<indexterm><primary>fun</primary><secondary>fcmaes.evaluator.callback_so</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator.callback_so</primary><secondary>fun</secondary></indexterm>
+<para><computeroutput>fcmaes.evaluator.callback_so.fun = fun</computeroutput></para><para>
+Definition at line <link linkend="_evaluator_8py_source_1l00771">771</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1evaluator_1_1callback__so_1a9a0ab5f62f58416bd1a061cb7c4d9fbf"/><section>
+    <title>is_terminate</title>
+<indexterm><primary>is_terminate</primary><secondary>fcmaes.evaluator.callback_so</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator.callback_so</primary><secondary>is_terminate</secondary></indexterm>
+<para><computeroutput>fcmaes.evaluator.callback_so.is_terminate = is_terminate</computeroutput></para><para>
+Definition at line <link linkend="_evaluator_8py_source_1l00774">774</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1evaluator_1_1callback__so_1a527ef30b5556fea42a808c27c9ea22f6"/><section>
+    <title>nobj</title>
+<indexterm><primary>nobj</primary><secondary>fcmaes.evaluator.callback_so</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator.callback_so</primary><secondary>nobj</secondary></indexterm>
+<para><computeroutput>int fcmaes.evaluator.callback_so.nobj = 1</computeroutput></para><para>
+
+<para>Number of objectives handled by the callback. </para>
+</para>
+
+<para>Set to 1 for Initializes the instance with the provided objective function, dimensionality, and optional termination condition. The <computeroutput>fun</computeroutput> parameter defines the objective function to optimize, <computeroutput>dim</computeroutput> specifies the number of dimensions for the optimization, and <computeroutput>is_terminate</computeroutput> is an optional callback to evaluate termination criteria.</para>
+
+<para><literallayout><computeroutput>       fun (Callable[[ArrayLike], float]): The objective function to optimize.
+</computeroutput></literallayout> 
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>dim</entry><entry>
+<para>The number of dimensions for the optimization problem. is_terminate (Optional[Callable[[ArrayLike, float], bool]]): Optional callback that determines if optimization should terminate based on the solution and its evaluation. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_evaluator_8py_source_1l00773">773</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+</section>
+<para>
+The documentation for this class was generated from the following file:</para>
+fcmaes/<link linkend="_evaluator_8py">evaluator.py</link></section>
+</section>

@@ -1,0 +1,229 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_classfcmaes_1_1evaluator_1_1parallel" xml:lang="en-US">
+<title>fcmaes.evaluator.parallel Class Reference</title>
+<indexterm><primary>fcmaes.evaluator.parallel</primary></indexterm>
+<para>
+
+<para>Executes functions in parallel using a multi-worker setup. </para>
+ 
+</para>
+Collaboration diagram for fcmaes.evaluator.parallel:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1evaluator_1_1parallel__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Public Member Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1evaluator_1_1parallel_1a9679b6f265113de94c38364e0124e3cb">__init__</link> (self, Callable[[ArrayLike], float] fun, Optional[int] workers=mp.cpu_count())</para>
+
+<para>Initializes a new instance of the class. </para>
+</listitem>
+            <listitem><para>np.ndarray <link linkend="_classfcmaes_1_1evaluator_1_1parallel_1a63cfd5289e05dc71f2b53e24e268350f">__call__</link> (self, ArrayLike xs)</para>
+
+<para>Evaluates the input using the provided evaluator function in parallel and returns the result. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1evaluator_1_1parallel_1ace042713bbecd9278b68cbf54f12322f">stop</link> (self)</para>
+
+<para>Stops the evaluation process. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Public Attributes    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1evaluator_1_1parallel_1a5f8d924594d093ffe94f441d62e79b6f">evaluator</link> = <link linkend="_classfcmaes_1_1evaluator_1_1_evaluator">Evaluator</link>(fun)</para>
+
+<para>The evaluator instance responsible for managing. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>Executes functions in parallel using a multi-worker setup. </para>
+
+
+
+<para>This class facilitates the parallel execution of functions across multiple processes for improved performance and efficiency, particularly for computationally expensive or repetitive tasks. It leverages an evaluator to manage function calls and starts job execution across specified workers.</para>
+
+<para><literallayout><computeroutput>       parallel execution of function calls.
+</computeroutput></literallayout> </para>
+<para>
+Definition at line <link linkend="_evaluator_8py_source_1l00571">571</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+</section>
+<section>
+<title>Constructor &amp; Destructor Documentation</title>
+<anchor xml:id="_classfcmaes_1_1evaluator_1_1parallel_1a9679b6f265113de94c38364e0124e3cb"/><section>
+    <title>__init__()</title>
+<indexterm><primary>__init__</primary><secondary>fcmaes.evaluator.parallel</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator.parallel</primary><secondary>__init__</secondary></indexterm>
+<para><computeroutput>fcmaes.evaluator.parallel.__init__ ( self, Callable[[ArrayLike], float] fun, Optional[int]  workers = <computeroutput>mp.cpu_count()</computeroutput>
+)</computeroutput></para><para>
+
+<para>Initializes a new instance of the class. </para>
+</para>
+
+<para><literallayout><computeroutput>       fun (Callable[[ArrayLike], float]): A callable function that accepts an argument of
+           type ArrayLike and returns a float. This function will be used as the evaluator.
+</computeroutput></literallayout> 
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>workers</entry><entry>
+<para>The number of worker processes to use. Defaults to the number of CPUs available on the machine. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_evaluator_8py_source_1l00585">585</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Function Documentation</title>
+<anchor xml:id="_classfcmaes_1_1evaluator_1_1parallel_1a63cfd5289e05dc71f2b53e24e268350f"/><section>
+    <title>__call__()</title>
+<indexterm><primary>__call__</primary><secondary>fcmaes.evaluator.parallel</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator.parallel</primary><secondary>__call__</secondary></indexterm>
+<para><computeroutput> np.ndarray fcmaes.evaluator.parallel.__call__ ( self, ArrayLike xs)</computeroutput></para><para>
+
+<para>Evaluates the input using the provided evaluator function in parallel and returns the result. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>xs</entry><entry>
+<para>Input data to be evaluated.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>np The result of the evaluation. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_evaluator_8py_source_1l00600">600</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1evaluator_1_1parallel_a63cfd5289e05dc71f2b53e24e268350f_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1evaluator_1_1parallel_a63cfd5289e05dc71f2b53e24e268350f_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1evaluator_1_1parallel_1ace042713bbecd9278b68cbf54f12322f"/><section>
+    <title>stop()</title>
+<indexterm><primary>stop</primary><secondary>fcmaes.evaluator.parallel</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator.parallel</primary><secondary>stop</secondary></indexterm>
+<para><computeroutput>fcmaes.evaluator.parallel.stop ( self)</computeroutput></para><para>
+
+<para>Stops the evaluation process. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method halts the ongoing evaluation process managed by the evaluator
+   to prevent further execution or processing.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>RuntimeError</entry><entry>
+<para>If the evaluation process cannot be stopped. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_evaluator_8py_source_1l00612">612</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1evaluator_1_1parallel_ace042713bbecd9278b68cbf54f12322f_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1evaluator_1_1parallel_ace042713bbecd9278b68cbf54f12322f_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+<section>
+<title>Member Data Documentation</title>
+<anchor xml:id="_classfcmaes_1_1evaluator_1_1parallel_1a5f8d924594d093ffe94f441d62e79b6f"/><section>
+    <title>evaluator</title>
+<indexterm><primary>evaluator</primary><secondary>fcmaes.evaluator.parallel</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator.parallel</primary><secondary>evaluator</secondary></indexterm>
+<para><computeroutput>fcmaes.evaluator.parallel.evaluator = <link linkend="_classfcmaes_1_1evaluator_1_1_evaluator">Evaluator</link>(fun)</computeroutput></para><para>
+
+<para>The evaluator instance responsible for managing. </para>
+</para>
+<para>
+Definition at line <link linkend="_evaluator_8py_source_1l00588">588</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+</section>
+<para>
+The documentation for this class was generated from the following file:</para>
+fcmaes/<link linkend="_evaluator_8py">evaluator.py</link></section>
+</section>

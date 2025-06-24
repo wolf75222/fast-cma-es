@@ -1,0 +1,173 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_vrptw_8py_source" xml:lang="en-US">
+<title>vrptw.py</title>
+<indexterm><primary>examples/vrptw/vrptw.py</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_vrptw_8py_source_1l00001"/><link linkend="_namespacevrptw">00001</link> <emphasis role="comment">#&#32;Copyright&#32;(c)&#32;Dietmar&#32;Wolz.</emphasis>
+<anchor xml:id="_vrptw_8py_source_1l00002"/>00002 <emphasis role="comment">#</emphasis>
+<anchor xml:id="_vrptw_8py_source_1l00003"/>00003 <emphasis role="comment">#&#32;This&#32;source&#32;code&#32;is&#32;licensed&#32;under&#32;the&#32;MIT&#32;license&#32;found&#32;in&#32;the</emphasis>
+<anchor xml:id="_vrptw_8py_source_1l00004"/>00004 <emphasis role="comment">#&#32;LICENSE&#32;file&#32;in&#32;the&#32;root&#32;directory.</emphasis>
+<anchor xml:id="_vrptw_8py_source_1l00005"/>00005 
+<anchor xml:id="_vrptw_8py_source_1l00006"/>00006 <emphasis role="comment">#&#32;Solving&#32;Solomons&#32;Benchmark&#32;for&#32;the&#32;</emphasis>
+<anchor xml:id="_vrptw_8py_source_1l00007"/>00007 <emphasis role="comment">#&#32;Vehicles&#32;Benchmark&#32;Problem&#32;with&#32;Time&#32;Windows.</emphasis>
+<anchor xml:id="_vrptw_8py_source_1l00008"/>00008 <emphasis role="comment">#&#32;See&#32;http://web.cba.neu.edu/~msolomon/problems.htm</emphasis>
+<anchor xml:id="_vrptw_8py_source_1l00009"/>00009 <emphasis role="comment">#&#32;See&#32;https://github.com/dietmarwo/fast-cma-es/blob/master/tutorials/Oneforall.adoc&#32;for&#32;a&#32;detailed&#32;description.</emphasis>
+<anchor xml:id="_vrptw_8py_source_1l00010"/>00010 
+<anchor xml:id="_vrptw_8py_source_1l00011"/>00011 <emphasis role="comment">#&#32;Tested&#32;using&#32;https://docs.conda.io/en/main/miniconda.html&#32;on&#32;Linux&#32;Mint&#32;21.2</emphasis>
+<anchor xml:id="_vrptw_8py_source_1l00012"/>00012 
+<anchor xml:id="_vrptw_8py_source_1l00013"/>00013 <emphasis role="keyword">import</emphasis>&#32;numpy&#32;<emphasis role="keyword">as</emphasis>&#32;np
+<anchor xml:id="_vrptw_8py_source_1l00014"/>00014 <emphasis role="keyword">import</emphasis>&#32;os
+<anchor xml:id="_vrptw_8py_source_1l00015"/>00015 <emphasis role="keyword">from</emphasis>&#32;numba&#32;<emphasis role="keyword">import</emphasis>&#32;njit
+<anchor xml:id="_vrptw_8py_source_1l00016"/>00016 <emphasis role="keyword">from</emphasis>&#32;datetime&#32;<emphasis role="keyword">import</emphasis>&#32;datetime
+<anchor xml:id="_vrptw_8py_source_1l00017"/>00017 <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1optimizer">fcmaes.optimizer</link>&#32;<emphasis role="keyword">import</emphasis>&#32;crfmnes_bite,&#32;wrapper
+<anchor xml:id="_vrptw_8py_source_1l00018"/>00018 <emphasis role="keyword">from</emphasis>&#32;fcmaes&#32;<emphasis role="keyword">import</emphasis>&#32;retry
+<anchor xml:id="_vrptw_8py_source_1l00019"/>00019 <emphasis role="keyword">from</emphasis>&#32;scipy.optimize&#32;<emphasis role="keyword">import</emphasis>&#32;Bounds
+<anchor xml:id="_vrptw_8py_source_1l00020"/>00020 
+<anchor xml:id="_vrptw_8py_source_1l00021"/>00021 <emphasis role="keyword">import</emphasis>&#32;sys&#32;
+<anchor xml:id="_vrptw_8py_source_1l00022"/>00022 <emphasis role="keyword">from</emphasis>&#32;loguru&#32;<emphasis role="keyword">import</emphasis>&#32;logger
+<anchor xml:id="_vrptw_8py_source_1l00023"/>00023 
+<anchor xml:id="_vrptw_8py_source_1l00024"/>00024 logger.remove()
+<anchor xml:id="_vrptw_8py_source_1l00025"/><link linkend="_namespacevrptw_1a006b1e47e0f67f540f4bbe62893dffef">00025</link> logger.add(sys.stdout,&#32;format=<emphasis role="stringliteral">&quot;{time:HH:mm:ss.SS}&#32;|&#32;{process}&#32;|&#32;{level}&#32;|&#32;{message}&quot;</emphasis>,&#32;level=<emphasis role="stringliteral">&quot;INFO&quot;</emphasis>)
+<anchor xml:id="_vrptw_8py_source_1l00026"/>00026 logger.add(<emphasis role="stringliteral">&quot;log_{time}.txt&quot;</emphasis>,&#32;format=<emphasis role="stringliteral">&quot;{time:HH:mm:ss.SS}&#32;|&#32;{process}&#32;|&#32;{level}&#32;|&#32;{message}&quot;</emphasis>,&#32;level=<emphasis role="stringliteral">&quot;INFO&quot;</emphasis>)
+<anchor xml:id="_vrptw_8py_source_1l00027"/>00027 
+<anchor xml:id="_vrptw_8py_source_1l00028"/><link linkend="_namespacevrptw_1a53a9bb8ebce4a6fbd9cc4922a420fa96">00028</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacevrptw_1a53a9bb8ebce4a6fbd9cc4922a420fa96">parse_problem</link>(filename):
+<anchor xml:id="_vrptw_8py_source_1l00029"/>00029 &#32;&#32;&#32;&#32;<emphasis role="keyword">with</emphasis>&#32;open(filename)&#32;<emphasis role="keyword">as</emphasis>&#32;csvfile:
+<anchor xml:id="_vrptw_8py_source_1l00030"/>00030 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;lines&#32;=&#32;csvfile.readlines()
+<anchor xml:id="_vrptw_8py_source_1l00031"/>00031 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;demand&#32;=&#32;[]
+<anchor xml:id="_vrptw_8py_source_1l00032"/>00032 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;coord&#32;=&#32;[]&#32;
+<anchor xml:id="_vrptw_8py_source_1l00033"/>00033 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ready&#32;=&#32;[]&#32;
+<anchor xml:id="_vrptw_8py_source_1l00034"/>00034 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;due&#32;=&#32;[]&#32;
+<anchor xml:id="_vrptw_8py_source_1l00035"/>00035 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;service&#32;=&#32;[]
+<anchor xml:id="_vrptw_8py_source_1l00036"/>00036 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;line&#32;<emphasis role="keywordflow">in</emphasis>&#32;lines:
+<anchor xml:id="_vrptw_8py_source_1l00037"/>00037 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;row&#32;=&#32;line.split()
+<anchor xml:id="_vrptw_8py_source_1l00038"/>00038 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;len(row)&#32;==&#32;2&#32;<emphasis role="keywordflow">and</emphasis>&#32;row[0][0].isdigit():
+<anchor xml:id="_vrptw_8py_source_1l00039"/>00039 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;number&#32;=&#32;int(row[0])
+<anchor xml:id="_vrptw_8py_source_1l00040"/>00040 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;capacity&#32;=&#32;int(row[1])&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_vrptw_8py_source_1l00041"/>00041 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;len(row)&#32;&lt;&#32;5&#32;<emphasis role="keywordflow">or</emphasis>&#32;<emphasis role="keywordflow">not</emphasis>&#32;row[0][0].isdigit():
+<anchor xml:id="_vrptw_8py_source_1l00042"/>00042 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>
+<anchor xml:id="_vrptw_8py_source_1l00043"/>00043 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;coord.append(np.array([float(row[1]),&#32;float(row[2])]))&#32;
+<anchor xml:id="_vrptw_8py_source_1l00044"/>00044 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;demand.append(float(row[3]))
+<anchor xml:id="_vrptw_8py_source_1l00045"/>00045 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ready.append(float(row[4]))
+<anchor xml:id="_vrptw_8py_source_1l00046"/>00046 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;due.append(float(row[5]))
+<anchor xml:id="_vrptw_8py_source_1l00047"/>00047 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;service.append(float(row[6]))
+<anchor xml:id="_vrptw_8py_source_1l00048"/>00048 &#32;&#32;&#32;&#32;n&#32;=&#32;len(demand)
+<anchor xml:id="_vrptw_8py_source_1l00049"/>00049 &#32;&#32;&#32;&#32;dtimes&#32;=&#32;np.zeros((n,n))
+<anchor xml:id="_vrptw_8py_source_1l00050"/>00050 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(n):
+<anchor xml:id="_vrptw_8py_source_1l00051"/>00051 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;j&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(n):
+<anchor xml:id="_vrptw_8py_source_1l00052"/>00052 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dtimes[i,j]&#32;=&#32;np.linalg.norm(coord[i]&#32;-&#32;coord[j])
+<anchor xml:id="_vrptw_8py_source_1l00053"/>00053 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;number,&#32;capacity,&#32;dtimes,&#32;np.array(demand),&#32;np.array(ready),\
+<anchor xml:id="_vrptw_8py_source_1l00054"/>00054 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;np.array(due),&#32;np.array(service)
+<anchor xml:id="_vrptw_8py_source_1l00055"/>00055 
+<anchor xml:id="_vrptw_8py_source_1l00056"/>00056 <emphasis role="preprocessor">@njit(fastmath=True)</emphasis>
+<anchor xml:id="_vrptw_8py_source_1l00057"/><link linkend="_namespacevrptw_1a6223d5b5d0f77c015a842e7fd153cde1">00057</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacevrptw_1a6223d5b5d0f77c015a842e7fd153cde1">fitness_</link>(seq,&#32;capacity,&#32;dtime,&#32;demands,&#32;readys,&#32;dues,&#32;services):
+<anchor xml:id="_vrptw_8py_source_1l00058"/>00058 &#32;&#32;&#32;&#32;n&#32;=&#32;len(seq)
+<anchor xml:id="_vrptw_8py_source_1l00059"/>00059 &#32;&#32;&#32;&#32;seq&#32;+=&#32;1
+<anchor xml:id="_vrptw_8py_source_1l00060"/>00060 &#32;&#32;&#32;&#32;sum_demand&#32;=&#32;0
+<anchor xml:id="_vrptw_8py_source_1l00061"/>00061 &#32;&#32;&#32;&#32;sum_dtime&#32;=&#32;0
+<anchor xml:id="_vrptw_8py_source_1l00062"/>00062 &#32;&#32;&#32;&#32;time&#32;=&#32;0
+<anchor xml:id="_vrptw_8py_source_1l00063"/>00063 &#32;&#32;&#32;&#32;last&#32;=&#32;0
+<anchor xml:id="_vrptw_8py_source_1l00064"/>00064 &#32;&#32;&#32;&#32;vehicles&#32;=&#32;1
+<anchor xml:id="_vrptw_8py_source_1l00065"/>00065 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(0,&#32;n+1):
+<anchor xml:id="_vrptw_8py_source_1l00066"/>00066 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;customer&#32;=&#32;seq[i]&#32;<emphasis role="keywordflow">if</emphasis>&#32;i&#32;&lt;&#32;n&#32;<emphasis role="keywordflow">else</emphasis>&#32;0
+<anchor xml:id="_vrptw_8py_source_1l00067"/>00067 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;demand&#32;=&#32;demands[customer]
+<anchor xml:id="_vrptw_8py_source_1l00068"/>00068 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ready&#32;=&#32;readys[customer]
+<anchor xml:id="_vrptw_8py_source_1l00069"/>00069 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;due&#32;=&#32;dues[customer]
+<anchor xml:id="_vrptw_8py_source_1l00070"/>00070 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;service&#32;=&#32;services[customer]
+<anchor xml:id="_vrptw_8py_source_1l00071"/>00071 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;sum_demand&#32;+&#32;demand&#32;&gt;&#32;capacity&#32;<emphasis role="keywordflow">or</emphasis>&#32;\
+<anchor xml:id="_vrptw_8py_source_1l00072"/>00072 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;time&#32;+&#32;dtime[last,&#32;customer]&#32;&gt;&#32;due:&#32;
+<anchor xml:id="_vrptw_8py_source_1l00073"/>00073 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;end&#32;vehicle&#32;tour,&#32;return&#32;to&#32;base</emphasis>
+<anchor xml:id="_vrptw_8py_source_1l00074"/>00074 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dt&#32;=&#32;dtime[last,&#32;0]
+<anchor xml:id="_vrptw_8py_source_1l00075"/>00075 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;sum_dtime&#32;+=&#32;dt
+<anchor xml:id="_vrptw_8py_source_1l00076"/>00076 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;time&#32;=&#32;0
+<anchor xml:id="_vrptw_8py_source_1l00077"/>00077 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;sum_demand&#32;=&#32;0
+<anchor xml:id="_vrptw_8py_source_1l00078"/>00078 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;vehicles&#32;+=&#32;1
+<anchor xml:id="_vrptw_8py_source_1l00079"/>00079 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;last&#32;=&#32;0
+<anchor xml:id="_vrptw_8py_source_1l00080"/>00080 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;go&#32;to&#32;customer</emphasis>
+<anchor xml:id="_vrptw_8py_source_1l00081"/>00081 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dt&#32;=&#32;dtime[last,&#32;customer]
+<anchor xml:id="_vrptw_8py_source_1l00082"/>00082 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;time&#32;+=&#32;dt&#32;
+<anchor xml:id="_vrptw_8py_source_1l00083"/>00083 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;time&#32;&lt;&#32;ready:
+<anchor xml:id="_vrptw_8py_source_1l00084"/>00084 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;time&#32;=&#32;ready
+<anchor xml:id="_vrptw_8py_source_1l00085"/>00085 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;time&#32;+=&#32;service&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_vrptw_8py_source_1l00086"/>00086 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;sum_demand&#32;+=&#32;demand
+<anchor xml:id="_vrptw_8py_source_1l00087"/>00087 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;sum_dtime&#32;+=&#32;dt
+<anchor xml:id="_vrptw_8py_source_1l00088"/>00088 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;last&#32;=&#32;customer
+<anchor xml:id="_vrptw_8py_source_1l00089"/>00089 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;np.array([float(vehicles),&#32;sum_dtime])
+<anchor xml:id="_vrptw_8py_source_1l00090"/>00090 &#32;&#32;&#32;&#32;
+<anchor xml:id="_vrptw_8py_source_1l00091"/><link linkend="_classvrptw_1_1_v_r_p_t_w">00091</link> <emphasis role="keyword">class&#32;</emphasis><link linkend="_classvrptw_1_1_v_r_p_t_w">VRPTW</link>():
+<anchor xml:id="_vrptw_8py_source_1l00092"/><link linkend="_classvrptw_1_1_v_r_p_t_w_1a1efcfc8bfc20a42c811882ba01577242">00092</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classvrptw_1_1_v_r_p_t_w_1a1efcfc8bfc20a42c811882ba01577242">__init__</link>(self,&#32;problem):
+<anchor xml:id="_vrptw_8py_source_1l00093"/><link linkend="_classvrptw_1_1_v_r_p_t_w_1a8b21d6a356d4577a2dd1c219600f7453">00093</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classvrptw_1_1_v_r_p_t_w_1a8b21d6a356d4577a2dd1c219600f7453">problem</link>&#32;=&#32;problem
+<anchor xml:id="_vrptw_8py_source_1l00094"/>00094 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;filename&#32;=&#32;<emphasis role="stringliteral">&apos;problems/&apos;</emphasis>&#32;+&#32;problem&#32;+&#32;<emphasis role="stringliteral">&apos;.txt&apos;</emphasis>
+<anchor xml:id="_vrptw_8py_source_1l00095"/><link linkend="_classvrptw_1_1_v_r_p_t_w_1af0528c356eac756865adcbd400630d36">00095</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classvrptw_1_1_v_r_p_t_w_1a63ce5c900d4c9bd72d95dec777face1a">vnumber</link>,&#32;self.<link linkend="_classvrptw_1_1_v_r_p_t_w_1af0528c356eac756865adcbd400630d36">capacity</link>,&#32;self.<link linkend="_classvrptw_1_1_v_r_p_t_w_1a554b90bff076ba204b81227dc9d1c31d">dtime</link>,&#32;self.<link linkend="_classvrptw_1_1_v_r_p_t_w_1a55f7a957039524a6643aae1d43035df7">demand</link>,&#32;self.<link linkend="_classvrptw_1_1_v_r_p_t_w_1acb1f65486029d21f64b3de15aee414ef">ready</link>,\
+<anchor xml:id="_vrptw_8py_source_1l00096"/><link linkend="_classvrptw_1_1_v_r_p_t_w_1a349bee89e56a713370472eea5511e741">00096</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classvrptw_1_1_v_r_p_t_w_1a349bee89e56a713370472eea5511e741">due</link>,&#32;self.<link linkend="_classvrptw_1_1_v_r_p_t_w_1a39113eda2fe4d53cae06d3cd992b5c3e">service</link>&#32;=&#32;<link linkend="_namespacevrptw_1a53a9bb8ebce4a6fbd9cc4922a420fa96">parse_problem</link>(filename)
+<anchor xml:id="_vrptw_8py_source_1l00097"/><link linkend="_classvrptw_1_1_v_r_p_t_w_1abdbcb2ec23309b4f3e13bf8966cfce6c">00097</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classvrptw_1_1_v_r_p_t_w_1abdbcb2ec23309b4f3e13bf8966cfce6c">dim</link>&#32;=&#32;len(self.<link linkend="_classvrptw_1_1_v_r_p_t_w_1a55f7a957039524a6643aae1d43035df7">demand</link>)&#32;-&#32;1
+<anchor xml:id="_vrptw_8py_source_1l00098"/><link linkend="_classvrptw_1_1_v_r_p_t_w_1ace37603e9117f7be43e58fd53ab08f5e">00098</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classvrptw_1_1_v_r_p_t_w_1ace37603e9117f7be43e58fd53ab08f5e">bounds</link>&#32;=&#32;Bounds([0]*self.<link linkend="_classvrptw_1_1_v_r_p_t_w_1abdbcb2ec23309b4f3e13bf8966cfce6c">dim</link>,&#32;[1]*self.<link linkend="_classvrptw_1_1_v_r_p_t_w_1abdbcb2ec23309b4f3e13bf8966cfce6c">dim</link>)
+<anchor xml:id="_vrptw_8py_source_1l00099"/>00099 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_vrptw_8py_source_1l00100"/><link linkend="_classvrptw_1_1_v_r_p_t_w_1a6857cddbe741acf9b5980c793dd2b540">00100</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classvrptw_1_1_v_r_p_t_w_1a6857cddbe741acf9b5980c793dd2b540">fitness</link>(self,&#32;x):
+<anchor xml:id="_vrptw_8py_source_1l00101"/>00101 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fit&#32;=&#32;<link linkend="_namespacevrptw_1a6223d5b5d0f77c015a842e7fd153cde1">fitness_</link>(np.argsort(x),&#32;self.<link linkend="_classvrptw_1_1_v_r_p_t_w_1af0528c356eac756865adcbd400630d36">capacity</link>,&#32;self.<link linkend="_classvrptw_1_1_v_r_p_t_w_1a554b90bff076ba204b81227dc9d1c31d">dtime</link>,&#32;self.<link linkend="_classvrptw_1_1_v_r_p_t_w_1a55f7a957039524a6643aae1d43035df7">demand</link>,&#32;\
+<anchor xml:id="_vrptw_8py_source_1l00102"/>00102 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classvrptw_1_1_v_r_p_t_w_1acb1f65486029d21f64b3de15aee414ef">ready</link>,&#32;self.<link linkend="_classvrptw_1_1_v_r_p_t_w_1a349bee89e56a713370472eea5511e741">due</link>,&#32;self.<link linkend="_classvrptw_1_1_v_r_p_t_w_1a39113eda2fe4d53cae06d3cd992b5c3e">service</link>)&#32;&#32;&#32;
+<anchor xml:id="_vrptw_8py_source_1l00103"/>00103 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;10*fit[0]&#32;+&#32;fit[1]&#32;
+<anchor xml:id="_vrptw_8py_source_1l00104"/>00104 &#32;&#32;&#32;&#32;
+<anchor xml:id="_vrptw_8py_source_1l00105"/><link linkend="_classvrptw_1_1_v_r_p_t_w_1a824ddbcad6207e8d14f8a41809c1b3f2">00105</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classvrptw_1_1_v_r_p_t_w_1a824ddbcad6207e8d14f8a41809c1b3f2">dump</link>(self,&#32;seq,&#32;y,&#32;problem,&#32;opt_name=&apos;&apos;):
+<anchor xml:id="_vrptw_8py_source_1l00106"/>00106 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;lines&#32;=&#32;[]
+<anchor xml:id="_vrptw_8py_source_1l00107"/>00107 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;lines.append(<emphasis role="stringliteral">&apos;Instance&#32;Name&#32;:&#32;&apos;</emphasis>&#32;+&#32;self.<link linkend="_classvrptw_1_1_v_r_p_t_w_1a8b21d6a356d4577a2dd1c219600f7453">problem</link>&#32;+&#32;<emphasis role="stringliteral">&apos;\n&apos;</emphasis>)
+<anchor xml:id="_vrptw_8py_source_1l00108"/>00108 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;lines.append(<emphasis role="stringliteral">&apos;Date&#32;:&#32;&apos;</emphasis>&#32;+&#32;str(datetime.today().date())&#32;+&#32;<emphasis role="stringliteral">&apos;\n&apos;</emphasis>)
+<anchor xml:id="_vrptw_8py_source_1l00109"/>00109 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;lines.append(<emphasis role="stringliteral">&apos;Solution\n&apos;</emphasis>)
+<anchor xml:id="_vrptw_8py_source_1l00110"/>00110 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;n&#32;=&#32;len(seq)
+<anchor xml:id="_vrptw_8py_source_1l00111"/>00111 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;seq&#32;+=&#32;1
+<anchor xml:id="_vrptw_8py_source_1l00112"/>00112 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;sum_dtime&#32;=&#32;0
+<anchor xml:id="_vrptw_8py_source_1l00113"/>00113 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;last&#32;=&#32;0
+<anchor xml:id="_vrptw_8py_source_1l00114"/>00114 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;vehicles&#32;=&#32;1
+<anchor xml:id="_vrptw_8py_source_1l00115"/>00115 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;sum_demand&#32;=&#32;0
+<anchor xml:id="_vrptw_8py_source_1l00116"/>00116 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;time&#32;=&#32;0
+<anchor xml:id="_vrptw_8py_source_1l00117"/>00117 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;tour&#32;=&#32;[]
+<anchor xml:id="_vrptw_8py_source_1l00118"/>00118 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(0,&#32;n+1):
+<anchor xml:id="_vrptw_8py_source_1l00119"/>00119 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;customer&#32;=&#32;seq[i]&#32;<emphasis role="keywordflow">if</emphasis>&#32;i&#32;&lt;&#32;n&#32;<emphasis role="keywordflow">else</emphasis>&#32;0
+<anchor xml:id="_vrptw_8py_source_1l00120"/>00120 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;demand&#32;=&#32;self.<link linkend="_classvrptw_1_1_v_r_p_t_w_1a55f7a957039524a6643aae1d43035df7">demand</link>[customer]
+<anchor xml:id="_vrptw_8py_source_1l00121"/>00121 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ready&#32;=&#32;self.<link linkend="_classvrptw_1_1_v_r_p_t_w_1acb1f65486029d21f64b3de15aee414ef">ready</link>[customer]
+<anchor xml:id="_vrptw_8py_source_1l00122"/>00122 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;due&#32;=&#32;self.<link linkend="_classvrptw_1_1_v_r_p_t_w_1a349bee89e56a713370472eea5511e741">due</link>[customer]
+<anchor xml:id="_vrptw_8py_source_1l00123"/>00123 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;service&#32;=&#32;self.<link linkend="_classvrptw_1_1_v_r_p_t_w_1a39113eda2fe4d53cae06d3cd992b5c3e">service</link>[customer]
+<anchor xml:id="_vrptw_8py_source_1l00124"/>00124 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;sum_demand&#32;+&#32;demand&#32;&gt;&#32;self.<link linkend="_classvrptw_1_1_v_r_p_t_w_1af0528c356eac756865adcbd400630d36">capacity</link>&#32;<emphasis role="keywordflow">or</emphasis>&#32;\
+<anchor xml:id="_vrptw_8py_source_1l00125"/>00125 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;time&#32;+&#32;self.<link linkend="_classvrptw_1_1_v_r_p_t_w_1a554b90bff076ba204b81227dc9d1c31d">dtime</link>[last,&#32;customer]&#32;&gt;&#32;due:&#32;
+<anchor xml:id="_vrptw_8py_source_1l00126"/>00126 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dt&#32;=&#32;self.&#32;dtime[last,&#32;0]
+<anchor xml:id="_vrptw_8py_source_1l00127"/>00127 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;sum_dtime&#32;+=&#32;dt
+<anchor xml:id="_vrptw_8py_source_1l00128"/>00128 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;time&#32;=&#32;0
+<anchor xml:id="_vrptw_8py_source_1l00129"/>00129 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;lines.append(<emphasis role="stringliteral">&apos;Route&#32;&apos;</emphasis>&#32;+&#32;str(vehicles)&#32;+&#32;<emphasis role="stringliteral">&apos;&#32;:&#32;&apos;</emphasis>&#32;+&#32;<emphasis role="stringliteral">&apos;&#32;&apos;</emphasis>.join(map(str,&#32;tour))&#32;+&#32;<emphasis role="stringliteral">&apos;\n&apos;</emphasis>)
+<anchor xml:id="_vrptw_8py_source_1l00130"/>00130 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;sum_demand&#32;=&#32;0
+<anchor xml:id="_vrptw_8py_source_1l00131"/>00131 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;vehicles&#32;+=&#32;1
+<anchor xml:id="_vrptw_8py_source_1l00132"/>00132 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;tour&#32;=&#32;[]
+<anchor xml:id="_vrptw_8py_source_1l00133"/>00133 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;last&#32;=&#32;0
+<anchor xml:id="_vrptw_8py_source_1l00134"/>00134 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dt&#32;=&#32;self.<link linkend="_classvrptw_1_1_v_r_p_t_w_1a554b90bff076ba204b81227dc9d1c31d">dtime</link>[last,&#32;customer]
+<anchor xml:id="_vrptw_8py_source_1l00135"/>00135 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;time&#32;+=&#32;dt&#32;
+<anchor xml:id="_vrptw_8py_source_1l00136"/>00136 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;time&#32;&lt;&#32;ready:
+<anchor xml:id="_vrptw_8py_source_1l00137"/>00137 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;time&#32;=&#32;ready
+<anchor xml:id="_vrptw_8py_source_1l00138"/>00138 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;time&#32;+=&#32;service
+<anchor xml:id="_vrptw_8py_source_1l00139"/>00139 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;sum_demand&#32;+=&#32;demand
+<anchor xml:id="_vrptw_8py_source_1l00140"/>00140 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;sum_dtime&#32;+=&#32;dt
+<anchor xml:id="_vrptw_8py_source_1l00141"/>00141 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;customer&#32;!=&#32;0:
+<anchor xml:id="_vrptw_8py_source_1l00142"/>00142 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;tour.append(customer)
+<anchor xml:id="_vrptw_8py_source_1l00143"/>00143 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;last&#32;=&#32;customer
+<anchor xml:id="_vrptw_8py_source_1l00144"/>00144 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">print</emphasis>&#32;(<emphasis role="stringliteral">&quot;vehicles&#32;&quot;</emphasis>,&#32;vehicles-1,&#32;<emphasis role="stringliteral">&quot;demands&quot;</emphasis>,&#32;sum_demand,&#32;<emphasis role="stringliteral">&quot;dtime&quot;</emphasis>,&#32;sum_dtime)
+<anchor xml:id="_vrptw_8py_source_1l00145"/>00145 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;filename&#32;=&#32;<emphasis role="stringliteral">&apos;solutions/&apos;</emphasis>&#32;+&#32;problem&#32;+&#32;<emphasis role="stringliteral">&apos;.txt&apos;</emphasis>
+<anchor xml:id="_vrptw_8py_source_1l00146"/>00146 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">with</emphasis>&#32;open(filename,&#32;<emphasis role="stringliteral">&apos;w&apos;</emphasis>)&#32;<emphasis role="keyword">as</emphasis>&#32;f:
+<anchor xml:id="_vrptw_8py_source_1l00147"/>00147 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;f.writelines(lines)
+<anchor xml:id="_vrptw_8py_source_1l00148"/>00148 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;logger().info(<emphasis role="stringliteral">&apos;&apos;</emphasis>.join(lines))
+<anchor xml:id="_vrptw_8py_source_1l00149"/>00149 &#32;&#32;&#32;&#32;
+<anchor xml:id="_vrptw_8py_source_1l00150"/><link linkend="_namespacevrptw_1a0304b6337cf8df9d3a0c67295ee045b7">00150</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacevrptw_1a0304b6337cf8df9d3a0c67295ee045b7">optimize</link>(vrptw,&#32;opt,&#32;num_retries&#32;=&#32;64):
+<anchor xml:id="_vrptw_8py_source_1l00151"/>00151 &#32;&#32;&#32;&#32;ret&#32;=&#32;retry.minimize(<link linkend="_classfcmaes_1_1optimizer_1_1wrapper">wrapper</link>(vrptw.fitness),&#32;
+<anchor xml:id="_vrptw_8py_source_1l00152"/>00152 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;vrptw.bounds,&#32;num_retries&#32;=&#32;num_retries,&#32;optimizer=opt)
+<anchor xml:id="_vrptw_8py_source_1l00153"/>00153 &#32;&#32;&#32;&#32;vrptw.dump(np.argsort(ret.x),&#32;ret.fun,&#32;vrptw.problem,&#32;opt.name.replace(<emphasis role="stringliteral">&apos;&#32;&apos;</emphasis>,<emphasis role="stringliteral">&apos;_&apos;</emphasis>)&#32;+&#32;<emphasis role="stringliteral">&apos;_&apos;</emphasis>)
+<anchor xml:id="_vrptw_8py_source_1l00154"/>00154 
+<anchor xml:id="_vrptw_8py_source_1l00155"/><link linkend="_namespacevrptw_1a8acf1684d313df340e4a19bbf730c59e">00155</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacevrptw_1a8acf1684d313df340e4a19bbf730c59e">opt_dir</link>(dir):
+<anchor xml:id="_vrptw_8py_source_1l00156"/>00156 &#32;&#32;&#32;&#32;files&#32;=&#32;os.listdir(dir)
+<anchor xml:id="_vrptw_8py_source_1l00157"/>00157 &#32;&#32;&#32;&#32;files.sort()
+<anchor xml:id="_vrptw_8py_source_1l00158"/>00158 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;file&#32;<emphasis role="keywordflow">in</emphasis>&#32;files:
+<anchor xml:id="_vrptw_8py_source_1l00159"/>00159 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;problem&#32;=&#32;file.split(<emphasis role="stringliteral">&apos;.&apos;</emphasis>)[0]
+<anchor xml:id="_vrptw_8py_source_1l00160"/>00160 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;vrptw&#32;=&#32;<link linkend="_classvrptw_1_1_v_r_p_t_w">VRPTW</link>(problem)&#32;
+<anchor xml:id="_vrptw_8py_source_1l00161"/>00161 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;popsize&#32;=&#32;500
+<anchor xml:id="_vrptw_8py_source_1l00162"/>00162 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_evaluations&#32;=&#32;popsize*20000
+<anchor xml:id="_vrptw_8py_source_1l00163"/>00163 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;opt&#32;=&#32;crfmnes_bite(max_evaluations,&#32;popsize=popsize,&#32;M=6)
+<anchor xml:id="_vrptw_8py_source_1l00164"/>00164 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_namespacevrptw_1a0304b6337cf8df9d3a0c67295ee045b7">optimize</link>(vrptw,&#32;opt,&#32;num_retries&#32;=&#32;64)
+<anchor xml:id="_vrptw_8py_source_1l00165"/>00165 &#32;&#32;&#32;&#32;
+<anchor xml:id="_vrptw_8py_source_1l00166"/>00166 <emphasis role="keywordflow">if</emphasis>&#32;__name__&#32;==&#32;<emphasis role="stringliteral">&apos;__main__&apos;</emphasis>:
+<anchor xml:id="_vrptw_8py_source_1l00167"/>00167 &#32;&#32;&#32;&#32;<link linkend="_namespacevrptw_1a8acf1684d313df340e4a19bbf730c59e">opt_dir</link>(<emphasis role="stringliteral">&apos;problems&apos;</emphasis>)
+<anchor xml:id="_vrptw_8py_source_1l00168"/>00168 
+</programlisting></section>

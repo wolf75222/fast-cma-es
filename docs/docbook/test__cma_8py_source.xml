@@ -1,0 +1,684 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_test__cma_8py_source" xml:lang="en-US">
+<title>test_cma.py</title>
+<indexterm><primary>fcmaes/test_cma.py</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_test__cma_8py_source_1l00001"/><link linkend="_namespacefcmaes_1_1test__cma">00001</link> <emphasis role="comment">#&#32;-*-&#32;coding:&#32;utf-8&#32;-*-</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00002"/>00002 <emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00003"/>00003 <emphasis role="stringliteral">=============================================================================</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00004"/>00004 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00005"/>00005 <emphasis role="stringliteral">&#32;Fast&#32;CMA-ES&#32;-&#32;version&#32;1.6.11</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00006"/>00006 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00007"/>00007 <emphasis role="stringliteral">&#32;(c)&#32;2025&#32;–&#32;Dietmar&#32;Wolz</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00008"/>00008 <emphasis role="stringliteral">&#32;(c)&#32;2025&#32;–&#32;Latitude</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00009"/>00009 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00010"/>00010 <emphasis role="stringliteral">&#32;License:&#32;MIT</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00011"/>00011 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00012"/>00012 <emphasis role="stringliteral">&#32;File:</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00013"/>00013 <emphasis role="stringliteral">&#32;&#32;-&#32;test_cma.py</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00014"/>00014 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00015"/>00015 <emphasis role="stringliteral">&#32;Description:</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00016"/>00016 <emphasis role="stringliteral">&#32;&#32;-&#32;This&#32;file&#32;contains&#32;unit&#32;tests&#32;for&#32;the&#32;Fast&#32;CMA-ES&#32;library.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00017"/>00017 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00018"/>00018 <emphasis role="stringliteral">&#32;Authors:</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00019"/>00019 <emphasis role="stringliteral">&#32;&#32;-&#32;Dietmar&#32;Wolz</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00020"/>00020 <emphasis role="stringliteral">&#32;&#32;-&#32;romain.despoullains@latitude.eu</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00021"/>00021 <emphasis role="stringliteral">&#32;&#32;-&#32;corentin.generet@latitude.eu</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00022"/>00022 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00023"/>00023 <emphasis role="stringliteral">&#32;References:</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00024"/>00024 <emphasis role="stringliteral">&#32;&#32;-&#32;[1]&#32;https://github.com/dietmarwo/fast-cma-es</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00025"/>00025 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00026"/>00026 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00027"/>00027 <emphasis role="stringliteral">&#32;Documentation:</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00028"/>00028 <emphasis role="stringliteral">&#32;&#32;-</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00029"/>00029 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00030"/>00030 <emphasis role="stringliteral">=============================================================================</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00031"/>00031 <emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00032"/>00032 <emphasis role="keyword">import</emphasis>&#32;multiprocessing&#32;<emphasis role="keyword">as</emphasis>&#32;mp
+<anchor xml:id="_test__cma_8py_source_1l00033"/>00033 <emphasis role="keyword">import</emphasis>&#32;numpy&#32;<emphasis role="keyword">as</emphasis>&#32;np
+<anchor xml:id="_test__cma_8py_source_1l00034"/>00034 <emphasis role="keyword">from</emphasis>&#32;scipy.optimize&#32;<emphasis role="keyword">import</emphasis>&#32;OptimizeResult
+<anchor xml:id="_test__cma_8py_source_1l00035"/>00035 <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1testfun">fcmaes.testfun</link>&#32;<emphasis role="keyword">import</emphasis>&#32;Wrapper,&#32;Rosen,&#32;Rastrigin,&#32;Eggholder
+<anchor xml:id="_test__cma_8py_source_1l00036"/>00036 <emphasis role="keyword">from</emphasis>&#32;fcmaes&#32;<emphasis role="keyword">import</emphasis>&#32;cmaes,&#32;de,&#32;decpp,&#32;cmaescpp,&#32;retry,&#32;advretry
+<anchor xml:id="_test__cma_8py_source_1l00037"/>00037 <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1optimizer">fcmaes.optimizer</link>&#32;<emphasis role="keyword">import</emphasis>&#32;de_cma_py
+<anchor xml:id="_test__cma_8py_source_1l00038"/>00038 
+<anchor xml:id="_test__cma_8py_source_1l00039"/>00039 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefcmaes_1_1test__cma_1a56ec13d8a176e397762ffb9cd3b7eff7">almost_equal</link>(X1,&#32;X2,&#32;eps&#32;=&#32;1E-5):
+<anchor xml:id="_test__cma_8py_source_1l00040"/>00040 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00041"/>00041 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Determines&#32;if&#32;two&#32;numerical&#32;values&#32;or&#32;sets&#32;of&#32;numerical&#32;values&#32;are&#32;approximately</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00042"/>00042 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;equal&#32;within&#32;a&#32;specified&#32;tolerance.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00043"/>00043 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00044"/>00044 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;This&#32;function&#32;compares&#32;two&#32;scalar&#32;values&#32;or&#32;lists&#32;of&#32;scalar&#32;values&#32;and&#32;checks&#32;if</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00045"/>00045 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;they&#32;are&#32;approximately&#32;equivalent,&#32;considering&#32;a&#32;given&#32;threshold&#32;for&#32;acceptable</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00046"/>00046 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;deviation.&#32;The&#32;comparison&#32;is&#32;performed&#32;element-wise&#32;for&#32;lists.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00047"/>00047 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00048"/>00048 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00049"/>00049 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;X1:&#32;A&#32;scalar&#32;value&#32;or&#32;a&#32;list&#32;of&#32;scalar&#32;values&#32;to&#32;compare.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00050"/>00050 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;X2:&#32;Another&#32;scalar&#32;value&#32;or&#32;a&#32;list&#32;of&#32;scalar&#32;values&#32;to&#32;compare.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00051"/>00051 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;eps:&#32;A&#32;small&#32;positive&#32;float&#32;specifying&#32;the&#32;tolerance&#32;for&#32;comparison.&#32;Default</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00052"/>00052 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;is&#32;1E-5.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00053"/>00053 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00054"/>00054 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Returns:</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00055"/>00055 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;bool:&#32;True&#32;if&#32;the&#32;values&#32;are&#32;approximately&#32;equal&#32;within&#32;the&#32;specified</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00056"/>00056 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;tolerance;&#32;False&#32;otherwise.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00057"/>00057 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00058"/>00058 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;np.isscalar(X1):
+<anchor xml:id="_test__cma_8py_source_1l00059"/><link linkend="_namespacefcmaes_1_1test__cma_1a56ec13d8a176e397762ffb9cd3b7eff7">00059</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;X1&#32;=&#32;[X1]
+<anchor xml:id="_test__cma_8py_source_1l00060"/>00060 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;X2&#32;=&#32;[X2]
+<anchor xml:id="_test__cma_8py_source_1l00061"/>00061 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;len(X1)&#32;!=&#32;len(X2):
+<anchor xml:id="_test__cma_8py_source_1l00062"/>00062 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">False</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00063"/>00063 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(len(X1)):
+<anchor xml:id="_test__cma_8py_source_1l00064"/>00064 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;a&#32;=&#32;X1[i]
+<anchor xml:id="_test__cma_8py_source_1l00065"/>00065 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;b&#32;=&#32;X2[i]
+<anchor xml:id="_test__cma_8py_source_1l00066"/>00066 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;abs(a)&#32;&lt;&#32;eps&#32;<emphasis role="keywordflow">or</emphasis>&#32;abs(b)&#32;&lt;&#32;eps:
+<anchor xml:id="_test__cma_8py_source_1l00067"/>00067 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;abs(a&#32;-&#32;b)&#32;&gt;&#32;eps:
+<anchor xml:id="_test__cma_8py_source_1l00068"/>00068 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">False</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00069"/>00069 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>:
+<anchor xml:id="_test__cma_8py_source_1l00070"/>00070 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;abs(a&#32;/&#32;b&#32;-&#32;1&#32;&gt;&#32;eps):
+<anchor xml:id="_test__cma_8py_source_1l00071"/>00071 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">False</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00072"/>00072 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">True</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00073"/>00073 
+<anchor xml:id="_test__cma_8py_source_1l00074"/>00074 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefcmaes_1_1test__cma_1a2e73dbd9042d810ea17f3936e4bde46a">test_rastrigin_python</link>():
+<anchor xml:id="_test__cma_8py_source_1l00075"/>00075 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00076"/>00076 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Tests&#32;the&#32;Rastrigin&#32;function&#32;optimization&#32;using&#32;the&#32;CMA-ES&#32;algorithm.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00077"/>00077 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00078"/>00078 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;This&#32;function&#32;performs&#32;a&#32;series&#32;of&#32;tests&#32;to&#32;ensure&#32;that&#32;the&#32;CMA-ES</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00079"/>00079 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;optimization&#32;algorithm&#32;correctly&#32;minimizes&#32;the&#32;Rastrigin&#32;function,</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00080"/>00080 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;a&#32;standard&#32;test&#32;function&#32;in&#32;optimization.&#32;The&#32;function&#32;evaluates</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00081"/>00081 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;whether&#32;the&#32;optimization&#32;reaches&#32;the&#32;target&#32;goal&#32;within&#32;constraints</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00082"/>00082 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;(using&#32;bounds,&#32;standard&#32;deviations,&#32;and&#32;maximum&#32;number&#32;of&#32;evaluations),</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00083"/>00083 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;and&#32;whether&#32;the&#32;returned&#32;results&#32;conform&#32;to&#32;expected&#32;outputs.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00084"/>00084 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00085"/>00085 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00086"/>00086 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;None</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00087"/>00087 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00088"/>00088 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Raises:</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00089"/>00089 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;AssertionError:&#32;If&#32;any&#32;of&#32;the&#32;assertions&#32;fail,&#32;indicating&#32;that</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00090"/>00090 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;the&#32;optimization&#32;did&#32;not&#32;meet&#32;the&#32;expected&#32;conditions&#32;or&#32;outcomes.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00091"/>00091 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00092"/>00092 &#32;&#32;&#32;&#32;popsize&#32;=&#32;100
+<anchor xml:id="_test__cma_8py_source_1l00093"/><link linkend="_namespacefcmaes_1_1test__cma_1a2e73dbd9042d810ea17f3936e4bde46a">00093</link> &#32;&#32;&#32;&#32;dim&#32;=&#32;3
+<anchor xml:id="_test__cma_8py_source_1l00094"/>00094 &#32;&#32;&#32;&#32;testfun&#32;=&#32;<link linkend="_classfcmaes_1_1testfun_1_1_rastrigin">Rastrigin</link>(dim)
+<anchor xml:id="_test__cma_8py_source_1l00095"/>00095 &#32;&#32;&#32;&#32;sdevs&#32;=&#32;[1.0]*dim
+<anchor xml:id="_test__cma_8py_source_1l00096"/>00096 &#32;&#32;&#32;&#32;max_eval&#32;=&#32;100000
+<anchor xml:id="_test__cma_8py_source_1l00097"/>00097 
+<anchor xml:id="_test__cma_8py_source_1l00098"/>00098 &#32;&#32;&#32;&#32;limit&#32;=&#32;0.0001&#32;&#32;&#32;
+<anchor xml:id="_test__cma_8py_source_1l00099"/>00099 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;stochastic&#32;optimization&#32;may&#32;fail&#32;the&#32;first&#32;time</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00100"/>00100 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;_&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(5):
+<anchor xml:id="_test__cma_8py_source_1l00101"/>00101 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;use&#32;a&#32;wrapper&#32;to&#32;monitor&#32;function&#32;evaluations</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00102"/>00102 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;wrapper&#32;=&#32;<link linkend="_classfcmaes_1_1testfun_1_1_wrapper">Wrapper</link>(testfun.fun,&#32;dim)
+<anchor xml:id="_test__cma_8py_source_1l00103"/>00103 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ret&#32;=&#32;cmaes.minimize(wrapper.eval,&#32;testfun.bounds,&#32;input_sigma&#32;=&#32;sdevs,&#32;
+<anchor xml:id="_test__cma_8py_source_1l00104"/>00104 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_evaluations&#32;=&#32;max_eval,&#32;popsize=popsize)
+<anchor xml:id="_test__cma_8py_source_1l00105"/>00105 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;limit&#32;&gt;&#32;ret.fun:
+<anchor xml:id="_test__cma_8py_source_1l00106"/>00106 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00107"/>00107 &#32;&#32;&#32;&#32;
+<anchor xml:id="_test__cma_8py_source_1l00108"/>00108 &#32;&#32;&#32;&#32;assert(limit&#32;&gt;&#32;ret.fun)&#32;<emphasis role="comment">#&#32;optimization&#32;target&#32;not&#32;reached</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00109"/>00109 &#32;&#32;&#32;&#32;assert(max_eval&#32;+&#32;popsize&#32;&gt;=&#32;ret.nfev)&#32;<emphasis role="comment">#&#32;too&#32;much&#32;function&#32;calls</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00110"/>00110 &#32;&#32;&#32;&#32;assert(max_eval&#32;/&#32;popsize&#32;+&#32;2&#32;&gt;&#32;ret.nit)&#32;<emphasis role="comment">#&#32;too&#32;much&#32;iterations</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00111"/>00111 &#32;&#32;&#32;&#32;assert(ret.status&#32;==&#32;4)&#32;<emphasis role="comment">#&#32;wrong&#32;cma&#32;termination&#32;code</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00112"/>00112 &#32;&#32;&#32;&#32;assert(ret.nfev&#32;==&#32;wrapper.get_count())&#32;<emphasis role="comment">#&#32;wrong&#32;number&#32;of&#32;function&#32;calls&#32;returned</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00113"/>00113 &#32;&#32;&#32;&#32;assert(<link linkend="_namespacefcmaes_1_1test__cma_1a56ec13d8a176e397762ffb9cd3b7eff7">almost_equal</link>(ret.x,&#32;wrapper.get_best_x()))&#32;<emphasis role="comment">#&#32;wrong&#32;best&#32;X&#32;returned</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00114"/>00114 &#32;&#32;&#32;&#32;assert(ret.fun&#32;==&#32;wrapper.get_best_y())&#32;<emphasis role="comment">#&#32;wrong&#32;best&#32;y&#32;returned</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00115"/>00115 
+<anchor xml:id="_test__cma_8py_source_1l00116"/>00116 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefcmaes_1_1test__cma_1ac0a08b371b89371721929cd1399aaea9">test_rosen_python</link>():
+<anchor xml:id="_test__cma_8py_source_1l00117"/>00117 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00118"/>00118 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Tests&#32;the&#32;Rosenbrock&#32;function&#32;optimization&#32;using&#32;the&#32;CMA-ES&#32;algorithm.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00119"/>00119 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00120"/>00120 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;This&#32;test&#32;evaluates&#32;the&#32;performance&#32;of&#32;the&#32;CMA-ES&#32;optimization&#32;algorithm&#32;on</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00121"/>00121 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;the&#32;Rosenbrock&#32;function&#32;with&#32;specific&#32;settings&#32;for&#32;dimensionality,&#32;population</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00122"/>00122 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;size,&#32;standard&#32;deviations,&#32;and&#32;maximum&#32;function&#32;evaluations.&#32;It&#32;checks&#32;if&#32;the</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00123"/>00123 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;optimization&#32;target&#32;is&#32;reached&#32;within&#32;the&#32;given&#32;constraints&#32;and&#32;validates&#32;the</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00124"/>00124 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;result&#32;consistency&#32;of&#32;the&#32;optimization&#32;process.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00125"/>00125 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00126"/>00126 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Raises:</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00127"/>00127 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;AssertionError:&#32;If&#32;the&#32;optimization&#32;does&#32;not&#32;achieve&#32;the&#32;expected&#32;results</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00128"/>00128 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;including:</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00129"/>00129 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-&#32;Optimization&#32;target&#32;(minimum&#32;function&#32;value)&#32;not&#32;reached.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00130"/>00130 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-&#32;Excessive&#32;function&#32;evaluations&#32;during&#32;optimization.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00131"/>00131 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-&#32;Excessive&#32;iterations&#32;performed.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00132"/>00132 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-&#32;Mismatched&#32;function&#32;call&#32;count&#32;from&#32;the&#32;optimization&#32;algorithm&#32;versus</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00133"/>00133 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;the&#32;internal&#32;wrapper.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00134"/>00134 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-&#32;Incorrect&#32;best&#32;solution&#32;vector&#32;or&#32;value&#32;returned.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00135"/>00135 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00136"/>00136 &#32;&#32;&#32;&#32;popsize&#32;=&#32;31
+<anchor xml:id="_test__cma_8py_source_1l00137"/><link linkend="_namespacefcmaes_1_1test__cma_1ac0a08b371b89371721929cd1399aaea9">00137</link> &#32;&#32;&#32;&#32;dim&#32;=&#32;5
+<anchor xml:id="_test__cma_8py_source_1l00138"/>00138 &#32;&#32;&#32;&#32;testfun&#32;=&#32;<link linkend="_classfcmaes_1_1testfun_1_1_rosen">Rosen</link>(dim)
+<anchor xml:id="_test__cma_8py_source_1l00139"/>00139 &#32;&#32;&#32;&#32;sdevs&#32;=&#32;[1.0]*dim
+<anchor xml:id="_test__cma_8py_source_1l00140"/>00140 &#32;&#32;&#32;&#32;max_eval&#32;=&#32;100000
+<anchor xml:id="_test__cma_8py_source_1l00141"/>00141 &#32;&#32;&#32;&#32;
+<anchor xml:id="_test__cma_8py_source_1l00142"/>00142 &#32;&#32;&#32;&#32;limit&#32;=&#32;0.00001&#32;&#32;&#32;
+<anchor xml:id="_test__cma_8py_source_1l00143"/>00143 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;_&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(5):
+<anchor xml:id="_test__cma_8py_source_1l00144"/>00144 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;wrapper&#32;=&#32;<link linkend="_classfcmaes_1_1testfun_1_1_wrapper">Wrapper</link>(testfun.fun,&#32;dim)
+<anchor xml:id="_test__cma_8py_source_1l00145"/>00145 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ret&#32;=&#32;cmaes.minimize(wrapper.eval,&#32;testfun.bounds,&#32;input_sigma&#32;=&#32;sdevs,&#32;
+<anchor xml:id="_test__cma_8py_source_1l00146"/>00146 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_evaluations&#32;=&#32;max_eval,&#32;popsize=popsize)
+<anchor xml:id="_test__cma_8py_source_1l00147"/>00147 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;limit&#32;&gt;&#32;ret.fun:
+<anchor xml:id="_test__cma_8py_source_1l00148"/>00148 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00149"/>00149 &#32;&#32;&#32;&#32;
+<anchor xml:id="_test__cma_8py_source_1l00150"/>00150 &#32;&#32;&#32;&#32;assert(limit&#32;&gt;&#32;ret.fun)&#32;<emphasis role="comment">#&#32;optimization&#32;target&#32;not&#32;reached</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00151"/>00151 &#32;&#32;&#32;&#32;assert(max_eval&#32;+&#32;popsize&#32;&gt;=&#32;ret.nfev)&#32;<emphasis role="comment">#&#32;too&#32;much&#32;function&#32;calls</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00152"/>00152 &#32;&#32;&#32;&#32;assert(max_eval&#32;/&#32;popsize&#32;+&#32;2&#32;&gt;&#32;ret.nit)&#32;<emphasis role="comment">#&#32;too&#32;much&#32;iterations</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00153"/>00153 &#32;&#32;&#32;&#32;assert(ret.nfev&#32;==&#32;wrapper.get_count())&#32;<emphasis role="comment">#&#32;wrong&#32;number&#32;of&#32;function&#32;calls&#32;returned</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00154"/>00154 &#32;&#32;&#32;&#32;assert(<link linkend="_namespacefcmaes_1_1test__cma_1a56ec13d8a176e397762ffb9cd3b7eff7">almost_equal</link>(ret.x,&#32;wrapper.get_best_x()))&#32;<emphasis role="comment">#&#32;wrong&#32;best&#32;X&#32;returned</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00155"/>00155 &#32;&#32;&#32;&#32;assert(ret.fun&#32;==&#32;wrapper.get_best_y())&#32;<emphasis role="comment">#&#32;wrong&#32;best&#32;y&#32;returned</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00156"/>00156 
+<anchor xml:id="_test__cma_8py_source_1l00157"/>00157 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefcmaes_1_1test__cma_1a7ec4b8716063cabb65fc0ee28ec32a2c">test_rosen_ask_tell</link>():
+<anchor xml:id="_test__cma_8py_source_1l00158"/>00158 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00159"/>00159 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Tests&#32;the&#32;ask-tell&#32;interface&#32;of&#32;the&#32;CMA-ES&#32;algorithm&#32;on&#32;the&#32;Rosenbrock</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00160"/>00160 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;function&#32;over&#32;multiple&#32;iterations&#32;and&#32;asserts&#32;the&#32;optimization&#32;results.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00161"/>00161 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00162"/>00162 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;The&#32;function&#32;initializes&#32;a&#32;CMA-ES&#32;instance&#32;with&#32;the&#32;specified</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00163"/>00163 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;hyperparameters&#32;and&#32;evaluates&#32;its&#32;performance&#32;over&#32;a&#32;predefined</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00164"/>00164 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;number&#32;of&#32;iterations&#32;and&#32;maximum&#32;evaluations.&#32;The&#32;results&#32;of&#32;the</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00165"/>00165 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;optimization&#32;process&#32;are&#32;validated&#32;against&#32;threshold&#32;values&#32;to</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00166"/>00166 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;ensure&#32;that&#32;the&#32;CMA-ES&#32;implementation&#32;satisfies&#32;expected&#32;performance</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00167"/>00167 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;criteria.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00168"/>00168 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00169"/>00169 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Raises:</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00170"/>00170 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;AssertionError:&#32;If&#32;the&#32;optimization&#32;target&#32;is&#32;not&#32;achieved&#32;within</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00171"/>00171 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;the&#32;defined&#32;constraints&#32;of&#32;function&#32;evaluations&#32;or&#32;iterations.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00172"/>00172 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00173"/>00173 &#32;&#32;&#32;&#32;popsize&#32;=&#32;31
+<anchor xml:id="_test__cma_8py_source_1l00174"/><link linkend="_namespacefcmaes_1_1test__cma_1a7ec4b8716063cabb65fc0ee28ec32a2c">00174</link> &#32;&#32;&#32;&#32;dim&#32;=&#32;5
+<anchor xml:id="_test__cma_8py_source_1l00175"/>00175 &#32;&#32;&#32;&#32;testfun&#32;=&#32;<link linkend="_classfcmaes_1_1testfun_1_1_rosen">Rosen</link>(dim)
+<anchor xml:id="_test__cma_8py_source_1l00176"/>00176 &#32;&#32;&#32;&#32;sdevs&#32;=&#32;[1.0]*dim
+<anchor xml:id="_test__cma_8py_source_1l00177"/>00177 &#32;&#32;&#32;&#32;max_eval&#32;=&#32;100000&#32;&#32;&#32;
+<anchor xml:id="_test__cma_8py_source_1l00178"/>00178 &#32;&#32;&#32;&#32;limit&#32;=&#32;0.00001&#32;
+<anchor xml:id="_test__cma_8py_source_1l00179"/>00179 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;_&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(5):
+<anchor xml:id="_test__cma_8py_source_1l00180"/>00180 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;wrapper&#32;=&#32;<link linkend="_classfcmaes_1_1testfun_1_1_wrapper">Wrapper</link>(testfun.fun,&#32;dim)
+<anchor xml:id="_test__cma_8py_source_1l00181"/>00181 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;es&#32;=&#32;<link linkend="_classfcmaes_1_1cmaes_1_1_cmaes">cmaes.Cmaes</link>(testfun.bounds,
+<anchor xml:id="_test__cma_8py_source_1l00182"/>00182 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;popsize&#32;=&#32;popsize,&#32;input_sigma&#32;=&#32;sdevs)&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_test__cma_8py_source_1l00183"/>00183 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;iters&#32;=&#32;max_eval&#32;//&#32;popsize
+<anchor xml:id="_test__cma_8py_source_1l00184"/>00184 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;j&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(iters):
+<anchor xml:id="_test__cma_8py_source_1l00185"/>00185 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xs&#32;=&#32;es.ask()
+<anchor xml:id="_test__cma_8py_source_1l00186"/>00186 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ys&#32;=&#32;[wrapper.eval(x)&#32;<emphasis role="keywordflow">for</emphasis>&#32;x&#32;<emphasis role="keywordflow">in</emphasis>&#32;xs]
+<anchor xml:id="_test__cma_8py_source_1l00187"/>00187 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;stop&#32;=&#32;es.tell(ys)
+<anchor xml:id="_test__cma_8py_source_1l00188"/>00188 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;stop&#32;!=&#32;0:
+<anchor xml:id="_test__cma_8py_source_1l00189"/>00189 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>&#32;
+<anchor xml:id="_test__cma_8py_source_1l00190"/>00190 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ret&#32;=&#32;OptimizeResult(x=es.best_x,&#32;fun=es.best_value,&#32;
+<anchor xml:id="_test__cma_8py_source_1l00191"/>00191 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;nfev=wrapper.get_count(),&#32;
+<anchor xml:id="_test__cma_8py_source_1l00192"/>00192 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;nit=es.iterations,&#32;status=es.stop)
+<anchor xml:id="_test__cma_8py_source_1l00193"/>00193 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;limit&#32;&gt;&#32;ret.fun:
+<anchor xml:id="_test__cma_8py_source_1l00194"/>00194 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00195"/>00195 &#32;&#32;&#32;&#32;assert(limit&#32;&gt;&#32;ret.fun)&#32;<emphasis role="comment">#&#32;optimization&#32;target&#32;not&#32;reached</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00196"/>00196 &#32;&#32;&#32;&#32;assert(max_eval&#32;+&#32;popsize&#32;&gt;=&#32;ret.nfev)&#32;<emphasis role="comment">#&#32;too&#32;much&#32;function&#32;calls</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00197"/>00197 &#32;&#32;&#32;&#32;assert(max_eval&#32;/&#32;popsize&#32;+&#32;2&#32;&gt;&#32;ret.nit)&#32;<emphasis role="comment">#&#32;too&#32;much&#32;iterations</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00198"/>00198 <emphasis role="comment">#&#32;&#32;&#32;&#32;&#32;assert(almost_equal(ret.x,&#32;wrapper.get_best_x()))&#32;#&#32;wrong&#32;best&#32;X&#32;returned</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00199"/>00199 <emphasis role="comment">#&#32;&#32;&#32;&#32;&#32;assert(ret.fun&#32;==&#32;wrapper.get_best_y())&#32;#&#32;wrong&#32;best&#32;y&#32;returned</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00200"/>00200 
+<anchor xml:id="_test__cma_8py_source_1l00201"/>00201 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefcmaes_1_1test__cma_1ad3b0a415eace1ef9007488cc11361e41">test_rosen_cpp</link>():
+<anchor xml:id="_test__cma_8py_source_1l00202"/>00202 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00203"/>00203 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Runs&#32;a&#32;test&#32;on&#32;a&#32;Rosenbrock&#32;function&#32;optimization&#32;using&#32;CMA-ES&#32;(Covariance&#32;Matrix&#32;Adaptation</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00204"/>00204 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Evolution&#32;Strategy)&#32;implemented&#32;in&#32;C++&#32;and&#32;Python&#32;wrappers.&#32;This&#32;test&#32;validates&#32;the&#32;optimization</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00205"/>00205 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;procedure&#32;by&#32;asserting&#32;constraints&#32;on&#32;the&#32;optimization&#32;target,&#32;number&#32;of&#32;function&#32;evaluations,</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00206"/>00206 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;and&#32;results&#32;consistency.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00207"/>00207 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00208"/>00208 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;The&#32;function&#32;initializes&#32;test&#32;parameters&#32;including&#32;population&#32;size,&#32;dimensions,&#32;standard&#32;deviations,</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00209"/>00209 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;and&#32;maximum&#32;evaluations.&#32;It&#32;then&#32;runs&#32;the&#32;optimization&#32;multiple&#32;times,&#32;stopping&#32;early&#32;if&#32;a&#32;defined</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00210"/>00210 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;limit&#32;on&#32;the&#32;objective&#32;function&#32;is&#32;achieved.&#32;Assertions&#32;verify&#32;the&#32;results&#32;of&#32;the&#32;optimization&#32;process.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00211"/>00211 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00212"/>00212 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Raises:</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00213"/>00213 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;AssertionError:&#32;If&#32;the&#32;optimization&#32;result&#32;does&#32;not&#32;meet&#32;the&#32;defined&#32;constraints&#32;on&#32;the</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00214"/>00214 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;objective&#32;function&#32;value,&#32;number&#32;of&#32;function&#32;evaluations,&#32;best&#32;solution&#32;`x`,&#32;or&#32;best</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00215"/>00215 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;objective&#32;function&#32;value&#32;`y`.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00216"/>00216 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00217"/>00217 &#32;&#32;&#32;&#32;popsize&#32;=&#32;31
+<anchor xml:id="_test__cma_8py_source_1l00218"/><link linkend="_namespacefcmaes_1_1test__cma_1ad3b0a415eace1ef9007488cc11361e41">00218</link> &#32;&#32;&#32;&#32;dim&#32;=&#32;5
+<anchor xml:id="_test__cma_8py_source_1l00219"/>00219 &#32;&#32;&#32;&#32;testfun&#32;=&#32;<link linkend="_classfcmaes_1_1testfun_1_1_rosen">Rosen</link>(dim)
+<anchor xml:id="_test__cma_8py_source_1l00220"/>00220 &#32;&#32;&#32;&#32;sdevs&#32;=&#32;[1.0]*dim
+<anchor xml:id="_test__cma_8py_source_1l00221"/>00221 &#32;&#32;&#32;&#32;max_eval&#32;=&#32;100000
+<anchor xml:id="_test__cma_8py_source_1l00222"/>00222 &#32;&#32;&#32;&#32;
+<anchor xml:id="_test__cma_8py_source_1l00223"/>00223 &#32;&#32;&#32;&#32;limit&#32;=&#32;0.00001&#32;&#32;&#32;
+<anchor xml:id="_test__cma_8py_source_1l00224"/>00224 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;_&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(5):
+<anchor xml:id="_test__cma_8py_source_1l00225"/>00225 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;wrapper&#32;=&#32;<link linkend="_classfcmaes_1_1testfun_1_1_wrapper">Wrapper</link>(testfun.fun,&#32;dim)
+<anchor xml:id="_test__cma_8py_source_1l00226"/>00226 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ret&#32;=&#32;cmaescpp.minimize(wrapper.eval,&#32;testfun.bounds,&#32;input_sigma&#32;=&#32;sdevs,&#32;
+<anchor xml:id="_test__cma_8py_source_1l00227"/>00227 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_evaluations&#32;=&#32;max_eval,&#32;popsize=popsize)
+<anchor xml:id="_test__cma_8py_source_1l00228"/>00228 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;limit&#32;&gt;&#32;ret.fun:
+<anchor xml:id="_test__cma_8py_source_1l00229"/>00229 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00230"/>00230 
+<anchor xml:id="_test__cma_8py_source_1l00231"/>00231 &#32;&#32;&#32;&#32;assert(limit&#32;&gt;&#32;ret.fun)&#32;<emphasis role="comment">#&#32;optimization&#32;target&#32;not&#32;reached</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00232"/>00232 &#32;&#32;&#32;&#32;assert(max_eval&#32;+&#32;popsize&#32;&gt;=&#32;ret.nfev)&#32;<emphasis role="comment">#&#32;too&#32;much&#32;function&#32;calls&#32;</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00233"/>00233 &#32;&#32;&#32;&#32;assert(ret.nfev&#32;==&#32;wrapper.get_count())&#32;<emphasis role="comment">#&#32;wrong&#32;number&#32;of&#32;function&#32;calls&#32;returned</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00234"/>00234 &#32;&#32;&#32;&#32;assert(<link linkend="_namespacefcmaes_1_1test__cma_1a56ec13d8a176e397762ffb9cd3b7eff7">almost_equal</link>(ret.x,&#32;wrapper.get_best_x()))&#32;<emphasis role="comment">#&#32;wrong&#32;best&#32;X&#32;returned</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00235"/>00235 &#32;&#32;&#32;&#32;assert(ret.fun&#32;==&#32;wrapper.get_best_y())&#32;<emphasis role="comment">#&#32;wrong&#32;best&#32;y&#32;returned</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00236"/>00236 
+<anchor xml:id="_test__cma_8py_source_1l00237"/>00237 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefcmaes_1_1test__cma_1acea283ec5bc0b3c0931d864d3e7ca963">test_rosen_parallel</link>():
+<anchor xml:id="_test__cma_8py_source_1l00238"/>00238 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00239"/>00239 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Tests&#32;the&#32;optimization&#32;algorithm&apos;s&#32;ability&#32;to&#32;minimize&#32;Rosenbrock&apos;s&#32;function</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00240"/>00240 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;using&#32;a&#32;parallelized&#32;CMA-ES&#32;(Covariance&#32;Matrix&#32;Adaptation&#32;Evolution&#32;Strategy)</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00241"/>00241 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;implementation&#32;with&#32;a&#32;preset&#32;population&#32;size.&#32;Verifies&#32;the&#32;optimization</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00242"/>00242 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;process&#32;meets&#32;expected&#32;limits&#32;for&#32;function&#32;calls,&#32;iterations,&#32;and&#32;optimization</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00243"/>00243 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;accuracy.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00244"/>00244 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00245"/>00245 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Raises:</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00246"/>00246 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;AssertionError:&#32;If&#32;the&#32;optimization&#32;target&#32;is&#32;not&#32;reached&#32;within&#32;the</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00247"/>00247 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;specified&#32;limit,&#32;the&#32;number&#32;of&#32;function&#32;calls&#32;exceeds&#32;the&#32;maximum</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00248"/>00248 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;evaluations,&#32;the&#32;number&#32;of&#32;iterations&#32;exceeds&#32;the&#32;expected&#32;bound,</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00249"/>00249 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;or&#32;the&#32;resulting&#32;best&#32;X&#32;and&#32;Y&#32;do&#32;not&#32;match&#32;the&#32;expected&#32;values&#32;within</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00250"/>00250 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;the&#32;given&#32;accuracy.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00251"/>00251 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00252"/>00252 &#32;&#32;&#32;&#32;popsize&#32;=&#32;8
+<anchor xml:id="_test__cma_8py_source_1l00253"/><link linkend="_namespacefcmaes_1_1test__cma_1acea283ec5bc0b3c0931d864d3e7ca963">00253</link> &#32;&#32;&#32;&#32;dim&#32;=&#32;2
+<anchor xml:id="_test__cma_8py_source_1l00254"/>00254 &#32;&#32;&#32;&#32;testfun&#32;=&#32;<link linkend="_classfcmaes_1_1testfun_1_1_rosen">Rosen</link>(dim)
+<anchor xml:id="_test__cma_8py_source_1l00255"/>00255 &#32;&#32;&#32;&#32;sdevs&#32;=&#32;[1.0]*dim
+<anchor xml:id="_test__cma_8py_source_1l00256"/>00256 &#32;&#32;&#32;&#32;max_eval&#32;=&#32;10000
+<anchor xml:id="_test__cma_8py_source_1l00257"/>00257 &#32;&#32;&#32;&#32;
+<anchor xml:id="_test__cma_8py_source_1l00258"/>00258 &#32;&#32;&#32;&#32;limit&#32;=&#32;0.00001&#32;&#32;&#32;
+<anchor xml:id="_test__cma_8py_source_1l00259"/>00259 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;_&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(5):
+<anchor xml:id="_test__cma_8py_source_1l00260"/>00260 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;wrapper&#32;=&#32;<link linkend="_classfcmaes_1_1testfun_1_1_wrapper">Wrapper</link>(testfun.fun,&#32;dim)
+<anchor xml:id="_test__cma_8py_source_1l00261"/>00261 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ret&#32;=&#32;cmaes.minimize(wrapper.eval,&#32;testfun.bounds,&#32;input_sigma&#32;=&#32;sdevs,&#32;
+<anchor xml:id="_test__cma_8py_source_1l00262"/>00262 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_evaluations&#32;=&#32;max_eval,&#32;
+<anchor xml:id="_test__cma_8py_source_1l00263"/>00263 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;popsize=popsize,&#32;workers&#32;=&#32;popsize)
+<anchor xml:id="_test__cma_8py_source_1l00264"/>00264 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;limit&#32;&gt;&#32;ret.fun:
+<anchor xml:id="_test__cma_8py_source_1l00265"/>00265 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00266"/>00266 &#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_test__cma_8py_source_1l00267"/>00267 &#32;&#32;&#32;&#32;assert(limit&#32;&gt;&#32;ret.fun)&#32;<emphasis role="comment">#&#32;optimization&#32;target&#32;not&#32;reached</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00268"/>00268 &#32;&#32;&#32;&#32;assert(max_eval&#32;+&#32;popsize&#32;&gt;=&#32;ret.nfev)&#32;<emphasis role="comment">#&#32;too&#32;much&#32;function&#32;calls</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00269"/>00269 &#32;&#32;&#32;&#32;assert(max_eval&#32;//&#32;popsize&#32;+&#32;2&#32;&gt;&#32;ret.nit)&#32;<emphasis role="comment">#&#32;too&#32;much&#32;iterations</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00270"/>00270 &#32;&#32;&#32;&#32;assert(<link linkend="_namespacefcmaes_1_1test__cma_1a56ec13d8a176e397762ffb9cd3b7eff7">almost_equal</link>(ret.x,&#32;wrapper.get_best_x()))&#32;<emphasis role="comment">#&#32;wrong&#32;best&#32;X&#32;returned</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00271"/>00271 &#32;&#32;&#32;&#32;assert(<link linkend="_namespacefcmaes_1_1test__cma_1a56ec13d8a176e397762ffb9cd3b7eff7">almost_equal</link>(ret.fun,&#32;wrapper.get_best_y(),&#32;eps=1E-1))&#32;<emphasis role="comment">#&#32;wrong&#32;best&#32;y&#32;returned</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00272"/>00272 
+<anchor xml:id="_test__cma_8py_source_1l00273"/>00273 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefcmaes_1_1test__cma_1a51fa8539bc5e205e434371d8ddef2901">test_rosen_cpp_parallel</link>():
+<anchor xml:id="_test__cma_8py_source_1l00274"/>00274 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00275"/>00275 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Tests&#32;the&#32;parallel&#32;implementation&#32;of&#32;the&#32;Rosenbrock&#32;function&#32;optimization&#32;using&#32;a</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00276"/>00276 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;C++&#32;CMA-ES&#32;(Covariance&#32;Matrix&#32;Adaptation&#32;Evolution&#32;Strategy)&#32;wrapper.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00277"/>00277 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00278"/>00278 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;This&#32;function&#32;evaluates&#32;the&#32;optimization&#32;process&#32;using&#32;the&#32;Rosenbrock&#32;function.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00279"/>00279 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;The&#32;optimization&#32;parameters&#32;include&#32;the&#32;population&#32;size,&#32;dimensionality,&#32;initial</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00280"/>00280 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;standard&#32;deviations,&#32;maximum&#32;evaluations,&#32;and&#32;function&#32;bounds.&#32;The&#32;function&#32;tests</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00281"/>00281 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;whether&#32;the&#32;optimization&#32;converges&#32;within&#32;the&#32;limits,&#32;ensures&#32;the&#32;function&#32;calls</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00282"/>00282 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;and&#32;iterations&#32;do&#32;not&#32;exceed&#32;expected&#32;numbers,&#32;and&#32;validates&#32;the&#32;returned&#32;best</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00283"/>00283 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;solution&#32;and&#32;function&#32;value.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00284"/>00284 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00285"/>00285 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Raises:</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00286"/>00286 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;AssertionError:&#32;If&#32;any&#32;of&#32;the&#32;assertions&#32;for&#32;convergence,&#32;function&#32;calls,</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00287"/>00287 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;iterations,&#32;or&#32;optimized&#32;solution&#32;validations&#32;fail.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00288"/>00288 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00289"/>00289 &#32;&#32;&#32;&#32;popsize&#32;=&#32;8
+<anchor xml:id="_test__cma_8py_source_1l00290"/><link linkend="_namespacefcmaes_1_1test__cma_1a51fa8539bc5e205e434371d8ddef2901">00290</link> &#32;&#32;&#32;&#32;dim&#32;=&#32;2
+<anchor xml:id="_test__cma_8py_source_1l00291"/>00291 &#32;&#32;&#32;&#32;testfun&#32;=&#32;<link linkend="_classfcmaes_1_1testfun_1_1_rosen">Rosen</link>(dim)
+<anchor xml:id="_test__cma_8py_source_1l00292"/>00292 &#32;&#32;&#32;&#32;sdevs&#32;=&#32;[1.0]*dim
+<anchor xml:id="_test__cma_8py_source_1l00293"/>00293 &#32;&#32;&#32;&#32;max_eval&#32;=&#32;10000
+<anchor xml:id="_test__cma_8py_source_1l00294"/>00294 &#32;&#32;&#32;&#32;
+<anchor xml:id="_test__cma_8py_source_1l00295"/>00295 &#32;&#32;&#32;&#32;limit&#32;=&#32;0.00001&#32;&#32;&#32;
+<anchor xml:id="_test__cma_8py_source_1l00296"/>00296 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;_&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(5):
+<anchor xml:id="_test__cma_8py_source_1l00297"/>00297 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;wrapper&#32;=&#32;<link linkend="_classfcmaes_1_1testfun_1_1_wrapper">Wrapper</link>(testfun.fun,&#32;dim)
+<anchor xml:id="_test__cma_8py_source_1l00298"/>00298 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ret&#32;=&#32;cmaescpp.minimize(wrapper.eval,&#32;testfun.bounds,&#32;input_sigma&#32;=&#32;sdevs,&#32;
+<anchor xml:id="_test__cma_8py_source_1l00299"/>00299 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_evaluations&#32;=&#32;max_eval,&#32;
+<anchor xml:id="_test__cma_8py_source_1l00300"/>00300 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;popsize=popsize,&#32;workers&#32;=&#32;popsize)
+<anchor xml:id="_test__cma_8py_source_1l00301"/>00301 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;limit&#32;&gt;&#32;ret.fun:
+<anchor xml:id="_test__cma_8py_source_1l00302"/>00302 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00303"/>00303 &#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_test__cma_8py_source_1l00304"/>00304 &#32;&#32;&#32;&#32;assert(limit&#32;&gt;&#32;ret.fun)&#32;<emphasis role="comment">#&#32;optimization&#32;target&#32;not&#32;reached</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00305"/>00305 &#32;&#32;&#32;&#32;assert(max_eval&#32;+&#32;popsize&#32;&gt;=&#32;ret.nfev)&#32;<emphasis role="comment">#&#32;too&#32;much&#32;function&#32;calls</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00306"/>00306 &#32;&#32;&#32;&#32;assert(max_eval&#32;//&#32;popsize&#32;+&#32;2&#32;&gt;&#32;ret.nit)&#32;<emphasis role="comment">#&#32;too&#32;much&#32;iterations</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00307"/>00307 &#32;&#32;&#32;&#32;assert(<link linkend="_namespacefcmaes_1_1test__cma_1a56ec13d8a176e397762ffb9cd3b7eff7">almost_equal</link>(ret.x,&#32;wrapper.get_best_x()))&#32;<emphasis role="comment">#&#32;wrong&#32;best&#32;X&#32;returned</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00308"/>00308 &#32;&#32;&#32;&#32;assert(<link linkend="_namespacefcmaes_1_1test__cma_1a56ec13d8a176e397762ffb9cd3b7eff7">almost_equal</link>(ret.fun,&#32;wrapper.get_best_y(),&#32;eps&#32;=&#32;1E-1))&#32;<emphasis role="comment">#&#32;wrong&#32;best&#32;y&#32;returned</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00309"/>00309 
+<anchor xml:id="_test__cma_8py_source_1l00310"/>00310 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefcmaes_1_1test__cma_1a4821d7d9a8c7dd879fd2b20760804c45">test_rosen_de</link>():
+<anchor xml:id="_test__cma_8py_source_1l00311"/>00311 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00312"/>00312 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Tests&#32;the&#32;Rosenbrock&#32;function&#32;optimization&#32;using&#32;differential&#32;evolution.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00313"/>00313 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00314"/>00314 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;This&#32;function&#32;evaluates&#32;the&#32;performance&#32;of&#32;the&#32;Differential&#32;Evolution&#32;(DE)</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00315"/>00315 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;optimization&#32;algorithm&#32;for&#32;minimizing&#32;the&#32;Rosenbrock&#32;function,&#32;a&#32;common</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00316"/>00316 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;benchmark&#32;test&#32;for&#32;optimization&#32;routines.&#32;It&#32;ensures&#32;that&#32;the&#32;target</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00317"/>00317 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;optimization&#32;and&#32;other&#32;performance&#32;metrics&#32;(e.g.,&#32;function&#32;calls,&#32;iterations)</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00318"/>00318 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;were&#32;achieved&#32;successfully.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00319"/>00319 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00320"/>00320 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Raises:</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00321"/>00321 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;AssertionError:&#32;If&#32;the&#32;optimization&#32;target&#32;is&#32;not&#32;reached&#32;within&#32;the&#32;given</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00322"/>00322 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;constraints&#32;of&#32;maximum&#32;evaluations,&#32;iterations,&#32;or&#32;if&#32;there&#32;are</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00323"/>00323 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;discrepancies&#32;in&#32;the&#32;optimization&#32;results,&#32;such&#32;as&#32;mismatch&#32;in&#32;the</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00324"/>00324 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;best&#32;found&#32;solution&#32;or&#32;the&#32;number&#32;of&#32;function&#32;calls.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00325"/>00325 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00326"/>00326 &#32;&#32;&#32;&#32;popsize&#32;=&#32;8
+<anchor xml:id="_test__cma_8py_source_1l00327"/><link linkend="_namespacefcmaes_1_1test__cma_1a4821d7d9a8c7dd879fd2b20760804c45">00327</link> &#32;&#32;&#32;&#32;dim&#32;=&#32;2
+<anchor xml:id="_test__cma_8py_source_1l00328"/>00328 &#32;&#32;&#32;&#32;testfun&#32;=&#32;<link linkend="_classfcmaes_1_1testfun_1_1_rosen">Rosen</link>(dim)
+<anchor xml:id="_test__cma_8py_source_1l00329"/>00329 &#32;&#32;&#32;&#32;max_eval&#32;=&#32;10000&#32;&#32;&#32;&#32;
+<anchor xml:id="_test__cma_8py_source_1l00330"/>00330 &#32;&#32;&#32;&#32;limit&#32;=&#32;0.00001&#32;&#32;&#32;
+<anchor xml:id="_test__cma_8py_source_1l00331"/>00331 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;_&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(5):
+<anchor xml:id="_test__cma_8py_source_1l00332"/>00332 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;wrapper&#32;=&#32;<link linkend="_classfcmaes_1_1testfun_1_1_wrapper">Wrapper</link>(testfun.fun,&#32;dim)
+<anchor xml:id="_test__cma_8py_source_1l00333"/>00333 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ret&#32;=&#32;de.minimize(wrapper.eval,&#32;dim,&#32;testfun.bounds,
+<anchor xml:id="_test__cma_8py_source_1l00334"/>00334 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_evaluations&#32;=&#32;max_eval,&#32;
+<anchor xml:id="_test__cma_8py_source_1l00335"/>00335 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;popsize=popsize,&#32;workers&#32;=&#32;<emphasis role="keywordtype">None</emphasis>)
+<anchor xml:id="_test__cma_8py_source_1l00336"/>00336 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;limit&#32;&gt;&#32;ret.fun:
+<anchor xml:id="_test__cma_8py_source_1l00337"/>00337 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00338"/>00338 &#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_test__cma_8py_source_1l00339"/>00339 &#32;&#32;&#32;&#32;assert(limit&#32;&gt;&#32;ret.fun)&#32;<emphasis role="comment">#&#32;optimization&#32;target&#32;not&#32;reached</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00340"/>00340 &#32;&#32;&#32;&#32;assert(max_eval&#32;+&#32;2*popsize&#32;&gt;=&#32;ret.nfev)&#32;<emphasis role="comment">#&#32;too&#32;much&#32;function&#32;calls</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00341"/>00341 &#32;&#32;&#32;&#32;assert(max_eval&#32;//&#32;popsize&#32;+&#32;2&#32;&gt;&#32;ret.nit)&#32;<emphasis role="comment">#&#32;too&#32;much&#32;iterations</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00342"/>00342 &#32;&#32;&#32;&#32;assert(ret.nfev&#32;==&#32;wrapper.get_count())&#32;<emphasis role="comment">#&#32;wrong&#32;number&#32;of&#32;function&#32;calls&#32;returned</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00343"/>00343 &#32;&#32;&#32;&#32;assert(<link linkend="_namespacefcmaes_1_1test__cma_1a56ec13d8a176e397762ffb9cd3b7eff7">almost_equal</link>(ret.x,&#32;wrapper.get_best_x()))&#32;<emphasis role="comment">#&#32;wrong&#32;best&#32;X&#32;returned</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00344"/>00344 &#32;&#32;&#32;&#32;assert(ret.fun&#32;==&#32;wrapper.get_best_y())&#32;<emphasis role="comment">#&#32;wrong&#32;best&#32;y&#32;returned</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00345"/>00345 
+<anchor xml:id="_test__cma_8py_source_1l00346"/>00346 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefcmaes_1_1test__cma_1a1115f0b14db848a92fd7ff0a646f58de">test_rosen_de_parallel</link>():
+<anchor xml:id="_test__cma_8py_source_1l00347"/>00347 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00348"/>00348 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Tests&#32;the&#32;Differential&#32;Evolution&#32;(DE)&#32;algorithm&apos;s&#32;functionality&#32;and&#32;behavior&#32;using&#32;the</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00349"/>00349 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Rosenbrock&#32;function&#32;within&#32;a&#32;parallel&#32;environment.&#32;The&#32;method&#32;sets&#32;up&#32;parameters,</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00350"/>00350 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;executes&#32;the&#32;DE&#32;optimization,&#32;and&#32;validates&#32;several&#32;conditions&#32;to&#32;ensure&#32;the&#32;correctness</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00351"/>00351 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;and&#32;performance&#32;of&#32;the&#32;optimization&#32;process.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00352"/>00352 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00353"/>00353 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Raises:</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00354"/>00354 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;AssertionError:&#32;If&#32;the&#32;optimization&#32;target&#32;is&#32;not&#32;reached.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00355"/>00355 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;AssertionError:&#32;If&#32;the&#32;number&#32;of&#32;function&#32;evaluations&#32;exceeds&#32;the&#32;defined&#32;limit.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00356"/>00356 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;AssertionError:&#32;If&#32;the&#32;number&#32;of&#32;iterations&#32;exceeds&#32;the&#32;expected&#32;maximum.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00357"/>00357 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;AssertionError:&#32;If&#32;the&#32;returned&#32;number&#32;of&#32;function&#32;evaluations&#32;does&#32;not&#32;match</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00358"/>00358 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;the&#32;wrapper&apos;s&#32;recorded&#32;count.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00359"/>00359 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;AssertionError:&#32;If&#32;the&#32;incorrect&#32;best&#32;Y&#32;value&#32;is&#32;returned&#32;by&#32;the&#32;optimization.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00360"/>00360 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00361"/>00361 &#32;&#32;&#32;&#32;popsize&#32;=&#32;8
+<anchor xml:id="_test__cma_8py_source_1l00362"/><link linkend="_namespacefcmaes_1_1test__cma_1a1115f0b14db848a92fd7ff0a646f58de">00362</link> &#32;&#32;&#32;&#32;dim&#32;=&#32;2
+<anchor xml:id="_test__cma_8py_source_1l00363"/>00363 &#32;&#32;&#32;&#32;testfun&#32;=&#32;<link linkend="_classfcmaes_1_1testfun_1_1_rosen">Rosen</link>(dim)
+<anchor xml:id="_test__cma_8py_source_1l00364"/>00364 &#32;&#32;&#32;&#32;max_eval&#32;=&#32;10000&#32;&#32;&#32;&#32;
+<anchor xml:id="_test__cma_8py_source_1l00365"/>00365 &#32;&#32;&#32;&#32;limit&#32;=&#32;0.01&#32;&#32;&#32;
+<anchor xml:id="_test__cma_8py_source_1l00366"/>00366 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;_&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(5):
+<anchor xml:id="_test__cma_8py_source_1l00367"/>00367 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;wrapper&#32;=&#32;<link linkend="_classfcmaes_1_1testfun_1_1_wrapper">Wrapper</link>(testfun.fun,&#32;dim)
+<anchor xml:id="_test__cma_8py_source_1l00368"/>00368 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ret&#32;=&#32;de.minimize(wrapper.eval,&#32;dim,&#32;testfun.bounds,
+<anchor xml:id="_test__cma_8py_source_1l00369"/>00369 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_evaluations&#32;=&#32;max_eval,&#32;
+<anchor xml:id="_test__cma_8py_source_1l00370"/>00370 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;popsize=popsize,&#32;workers&#32;=&#32;popsize)
+<anchor xml:id="_test__cma_8py_source_1l00371"/>00371 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;limit&#32;&gt;&#32;ret.fun:
+<anchor xml:id="_test__cma_8py_source_1l00372"/>00372 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00373"/>00373 &#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_test__cma_8py_source_1l00374"/>00374 &#32;&#32;&#32;&#32;assert(limit&#32;&gt;&#32;ret.fun)&#32;<emphasis role="comment">#&#32;optimization&#32;target&#32;not&#32;reached</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00375"/>00375 &#32;&#32;&#32;&#32;assert(max_eval&#32;+&#32;popsize&#32;&gt;=&#32;ret.nfev)&#32;<emphasis role="comment">#&#32;too&#32;much&#32;function&#32;calls</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00376"/>00376 &#32;&#32;&#32;&#32;assert(max_eval&#32;//&#32;popsize&#32;+&#32;2&#32;&gt;&#32;ret.nit)&#32;<emphasis role="comment">#&#32;too&#32;much&#32;iterations</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00377"/>00377 &#32;&#32;&#32;&#32;assert(ret.nfev&#32;==&#32;wrapper.get_count())&#32;<emphasis role="comment">#&#32;wrong&#32;number&#32;of&#32;function&#32;calls&#32;returned</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00378"/>00378 <emphasis role="comment">#&#32;&#32;&#32;&#32;&#32;assert(almost_equal(ret.x,&#32;wrapper.get_best_x()))&#32;#&#32;wrong&#32;best&#32;X&#32;returned</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00379"/>00379 &#32;&#32;&#32;&#32;assert(<link linkend="_namespacefcmaes_1_1test__cma_1a56ec13d8a176e397762ffb9cd3b7eff7">almost_equal</link>(ret.fun,&#32;wrapper.get_best_y(),&#32;eps&#32;=&#32;1E-1))&#32;<emphasis role="comment">#&#32;wrong&#32;best&#32;y&#32;returned</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00380"/>00380 
+<anchor xml:id="_test__cma_8py_source_1l00381"/>00381 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefcmaes_1_1test__cma_1a5a01b755e5c5a97dc38606546f0ea3de">test_rosen_ask_tell_de</link>():
+<anchor xml:id="_test__cma_8py_source_1l00382"/>00382 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00383"/>00383 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Tests&#32;the&#32;Differential&#32;Evolution&#32;optimization&#32;process&#32;for&#32;the&#32;Rosenbrock</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00384"/>00384 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;function&#32;using&#32;an&#32;ask-and-tell&#32;interface.&#32;The&#32;test&#32;validates&#32;convergence</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00385"/>00385 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;performance,&#32;ensures&#32;the&#32;optimization&#32;adheres&#32;to&#32;provided&#32;constraints,</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00386"/>00386 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;and&#32;checks&#32;correctness&#32;of&#32;the&#32;achieved&#32;results&#32;against&#32;defined&#32;limits.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00387"/>00387 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00388"/>00388 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00389"/>00389 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;None</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00390"/>00390 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00391"/>00391 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Raises:</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00392"/>00392 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;AssertionError:&#32;If&#32;the&#32;optimization&#32;target&#32;function&#32;value&#32;is&#32;not&#32;less</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00393"/>00393 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;than&#32;the&#32;specified&#32;limit.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00394"/>00394 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;AssertionError:&#32;If&#32;the&#32;number&#32;of&#32;function&#32;evaluations&#32;surpasses&#32;the</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00395"/>00395 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;allowed&#32;maximum&#32;evaluations&#32;plus&#32;the&#32;buffer&#32;(2&#32;*&#32;population&#32;size).</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00396"/>00396 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;AssertionError:&#32;If&#32;the&#32;number&#32;of&#32;iterations&#32;exceeds&#32;the&#32;allowed&#32;maximum</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00397"/>00397 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;iterations&#32;plus&#32;a&#32;buffer.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00398"/>00398 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;AssertionError:&#32;If&#32;the&#32;optimized&#32;function&#32;value&#32;returned&#32;does&#32;not</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00399"/>00399 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;closely&#32;approximate&#32;the&#32;expected&#32;best&#32;value&#32;with&#32;the&#32;given&#32;tolerance.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00400"/>00400 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00401"/>00401 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00402"/>00402 &#32;&#32;&#32;&#32;popsize&#32;=&#32;8
+<anchor xml:id="_test__cma_8py_source_1l00403"/><link linkend="_namespacefcmaes_1_1test__cma_1a5a01b755e5c5a97dc38606546f0ea3de">00403</link> &#32;&#32;&#32;&#32;dim&#32;=&#32;2
+<anchor xml:id="_test__cma_8py_source_1l00404"/>00404 &#32;&#32;&#32;&#32;testfun&#32;=&#32;<link linkend="_classfcmaes_1_1testfun_1_1_rosen">Rosen</link>(dim)
+<anchor xml:id="_test__cma_8py_source_1l00405"/>00405 &#32;&#32;&#32;&#32;max_eval&#32;=&#32;10000&#32;&#32;
+<anchor xml:id="_test__cma_8py_source_1l00406"/>00406 &#32;&#32;&#32;&#32;limit&#32;=&#32;0.00001&#32;
+<anchor xml:id="_test__cma_8py_source_1l00407"/>00407 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;_&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(5):
+<anchor xml:id="_test__cma_8py_source_1l00408"/>00408 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;wrapper&#32;=&#32;<link linkend="_classfcmaes_1_1testfun_1_1_wrapper">Wrapper</link>(testfun.fun,&#32;dim)
+<anchor xml:id="_test__cma_8py_source_1l00409"/>00409 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;es&#32;=&#32;<link linkend="_classfcmaes_1_1de_1_1_d_e">de.DE</link>(dim,&#32;testfun.bounds,&#32;popsize&#32;=&#32;popsize)&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_test__cma_8py_source_1l00410"/>00410 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;iters&#32;=&#32;max_eval&#32;//&#32;popsize
+<anchor xml:id="_test__cma_8py_source_1l00411"/>00411 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;j&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(iters):
+<anchor xml:id="_test__cma_8py_source_1l00412"/>00412 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xs&#32;=&#32;es.ask()
+<anchor xml:id="_test__cma_8py_source_1l00413"/>00413 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ys&#32;=&#32;[wrapper.eval(x)&#32;<emphasis role="keywordflow">for</emphasis>&#32;x&#32;<emphasis role="keywordflow">in</emphasis>&#32;xs]
+<anchor xml:id="_test__cma_8py_source_1l00414"/>00414 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;stop&#32;=&#32;es.tell(ys,&#32;xs)
+<anchor xml:id="_test__cma_8py_source_1l00415"/>00415 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;stop&#32;!=&#32;0:
+<anchor xml:id="_test__cma_8py_source_1l00416"/>00416 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>&#32;
+<anchor xml:id="_test__cma_8py_source_1l00417"/>00417 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ret&#32;=&#32;OptimizeResult(x=es.best_x,&#32;fun=es.best_value,&#32;
+<anchor xml:id="_test__cma_8py_source_1l00418"/>00418 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;nfev=wrapper.get_count(),&#32;
+<anchor xml:id="_test__cma_8py_source_1l00419"/>00419 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;nit=es.iterations,&#32;status=es.stop)
+<anchor xml:id="_test__cma_8py_source_1l00420"/>00420 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;limit&#32;&gt;&#32;ret.fun:
+<anchor xml:id="_test__cma_8py_source_1l00421"/>00421 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00422"/>00422 &#32;&#32;&#32;&#32;assert(limit&#32;&gt;&#32;ret.fun)&#32;<emphasis role="comment">#&#32;optimization&#32;target&#32;not&#32;reached</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00423"/>00423 &#32;&#32;&#32;&#32;assert(max_eval&#32;+&#32;2*popsize&#32;&gt;=&#32;ret.nfev)&#32;<emphasis role="comment">#&#32;too&#32;much&#32;function&#32;calls</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00424"/>00424 &#32;&#32;&#32;&#32;assert(max_eval&#32;/&#32;popsize&#32;+&#32;2&#32;&gt;&#32;ret.nit)&#32;<emphasis role="comment">#&#32;too&#32;much&#32;iterations</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00425"/>00425 <emphasis role="comment">#&#32;&#32;&#32;&#32;&#32;assert(almost_equal(ret.x,&#32;wrapper.get_best_x()))&#32;#&#32;wrong&#32;best&#32;X&#32;returned</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00426"/>00426 &#32;&#32;&#32;&#32;assert(<link linkend="_namespacefcmaes_1_1test__cma_1a56ec13d8a176e397762ffb9cd3b7eff7">almost_equal</link>(ret.fun,&#32;wrapper.get_best_y(),&#32;eps&#32;=&#32;1E-1))&#32;<emphasis role="comment">#&#32;wrong&#32;best&#32;y&#32;returned</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00427"/>00427 
+<anchor xml:id="_test__cma_8py_source_1l00428"/>00428 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefcmaes_1_1test__cma_1a9bf91ec31779ea12048ac626d8a04313">test_rosen_decpp</link>():
+<anchor xml:id="_test__cma_8py_source_1l00429"/>00429 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00430"/>00430 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Test&#32;the&#32;Rosenbrock&#32;optimization&#32;function&#32;using&#32;the&#32;Differential&#32;Evolution&#32;with&#32;Population&#32;Adaptation</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00431"/>00431 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;(DECPP)&#32;algorithm.&#32;This&#32;test&#32;evaluates&#32;various&#32;aspects&#32;of&#32;the&#32;optimization&apos;s&#32;outcome,&#32;including</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00432"/>00432 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;convergence&#32;to&#32;the&#32;optimal&#32;result,&#32;the&#32;number&#32;of&#32;function&#32;evaluations,&#32;iterations,&#32;and&#32;consistency</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00433"/>00433 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;of&#32;return&#32;values.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00434"/>00434 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00435"/>00435 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Variables:</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00436"/>00436 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;popsize&#32;(int):&#32;Sample&#32;size&#32;of&#32;the&#32;population&#32;used&#32;in&#32;DECPP&#32;optimization.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00437"/>00437 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dim&#32;(int):&#32;Dimensionality&#32;of&#32;the&#32;optimization&#32;problem.&#32;For&#32;the&#32;Rosenbrock&#32;function,&#32;this&#32;specifies</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00438"/>00438 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;the&#32;input&#32;size.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00439"/>00439 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;testfun&#32;(Rosen):&#32;Instance&#32;of&#32;the&#32;Rosen&#32;class&#32;to&#32;define&#32;the&#32;objective&#32;function&#32;and&#32;bounds.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00440"/>00440 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_eval&#32;(int):&#32;Maximum&#32;number&#32;of&#32;function&#32;evaluations&#32;allowed&#32;for&#32;the&#32;optimization.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00441"/>00441 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;limit&#32;(float):&#32;Threshold&#32;for&#32;the&#32;optimization&#32;objective&#32;value&#32;to&#32;consider&#32;a&#32;successful&#32;result.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00442"/>00442 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00443"/>00443 &#32;&#32;&#32;&#32;popsize&#32;=&#32;8
+<anchor xml:id="_test__cma_8py_source_1l00444"/><link linkend="_namespacefcmaes_1_1test__cma_1a9bf91ec31779ea12048ac626d8a04313">00444</link> &#32;&#32;&#32;&#32;dim&#32;=&#32;2
+<anchor xml:id="_test__cma_8py_source_1l00445"/>00445 &#32;&#32;&#32;&#32;testfun&#32;=&#32;<link linkend="_classfcmaes_1_1testfun_1_1_rosen">Rosen</link>(dim)
+<anchor xml:id="_test__cma_8py_source_1l00446"/>00446 &#32;&#32;&#32;&#32;max_eval&#32;=&#32;10000&#32;&#32;&#32;&#32;
+<anchor xml:id="_test__cma_8py_source_1l00447"/>00447 &#32;&#32;&#32;&#32;limit&#32;=&#32;0.00001&#32;&#32;&#32;
+<anchor xml:id="_test__cma_8py_source_1l00448"/>00448 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;_&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(5):
+<anchor xml:id="_test__cma_8py_source_1l00449"/>00449 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;wrapper&#32;=&#32;<link linkend="_classfcmaes_1_1testfun_1_1_wrapper">Wrapper</link>(testfun.fun,&#32;dim)
+<anchor xml:id="_test__cma_8py_source_1l00450"/>00450 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ret&#32;=&#32;decpp.minimize(wrapper.eval,&#32;dim,&#32;testfun.bounds,
+<anchor xml:id="_test__cma_8py_source_1l00451"/>00451 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_evaluations&#32;=&#32;max_eval,&#32;
+<anchor xml:id="_test__cma_8py_source_1l00452"/>00452 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;popsize=popsize,&#32;workers&#32;=&#32;<emphasis role="keywordtype">None</emphasis>)
+<anchor xml:id="_test__cma_8py_source_1l00453"/>00453 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;limit&#32;&gt;&#32;ret.fun:
+<anchor xml:id="_test__cma_8py_source_1l00454"/>00454 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00455"/>00455 &#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_test__cma_8py_source_1l00456"/>00456 &#32;&#32;&#32;&#32;assert(limit&#32;&gt;&#32;ret.fun)&#32;<emphasis role="comment">#&#32;optimization&#32;target&#32;not&#32;reached</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00457"/>00457 &#32;&#32;&#32;&#32;assert(max_eval&#32;+&#32;2*popsize&#32;&gt;=&#32;ret.nfev)&#32;<emphasis role="comment">#&#32;too&#32;much&#32;function&#32;calls</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00458"/>00458 &#32;&#32;&#32;&#32;assert(max_eval&#32;//&#32;popsize&#32;+&#32;2&#32;&gt;&#32;ret.nit)&#32;<emphasis role="comment">#&#32;too&#32;much&#32;iterations</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00459"/>00459 &#32;&#32;&#32;&#32;assert(ret.nfev&#32;==&#32;wrapper.get_count())&#32;<emphasis role="comment">#&#32;wrong&#32;number&#32;of&#32;function&#32;calls&#32;returned</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00460"/>00460 &#32;&#32;&#32;&#32;assert(<link linkend="_namespacefcmaes_1_1test__cma_1a56ec13d8a176e397762ffb9cd3b7eff7">almost_equal</link>(ret.x,&#32;wrapper.get_best_x()))&#32;<emphasis role="comment">#&#32;wrong&#32;best&#32;X&#32;returned</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00461"/>00461 &#32;&#32;&#32;&#32;assert(<link linkend="_namespacefcmaes_1_1test__cma_1a56ec13d8a176e397762ffb9cd3b7eff7">almost_equal</link>(ret.fun,&#32;wrapper.get_best_y()))&#32;<emphasis role="comment">#&#32;wrong&#32;best&#32;y&#32;returned</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00462"/>00462 
+<anchor xml:id="_test__cma_8py_source_1l00463"/>00463 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefcmaes_1_1test__cma_1a574c6dc9453d6792bae4513b307c0e43">test_rosen_decpp_parallel</link>():
+<anchor xml:id="_test__cma_8py_source_1l00464"/>00464 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00465"/>00465 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Tests&#32;the&#32;`decpp.minimize`&#32;function&#32;applied&#32;to&#32;optimize&#32;the&#32;Rosenbrock</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00466"/>00466 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;function&#32;in&#32;parallel&#32;with&#32;specific&#32;conditions.&#32;Verifies&#32;correctness</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00467"/>00467 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;based&#32;on&#32;optimization&#32;target,&#32;number&#32;of&#32;function&#32;evaluations,</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00468"/>00468 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;iterations,&#32;and&#32;final&#32;results&#32;for&#32;optimization.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00469"/>00469 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00470"/>00470 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00471"/>00471 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;None</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00472"/>00472 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00473"/>00473 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Raises:</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00474"/>00474 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;AssertionError:&#32;If&#32;optimization&#32;target&#32;is&#32;not&#32;reached.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00475"/>00475 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;AssertionError:&#32;If&#32;the&#32;number&#32;of&#32;function&#32;calls&#32;exceeds&#32;the&#32;expected</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00476"/>00476 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;maximum.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00477"/>00477 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;AssertionError:&#32;If&#32;the&#32;number&#32;of&#32;iterations&#32;surpasses&#32;the&#32;expected</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00478"/>00478 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;maximum.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00479"/>00479 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;AssertionError:&#32;If&#32;the&#32;best&#32;found&#32;`x`&#32;does&#32;not&#32;match&#32;the&#32;expected</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00480"/>00480 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;value&#32;within&#32;a&#32;given&#32;tolerance.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00481"/>00481 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;AssertionError:&#32;If&#32;the&#32;best&#32;found&#32;`y`&#32;does&#32;not&#32;match&#32;the&#32;expected</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00482"/>00482 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;value&#32;within&#32;a&#32;given&#32;tolerance.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00483"/>00483 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00484"/>00484 &#32;&#32;&#32;&#32;popsize&#32;=&#32;8
+<anchor xml:id="_test__cma_8py_source_1l00485"/><link linkend="_namespacefcmaes_1_1test__cma_1a574c6dc9453d6792bae4513b307c0e43">00485</link> &#32;&#32;&#32;&#32;dim&#32;=&#32;2
+<anchor xml:id="_test__cma_8py_source_1l00486"/>00486 &#32;&#32;&#32;&#32;testfun&#32;=&#32;<link linkend="_classfcmaes_1_1testfun_1_1_rosen">Rosen</link>(dim)
+<anchor xml:id="_test__cma_8py_source_1l00487"/>00487 &#32;&#32;&#32;&#32;max_eval&#32;=&#32;10000&#32;&#32;&#32;&#32;
+<anchor xml:id="_test__cma_8py_source_1l00488"/>00488 &#32;&#32;&#32;&#32;limit&#32;=&#32;0.01&#32;&#32;&#32;
+<anchor xml:id="_test__cma_8py_source_1l00489"/>00489 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;_&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(5):
+<anchor xml:id="_test__cma_8py_source_1l00490"/>00490 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;wrapper&#32;=&#32;<link linkend="_classfcmaes_1_1testfun_1_1_wrapper">Wrapper</link>(testfun.fun,&#32;dim)
+<anchor xml:id="_test__cma_8py_source_1l00491"/>00491 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ret&#32;=&#32;decpp.minimize(wrapper.eval,&#32;dim,&#32;testfun.bounds,
+<anchor xml:id="_test__cma_8py_source_1l00492"/>00492 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_evaluations&#32;=&#32;max_eval,&#32;
+<anchor xml:id="_test__cma_8py_source_1l00493"/>00493 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;popsize=popsize,&#32;workers&#32;=&#32;popsize)
+<anchor xml:id="_test__cma_8py_source_1l00494"/>00494 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;limit&#32;&gt;&#32;ret.fun:
+<anchor xml:id="_test__cma_8py_source_1l00495"/>00495 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00496"/>00496 &#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_test__cma_8py_source_1l00497"/>00497 &#32;&#32;&#32;&#32;assert(limit&#32;&gt;&#32;ret.fun)&#32;<emphasis role="comment">#&#32;optimization&#32;target&#32;not&#32;reached</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00498"/>00498 &#32;&#32;&#32;&#32;assert(max_eval&#32;+&#32;popsize&#32;&gt;=&#32;ret.nfev)&#32;<emphasis role="comment">#&#32;too&#32;much&#32;function&#32;calls</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00499"/>00499 &#32;&#32;&#32;&#32;assert(max_eval&#32;//&#32;popsize&#32;+&#32;2&#32;&gt;&#32;ret.nit)&#32;<emphasis role="comment">#&#32;too&#32;much&#32;iterations</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00500"/>00500 &#32;&#32;&#32;&#32;<emphasis role="comment">#assert(ret.nfev&#32;==&#32;wrapper.get_count())&#32;#&#32;wrong&#32;number&#32;of&#32;function&#32;calls&#32;returned</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00501"/>00501 &#32;&#32;&#32;&#32;assert(<link linkend="_namespacefcmaes_1_1test__cma_1a56ec13d8a176e397762ffb9cd3b7eff7">almost_equal</link>(ret.x,&#32;wrapper.get_best_x(),&#32;eps&#32;=&#32;1E-2))&#32;<emphasis role="comment">#&#32;wrong&#32;best&#32;X&#32;returned</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00502"/>00502 &#32;&#32;&#32;&#32;assert(<link linkend="_namespacefcmaes_1_1test__cma_1a56ec13d8a176e397762ffb9cd3b7eff7">almost_equal</link>(ret.fun,&#32;wrapper.get_best_y(),&#32;eps&#32;=&#32;1E-2))&#32;<emphasis role="comment">#&#32;wrong&#32;best&#32;y&#32;returned</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00503"/>00503 
+<anchor xml:id="_test__cma_8py_source_1l00504"/>00504 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefcmaes_1_1test__cma_1a2128729d18fafa07c146daa25880d870">test_eggholder_python</link>():
+<anchor xml:id="_test__cma_8py_source_1l00505"/>00505 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00506"/>00506 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Tests&#32;the&#32;Eggholder&#32;function&#32;minimization&#32;using&#32;the&#32;CMA-ES&#32;optimization&#32;algorithm.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00507"/>00507 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00508"/>00508 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;This&#32;function&#32;evaluates&#32;the&#32;performance&#32;of&#32;the&#32;CMA-ES&#32;optimizer&#32;in&#32;minimizing&#32;the</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00509"/>00509 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Eggholder&#32;function,&#32;a&#32;complex&#32;and&#32;multimodal&#32;test&#32;function,&#32;over&#32;a&#32;specified&#32;number</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00510"/>00510 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;of&#32;dimensions&#32;and&#32;population&#32;size.&#32;The&#32;test&#32;ensures&#32;that&#32;optimization&#32;targets&#32;are</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00511"/>00511 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;reached&#32;within&#32;the&#32;defined&#32;function&#32;evaluation&#32;limits.&#32;It&#32;also&#32;verifies&#32;various</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00512"/>00512 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;aspects&#32;of&#32;the&#32;optimization&#32;process,&#32;including&#32;the&#32;number&#32;of&#32;function&#32;evaluations&#32;and</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00513"/>00513 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;the&#32;final&#32;results.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00514"/>00514 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00515"/>00515 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00516"/>00516 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;None</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00517"/>00517 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00518"/>00518 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Raises:</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00519"/>00519 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;AssertionError:&#32;Raised&#32;if&#32;the&#32;optimization&#32;target&#32;is&#32;not&#32;achieved,&#32;if&#32;the&#32;number</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00520"/>00520 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;of&#32;function&#32;evaluations&#32;exceeds&#32;the&#32;limit,&#32;or&#32;if&#32;the&#32;returned&#32;results&#32;are</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00521"/>00521 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;inconsistent&#32;with&#32;the&#32;wrapper&apos;s&#32;records.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00522"/>00522 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00523"/>00523 &#32;&#32;&#32;&#32;popsize&#32;=&#32;1000
+<anchor xml:id="_test__cma_8py_source_1l00524"/><link linkend="_namespacefcmaes_1_1test__cma_1a2128729d18fafa07c146daa25880d870">00524</link> &#32;&#32;&#32;&#32;dim&#32;=&#32;2
+<anchor xml:id="_test__cma_8py_source_1l00525"/>00525 &#32;&#32;&#32;&#32;testfun&#32;=&#32;<link linkend="_classfcmaes_1_1testfun_1_1_eggholder">Eggholder</link>()
+<anchor xml:id="_test__cma_8py_source_1l00526"/>00526 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;use&#32;a&#32;wrapper&#32;to&#32;monitor&#32;function&#32;evaluations</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00527"/>00527 &#32;&#32;&#32;&#32;sdevs&#32;=&#32;[1.0]*dim
+<anchor xml:id="_test__cma_8py_source_1l00528"/>00528 &#32;&#32;&#32;&#32;max_eval&#32;=&#32;100000
+<anchor xml:id="_test__cma_8py_source_1l00529"/>00529 &#32;&#32;&#32;&#32;
+<anchor xml:id="_test__cma_8py_source_1l00530"/>00530 &#32;&#32;&#32;&#32;limit&#32;=&#32;-800&#32;&#32;&#32;
+<anchor xml:id="_test__cma_8py_source_1l00531"/>00531 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;_&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(5):
+<anchor xml:id="_test__cma_8py_source_1l00532"/>00532 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;wrapper&#32;=&#32;<link linkend="_classfcmaes_1_1testfun_1_1_wrapper">Wrapper</link>(testfun.fun,&#32;dim)&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_test__cma_8py_source_1l00533"/>00533 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ret&#32;=&#32;cmaes.minimize(wrapper.eval,&#32;testfun.bounds,&#32;input_sigma&#32;=&#32;sdevs,&#32;
+<anchor xml:id="_test__cma_8py_source_1l00534"/>00534 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_evaluations&#32;=&#32;max_eval,&#32;popsize=popsize)
+<anchor xml:id="_test__cma_8py_source_1l00535"/>00535 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;limit&#32;&gt;&#32;ret.fun:
+<anchor xml:id="_test__cma_8py_source_1l00536"/>00536 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00537"/>00537 &#32;&#32;&#32;
+<anchor xml:id="_test__cma_8py_source_1l00538"/>00538 &#32;&#32;&#32;&#32;assert(limit&#32;&gt;&#32;ret.fun)&#32;<emphasis role="comment">#&#32;optimization&#32;target&#32;not&#32;reached</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00539"/>00539 &#32;&#32;&#32;&#32;assert(max_eval&#32;+&#32;popsize&#32;&gt;=&#32;ret.nfev)&#32;<emphasis role="comment">#&#32;too&#32;much&#32;function&#32;calls</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00540"/>00540 &#32;&#32;&#32;&#32;assert(ret.nfev&#32;==&#32;wrapper.get_count())&#32;<emphasis role="comment">#&#32;wrong&#32;number&#32;of&#32;function&#32;calls&#32;returned</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00541"/>00541 &#32;&#32;&#32;&#32;assert(<link linkend="_namespacefcmaes_1_1test__cma_1a56ec13d8a176e397762ffb9cd3b7eff7">almost_equal</link>(ret.x,&#32;wrapper.get_best_x()))&#32;<emphasis role="comment">#&#32;wrong&#32;best&#32;X&#32;returned</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00542"/>00542 &#32;&#32;&#32;&#32;assert(ret.fun&#32;==&#32;wrapper.get_best_y())&#32;<emphasis role="comment">#&#32;wrong&#32;best&#32;y&#32;returned</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00543"/>00543 
+<anchor xml:id="_test__cma_8py_source_1l00544"/>00544 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefcmaes_1_1test__cma_1a06d4235007fede3ebaf194baf5a46612">test_eggholder_retry</link>():
+<anchor xml:id="_test__cma_8py_source_1l00545"/>00545 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00546"/>00546 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Tests&#32;the&#32;retry&#32;optimization&#32;functionality&#32;for&#32;the&#32;Eggholder&#32;function.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00547"/>00547 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00548"/>00548 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;This&#32;test&#32;evaluates&#32;the&#32;retry-based&#32;optimization&#32;implementation&#32;by&#32;invoking</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00549"/>00549 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;the&#32;minimize&#32;method&#32;with&#32;the&#32;Eggholder&#32;function&#32;as&#32;the&#32;target&#32;to&#32;check&#32;if&#32;it</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00550"/>00550 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;achieves&#32;desired&#32;optimization&#32;thresholds.&#32;The&#32;test&#32;asserts&#32;that&#32;the</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00551"/>00551 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;optimization&#32;target&#32;is&#32;reached,&#32;the&#32;correct&#32;number&#32;of&#32;function&#32;evaluations</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00552"/>00552 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;are&#32;performed,&#32;and&#32;the&#32;best&#32;x&#32;and&#32;y&#32;values&#32;returned&#32;align&#32;with&#32;the&#32;best</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00553"/>00553 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;encountered&#32;during&#32;evaluation.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00554"/>00554 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00555"/>00555 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00556"/>00556 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;None</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00557"/>00557 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00558"/>00558 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Raises:</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00559"/>00559 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;AssertionError:&#32;If&#32;the&#32;optimization&#32;target&#32;is&#32;not&#32;reached,&#32;if&#32;the</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00560"/>00560 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;number&#32;of&#32;function&#32;evaluations&#32;does&#32;not&#32;match,&#32;if&#32;the&#32;best&#32;x&#32;values</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00561"/>00561 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;obtained&#32;mismatch,&#32;or&#32;if&#32;the&#32;best&#32;y&#32;values&#32;obtained&#32;mismatch.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00562"/>00562 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00563"/>00563 &#32;&#32;&#32;&#32;dim&#32;=&#32;2
+<anchor xml:id="_test__cma_8py_source_1l00564"/><link linkend="_namespacefcmaes_1_1test__cma_1a06d4235007fede3ebaf194baf5a46612">00564</link> &#32;&#32;&#32;&#32;testfun&#32;=&#32;<link linkend="_classfcmaes_1_1testfun_1_1_eggholder">Eggholder</link>()
+<anchor xml:id="_test__cma_8py_source_1l00565"/>00565 
+<anchor xml:id="_test__cma_8py_source_1l00566"/>00566 &#32;&#32;&#32;&#32;limit&#32;=&#32;-956&#32;&#32;&#32;
+<anchor xml:id="_test__cma_8py_source_1l00567"/>00567 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;_&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(5):
+<anchor xml:id="_test__cma_8py_source_1l00568"/>00568 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;wrapper&#32;=&#32;<link linkend="_classfcmaes_1_1testfun_1_1_wrapper">Wrapper</link>(testfun.fun,&#32;dim)
+<anchor xml:id="_test__cma_8py_source_1l00569"/>00569 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ret&#32;=&#32;retry.minimize(wrapper.eval,&#32;testfun.bounds,&#32;
+<anchor xml:id="_test__cma_8py_source_1l00570"/>00570 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;num_retries=100)
+<anchor xml:id="_test__cma_8py_source_1l00571"/>00571 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;limit&#32;&gt;&#32;ret.fun:
+<anchor xml:id="_test__cma_8py_source_1l00572"/>00572 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00573"/>00573 
+<anchor xml:id="_test__cma_8py_source_1l00574"/>00574 &#32;&#32;&#32;&#32;assert(limit&#32;&gt;&#32;ret.fun)&#32;<emphasis role="comment">#&#32;optimization&#32;target&#32;not&#32;reached</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00575"/>00575 &#32;&#32;&#32;&#32;assert(ret.nfev&#32;==&#32;wrapper.get_count())&#32;<emphasis role="comment">#&#32;wrong&#32;number&#32;of&#32;function&#32;calls&#32;returned</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00576"/>00576 &#32;&#32;&#32;&#32;assert(<link linkend="_namespacefcmaes_1_1test__cma_1a56ec13d8a176e397762ffb9cd3b7eff7">almost_equal</link>(ret.x,&#32;wrapper.get_best_x()))&#32;<emphasis role="comment">#&#32;wrong&#32;best&#32;X&#32;returned</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00577"/>00577 &#32;&#32;&#32;&#32;assert(ret.fun&#32;==&#32;wrapper.get_best_y())&#32;<emphasis role="comment">#&#32;wrong&#32;best&#32;y&#32;returned</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00578"/>00578 
+<anchor xml:id="_test__cma_8py_source_1l00579"/>00579 <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1optimizer">fcmaes.optimizer</link>&#32;<emphasis role="keyword">import</emphasis>&#32;de_cma
+<anchor xml:id="_test__cma_8py_source_1l00580"/>00580 
+<anchor xml:id="_test__cma_8py_source_1l00581"/>00581 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefcmaes_1_1test__cma_1a02ddb211b712593bc51e118e3d26764d">test_eggholder_advanced_retry</link>():
+<anchor xml:id="_test__cma_8py_source_1l00582"/>00582 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00583"/>00583 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Tests&#32;the&#32;advanced&#32;retry&#32;mechanism&#32;of&#32;the&#32;Eggholder&#32;function&#32;optimization&#32;process.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00584"/>00584 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00585"/>00585 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;The&#32;function&#32;defines&#32;a&#32;two-dimensional&#32;Eggholder&#32;function&#32;and&#32;ensures&#32;that&#32;optimization</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00586"/>00586 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;performs&#32;effectively&#32;within&#32;a&#32;certain&#32;threshold.&#32;It&#32;validates&#32;the&#32;following&#32;aspects:</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00587"/>00587 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;-&#32;The&#32;optimization&#32;result&#32;successfully&#32;satisfies&#32;the&#32;objective&#32;function&#32;target.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00588"/>00588 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;-&#32;The&#32;number&#32;of&#32;function&#32;evaluations&#32;matches&#32;the&#32;expected&#32;count.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00589"/>00589 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;-&#32;The&#32;optimal&#32;solution&#32;X&#32;and&#32;corresponding&#32;Y&#32;are&#32;correctly&#32;identified.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00590"/>00590 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00591"/>00591 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Raises:</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00592"/>00592 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;AssertionError:&#32;If&#32;the&#32;optimization&#32;target&#32;is&#32;not&#32;reached,&#32;function&#32;evaluations&#32;do&#32;not&#32;match,</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00593"/>00593 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;or&#32;if&#32;the&#32;best&#32;X&#32;and&#32;Y&#32;values&#32;are&#32;incorrect.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00594"/>00594 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00595"/>00595 &#32;&#32;&#32;&#32;dim&#32;=&#32;2
+<anchor xml:id="_test__cma_8py_source_1l00596"/><link linkend="_namespacefcmaes_1_1test__cma_1a02ddb211b712593bc51e118e3d26764d">00596</link> &#32;&#32;&#32;&#32;testfun&#32;=&#32;<link linkend="_classfcmaes_1_1testfun_1_1_eggholder">Eggholder</link>()
+<anchor xml:id="_test__cma_8py_source_1l00597"/>00597 &#32;&#32;&#32;&#32;
+<anchor xml:id="_test__cma_8py_source_1l00598"/>00598 &#32;&#32;&#32;&#32;limit&#32;=&#32;-956&#32;&#32;&#32;
+<anchor xml:id="_test__cma_8py_source_1l00599"/>00599 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;_&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(5):
+<anchor xml:id="_test__cma_8py_source_1l00600"/>00600 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;wrapper&#32;=&#32;<link linkend="_classfcmaes_1_1testfun_1_1_wrapper">Wrapper</link>(testfun.fun,&#32;dim)
+<anchor xml:id="_test__cma_8py_source_1l00601"/>00601 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ret&#32;=&#32;advretry.minimize(wrapper.eval,&#32;testfun.bounds,&#32;
+<anchor xml:id="_test__cma_8py_source_1l00602"/>00602 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;num_retries=96)
+<anchor xml:id="_test__cma_8py_source_1l00603"/>00603 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;limit&#32;&gt;&#32;ret.fun:
+<anchor xml:id="_test__cma_8py_source_1l00604"/>00604 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00605"/>00605 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_test__cma_8py_source_1l00606"/>00606 &#32;&#32;&#32;&#32;assert(limit&#32;&gt;&#32;ret.fun)&#32;<emphasis role="comment">#&#32;optimization&#32;target&#32;not&#32;reached</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00607"/>00607 &#32;&#32;&#32;&#32;assert(ret.nfev&#32;==&#32;wrapper.get_count())&#32;<emphasis role="comment">#&#32;wrong&#32;number&#32;of&#32;function&#32;calls&#32;returned</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00608"/>00608 &#32;&#32;&#32;&#32;assert(<link linkend="_namespacefcmaes_1_1test__cma_1a56ec13d8a176e397762ffb9cd3b7eff7">almost_equal</link>(ret.x,&#32;wrapper.get_best_x()))&#32;<emphasis role="comment">#&#32;wrong&#32;best&#32;X&#32;returned</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00609"/>00609 &#32;&#32;&#32;&#32;assert(<link linkend="_namespacefcmaes_1_1test__cma_1a56ec13d8a176e397762ffb9cd3b7eff7">almost_equal</link>(ret.fun,&#32;wrapper.get_best_y()))&#32;<emphasis role="comment">#&#32;wrong&#32;best&#32;y&#32;returned</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00610"/>00610 
+<anchor xml:id="_test__cma_8py_source_1l00611"/>00611 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefcmaes_1_1test__cma_1aa39a1c6e2b785ee9f6c3bfd330b057eb">test_eggholder_retry_python</link>():
+<anchor xml:id="_test__cma_8py_source_1l00612"/>00612 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00613"/>00613 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Tests&#32;the&#32;Eggholder&#32;function&#32;optimization&#32;with&#32;retry&#32;mechanism.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00614"/>00614 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00615"/>00615 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;This&#32;function&#32;performs&#32;optimization&#32;of&#32;the&#32;Eggholder&#32;function&#32;across&#32;5&#32;attempts,</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00616"/>00616 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;utilizing&#32;a&#32;retry&#32;logic&#32;to&#32;reinitialize&#32;and&#32;retry&#32;multiple&#32;times&#32;on&#32;failure.&#32;The</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00617"/>00617 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;test&#32;ensures&#32;that&#32;the&#32;optimization&#32;goal&#32;is&#32;met&#32;within&#32;the&#32;given&#32;constraints</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00618"/>00618 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;and&#32;verifies&#32;the&#32;correctness&#32;of&#32;various&#32;outcomes,&#32;including&#32;the&#32;function&#32;call</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00619"/>00619 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;count,&#32;the&#32;best&#32;identified&#32;arguments&#32;(`x`),&#32;and&#32;the&#32;best&#32;function&#32;evaluation</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00620"/>00620 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;(`y`).</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00621"/>00621 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00622"/>00622 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Raises:</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00623"/>00623 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;AssertionError:&#32;If&#32;the&#32;optimization&#32;target&#32;is&#32;not&#32;reached&#32;within&#32;the&#32;specified</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00624"/>00624 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;constraints,&#32;if&#32;the&#32;number&#32;of&#32;function&#32;evaluations&#32;(`nfev`)&#32;is&#32;incorrect,</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00625"/>00625 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;if&#32;the&#32;best&#32;arguments&#32;(`x`)&#32;returned&#32;are&#32;incorrect,&#32;or&#32;if&#32;the&#32;best&#32;function</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00626"/>00626 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;evaluation&#32;(`y`)&#32;returned&#32;is&#32;incorrect.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00627"/>00627 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00628"/>00628 &#32;&#32;&#32;&#32;dim&#32;=&#32;2
+<anchor xml:id="_test__cma_8py_source_1l00629"/><link linkend="_namespacefcmaes_1_1test__cma_1aa39a1c6e2b785ee9f6c3bfd330b057eb">00629</link> &#32;&#32;&#32;&#32;testfun&#32;=&#32;<link linkend="_classfcmaes_1_1testfun_1_1_eggholder">Eggholder</link>()
+<anchor xml:id="_test__cma_8py_source_1l00630"/>00630 &#32;&#32;&#32;&#32;
+<anchor xml:id="_test__cma_8py_source_1l00631"/>00631 &#32;&#32;&#32;&#32;optimizer&#32;=&#32;de_cma_py(10000)
+<anchor xml:id="_test__cma_8py_source_1l00632"/>00632 &#32;&#32;&#32;&#32;limit&#32;=&#32;-956&#32;&#32;&#32;
+<anchor xml:id="_test__cma_8py_source_1l00633"/>00633 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;_&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(5):
+<anchor xml:id="_test__cma_8py_source_1l00634"/>00634 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;wrapper&#32;=&#32;<link linkend="_classfcmaes_1_1testfun_1_1_wrapper">Wrapper</link>(testfun.fun,&#32;dim)
+<anchor xml:id="_test__cma_8py_source_1l00635"/>00635 
+<anchor xml:id="_test__cma_8py_source_1l00636"/>00636 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ret&#32;=&#32;retry.minimize(wrapper.eval,&#32;testfun.bounds,&#32;
+<anchor xml:id="_test__cma_8py_source_1l00637"/>00637 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;num_retries=32,&#32;optimizer&#32;=&#32;optimizer)
+<anchor xml:id="_test__cma_8py_source_1l00638"/>00638 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;limit&#32;&gt;&#32;ret.fun:
+<anchor xml:id="_test__cma_8py_source_1l00639"/>00639 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00640"/>00640 
+<anchor xml:id="_test__cma_8py_source_1l00641"/>00641 &#32;&#32;&#32;&#32;assert(limit&#32;&gt;&#32;ret.fun)&#32;<emphasis role="comment">#&#32;optimization&#32;target&#32;not&#32;reached</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00642"/>00642 &#32;&#32;&#32;&#32;assert(ret.nfev&#32;==&#32;wrapper.get_count())&#32;<emphasis role="comment">#&#32;wrong&#32;number&#32;of&#32;function&#32;calls&#32;returned</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00643"/>00643 &#32;&#32;&#32;&#32;assert(<link linkend="_namespacefcmaes_1_1test__cma_1a56ec13d8a176e397762ffb9cd3b7eff7">almost_equal</link>(ret.x,&#32;wrapper.get_best_x()))&#32;<emphasis role="comment">#&#32;wrong&#32;best&#32;X&#32;returned</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00644"/>00644 &#32;&#32;&#32;&#32;assert(ret.fun&#32;==&#32;wrapper.get_best_y())&#32;<emphasis role="comment">#&#32;wrong&#32;best&#32;y&#32;returned</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00645"/>00645 
+<anchor xml:id="_test__cma_8py_source_1l00646"/>00646 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefcmaes_1_1test__cma_1a5ff61f59a536b4c3c16c968e1eb8b568">test_eggholder_advanced_retry_python</link>():
+<anchor xml:id="_test__cma_8py_source_1l00647"/>00647 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00648"/>00648 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Tests&#32;the&#32;advanced&#32;retry&#32;mechanism&#32;for&#32;optimizing&#32;the&#32;Eggholder&#32;function.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00649"/>00649 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00650"/>00650 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;This&#32;test&#32;evaluates&#32;the&#32;functionality&#32;of&#32;the&#32;advanced&#32;retry&#32;mechanism&#32;combined</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00651"/>00651 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;with&#32;the&#32;differential&#32;evolution&#32;CMA&#32;optimizer&#32;(`de_cma_py`)&#32;on&#32;the&#32;Eggholder</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00652"/>00652 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;benchmark&#32;function.&#32;It&#32;verifies&#32;several&#32;key&#32;performance&#32;metrics&#32;such&#32;as&#32;the</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00653"/>00653 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;correctness&#32;of&#32;the&#32;returned&#32;optimal&#32;value,&#32;the&#32;number&#32;of&#32;function&#32;evaluations,</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00654"/>00654 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;and&#32;the&#32;retrieved&#32;best&#32;solution&#32;coordinates.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00655"/>00655 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00656"/>00656 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Raises:</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00657"/>00657 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;AssertionError:&#32;If&#32;the&#32;limit&#32;is&#32;not&#32;surpassed&#32;by&#32;the&#32;optimizer&#32;after</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00658"/>00658 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;retries&#32;or&#32;if&#32;returned&#32;values&#32;(e.g.,&#32;optimal&#32;solution,&#32;function</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00659"/>00659 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;evaluations,&#32;best&#32;coordinate)&#32;do&#32;not&#32;align&#32;with&#32;the&#32;expected&#32;results.</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00660"/>00660 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00661"/>00661 &#32;&#32;&#32;&#32;dim&#32;=&#32;2
+<anchor xml:id="_test__cma_8py_source_1l00662"/><link linkend="_namespacefcmaes_1_1test__cma_1a5ff61f59a536b4c3c16c968e1eb8b568">00662</link> &#32;&#32;&#32;&#32;testfun&#32;=&#32;<link linkend="_classfcmaes_1_1testfun_1_1_eggholder">Eggholder</link>()
+<anchor xml:id="_test__cma_8py_source_1l00663"/>00663 
+<anchor xml:id="_test__cma_8py_source_1l00664"/>00664 &#32;&#32;&#32;&#32;optimizer&#32;=&#32;de_cma_py(10000)
+<anchor xml:id="_test__cma_8py_source_1l00665"/>00665 &#32;&#32;&#32;&#32;limit&#32;=&#32;-956&#32;&#32;&#32;
+<anchor xml:id="_test__cma_8py_source_1l00666"/>00666 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;_&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(5):
+<anchor xml:id="_test__cma_8py_source_1l00667"/>00667 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;wrapper&#32;=&#32;<link linkend="_classfcmaes_1_1testfun_1_1_wrapper">Wrapper</link>(testfun.fun,&#32;dim)
+<anchor xml:id="_test__cma_8py_source_1l00668"/>00668 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ret&#32;=&#32;advretry.minimize(wrapper.eval,&#32;testfun.bounds,&#32;
+<anchor xml:id="_test__cma_8py_source_1l00669"/>00669 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;num_retries=32,&#32;optimizer&#32;=&#32;optimizer)
+<anchor xml:id="_test__cma_8py_source_1l00670"/>00670 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;limit&#32;&gt;&#32;ret.fun:
+<anchor xml:id="_test__cma_8py_source_1l00671"/>00671 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00672"/>00672 
+<anchor xml:id="_test__cma_8py_source_1l00673"/>00673 &#32;&#32;&#32;&#32;assert(limit&#32;&gt;&#32;ret.fun)&#32;<emphasis role="comment">#&#32;optimization&#32;target&#32;not&#32;reached</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00674"/>00674 &#32;&#32;&#32;&#32;assert(ret.nfev&#32;==&#32;wrapper.get_count())&#32;<emphasis role="comment">#&#32;wrong&#32;number&#32;of&#32;function&#32;calls&#32;returned</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00675"/>00675 &#32;&#32;&#32;&#32;assert(<link linkend="_namespacefcmaes_1_1test__cma_1a56ec13d8a176e397762ffb9cd3b7eff7">almost_equal</link>(ret.x,&#32;wrapper.get_best_x()))&#32;<emphasis role="comment">#&#32;wrong&#32;best&#32;X&#32;returned</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00676"/>00676 &#32;&#32;&#32;&#32;assert(<link linkend="_namespacefcmaes_1_1test__cma_1a56ec13d8a176e397762ffb9cd3b7eff7">almost_equal</link>(ret.fun,&#32;wrapper.get_best_y()))&#32;<emphasis role="comment">#&#32;wrong&#32;best&#32;y&#32;returned</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00677"/>00677 
+<anchor xml:id="_test__cma_8py_source_1l00678"/>00678 <emphasis role="comment">#test_rosen_decpp_parallel()</emphasis>
+<anchor xml:id="_test__cma_8py_source_1l00679"/>00679 &#32;
+</programlisting></section>

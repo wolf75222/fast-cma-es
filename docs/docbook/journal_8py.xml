@@ -1,0 +1,154 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_journal_8py" xml:lang="en-US">
+<title>fcmaes/journal.py File Reference</title>
+<indexterm><primary>fcmaes/journal.py</primary></indexterm>
+<para>
+
+<para>============================================================================= </para>
+ 
+</para>
+<simplesect>
+    <title>Classes    </title>
+        <itemizedlist>
+            <listitem><para>class <link linkend="_classfcmaes_1_1journal_1_1_base__message">fcmaes.journal.Base_message</link></para>
+
+<para>Represents the base structure of a message. </para>
+</listitem>
+            <listitem><para>class <link linkend="_classfcmaes_1_1journal_1_1_study__start">fcmaes.journal.Study_start</link></para>
+
+<para>Represents the initial message to start a study. </para>
+</listitem>
+            <listitem><para>class <link linkend="_classfcmaes_1_1journal_1_1_trial__start">fcmaes.journal.Trial_start</link></para>
+
+<para>Represents the start of a trial within a specific study. </para>
+</listitem>
+            <listitem><para>class <link linkend="_classfcmaes_1_1journal_1_1_trial__param">fcmaes.journal.Trial_param</link></para>
+
+<para>Represents the parameters associated with a specific trial. </para>
+</listitem>
+            <listitem><para>class <link linkend="_classfcmaes_1_1journal_1_1_trial__value">fcmaes.journal.Trial_value</link></para>
+
+<para>Represents the value of a single trial in an experiment. </para>
+</listitem>
+            <listitem><para>class <link linkend="_classfcmaes_1_1journal_1_1_journal">fcmaes.journal.Journal</link></para>
+
+<para>Handles logging of study, trial, parameter, and value information to a file. </para>
+</listitem>
+            <listitem><para>class <link linkend="_classfcmaes_1_1journal_1_1journal__wrapper">fcmaes.journal.journal_wrapper</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Namespaces    </title>
+        <itemizedlist>
+            <listitem><para>namespace <link linkend="_namespacefcmaes">fcmaes</link></para>
+</listitem>
+            <listitem><para>namespace <link linkend="_namespacefcmaes_1_1journal">fcmaes.journal</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_namespacefcmaes_1_1journal_1ab2d4646b056641882ced63f7d0299978">fcmaes.journal.message_to_json</link> (message)</para>
+
+<para>Converts a given message object to its JSON representation. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1journal_1a3d2994fbc61c2eb4fa0bf4b6018b055e">fcmaes.journal.distribution</link> (low, high)</para>
+
+<para>Generates a JSON representation of a float distribution within a specified range. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1journal_1a10dd7671556c1ec184e8402909fead3e">fcmaes.journal.study_start</link> (worker_id, study_name, dir)</para>
+
+<para>Creates and returns a JSON representation of a study start message. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1journal_1ab08848e83cf71c33842407ee31354411">fcmaes.journal.trial_param</link> (worker_id, trial_id, param_name, param_value_internal, low, high)</para>
+
+<para>Generates a JSON message containing trial parameter details. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1journal_1a7fd5c2a880bb6da8e4e2e42790dc9430">fcmaes.journal.trial_start</link> (worker_id, study_id)</para>
+
+<para>Starts a trial by recording the worker ID, study ID, and the current timestamp, and generates a JSON message representation of the trial start event. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1journal_1a968c87aa2fb6e2e186e221f834d63552">fcmaes.journal.trial_value</link> (worker_id, trial_id, y)</para>
+
+<para>Creates and returns a JSON representation of a trial value message. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>============================================================================= </para>
+
+<para>Fast version 1.6.11</para>
+
+<para>(c) 2025 – Dietmar Wolz (c) 2025 – Latitude</para>
+
+<para>License MIT</para>
+
+<para><itemizedlist>
+<listitem>
+<para><link linkend="_journal_8py">journal.py</link></para>
+</listitem></itemizedlist>
+</para>
+
+<para><formalpara>
+<title>Description</title>
+<para><itemizedlist>
+<listitem>
+<para>Simple Optuna Journal file generating wrapper for single and multiple objective fcmaes objective functions. Can be used to gain live insight into a long running optimization process.</para>
+</listitem><listitem>
+<para>Warning: Only use for slow Hyperparameter optimizations, otherwise the journal file will grow too big.</para>
+</listitem><listitem>
+<para>Usage example: [2]; See [3], [4]. install optuna-dashboard<itemizedlist>
+<listitem>
+<para>pip install optuna-dashboard optional:</para>
+</listitem><listitem>
+<para>pip install optuna-fast-fanova gunicorn Then call:</para>
+</listitem><listitem>
+<para>optuna-dashboard &lt;path_to_journalfile&gt; In your browser open:</para>
+</listitem><listitem>
+<para><link xlink:href="http://127.0.0.1:8080/">http://127.0.0.1:8080/</link></para>
+</listitem></itemizedlist>
+</para>
+</listitem></itemizedlist>
+</para>
+</formalpara>
+<formalpara><title>Author</title>
+
+<para>:<itemizedlist>
+<listitem>
+<para>Dietmar Wolz <literallayout><computeroutput>-&#32;romain.despoullains<emphasis role="preprocessor">@latitude.eu</emphasis>
+-&#32;corentin.generet<emphasis role="preprocessor">@latitude.eu</emphasis>
+</computeroutput></literallayout></para>
+</listitem></itemizedlist>
+</para>
+</formalpara>
+<formalpara>
+<title>References</title>
+<para><itemizedlist>
+<listitem>
+<para>[1] <link xlink:href="https://github.com/dietmarwo/fast-cma-es">https://github.com/dietmarwo/fast-cma-es</link></para>
+</listitem><listitem>
+<para>[2] <link xlink:href="https://github.com/dietmarwo/fast-cma-es/blob/master/examples/prophet_opt.py">https://github.com/dietmarwo/fast-cma-es/blob/master/examples/prophet_opt.py</link></para>
+</listitem><listitem>
+<para>[3] <link xlink:href="https://optuna-dashboard.readthedocs.io/en/latest/getting-started.html">https://optuna-dashboard.readthedocs.io/en/latest/getting-started.html</link></para>
+</listitem><listitem>
+<para>[4] <link xlink:href="https://optuna.readthedocs.io/en/latest/tutorial/20_recipes/011_journal_storage.html">https://optuna.readthedocs.io/en/latest/tutorial/20_recipes/011_journal_storage.html</link></para>
+</listitem></itemizedlist>
+</para>
+</formalpara>
+<formalpara>
+<title>Documentation</title>
+<para><itemizedlist>
+<listitem></listitem></itemizedlist>
+</para>
+</formalpara>
+<informaltable frame='bottom'><tgroup cols='1'><colspec align='center'/><tbody><row><entry align='center'>
+</entry></row></tbody></tgroup></informaltable>
+ </para>
+<para>
+Definition in file <link linkend="_journal_8py_source">journal.py</link>.</para>
+</section>
+</section>

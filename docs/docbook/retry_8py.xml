@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_retry_8py" xml:lang="en-US">
+<title>fcmaes/retry.py File Reference</title>
+<indexterm><primary>fcmaes/retry.py</primary></indexterm>
+<para>
+
+<para>============================================================================= </para>
+ 
+</para>
+<simplesect>
+    <title>Classes    </title>
+        <itemizedlist>
+            <listitem><para>class <link linkend="_classfcmaes_1_1retry_1_1_shared2d">fcmaes.retry.Shared2d</link></para>
+
+<para>A 2D shared memory array wrapper. </para>
+</listitem>
+            <listitem><para>class <link linkend="_classfcmaes_1_1retry_1_1_store">fcmaes.retry.Store</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Namespaces    </title>
+        <itemizedlist>
+            <listitem><para>namespace <link linkend="_namespacefcmaes">fcmaes</link></para>
+</listitem>
+            <listitem><para>namespace <link linkend="_namespacefcmaes_1_1retry">fcmaes.retry</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para>OptimizeResult <link linkend="_namespacefcmaes_1_1retry_1ae5cef7db4d25eedc630e6e7b3fd077a7">fcmaes.retry.minimize</link> (Callable[[ArrayLike], float] fun, Bounds bounds, Optional[float] value_limit=np.inf, Optional[int] num_retries=1024, Optional[int] workers=mp.cpu_count(), Optional[int] popsize=31, Optional[int] max_evaluations=50000, Optional[int] capacity=500, Optional[float] stop_fitness=-np.inf, Optional[<link linkend="_classfcmaes_1_1optimizer_1_1_optimizer">Optimizer</link>] optimizer=None, Optional[int] statistic_num=0)</para>
+
+<para>Minimizes a given objective function using the specified optimizer and stores the progress. </para>
+</listitem>
+            <listitem><para>OptimizeResult <link linkend="_namespacefcmaes_1_1retry_1a2a07e0a25785c0590b0426a946de6009">fcmaes.retry.retry</link> (<link linkend="_classfcmaes_1_1retry_1_1_store">Store</link> store, Callable optimize, int num_retries, Optional[float] value_limit=np.inf, Optional[int] workers=mp.cpu_count(), Optional[float] stop_fitness=-np.inf)</para>
+
+<para>Retries optimization multiple times using the specified number of worker processes. </para>
+</listitem>
+            <listitem><para>OptimizeResult <link linkend="_namespacefcmaes_1_1retry_1aa3fad9513845a768be702efc7bdd594a">fcmaes.retry.minimize_plot</link> (str name, <link linkend="_classfcmaes_1_1optimizer_1_1_optimizer">Optimizer</link> optimizer, Callable[[ArrayLike], float] fun, Bounds bounds, Optional[float] value_limit=np.inf, Optional[float] plot_limit=np.inf, Optional[int] num_retries=1024, Optional[int] workers=mp.cpu_count(), Optional[float] stop_fitness=-np.inf, Optional[int] statistic_num=5000)</para>
+
+<para>Minimizes an optimization problem and plots the improvement process while storing results. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1retry_1a52b831afcdd723de9f72a3430e75afe8">fcmaes.retry.plot</link> (ArrayLike front, str fname, Optional[bool] interp=True, Optional[str] label=r &apos;$\chi$&apos;, Optional[str] xlabel=r &apos; $f_1$&apos;, Optional[str] ylabel=r &apos; $f_2$&apos;, Optional[str] zlabel=r &apos; $f_3$&apos;, Optional[bool] plot3d=False, s=1, dpi=300)</para>
+
+<para>Plots a given front using either 2D or 3D visualization, with options for interpolation and customization of the appearance and labels. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1retry_1a754240fc233254e554ddcc58503d84a3">fcmaes.retry.plot3</link> (ArrayLike front, str fname, Optional[str] label=r &apos;$\chi$&apos;, Optional[str] xlabel=r &apos; $f_1$&apos;, Optional[str] ylabel=r &apos; $f_2$&apos;, Optional[str] zlabel=r &apos; $f_3$&apos;)</para>
+
+<para>Creates and saves a 3D scatter plot from given data. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1retry_1a30908c77918cbc9dd9e43456662cda26">fcmaes.retry._retry_loop</link> (pid, rgs, store, optimize, num_retries, value_limit, stop_fitness=-np.inf)</para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1retry_1a35537fa2c742d879961164339775fd72">fcmaes.retry._convertBounds</link> (bounds)</para>
+
+<para>Convert bounds to a pair of arrays representing lower and upper limits. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Variables    </title>
+        <itemizedlist>
+            <listitem><para>dict <link linkend="_namespacefcmaes_1_1retry_1a59360006c21e3c4b3c0cd45bd65a5f25">fcmaes.retry.dtype_map</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>============================================================================= </para>
+
+<para>Fast version 1.6.11</para>
+
+<para>(c) 2025 – Dietmar Wolz (c) 2025 – Latitude</para>
+
+<para>License MIT</para>
+
+<para><itemizedlist>
+<listitem>
+<para><link linkend="_retry_8py">retry.py</link></para>
+</listitem></itemizedlist>
+</para>
+
+<para><formalpara>
+<title>Description</title>
+<para><itemizedlist>
+<listitem>
+<para>This module implements a retry mechanism for optimization problems using parallel optimization. It allows multiple attempts to find a solution to a given optimization problem, leveraging different optimization strategies such as differential evolution and CMA-ES.</para>
+</listitem><listitem>
+<para>The retry mechanism is designed to handle large-scale optimization problems efficiently by distributing the workload across multiple processes.</para>
+</listitem><listitem>
+<para>The module provides a <computeroutput>minimize</computeroutput> function that accepts an objective function, bounds, and various parameters to control the optimization process.</para>
+</listitem></itemizedlist>
+</para>
+</formalpara>
+<formalpara><title>Author</title>
+
+<para>:<itemizedlist>
+<listitem>
+<para>Dietmar Wolz <literallayout><computeroutput>-&#32;romain.despoullains<emphasis role="preprocessor">@latitude.eu</emphasis>
+-&#32;corentin.generet<emphasis role="preprocessor">@latitude.eu</emphasis>
+</computeroutput></literallayout></para>
+</listitem></itemizedlist>
+</para>
+</formalpara>
+<formalpara>
+<title>References</title>
+<para><itemizedlist>
+<listitem>
+<para>[1] <link xlink:href="https://github.com/dietmarwo/fast-cma-es">https://github.com/dietmarwo/fast-cma-es</link></para>
+</listitem></itemizedlist>
+</para>
+</formalpara>
+<formalpara>
+<title>Documentation</title>
+<para><itemizedlist>
+<listitem>
+<para><informaltable frame='bottom'><tgroup cols='1'><colspec align='center'/><tbody><row><entry align='center'>
+</entry></row></tbody></tgroup></informaltable>
+ </para>
+</listitem></itemizedlist>
+</para>
+</formalpara>
+</para>
+<para>
+Definition in file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+</section>

@@ -1,0 +1,253 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_yahpo_8py_source" xml:lang="en-US">
+<title>yahpo.py</title>
+<indexterm><primary>examples/yahpo.py</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_yahpo_8py_source_1l00001"/><link linkend="_namespaceexamples_1_1yahpo">00001</link> <emphasis role="comment">#&#32;Adapted&#32;from&#32;https://github.com/slds-lmu/qdo_yahpo&#32;for&#32;application&#32;of&#32;fcmaes</emphasis>
+<anchor xml:id="_yahpo_8py_source_1l00002"/>00002 <emphasis role="comment">#</emphasis>
+<anchor xml:id="_yahpo_8py_source_1l00003"/>00003 <emphasis role="comment">#&#32;See&#32;&quot;A&#32;Collection&#32;of&#32;Quality&#32;Diversity&#32;Optimization&#32;Problems&#32;Derived&#32;</emphasis>
+<anchor xml:id="_yahpo_8py_source_1l00004"/>00004 <emphasis role="comment">#&#32;from&#32;Hyperparameter&#32;Optimization&#32;of&#32;Machine&#32;Learning&#32;Models&quot;&#32;https://arxiv.org/abs/2204.14061</emphasis>
+<anchor xml:id="_yahpo_8py_source_1l00005"/>00005 <emphasis role="comment">#&#32;</emphasis>
+<anchor xml:id="_yahpo_8py_source_1l00006"/>00006 <emphasis role="comment">#&#32;Differences&#32;to&#32;https://github.com/slds-lmu/qdo_yahpo:</emphasis>
+<anchor xml:id="_yahpo_8py_source_1l00007"/>00007 <emphasis role="comment">#&#32;-&#32;No&#32;statistics,&#32;just&#32;applies&#32;the&#32;Hyperparameter&#32;Optimization&#32;and&#32;ranger&#32;benchmark&#32;functions</emphasis>
+<anchor xml:id="_yahpo_8py_source_1l00008"/>00008 <emphasis role="comment">#&#32;-&#32;Parallelism&#32;is&#32;handled&#32;by&#32;the&#32;optimizer</emphasis>
+<anchor xml:id="_yahpo_8py_source_1l00009"/>00009 <emphasis role="comment">#&#32;-&#32;Configured&#32;optimizer&#32;is&#32;similar&#32;to&#32;&quot;mixed&quot;&#32;in&#32;qdo_yahpo,&#32;but</emphasis>
+<anchor xml:id="_yahpo_8py_source_1l00010"/>00010 <emphasis role="comment">#&#32;&#32;&#32;&#32;&#32;*&#32;Uses&#32;CR-FM-NES&#32;instead&#32;of&#32;CMA-ES&#32;emitter</emphasis>
+<anchor xml:id="_yahpo_8py_source_1l00011"/>00011 <emphasis role="comment">#&#32;&#32;&#32;&#32;&#32;*&#32;CR-FM-NES&#32;is&#32;initialized&#32;with&#32;a&#32;random&#32;solution&#32;instead&#32;of&#32;a&#32;niche&#32;elite</emphasis>
+<anchor xml:id="_yahpo_8py_source_1l00012"/>00012 <emphasis role="comment">#&#32;&#32;&#32;&#32;&#32;*&#32;Uses&#32;Voronoi&#32;tesselation&#32;(see&#32;CVT&#32;MAP-Elites&#32;https://arxiv.org/abs/1610.05729)</emphasis>
+<anchor xml:id="_yahpo_8py_source_1l00013"/>00013 <emphasis role="comment">#&#32;&#32;&#32;&#32;&#32;*&#32;Map-Elites&#32;is&#32;executed&#32;in&#32;parallel&#32;with&#32;CR-FM-NES&#32;sharing&#32;the&#32;same&#32;QD-archive</emphasis>
+<anchor xml:id="_yahpo_8py_source_1l00014"/>00014 <emphasis role="comment">#&#32;&#32;&#32;&#32;&#32;*&#32;Instead&#32;of&#32;gaussian&#32;distribution&#32;Map-Elites&#32;uses&#32;simulated&#32;binary&#32;crossover&#32;+&#32;mutation&#32;as&#32;NSGAII</emphasis>
+<anchor xml:id="_yahpo_8py_source_1l00015"/>00015 <emphasis role="comment">#&#32;</emphasis>
+<anchor xml:id="_yahpo_8py_source_1l00016"/>00016 <emphasis role="comment">#&#32;Results&#32;cannot&#32;be&#32;directly&#32;compared&#32;since&#32;different&#32;tesselation&#32;is&#32;used&#32;(Grid/Voronoi).&#32;</emphasis>
+<anchor xml:id="_yahpo_8py_source_1l00017"/>00017 <emphasis role="comment">#&#32;</emphasis>
+<anchor xml:id="_yahpo_8py_source_1l00018"/>00018 <emphasis role="comment">#&#32;Requires&#32;yahpo_gym,&#32;please&#32;follow&#32;the&#32;installation&#32;instuctions&#32;at&#32;</emphasis>
+<anchor xml:id="_yahpo_8py_source_1l00019"/>00019 <emphasis role="comment">#&#32;https://github.com/slds-lmu/yahpo_gym/tree/main/yahpo_gym</emphasis>
+<anchor xml:id="_yahpo_8py_source_1l00020"/>00020 
+<anchor xml:id="_yahpo_8py_source_1l00021"/>00021 <emphasis role="comment">#&#32;Tested&#32;using&#32;https://docs.conda.io/en/main/miniconda.html&#32;on&#32;Linux&#32;Mint&#32;21.</emphasis>
+<anchor xml:id="_yahpo_8py_source_1l00022"/>00022 
+<anchor xml:id="_yahpo_8py_source_1l00023"/>00023 <emphasis role="comment">#&#32;install&#32;first:</emphasis>
+<anchor xml:id="_yahpo_8py_source_1l00024"/>00024 <emphasis role="comment">#&#32;pip&#32;install&#32;--upgrade&#32;setuptools[core]</emphasis>
+<anchor xml:id="_yahpo_8py_source_1l00025"/>00025 <emphasis role="comment">#&#32;pip&#32;install&#32;swig</emphasis>
+<anchor xml:id="_yahpo_8py_source_1l00026"/>00026 <emphasis role="comment">#&#32;pip&#32;install&#32;box2d-py</emphasis>
+<anchor xml:id="_yahpo_8py_source_1l00027"/>00027 
+<anchor xml:id="_yahpo_8py_source_1l00028"/>00028 <emphasis role="keyword">from</emphasis>&#32;yahpo_gym&#32;<emphasis role="keyword">import</emphasis>&#32;benchmark_set
+<anchor xml:id="_yahpo_8py_source_1l00029"/>00029 <emphasis role="keyword">from</emphasis>&#32;yahpo_gym.local_config&#32;<emphasis role="keyword">import</emphasis>&#32;LocalConfiguration
+<anchor xml:id="_yahpo_8py_source_1l00030"/>00030 <emphasis role="keyword">import</emphasis>&#32;yahpo_gym.benchmarks.iaml
+<anchor xml:id="_yahpo_8py_source_1l00031"/>00031 <emphasis role="keyword">import</emphasis>&#32;numpy&#32;<emphasis role="keyword">as</emphasis>&#32;np
+<anchor xml:id="_yahpo_8py_source_1l00032"/>00032 <emphasis role="keyword">import</emphasis>&#32;pandas&#32;<emphasis role="keyword">as</emphasis>&#32;pd
+<anchor xml:id="_yahpo_8py_source_1l00033"/>00033 <emphasis role="keyword">from</emphasis>&#32;fcmaes&#32;<emphasis role="keyword">import</emphasis>&#32;diversifier,&#32;mapelites
+<anchor xml:id="_yahpo_8py_source_1l00034"/>00034 <emphasis role="keyword">from</emphasis>&#32;scipy.optimize&#32;<emphasis role="keyword">import</emphasis>&#32;Bounds
+<anchor xml:id="_yahpo_8py_source_1l00035"/>00035 
+<anchor xml:id="_yahpo_8py_source_1l00036"/>00036 <emphasis role="keyword">import</emphasis>&#32;sys&#32;
+<anchor xml:id="_yahpo_8py_source_1l00037"/>00037 <emphasis role="keyword">from</emphasis>&#32;loguru&#32;<emphasis role="keyword">import</emphasis>&#32;logger
+<anchor xml:id="_yahpo_8py_source_1l00038"/>00038 
+<anchor xml:id="_yahpo_8py_source_1l00039"/>00039 logger.remove()
+<anchor xml:id="_yahpo_8py_source_1l00040"/><link linkend="_namespaceexamples_1_1yahpo_1ae276d68e6662c5f55c586736a173f808">00040</link> logger.add(sys.stdout,&#32;format=<emphasis role="stringliteral">&quot;{time:HH:mm:ss.SS}&#32;|&#32;{process}&#32;|&#32;{level}&#32;|&#32;{message}&quot;</emphasis>,&#32;level=<emphasis role="stringliteral">&quot;INFO&quot;</emphasis>)
+<anchor xml:id="_yahpo_8py_source_1l00041"/>00041 logger.add(<emphasis role="stringliteral">&quot;log_{time}.txt&quot;</emphasis>,&#32;format=<emphasis role="stringliteral">&quot;{time:HH:mm:ss.SS}&#32;|&#32;{process}&#32;|&#32;{level}&#32;|&#32;{message}&quot;</emphasis>,&#32;level=<emphasis role="stringliteral">&quot;INFO&quot;</emphasis>)
+<anchor xml:id="_yahpo_8py_source_1l00042"/>00042 
+<anchor xml:id="_yahpo_8py_source_1l00043"/><link linkend="_namespaceexamples_1_1yahpo_1aca8ebb42199ed8663e4d2fb1704bb11d">00043</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1yahpo_1aca8ebb42199ed8663e4d2fb1704bb11d">opt_ranger_hardware</link>(task_id,&#32;max_evals&#32;=&#32;100000):
+<anchor xml:id="_yahpo_8py_source_1l00044"/>00044 &#32;&#32;&#32;&#32;bench&#32;=&#32;benchmark_set.BenchmarkSet(<emphasis role="stringliteral">&quot;iaml_ranger&quot;</emphasis>,&#32;check&#32;=&#32;<emphasis role="keyword">False</emphasis>)
+<anchor xml:id="_yahpo_8py_source_1l00045"/>00045 &#32;&#32;&#32;&#32;bench.set_instance(task_id)
+<anchor xml:id="_yahpo_8py_source_1l00046"/>00046 &#32;&#32;&#32;&#32;search_space&#32;=&#32;bench.get_opt_space()
+<anchor xml:id="_yahpo_8py_source_1l00047"/>00047 
+<anchor xml:id="_yahpo_8py_source_1l00048"/>00048 &#32;&#32;&#32;&#32;params&#32;=&#32;[<emphasis role="stringliteral">&quot;num.trees&quot;</emphasis>,&#32;<emphasis role="stringliteral">&quot;mtry.ratio&quot;</emphasis>,&#32;<emphasis role="stringliteral">&quot;min.node.size&quot;</emphasis>,&#32;<emphasis role="stringliteral">&quot;sample.fraction&quot;</emphasis>]
+<anchor xml:id="_yahpo_8py_source_1l00049"/>00049 &#32;&#32;&#32;&#32;bounds&#32;=&#32;[(search_space.get_hyperparameter(param).lower,&#32;search_space.get_hyperparameter(param).upper)&#32;<emphasis role="keywordflow">for</emphasis>&#32;param&#32;<emphasis role="keywordflow">in</emphasis>&#32;params]
+<anchor xml:id="_yahpo_8py_source_1l00050"/>00050 &#32;&#32;&#32;&#32;lower&#32;=&#32;[bound[0]&#32;<emphasis role="keywordflow">for</emphasis>&#32;bound&#32;<emphasis role="keywordflow">in</emphasis>&#32;bounds]
+<anchor xml:id="_yahpo_8py_source_1l00051"/>00051 &#32;&#32;&#32;&#32;upper&#32;=&#32;[bound[1]&#32;<emphasis role="keywordflow">for</emphasis>&#32;bound&#32;<emphasis role="keywordflow">in</emphasis>&#32;bounds]
+<anchor xml:id="_yahpo_8py_source_1l00052"/>00052 &#32;&#32;&#32;&#32;
+<anchor xml:id="_yahpo_8py_source_1l00053"/>00053 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;task_id&#32;==&#32;<emphasis role="stringliteral">&quot;41146&quot;</emphasis>:
+<anchor xml:id="_yahpo_8py_source_1l00054"/>00054 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;qd_bounds&#32;=&#32;Bounds((1.,&#32;0.19),&#32;(200.,&#32;4.5))&#32;
+<anchor xml:id="_yahpo_8py_source_1l00055"/>00055 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">elif</emphasis>&#32;task_id&#32;==&#32;<emphasis role="stringliteral">&quot;40981&quot;</emphasis>:
+<anchor xml:id="_yahpo_8py_source_1l00056"/>00056 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;qd_bounds&#32;=&#32;Bounds((1.,&#32;0.10),&#32;(40.,&#32;0.65))&#32;
+<anchor xml:id="_yahpo_8py_source_1l00057"/>00057 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">elif</emphasis>&#32;task_id&#32;==&#32;<emphasis role="stringliteral">&quot;1489&quot;</emphasis>:
+<anchor xml:id="_yahpo_8py_source_1l00058"/>00058 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;qd_bounds&#32;=&#32;Bounds((1.,&#32;0.19),&#32;(200.,&#32;4.5))&#32;
+<anchor xml:id="_yahpo_8py_source_1l00059"/>00059 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">elif</emphasis>&#32;task_id&#32;==&#32;<emphasis role="stringliteral">&quot;1067&quot;</emphasis>:
+<anchor xml:id="_yahpo_8py_source_1l00060"/>00060 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;qd_bounds&#32;=&#32;Bounds((1.,&#32;0.13),&#32;(78.,&#32;1.55))&#32;
+<anchor xml:id="_yahpo_8py_source_1l00061"/>00061 &#32;&#32;&#32;&#32;
+<anchor xml:id="_yahpo_8py_source_1l00062"/>00062 &#32;&#32;&#32;&#32;dim&#32;=&#32;len(bounds)
+<anchor xml:id="_yahpo_8py_source_1l00063"/>00063 &#32;&#32;&#32;&#32;qd_dim&#32;=&#32;2
+<anchor xml:id="_yahpo_8py_source_1l00064"/>00064 &#32;&#32;&#32;&#32;bounds&#32;=&#32;Bounds([0]*dim,&#32;[1]*dim)
+<anchor xml:id="_yahpo_8py_source_1l00065"/>00065 &#32;&#32;&#32;&#32;
+<anchor xml:id="_yahpo_8py_source_1l00066"/>00066 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis>qd_fun(x):&#32;<emphasis role="comment">#&#32;Only&#32;a&#32;single&#32;fitness&#32;is&#32;needed.&#32;Parallelism&#32;is&#32;handled&#32;by&#32;the&#32;optimizer.</emphasis>
+<anchor xml:id="_yahpo_8py_source_1l00067"/>00067 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;yd&#32;=&#32;<link linkend="_namespaceexamples_1_1yahpo_1aafb5885cf1e9c035878faf3bee87ccb0">evaluate_ranger_</link>([x],&#32;[<emphasis role="stringliteral">&quot;rammodel&quot;</emphasis>,&#32;<emphasis role="stringliteral">&quot;timepredict&quot;</emphasis>],&#32;params,&#32;bench,&#32;task_id,&#32;lower,&#32;upper)
+<anchor xml:id="_yahpo_8py_source_1l00068"/>00068 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;yd[0][0],&#32;yd[0][1:]
+<anchor xml:id="_yahpo_8py_source_1l00069"/>00069 &#32;&#32;&#32;&#32;
+<anchor xml:id="_yahpo_8py_source_1l00070"/>00070 &#32;&#32;&#32;&#32;niche_num&#32;=&#32;4000
+<anchor xml:id="_yahpo_8py_source_1l00071"/>00071 &#32;&#32;&#32;&#32;arch&#32;=&#32;<emphasis role="keywordtype">None</emphasis>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_yahpo_8py_source_1l00072"/>00072 &#32;&#32;&#32;&#32;opt_params0&#32;=&#32;{<emphasis role="stringliteral">&apos;solver&apos;</emphasis>:<emphasis role="stringliteral">&apos;elites&apos;</emphasis>,&#32;<emphasis role="stringliteral">&apos;popsize&apos;</emphasis>:16}
+<anchor xml:id="_yahpo_8py_source_1l00073"/>00073 &#32;&#32;&#32;&#32;opt_params1&#32;=&#32;{<emphasis role="stringliteral">&apos;solver&apos;</emphasis>:<emphasis role="stringliteral">&apos;CRMFNES_CPP&apos;</emphasis>,&#32;<emphasis role="stringliteral">&apos;max_evals&apos;</emphasis>:200,&#32;<emphasis role="stringliteral">&apos;popsize&apos;</emphasis>:16,&#32;<emphasis role="stringliteral">&apos;stall_criterion&apos;</emphasis>:3}
+<anchor xml:id="_yahpo_8py_source_1l00074"/>00074 &#32;&#32;&#32;&#32;
+<anchor xml:id="_yahpo_8py_source_1l00075"/>00075 &#32;&#32;&#32;&#32;archive&#32;=&#32;diversifier.minimize(
+<anchor xml:id="_yahpo_8py_source_1l00076"/>00076 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classfcmaes_1_1mapelites_1_1wrapper">mapelites.wrapper</link>(qd_fun,&#32;qd_dim,&#32;interval=100000),&#32;
+<anchor xml:id="_yahpo_8py_source_1l00077"/>00077 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;bounds,&#32;qd_bounds,&#32;opt_params=[opt_params0,&#32;opt_params1],&#32;max_evals=max_evals,&#32;archive&#32;=&#32;arch,
+<anchor xml:id="_yahpo_8py_source_1l00078"/>00078 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;niche_num&#32;=&#32;niche_num,&#32;samples_per_niche&#32;=&#32;20)
+<anchor xml:id="_yahpo_8py_source_1l00079"/>00079 &#32;&#32;&#32;&#32;
+<anchor xml:id="_yahpo_8py_source_1l00080"/>00080 &#32;&#32;&#32;&#32;name&#32;=&#32;<emphasis role="stringliteral">&quot;range_hard&quot;</emphasis>&#32;+&#32;task_id
+<anchor xml:id="_yahpo_8py_source_1l00081"/>00081 &#32;&#32;&#32;&#32;print(<emphasis role="stringliteral">&apos;final&#32;archive:&apos;</emphasis>,&#32;archive.info())
+<anchor xml:id="_yahpo_8py_source_1l00082"/>00082 &#32;&#32;&#32;&#32;archive.save(name)
+<anchor xml:id="_yahpo_8py_source_1l00083"/>00083 &#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1yahpo_1a00ed0fa5c4577f6841d751aa5de9beb4">plot</link>(archive,&#32;name)
+<anchor xml:id="_yahpo_8py_source_1l00084"/>00084 
+<anchor xml:id="_yahpo_8py_source_1l00085"/><link linkend="_namespaceexamples_1_1yahpo_1a657da003ad951471dc74d132dda50c01">00085</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1yahpo_1a657da003ad951471dc74d132dda50c01">opt_ranger_interpretability</link>(task_id,&#32;max_evals&#32;=&#32;100000):
+<anchor xml:id="_yahpo_8py_source_1l00086"/>00086 &#32;&#32;&#32;&#32;bench&#32;=&#32;benchmark_set.BenchmarkSet(<emphasis role="stringliteral">&quot;iaml_ranger&quot;</emphasis>,&#32;check&#32;=&#32;<emphasis role="keyword">False</emphasis>)
+<anchor xml:id="_yahpo_8py_source_1l00087"/>00087 &#32;&#32;&#32;&#32;bench.set_instance(task_id)
+<anchor xml:id="_yahpo_8py_source_1l00088"/>00088 &#32;&#32;&#32;&#32;search_space&#32;=&#32;bench.get_opt_space()
+<anchor xml:id="_yahpo_8py_source_1l00089"/>00089 
+<anchor xml:id="_yahpo_8py_source_1l00090"/>00090 &#32;&#32;&#32;&#32;params&#32;=&#32;[<emphasis role="stringliteral">&quot;num.trees&quot;</emphasis>,&#32;<emphasis role="stringliteral">&quot;mtry.ratio&quot;</emphasis>,&#32;<emphasis role="stringliteral">&quot;min.node.size&quot;</emphasis>,&#32;<emphasis role="stringliteral">&quot;sample.fraction&quot;</emphasis>]
+<anchor xml:id="_yahpo_8py_source_1l00091"/>00091 &#32;&#32;&#32;&#32;bounds&#32;=&#32;[(search_space.get_hyperparameter(param).lower,&#32;search_space.get_hyperparameter(param).upper)&#32;<emphasis role="keywordflow">for</emphasis>&#32;param&#32;<emphasis role="keywordflow">in</emphasis>&#32;params]
+<anchor xml:id="_yahpo_8py_source_1l00092"/>00092 &#32;&#32;&#32;&#32;lower&#32;=&#32;[bound[0]&#32;<emphasis role="keywordflow">for</emphasis>&#32;bound&#32;<emphasis role="keywordflow">in</emphasis>&#32;bounds]
+<anchor xml:id="_yahpo_8py_source_1l00093"/>00093 &#32;&#32;&#32;&#32;upper&#32;=&#32;[bound[1]&#32;<emphasis role="keywordflow">for</emphasis>&#32;bound&#32;<emphasis role="keywordflow">in</emphasis>&#32;bounds]
+<anchor xml:id="_yahpo_8py_source_1l00094"/>00094 &#32;&#32;&#32;&#32;
+<anchor xml:id="_yahpo_8py_source_1l00095"/>00095 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;task_id&#32;==&#32;<emphasis role="stringliteral">&quot;41146&quot;</emphasis>:
+<anchor xml:id="_yahpo_8py_source_1l00096"/>00096 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;qd_bounds&#32;=&#32;Bounds((0.,&#32;0.),&#32;(20.,&#32;1.))&#32;
+<anchor xml:id="_yahpo_8py_source_1l00097"/>00097 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">elif</emphasis>&#32;task_id&#32;==&#32;<emphasis role="stringliteral">&quot;40981&quot;</emphasis>:
+<anchor xml:id="_yahpo_8py_source_1l00098"/>00098 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;qd_bounds&#32;=&#32;Bounds((0.,&#32;0.),&#32;(14.,&#32;1.))&#32;
+<anchor xml:id="_yahpo_8py_source_1l00099"/>00099 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">elif</emphasis>&#32;task_id&#32;==&#32;<emphasis role="stringliteral">&quot;1489&quot;</emphasis>:
+<anchor xml:id="_yahpo_8py_source_1l00100"/>00100 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;qd_bounds&#32;=&#32;Bounds((0.,&#32;0.),&#32;(5.,&#32;1.))&#32;
+<anchor xml:id="_yahpo_8py_source_1l00101"/>00101 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">elif</emphasis>&#32;task_id&#32;==&#32;<emphasis role="stringliteral">&quot;1067&quot;</emphasis>:
+<anchor xml:id="_yahpo_8py_source_1l00102"/>00102 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;qd_bounds&#32;=&#32;Bounds((0.,&#32;0.),&#32;(21.,&#32;1.))&#32;&#32;&#32;
+<anchor xml:id="_yahpo_8py_source_1l00103"/>00103 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_yahpo_8py_source_1l00104"/>00104 &#32;&#32;&#32;&#32;dim&#32;=&#32;len(bounds)
+<anchor xml:id="_yahpo_8py_source_1l00105"/>00105 &#32;&#32;&#32;&#32;qd_dim&#32;=&#32;2
+<anchor xml:id="_yahpo_8py_source_1l00106"/>00106 &#32;&#32;&#32;&#32;bounds&#32;=&#32;Bounds([0]*dim,&#32;[1]*dim)
+<anchor xml:id="_yahpo_8py_source_1l00107"/>00107 &#32;&#32;&#32;&#32;
+<anchor xml:id="_yahpo_8py_source_1l00108"/>00108 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis>qd_fun(x):&#32;<emphasis role="comment">#&#32;Only&#32;a&#32;single&#32;fitness&#32;is&#32;needed.&#32;Parallelism&#32;is&#32;handled&#32;by&#32;the&#32;optimizer.</emphasis>
+<anchor xml:id="_yahpo_8py_source_1l00109"/>00109 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;yd&#32;=&#32;<link linkend="_namespaceexamples_1_1yahpo_1aafb5885cf1e9c035878faf3bee87ccb0">evaluate_ranger_</link>([x],&#32;[<emphasis role="stringliteral">&quot;nf&quot;</emphasis>,&#32;<emphasis role="stringliteral">&quot;ias&quot;</emphasis>],&#32;params,&#32;bench,&#32;task_id,&#32;lower,&#32;upper)
+<anchor xml:id="_yahpo_8py_source_1l00110"/>00110 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;yd[0][0],&#32;yd[0][1:]
+<anchor xml:id="_yahpo_8py_source_1l00111"/>00111 &#32;&#32;&#32;&#32;
+<anchor xml:id="_yahpo_8py_source_1l00112"/>00112 &#32;&#32;&#32;&#32;niche_num&#32;=&#32;4000
+<anchor xml:id="_yahpo_8py_source_1l00113"/>00113 &#32;&#32;&#32;&#32;arch&#32;=&#32;<emphasis role="keywordtype">None</emphasis>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_yahpo_8py_source_1l00114"/>00114 &#32;&#32;&#32;&#32;opt_params0&#32;=&#32;{<emphasis role="stringliteral">&apos;solver&apos;</emphasis>:<emphasis role="stringliteral">&apos;elites&apos;</emphasis>,&#32;<emphasis role="stringliteral">&apos;popsize&apos;</emphasis>:16}
+<anchor xml:id="_yahpo_8py_source_1l00115"/>00115 &#32;&#32;&#32;&#32;opt_params1&#32;=&#32;{<emphasis role="stringliteral">&apos;solver&apos;</emphasis>:<emphasis role="stringliteral">&apos;CRMFNES_CPP&apos;</emphasis>,&#32;<emphasis role="stringliteral">&apos;max_evals&apos;</emphasis>:200,&#32;<emphasis role="stringliteral">&apos;popsize&apos;</emphasis>:16,&#32;<emphasis role="stringliteral">&apos;stall_criterion&apos;</emphasis>:3}
+<anchor xml:id="_yahpo_8py_source_1l00116"/>00116 &#32;&#32;&#32;&#32;
+<anchor xml:id="_yahpo_8py_source_1l00117"/>00117 &#32;&#32;&#32;&#32;archive&#32;=&#32;diversifier.minimize(
+<anchor xml:id="_yahpo_8py_source_1l00118"/>00118 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classfcmaes_1_1mapelites_1_1wrapper">mapelites.wrapper</link>(qd_fun,&#32;qd_dim,&#32;interval=100000),&#32;
+<anchor xml:id="_yahpo_8py_source_1l00119"/>00119 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;bounds,&#32;qd_bounds,&#32;opt_params=[opt_params0,&#32;opt_params1],&#32;max_evals=max_evals,&#32;archive&#32;=&#32;arch,
+<anchor xml:id="_yahpo_8py_source_1l00120"/>00120 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;niche_num&#32;=&#32;niche_num,&#32;samples_per_niche&#32;=&#32;20)
+<anchor xml:id="_yahpo_8py_source_1l00121"/>00121 &#32;&#32;&#32;&#32;
+<anchor xml:id="_yahpo_8py_source_1l00122"/>00122 &#32;&#32;&#32;&#32;name&#32;=&#32;<emphasis role="stringliteral">&quot;range&quot;</emphasis>&#32;+&#32;task_id
+<anchor xml:id="_yahpo_8py_source_1l00123"/>00123 &#32;&#32;&#32;&#32;print(<emphasis role="stringliteral">&apos;final&#32;archive:&apos;</emphasis>,&#32;archive.info())
+<anchor xml:id="_yahpo_8py_source_1l00124"/>00124 &#32;&#32;&#32;&#32;archive.save(name)
+<anchor xml:id="_yahpo_8py_source_1l00125"/>00125 &#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1yahpo_1a00ed0fa5c4577f6841d751aa5de9beb4">plot</link>(archive,&#32;name)
+<anchor xml:id="_yahpo_8py_source_1l00126"/>00126 
+<anchor xml:id="_yahpo_8py_source_1l00127"/><link linkend="_namespaceexamples_1_1yahpo_1aa0f008c277a52f11bb7ae3430c49384c">00127</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1yahpo_1aa0f008c277a52f11bb7ae3430c49384c">opt_xgboost</link>(task_id,&#32;max_evals&#32;=&#32;100000):
+<anchor xml:id="_yahpo_8py_source_1l00128"/>00128 &#32;&#32;&#32;&#32;bench&#32;=&#32;benchmark_set.BenchmarkSet(<emphasis role="stringliteral">&quot;iaml_xgboost&quot;</emphasis>,&#32;check&#32;=&#32;<emphasis role="keyword">False</emphasis>)&#32;&#32;<emphasis role="comment">#&#32;we&#32;disable&#32;input&#32;checking&#32;of&#32;parameters&#32;for&#32;speed&#32;up</emphasis>
+<anchor xml:id="_yahpo_8py_source_1l00129"/>00129 &#32;&#32;&#32;&#32;bench.set_instance(task_id)
+<anchor xml:id="_yahpo_8py_source_1l00130"/>00130 &#32;&#32;&#32;&#32;search_space&#32;=&#32;bench.get_opt_space()
+<anchor xml:id="_yahpo_8py_source_1l00131"/>00131 &#32;&#32;&#32;&#32;params&#32;=&#32;[<emphasis role="stringliteral">&quot;alpha&quot;</emphasis>,&#32;<emphasis role="stringliteral">&quot;lambda&quot;</emphasis>,&#32;<emphasis role="stringliteral">&quot;nrounds&quot;</emphasis>,&#32;<emphasis role="stringliteral">&quot;subsample&quot;</emphasis>,&#32;<emphasis role="stringliteral">&quot;colsample_bylevel&quot;</emphasis>,&#32;<emphasis role="stringliteral">&quot;colsample_bytree&quot;</emphasis>,&#32;<emphasis role="stringliteral">&quot;eta&quot;</emphasis>,&#32;<emphasis role="stringliteral">&quot;gamma&quot;</emphasis>,&#32;<emphasis role="stringliteral">&quot;max_depth&quot;</emphasis>,&#32;<emphasis role="stringliteral">&quot;min_child_weight&quot;</emphasis>]
+<anchor xml:id="_yahpo_8py_source_1l00132"/>00132 &#32;&#32;&#32;&#32;bounds&#32;=&#32;[(search_space.get_hyperparameter(param).lower,&#32;search_space.get_hyperparameter(param).upper)&#32;<emphasis role="keywordflow">for</emphasis>&#32;param&#32;<emphasis role="keywordflow">in</emphasis>&#32;params]
+<anchor xml:id="_yahpo_8py_source_1l00133"/>00133 &#32;&#32;&#32;&#32;defaults&#32;=&#32;[0.001,&#32;0.001,&#32;1000.,&#32;1.,&#32;1.,&#32;1.,&#32;0.3,&#32;0.001,&#32;6.,&#32;3.]
+<anchor xml:id="_yahpo_8py_source_1l00134"/>00134 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(len(params)):
+<anchor xml:id="_yahpo_8py_source_1l00135"/>00135 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;search_space.get_hyperparameter(params[i]).log:
+<anchor xml:id="_yahpo_8py_source_1l00136"/>00136 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;bounds[i]&#32;=&#32;np.log(bounds[i])
+<anchor xml:id="_yahpo_8py_source_1l00137"/>00137 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;defaults[i]&#32;=&#32;np.log(defaults[i])
+<anchor xml:id="_yahpo_8py_source_1l00138"/>00138 &#32;&#32;&#32;&#32;lower&#32;=&#32;[bound[0]&#32;<emphasis role="keywordflow">for</emphasis>&#32;bound&#32;<emphasis role="keywordflow">in</emphasis>&#32;bounds]
+<anchor xml:id="_yahpo_8py_source_1l00139"/>00139 &#32;&#32;&#32;&#32;upper&#32;=&#32;[bound[1]&#32;<emphasis role="keywordflow">for</emphasis>&#32;bound&#32;<emphasis role="keywordflow">in</emphasis>&#32;bounds]
+<anchor xml:id="_yahpo_8py_source_1l00140"/>00140 
+<anchor xml:id="_yahpo_8py_source_1l00141"/>00141 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;task_id&#32;==&#32;<emphasis role="stringliteral">&quot;41146&quot;</emphasis>:
+<anchor xml:id="_yahpo_8py_source_1l00142"/>00142 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;qd_bounds&#32;=&#32;Bounds((0.,&#32;0.),&#32;(20.,&#32;1.))&#32;
+<anchor xml:id="_yahpo_8py_source_1l00143"/>00143 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">elif</emphasis>&#32;task_id&#32;==&#32;<emphasis role="stringliteral">&quot;40981&quot;</emphasis>:
+<anchor xml:id="_yahpo_8py_source_1l00144"/>00144 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;qd_bounds&#32;=&#32;Bounds((0.,&#32;0.),&#32;(14.,&#32;1.))&#32;
+<anchor xml:id="_yahpo_8py_source_1l00145"/>00145 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">elif</emphasis>&#32;task_id&#32;==&#32;<emphasis role="stringliteral">&quot;1489&quot;</emphasis>:
+<anchor xml:id="_yahpo_8py_source_1l00146"/>00146 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;qd_bounds&#32;=&#32;Bounds((0.,&#32;0.),&#32;(5.,&#32;1.))&#32;
+<anchor xml:id="_yahpo_8py_source_1l00147"/>00147 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">elif</emphasis>&#32;task_id&#32;==&#32;<emphasis role="stringliteral">&quot;1067&quot;</emphasis>:
+<anchor xml:id="_yahpo_8py_source_1l00148"/>00148 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;qd_bounds&#32;=&#32;Bounds((0.,&#32;0.),&#32;(21.,&#32;1.))&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_yahpo_8py_source_1l00149"/>00149 &#32;&#32;&#32;&#32;qd_dim&#32;=&#32;2
+<anchor xml:id="_yahpo_8py_source_1l00150"/>00150 &#32;&#32;&#32;&#32;
+<anchor xml:id="_yahpo_8py_source_1l00151"/>00151 &#32;&#32;&#32;&#32;dim&#32;=&#32;len(defaults)
+<anchor xml:id="_yahpo_8py_source_1l00152"/>00152 &#32;&#32;&#32;&#32;bounds&#32;=&#32;Bounds([0]*dim,&#32;[1]*dim)
+<anchor xml:id="_yahpo_8py_source_1l00153"/>00153 &#32;&#32;&#32;&#32;
+<anchor xml:id="_yahpo_8py_source_1l00154"/>00154 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis>qd_fun(x):
+<anchor xml:id="_yahpo_8py_source_1l00155"/>00155 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;yd&#32;=&#32;<link linkend="_namespaceexamples_1_1yahpo_1ae80be8ace972b91258cc5d78d421d250">evaluate_xgboost_</link>([x],&#32;[<emphasis role="stringliteral">&quot;nf&quot;</emphasis>,&#32;<emphasis role="stringliteral">&quot;ias&quot;</emphasis>],&#32;params,&#32;bench,&#32;task_id,&#32;lower,&#32;upper)
+<anchor xml:id="_yahpo_8py_source_1l00156"/>00156 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;yd[0][0],&#32;yd[0][1:]
+<anchor xml:id="_yahpo_8py_source_1l00157"/>00157 &#32;&#32;&#32;&#32;
+<anchor xml:id="_yahpo_8py_source_1l00158"/>00158 &#32;&#32;&#32;&#32;niche_num&#32;=&#32;4000
+<anchor xml:id="_yahpo_8py_source_1l00159"/>00159 &#32;&#32;&#32;&#32;arch&#32;=&#32;<emphasis role="keywordtype">None</emphasis>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_yahpo_8py_source_1l00160"/>00160 &#32;&#32;&#32;&#32;opt_params0&#32;=&#32;{<emphasis role="stringliteral">&apos;solver&apos;</emphasis>:<emphasis role="stringliteral">&apos;elites&apos;</emphasis>,&#32;<emphasis role="stringliteral">&apos;popsize&apos;</emphasis>:16}
+<anchor xml:id="_yahpo_8py_source_1l00161"/>00161 &#32;&#32;&#32;&#32;opt_params1&#32;=&#32;{<emphasis role="stringliteral">&apos;solver&apos;</emphasis>:<emphasis role="stringliteral">&apos;CRMFNES_CPP&apos;</emphasis>,&#32;<emphasis role="stringliteral">&apos;max_evals&apos;</emphasis>:200,&#32;<emphasis role="stringliteral">&apos;popsize&apos;</emphasis>:16,&#32;<emphasis role="stringliteral">&apos;stall_criterion&apos;</emphasis>:3}
+<anchor xml:id="_yahpo_8py_source_1l00162"/>00162 &#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_yahpo_8py_source_1l00163"/>00163 &#32;&#32;&#32;&#32;archive&#32;=&#32;diversifier.minimize(
+<anchor xml:id="_yahpo_8py_source_1l00164"/>00164 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classfcmaes_1_1mapelites_1_1wrapper">mapelites.wrapper</link>(qd_fun,&#32;qd_dim,&#32;interval=100000),&#32;
+<anchor xml:id="_yahpo_8py_source_1l00165"/>00165 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;bounds,&#32;qd_bounds,&#32;opt_params=[opt_params0,&#32;opt_params1],&#32;max_evals=max_evals,&#32;archive&#32;=&#32;arch,
+<anchor xml:id="_yahpo_8py_source_1l00166"/>00166 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;niche_num&#32;=&#32;niche_num,&#32;samples_per_niche&#32;=&#32;20)
+<anchor xml:id="_yahpo_8py_source_1l00167"/>00167 &#32;&#32;&#32;&#32;
+<anchor xml:id="_yahpo_8py_source_1l00168"/>00168 &#32;&#32;&#32;&#32;name&#32;=&#32;<emphasis role="stringliteral">&quot;xgboost_opt&quot;</emphasis>&#32;+&#32;task_id
+<anchor xml:id="_yahpo_8py_source_1l00169"/>00169 &#32;&#32;&#32;&#32;print(<emphasis role="stringliteral">&apos;final&#32;archive:&apos;</emphasis>,&#32;archive.info())
+<anchor xml:id="_yahpo_8py_source_1l00170"/>00170 &#32;&#32;&#32;&#32;archive.save(name)
+<anchor xml:id="_yahpo_8py_source_1l00171"/>00171 &#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1yahpo_1a00ed0fa5c4577f6841d751aa5de9beb4">plot</link>(archive,&#32;name)
+<anchor xml:id="_yahpo_8py_source_1l00172"/>00172 
+<anchor xml:id="_yahpo_8py_source_1l00173"/><link linkend="_namespaceexamples_1_1yahpo_1aafb5885cf1e9c035878faf3bee87ccb0">00173</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1yahpo_1aafb5885cf1e9c035878faf3bee87ccb0">evaluate_ranger_</link>(x,&#32;features,&#32;params,&#32;bench,&#32;task_id,&#32;lower,&#32;upper,&#32;trafo=True):
+<anchor xml:id="_yahpo_8py_source_1l00174"/>00174 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;trafo:
+<anchor xml:id="_yahpo_8py_source_1l00175"/>00175 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x&#32;=&#32;np.array([<link linkend="_namespaceexamples_1_1yahpo_1a15c68f9f26552d8ed5597f36e8ddbb0e">retrafo_</link>(i,&#32;lower,&#32;upper)&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;x])
+<anchor xml:id="_yahpo_8py_source_1l00176"/>00176 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;YAHPO&#32;Gym&#32;supports&#32;batch&#32;predicts&#32;if&#32;configs&#32;are&#32;passed&#32;as&#32;a&#32;list&#32;of&#32;dicts</emphasis>
+<anchor xml:id="_yahpo_8py_source_1l00177"/>00177 &#32;&#32;&#32;&#32;config&#32;=&#32;[dict(zip(params,&#32;x[i]))&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(x.shape[0])]
+<anchor xml:id="_yahpo_8py_source_1l00178"/>00178 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;add&#32;the&#32;other&#32;hyperparameters&#32;not&#32;part&#32;of&#32;the&#32;search&#32;space&#32;and&#32;respect&#32;integers</emphasis>
+<anchor xml:id="_yahpo_8py_source_1l00179"/>00179 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(len(config)):
+<anchor xml:id="_yahpo_8py_source_1l00180"/>00180 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;config[i].update({<emphasis role="stringliteral">&quot;num.trees&quot;</emphasis>:round(config[i][<emphasis role="stringliteral">&quot;num.trees&quot;</emphasis>]),&#32;<emphasis role="stringliteral">&quot;min.node.size&quot;</emphasis>:round(config[i][<emphasis role="stringliteral">&quot;min.node.size&quot;</emphasis>])})
+<anchor xml:id="_yahpo_8py_source_1l00181"/>00181 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;config[i].update({<emphasis role="stringliteral">&quot;task_id&quot;</emphasis>:task_id,&#32;<emphasis role="stringliteral">&quot;trainsize&quot;</emphasis>:1,&#32;<emphasis role="stringliteral">&quot;replace&quot;</emphasis>:<emphasis role="stringliteral">&quot;TRUE&quot;</emphasis>,&#32;<emphasis role="stringliteral">&quot;respect.unordered.factors&quot;</emphasis>:<emphasis role="stringliteral">&quot;ignore&quot;</emphasis>,&#32;<emphasis role="stringliteral">&quot;splitrule&quot;</emphasis>:<emphasis role="stringliteral">&quot;gini&quot;</emphasis>})
+<anchor xml:id="_yahpo_8py_source_1l00182"/>00182 &#32;&#32;&#32;&#32;results&#32;=&#32;bench.objective_function(config)
+<anchor xml:id="_yahpo_8py_source_1l00183"/>00183 &#32;&#32;&#32;&#32;targets&#32;=&#32;[<emphasis role="stringliteral">&quot;mmce&quot;</emphasis>]
+<anchor xml:id="_yahpo_8py_source_1l00184"/>00184 &#32;&#32;&#32;&#32;targets.extend(features)
+<anchor xml:id="_yahpo_8py_source_1l00185"/>00185 &#32;&#32;&#32;&#32;y&#32;=&#32;pd.DataFrame(results)[targets]
+<anchor xml:id="_yahpo_8py_source_1l00186"/>00186 &#32;&#32;&#32;&#32;y[[<emphasis role="stringliteral">&quot;mmce&quot;</emphasis>]]&#32;=&#32;1&#32;-&#32;y[[<emphasis role="stringliteral">&quot;mmce&quot;</emphasis>]]&#32;&#32;<emphasis role="comment">#&#32;pyribs&#32;maximizes&#32;by&#32;default&#32;so&#32;we&#32;turn&#32;mmce&#32;into&#32;acc</emphasis>
+<anchor xml:id="_yahpo_8py_source_1l00187"/>00187 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;y.values&#32;&#32;<emphasis role="comment">#&#32;pyribs&#32;expects&#32;a&#32;numpy&#32;array&#32;as&#32;return&#32;value</emphasis>
+<anchor xml:id="_yahpo_8py_source_1l00188"/>00188 
+<anchor xml:id="_yahpo_8py_source_1l00189"/><link linkend="_namespaceexamples_1_1yahpo_1ae80be8ace972b91258cc5d78d421d250">00189</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1yahpo_1ae80be8ace972b91258cc5d78d421d250">evaluate_xgboost_</link>(x,&#32;features,&#32;params,&#32;bench,&#32;task_id,&#32;lower,&#32;upper,&#32;trafo=True):
+<anchor xml:id="_yahpo_8py_source_1l00190"/>00190 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;trafo:
+<anchor xml:id="_yahpo_8py_source_1l00191"/>00191 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x&#32;=&#32;np.array([<link linkend="_namespaceexamples_1_1yahpo_1a15c68f9f26552d8ed5597f36e8ddbb0e">retrafo_</link>(i,&#32;lower,&#32;upper)&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;x])
+<anchor xml:id="_yahpo_8py_source_1l00192"/>00192 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;YAHPO&#32;Gym&#32;supports&#32;batch&#32;predicts&#32;if&#32;configs&#32;are&#32;passed&#32;as&#32;a&#32;list&#32;of&#32;dicts</emphasis>
+<anchor xml:id="_yahpo_8py_source_1l00193"/>00193 &#32;&#32;&#32;&#32;config&#32;=&#32;[dict(zip(params,&#32;x[i]))&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(x.shape[0])]
+<anchor xml:id="_yahpo_8py_source_1l00194"/>00194 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;add&#32;the&#32;other&#32;hyperparameters&#32;not&#32;part&#32;of&#32;the&#32;search&#32;space&#32;and&#32;respect&#32;log&#32;trafos&#32;and&#32;integers</emphasis>
+<anchor xml:id="_yahpo_8py_source_1l00195"/>00195 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(len(config)):
+<anchor xml:id="_yahpo_8py_source_1l00196"/>00196 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;config[i].update({<emphasis role="stringliteral">&quot;alpha&quot;</emphasis>:np.exp(config[i][<emphasis role="stringliteral">&quot;alpha&quot;</emphasis>]),&#32;<emphasis role="stringliteral">&quot;lambda&quot;</emphasis>:np.exp(config[i][<emphasis role="stringliteral">&quot;lambda&quot;</emphasis>]),&#32;<emphasis role="stringliteral">&quot;eta&quot;</emphasis>:np.exp(config[i][<emphasis role="stringliteral">&quot;eta&quot;</emphasis>]),&#32;<emphasis role="stringliteral">&quot;gamma&quot;</emphasis>:np.exp(config[i][<emphasis role="stringliteral">&quot;gamma&quot;</emphasis>]),&#32;<emphasis role="stringliteral">&quot;min_child_weight&quot;</emphasis>:np.exp(config[i][<emphasis role="stringliteral">&quot;min_child_weight&quot;</emphasis>])})
+<anchor xml:id="_yahpo_8py_source_1l00197"/>00197 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;config[i].update({<emphasis role="stringliteral">&quot;nrounds&quot;</emphasis>:round(np.exp(config[i][<emphasis role="stringliteral">&quot;nrounds&quot;</emphasis>])),&#32;<emphasis role="stringliteral">&quot;max_depth&quot;</emphasis>:round(config[i][<emphasis role="stringliteral">&quot;max_depth&quot;</emphasis>])})
+<anchor xml:id="_yahpo_8py_source_1l00198"/>00198 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;config[i].update({<emphasis role="stringliteral">&quot;task_id&quot;</emphasis>:task_id,&#32;<emphasis role="stringliteral">&quot;trainsize&quot;</emphasis>:1,&#32;<emphasis role="stringliteral">&quot;booster&quot;</emphasis>:<emphasis role="stringliteral">&quot;gbtree&quot;</emphasis>})
+<anchor xml:id="_yahpo_8py_source_1l00199"/>00199 &#32;&#32;&#32;&#32;results&#32;=&#32;bench.objective_function(config)
+<anchor xml:id="_yahpo_8py_source_1l00200"/>00200 &#32;&#32;&#32;&#32;targets&#32;=&#32;[<emphasis role="stringliteral">&quot;mmce&quot;</emphasis>]
+<anchor xml:id="_yahpo_8py_source_1l00201"/>00201 &#32;&#32;&#32;&#32;targets.extend(features)
+<anchor xml:id="_yahpo_8py_source_1l00202"/>00202 &#32;&#32;&#32;&#32;y&#32;=&#32;pd.DataFrame(results)[targets]
+<anchor xml:id="_yahpo_8py_source_1l00203"/>00203 &#32;&#32;&#32;&#32;y[[<emphasis role="stringliteral">&quot;mmce&quot;</emphasis>]]&#32;=&#32;1&#32;-&#32;y[[<emphasis role="stringliteral">&quot;mmce&quot;</emphasis>]]&#32;&#32;<emphasis role="comment">#&#32;pyribs&#32;maximizes&#32;by&#32;default&#32;so&#32;we&#32;turn&#32;mmce&#32;into&#32;acc</emphasis>
+<anchor xml:id="_yahpo_8py_source_1l00204"/>00204 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;y.values&#32;&#32;<emphasis role="comment">#&#32;pyribs&#32;expects&#32;a&#32;numpy&#32;array&#32;as&#32;return&#32;value</emphasis>
+<anchor xml:id="_yahpo_8py_source_1l00205"/>00205 
+<anchor xml:id="_yahpo_8py_source_1l00206"/><link linkend="_namespaceexamples_1_1yahpo_1a15c68f9f26552d8ed5597f36e8ddbb0e">00206</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1yahpo_1a15c68f9f26552d8ed5597f36e8ddbb0e">retrafo_</link>(z,&#32;lower,&#32;upper):
+<anchor xml:id="_yahpo_8py_source_1l00207"/>00207 &#32;&#32;&#32;&#32;n&#32;=&#32;len(z)
+<anchor xml:id="_yahpo_8py_source_1l00208"/>00208 &#32;&#32;&#32;&#32;assert(n&#32;==&#32;len(lower))
+<anchor xml:id="_yahpo_8py_source_1l00209"/>00209 &#32;&#32;&#32;&#32;assert(n&#32;==&#32;len(upper))
+<anchor xml:id="_yahpo_8py_source_1l00210"/>00210 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;[np.max((lower[i],&#32;np.min(((z[i]&#32;*&#32;(upper[i]&#32;-&#32;lower[i]))&#32;+&#32;lower[i],&#32;upper[i]))))&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(n)]
+<anchor xml:id="_yahpo_8py_source_1l00211"/>00211 
+<anchor xml:id="_yahpo_8py_source_1l00212"/><link linkend="_namespaceexamples_1_1yahpo_1abed4facab8c6aaf0a992c93f39b25297">00212</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1yahpo_1abed4facab8c6aaf0a992c93f39b25297">plot3d</link>(ys,&#32;name,&#32;xlabel=&apos;&apos;,&#32;ylabel=&apos;&apos;,&#32;zlabel=&apos;&apos;):
+<anchor xml:id="_yahpo_8py_source_1l00213"/>00213 &#32;&#32;&#32;&#32;<emphasis role="keyword">import</emphasis>&#32;matplotlib.pyplot&#32;<emphasis role="keyword">as</emphasis>&#32;plt
+<anchor xml:id="_yahpo_8py_source_1l00214"/>00214 &#32;&#32;&#32;&#32;x&#32;=&#32;ys[:,&#32;0];&#32;y&#32;=&#32;ys[:,&#32;1];&#32;z&#32;=&#32;ys[:,&#32;2]
+<anchor xml:id="_yahpo_8py_source_1l00215"/>00215 &#32;&#32;&#32;&#32;fig&#32;=&#32;plt.figure()
+<anchor xml:id="_yahpo_8py_source_1l00216"/>00216 &#32;&#32;&#32;&#32;ax&#32;=&#32;fig.add_subplot()&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_yahpo_8py_source_1l00217"/>00217 &#32;&#32;&#32;&#32;ax.grid()
+<anchor xml:id="_yahpo_8py_source_1l00218"/>00218 &#32;&#32;&#32;&#32;img&#32;=&#32;ax.scatter(x,&#32;y,&#32;s=4,&#32;c=z,&#32;cmap=<emphasis role="stringliteral">&apos;rainbow&apos;</emphasis>)
+<anchor xml:id="_yahpo_8py_source_1l00219"/>00219 &#32;&#32;&#32;&#32;cbar&#32;=&#32;fig.colorbar(img)
+<anchor xml:id="_yahpo_8py_source_1l00220"/>00220 &#32;&#32;&#32;&#32;plt.xlabel(xlabel)&#32;&#32;&#32;&#32;
+<anchor xml:id="_yahpo_8py_source_1l00221"/>00221 &#32;&#32;&#32;&#32;plt.ylabel(ylabel)
+<anchor xml:id="_yahpo_8py_source_1l00222"/>00222 &#32;&#32;&#32;&#32;plt.grid(visible=<emphasis role="keyword">True</emphasis>)
+<anchor xml:id="_yahpo_8py_source_1l00223"/>00223 &#32;&#32;&#32;&#32;cbar.set_label(zlabel)
+<anchor xml:id="_yahpo_8py_source_1l00224"/>00224 &#32;&#32;&#32;&#32;fig.set_figheight(8)
+<anchor xml:id="_yahpo_8py_source_1l00225"/>00225 &#32;&#32;&#32;&#32;fig.set_figwidth(8)
+<anchor xml:id="_yahpo_8py_source_1l00226"/>00226 &#32;&#32;&#32;&#32;fig.savefig(name,&#32;dpi=300)
+<anchor xml:id="_yahpo_8py_source_1l00227"/>00227 
+<anchor xml:id="_yahpo_8py_source_1l00228"/><link linkend="_namespaceexamples_1_1yahpo_1a00ed0fa5c4577f6841d751aa5de9beb4">00228</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1yahpo_1a00ed0fa5c4577f6841d751aa5de9beb4">plot</link>(archive,&#32;name):
+<anchor xml:id="_yahpo_8py_source_1l00229"/>00229 &#32;&#32;&#32;&#32;si&#32;=&#32;archive.argsort()
+<anchor xml:id="_yahpo_8py_source_1l00230"/>00230 &#32;&#32;&#32;&#32;ysp&#32;=&#32;[]
+<anchor xml:id="_yahpo_8py_source_1l00231"/>00231 &#32;&#32;&#32;&#32;ds&#32;=&#32;archive.get_ds()[si]
+<anchor xml:id="_yahpo_8py_source_1l00232"/>00232 &#32;&#32;&#32;&#32;ys&#32;=&#32;archive.get_ys()[si]
+<anchor xml:id="_yahpo_8py_source_1l00233"/>00233 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(len(si)):
+<anchor xml:id="_yahpo_8py_source_1l00234"/>00234 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;ys[i]&#32;==&#32;np.inf:&#32;
+<anchor xml:id="_yahpo_8py_source_1l00235"/>00235 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>
+<anchor xml:id="_yahpo_8py_source_1l00236"/>00236 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;d&#32;=&#32;ds[i]
+<anchor xml:id="_yahpo_8py_source_1l00237"/>00237 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ysp.append([d[0],&#32;d[1],&#32;ys[i]])
+<anchor xml:id="_yahpo_8py_source_1l00238"/>00238 &#32;&#32;&#32;&#32;ysp&#32;=&#32;np.array(ysp)
+<anchor xml:id="_yahpo_8py_source_1l00239"/>00239 &#32;&#32;&#32;&#32;print(len(ysp))
+<anchor xml:id="_yahpo_8py_source_1l00240"/>00240 &#32;&#32;&#32;&#32;print(ysp)
+<anchor xml:id="_yahpo_8py_source_1l00241"/>00241 &#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1yahpo_1abed4facab8c6aaf0a992c93f39b25297">plot3d</link>(ysp,&#32;name,&#32;<emphasis role="stringliteral">&apos;x&apos;</emphasis>,&#32;<emphasis role="stringliteral">&apos;y&apos;</emphasis>,&#32;<emphasis role="stringliteral">&apos;z&apos;</emphasis>)
+<anchor xml:id="_yahpo_8py_source_1l00242"/>00242 &#32;&#32;&#32;&#32;
+<anchor xml:id="_yahpo_8py_source_1l00243"/>00243 <emphasis role="keywordflow">if</emphasis>&#32;__name__&#32;==&#32;<emphasis role="stringliteral">&apos;__main__&apos;</emphasis>:
+<anchor xml:id="_yahpo_8py_source_1l00244"/>00244 &#32;&#32;&#32;&#32;LocalConfiguration().init_config()
+<anchor xml:id="_yahpo_8py_source_1l00245"/>00245 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;task_id&#32;<emphasis role="keywordflow">in</emphasis>&#32;[<emphasis role="stringliteral">&quot;41146&quot;</emphasis>,&#32;<emphasis role="stringliteral">&quot;40981&quot;</emphasis>,&#32;<emphasis role="stringliteral">&quot;1489&quot;</emphasis>,&#32;<emphasis role="stringliteral">&quot;1067&quot;</emphasis>]:&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_yahpo_8py_source_1l00246"/>00246 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1yahpo_1a657da003ad951471dc74d132dda50c01">opt_ranger_interpretability</link>(task_id)
+<anchor xml:id="_yahpo_8py_source_1l00247"/>00247 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1yahpo_1aca8ebb42199ed8663e4d2fb1704bb11d">opt_ranger_hardware</link>(task_id)
+<anchor xml:id="_yahpo_8py_source_1l00248"/>00248 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1yahpo_1aa0f008c277a52f11bb7ae3430c49384c">opt_xgboost</link>(task_id)
+</programlisting></section>

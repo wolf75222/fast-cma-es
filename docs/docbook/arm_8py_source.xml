@@ -1,0 +1,151 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_arm_8py_source" xml:lang="en-US">
+<title>arm.py</title>
+<indexterm><primary>examples/arm.py</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_arm_8py_source_1l00001"/><link linkend="_namespaceexamples_1_1arm">00001</link> <emphasis role="comment">#&#32;Copyright&#32;(c)&#32;Dietmar&#32;Wolz.</emphasis>
+<anchor xml:id="_arm_8py_source_1l00002"/>00002 <emphasis role="comment">#</emphasis>
+<anchor xml:id="_arm_8py_source_1l00003"/>00003 <emphasis role="comment">#&#32;This&#32;source&#32;code&#32;is&#32;licensed&#32;under&#32;the&#32;MIT&#32;license&#32;found&#32;in&#32;the</emphasis>
+<anchor xml:id="_arm_8py_source_1l00004"/>00004 <emphasis role="comment">#&#32;LICENSE&#32;file&#32;in&#32;the&#32;root&#32;directory.</emphasis>
+<anchor xml:id="_arm_8py_source_1l00005"/>00005 
+<anchor xml:id="_arm_8py_source_1l00006"/>00006 <emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_arm_8py_source_1l00007"/>00007 <emphasis role="stringliteral">Basic&#32;example&#32;for&#32;quality&#32;diversity&#32;optimization:</emphasis>
+<anchor xml:id="_arm_8py_source_1l00008"/>00008 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_arm_8py_source_1l00009"/>00009 <emphasis role="stringliteral">A&#32;planar&#32;robotic&#32;arm&#32;consists&#32;of&#32;dim+1&#32;=&#32;21&#32;segments&#32;with&#32;dim=20&#32;joints.&#32;</emphasis>
+<anchor xml:id="_arm_8py_source_1l00010"/>00010 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_arm_8py_source_1l00011"/>00011 <emphasis role="stringliteral">For&#32;each&#32;reachable&#32;position&#32;minimize&#32;either:</emphasis>
+<anchor xml:id="_arm_8py_source_1l00012"/>00012 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_arm_8py_source_1l00013"/>00013 <emphasis role="stringliteral">-&#32;the&#32;standard&#32;deviation&#32;of&#32;the&#32;joint-angles</emphasis>
+<anchor xml:id="_arm_8py_source_1l00014"/>00014 <emphasis role="stringliteral">-&#32;the&#32;sum&#32;of&#32;the&#32;joint-angles</emphasis>
+<anchor xml:id="_arm_8py_source_1l00015"/>00015 <emphasis role="stringliteral">-&#32;the&#32;maximal&#32;joint-angle</emphasis>
+<anchor xml:id="_arm_8py_source_1l00016"/>00016 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_arm_8py_source_1l00017"/>00017 <emphasis role="stringliteral">Since&#32;all&#32;results&#32;are&#32;stored&#32;in&#32;the&#32;ND&#32;archive&#32;finally&#32;we&#32;know&#32;for&#32;all&#32;target&#32;positions</emphasis>
+<anchor xml:id="_arm_8py_source_1l00018"/>00018 <emphasis role="stringliteral">how&#32;to&#32;adjust&#32;all&#32;the&#32;joint-angles&#32;to&#32;meet&#32;the&#32;objective&#32;without&#32;any&#32;further&#32;optimization.&#32;</emphasis>
+<anchor xml:id="_arm_8py_source_1l00019"/>00019 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_arm_8py_source_1l00020"/>00020 <emphasis role="stringliteral">On&#32;a&#32;modern&#32;16&#32;core&#32;CPU&#32;the&#32;whole&#32;optimization&#32;takes&#32;about&#32;30&#32;seconds.&#32;</emphasis>
+<anchor xml:id="_arm_8py_source_1l00021"/>00021 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_arm_8py_source_1l00022"/>00022 <emphasis role="stringliteral">Play&#32;around&#32;with&#32;the&#32;parameters&#32;of&#32;the&#32;experiment:</emphasis>
+<anchor xml:id="_arm_8py_source_1l00023"/>00023 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_arm_8py_source_1l00024"/>00024 <emphasis role="stringliteral">-&#32;select&#32;different&#32;opt_params&#32;(optimization&#32;algorithms&#32;+&#32;their&#32;configurations)</emphasis>
+<anchor xml:id="_arm_8py_source_1l00025"/>00025 <emphasis role="stringliteral">-&#32;select&#32;different&#32;objectives</emphasis>
+<anchor xml:id="_arm_8py_source_1l00026"/>00026 <emphasis role="stringliteral">-&#32;change&#32;the&#32;dimension&#32;dim&#32;-&#32;the&#32;number&#32;of&#32;joint-angles</emphasis>
+<anchor xml:id="_arm_8py_source_1l00027"/>00027 <emphasis role="stringliteral">-&#32;in&#32;mapelites.wrapper&#32;set&#32;optional&#32;parameter&#32;workers=1&#32;to&#32;switch&#32;to&#32;single&#32;thread&#32;execution</emphasis>
+<anchor xml:id="_arm_8py_source_1l00028"/>00028 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_arm_8py_source_1l00029"/>00029 <emphasis role="stringliteral">and&#32;check&#32;the&#32;resulting&#32;plot.&#32;&#32;</emphasis>
+<anchor xml:id="_arm_8py_source_1l00030"/>00030 <emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_arm_8py_source_1l00031"/>00031 
+<anchor xml:id="_arm_8py_source_1l00032"/>00032 <emphasis role="comment">#&#32;Tested&#32;using&#32;https://docs.conda.io/en/main/miniconda.html&#32;on&#32;Linux&#32;Mint&#32;21.2</emphasis>
+<anchor xml:id="_arm_8py_source_1l00033"/>00033 
+<anchor xml:id="_arm_8py_source_1l00034"/>00034 <emphasis role="keyword">from</emphasis>&#32;fcmaes&#32;<emphasis role="keyword">import</emphasis>&#32;diversifier,&#32;mapelites
+<anchor xml:id="_arm_8py_source_1l00035"/>00035 <emphasis role="keyword">import</emphasis>&#32;numpy&#32;<emphasis role="keyword">as</emphasis>&#32;np
+<anchor xml:id="_arm_8py_source_1l00036"/>00036 <emphasis role="keyword">from</emphasis>&#32;scipy.optimize&#32;<emphasis role="keyword">import</emphasis>&#32;Bounds
+<anchor xml:id="_arm_8py_source_1l00037"/>00037 
+<anchor xml:id="_arm_8py_source_1l00038"/>00038 <emphasis role="keyword">import</emphasis>&#32;ctypes&#32;<emphasis role="keyword">as</emphasis>&#32;ct
+<anchor xml:id="_arm_8py_source_1l00039"/>00039 <emphasis role="keyword">import</emphasis>&#32;multiprocessing&#32;<emphasis role="keyword">as</emphasis>&#32;mp&#32;
+<anchor xml:id="_arm_8py_source_1l00040"/>00040 
+<anchor xml:id="_arm_8py_source_1l00041"/>00041 <emphasis role="keyword">import</emphasis>&#32;sys&#32;
+<anchor xml:id="_arm_8py_source_1l00042"/>00042 <emphasis role="keyword">from</emphasis>&#32;loguru&#32;<emphasis role="keyword">import</emphasis>&#32;logger
+<anchor xml:id="_arm_8py_source_1l00043"/>00043 
+<anchor xml:id="_arm_8py_source_1l00044"/>00044 logger.remove()
+<anchor xml:id="_arm_8py_source_1l00045"/><link linkend="_namespaceexamples_1_1arm_1a2eaf9a24499a0fdf7f802a05b4390276">00045</link> logger.add(sys.stdout,&#32;format=<emphasis role="stringliteral">&quot;{time:HH:mm:ss.SS}&#32;|&#32;{process}&#32;|&#32;{level}&#32;|&#32;{message}&quot;</emphasis>,&#32;level=<emphasis role="stringliteral">&quot;INFO&quot;</emphasis>)
+<anchor xml:id="_arm_8py_source_1l00046"/>00046 logger.add(<emphasis role="stringliteral">&quot;log_{time}.txt&quot;</emphasis>,&#32;format=<emphasis role="stringliteral">&quot;{time:HH:mm:ss.SS}&#32;|&#32;{process}&#32;|&#32;{level}&#32;|&#32;{message}&quot;</emphasis>,&#32;level=<emphasis role="stringliteral">&quot;INFO&quot;</emphasis>)
+<anchor xml:id="_arm_8py_source_1l00047"/>00047 
+<anchor xml:id="_arm_8py_source_1l00048"/>00048 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1arm_1a80e778de36aaf3dc8e17664107b0e7d3">forward_kinematics</link>(q):
+<anchor xml:id="_arm_8py_source_1l00049"/>00049 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_arm_8py_source_1l00050"/>00050 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Calculates&#32;links&#32;positions&#32;given&#32;joint&#32;angles</emphasis>
+<anchor xml:id="_arm_8py_source_1l00051"/>00051 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Parameters</emphasis>
+<anchor xml:id="_arm_8py_source_1l00052"/>00052 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;----------</emphasis>
+<anchor xml:id="_arm_8py_source_1l00053"/>00053 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;q&#32;:&#32;numpy.ndarray</emphasis>
+<anchor xml:id="_arm_8py_source_1l00054"/>00054 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;(n_links,)&#32;array&#32;of&#32;angles&#32;in&#32;radians</emphasis>
+<anchor xml:id="_arm_8py_source_1l00055"/>00055 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_arm_8py_source_1l00056"/>00056 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;adapted&#32;from&#32;https://github.com/tsitsimis/planar-robot/blob/master/planarobot/planar_arm.py</emphasis>
+<anchor xml:id="_arm_8py_source_1l00057"/><link linkend="_namespaceexamples_1_1arm_1a80e778de36aaf3dc8e17664107b0e7d3">00057</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_arm_8py_source_1l00058"/>00058 &#32;&#32;&#32;&#32;n_links&#32;=&#32;len(q)&#32;+&#32;1
+<anchor xml:id="_arm_8py_source_1l00059"/>00059 &#32;&#32;&#32;&#32;base_pos&#32;=&#32;(0,0)
+<anchor xml:id="_arm_8py_source_1l00060"/>00060 &#32;&#32;&#32;&#32;links&#32;=&#32;np.full(n_links,&#32;1)
+<anchor xml:id="_arm_8py_source_1l00061"/>00061 &#32;&#32;&#32;&#32;pos&#32;=&#32;np.zeros((n_links,&#32;2))
+<anchor xml:id="_arm_8py_source_1l00062"/>00062 &#32;&#32;&#32;&#32;pos[0,&#32;:]&#32;=&#32;base_pos&#32;+&#32;np.array([[links[0]&#32;*&#32;np.cos(q[0]),&#32;links[0]&#32;*&#32;np.sin(q[0])]])
+<anchor xml:id="_arm_8py_source_1l00063"/>00063 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(1,&#32;n_links):
+<anchor xml:id="_arm_8py_source_1l00064"/>00064 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;delta_pos&#32;=&#32;np.array([links[i]&#32;*&#32;np.cos(np.sum(q[0:i+1])),
+<anchor xml:id="_arm_8py_source_1l00065"/>00065 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;links[i]&#32;*&#32;np.sin(np.sum(q[0:i+1]))])
+<anchor xml:id="_arm_8py_source_1l00066"/>00066 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pos[i,&#32;:]&#32;=&#32;pos[i&#32;-&#32;1,&#32;:]&#32;+&#32;delta_pos
+<anchor xml:id="_arm_8py_source_1l00067"/>00067 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;pos
+<anchor xml:id="_arm_8py_source_1l00068"/>00068 
+<anchor xml:id="_arm_8py_source_1l00069"/><link linkend="_classexamples_1_1arm_1_1fitness">00069</link> <emphasis role="keyword">class&#32;</emphasis><link linkend="_classexamples_1_1arm_1_1fitness">fitness</link>(object):
+<anchor xml:id="_arm_8py_source_1l00070"/>00070 
+<anchor xml:id="_arm_8py_source_1l00071"/><link linkend="_classexamples_1_1arm_1_1fitness_1a2e9a0e628d84c0a64cfac7f728d471d3">00071</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1arm_1_1fitness_1a2e9a0e628d84c0a64cfac7f728d471d3">__init__</link>(self,&#32;dim):
+<anchor xml:id="_arm_8py_source_1l00072"/><link linkend="_classexamples_1_1arm_1_1fitness_1a43de0eb2d82f09570a5ba603554941af">00072</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1arm_1_1fitness_1a43de0eb2d82f09570a5ba603554941af">dim</link>&#32;=&#32;dim&#32;
+<anchor xml:id="_arm_8py_source_1l00073"/><link linkend="_classexamples_1_1arm_1_1fitness_1ace8bbe4933daa16876a6bdb5a8a21e87">00073</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1arm_1_1fitness_1ace8bbe4933daa16876a6bdb5a8a21e87">best_y</link>&#32;=&#32;mp.RawValue(ct.c_double,&#32;np.inf)&#32;
+<anchor xml:id="_arm_8py_source_1l00074"/><link linkend="_classexamples_1_1arm_1_1fitness_1a27977796e35fd10742d6f7a40a491331">00074</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1arm_1_1fitness_1a27977796e35fd10742d6f7a40a491331">bounds</link>&#32;=&#32;Bounds([-np.pi]*dim,&#32;[np.pi]*dim)
+<anchor xml:id="_arm_8py_source_1l00075"/><link linkend="_classexamples_1_1arm_1_1fitness_1adfc933dd815ec5c03324c50ed9e09ec2">00075</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1arm_1_1fitness_1adfc933dd815ec5c03324c50ed9e09ec2">qd_dim</link>&#32;=&#32;2
+<anchor xml:id="_arm_8py_source_1l00076"/><link linkend="_classexamples_1_1arm_1_1fitness_1a66f828c9d1374236606561a2abe054df">00076</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1arm_1_1fitness_1a66f828c9d1374236606561a2abe054df">qd_bounds</link>&#32;=&#32;Bounds([-dim-1,&#32;-dim-1],&#32;[dim+1,&#32;dim+1])
+<anchor xml:id="_arm_8py_source_1l00077"/>00077 
+<anchor xml:id="_arm_8py_source_1l00078"/><link linkend="_classexamples_1_1arm_1_1fitness_1ac275bc61471d8757c126d150d47ce202">00078</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1arm_1_1fitness_1ac275bc61471d8757c126d150d47ce202">__call__</link>(self,&#32;X):
+<anchor xml:id="_arm_8py_source_1l00079"/>00079 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pos&#32;=&#32;<link linkend="_namespaceexamples_1_1arm_1a80e778de36aaf3dc8e17664107b0e7d3">forward_kinematics</link>(X)
+<anchor xml:id="_arm_8py_source_1l00080"/>00080 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#y&#32;=&#32;np.amax(np.abs(X))</emphasis>
+<anchor xml:id="_arm_8py_source_1l00081"/>00081 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#y&#32;=&#32;np.sum(np.abs(X))</emphasis>
+<anchor xml:id="_arm_8py_source_1l00082"/>00082 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;y&#32;=&#32;np.std(X)
+<anchor xml:id="_arm_8py_source_1l00083"/>00083 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;b&#32;=&#32;pos[-1]
+<anchor xml:id="_arm_8py_source_1l00084"/>00084 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;y&#32;&lt;&#32;self.<link linkend="_classexamples_1_1arm_1_1fitness_1ace8bbe4933daa16876a6bdb5a8a21e87">best_y</link>.value:
+<anchor xml:id="_arm_8py_source_1l00085"/>00085 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1arm_1_1fitness_1ace8bbe4933daa16876a6bdb5a8a21e87">best_y</link>.value&#32;=&#32;y
+<anchor xml:id="_arm_8py_source_1l00086"/>00086 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;print(f<emphasis role="stringliteral">&apos;{y:.3f}&#32;{&#32;list(b)&#32;}&apos;</emphasis>)&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_arm_8py_source_1l00087"/>00087 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;y,&#32;b&#32;&#32;
+<anchor xml:id="_arm_8py_source_1l00088"/>00088 &#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_arm_8py_source_1l00089"/><link linkend="_namespaceexamples_1_1arm_1a733ceee264c14eb2f7d1ff13f4829d2c">00089</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1arm_1a733ceee264c14eb2f7d1ff13f4829d2c">plot3d</link>(ys,&#32;name,&#32;xlabel=&apos;&apos;,&#32;ylabel=&apos;&apos;,&#32;zlabel=&apos;&apos;):
+<anchor xml:id="_arm_8py_source_1l00090"/>00090 &#32;&#32;&#32;&#32;<emphasis role="keyword">import</emphasis>&#32;matplotlib.pyplot&#32;<emphasis role="keyword">as</emphasis>&#32;plt
+<anchor xml:id="_arm_8py_source_1l00091"/>00091 &#32;&#32;&#32;&#32;x&#32;=&#32;ys[:,&#32;0];&#32;y&#32;=&#32;ys[:,&#32;1];&#32;z&#32;=&#32;ys[:,&#32;2]
+<anchor xml:id="_arm_8py_source_1l00092"/>00092 &#32;&#32;&#32;&#32;fig&#32;=&#32;plt.figure()
+<anchor xml:id="_arm_8py_source_1l00093"/>00093 &#32;&#32;&#32;&#32;ax&#32;=&#32;fig.add_subplot()&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_arm_8py_source_1l00094"/>00094 &#32;&#32;&#32;&#32;img&#32;=&#32;ax.scatter(x,&#32;y,&#32;s=4,&#32;c=z,&#32;cmap=<emphasis role="stringliteral">&apos;rainbow&apos;</emphasis>)
+<anchor xml:id="_arm_8py_source_1l00095"/>00095 &#32;&#32;&#32;&#32;cbar&#32;=&#32;fig.colorbar(img)
+<anchor xml:id="_arm_8py_source_1l00096"/>00096 &#32;&#32;&#32;&#32;plt.xlabel(xlabel)&#32;&#32;&#32;&#32;
+<anchor xml:id="_arm_8py_source_1l00097"/>00097 &#32;&#32;&#32;&#32;plt.ylabel(ylabel)
+<anchor xml:id="_arm_8py_source_1l00098"/>00098 &#32;&#32;&#32;&#32;plt.grid(<emphasis role="keyword">True</emphasis>,&#32;linestyle=<emphasis role="stringliteral">&apos;dashed&apos;</emphasis>)
+<anchor xml:id="_arm_8py_source_1l00099"/>00099 &#32;&#32;&#32;&#32;cbar.set_label(zlabel)
+<anchor xml:id="_arm_8py_source_1l00100"/>00100 &#32;&#32;&#32;&#32;fig.set_figheight(8)
+<anchor xml:id="_arm_8py_source_1l00101"/>00101 &#32;&#32;&#32;&#32;fig.set_figwidth(8)
+<anchor xml:id="_arm_8py_source_1l00102"/>00102 &#32;&#32;&#32;&#32;fig.savefig(name,&#32;dpi=300)
+<anchor xml:id="_arm_8py_source_1l00103"/>00103 
+<anchor xml:id="_arm_8py_source_1l00104"/><link linkend="_namespaceexamples_1_1arm_1a934c10606d0d0eb7affe392052060dbd">00104</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1arm_1a934c10606d0d0eb7affe392052060dbd">plot_archive</link>(problem,&#32;archive&#32;=&#32;None):
+<anchor xml:id="_arm_8py_source_1l00105"/>00105 &#32;&#32;&#32;&#32;name&#32;=&#32;<emphasis role="stringliteral">&apos;arm_nd&apos;</emphasis>
+<anchor xml:id="_arm_8py_source_1l00106"/>00106 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;archive&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>:
+<anchor xml:id="_arm_8py_source_1l00107"/>00107 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;archive&#32;=&#32;mapelites.load_archive(name,&#32;problem.bounds,&#32;problem.qd_bounds)
+<anchor xml:id="_arm_8py_source_1l00108"/>00108 &#32;&#32;&#32;&#32;si&#32;=&#32;archive.argsort()
+<anchor xml:id="_arm_8py_source_1l00109"/>00109 &#32;&#32;&#32;&#32;ysp&#32;=&#32;[]
+<anchor xml:id="_arm_8py_source_1l00110"/>00110 &#32;&#32;&#32;&#32;beh&#32;=&#32;archive.get_ds()[si]
+<anchor xml:id="_arm_8py_source_1l00111"/>00111 &#32;&#32;&#32;&#32;ys&#32;=&#32;archive.get_ys()[si]
+<anchor xml:id="_arm_8py_source_1l00112"/>00112 &#32;&#32;&#32;&#32;lb&#32;=&#32;problem.qd_bounds.lb
+<anchor xml:id="_arm_8py_source_1l00113"/>00113 &#32;&#32;&#32;&#32;ub&#32;=&#32;problem.qd_bounds.ub
+<anchor xml:id="_arm_8py_source_1l00114"/>00114 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(len(si)):
+<anchor xml:id="_arm_8py_source_1l00115"/>00115 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;if&#32;ys[i]&#32;&lt;&#32;5.0:&#32;#&#32;use&#32;for&#32;y&#32;=&#32;np.sum(np.abs(X))</emphasis>
+<anchor xml:id="_arm_8py_source_1l00116"/>00116 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;ys[i]&#32;&lt;&#32;0.2:&#32;<emphasis role="comment">#&#32;use&#32;for&#32;y&#32;=&#32;np.std(X)</emphasis>
+<anchor xml:id="_arm_8py_source_1l00117"/>00117 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;b&#32;=&#32;beh[i]
+<anchor xml:id="_arm_8py_source_1l00118"/>00118 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;np.any(np.greater(b,&#32;ub))&#32;<emphasis role="keywordflow">or</emphasis>&#32;np.any(np.greater(lb,&#32;b)):
+<anchor xml:id="_arm_8py_source_1l00119"/>00119 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>
+<anchor xml:id="_arm_8py_source_1l00120"/>00120 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ysp.append([b[0],&#32;b[1],&#32;ys[i]])
+<anchor xml:id="_arm_8py_source_1l00121"/>00121 &#32;&#32;&#32;&#32;ysp&#32;=&#32;np.array(ysp)
+<anchor xml:id="_arm_8py_source_1l00122"/>00122 &#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1arm_1a733ceee264c14eb2f7d1ff13f4829d2c">plot3d</link>(ysp,&#32;name,&#32;<emphasis role="stringliteral">&apos;x&apos;</emphasis>,&#32;<emphasis role="stringliteral">&apos;y&apos;</emphasis>,&#32;<emphasis role="stringliteral">&apos;objective&apos;</emphasis>)
+<anchor xml:id="_arm_8py_source_1l00123"/>00123 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_arm_8py_source_1l00124"/><link linkend="_namespaceexamples_1_1arm_1ab7dbff077d5f4d9cced586ea8549c068">00124</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1arm_1ab7dbff077d5f4d9cced586ea8549c068">optimize_qd</link>(dim):
+<anchor xml:id="_arm_8py_source_1l00125"/>00125 &#32;&#32;&#32;&#32;problem&#32;=&#32;<link linkend="_classexamples_1_1arm_1_1fitness">fitness</link>(dim)
+<anchor xml:id="_arm_8py_source_1l00126"/>00126 &#32;&#32;&#32;&#32;name&#32;=&#32;<emphasis role="stringliteral">&apos;arm_nd&apos;</emphasis>
+<anchor xml:id="_arm_8py_source_1l00127"/>00127 &#32;&#32;&#32;&#32;opt_params0&#32;=&#32;{<emphasis role="stringliteral">&apos;solver&apos;</emphasis>:<emphasis role="stringliteral">&apos;elites&apos;</emphasis>,&#32;<emphasis role="stringliteral">&apos;popsize&apos;</emphasis>:512}
+<anchor xml:id="_arm_8py_source_1l00128"/>00128 &#32;&#32;&#32;&#32;opt_params1&#32;=&#32;{<emphasis role="stringliteral">&apos;solver&apos;</emphasis>:<emphasis role="stringliteral">&apos;CRMFNES_CPP&apos;</emphasis>,&#32;<emphasis role="stringliteral">&apos;max_evals&apos;</emphasis>:4000,&#32;<emphasis role="stringliteral">&apos;popsize&apos;</emphasis>:32,&#32;<emphasis role="stringliteral">&apos;stall_criterion&apos;</emphasis>:3}
+<anchor xml:id="_arm_8py_source_1l00129"/>00129 &#32;&#32;&#32;&#32;<emphasis role="comment">#opt_params1&#32;=&#32;{&apos;solver&apos;:&apos;CRMFNES_CPP&apos;,&#32;&apos;max_evals&apos;:4000,&#32;&apos;popsize&apos;:32,&#32;&apos;sigma&apos;:0.2,&#32;&apos;stall_criterion&apos;:3}</emphasis>
+<anchor xml:id="_arm_8py_source_1l00130"/>00130 &#32;&#32;&#32;&#32;opt_params2&#32;=&#32;{<emphasis role="stringliteral">&apos;solver&apos;</emphasis>:<emphasis role="stringliteral">&apos;DE_CPP&apos;</emphasis>,&#32;<emphasis role="stringliteral">&apos;max_evals&apos;</emphasis>:4000,&#32;<emphasis role="stringliteral">&apos;popsize&apos;</emphasis>:32,&#32;<emphasis role="stringliteral">&apos;stall_criterion&apos;</emphasis>:3}
+<anchor xml:id="_arm_8py_source_1l00131"/>00131 &#32;&#32;&#32;&#32;opt_params3&#32;=&#32;{<emphasis role="stringliteral">&apos;solver&apos;</emphasis>:<emphasis role="stringliteral">&apos;CMA_CPP&apos;</emphasis>,&#32;<emphasis role="stringliteral">&apos;max_evals&apos;</emphasis>:4000,&#32;<emphasis role="stringliteral">&apos;popsize&apos;</emphasis>:32,&#32;<emphasis role="stringliteral">&apos;stall_criterion&apos;</emphasis>:3}
+<anchor xml:id="_arm_8py_source_1l00132"/>00132 &#32;&#32;&#32;&#32;archive&#32;=&#32;diversifier.minimize(
+<anchor xml:id="_arm_8py_source_1l00133"/>00133 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classfcmaes_1_1mapelites_1_1wrapper">mapelites.wrapper</link>(problem,&#32;problem.qd_dim,&#32;interval=200000,&#32;save_interval=12000000),&#32;
+<anchor xml:id="_arm_8py_source_1l00134"/>00134 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;problem.bounds,&#32;problem.qd_bounds,&#32;opt_params=[opt_params0,&#32;opt_params3],&#32;max_evals=3000000)&#32;
+<anchor xml:id="_arm_8py_source_1l00135"/>00135 &#32;&#32;&#32;&#32;print(<emphasis role="stringliteral">&apos;final&#32;archive:&apos;</emphasis>,&#32;archive.info())
+<anchor xml:id="_arm_8py_source_1l00136"/>00136 &#32;&#32;&#32;&#32;archive.save(name)
+<anchor xml:id="_arm_8py_source_1l00137"/>00137 &#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1arm_1a934c10606d0d0eb7affe392052060dbd">plot_archive</link>(problem,&#32;archive)
+<anchor xml:id="_arm_8py_source_1l00138"/>00138 &#32;&#32;&#32;&#32;
+<anchor xml:id="_arm_8py_source_1l00139"/>00139 <emphasis role="keywordflow">if</emphasis>&#32;__name__&#32;==&#32;<emphasis role="stringliteral">&apos;__main__&apos;</emphasis>:&#32;&#32;&#32;&#32;
+<anchor xml:id="_arm_8py_source_1l00140"/><link linkend="_namespaceexamples_1_1arm_1ab0903e0bb39e1e1d1041b6e350f6d207">00140</link> &#32;&#32;&#32;&#32;dim&#32;=&#32;300
+<anchor xml:id="_arm_8py_source_1l00141"/>00141 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;apply&#32;a&#32;QD&#32;algorithm</emphasis>
+<anchor xml:id="_arm_8py_source_1l00142"/>00142 &#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1arm_1ab7dbff077d5f4d9cced586ea8549c068">optimize_qd</link>(dim)
+<anchor xml:id="_arm_8py_source_1l00143"/>00143 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;plot&#32;the&#32;result</emphasis>
+<anchor xml:id="_arm_8py_source_1l00144"/>00144 &#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1arm_1a934c10606d0d0eb7affe392052060dbd">plot_archive</link>(<link linkend="_classexamples_1_1arm_1_1fitness">fitness</link>(dim))
+<anchor xml:id="_arm_8py_source_1l00145"/>00145 
+<anchor xml:id="_arm_8py_source_1l00146"/>00146 &#32;
+</programlisting></section>

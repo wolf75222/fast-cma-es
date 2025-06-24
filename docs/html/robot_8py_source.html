@@ -1,0 +1,588 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>Fast CMA-ES: examples/robot.py Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/TeX/AMSmath','[tex]/TeX/AMSsymbols']
+  },
+  tex: {
+    macros: {},
+    packages: ['base','configmacros','TeX/AMSmath','TeX/AMSsymbols']
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/jothepro/doxygen-awesome-css" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="fcames.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Fast CMA-ES
+   &#160;<span id="projectnumber">1.6.11</span>
+   </div>
+   <div id="projectbrief">Fast Covariance Matrix Adaptation Evolution Strategy (CMA-ES) implementation in C++ and Python</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.13.2 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('robot_8py_source.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">robot.py</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="robot_8py.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1robot.html">    1</a></span><span class="comment"># Adapted from https://github.com/zi-w/Ensemble-Bayesian-Optimization/tree/master/test_functions</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"># See https://arxiv.org/pdf/1706.01445.pdf</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"># See https://github.com/dietmarwo/fast-cma-es/blob/master/tutorials/RobotRover.adoc for a detailed description.</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"># Install dependencies:</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"># pip install more-itertools</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"># pip install pygame</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment"># mamba install swig</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment"># mamba install box2d-py</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment"># Tested using https://docs.conda.io/en/main/miniconda.html on Linux Mint 21.2</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">import</span> pygame</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">from</span> Box2D <span class="keyword">import</span> *</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">from</span> <a class="code hl_namespace" href="namespace_box2_d_1_1b2.html">Box2D.b2</a> <span class="keyword">import</span> *</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="foldopen" id="foldopen00020" data-start="" data-end="">
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="classexamples_1_1robot_1_1gui_world.html">   20</a></span><span class="keyword">class </span><a class="code hl_class" href="classexamples_1_1robot_1_1gui_world.html">guiWorld</a>:</div>
+<div class="foldopen" id="foldopen00021" data-start="" data-end="">
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="classexamples_1_1robot_1_1gui_world.html#a2a72190b0879ff50cdeebe3cf3213d7d">   21</a></span>    <span class="keyword">def </span><a class="code hl_function" href="classexamples_1_1robot_1_1gui_world.html#a2a72190b0879ff50cdeebe3cf3213d7d">__init__</a>(self, fps):</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="classexamples_1_1robot_1_1gui_world.html#a03d57f981170d79d51d9033c04292594">   22</a></span>        self.<a class="code hl_variable" href="classexamples_1_1robot_1_1gui_world.html#ad22538df02066ff8e529fdefde7a11ef">SCREEN_WIDTH</a>, self.<a class="code hl_variable" href="classexamples_1_1robot_1_1gui_world.html#a03d57f981170d79d51d9033c04292594">SCREEN_HEIGHT</a> = 1000, 1000</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="classexamples_1_1robot_1_1gui_world.html#a97e18c60d7c158fb93505ff1062f4215">   23</a></span>        self.<a class="code hl_variable" href="classexamples_1_1robot_1_1gui_world.html#a97e18c60d7c158fb93505ff1062f4215">TARGET_FPS</a> = fps</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="classexamples_1_1robot_1_1gui_world.html#ad6cabbaff2dd91875d324a223955033d">   24</a></span>        self.<a class="code hl_variable" href="classexamples_1_1robot_1_1gui_world.html#ad6cabbaff2dd91875d324a223955033d">PPM</a> = 10.0  <span class="comment"># pixels per meter</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="classexamples_1_1robot_1_1gui_world.html#a4e6d908e38fe9362abbf8d42061d56ed">   25</a></span>        self.<a class="code hl_variable" href="classexamples_1_1robot_1_1gui_world.html#a4e6d908e38fe9362abbf8d42061d56ed">screen</a> = pygame.display.set_mode((self.<a class="code hl_variable" href="classexamples_1_1robot_1_1gui_world.html#ad22538df02066ff8e529fdefde7a11ef">SCREEN_WIDTH</a>, self.<a class="code hl_variable" href="classexamples_1_1robot_1_1gui_world.html#a03d57f981170d79d51d9033c04292594">SCREEN_HEIGHT</a>), 0, 32)</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        pygame.display.set_caption(<span class="stringliteral">&#39;push simulator&#39;</span>)</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="classexamples_1_1robot_1_1gui_world.html#af98ec11c04c1ba0765d4475cf383f29e">   27</a></span>        self.<a class="code hl_variable" href="classexamples_1_1robot_1_1gui_world.html#af98ec11c04c1ba0765d4475cf383f29e">clock</a> = pygame.time.Clock()</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="classexamples_1_1robot_1_1gui_world.html#af1fded6ed1528b22f0517f72bbad19f2">   28</a></span>        self.<a class="code hl_variable" href="classexamples_1_1robot_1_1gui_world.html#af1fded6ed1528b22f0517f72bbad19f2">screen_origin</a> = b2Vec2(self.<a class="code hl_variable" href="classexamples_1_1robot_1_1gui_world.html#ad22538df02066ff8e529fdefde7a11ef">SCREEN_WIDTH</a> / (2 * self.<a class="code hl_variable" href="classexamples_1_1robot_1_1gui_world.html#ad6cabbaff2dd91875d324a223955033d">PPM</a>), self.<a class="code hl_variable" href="classexamples_1_1robot_1_1gui_world.html#a03d57f981170d79d51d9033c04292594">SCREEN_HEIGHT</a> / (self.<a class="code hl_variable" href="classexamples_1_1robot_1_1gui_world.html#ad6cabbaff2dd91875d324a223955033d">PPM</a> * 2))</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="classexamples_1_1robot_1_1gui_world.html#a25335c34ece85a6399269d8c972ba1dd">   29</a></span>        self.<a class="code hl_variable" href="classexamples_1_1robot_1_1gui_world.html#a25335c34ece85a6399269d8c972ba1dd">colors</a> = {</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>            b2_staticBody: (255, 255, 255, 255),</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>            b2_dynamicBody: (163, 209, 224, 255)</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        }</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+</div>
+<div class="foldopen" id="foldopen00034" data-start="" data-end="">
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="classexamples_1_1robot_1_1gui_world.html#adab98b24ef2879406211e7c2325addd2">   34</a></span>    <span class="keyword">def </span><a class="code hl_function" href="classexamples_1_1robot_1_1gui_world.html#adab98b24ef2879406211e7c2325addd2">draw</a>(self, bodies, bg_color=(64, 64, 64, 0)):</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keyword">def </span>my_draw_polygon(polygon, body, fixture):</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>            vertices = [(self.<a class="code hl_variable" href="classexamples_1_1robot_1_1gui_world.html#af1fded6ed1528b22f0517f72bbad19f2">screen_origin</a> + body.transform * v) * self.<a class="code hl_variable" href="classexamples_1_1robot_1_1gui_world.html#ad6cabbaff2dd91875d324a223955033d">PPM</a> <span class="keywordflow">for</span> v <span class="keywordflow">in</span> polygon.vertices]</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>            vertices = [(v[0], self.<a class="code hl_variable" href="classexamples_1_1robot_1_1gui_world.html#a03d57f981170d79d51d9033c04292594">SCREEN_HEIGHT</a> - v[1]) <span class="keywordflow">for</span> v <span class="keywordflow">in</span> vertices]</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>            color = self.<a class="code hl_variable" href="classexamples_1_1robot_1_1gui_world.html#a25335c34ece85a6399269d8c972ba1dd">colors</a>[body.type]</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>            <span class="keywordflow">if</span> body.userData == <span class="stringliteral">&quot;obs&quot;</span>:</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>                color = (123, 128, 120, 0)</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>            <span class="keywordflow">if</span> body.userData == <span class="stringliteral">&quot;hand&quot;</span>:</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>                color = (174, 136, 218, 0)</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>            pygame.draw.polygon(self.<a class="code hl_variable" href="classexamples_1_1robot_1_1gui_world.html#a4e6d908e38fe9362abbf8d42061d56ed">screen</a>, color, vertices)</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <span class="keyword">def </span>my_draw_circle(circle, body, fixture):</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>            position = (self.<a class="code hl_variable" href="classexamples_1_1robot_1_1gui_world.html#af1fded6ed1528b22f0517f72bbad19f2">screen_origin</a> + body.transform * circle.pos) * self.<a class="code hl_variable" href="classexamples_1_1robot_1_1gui_world.html#ad6cabbaff2dd91875d324a223955033d">PPM</a></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            position = (position[0], self.<a class="code hl_variable" href="classexamples_1_1robot_1_1gui_world.html#a03d57f981170d79d51d9033c04292594">SCREEN_HEIGHT</a> - position[1])</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>            color = self.<a class="code hl_variable" href="classexamples_1_1robot_1_1gui_world.html#a25335c34ece85a6399269d8c972ba1dd">colors</a>[body.type]</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            <span class="keywordflow">if</span> body.userData == <span class="stringliteral">&quot;hand&quot;</span>:</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>                color = (174, 136, 218, 0)</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            pygame.draw.circle(self.<a class="code hl_variable" href="classexamples_1_1robot_1_1gui_world.html#a4e6d908e38fe9362abbf8d42061d56ed">screen</a>, color, [int(x) <span class="keywordflow">for</span> x <span class="keywordflow">in</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>                                                    position], int(circle.radius * self.<a class="code hl_variable" href="classexamples_1_1robot_1_1gui_world.html#ad6cabbaff2dd91875d324a223955033d">PPM</a>))</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        b2PolygonShape.draw = my_draw_polygon</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        b2CircleShape.draw = my_draw_circle</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <span class="comment"># draw the world</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        self.<a class="code hl_variable" href="classexamples_1_1robot_1_1gui_world.html#a4e6d908e38fe9362abbf8d42061d56ed">screen</a>.fill(bg_color)</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        self.<a class="code hl_variable" href="classexamples_1_1robot_1_1gui_world.html#af98ec11c04c1ba0765d4475cf383f29e">clock</a>.tick(self.<a class="code hl_variable" href="classexamples_1_1robot_1_1gui_world.html#a97e18c60d7c158fb93505ff1062f4215">TARGET_FPS</a>)</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <span class="keywordflow">for</span> body <span class="keywordflow">in</span> bodies:</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>            <span class="keywordflow">for</span> fixture <span class="keywordflow">in</span> body.fixtures:</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>                fixture.shape.draw(body, fixture)</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        pygame.display.flip()</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="comment"># this is the interface to pybox2d</span></div>
+</div>
+</div>
+<div class="foldopen" id="foldopen00066" data-start="" data-end="">
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="classexamples_1_1robot_1_1b2_world_interface.html">   66</a></span><span class="keyword">class </span><a class="code hl_class" href="classexamples_1_1robot_1_1b2_world_interface.html">b2WorldInterface</a>:</div>
+<div class="foldopen" id="foldopen00067" data-start="" data-end="">
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="classexamples_1_1robot_1_1b2_world_interface.html#a7092d6fe5d6e4a96ed9f28dbb8cec53d">   67</a></span>    <span class="keyword">def </span><a class="code hl_function" href="classexamples_1_1robot_1_1b2_world_interface.html#a7092d6fe5d6e4a96ed9f28dbb8cec53d">__init__</a>(self, do_gui=True):</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="classexamples_1_1robot_1_1b2_world_interface.html#ac80a9c52b51a2e8ac79bd1cc846d9fe4">   68</a></span>        self.<a class="code hl_variable" href="classexamples_1_1robot_1_1b2_world_interface.html#ac80a9c52b51a2e8ac79bd1cc846d9fe4">world</a> = b2World(gravity=(0.0, 0.0), doSleep=<span class="keyword">True</span>)</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="classexamples_1_1robot_1_1b2_world_interface.html#a0297622078dd63ff335b12d8e2f01e96">   69</a></span>        self.<a class="code hl_variable" href="classexamples_1_1robot_1_1b2_world_interface.html#a0297622078dd63ff335b12d8e2f01e96">do_gui</a> = do_gui</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="classexamples_1_1robot_1_1b2_world_interface.html#a3068c28bda902f1197a0ad8518ac6520">   70</a></span>        self.<a class="code hl_variable" href="classexamples_1_1robot_1_1b2_world_interface.html#a3068c28bda902f1197a0ad8518ac6520">TARGET_FPS</a> = 100</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="classexamples_1_1robot_1_1b2_world_interface.html#a3088f5f6eaed3eb11b77536cf4986d54">   71</a></span>        self.<a class="code hl_variable" href="classexamples_1_1robot_1_1b2_world_interface.html#a3088f5f6eaed3eb11b77536cf4986d54">TIME_STEP</a> = 1.0 / self.<a class="code hl_variable" href="classexamples_1_1robot_1_1b2_world_interface.html#a3068c28bda902f1197a0ad8518ac6520">TARGET_FPS</a></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="classexamples_1_1robot_1_1b2_world_interface.html#a9924b1e1dbbc852bd2e11ecb10b136d9">   72</a></span>        self.<a class="code hl_variable" href="classexamples_1_1robot_1_1b2_world_interface.html#afc4889322670a65a8e3ea069ecd9d40e">VEL_ITERS</a>, self.<a class="code hl_variable" href="classexamples_1_1robot_1_1b2_world_interface.html#a9924b1e1dbbc852bd2e11ecb10b136d9">POS_ITERS</a> = 10, 10</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="classexamples_1_1robot_1_1b2_world_interface.html#a70a4c4e2f6a76b4b0cf12bc0a2393d79">   73</a></span>        self.<a class="code hl_variable" href="classexamples_1_1robot_1_1b2_world_interface.html#a70a4c4e2f6a76b4b0cf12bc0a2393d79">bodies</a> = []</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <span class="keywordflow">if</span> do_gui:</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno"><a class="line" href="classexamples_1_1robot_1_1b2_world_interface.html#a1e9b1f3344f161776e40174c1e7ee75d">   76</a></span>            self.<a class="code hl_variable" href="classexamples_1_1robot_1_1b2_world_interface.html#a1e9b1f3344f161776e40174c1e7ee75d">gui_world</a> = <a class="code hl_class" href="classexamples_1_1robot_1_1gui_world.html">guiWorld</a>(self.<a class="code hl_variable" href="classexamples_1_1robot_1_1b2_world_interface.html#a3068c28bda902f1197a0ad8518ac6520">TARGET_FPS</a>)</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>            <span class="comment"># raw_input()</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>            self.<a class="code hl_variable" href="classexamples_1_1robot_1_1b2_world_interface.html#a1e9b1f3344f161776e40174c1e7ee75d">gui_world</a> = <span class="keywordtype">None</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+</div>
+<div class="foldopen" id="foldopen00081" data-start="" data-end="">
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="classexamples_1_1robot_1_1b2_world_interface.html#a6a5b5a5e68fd32c55812e70e80ebead7">   81</a></span>    <span class="keyword">def </span><a class="code hl_function" href="classexamples_1_1robot_1_1b2_world_interface.html#a6a5b5a5e68fd32c55812e70e80ebead7">initialize_gui</a>(self):</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <span class="keywordflow">if</span> self.<a class="code hl_variable" href="classexamples_1_1robot_1_1b2_world_interface.html#a1e9b1f3344f161776e40174c1e7ee75d">gui_world</a> == <span class="keywordtype">None</span>:</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>            self.<a class="code hl_variable" href="classexamples_1_1robot_1_1b2_world_interface.html#a1e9b1f3344f161776e40174c1e7ee75d">gui_world</a> = <a class="code hl_class" href="classexamples_1_1robot_1_1gui_world.html">guiWorld</a>(self.<a class="code hl_variable" href="classexamples_1_1robot_1_1b2_world_interface.html#a3068c28bda902f1197a0ad8518ac6520">TARGET_FPS</a>)</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        self.<a class="code hl_variable" href="classexamples_1_1robot_1_1b2_world_interface.html#a0297622078dd63ff335b12d8e2f01e96">do_gui</a> = <span class="keyword">True</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+</div>
+<div class="foldopen" id="foldopen00086" data-start="" data-end="">
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="classexamples_1_1robot_1_1b2_world_interface.html#a0f7a068ef4e840459a91d93f107a667b">   86</a></span>    <span class="keyword">def </span><a class="code hl_function" href="classexamples_1_1robot_1_1b2_world_interface.html#a0f7a068ef4e840459a91d93f107a667b">stop_gui</a>(self):</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        self.<a class="code hl_variable" href="classexamples_1_1robot_1_1b2_world_interface.html#a0297622078dd63ff335b12d8e2f01e96">do_gui</a> = <span class="keyword">False</span></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <span class="keyword">def </span><a class="code hl_function" href="classexamples_1_1robot_1_1b2_world_interface.html#a34cf4ae4836ed555b32a1486642ce275">add_bodies</a>(self, new_bodies):</div>
+<div class="foldopen" id="foldopen00090" data-start="" data-end="">
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno"><a class="line" href="classexamples_1_1robot_1_1b2_world_interface.html#a34cf4ae4836ed555b32a1486642ce275">   90</a></span>        <span class="stringliteral">&quot;&quot;&quot; add a single b2Body or list of b2Bodies to the world&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        <span class="keywordflow">if</span> type(new_bodies) == list:</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>            self.<a class="code hl_variable" href="classexamples_1_1robot_1_1b2_world_interface.html#a70a4c4e2f6a76b4b0cf12bc0a2393d79">bodies</a> += new_bodies</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>            self.<a class="code hl_variable" href="classexamples_1_1robot_1_1b2_world_interface.html#a70a4c4e2f6a76b4b0cf12bc0a2393d79">bodies</a>.append(new_bodies)</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
+</div>
+<div class="foldopen" id="foldopen00096" data-start="" data-end="">
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno"><a class="line" href="classexamples_1_1robot_1_1b2_world_interface.html#ab0ef17ea8a92dd7d0d28f2defc51540c">   96</a></span>    <span class="keyword">def </span><a class="code hl_function" href="classexamples_1_1robot_1_1b2_world_interface.html#ab0ef17ea8a92dd7d0d28f2defc51540c">step</a>(self, show_display=True, idx=0):</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        self.<a class="code hl_variable" href="classexamples_1_1robot_1_1b2_world_interface.html#ac80a9c52b51a2e8ac79bd1cc846d9fe4">world</a>.Step(self.<a class="code hl_variable" href="classexamples_1_1robot_1_1b2_world_interface.html#a3088f5f6eaed3eb11b77536cf4986d54">TIME_STEP</a>, self.<a class="code hl_variable" href="classexamples_1_1robot_1_1b2_world_interface.html#afc4889322670a65a8e3ea069ecd9d40e">VEL_ITERS</a>, self.<a class="code hl_variable" href="classexamples_1_1robot_1_1b2_world_interface.html#a9924b1e1dbbc852bd2e11ecb10b136d9">POS_ITERS</a>)</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        <span class="keywordflow">if</span> show_display <span class="keywordflow">and</span> self.<a class="code hl_variable" href="classexamples_1_1robot_1_1b2_world_interface.html#a0297622078dd63ff335b12d8e2f01e96">do_gui</a>:</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>            self.<a class="code hl_variable" href="classexamples_1_1robot_1_1b2_world_interface.html#a1e9b1f3344f161776e40174c1e7ee75d">gui_world</a>.draw(self.<a class="code hl_variable" href="classexamples_1_1robot_1_1b2_world_interface.html#a70a4c4e2f6a76b4b0cf12bc0a2393d79">bodies</a>)</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
+</div>
+</div>
+<div class="foldopen" id="foldopen00101" data-start="" data-end="">
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno"><a class="line" href="classexamples_1_1robot_1_1end__effector.html">  101</a></span><span class="keyword">class </span><a class="code hl_class" href="classexamples_1_1robot_1_1end__effector.html">end_effector</a>:</div>
+<div class="foldopen" id="foldopen00102" data-start="" data-end="">
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno"><a class="line" href="classexamples_1_1robot_1_1end__effector.html#a0de4d854fd164f2e08f91f9eefada154">  102</a></span>    <span class="keyword">def </span><a class="code hl_function" href="classexamples_1_1robot_1_1end__effector.html#a0de4d854fd164f2e08f91f9eefada154">__init__</a>(self, b2world_interface, init_pos, base, init_angle, hand_shape=&#39;rectangle&#39;, hand_size=(0.3, 1)):</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        world = b2world_interface.world</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno"><a class="line" href="classexamples_1_1robot_1_1end__effector.html#a797dad778a18e493f3792c8469b2e9c6">  104</a></span>        self.<a class="code hl_variable" href="classexamples_1_1robot_1_1end__effector.html#a797dad778a18e493f3792c8469b2e9c6">hand</a> = world.CreateDynamicBody(position=init_pos, angle=init_angle)</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="classexamples_1_1robot_1_1end__effector.html#a72964828d20b8c4332f27f8e8852b7e7">  105</a></span>        self.<a class="code hl_variable" href="classexamples_1_1robot_1_1end__effector.html#a72964828d20b8c4332f27f8e8852b7e7">hand_shape</a> = hand_shape</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno"><a class="line" href="classexamples_1_1robot_1_1end__effector.html#ac0b2cde5536ed4a0c2fbb1b14fe39dee">  106</a></span>        self.<a class="code hl_variable" href="classexamples_1_1robot_1_1end__effector.html#ac0b2cde5536ed4a0c2fbb1b14fe39dee">hand_size</a> = hand_size</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        <span class="comment"># forceunit for circle and rect</span></div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        <span class="keywordflow">if</span> hand_shape == <span class="stringliteral">&#39;rectangle&#39;</span>:</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>            rshape = b2PolygonShape(box=hand_size)</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno"><a class="line" href="classexamples_1_1robot_1_1end__effector.html#a93141201773012f21fa30a2a27be5f21">  110</a></span>            self.<a class="code hl_variable" href="classexamples_1_1robot_1_1end__effector.html#a93141201773012f21fa30a2a27be5f21">forceunit</a> = 30.0</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        <span class="keywordflow">elif</span> hand_shape == <span class="stringliteral">&#39;circle&#39;</span>:</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>            rshape = b2CircleShape(radius=hand_size)</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>            self.<a class="code hl_variable" href="classexamples_1_1robot_1_1end__effector.html#a93141201773012f21fa30a2a27be5f21">forceunit</a> = 100.0</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        <span class="keywordflow">elif</span> hand_shape == <span class="stringliteral">&#39;polygon&#39;</span>:</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>            rshape = b2PolygonShape(vertices=hand_size)</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>            <span class="keywordflow">raise</span> Exception(<span class="stringliteral">&quot;%s is not a correct shape&quot;</span> % hand_shape)</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>        self.<a class="code hl_variable" href="classexamples_1_1robot_1_1end__effector.html#a797dad778a18e493f3792c8469b2e9c6">hand</a>.CreateFixture(</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>            shape=rshape,</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>            density=.1,</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>            friction=.1</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        )</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        self.<a class="code hl_variable" href="classexamples_1_1robot_1_1end__effector.html#a797dad778a18e493f3792c8469b2e9c6">hand</a>.userData = <span class="stringliteral">&quot;hand&quot;</span></div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        friction_joint = world.CreateFrictionJoint(</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>            bodyA=base,</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>            bodyB=self.<a class="code hl_variable" href="classexamples_1_1robot_1_1end__effector.html#a797dad778a18e493f3792c8469b2e9c6">hand</a>,</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>            maxForce=2,</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>            maxTorque=2,</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        )</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        b2world_interface.add_bodies(self.<a class="code hl_variable" href="classexamples_1_1robot_1_1end__effector.html#a797dad778a18e493f3792c8469b2e9c6">hand</a>)</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
+</div>
+<div class="foldopen" id="foldopen00134" data-start="" data-end="">
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno"><a class="line" href="classexamples_1_1robot_1_1end__effector.html#a2c76b9613ca2ddad07bf118ebcaaa4e4">  134</a></span>    <span class="keyword">def </span><a class="code hl_function" href="classexamples_1_1robot_1_1end__effector.html#a2c76b9613ca2ddad07bf118ebcaaa4e4">set_pos</a>(self, pos, angle):</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        self.<a class="code hl_variable" href="classexamples_1_1robot_1_1end__effector.html#a797dad778a18e493f3792c8469b2e9c6">hand</a>.position = pos</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>        self.<a class="code hl_variable" href="classexamples_1_1robot_1_1end__effector.html#a797dad778a18e493f3792c8469b2e9c6">hand</a>.angle = angle</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span> </div>
+</div>
+<div class="foldopen" id="foldopen00138" data-start="" data-end="">
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno"><a class="line" href="classexamples_1_1robot_1_1end__effector.html#a254df906f14175a25460e69206232c6d">  138</a></span>    <span class="keyword">def </span><a class="code hl_function" href="classexamples_1_1robot_1_1end__effector.html#a254df906f14175a25460e69206232c6d">apply_wrench</a>(self, rlvel=(0, 0), ravel=0):</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span> </div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>        avel = self.<a class="code hl_variable" href="classexamples_1_1robot_1_1end__effector.html#a797dad778a18e493f3792c8469b2e9c6">hand</a>.angularVelocity</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>        delta_avel = ravel - avel</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>        torque = self.<a class="code hl_variable" href="classexamples_1_1robot_1_1end__effector.html#a797dad778a18e493f3792c8469b2e9c6">hand</a>.mass * delta_avel * 30.0</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>        self.<a class="code hl_variable" href="classexamples_1_1robot_1_1end__effector.html#a797dad778a18e493f3792c8469b2e9c6">hand</a>.ApplyTorque(torque, wake=<span class="keyword">True</span>)</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span> </div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        lvel = self.<a class="code hl_variable" href="classexamples_1_1robot_1_1end__effector.html#a797dad778a18e493f3792c8469b2e9c6">hand</a>.linearVelocity</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>        delta_lvel = b2Vec2(rlvel) - b2Vec2(lvel)</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>        force = self.<a class="code hl_variable" href="classexamples_1_1robot_1_1end__effector.html#a797dad778a18e493f3792c8469b2e9c6">hand</a>.mass * delta_lvel * self.<a class="code hl_variable" href="classexamples_1_1robot_1_1end__effector.html#a93141201773012f21fa30a2a27be5f21">forceunit</a></div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>        self.<a class="code hl_variable" href="classexamples_1_1robot_1_1end__effector.html#a797dad778a18e493f3792c8469b2e9c6">hand</a>.ApplyForce(force, self.<a class="code hl_variable" href="classexamples_1_1robot_1_1end__effector.html#a797dad778a18e493f3792c8469b2e9c6">hand</a>.position, wake=<span class="keyword">True</span>)</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
+</div>
+<div class="foldopen" id="foldopen00150" data-start="" data-end="">
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno"><a class="line" href="classexamples_1_1robot_1_1end__effector.html#a06b2e91a5ef8b9898b0fccfed7e0d562">  150</a></span>    <span class="keyword">def </span><a class="code hl_function" href="classexamples_1_1robot_1_1end__effector.html#a06b2e91a5ef8b9898b0fccfed7e0d562">get_state</a>(self, verbose=False):</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>        state = list(self.<a class="code hl_variable" href="classexamples_1_1robot_1_1end__effector.html#a797dad778a18e493f3792c8469b2e9c6">hand</a>.position) + [self.<a class="code hl_variable" href="classexamples_1_1robot_1_1end__effector.html#a797dad778a18e493f3792c8469b2e9c6">hand</a>.angle] + \</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>                list(self.<a class="code hl_variable" href="classexamples_1_1robot_1_1end__effector.html#a797dad778a18e493f3792c8469b2e9c6">hand</a>.linearVelocity) + [self.<a class="code hl_variable" href="classexamples_1_1robot_1_1end__effector.html#a797dad778a18e493f3792c8469b2e9c6">hand</a>.angularVelocity]</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>        <span class="keywordflow">if</span> verbose:</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>            print_state = [<span class="stringliteral">&quot;%.3f&quot;</span> % x <span class="keywordflow">for</span> x <span class="keywordflow">in</span> state]</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>            <span class="keywordflow">print</span></div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>            <span class="stringliteral">&quot;position, velocity: (%s), (%s) &quot;</span> % \</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>            ((<span class="stringliteral">&quot;, &quot;</span>).join(print_state[:3]), (<span class="stringliteral">&quot;, &quot;</span>).join(print_state[3:]))</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>        <span class="keywordflow">return</span> state</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span> </div>
+</div>
+</div>
+<div class="foldopen" id="foldopen00161" data-start="" data-end="">
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1robot.html#a252c38079aadabb2799d5085b5eb4a48">  161</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1robot.html#a252c38079aadabb2799d5085b5eb4a48">create_body</a>(base, b2world_interface, body_shape, body_size, body_friction, body_density, obj_loc):</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    world = b2world_interface.world</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    link = world.CreateDynamicBody(position=obj_loc)</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    <span class="keywordflow">if</span> body_shape == <span class="stringliteral">&#39;rectangle&#39;</span>:</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>        linkshape = b2PolygonShape(box=body_size)</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    <span class="keywordflow">elif</span> body_shape == <span class="stringliteral">&#39;circle&#39;</span>:</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>        linkshape = b2CircleShape(radius=body_size)</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    <span class="keywordflow">elif</span> body_shape == <span class="stringliteral">&#39;polygon&#39;</span>:</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>        linkshape = b2PolygonShape(vertices=body_size)</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    <span class="keywordflow">else</span>:</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>        <span class="keywordflow">raise</span> Exception(<span class="stringliteral">&quot;%s is not a correct shape&quot;</span> % body_shape)</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span> </div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    link.CreateFixture(</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>        shape=linkshape,</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>        density=body_density,</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>        friction=body_friction,</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    )</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    friction_joint = world.CreateFrictionJoint(</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>        bodyA=base,</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>        bodyB=link,</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>        maxForce=5,</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>        maxTorque=2,</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    )</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span> </div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>    b2world_interface.add_bodies([link])</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>    <span class="keywordflow">return</span> link</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span> </div>
+</div>
+<div class="foldopen" id="foldopen00189" data-start="" data-end="">
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1robot.html#ac017cc6df6c6717fcc3f1bb730354cde">  189</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1robot.html#ac017cc6df6c6717fcc3f1bb730354cde">make_base</a>(table_width, table_length, b2world_interface):</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>    world = b2world_interface.world</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    base = world.CreateStaticBody(</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>        position=(0, 0),</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>        shapes=b2PolygonShape(box=(table_length, table_width)),</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>    )</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span> </div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    b2world_interface.add_bodies([base])</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    <span class="keywordflow">return</span> base</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span> </div>
+</div>
+<div class="foldopen" id="foldopen00199" data-start="" data-end="">
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1robot.html#ae951566f2aafee72e88b7889b7249481">  199</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1robot.html#ae951566f2aafee72e88b7889b7249481">add_obstacles</a>(b2world_interface, obsverts):</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    world = b2world_interface.world</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    obs = []</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    <span class="keywordflow">for</span> verts <span class="keywordflow">in</span> obsverts:</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>        tmp = world.CreateStaticBody(</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>            position=(0, 0),</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>            shapes=b2PolygonShape(vertices=verts),</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>        )</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>        tmp.userData = <span class="stringliteral">&quot;obs&quot;</span></div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>        obs.append(tmp)</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span> </div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>    <span class="comment"># add boundaries</span></div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>    x, y = sm.wbpolygon.exterior.xy</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>    minx, maxx, miny, maxy = np.min(x), np.max(x), np.min(y), np.max(y)</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>    centers = [(0, miny - 1), (0, maxy + 1), (minx - 1, 0), (maxx + 1, 0)]</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>    boxlen = [(maxx - minx, 0.5), (maxx - minx, 0.5), (0.5, maxy - miny), (0.5, maxy - miny)]</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>    <span class="keywordflow">for</span> (pos, blen) <span class="keywordflow">in</span> zip(centers, boxlen):</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>        tmp = world.CreateStaticBody(</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>            position=pos,</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>            shapes=b2PolygonShape(box=blen),</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>        )</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>        obs.append(tmp)</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>    b2world_interface.add_bodies(obs)</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span> </div>
+</div>
+<div class="foldopen" id="foldopen00223" data-start="" data-end="">
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1robot.html#aa5b8f7a38272096913298ba3f11b72d8">  223</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1robot.html#aa5b8f7a38272096913298ba3f11b72d8">run_simulation</a>(world, body, body2, robot, robot2, xvel, yvel, \</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>                   xvel2, yvel2, rtor, rtor2, simulation_steps,</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>                   simulation_steps2):</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>    <span class="comment"># simulating push with fixed direction pointing from robot location to body location</span></div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>    desired_vel = np.array([xvel, yvel])</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>    rvel = b2Vec2(desired_vel[0] + np.random.normal(0, 0.01), desired_vel[1] + np.random.normal(0, 0.01))</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span> </div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>    desired_vel2 = np.array([xvel2, yvel2])</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>    rvel2 = b2Vec2(desired_vel2[0] + np.random.normal(0, 0.01), desired_vel2[1] + np.random.normal(0, 0.01))</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span> </div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>    tmax = np.max([simulation_steps, simulation_steps2])</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>    <span class="keywordflow">for</span> t <span class="keywordflow">in</span> range(tmax + 100):</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>        <span class="keywordflow">if</span> t &lt; simulation_steps:</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>            robot.apply_wrench(rvel, rtor)</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>        <span class="keywordflow">if</span> t &lt; simulation_steps2:</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>            robot2.apply_wrench(rvel2, rtor2)</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>        world.step()</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span> </div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>    <span class="keywordflow">return</span> (list(body.position), list(body2.position))</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span> </div>
+</div>
+<div class="foldopen" id="foldopen00243" data-start="" data-end="">
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno"><a class="line" href="classexamples_1_1robot_1_1_push_reward.html">  243</a></span><span class="keyword">class </span><a class="code hl_class" href="classexamples_1_1robot_1_1_push_reward.html">PushReward</a>:</div>
+<div class="foldopen" id="foldopen00244" data-start="" data-end="">
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno"><a class="line" href="classexamples_1_1robot_1_1_push_reward.html#a79391c66d4c7e5d3579fa0ef864999c4">  244</a></span>    <span class="keyword">def </span><a class="code hl_function" href="classexamples_1_1robot_1_1_push_reward.html#a79391c66d4c7e5d3579fa0ef864999c4">__init__</a>(self, do_gui=False):</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span> </div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>        <span class="comment"># domain of this function</span></div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno"><a class="line" href="classexamples_1_1robot_1_1_push_reward.html#a12d01d1a6bda486ebef6fdf58bb16959">  247</a></span>        self.<a class="code hl_variable" href="classexamples_1_1robot_1_1_push_reward.html#a12d01d1a6bda486ebef6fdf58bb16959">xmin</a> = [-5., -5., -10., -10., 2., 0., -5., -5., -10., -10., 2., 0., -5., -5.]</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno"><a class="line" href="classexamples_1_1robot_1_1_push_reward.html#a8bcba3852110328e20e0b9c8890bd498">  248</a></span>        self.<a class="code hl_variable" href="classexamples_1_1robot_1_1_push_reward.html#a8bcba3852110328e20e0b9c8890bd498">xmax</a> = [5., 5., 10., 10., 30., 2.*np.pi, 5., 5., 10., 10., 30., 2.*np.pi, 5., 5.]</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span> </div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>        <span class="comment"># starting xy locations for the two objects</span></div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno"><a class="line" href="classexamples_1_1robot_1_1_push_reward.html#ac1d9afbd054c2f7332a4bbd9f139d2ca">  251</a></span>        self.<a class="code hl_variable" href="classexamples_1_1robot_1_1_push_reward.html#ac1d9afbd054c2f7332a4bbd9f139d2ca">sxy</a> = (0, 2)</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno"><a class="line" href="classexamples_1_1robot_1_1_push_reward.html#a089bb19e4fbc8bbfa0e69686f1a07a74">  252</a></span>        self.<a class="code hl_variable" href="classexamples_1_1robot_1_1_push_reward.html#a089bb19e4fbc8bbfa0e69686f1a07a74">sxy2</a> = (0, -2)</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>        <span class="comment"># goal xy locations for the two objects</span></div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno"><a class="line" href="classexamples_1_1robot_1_1_push_reward.html#ac56d4765930f5f39be5ef19a42b4ebe7">  254</a></span>        self.<a class="code hl_variable" href="classexamples_1_1robot_1_1_push_reward.html#ac56d4765930f5f39be5ef19a42b4ebe7">gxy</a> = [4, 3.5]</div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno"><a class="line" href="classexamples_1_1robot_1_1_push_reward.html#abc433b7d5ac069d7ac9b2ee60b168d43">  255</a></span>        self.<a class="code hl_variable" href="classexamples_1_1robot_1_1_push_reward.html#abc433b7d5ac069d7ac9b2ee60b168d43">gxy2</a> = [-4, 3.5]</div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno"><a class="line" href="classexamples_1_1robot_1_1_push_reward.html#aa92457b63fd7c895077365c0ff63b5cf">  256</a></span>        self.<a class="code hl_variable" href="classexamples_1_1robot_1_1_push_reward.html#aa92457b63fd7c895077365c0ff63b5cf">do_gui</a> = do_gui</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span> </div>
+</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>    <span class="preprocessor">@property</span></div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno"><a class="line" href="classexamples_1_1robot_1_1_push_reward.html#a6e1df9cc36056fea745db2d21136b0b7">  259</a></span>    <span class="keyword">def </span><a class="code hl_property" href="classexamples_1_1robot_1_1_push_reward.html#a6e1df9cc36056fea745db2d21136b0b7">f_max</a>(self):</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>        <span class="comment"># maximum value of this function</span></div>
+<div class="foldopen" id="foldopen00261" data-start="" data-end="">
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno"><a class="line" href="classexamples_1_1robot_1_1_push_reward.html#ada3f0c35266a5467ac22b6b0c80a3ea9">  261</a></span>        <span class="keywordflow">return</span> np.linalg.norm(np.array(self.<a class="code hl_variable" href="classexamples_1_1robot_1_1_push_reward.html#ac56d4765930f5f39be5ef19a42b4ebe7">gxy</a>) - np.array(self.<a class="code hl_variable" href="classexamples_1_1robot_1_1_push_reward.html#ac1d9afbd054c2f7332a4bbd9f139d2ca">sxy</a>)) \</div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>            + np.linalg.norm(np.array(self.<a class="code hl_variable" href="classexamples_1_1robot_1_1_push_reward.html#abc433b7d5ac069d7ac9b2ee60b168d43">gxy2</a>) - np.array(self.<a class="code hl_variable" href="classexamples_1_1robot_1_1_push_reward.html#a089bb19e4fbc8bbfa0e69686f1a07a74">sxy2</a>))</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>    <span class="preprocessor">@property</span></div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>    <span class="keyword">def </span><a class="code hl_property" href="classexamples_1_1robot_1_1_push_reward.html#a833013c53995102c560bfc6fe37b89d0">dx</a>(self):</div>
+</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>        <span class="comment"># dimension of the input</span></div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno"><a class="line" href="classexamples_1_1robot_1_1_push_reward.html#a833013c53995102c560bfc6fe37b89d0">  266</a></span>        <span class="keywordflow">return</span> self._dx</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>    </div>
+<div class="foldopen" id="foldopen00268" data-start="" data-end="">
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno"><a class="line" href="classexamples_1_1robot_1_1_push_reward.html#a1d2daca54b1e449ab25ff769faedba81">  268</a></span>    <span class="keyword">def </span><a class="code hl_function" href="classexamples_1_1robot_1_1_push_reward.html#a12fdbdc7cace400a133572e73d6cc7d2">__call__</a>(self, argv):</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>        <span class="comment"># returns the reward of pushing two objects with two robots</span></div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>        rx = float(argv[0])</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>        ry = float(argv[1])</div>
+</div>
+<div class="foldopen" id="foldopen00272" data-start="" data-end="">
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno"><a class="line" href="classexamples_1_1robot_1_1_push_reward.html#a12fdbdc7cace400a133572e73d6cc7d2">  272</a></span>        xvel = float(argv[2])</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>        yvel = float(argv[3])</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>        simu_steps = int(float(argv[4]) * 10)</div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>        init_angle = float(argv[5])</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>        rx2 = float(argv[6])</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>        ry2 = float(argv[7])</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>        xvel2 = float(argv[8])</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>        yvel2 = float(argv[9])</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>        simu_steps2 = int(float(argv[10]) * 10)</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>        init_angle2 = float(argv[11])</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>        rtor = float(argv[12])</div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>        rtor2 = float(argv[13])</div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>        </div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>        initial_dist = self.<a class="code hl_property" href="classexamples_1_1robot_1_1_push_reward.html#a6e1df9cc36056fea745db2d21136b0b7">f_max</a></div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span> </div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>        world = <a class="code hl_class" href="classexamples_1_1robot_1_1b2_world_interface.html">b2WorldInterface</a>(self.<a class="code hl_variable" href="classexamples_1_1robot_1_1_push_reward.html#aa92457b63fd7c895077365c0ff63b5cf">do_gui</a>)</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>        </div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>        oshape, osize, ofriction, odensity, bfriction, hand_shape, hand_size = \</div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>            <span class="stringliteral">&#39;circle&#39;</span>, 1, 0.01, 0.05, 0.01, <span class="stringliteral">&#39;rectangle&#39;</span>, (1, 0.3)</div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span> </div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>        base = <a class="code hl_function" href="namespaceexamples_1_1robot.html#ac017cc6df6c6717fcc3f1bb730354cde">make_base</a>(500, 500, world)</div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>        body = <a class="code hl_function" href="namespaceexamples_1_1robot.html#a252c38079aadabb2799d5085b5eb4a48">create_body</a>(base, world, <span class="stringliteral">&#39;rectangle&#39;</span>, (0.5, 0.5), ofriction, odensity, self.<a class="code hl_variable" href="classexamples_1_1robot_1_1_push_reward.html#ac1d9afbd054c2f7332a4bbd9f139d2ca">sxy</a>)</div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>        body2 = <a class="code hl_function" href="namespaceexamples_1_1robot.html#a252c38079aadabb2799d5085b5eb4a48">create_body</a>(base, world, <span class="stringliteral">&#39;circle&#39;</span>, 1, ofriction, odensity, self.<a class="code hl_variable" href="classexamples_1_1robot_1_1_push_reward.html#a089bb19e4fbc8bbfa0e69686f1a07a74">sxy2</a>)</div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span> </div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>        robot = <a class="code hl_class" href="classexamples_1_1robot_1_1end__effector.html">end_effector</a>(world, (rx,ry), base, init_angle, hand_shape, hand_size)</div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>        robot2 = <a class="code hl_class" href="classexamples_1_1robot_1_1end__effector.html">end_effector</a>(world, (rx2,ry2), base, init_angle2, hand_shape, hand_size)</div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>        (ret1, ret2) = <a class="code hl_function" href="namespaceexamples_1_1robot.html#aa5b8f7a38272096913298ba3f11b72d8">run_simulation</a>(world, body, body2, robot, robot2, xvel, yvel, \</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>                                      xvel2, yvel2, rtor, rtor2, simu_steps, simu_steps2)</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span> </div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>        ret1 = np.linalg.norm(np.array(self.<a class="code hl_variable" href="classexamples_1_1robot_1_1_push_reward.html#ac56d4765930f5f39be5ef19a42b4ebe7">gxy</a>) - ret1)</div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>        ret2 = np.linalg.norm(np.array(self.<a class="code hl_variable" href="classexamples_1_1robot_1_1_push_reward.html#abc433b7d5ac069d7ac9b2ee60b168d43">gxy2</a>) - ret2)</div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>        <span class="keywordflow">return</span> -(initial_dist - ret1 - ret2) <span class="comment"># negated because we minimize </span></div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span> </div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span><span class="keyword">from</span> <a class="code hl_namespace" href="namespacefcmaes_1_1optimizer.html">fcmaes.optimizer</a> <span class="keyword">import</span> De_cpp, Bite_cpp, wrapper, logger</div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span><span class="keyword">from</span> fcmaes <span class="keyword">import</span> retry</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span><span class="keyword">from</span> scipy.optimize <span class="keyword">import</span> Bounds</div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span> </div>
+</div>
+</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1robot.html#ad7e10efd4ee195ca3e30475bbef6b25b">main</a>():</div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>    f = <a class="code hl_class" href="classexamples_1_1robot_1_1_push_reward.html">PushReward</a>()</div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>    bounds = Bounds(f.xmin, f.xmax) </div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>  </div>
+<div class="foldopen" id="foldopen00313" data-start="" data-end="">
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1robot.html#ad7e10efd4ee195ca3e30475bbef6b25b">  313</a></span>    logger.info(<span class="stringliteral">&quot;push retry.minimize(wrap(f, dim), bounds, De_cpp(10000), num_retries=32)&quot;</span>)</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>    <span class="keywordflow">for</span> i <span class="keywordflow">in</span> range(20):</div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>        retry.minimize(<a class="code hl_class" href="classfcmaes_1_1optimizer_1_1wrapper.html">wrapper</a>(f), bounds, optimizer=<a class="code hl_class" href="classfcmaes_1_1optimizer_1_1_de__cpp.html">De_cpp</a>(10000), num_retries=32)</div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span> </div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>    logger.info(<span class="stringliteral">&quot;push retry.minimize(wrap(f, dim), bounds, Bite_cpp(10000), num_retries=32)&quot;</span>)</div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>    <span class="keywordflow">for</span> i <span class="keywordflow">in</span> range(20):</div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>        retry.minimize(<a class="code hl_class" href="classfcmaes_1_1optimizer_1_1wrapper.html">wrapper</a>(f), bounds, optimizer=<a class="code hl_class" href="classfcmaes_1_1optimizer_1_1_bite__cpp.html">Bite_cpp</a>(10000), num_retries=32)</div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span> </div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span><span class="keywordflow">if</span> __name__ == <span class="stringliteral">&#39;__main__&#39;</span>:</div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>    <a class="code hl_function" href="namespaceexamples_1_1robot.html#ad7e10efd4ee195ca3e30475bbef6b25b">main</a>()</div>
+</div>
+<div class="ttc" id="aclassexamples_1_1robot_1_1_push_reward_html"><div class="ttname"><a href="classexamples_1_1robot_1_1_push_reward.html">examples.robot.PushReward</a></div><div class="ttdef"><b>Definition</b> <a href="#l00243">robot.py:243</a></div></div>
+<div class="ttc" id="aclassexamples_1_1robot_1_1_push_reward_html_a089bb19e4fbc8bbfa0e69686f1a07a74"><div class="ttname"><a href="classexamples_1_1robot_1_1_push_reward.html#a089bb19e4fbc8bbfa0e69686f1a07a74">examples.robot.PushReward.sxy2</a></div><div class="ttdeci">tuple sxy2</div><div class="ttdef"><b>Definition</b> <a href="#l00252">robot.py:252</a></div></div>
+<div class="ttc" id="aclassexamples_1_1robot_1_1_push_reward_html_a12d01d1a6bda486ebef6fdf58bb16959"><div class="ttname"><a href="classexamples_1_1robot_1_1_push_reward.html#a12d01d1a6bda486ebef6fdf58bb16959">examples.robot.PushReward.xmin</a></div><div class="ttdeci">list xmin</div><div class="ttdef"><b>Definition</b> <a href="#l00247">robot.py:247</a></div></div>
+<div class="ttc" id="aclassexamples_1_1robot_1_1_push_reward_html_a12fdbdc7cace400a133572e73d6cc7d2"><div class="ttname"><a href="classexamples_1_1robot_1_1_push_reward.html#a12fdbdc7cace400a133572e73d6cc7d2">examples.robot.PushReward.__call__</a></div><div class="ttdeci">__call__(self, argv)</div><div class="ttdef"><b>Definition</b> <a href="#l00272">robot.py:272</a></div></div>
+<div class="ttc" id="aclassexamples_1_1robot_1_1_push_reward_html_a6e1df9cc36056fea745db2d21136b0b7"><div class="ttname"><a href="classexamples_1_1robot_1_1_push_reward.html#a6e1df9cc36056fea745db2d21136b0b7">examples.robot.PushReward.f_max</a></div><div class="ttdeci">f_max</div><div class="ttdef"><b>Definition</b> <a href="#l00259">robot.py:259</a></div></div>
+<div class="ttc" id="aclassexamples_1_1robot_1_1_push_reward_html_a79391c66d4c7e5d3579fa0ef864999c4"><div class="ttname"><a href="classexamples_1_1robot_1_1_push_reward.html#a79391c66d4c7e5d3579fa0ef864999c4">examples.robot.PushReward.__init__</a></div><div class="ttdeci">__init__(self, do_gui=False)</div><div class="ttdef"><b>Definition</b> <a href="#l00244">robot.py:244</a></div></div>
+<div class="ttc" id="aclassexamples_1_1robot_1_1_push_reward_html_a833013c53995102c560bfc6fe37b89d0"><div class="ttname"><a href="classexamples_1_1robot_1_1_push_reward.html#a833013c53995102c560bfc6fe37b89d0">examples.robot.PushReward.dx</a></div><div class="ttdeci">dx</div><div class="ttdef"><b>Definition</b> <a href="#l00266">robot.py:266</a></div></div>
+<div class="ttc" id="aclassexamples_1_1robot_1_1_push_reward_html_a8bcba3852110328e20e0b9c8890bd498"><div class="ttname"><a href="classexamples_1_1robot_1_1_push_reward.html#a8bcba3852110328e20e0b9c8890bd498">examples.robot.PushReward.xmax</a></div><div class="ttdeci">list xmax</div><div class="ttdef"><b>Definition</b> <a href="#l00248">robot.py:248</a></div></div>
+<div class="ttc" id="aclassexamples_1_1robot_1_1_push_reward_html_aa92457b63fd7c895077365c0ff63b5cf"><div class="ttname"><a href="classexamples_1_1robot_1_1_push_reward.html#aa92457b63fd7c895077365c0ff63b5cf">examples.robot.PushReward.do_gui</a></div><div class="ttdeci">do_gui</div><div class="ttdef"><b>Definition</b> <a href="#l00256">robot.py:256</a></div></div>
+<div class="ttc" id="aclassexamples_1_1robot_1_1_push_reward_html_abc433b7d5ac069d7ac9b2ee60b168d43"><div class="ttname"><a href="classexamples_1_1robot_1_1_push_reward.html#abc433b7d5ac069d7ac9b2ee60b168d43">examples.robot.PushReward.gxy2</a></div><div class="ttdeci">list gxy2</div><div class="ttdef"><b>Definition</b> <a href="#l00255">robot.py:255</a></div></div>
+<div class="ttc" id="aclassexamples_1_1robot_1_1_push_reward_html_ac1d9afbd054c2f7332a4bbd9f139d2ca"><div class="ttname"><a href="classexamples_1_1robot_1_1_push_reward.html#ac1d9afbd054c2f7332a4bbd9f139d2ca">examples.robot.PushReward.sxy</a></div><div class="ttdeci">tuple sxy</div><div class="ttdef"><b>Definition</b> <a href="#l00251">robot.py:251</a></div></div>
+<div class="ttc" id="aclassexamples_1_1robot_1_1_push_reward_html_ac56d4765930f5f39be5ef19a42b4ebe7"><div class="ttname"><a href="classexamples_1_1robot_1_1_push_reward.html#ac56d4765930f5f39be5ef19a42b4ebe7">examples.robot.PushReward.gxy</a></div><div class="ttdeci">list gxy</div><div class="ttdef"><b>Definition</b> <a href="#l00254">robot.py:254</a></div></div>
+<div class="ttc" id="aclassexamples_1_1robot_1_1b2_world_interface_html"><div class="ttname"><a href="classexamples_1_1robot_1_1b2_world_interface.html">examples.robot.b2WorldInterface</a></div><div class="ttdef"><b>Definition</b> <a href="#l00066">robot.py:66</a></div></div>
+<div class="ttc" id="aclassexamples_1_1robot_1_1b2_world_interface_html_a0297622078dd63ff335b12d8e2f01e96"><div class="ttname"><a href="classexamples_1_1robot_1_1b2_world_interface.html#a0297622078dd63ff335b12d8e2f01e96">examples.robot.b2WorldInterface.do_gui</a></div><div class="ttdeci">bool do_gui</div><div class="ttdef"><b>Definition</b> <a href="#l00069">robot.py:69</a></div></div>
+<div class="ttc" id="aclassexamples_1_1robot_1_1b2_world_interface_html_a0f7a068ef4e840459a91d93f107a667b"><div class="ttname"><a href="classexamples_1_1robot_1_1b2_world_interface.html#a0f7a068ef4e840459a91d93f107a667b">examples.robot.b2WorldInterface.stop_gui</a></div><div class="ttdeci">stop_gui(self)</div><div class="ttdef"><b>Definition</b> <a href="#l00086">robot.py:86</a></div></div>
+<div class="ttc" id="aclassexamples_1_1robot_1_1b2_world_interface_html_a1e9b1f3344f161776e40174c1e7ee75d"><div class="ttname"><a href="classexamples_1_1robot_1_1b2_world_interface.html#a1e9b1f3344f161776e40174c1e7ee75d">examples.robot.b2WorldInterface.gui_world</a></div><div class="ttdeci">gui_world</div><div class="ttdef"><b>Definition</b> <a href="#l00076">robot.py:76</a></div></div>
+<div class="ttc" id="aclassexamples_1_1robot_1_1b2_world_interface_html_a3068c28bda902f1197a0ad8518ac6520"><div class="ttname"><a href="classexamples_1_1robot_1_1b2_world_interface.html#a3068c28bda902f1197a0ad8518ac6520">examples.robot.b2WorldInterface.TARGET_FPS</a></div><div class="ttdeci">int TARGET_FPS</div><div class="ttdef"><b>Definition</b> <a href="#l00070">robot.py:70</a></div></div>
+<div class="ttc" id="aclassexamples_1_1robot_1_1b2_world_interface_html_a3088f5f6eaed3eb11b77536cf4986d54"><div class="ttname"><a href="classexamples_1_1robot_1_1b2_world_interface.html#a3088f5f6eaed3eb11b77536cf4986d54">examples.robot.b2WorldInterface.TIME_STEP</a></div><div class="ttdeci">float TIME_STEP</div><div class="ttdef"><b>Definition</b> <a href="#l00071">robot.py:71</a></div></div>
+<div class="ttc" id="aclassexamples_1_1robot_1_1b2_world_interface_html_a34cf4ae4836ed555b32a1486642ce275"><div class="ttname"><a href="classexamples_1_1robot_1_1b2_world_interface.html#a34cf4ae4836ed555b32a1486642ce275">examples.robot.b2WorldInterface.add_bodies</a></div><div class="ttdeci">add_bodies(self, new_bodies)</div><div class="ttdoc">add a single b2Body or list of b2Bodies to the world</div><div class="ttdef"><b>Definition</b> <a href="#l00090">robot.py:90</a></div></div>
+<div class="ttc" id="aclassexamples_1_1robot_1_1b2_world_interface_html_a6a5b5a5e68fd32c55812e70e80ebead7"><div class="ttname"><a href="classexamples_1_1robot_1_1b2_world_interface.html#a6a5b5a5e68fd32c55812e70e80ebead7">examples.robot.b2WorldInterface.initialize_gui</a></div><div class="ttdeci">initialize_gui(self)</div><div class="ttdef"><b>Definition</b> <a href="#l00081">robot.py:81</a></div></div>
+<div class="ttc" id="aclassexamples_1_1robot_1_1b2_world_interface_html_a7092d6fe5d6e4a96ed9f28dbb8cec53d"><div class="ttname"><a href="classexamples_1_1robot_1_1b2_world_interface.html#a7092d6fe5d6e4a96ed9f28dbb8cec53d">examples.robot.b2WorldInterface.__init__</a></div><div class="ttdeci">__init__(self, do_gui=True)</div><div class="ttdef"><b>Definition</b> <a href="#l00067">robot.py:67</a></div></div>
+<div class="ttc" id="aclassexamples_1_1robot_1_1b2_world_interface_html_a70a4c4e2f6a76b4b0cf12bc0a2393d79"><div class="ttname"><a href="classexamples_1_1robot_1_1b2_world_interface.html#a70a4c4e2f6a76b4b0cf12bc0a2393d79">examples.robot.b2WorldInterface.bodies</a></div><div class="ttdeci">list bodies</div><div class="ttdef"><b>Definition</b> <a href="#l00073">robot.py:73</a></div></div>
+<div class="ttc" id="aclassexamples_1_1robot_1_1b2_world_interface_html_a9924b1e1dbbc852bd2e11ecb10b136d9"><div class="ttname"><a href="classexamples_1_1robot_1_1b2_world_interface.html#a9924b1e1dbbc852bd2e11ecb10b136d9">examples.robot.b2WorldInterface.POS_ITERS</a></div><div class="ttdeci">int POS_ITERS</div><div class="ttdef"><b>Definition</b> <a href="#l00072">robot.py:72</a></div></div>
+<div class="ttc" id="aclassexamples_1_1robot_1_1b2_world_interface_html_ab0ef17ea8a92dd7d0d28f2defc51540c"><div class="ttname"><a href="classexamples_1_1robot_1_1b2_world_interface.html#ab0ef17ea8a92dd7d0d28f2defc51540c">examples.robot.b2WorldInterface.step</a></div><div class="ttdeci">step(self, show_display=True, idx=0)</div><div class="ttdef"><b>Definition</b> <a href="#l00096">robot.py:96</a></div></div>
+<div class="ttc" id="aclassexamples_1_1robot_1_1b2_world_interface_html_ac80a9c52b51a2e8ac79bd1cc846d9fe4"><div class="ttname"><a href="classexamples_1_1robot_1_1b2_world_interface.html#ac80a9c52b51a2e8ac79bd1cc846d9fe4">examples.robot.b2WorldInterface.world</a></div><div class="ttdeci">world</div><div class="ttdef"><b>Definition</b> <a href="#l00068">robot.py:68</a></div></div>
+<div class="ttc" id="aclassexamples_1_1robot_1_1b2_world_interface_html_afc4889322670a65a8e3ea069ecd9d40e"><div class="ttname"><a href="classexamples_1_1robot_1_1b2_world_interface.html#afc4889322670a65a8e3ea069ecd9d40e">examples.robot.b2WorldInterface.VEL_ITERS</a></div><div class="ttdeci">VEL_ITERS</div><div class="ttdef"><b>Definition</b> <a href="#l00072">robot.py:72</a></div></div>
+<div class="ttc" id="aclassexamples_1_1robot_1_1end__effector_html"><div class="ttname"><a href="classexamples_1_1robot_1_1end__effector.html">examples.robot.end_effector</a></div><div class="ttdef"><b>Definition</b> <a href="#l00101">robot.py:101</a></div></div>
+<div class="ttc" id="aclassexamples_1_1robot_1_1end__effector_html_a06b2e91a5ef8b9898b0fccfed7e0d562"><div class="ttname"><a href="classexamples_1_1robot_1_1end__effector.html#a06b2e91a5ef8b9898b0fccfed7e0d562">examples.robot.end_effector.get_state</a></div><div class="ttdeci">get_state(self, verbose=False)</div><div class="ttdef"><b>Definition</b> <a href="#l00150">robot.py:150</a></div></div>
+<div class="ttc" id="aclassexamples_1_1robot_1_1end__effector_html_a0de4d854fd164f2e08f91f9eefada154"><div class="ttname"><a href="classexamples_1_1robot_1_1end__effector.html#a0de4d854fd164f2e08f91f9eefada154">examples.robot.end_effector.__init__</a></div><div class="ttdeci">__init__(self, b2world_interface, init_pos, base, init_angle, hand_shape=&#39;rectangle&#39;, hand_size=(0.3, 1))</div><div class="ttdef"><b>Definition</b> <a href="#l00102">robot.py:102</a></div></div>
+<div class="ttc" id="aclassexamples_1_1robot_1_1end__effector_html_a254df906f14175a25460e69206232c6d"><div class="ttname"><a href="classexamples_1_1robot_1_1end__effector.html#a254df906f14175a25460e69206232c6d">examples.robot.end_effector.apply_wrench</a></div><div class="ttdeci">apply_wrench(self, rlvel=(0, 0), ravel=0)</div><div class="ttdef"><b>Definition</b> <a href="#l00138">robot.py:138</a></div></div>
+<div class="ttc" id="aclassexamples_1_1robot_1_1end__effector_html_a2c76b9613ca2ddad07bf118ebcaaa4e4"><div class="ttname"><a href="classexamples_1_1robot_1_1end__effector.html#a2c76b9613ca2ddad07bf118ebcaaa4e4">examples.robot.end_effector.set_pos</a></div><div class="ttdeci">set_pos(self, pos, angle)</div><div class="ttdef"><b>Definition</b> <a href="#l00134">robot.py:134</a></div></div>
+<div class="ttc" id="aclassexamples_1_1robot_1_1end__effector_html_a72964828d20b8c4332f27f8e8852b7e7"><div class="ttname"><a href="classexamples_1_1robot_1_1end__effector.html#a72964828d20b8c4332f27f8e8852b7e7">examples.robot.end_effector.hand_shape</a></div><div class="ttdeci">hand_shape</div><div class="ttdef"><b>Definition</b> <a href="#l00105">robot.py:105</a></div></div>
+<div class="ttc" id="aclassexamples_1_1robot_1_1end__effector_html_a797dad778a18e493f3792c8469b2e9c6"><div class="ttname"><a href="classexamples_1_1robot_1_1end__effector.html#a797dad778a18e493f3792c8469b2e9c6">examples.robot.end_effector.hand</a></div><div class="ttdeci">hand</div><div class="ttdef"><b>Definition</b> <a href="#l00104">robot.py:104</a></div></div>
+<div class="ttc" id="aclassexamples_1_1robot_1_1end__effector_html_a93141201773012f21fa30a2a27be5f21"><div class="ttname"><a href="classexamples_1_1robot_1_1end__effector.html#a93141201773012f21fa30a2a27be5f21">examples.robot.end_effector.forceunit</a></div><div class="ttdeci">float forceunit</div><div class="ttdef"><b>Definition</b> <a href="#l00110">robot.py:110</a></div></div>
+<div class="ttc" id="aclassexamples_1_1robot_1_1end__effector_html_ac0b2cde5536ed4a0c2fbb1b14fe39dee"><div class="ttname"><a href="classexamples_1_1robot_1_1end__effector.html#ac0b2cde5536ed4a0c2fbb1b14fe39dee">examples.robot.end_effector.hand_size</a></div><div class="ttdeci">hand_size</div><div class="ttdef"><b>Definition</b> <a href="#l00106">robot.py:106</a></div></div>
+<div class="ttc" id="aclassexamples_1_1robot_1_1gui_world_html"><div class="ttname"><a href="classexamples_1_1robot_1_1gui_world.html">examples.robot.guiWorld</a></div><div class="ttdef"><b>Definition</b> <a href="#l00020">robot.py:20</a></div></div>
+<div class="ttc" id="aclassexamples_1_1robot_1_1gui_world_html_a03d57f981170d79d51d9033c04292594"><div class="ttname"><a href="classexamples_1_1robot_1_1gui_world.html#a03d57f981170d79d51d9033c04292594">examples.robot.guiWorld.SCREEN_HEIGHT</a></div><div class="ttdeci">int SCREEN_HEIGHT</div><div class="ttdef"><b>Definition</b> <a href="#l00022">robot.py:22</a></div></div>
+<div class="ttc" id="aclassexamples_1_1robot_1_1gui_world_html_a25335c34ece85a6399269d8c972ba1dd"><div class="ttname"><a href="classexamples_1_1robot_1_1gui_world.html#a25335c34ece85a6399269d8c972ba1dd">examples.robot.guiWorld.colors</a></div><div class="ttdeci">dict colors</div><div class="ttdef"><b>Definition</b> <a href="#l00029">robot.py:29</a></div></div>
+<div class="ttc" id="aclassexamples_1_1robot_1_1gui_world_html_a2a72190b0879ff50cdeebe3cf3213d7d"><div class="ttname"><a href="classexamples_1_1robot_1_1gui_world.html#a2a72190b0879ff50cdeebe3cf3213d7d">examples.robot.guiWorld.__init__</a></div><div class="ttdeci">__init__(self, fps)</div><div class="ttdef"><b>Definition</b> <a href="#l00021">robot.py:21</a></div></div>
+<div class="ttc" id="aclassexamples_1_1robot_1_1gui_world_html_a4e6d908e38fe9362abbf8d42061d56ed"><div class="ttname"><a href="classexamples_1_1robot_1_1gui_world.html#a4e6d908e38fe9362abbf8d42061d56ed">examples.robot.guiWorld.screen</a></div><div class="ttdeci">screen</div><div class="ttdef"><b>Definition</b> <a href="#l00025">robot.py:25</a></div></div>
+<div class="ttc" id="aclassexamples_1_1robot_1_1gui_world_html_a97e18c60d7c158fb93505ff1062f4215"><div class="ttname"><a href="classexamples_1_1robot_1_1gui_world.html#a97e18c60d7c158fb93505ff1062f4215">examples.robot.guiWorld.TARGET_FPS</a></div><div class="ttdeci">TARGET_FPS</div><div class="ttdef"><b>Definition</b> <a href="#l00023">robot.py:23</a></div></div>
+<div class="ttc" id="aclassexamples_1_1robot_1_1gui_world_html_ad22538df02066ff8e529fdefde7a11ef"><div class="ttname"><a href="classexamples_1_1robot_1_1gui_world.html#ad22538df02066ff8e529fdefde7a11ef">examples.robot.guiWorld.SCREEN_WIDTH</a></div><div class="ttdeci">SCREEN_WIDTH</div><div class="ttdef"><b>Definition</b> <a href="#l00022">robot.py:22</a></div></div>
+<div class="ttc" id="aclassexamples_1_1robot_1_1gui_world_html_ad6cabbaff2dd91875d324a223955033d"><div class="ttname"><a href="classexamples_1_1robot_1_1gui_world.html#ad6cabbaff2dd91875d324a223955033d">examples.robot.guiWorld.PPM</a></div><div class="ttdeci">float PPM</div><div class="ttdef"><b>Definition</b> <a href="#l00024">robot.py:24</a></div></div>
+<div class="ttc" id="aclassexamples_1_1robot_1_1gui_world_html_adab98b24ef2879406211e7c2325addd2"><div class="ttname"><a href="classexamples_1_1robot_1_1gui_world.html#adab98b24ef2879406211e7c2325addd2">examples.robot.guiWorld.draw</a></div><div class="ttdeci">draw(self, bodies, bg_color=(64, 64, 64, 0))</div><div class="ttdef"><b>Definition</b> <a href="#l00034">robot.py:34</a></div></div>
+<div class="ttc" id="aclassexamples_1_1robot_1_1gui_world_html_af1fded6ed1528b22f0517f72bbad19f2"><div class="ttname"><a href="classexamples_1_1robot_1_1gui_world.html#af1fded6ed1528b22f0517f72bbad19f2">examples.robot.guiWorld.screen_origin</a></div><div class="ttdeci">screen_origin</div><div class="ttdef"><b>Definition</b> <a href="#l00028">robot.py:28</a></div></div>
+<div class="ttc" id="aclassexamples_1_1robot_1_1gui_world_html_af98ec11c04c1ba0765d4475cf383f29e"><div class="ttname"><a href="classexamples_1_1robot_1_1gui_world.html#af98ec11c04c1ba0765d4475cf383f29e">examples.robot.guiWorld.clock</a></div><div class="ttdeci">clock</div><div class="ttdef"><b>Definition</b> <a href="#l00027">robot.py:27</a></div></div>
+<div class="ttc" id="aclassfcmaes_1_1optimizer_1_1_bite__cpp_html"><div class="ttname"><a href="classfcmaes_1_1optimizer_1_1_bite__cpp.html">fcmaes.optimizer.Bite_cpp</a></div><div class="ttdef"><b>Definition</b> <a href="optimizer_8py_source.html#l02617">optimizer.py:2617</a></div></div>
+<div class="ttc" id="aclassfcmaes_1_1optimizer_1_1_de__cpp_html"><div class="ttname"><a href="classfcmaes_1_1optimizer_1_1_de__cpp.html">fcmaes.optimizer.De_cpp</a></div><div class="ttdoc">Differential Evolution optimizer using C++ backend.</div><div class="ttdef"><b>Definition</b> <a href="optimizer_8py_source.html#l01981">optimizer.py:1981</a></div></div>
+<div class="ttc" id="aclassfcmaes_1_1optimizer_1_1wrapper_html"><div class="ttname"><a href="classfcmaes_1_1optimizer_1_1wrapper.html">fcmaes.optimizer.wrapper</a></div><div class="ttdoc">Wrapper for optimization evaluation and logging.</div><div class="ttdef"><b>Definition</b> <a href="optimizer_8py_source.html#l00203">optimizer.py:203</a></div></div>
+<div class="ttc" id="anamespace_box2_d_1_1b2_html"><div class="ttname"><a href="namespace_box2_d_1_1b2.html">b2</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1robot_html_a252c38079aadabb2799d5085b5eb4a48"><div class="ttname"><a href="namespaceexamples_1_1robot.html#a252c38079aadabb2799d5085b5eb4a48">examples.robot.create_body</a></div><div class="ttdeci">create_body(base, b2world_interface, body_shape, body_size, body_friction, body_density, obj_loc)</div><div class="ttdef"><b>Definition</b> <a href="#l00161">robot.py:161</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1robot_html_aa5b8f7a38272096913298ba3f11b72d8"><div class="ttname"><a href="namespaceexamples_1_1robot.html#aa5b8f7a38272096913298ba3f11b72d8">examples.robot.run_simulation</a></div><div class="ttdeci">run_simulation(world, body, body2, robot, robot2, xvel, yvel, xvel2, yvel2, rtor, rtor2, simulation_steps, simulation_steps2)</div><div class="ttdef"><b>Definition</b> <a href="#l00223">robot.py:225</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1robot_html_ac017cc6df6c6717fcc3f1bb730354cde"><div class="ttname"><a href="namespaceexamples_1_1robot.html#ac017cc6df6c6717fcc3f1bb730354cde">examples.robot.make_base</a></div><div class="ttdeci">make_base(table_width, table_length, b2world_interface)</div><div class="ttdef"><b>Definition</b> <a href="#l00189">robot.py:189</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1robot_html_ad7e10efd4ee195ca3e30475bbef6b25b"><div class="ttname"><a href="namespaceexamples_1_1robot.html#ad7e10efd4ee195ca3e30475bbef6b25b">examples.robot.main</a></div><div class="ttdeci">main()</div><div class="ttdef"><b>Definition</b> <a href="#l00313">robot.py:313</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1robot_html_ae951566f2aafee72e88b7889b7249481"><div class="ttname"><a href="namespaceexamples_1_1robot.html#ae951566f2aafee72e88b7889b7249481">examples.robot.add_obstacles</a></div><div class="ttdeci">add_obstacles(b2world_interface, obsverts)</div><div class="ttdef"><b>Definition</b> <a href="#l00199">robot.py:199</a></div></div>
+<div class="ttc" id="anamespacefcmaes_1_1optimizer_html"><div class="ttname"><a href="namespacefcmaes_1_1optimizer.html">fcmaes.optimizer</a></div><div class="ttdef"><b>Definition</b> <a href="optimizer_8py_source.html#l00001">optimizer.py:1</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d28a4824dc47e487b107a5db32ef43c4.html">examples</a></li><li class="navelem"><a class="el" href="robot_8py.html">robot.py</a></li>
+    <li class="footer">Generated on Tue Jun 24 2025 15:36:06 for Fast CMA-ES by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+  </ul>
+</div>
+</body>
+</html>

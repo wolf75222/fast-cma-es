@@ -1,0 +1,344 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.13.2" xml:lang="en-US">
+  <compounddef id="namespacefcmaes_1_1de" kind="namespace" language="Python">
+    <compoundname>fcmaes::de</compoundname>
+    <innerclass refid="classfcmaes_1_1de_1_1_d_e" prot="public">fcmaes::de::DE</innerclass>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="namespacefcmaes_1_1de_1afe0971ca279c85cb452a9ca34826d05a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>OptimizeResult</type>
+        <definition> OptimizeResult fcmaes.de.minimize</definition>
+        <argsstring>(Callable[[ArrayLike], float] fun, Optional[int] dim=None, Optional[Bounds] bounds=None, Optional[int] popsize=31, Optional[int] max_evaluations=100000, Optional[int] workers=None, Optional[float] stop_fitness=-np.inf, Optional[int] keep=200, Optional[float] f=0.5, Optional[float] cr=0.9, Optional[Generator] rg=Generator(PCG64DXSM()), filter=None, Optional[ArrayLike] ints=None, Optional[float] min_mutate=0.1, Optional[float] max_mutate=0.5, Optional[Callable] modifier=None)</argsstring>
+        <name>minimize</name>
+        <qualifiedname>fcmaes.de.minimize</qualifiedname>
+        <param>
+          <type>Callable</type>
+          <defname>fun</defname>
+          <array>[[ArrayLike]</array>
+        </param>
+        <param>
+          <type>float]</type>
+          <declname>fun</declname>
+          <defname>dim</defname>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>dim</declname>
+          <defname>bounds</defname>
+          <array>[int]</array>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>bounds</declname>
+          <defname>popsize</defname>
+          <array>[Bounds]</array>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>popsize</declname>
+          <defname>max_evaluations</defname>
+          <array>[int]</array>
+          <defval>31</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>max_evaluations</declname>
+          <defname>workers</defname>
+          <array>[int]</array>
+          <defval>100000</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>workers</declname>
+          <defname>stop_fitness</defname>
+          <array>[int]</array>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>stop_fitness</declname>
+          <defname>keep</defname>
+          <array>[float]</array>
+          <defval>-np.inf</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>keep</declname>
+          <defname>f</defname>
+          <array>[int]</array>
+          <defval>200</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>f</declname>
+          <defname>cr</defname>
+          <array>[float]</array>
+          <defval>0.5</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>cr</declname>
+          <defname>rg</defname>
+          <array>[float]</array>
+          <defval>0.9</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>rg</declname>
+          <defname>filter</defname>
+          <array>[Generator]</array>
+          <defval>Generator(PCG64DXSM())</defval>
+        </param>
+        <param>
+          <type>filter</type>
+          <defname>ints</defname>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>ints</declname>
+          <defname>min_mutate</defname>
+          <array>[ArrayLike]</array>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>min_mutate</declname>
+          <defname>max_mutate</defname>
+          <array>[float]</array>
+          <defval>0.1</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>max_mutate</declname>
+          <defname>modifier</defname>
+          <array>[float]</array>
+          <defval>0.5</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>modifier</declname>
+          <array>[Callable]</array>
+          <defval>None</defval>
+        </param>
+        <briefdescription>
+<para>Minimize an objective function using the Differential Evolution (<ref refid="classfcmaes_1_1de_1_1_d_e" kindref="compound">DE</ref>) algorithm. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function optimizes a given objective function using the <ref refid="classfcmaes_1_1de_1_1_d_e" kindref="compound">DE</ref> algorithm, which is a population-based metaheuristic optimization technique. It iteratively improves a population of potential solutions based on mutation, crossover, and selection strategies until a stopping criterion is met. The user can define various parameters to customize the behavior of the optimization process.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>fun</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The objective function to be minimized, which takes a single argument (a candidate solution) and returns a scalar value representing its fitness. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>dim</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional, number of dimensions of the input solution vector. If not provided, it will be inferred from <computeroutput>bounds</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bounds</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional, bounds for each dimension of the input solution represented as a sequence of (min, max) tuples. It defines the permissible search space. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>popsize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional, population size for the <ref refid="classfcmaes_1_1de_1_1_d_e" kindref="compound">DE</ref> algorithm. Determines the number of candidate solutions in each iteration. Default is 31. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max_evaluations</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional, maximum number of fitness evaluations allowed for the optimization process. Default is 100000. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>workers</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional, number of parallel workers for evaluations. If set to more than 1, evaluations will be performed in parallel. If None or 1, sequential evaluation will be used. Default is None. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>stop_fitness</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional, fitness value at which optimization will stop early. If a solution with fitness below this value is found, the optimization terminates. Default is -infinity. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>keep</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional, defines how many solutions to retain for rebounded sampling. <programlisting><codeline><highlight class="normal">Default<sp/></highlight><highlight class="keywordflow">is</highlight><highlight class="normal"><sp/>200.</highlight></codeline>
+</programlisting> f: Optional, scale factor used to control mutation in the <ref refid="classfcmaes_1_1de_1_1_d_e" kindref="compound">DE</ref> algorithm. Default is 0.5. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional, crossover rate used to control recombination in the <ref refid="classfcmaes_1_1de_1_1_d_e" kindref="compound">DE</ref> algorithm. Default is 0.9. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional, random number generator used for stochastic components in the <ref refid="classfcmaes_1_1de_1_1_d_e" kindref="compound">DE</ref> algorithm. Default is Generator(PCG64DXSM()). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>filter</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional, a function to filter and validate solutions generated during the optimization process. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ints</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional, an array-like structure specifying indices of dimensions that should be treated as integers. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>min_mutate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional, minimum mutation factor for the <ref refid="classfcmaes_1_1de_1_1_d_e" kindref="compound">DE</ref> mutation strategy. Default is 0.1. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max_mutate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional, maximum mutation factor for the <ref refid="classfcmaes_1_1de_1_1_d_e" kindref="compound">DE</ref> mutation strategy. Default is 0.5. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>modifier</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional, a custom function to modify the behavior of the <ref refid="classfcmaes_1_1de_1_1_d_e" kindref="compound">DE</ref> algorithm during optimization.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para></para>
+</simplesect>
+<simplesect kind="return"><para>OptimizeResult An object containing the optimization results:<itemizedlist>
+<listitem><para>x: The best solution found.</para>
+</listitem><listitem><para>fun: The objective function value corresponding to <computeroutput>x</computeroutput>.</para>
+</listitem><listitem><para>nfev: The total number of function evaluations performed.</para>
+</listitem><listitem><para>nit: The number of iterations completed.</para>
+</listitem><listitem><para>status: An integer indicating why the optimization stopped. A positive value represents success.</para>
+</listitem><listitem><para>success: A boolean indicating whether the optimization was successful.</para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>Exception</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If any fatal error occurs during optimization, the function will return an OptimizeResult object with <computeroutput>success</computeroutput> set to False. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="fcmaes/de.py" line="144" column="1" bodyfile="fcmaes/de.py" bodystart="159" bodyend="173"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacefcmaes_1_1de_1a43e9207e1c55b796ef2b78053589d8ed" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>fcmaes.de._check_bounds</definition>
+        <argsstring>(bounds, dim)</argsstring>
+        <name>_check_bounds</name>
+        <qualifiedname>fcmaes.de._check_bounds</qualifiedname>
+        <param>
+          <type>bounds</type>
+          <defname>bounds</defname>
+        </param>
+        <param>
+          <type>dim</type>
+          <defname>dim</defname>
+        </param>
+        <briefdescription>
+<para>Validates and processes the input bounds and dimensions for subsequent operations. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function ensures that either <computeroutput>bounds</computeroutput> or <computeroutput>dim</computeroutput> is provided and determines the valid dimensionality and boundary arrays for further processing. If <computeroutput>bounds</computeroutput> is None, the function uses the provided <computeroutput>dim</computeroutput>. Otherwise, it extracts and converts the lower and upper bounds arrays from <computeroutput>bounds</computeroutput>.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>bounds</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>User-provided object containing boundary attributes (<computeroutput>lb</computeroutput> and <computeroutput>ub</computeroutput>) for dimensional constraints. Can be None if <computeroutput>dim</computeroutput> is specified. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>dim</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>An integer defining the dimensionality, used only if <computeroutput>bounds</computeroutput> is None.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Tuple comprising:<itemizedlist>
+<listitem><para>An integer representing the number of dimensions (from <computeroutput>bounds</computeroutput> or <computeroutput>dim</computeroutput>).</para>
+</listitem><listitem><para>A numpy array of lower boundary values (<computeroutput>bounds.lb</computeroutput>) if provided; otherwise None.</para>
+</listitem><listitem><para>A numpy array of upper boundary values (<computeroutput>bounds.ub</computeroutput>) if provided; otherwise None.</para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+<parameterlist kind="exception"><parameteritem>
+<parameternamelist>
+<parametername>ValueError</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If both `bounds` and `dim` are None. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="fcmaes/de.py" line="856" column="1" bodyfile="fcmaes/de.py" bodystart="856" bodyend="865"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="fcmaes/de.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,283 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_namespacefcmaes_1_1pygmoretry" xml:lang="en-US">
+<title>fcmaes.pygmoretry Namespace Reference</title>
+<indexterm><primary>fcmaes.pygmoretry</primary></indexterm>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para>OptimizeResult <link linkend="_namespacefcmaes_1_1pygmoretry_1a328972de17ce781527987b521bc1d1bf">minimize</link> (prob, algo, value_limit=np.inf, num_retries=100 *mp.cpu_count(), workers=mp.cpu_count(), popsize=1)</para>
+
+<para>Minimizes an optimization problem using given algorithm and configurations. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1pygmoretry_1a81cd046316826e2601d9f2510b44f629">retry</link> (store, prob, algo, num_retries, value_limit=np.inf, popsize=1, workers=mp.cpu_count())</para>
+
+<para>Retries optimization over multiple attempts across parallel workers to find the best result. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1pygmoretry_1a9ee4304fb34177166a0d9bcfd176c179">_retry_loop</link> (pid, rgs, store, prob, algo, num_retries, value_limit, popsize, pg)</para>
+
+<para>Executes a retry loop for a given probabilistic algorithm to attempt finding a feasible solution. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Function Documentation</title>
+<anchor xml:id="_namespacefcmaes_1_1pygmoretry_1a9ee4304fb34177166a0d9bcfd176c179"/><section>
+    <title>_retry_loop()</title>
+<indexterm><primary>_retry_loop</primary><secondary>fcmaes.pygmoretry</secondary></indexterm>
+<indexterm><primary>fcmaes.pygmoretry</primary><secondary>_retry_loop</secondary></indexterm>
+<para><computeroutput>fcmaes.pygmoretry._retry_loop ( pid,  rgs,  store,  prob,  algo,  num_retries,  value_limit,  popsize,  pg)<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+
+<para>Executes a retry loop for a given probabilistic algorithm to attempt finding a feasible solution. </para>
+</para>
+
+<para>The function runs multiple attempts to generate solutions using a probabilistic algorithm. It retrieves a random seed, evolves a population, and evaluates the best solution. Feasible solutions meeting specified criteria are added to a result store.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>pid</entry><entry>
+<para>Identifier for the process or individual task. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>rgs</entry><entry>
+<para>List of random generators corresponding to each identifier. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>store</entry><entry>
+<para>Object responsible for storing results and managing retries. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>prob</entry><entry>
+<para>Problem object defining the optimization problem. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>algo</entry><entry>
+<para>Algorithm used to evolve populations. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>num_retries</entry><entry>
+<para>Maximum number of retries to evolve a solution. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>value_limit</entry><entry>
+<para>Feasibility threshold for solutions. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>popsize</entry><entry>
+<para>Size of the population used in each evolutionary attempt. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>pg</entry><entry>
+<para>External module used for handling evolutionary population and problem definition. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_pygmoretry_8py_source_1l00151">151</link> of file <link linkend="_pygmoretry_8py_source">pygmoretry.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1pygmoretry_a9ee4304fb34177166a0d9bcfd176c179_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1pygmoretry_1a328972de17ce781527987b521bc1d1bf"/><section>
+    <title>minimize()</title>
+<indexterm><primary>minimize</primary><secondary>fcmaes.pygmoretry</secondary></indexterm>
+<indexterm><primary>fcmaes.pygmoretry</primary><secondary>minimize</secondary></indexterm>
+<para><computeroutput> OptimizeResult fcmaes.pygmoretry.minimize ( prob,  algo,  value_limit = <computeroutput>np.inf</computeroutput>
+,  num_retries = <computeroutput>100*mp.cpu_count()</computeroutput>
+,  workers = <computeroutput>mp.cpu_count()</computeroutput>
+,  popsize = <computeroutput>1</computeroutput>
+)</computeroutput></para><para>
+
+<para>Minimizes an optimization problem using given algorithm and configurations. </para>
+</para>
+
+<para>This function attempts to find the minimum of the given problem by applying the specified algorithm. It retries the operation a specified number of times with multiple workers and uses given population size for optimization.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>prob</entry><entry>
+<para>The optimization problem that defines the objective function and </para>
+</entry>
+                            </row>
+                            <row>
+<entry>constraints.</entry><entry>
+<para></para>
+</entry>
+                            </row>
+                            <row>
+<entry>algo</entry><entry>
+<para>The optimization algorithm to be applied. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>value_limit</entry><entry>
+<para>An optional upper limit on the value of the objective function. Defaults to positive infinity. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>num_retries</entry><entry>
+<para>The number of retries allowed for the optimization process. Defaults to 100 times the number of CPU cores available. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>workers</entry><entry>
+<para>The number of worker processes to use for parallel computation. Defaults to the number of CPU cores available. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>popsize</entry><entry>
+<para>The size of the population for optimization. Defaults to 1.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>OptimizeResult The result of the optimization process, including the solution and other relevant information about the optimization. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_pygmoretry_8py_source_1l00076">76</link> of file <link linkend="_pygmoretry_8py_source">pygmoretry.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1pygmoretry_1a81cd046316826e2601d9f2510b44f629"/><section>
+    <title>retry()</title>
+<indexterm><primary>retry</primary><secondary>fcmaes.pygmoretry</secondary></indexterm>
+<indexterm><primary>fcmaes.pygmoretry</primary><secondary>retry</secondary></indexterm>
+<para><computeroutput>fcmaes.pygmoretry.retry ( store,  prob,  algo,  num_retries,  value_limit = <computeroutput>np.inf</computeroutput>
+,  popsize = <computeroutput>1</computeroutput>
+,  workers = <computeroutput>mp.cpu_count()</computeroutput>
+)</computeroutput></para><para>
+
+<para>Retries optimization over multiple attempts across parallel workers to find the best result. </para>
+</para>
+
+<para>The function orchestrates the parallel execution, manages random number generators for each worker, and aggregates the results.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>store</entry><entry>
+<para>An object responsible for storing and managing the optimization </para>
+</entry>
+                            </row>
+                            <row>
+<entry>results.</entry><entry>
+<para></para>
+</entry>
+                            </row>
+                            <row>
+<entry>prob</entry><entry>
+<para>The optimization problem to be solved. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>algo</entry><entry>
+<para>The algorithm used to perform optimization. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>num_retries</entry><entry>
+<para>The number of retries to attempt for the optimization process. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>value_limit</entry><entry>
+<para>The upper limit for the values considered valid in the optimization result (default is np.inf). </para>
+</entry>
+                            </row>
+                            <row>
+<entry>popsize</entry><entry>
+<para>The population size used in the optimization process (default is 1). </para>
+</entry>
+                            </row>
+                            <row>
+<entry>workers</entry><entry>
+<para>The number of parallel workers to use for the optimization (default is the number of CPU cores available).</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>OptimizeResult An object containing the best solution (<computeroutput>x</computeroutput>), the best objective value (<computeroutput>fun</computeroutput>), the number of function evaluations performed (<computeroutput>nfev</computeroutput>), and the success status of the optimization (<computeroutput>success</computeroutput>).</para>
+</formalpara>
+
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>ImportError</entry><entry>
+<para>If the Pygmo library is not installed. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_pygmoretry_8py_source_1l00115">115</link> of file <link linkend="_pygmoretry_8py_source">pygmoretry.py</link>.</para>
+</section>
+</section>
+</section>

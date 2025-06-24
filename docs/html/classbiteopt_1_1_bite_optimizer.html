@@ -1,0 +1,975 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>Fast CMA-ES: biteopt::BiteOptimizer Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/TeX/AMSmath','[tex]/TeX/AMSsymbols']
+  },
+  tex: {
+    macros: {},
+    packages: ['base','configmacros','TeX/AMSmath','TeX/AMSsymbols']
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/jothepro/doxygen-awesome-css" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="fcames.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Fast CMA-ES
+   &#160;<span id="projectnumber">1.6.11</span>
+   </div>
+   <div id="projectbrief">Fast Covariance Matrix Adaptation Evolution Strategy (CMA-ES) implementation in C++ and Python</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.13.2 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('classbiteopt_1_1_bite_optimizer.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="classbiteopt_1_1_bite_optimizer-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">biteopt::BiteOptimizer Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for biteopt::BiteOptimizer:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classbiteopt_1_1_bite_optimizer__inherit__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-1" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Collaboration diagram for biteopt::BiteOptimizer:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classbiteopt_1_1_bite_optimizer__coll__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ac0abad8d3fbb5e91bba5c49b59a60e8b" id="r_ac0abad8d3fbb5e91bba5c49b59a60e8b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac0abad8d3fbb5e91bba5c49b59a60e8b">BiteOptimizer</a> (long runid_, <a class="el" href="class_fitness.html">Fitness</a> *fitfun_, int dim_, double *init_, int seed_, int M_, int popsize, int stallCriterion_, int maxEvaluations_, double stopfitness_)</td></tr>
+<tr class="separator:ac0abad8d3fbb5e91bba5c49b59a60e8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5774713fad3253b58a5b79f52586e072" id="r_a5774713fad3253b58a5b79f52586e072"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5774713fad3253b58a5b79f52586e072">~BiteOptimizer</a> ()</td></tr>
+<tr class="separator:a5774713fad3253b58a5b79f52586e072"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11148136b4a3eebd78d235eda7e3dff4" id="r_a11148136b4a3eebd78d235eda7e3dff4"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a11148136b4a3eebd78d235eda7e3dff4">getMinValues</a> (double *const p) const</td></tr>
+<tr class="separator:a11148136b4a3eebd78d235eda7e3dff4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d1716460571a9aef6f8206715a5a71c" id="r_a8d1716460571a9aef6f8206715a5a71c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8d1716460571a9aef6f8206715a5a71c">getMaxValues</a> (double *const p) const</td></tr>
+<tr class="separator:a8d1716460571a9aef6f8206715a5a71c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0244d5e664ac99fd264ebe908023ce0c" id="r_a0244d5e664ac99fd264ebe908023ce0c"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0244d5e664ac99fd264ebe908023ce0c">optcost</a> (const double *const p)</td></tr>
+<tr class="separator:a0244d5e664ac99fd264ebe908023ce0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a311b608ce3c0eea69d66615f22448279" id="r_a311b608ce3c0eea69d66615f22448279"><td class="memItemLeft" align="right" valign="top"><a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a311b608ce3c0eea69d66615f22448279">getBestX</a> ()</td></tr>
+<tr class="separator:a311b608ce3c0eea69d66615f22448279"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa117da98db6b95c17836e1c0acb37d88" id="r_aa117da98db6b95c17836e1c0acb37d88"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa117da98db6b95c17836e1c0acb37d88">getBestValue</a> ()</td></tr>
+<tr class="separator:aa117da98db6b95c17836e1c0acb37d88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ebdeb53261b8a3d0366f7dee30995e1" id="r_a5ebdeb53261b8a3d0366f7dee30995e1"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5ebdeb53261b8a3d0366f7dee30995e1">getIterations</a> ()</td></tr>
+<tr class="separator:a5ebdeb53261b8a3d0366f7dee30995e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa080b647a6dc4297f6be40f55e443dfb" id="r_aa080b647a6dc4297f6be40f55e443dfb"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa080b647a6dc4297f6be40f55e443dfb">getStop</a> ()</td></tr>
+<tr class="separator:aa080b647a6dc4297f6be40f55e443dfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f48d5b15bac207bebbc9492708fb3fd" id="r_a7f48d5b15bac207bebbc9492708fb3fd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7f48d5b15bac207bebbc9492708fb3fd">doOptimize</a> ()</td></tr>
+<tr class="separator:a7f48d5b15bac207bebbc9492708fb3fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_c_bite_opt_deep"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_class_c_bite_opt_deep')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_c_bite_opt_deep.html">CBiteOptDeep</a></td></tr>
+<tr class="memitem:a65d5f650fd7eae9ae1d1cb76387a3179 inherit pub_methods_class_c_bite_opt_deep" id="r_a65d5f650fd7eae9ae1d1cb76387a3179"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_bite_opt_deep.html#a65d5f650fd7eae9ae1d1cb76387a3179">CBiteOptDeep</a> ()</td></tr>
+<tr class="separator:a65d5f650fd7eae9ae1d1cb76387a3179 inherit pub_methods_class_c_bite_opt_deep"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8442d47ab16f76d4783a4f8227ab78a7 inherit pub_methods_class_c_bite_opt_deep" id="r_a8442d47ab16f76d4783a4f8227ab78a7"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_bite_opt_deep.html#a8442d47ab16f76d4783a4f8227ab78a7">~CBiteOptDeep</a> ()</td></tr>
+<tr class="separator:a8442d47ab16f76d4783a4f8227ab78a7 inherit pub_methods_class_c_bite_opt_deep"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17c7c044ef259f3c68e2e47c53c043a3 inherit pub_methods_class_c_bite_opt_deep" id="r_a17c7c044ef259f3c68e2e47c53c043a3"><td class="memItemLeft" align="right" valign="top">virtual const double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_bite_opt_deep.html#a17c7c044ef259f3c68e2e47c53c043a3">getBestParams</a> () const</td></tr>
+<tr class="separator:a17c7c044ef259f3c68e2e47c53c043a3 inherit pub_methods_class_c_bite_opt_deep"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a961516dc7772d327e64965fc3e07ce31 inherit pub_methods_class_c_bite_opt_deep" id="r_a961516dc7772d327e64965fc3e07ce31"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_bite_opt_deep.html#a961516dc7772d327e64965fc3e07ce31">getBestCost</a> () const</td></tr>
+<tr class="separator:a961516dc7772d327e64965fc3e07ce31 inherit pub_methods_class_c_bite_opt_deep"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b759e5dbc58b29e36f7d3c6a10e16a7 inherit pub_methods_class_c_bite_opt_deep" id="r_a7b759e5dbc58b29e36f7d3c6a10e16a7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_c_bite_sel_base.html">CBiteSelBase</a> **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_bite_opt_deep.html#a7b759e5dbc58b29e36f7d3c6a10e16a7">getSels</a> ()</td></tr>
+<tr class="separator:a7b759e5dbc58b29e36f7d3c6a10e16a7 inherit pub_methods_class_c_bite_opt_deep"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ddcbc966999f0b3f4b59c8f8e909864 inherit pub_methods_class_c_bite_opt_deep" id="r_a4ddcbc966999f0b3f4b59c8f8e909864"><td class="memItemLeft" align="right" valign="top">const char **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_bite_opt_deep.html#a4ddcbc966999f0b3f4b59c8f8e909864">getSelNames</a> () const</td></tr>
+<tr class="separator:a4ddcbc966999f0b3f4b59c8f8e909864 inherit pub_methods_class_c_bite_opt_deep"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa30c464f1425ad1219e7f512e75527a5 inherit pub_methods_class_c_bite_opt_deep" id="r_aa30c464f1425ad1219e7f512e75527a5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_bite_opt_deep.html#aa30c464f1425ad1219e7f512e75527a5">getSelCount</a> () const</td></tr>
+<tr class="separator:aa30c464f1425ad1219e7f512e75527a5 inherit pub_methods_class_c_bite_opt_deep"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48ae954f715acc3433125af9b0abaa61 inherit pub_methods_class_c_bite_opt_deep" id="r_a48ae954f715acc3433125af9b0abaa61"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_bite_opt_deep.html#a48ae954f715acc3433125af9b0abaa61">updateDims</a> (const int aParamCount, const int M=6, const int PopSize0=0)</td></tr>
+<tr class="separator:a48ae954f715acc3433125af9b0abaa61 inherit pub_methods_class_c_bite_opt_deep"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abeb2e2aa0929e9fb6741ac7b0892a31b inherit pub_methods_class_c_bite_opt_deep" id="r_abeb2e2aa0929e9fb6741ac7b0892a31b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_bite_opt_deep.html#abeb2e2aa0929e9fb6741ac7b0892a31b">init</a> (<a class="el" href="class_c_bite_rnd.html">CBiteRnd</a> &amp;rnd, const double *const InitParams=NULL, const double InitRadius=1.0)</td></tr>
+<tr class="separator:abeb2e2aa0929e9fb6741ac7b0892a31b inherit pub_methods_class_c_bite_opt_deep"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f9dce3d0bcb37dd0d63fec707204786 inherit pub_methods_class_c_bite_opt_deep" id="r_a5f9dce3d0bcb37dd0d63fec707204786"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_bite_opt_deep.html#a5f9dce3d0bcb37dd0d63fec707204786">optimize</a> (<a class="el" href="class_c_bite_rnd.html">CBiteRnd</a> &amp;rnd)</td></tr>
+<tr class="separator:a5f9dce3d0bcb37dd0d63fec707204786 inherit pub_methods_class_c_bite_opt_deep"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_c_bite_opt_interface"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_class_c_bite_opt_interface')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_c_bite_opt_interface.html">CBiteOptInterface</a></td></tr>
+<tr class="memitem:a0155b3fcab9eeb2d7505c0326e12e809 inherit pub_methods_class_c_bite_opt_interface" id="r_a0155b3fcab9eeb2d7505c0326e12e809"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_bite_opt_interface.html#a0155b3fcab9eeb2d7505c0326e12e809">CBiteOptInterface</a> ()</td></tr>
+<tr class="separator:a0155b3fcab9eeb2d7505c0326e12e809 inherit pub_methods_class_c_bite_opt_interface"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a070d1317053ec55bbe7d8ddde32076ce inherit pub_methods_class_c_bite_opt_interface" id="r_a070d1317053ec55bbe7d8ddde32076ce"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_bite_opt_interface.html#a070d1317053ec55bbe7d8ddde32076ce">~CBiteOptInterface</a> ()</td></tr>
+<tr class="separator:a070d1317053ec55bbe7d8ddde32076ce inherit pub_methods_class_c_bite_opt_interface"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:aaf39fcde875f4ba2aabf9b881a46dab0" id="r_aaf39fcde875f4ba2aabf9b881a46dab0"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaf39fcde875f4ba2aabf9b881a46dab0">runid</a></td></tr>
+<tr class="separator:aaf39fcde875f4ba2aabf9b881a46dab0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ee80e7c3878dae82aef5f9a532281ae" id="r_a0ee80e7c3878dae82aef5f9a532281ae"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_fitness.html">Fitness</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0ee80e7c3878dae82aef5f9a532281ae">fitfun</a></td></tr>
+<tr class="separator:a0ee80e7c3878dae82aef5f9a532281ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a388a1a6fb08111aa79aba41ac358ef96" id="r_a388a1a6fb08111aa79aba41ac358ef96"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a388a1a6fb08111aa79aba41ac358ef96">M</a></td></tr>
+<tr class="separator:a388a1a6fb08111aa79aba41ac358ef96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a710877c371d6154d8718ffadc82c220e" id="r_a710877c371d6154d8718ffadc82c220e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a710877c371d6154d8718ffadc82c220e">stallCriterion</a></td></tr>
+<tr class="separator:a710877c371d6154d8718ffadc82c220e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e4b9fbc66dcb68d7afbfbdc9897c180" id="r_a8e4b9fbc66dcb68d7afbfbdc9897c180"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8e4b9fbc66dcb68d7afbfbdc9897c180">dim</a></td></tr>
+<tr class="separator:a8e4b9fbc66dcb68d7afbfbdc9897c180"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a202fcfa155957a158f3a3916753448a4" id="r_a202fcfa155957a158f3a3916753448a4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a202fcfa155957a158f3a3916753448a4">maxEvaluations</a></td></tr>
+<tr class="separator:a202fcfa155957a158f3a3916753448a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e2a405cc4f23f9f34e15236ac072721" id="r_a8e2a405cc4f23f9f34e15236ac072721"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8e2a405cc4f23f9f34e15236ac072721">stopfitness</a></td></tr>
+<tr class="separator:a8e2a405cc4f23f9f34e15236ac072721"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96feed5acebf4945e27d50cbcd8ef36f" id="r_a96feed5acebf4945e27d50cbcd8ef36f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a96feed5acebf4945e27d50cbcd8ef36f">iterations</a></td></tr>
+<tr class="separator:a96feed5acebf4945e27d50cbcd8ef36f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9c0069b5b67d537814be3f7f83c0293" id="r_ae9c0069b5b67d537814be3f7f83c0293"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae9c0069b5b67d537814be3f7f83c0293">bestY</a></td></tr>
+<tr class="separator:ae9c0069b5b67d537814be3f7f83c0293"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9fdbe319b90b1f86175cd924c9700302" id="r_a9fdbe319b90b1f86175cd924c9700302"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9fdbe319b90b1f86175cd924c9700302">stop</a></td></tr>
+<tr class="separator:a9fdbe319b90b1f86175cd924c9700302"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2eb7f354f8bc1aa1e4f5a001d3ecdc38" id="r_a2eb7f354f8bc1aa1e4f5a001d3ecdc38"><td class="memItemLeft" align="right" valign="top"><a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2eb7f354f8bc1aa1e4f5a001d3ecdc38">bestX</a></td></tr>
+<tr class="separator:a2eb7f354f8bc1aa1e4f5a001d3ecdc38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6635331036d8d48e550a1a6716bacf33" id="r_a6635331036d8d48e550a1a6716bacf33"><td class="memItemLeft" align="right" valign="top">pcg64 *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6635331036d8d48e550a1a6716bacf33">rs</a></td></tr>
+<tr class="separator:a6635331036d8d48e550a1a6716bacf33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b393b354bee73e0c41973074118a1e5" id="r_a4b393b354bee73e0c41973074118a1e5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_c_bite_rnd.html">CBiteRnd</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4b393b354bee73e0c41973074118a1e5">rnd</a></td></tr>
+<tr class="separator:a4b393b354bee73e0c41973074118a1e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_methods_class_c_bite_opt_deep"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_class_c_bite_opt_deep')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_c_bite_opt_deep.html">CBiteOptDeep</a></td></tr>
+<tr class="memitem:a5aeb781988a714cc50107efa2521cc52 inherit pro_methods_class_c_bite_opt_deep" id="r_a5aeb781988a714cc50107efa2521cc52"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_bite_opt_deep.html#a5aeb781988a714cc50107efa2521cc52">deleteBuffers</a> ()</td></tr>
+<tr class="separator:a5aeb781988a714cc50107efa2521cc52 inherit pro_methods_class_c_bite_opt_deep"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_class_c_bite_opt_deep"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_attribs_class_c_bite_opt_deep')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="class_c_bite_opt_deep.html">CBiteOptDeep</a></td></tr>
+<tr class="memitem:ac7cfdf4754e5ad3fef6b3cd98ba22520 inherit pro_attribs_class_c_bite_opt_deep" id="r_ac7cfdf4754e5ad3fef6b3cd98ba22520"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_bite_opt_deep.html#ac7cfdf4754e5ad3fef6b3cd98ba22520">ParamCount</a></td></tr>
+<tr class="memdesc:ac7cfdf4754e5ad3fef6b3cd98ba22520 inherit pro_attribs_class_c_bite_opt_deep"><td class="mdescLeft">&#160;</td><td class="mdescRight">The total number of internal parameter values in use.  <br /></td></tr>
+<tr class="separator:ac7cfdf4754e5ad3fef6b3cd98ba22520 inherit pro_attribs_class_c_bite_opt_deep"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20f687043f3b744c0a77cb095cca4a9b inherit pro_attribs_class_c_bite_opt_deep" id="r_a20f687043f3b744c0a77cb095cca4a9b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_bite_opt_deep.html#a20f687043f3b744c0a77cb095cca4a9b">OptCount</a></td></tr>
+<tr class="memdesc:a20f687043f3b744c0a77cb095cca4a9b inherit pro_attribs_class_c_bite_opt_deep"><td class="mdescLeft">&#160;</td><td class="mdescRight">The total number of optimization objects in use.  <br /></td></tr>
+<tr class="separator:a20f687043f3b744c0a77cb095cca4a9b inherit pro_attribs_class_c_bite_opt_deep"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3ed0017d87104f26f320ad878fddcc6 inherit pro_attribs_class_c_bite_opt_deep" id="r_ac3ed0017d87104f26f320ad878fddcc6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_c_bite_opt_deep_1_1_c_bite_opt_wrap.html">CBiteOptWrap</a> **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_bite_opt_deep.html#ac3ed0017d87104f26f320ad878fddcc6">Opts</a></td></tr>
+<tr class="memdesc:ac3ed0017d87104f26f320ad878fddcc6 inherit pro_attribs_class_c_bite_opt_deep"><td class="mdescLeft">&#160;</td><td class="mdescRight">Optimization objects.  <br /></td></tr>
+<tr class="separator:ac3ed0017d87104f26f320ad878fddcc6 inherit pro_attribs_class_c_bite_opt_deep"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd1350f64112950d0887700984547b96 inherit pro_attribs_class_c_bite_opt_deep" id="r_afd1350f64112950d0887700984547b96"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_c_bite_opt_deep_1_1_c_bite_opt_wrap.html">CBiteOptWrap</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_bite_opt_deep.html#afd1350f64112950d0887700984547b96">BestOpt</a></td></tr>
+<tr class="memdesc:afd1350f64112950d0887700984547b96 inherit pro_attribs_class_c_bite_opt_deep"><td class="mdescLeft">&#160;</td><td class="mdescRight">Optimizer that contains the best solution.  <br /></td></tr>
+<tr class="separator:afd1350f64112950d0887700984547b96 inherit pro_attribs_class_c_bite_opt_deep"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0407325111b05d021ce58bdc770f2c18 inherit pro_attribs_class_c_bite_opt_deep" id="r_a0407325111b05d021ce58bdc770f2c18"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_c_bite_opt_deep_1_1_c_bite_opt_wrap.html">CBiteOptWrap</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_bite_opt_deep.html#a0407325111b05d021ce58bdc770f2c18">CurOpt</a></td></tr>
+<tr class="memdesc:a0407325111b05d021ce58bdc770f2c18 inherit pro_attribs_class_c_bite_opt_deep"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current optimizer object.  <br /></td></tr>
+<tr class="separator:a0407325111b05d021ce58bdc770f2c18 inherit pro_attribs_class_c_bite_opt_deep"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7c9509c6e4525db8faab200f4f2edf6 inherit pro_attribs_class_c_bite_opt_deep" id="r_ad7c9509c6e4525db8faab200f4f2edf6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_bite_opt_deep.html#ad7c9509c6e4525db8faab200f4f2edf6">StallCount</a></td></tr>
+<tr class="memdesc:ad7c9509c6e4525db8faab200f4f2edf6 inherit pro_attribs_class_c_bite_opt_deep"><td class="mdescLeft">&#160;</td><td class="mdescRight">The number of iterations without improvement.  <br /></td></tr>
+<tr class="separator:ad7c9509c6e4525db8faab200f4f2edf6 inherit pro_attribs_class_c_bite_opt_deep"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="biteoptimizer_8cpp_source.html#l00018">18</a> of file <a class="el" href="biteoptimizer_8cpp_source.html">biteoptimizer.cpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ac0abad8d3fbb5e91bba5c49b59a60e8b" name="ac0abad8d3fbb5e91bba5c49b59a60e8b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0abad8d3fbb5e91bba5c49b59a60e8b">&#9670;&#160;</a></span>BiteOptimizer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">biteopt::BiteOptimizer::BiteOptimizer </td>
+          <td>(</td>
+          <td class="paramtype">long</td>          <td class="paramname"><span class="paramname"><em>runid_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_fitness.html">Fitness</a> *</td>          <td class="paramname"><span class="paramname"><em>fitfun_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>dim_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *</td>          <td class="paramname"><span class="paramname"><em>init_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>seed_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>M_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>popsize</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>stallCriterion_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>maxEvaluations_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>stopfitness_</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="biteoptimizer_8cpp_source.html#l00022">22</a> of file <a class="el" href="biteoptimizer_8cpp_source.html">biteoptimizer.cpp</a>.</p>
+<div id="dynsection-2" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classbiteopt_1_1_bite_optimizer_ac0abad8d3fbb5e91bba5c49b59a60e8b_cgraph.svg" width="630" height="136"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a5774713fad3253b58a5b79f52586e072" name="a5774713fad3253b58a5b79f52586e072"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5774713fad3253b58a5b79f52586e072">&#9670;&#160;</a></span>~BiteOptimizer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">biteopt::BiteOptimizer::~BiteOptimizer </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="biteoptimizer_8cpp_source.html#l00052">52</a> of file <a class="el" href="biteoptimizer_8cpp_source.html">biteoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a7f48d5b15bac207bebbc9492708fb3fd" name="a7f48d5b15bac207bebbc9492708fb3fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f48d5b15bac207bebbc9492708fb3fd">&#9670;&#160;</a></span>doOptimize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void biteopt::BiteOptimizer::doOptimize </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="biteoptimizer_8cpp_source.html#l00088">88</a> of file <a class="el" href="biteoptimizer_8cpp_source.html">biteoptimizer.cpp</a>.</p>
+<div id="dynsection-3" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-3-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classbiteopt_1_1_bite_optimizer_a7f48d5b15bac207bebbc9492708fb3fd_cgraph.svg" width="100%" height="393"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="aa117da98db6b95c17836e1c0acb37d88" name="aa117da98db6b95c17836e1c0acb37d88"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa117da98db6b95c17836e1c0acb37d88">&#9670;&#160;</a></span>getBestValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double biteopt::BiteOptimizer::getBestValue </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="biteoptimizer_8cpp_source.html#l00076">76</a> of file <a class="el" href="biteoptimizer_8cpp_source.html">biteoptimizer.cpp</a>.</p>
+<div id="dynsection-4" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-4-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-4-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classbiteopt_1_1_bite_optimizer_aa117da98db6b95c17836e1c0acb37d88_cgraph.svg" width="394" height="70"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a311b608ce3c0eea69d66615f22448279" name="a311b608ce3c0eea69d66615f22448279"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a311b608ce3c0eea69d66615f22448279">&#9670;&#160;</a></span>getBestX()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a> biteopt::BiteOptimizer::getBestX </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="biteoptimizer_8cpp_source.html#l00068">68</a> of file <a class="el" href="biteoptimizer_8cpp_source.html">biteoptimizer.cpp</a>.</p>
+<div id="dynsection-5" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-5-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-5-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classbiteopt_1_1_bite_optimizer_a311b608ce3c0eea69d66615f22448279_cgraph.svg" width="411" height="70"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a5ebdeb53261b8a3d0366f7dee30995e1" name="a5ebdeb53261b8a3d0366f7dee30995e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ebdeb53261b8a3d0366f7dee30995e1">&#9670;&#160;</a></span>getIterations()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double biteopt::BiteOptimizer::getIterations </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="biteoptimizer_8cpp_source.html#l00080">80</a> of file <a class="el" href="biteoptimizer_8cpp_source.html">biteoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a8d1716460571a9aef6f8206715a5a71c" name="a8d1716460571a9aef6f8206715a5a71c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d1716460571a9aef6f8206715a5a71c">&#9670;&#160;</a></span>getMaxValues()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void biteopt::BiteOptimizer::getMaxValues </td>
+          <td>(</td>
+          <td class="paramtype">double *const</td>          <td class="paramname"><span class="paramname"><em>p</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel virtual">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Virtual function that should fill maximal parameter value vector.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">p</td><td>Maximal value vector. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="class_c_bite_opt_interface.html#a9debe40625c2bc248a4ffd12a9197a4d">CBiteOptInterface</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="biteoptimizer_8cpp_source.html#l00060">60</a> of file <a class="el" href="biteoptimizer_8cpp_source.html">biteoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a11148136b4a3eebd78d235eda7e3dff4" name="a11148136b4a3eebd78d235eda7e3dff4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11148136b4a3eebd78d235eda7e3dff4">&#9670;&#160;</a></span>getMinValues()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void biteopt::BiteOptimizer::getMinValues </td>
+          <td>(</td>
+          <td class="paramtype">double *const</td>          <td class="paramname"><span class="paramname"><em>p</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel virtual">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Virtual function that should fill minimal parameter value vector.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">p</td><td>Minimal value vector. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="class_c_bite_opt_interface.html#ae7f8adaf2fd8acb10ccf057592a6229d">CBiteOptInterface</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="biteoptimizer_8cpp_source.html#l00056">56</a> of file <a class="el" href="biteoptimizer_8cpp_source.html">biteoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa080b647a6dc4297f6be40f55e443dfb" name="aa080b647a6dc4297f6be40f55e443dfb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa080b647a6dc4297f6be40f55e443dfb">&#9670;&#160;</a></span>getStop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double biteopt::BiteOptimizer::getStop </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="biteoptimizer_8cpp_source.html#l00084">84</a> of file <a class="el" href="biteoptimizer_8cpp_source.html">biteoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a0244d5e664ac99fd264ebe908023ce0c" name="a0244d5e664ac99fd264ebe908023ce0c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0244d5e664ac99fd264ebe908023ce0c">&#9670;&#160;</a></span>optcost()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual double biteopt::BiteOptimizer::optcost </td>
+          <td>(</td>
+          <td class="paramtype">const double *const</td>          <td class="paramname"><span class="paramname"><em>p</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel virtual">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Virtual function (objective function) that should calculate parameter vector's optimization cost.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">p</td><td>Parameter vector to evaluate. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Optimized cost. </dd></dl>
+
+<p>Implements <a class="el" href="class_c_bite_opt_interface.html#a45d7e2c9ea31b6f8bb23758a6879df9d">CBiteOptInterface</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="biteoptimizer_8cpp_source.html#l00064">64</a> of file <a class="el" href="biteoptimizer_8cpp_source.html">biteoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a2eb7f354f8bc1aa1e4f5a001d3ecdc38" name="a2eb7f354f8bc1aa1e4f5a001d3ecdc38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2eb7f354f8bc1aa1e4f5a001d3ecdc38">&#9670;&#160;</a></span>bestX</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a> biteopt::BiteOptimizer::bestX</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="biteoptimizer_8cpp_source.html#l00116">116</a> of file <a class="el" href="biteoptimizer_8cpp_source.html">biteoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ae9c0069b5b67d537814be3f7f83c0293" name="ae9c0069b5b67d537814be3f7f83c0293"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9c0069b5b67d537814be3f7f83c0293">&#9670;&#160;</a></span>bestY</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double biteopt::BiteOptimizer::bestY</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="biteoptimizer_8cpp_source.html#l00114">114</a> of file <a class="el" href="biteoptimizer_8cpp_source.html">biteoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a8e4b9fbc66dcb68d7afbfbdc9897c180" name="a8e4b9fbc66dcb68d7afbfbdc9897c180"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e4b9fbc66dcb68d7afbfbdc9897c180">&#9670;&#160;</a></span>dim</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int biteopt::BiteOptimizer::dim</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="biteoptimizer_8cpp_source.html#l00110">110</a> of file <a class="el" href="biteoptimizer_8cpp_source.html">biteoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a0ee80e7c3878dae82aef5f9a532281ae" name="a0ee80e7c3878dae82aef5f9a532281ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ee80e7c3878dae82aef5f9a532281ae">&#9670;&#160;</a></span>fitfun</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_fitness.html">Fitness</a>* biteopt::BiteOptimizer::fitfun</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="biteoptimizer_8cpp_source.html#l00107">107</a> of file <a class="el" href="biteoptimizer_8cpp_source.html">biteoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a96feed5acebf4945e27d50cbcd8ef36f" name="a96feed5acebf4945e27d50cbcd8ef36f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96feed5acebf4945e27d50cbcd8ef36f">&#9670;&#160;</a></span>iterations</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int biteopt::BiteOptimizer::iterations</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="biteoptimizer_8cpp_source.html#l00113">113</a> of file <a class="el" href="biteoptimizer_8cpp_source.html">biteoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a388a1a6fb08111aa79aba41ac358ef96" name="a388a1a6fb08111aa79aba41ac358ef96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a388a1a6fb08111aa79aba41ac358ef96">&#9670;&#160;</a></span>M</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int biteopt::BiteOptimizer::M</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="biteoptimizer_8cpp_source.html#l00108">108</a> of file <a class="el" href="biteoptimizer_8cpp_source.html">biteoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a202fcfa155957a158f3a3916753448a4" name="a202fcfa155957a158f3a3916753448a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a202fcfa155957a158f3a3916753448a4">&#9670;&#160;</a></span>maxEvaluations</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int biteopt::BiteOptimizer::maxEvaluations</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="biteoptimizer_8cpp_source.html#l00111">111</a> of file <a class="el" href="biteoptimizer_8cpp_source.html">biteoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a4b393b354bee73e0c41973074118a1e5" name="a4b393b354bee73e0c41973074118a1e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b393b354bee73e0c41973074118a1e5">&#9670;&#160;</a></span>rnd</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_c_bite_rnd.html">CBiteRnd</a> biteopt::BiteOptimizer::rnd</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="biteoptimizer_8cpp_source.html#l00118">118</a> of file <a class="el" href="biteoptimizer_8cpp_source.html">biteoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a6635331036d8d48e550a1a6716bacf33" name="a6635331036d8d48e550a1a6716bacf33"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6635331036d8d48e550a1a6716bacf33">&#9670;&#160;</a></span>rs</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">pcg64* biteopt::BiteOptimizer::rs</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="biteoptimizer_8cpp_source.html#l00117">117</a> of file <a class="el" href="biteoptimizer_8cpp_source.html">biteoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aaf39fcde875f4ba2aabf9b881a46dab0" name="aaf39fcde875f4ba2aabf9b881a46dab0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf39fcde875f4ba2aabf9b881a46dab0">&#9670;&#160;</a></span>runid</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">long biteopt::BiteOptimizer::runid</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="biteoptimizer_8cpp_source.html#l00106">106</a> of file <a class="el" href="biteoptimizer_8cpp_source.html">biteoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a710877c371d6154d8718ffadc82c220e" name="a710877c371d6154d8718ffadc82c220e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a710877c371d6154d8718ffadc82c220e">&#9670;&#160;</a></span>stallCriterion</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int biteopt::BiteOptimizer::stallCriterion</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="biteoptimizer_8cpp_source.html#l00109">109</a> of file <a class="el" href="biteoptimizer_8cpp_source.html">biteoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a9fdbe319b90b1f86175cd924c9700302" name="a9fdbe319b90b1f86175cd924c9700302"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9fdbe319b90b1f86175cd924c9700302">&#9670;&#160;</a></span>stop</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int biteopt::BiteOptimizer::stop</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="biteoptimizer_8cpp_source.html#l00115">115</a> of file <a class="el" href="biteoptimizer_8cpp_source.html">biteoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a8e2a405cc4f23f9f34e15236ac072721" name="a8e2a405cc4f23f9f34e15236ac072721"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e2a405cc4f23f9f34e15236ac072721">&#9670;&#160;</a></span>stopfitness</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double biteopt::BiteOptimizer::stopfitness</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="biteoptimizer_8cpp_source.html#l00112">112</a> of file <a class="el" href="biteoptimizer_8cpp_source.html">biteoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>_fcmaescpp/<a class="el" href="biteoptimizer_8cpp_source.html">biteoptimizer.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespacebiteopt.html">biteopt</a></li><li class="navelem"><a class="el" href="classbiteopt_1_1_bite_optimizer.html">BiteOptimizer</a></li>
+    <li class="footer">Generated on Tue Jun 24 2025 15:36:46 for Fast CMA-ES by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+  </ul>
+</div>
+</body>
+</html>

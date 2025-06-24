@@ -1,0 +1,1022 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.13.2" xml:lang="en-US">
+  <compounddef id="namespacefcmaes_1_1diversifier" kind="namespace" language="Python">
+    <compoundname>fcmaes::diversifier</compoundname>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="namespacefcmaes_1_1diversifier_1aff21c62cc4f78f4786b277e0b20cb216" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classfcmaes_1_1mapelites_1_1_archive" kindref="compound">Archive</ref></type>
+        <definition> Archive fcmaes.diversifier.minimize</definition>
+        <argsstring>(Callable[[ArrayLike], Tuple[float, np.ndarray]] qd_fitness, Bounds bounds, Bounds qd_bounds, Optional[int] niche_num=10000, Optional[int] samples_per_niche=20, Optional[int] max_evals=None, Optional[int] workers=mp.cpu_count(), Optional[Archive] archive=None, Optional[Dict] opt_params={}, Optional[bool] use_stats=False)</argsstring>
+        <name>minimize</name>
+        <qualifiedname>fcmaes.diversifier.minimize</qualifiedname>
+        <param>
+          <type>Callable</type>
+          <defname>qd_fitness</defname>
+          <array>[[ArrayLike]</array>
+        </param>
+        <param>
+          <type>Tuple]</type>
+          <declname>qd_fitness</declname>
+          <defname>bounds</defname>
+          <array>[float, np.ndarray]</array>
+        </param>
+        <param>
+          <type>Bounds</type>
+          <declname>bounds</declname>
+          <defname>qd_bounds</defname>
+        </param>
+        <param>
+          <type>Bounds</type>
+          <declname>qd_bounds</declname>
+          <defname>niche_num</defname>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>niche_num</declname>
+          <defname>samples_per_niche</defname>
+          <array>[int]</array>
+          <defval>10000</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>samples_per_niche</declname>
+          <defname>max_evals</defname>
+          <array>[int]</array>
+          <defval>20</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>max_evals</declname>
+          <defname>workers</defname>
+          <array>[int]</array>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>workers</declname>
+          <defname>archive</defname>
+          <array>[int]</array>
+          <defval>mp.cpu_count()</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>archive</declname>
+          <defname>opt_params</defname>
+          <array>[Archive]</array>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>opt_params</declname>
+          <defname>use_stats</defname>
+          <array>[Dict]</array>
+          <defval>{}</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>use_stats</declname>
+          <array>[bool]</array>
+          <defval>False</defval>
+        </param>
+        <briefdescription>
+<para>Performs parallel optimization to minimize the fitness function with a focus on quality-diversity. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The function initializes an archive that stores optimal inputs and their fitness values, organizes the records into defined niches, and carries out optimization using parallel processing.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>qd_fitness</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Callable fitness function that takes an input array and returns a tuple containing a scalar objective value and an array of descriptor </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>values.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bounds</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bounds object defining the lower and upper bounds of the search </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>space.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>qd_bounds</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bounds object defining the lower and upper bounds for the quality-diversity archive. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>niche_num</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional; The number of niches to partition the archive. <programlisting><codeline><highlight class="normal">Default<sp/></highlight><highlight class="keywordflow">is</highlight><highlight class="normal"><sp/>10000.</highlight></codeline>
+</programlisting> samples_per_niche: Optional; The number of samples to initialize in each <programlisting><codeline><highlight class="normal">niche.<sp/>Default<sp/></highlight><highlight class="keywordflow">is</highlight><highlight class="normal"><sp/>20.</highlight></codeline>
+</programlisting> max_evals: Optional; The maximum number of function evaluations. If not provided, the default is workers * 50000. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>workers</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional; The number of parallel processes to use. Default is the number of CPU cores available. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>archive</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional; An existing archive object to initialize the optimization process. If not provided, a new archive is created. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>opt_params</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional; A dictionary of parameters used by the optimization function. Default is an empty dictionary. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>use_stats</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional; A flag to determine whether to track statistical properties within the archive. Default is False.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para></para>
+</simplesect>
+<simplesect kind="return"><para><ref refid="classfcmaes_1_1mapelites_1_1_archive" kindref="compound">Archive</ref> An archive object containing the optimized results, including fitness values and descriptors. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="fcmaes/diversifier.py" line="110" column="1" bodyfile="fcmaes/diversifier.py" bodystart="120" bodyend="139"/>
+        <references refid="namespacefcmaes_1_1diversifier_1ab816a6a4e44baee3d8bee364a7522274" compoundref="diversifier_8py" startline="246" endline="255">fcmaes.diversifier.minimize_parallel_</references>
+      </memberdef>
+      <memberdef kind="function" id="namespacefcmaes_1_1diversifier_1a02e1220deec92a5ffd1a04e5b168fe6c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>fcmaes.diversifier.apply_advretry</definition>
+        <argsstring>(Callable[[ArrayLike], float] fitness, Callable[[ArrayLike], Tuple[float, np.ndarray]] qd_fitness, Bounds bounds, Archive archive, Optional[Optimizer] optimizer=None, Optional[int] num_retries=1000, Optional[int] workers=mp.cpu_count(), Optional[float] max_eval_fac=5.0, Optional[np.ndarray] xs=None, Optional[np.ndarray] ys=None, Callable[[ArrayLike], ArrayLike] x_conv=None)</argsstring>
+        <name>apply_advretry</name>
+        <qualifiedname>fcmaes.diversifier.apply_advretry</qualifiedname>
+        <param>
+          <type>Callable</type>
+          <defname>fitness</defname>
+          <array>[[ArrayLike]</array>
+        </param>
+        <param>
+          <type>float]</type>
+          <declname>fitness</declname>
+          <defname>qd_fitness</defname>
+        </param>
+        <param>
+          <type>Callable</type>
+          <defname>bounds</defname>
+          <array>[[ArrayLike]</array>
+        </param>
+        <param>
+          <type>Tuple]</type>
+          <declname>qd_fitness</declname>
+          <defname>archive</defname>
+          <array>[float, np.ndarray]</array>
+        </param>
+        <param>
+          <type>Bounds</type>
+          <declname>bounds</declname>
+          <defname>optimizer</defname>
+        </param>
+        <param>
+          <type><ref refid="classfcmaes_1_1mapelites_1_1_archive" kindref="compound">Archive</ref></type>
+          <declname>archive</declname>
+          <defname>num_retries</defname>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>optimizer</declname>
+          <defname>workers</defname>
+          <array>[Optimizer]</array>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>num_retries</declname>
+          <defname>max_eval_fac</defname>
+          <array>[int]</array>
+          <defval>1000</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>workers</declname>
+          <defname>xs</defname>
+          <array>[int]</array>
+          <defval>mp.cpu_count()</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>max_eval_fac</declname>
+          <defname>ys</defname>
+          <array>[float]</array>
+          <defval>5.0</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>xs</declname>
+          <defname>x_conv</defname>
+          <array>[np.ndarray]</array>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>ys</declname>
+          <array>[np.ndarray]</array>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>Callable</type>
+          <array>[[ArrayLike]</array>
+        </param>
+        <param>
+          <type>ArrayLike]</type>
+          <declname>x_conv</declname>
+          <defval>None</defval>
+        </param>
+        <briefdescription>
+<para>Applies an advanced retry mechanism to optimize solutions for a given fitness function and update an archive with optimized results. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function manages an iterative process where previously computed solutions from an archive are refined and optimized using a specified optimizer. Advanced retry logic is utilized to ensure the process effectively minimizes the given fitness function within the defined bounds and constraints.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>fitness</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Callable that evaluates the fitness of a solution. Must return a floating-point fitness score for a given input. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>qd_fitness</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Callable that evaluates the quality-diversity of a solution. Returns a tuple where the first item is the fitness value (float) and the second item is a feature descriptor (e.g., NumPy array). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bounds</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boundary constraints for the optimization process. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>archive</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classfcmaes_1_1mapelites_1_1_archive" kindref="compound">Archive</ref> object that stores and manages solutions. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>optimizer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional optimizer to be used for the minimization process. If none, defaults to a DE-CMA optimizer with 1500 iterations. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>num_retries</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional integer setting the number of retries allowed in advanced retry logic. Defaults to 1000. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>workers</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional integer specifying the number of workers for parallelization. Defaults to the number of CPUs available. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max_eval_fac</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional floating-point factor setting the maximum allowed fitness function evaluations per retry. Defaults to 5.0. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>xs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional NumPy array containing a set of previously obtained solutions. If none, solutions are derived from the archive&apos;s current entries. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ys</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional NumPy array containing fitness values corresponding to <computeroutput>xs</computeroutput>. If none, fitness values are derived from the archive&apos;s entries. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>x_conv</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional callable to transform or convert solutions (<computeroutput>xs</computeroutput>) before evaluating their quality-diversity fitness. If none, no transformation is applied. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="fcmaes/diversifier.py" line="172" column="1" bodyfile="fcmaes/diversifier.py" bodystart="182" bodyend="218"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacefcmaes_1_1diversifier_1ab816a6a4e44baee3d8bee364a7522274" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>fcmaes.diversifier.minimize_parallel_</definition>
+        <argsstring>(archive, fitness, bounds, workers, opt_params, max_evals)</argsstring>
+        <name>minimize_parallel_</name>
+        <qualifiedname>fcmaes.diversifier.minimize_parallel_</qualifiedname>
+        <param>
+          <type>archive</type>
+          <defname>archive</defname>
+        </param>
+        <param>
+          <type>fitness</type>
+          <defname>fitness</defname>
+        </param>
+        <param>
+          <type>bounds</type>
+          <defname>bounds</defname>
+        </param>
+        <param>
+          <type>workers</type>
+          <defname>workers</defname>
+        </param>
+        <param>
+          <type>opt_params</type>
+          <defname>opt_params</defname>
+        </param>
+        <param>
+          <type>max_evals</type>
+          <defname>max_evals</defname>
+        </param>
+        <briefdescription>
+<para>Minimizes a fitness function in parallel using multiple workers. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function utilizes multiprocessing to divide the workload of minimizing a fitness function across several worker processes. Each worker operates independently using its own random number generator, and the results are combined to find the minimum value.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>archive</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Object or structure used to store and manage state or intermediate results during the optimization process. Details of its structure or behavior depend on the implementation. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>fitness</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Callable that evaluates the fitness or cost function to be minimized. Accepts input variables and returns a numerical value representing the cost/fitness. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bounds</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Defines the boundaries within which the optimization process is allowed to search. Typically, this can be a list of tuples specifying the lower and upper bounds for each dimension. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>workers</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Integer specifying the number of parallel workers (processes) to execute the fitness function evaluation and optimization tasks. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>opt_params</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Parameters or configuration values required for the optimization method. Includes details specific to the optimization algorithm being </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>employed.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max_evals</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Integer representing the maximum number of fitness function evaluations allowed across all worker processes in total. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="fcmaes/diversifier.py" line="246" column="1" bodyfile="fcmaes/diversifier.py" bodystart="246" bodyend="255"/>
+        <referencedby refid="namespacefcmaes_1_1diversifier_1aff21c62cc4f78f4786b277e0b20cb216" compoundref="diversifier_8py" startline="120" endline="139">fcmaes.diversifier.minimize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespacefcmaes_1_1diversifier_1a37838757d6fbed5b0cd7e56fa51f194e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>fcmaes.diversifier.run_minimize_</definition>
+        <argsstring>(archive, fitness, bounds, rg, opt_params, p, workers, evals, max_evals)</argsstring>
+        <name>run_minimize_</name>
+        <qualifiedname>fcmaes.diversifier.run_minimize_</qualifiedname>
+        <param>
+          <type>archive</type>
+          <defname>archive</defname>
+        </param>
+        <param>
+          <type>fitness</type>
+          <defname>fitness</defname>
+        </param>
+        <param>
+          <type>bounds</type>
+          <defname>bounds</defname>
+        </param>
+        <param>
+          <type>rg</type>
+          <defname>rg</defname>
+        </param>
+        <param>
+          <type>opt_params</type>
+          <defname>opt_params</defname>
+        </param>
+        <param>
+          <type>p</type>
+          <defname>p</defname>
+        </param>
+        <param>
+          <type>workers</type>
+          <defname>workers</defname>
+        </param>
+        <param>
+          <type>evals</type>
+          <defname>evals</defname>
+        </param>
+        <param>
+          <type>max_evals</type>
+          <defname>max_evals</defname>
+        </param>
+        <briefdescription>
+<para>Executes the optimization processes involving MAP-Elites or solvers in a sequential or multiple configuration depending on the provided optimization parameters. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The method adapts to the given <computeroutput>opt_params</computeroutput>, evaluating various solvers until the maximum number of allowed evaluations (<computeroutput>max_evals</computeroutput>) is reached.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>archive</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classfcmaes_1_1mapelites_1_1_archive" kindref="compound">Archive</ref> object used for storing solutions and managing population niches. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>fitness</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A callable fitness function used to evaluate solutions. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bounds</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boundary constraints associated with the problem. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Random generator for deterministic random processes. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>opt_params</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optimization parameters, which can be in the form of a dictionary, list, tuple, or NumPy array. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Integer indicating the number of processing resources available. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>workers</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Integer specifying the number of worker threads or processes allocated for solver execution. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>evals</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A shared counter object tracking the current total number of evaluations performed. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max_evals</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Maximum allowed number of evaluations over the optimization processes. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="fcmaes/diversifier.py" line="276" column="1" bodyfile="fcmaes/diversifier.py" bodystart="276" bodyend="301"/>
+        <references refid="namespacefcmaes_1_1diversifier_1a4e57f15d7add818aaf5dfe6223e98475" compoundref="diversifier_8py" startline="383" endline="415">fcmaes.diversifier.minimize_</references>
+        <references refid="namespacefcmaes_1_1diversifier_1ae5fd5f192aa814e8e6abe660f4592d7d" compoundref="diversifier_8py" startline="331" endline="355">fcmaes.diversifier.run_map_elites_</references>
+      </memberdef>
+      <memberdef kind="function" id="namespacefcmaes_1_1diversifier_1ae5fd5f192aa814e8e6abe660f4592d7d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>fcmaes.diversifier.run_map_elites_</definition>
+        <argsstring>(archive, fitness, bounds, rg, evals, max_evals, opt_params={})</argsstring>
+        <name>run_map_elites_</name>
+        <qualifiedname>fcmaes.diversifier.run_map_elites_</qualifiedname>
+        <param>
+          <type>archive</type>
+          <defname>archive</defname>
+        </param>
+        <param>
+          <type>fitness</type>
+          <defname>fitness</defname>
+        </param>
+        <param>
+          <type>bounds</type>
+          <defname>bounds</defname>
+        </param>
+        <param>
+          <type>rg</type>
+          <defname>rg</defname>
+        </param>
+        <param>
+          <type>evals</type>
+          <defname>evals</defname>
+        </param>
+        <param>
+          <type>max_evals</type>
+          <defname>max_evals</defname>
+        </param>
+        <param>
+          <type>opt_params</type>
+          <defname>opt_params</defname>
+          <defval>{}</defval>
+        </param>
+        <briefdescription>
+<para>Executes the MAP-Elites algorithm for a given archive and fitness function. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The function iteratively generates a population of individuals, applies variation operators on them, evaluates their fitness, and updates the archive with the newly generated individuals. It can utilize either simulated binary crossover (SBX) or isolation distribution crossover (ISO/DD) depending on the specified optimization parameters. Additionally, the function includes boundaries for the search space and adjusts the archive to maintain its capacity.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>archive</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The data structure representing the archive of solutions. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>fitness</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The fitness function to evaluate each solution. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bounds</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The search space bounds containing lower (<computeroutput>lb</computeroutput>) and upper (<computeroutput>ub</computeroutput>) limits for variables. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Random number generator for stochastic operations. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>evals</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Object to track the number of evaluations performed. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max_evals</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Maximum number of evaluations allowed for the algorithm. opt_params (dict, optional): A dictionary of optional parameters for optimization. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="par"><title>Includes</title><para><itemizedlist>
+<listitem><para>popsize (int): Population size for the algorithm (default: 32).</para>
+</listitem><listitem><para>use_sbx (bool): Whether to use simulated binary crossover (default: True).</para>
+</listitem><listitem><para>dis_c (float): Distribution index for simulated binary crossover (SBX) (default: 20).</para>
+</listitem><listitem><para>dis_m (float): Distribution index for mutation (default: 20).</para>
+</listitem><listitem><para>iso_sigma (float): Standard deviation for isotropic distribution (default: 0.01).</para>
+</listitem><listitem><para>line_sigma (float): Standard deviation for line distribution (default: 0.2). </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="fcmaes/diversifier.py" line="331" column="1" bodyfile="fcmaes/diversifier.py" bodystart="331" bodyend="355"/>
+        <referencedby refid="namespacefcmaes_1_1diversifier_1a37838757d6fbed5b0cd7e56fa51f194e" compoundref="diversifier_8py" startline="276" endline="301">fcmaes.diversifier.run_minimize_</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespacefcmaes_1_1diversifier_1a4e57f15d7add818aaf5dfe6223e98475" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>fcmaes.diversifier.minimize_</definition>
+        <argsstring>(archive, fitness, bounds, rg, evals, max_evals, opt_params, x0=None)</argsstring>
+        <name>minimize_</name>
+        <qualifiedname>fcmaes.diversifier.minimize_</qualifiedname>
+        <param>
+          <type>archive</type>
+          <defname>archive</defname>
+        </param>
+        <param>
+          <type>fitness</type>
+          <defname>fitness</defname>
+        </param>
+        <param>
+          <type>bounds</type>
+          <defname>bounds</defname>
+        </param>
+        <param>
+          <type>rg</type>
+          <defname>rg</defname>
+        </param>
+        <param>
+          <type>evals</type>
+          <defname>evals</defname>
+        </param>
+        <param>
+          <type>max_evals</type>
+          <defname>max_evals</defname>
+        </param>
+        <param>
+          <type>opt_params</type>
+          <defname>opt_params</defname>
+        </param>
+        <param>
+          <type>x0</type>
+          <defname>x0</defname>
+          <defval>None</defval>
+        </param>
+        <briefdescription>
+<para>Minimizes a given objective function using an evolutionary algorithm or the B.I.T.E. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>solver.</para>
+<para>The function determines the solver type based on the provided optimization parameters and runs the optimization process accordingly. It continuously updates an archive of candidate solutions and evaluates their fitness while adhering to the specified evaluation and iteration limits. A stopping condition is also applied based on lack of improvement.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>archive</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classfcmaes_1_1mapelites_1_1_archive" kindref="compound">Archive</ref> object for storing solution candidates and their respective fitness evaluations. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>fitness</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Callable representing the fitness function or objective function to be minimized. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bounds</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bounds or constraints for the solution search space. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Random number generator to ensure reproducibility. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>evals</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A mutable object, typically an integer, tracking the number of evaluations performed. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max_evals</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Integer specifying the maximum number of fitness evaluations to allow. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>opt_params</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Dictionary containing optimization parameters, such as solver type and stopping criteria. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>x0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional initial guess or starting point for the optimization process.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The best found solution, represented as a real-valued array, that optimizes the provided fitness function. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="fcmaes/diversifier.py" line="383" column="1" bodyfile="fcmaes/diversifier.py" bodystart="383" bodyend="415"/>
+        <references refid="namespacefcmaes_1_1diversifier_1a7360db2f799d60d42b8a3f76650f075a" compoundref="diversifier_8py" startline="501" endline="534">fcmaes.diversifier.get_solver_</references>
+        <references refid="namespacefcmaes_1_1diversifier_1a91529f8a57353a18ce9ce8ea0e372f63" compoundref="diversifier_8py" startline="439" endline="477">fcmaes.diversifier.run_bite_</references>
+        <referencedby refid="namespacefcmaes_1_1diversifier_1a37838757d6fbed5b0cd7e56fa51f194e" compoundref="diversifier_8py" startline="276" endline="301">fcmaes.diversifier.run_minimize_</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespacefcmaes_1_1diversifier_1a91529f8a57353a18ce9ce8ea0e372f63" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>fcmaes.diversifier.run_bite_</definition>
+        <argsstring>(archive, fitness, bounds, rg, evals, max_evals, opt_params, x0=None)</argsstring>
+        <name>run_bite_</name>
+        <qualifiedname>fcmaes.diversifier.run_bite_</qualifiedname>
+        <param>
+          <type>archive</type>
+          <defname>archive</defname>
+        </param>
+        <param>
+          <type>fitness</type>
+          <defname>fitness</defname>
+        </param>
+        <param>
+          <type>bounds</type>
+          <defname>bounds</defname>
+        </param>
+        <param>
+          <type>rg</type>
+          <defname>rg</defname>
+        </param>
+        <param>
+          <type>evals</type>
+          <defname>evals</defname>
+        </param>
+        <param>
+          <type>max_evals</type>
+          <defname>max_evals</defname>
+        </param>
+        <param>
+          <type>opt_params</type>
+          <defname>opt_params</defname>
+        </param>
+        <param>
+          <type>x0</type>
+          <defname>x0</defname>
+          <defval>None</defval>
+        </param>
+        <briefdescription>
+<para>Runs the BiteOpt algorithm to optimize a given fitness function. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The function utilizes the BiteOpt implementation from bitecpp to minimize the provided fitness function over the given bounds and constraints. It supports dynamic updates to the solution archive and stops execution based on a defined maximum evaluation limit or optimization parameters.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>archive</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>An archive to keep track of the solution space explored during the optimization process. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>fitness</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A callable that takes an input, evaluates it, and returns a fitness value. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bounds</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The variable bounds for the optimization problem. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A random generator instance to ensure reproducibility in the optimization process. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>evals</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>An object containing a mutable integer used to track the number of evaluations performed. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max_evals</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>An integer defining the maximum number of evaluations before the optimization halts. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>opt_params</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A dictionary containing optimization parameters such as &apos;max_evals&apos; and &apos;stall_criterion&apos;. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>x0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional starting point for the optimization. Defaults to None.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The optimized solution vector obtained from BiteOpt. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="fcmaes/diversifier.py" line="439" column="1" bodyfile="fcmaes/diversifier.py" bodystart="439" bodyend="477"/>
+        <referencedby refid="namespacefcmaes_1_1diversifier_1a4e57f15d7add818aaf5dfe6223e98475" compoundref="diversifier_8py" startline="383" endline="415">fcmaes.diversifier.minimize_</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespacefcmaes_1_1diversifier_1a7360db2f799d60d42b8a3f76650f075a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>fcmaes.diversifier.get_solver_</definition>
+        <argsstring>(bounds, opt_params, rg, x0=None)</argsstring>
+        <name>get_solver_</name>
+        <qualifiedname>fcmaes.diversifier.get_solver_</qualifiedname>
+        <param>
+          <type>bounds</type>
+          <defname>bounds</defname>
+        </param>
+        <param>
+          <type>opt_params</type>
+          <defname>opt_params</defname>
+        </param>
+        <param>
+          <type>rg</type>
+          <defname>rg</defname>
+        </param>
+        <param>
+          <type>x0</type>
+          <defname>x0</defname>
+          <defval>None</defval>
+        </param>
+        <briefdescription>
+<para>Selects and initializes the appropriate optimization solver based on the specified parameters. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The solver is chosen from a set of predefined options, and it is configured with the given dimensions, bounds, mean, population size, and other solver-specific parameters.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>bounds</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Object representing the bounds for the optimization problem. It provides attributes like lower bounds (<computeroutput>lb</computeroutput>) and upper bounds (<computeroutput>ub</computeroutput>). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>opt_params</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Dictionary containing optional solver parameters, such as:<itemizedlist>
+<listitem><para>&apos;popsize&apos;: Population size</para>
+</listitem><listitem><para>&apos;sigma&apos;: Step size</para>
+</listitem><listitem><para>&apos;mean&apos;: Initial mean position</para>
+</listitem><listitem><para>&apos;solver&apos;: Name of the solver to use, e.g., &apos;CMA&apos;, &apos;CMA_CPP&apos;, etc. </para>
+</listitem></itemizedlist>
+</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Random number generator for initializing values within the specified bounds or for stochastic components of the solver. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>x0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional starting position for the optimization. Overrides the <computeroutput>mean</computeroutput> parameter if provided.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The initialized optimization solver object if the specified solver name is valid. Returns <computeroutput>None</computeroutput> if an invalid solver name is provided. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="fcmaes/diversifier.py" line="501" column="1" bodyfile="fcmaes/diversifier.py" bodystart="501" bodyend="534"/>
+        <referencedby refid="namespacefcmaes_1_1diversifier_1a4e57f15d7add818aaf5dfe6223e98475" compoundref="diversifier_8py" startline="383" endline="415">fcmaes.diversifier.minimize_</referencedby>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="fcmaes/diversifier.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

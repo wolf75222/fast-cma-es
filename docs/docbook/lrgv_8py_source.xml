@@ -1,0 +1,234 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_lrgv_8py_source" xml:lang="en-US">
+<title>lrgv.py</title>
+<indexterm><primary>examples/lrgv/lrgv.py</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_lrgv_8py_source_1l00001"/><link linkend="_namespacelrgv">00001</link> <emphasis role="comment">#&#32;Lower&#32;Rio&#32;Grande&#32;Valley&#32;(LRGV)&#32;problem,&#32;5&#32;objective&#32;+&#32;3&#32;constraint&#32;variant</emphasis>
+<anchor xml:id="_lrgv_8py_source_1l00002"/>00002 <emphasis role="comment">#&#32;See&#32;https://github.com/dietmarwo/fast-cma-es/blob/master/tutorials/Water.adoc</emphasis>
+<anchor xml:id="_lrgv_8py_source_1l00003"/>00003 <emphasis role="comment">#&#32;See&#32;https://agupubs.onlinelibrary.wiley.com/doi/full/10.1002/2014WR015976</emphasis>
+<anchor xml:id="_lrgv_8py_source_1l00004"/>00004 <emphasis role="comment">#&#32;See&#32;https://github.com/jrkasprzyk/LRGV&#32;</emphasis>
+<anchor xml:id="_lrgv_8py_source_1l00005"/>00005 <emphasis role="comment">#&#32;See&#32;also&#32;https://github.com/dietmarwo/fast-cma-es/blob/master/tutorials/Diversity.adoc</emphasis>
+<anchor xml:id="_lrgv_8py_source_1l00006"/>00006 
+<anchor xml:id="_lrgv_8py_source_1l00007"/>00007 <emphasis role="keyword">import</emphasis>&#32;numpy&#32;<emphasis role="keyword">as</emphasis>&#32;np
+<anchor xml:id="_lrgv_8py_source_1l00008"/>00008 <emphasis role="keyword">import</emphasis>&#32;os,&#32;sys,&#32;time
+<anchor xml:id="_lrgv_8py_source_1l00009"/>00009 <emphasis role="keyword">import</emphasis>&#32;ctypes&#32;<emphasis role="keyword">as</emphasis>&#32;ct
+<anchor xml:id="_lrgv_8py_source_1l00010"/>00010 <emphasis role="keyword">from</emphasis>&#32;numpy.random&#32;<emphasis role="keyword">import</emphasis>&#32;Generator,&#32;MT19937
+<anchor xml:id="_lrgv_8py_source_1l00011"/>00011 <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1evaluator">fcmaes.evaluator</link>&#32;<emphasis role="keyword">import</emphasis>&#32;Evaluator
+<anchor xml:id="_lrgv_8py_source_1l00012"/>00012 <emphasis role="keyword">from</emphasis>&#32;fcmaes&#32;<emphasis role="keyword">import</emphasis>&#32;moretry
+<anchor xml:id="_lrgv_8py_source_1l00013"/>00013 <emphasis role="keyword">import</emphasis>&#32;multiprocessing&#32;<emphasis role="keyword">as</emphasis>&#32;mp
+<anchor xml:id="_lrgv_8py_source_1l00014"/>00014 <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1optimizer">fcmaes.optimizer</link>&#32;<emphasis role="keyword">import</emphasis>&#32;dtime
+<anchor xml:id="_lrgv_8py_source_1l00015"/>00015 <emphasis role="keyword">from</emphasis>&#32;scipy.optimize&#32;<emphasis role="keyword">import</emphasis>&#32;Bounds
+<anchor xml:id="_lrgv_8py_source_1l00016"/>00016 <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1optimizer">fcmaes.optimizer</link>&#32;<emphasis role="keyword">import</emphasis>&#32;de_cma,&#32;Bite_cpp,&#32;Cma_cpp,&#32;LDe_cpp,&#32;dtime,&#32;&#32;De_cpp,&#32;random_search,&#32;wrapper,&#32;logger
+<anchor xml:id="_lrgv_8py_source_1l00017"/>00017 <emphasis role="keyword">from</emphasis>&#32;fcmaes&#32;<emphasis role="keyword">import</emphasis>&#32;moretry,&#32;retry,&#32;mode,&#32;modecpp,&#32;decpp,&#32;de,&#32;moretry
+<anchor xml:id="_lrgv_8py_source_1l00018"/>00018 <emphasis role="keyword">from</emphasis>&#32;fcmaes&#32;<emphasis role="keyword">import</emphasis>&#32;diversifier,&#32;mapelites
+<anchor xml:id="_lrgv_8py_source_1l00019"/>00019 <emphasis role="keyword">from</emphasis>&#32;scipy.optimize&#32;<emphasis role="keyword">import</emphasis>&#32;Bounds
+<anchor xml:id="_lrgv_8py_source_1l00020"/>00020 
+<anchor xml:id="_lrgv_8py_source_1l00021"/>00021 <emphasis role="keyword">import</emphasis>&#32;sys&#32;
+<anchor xml:id="_lrgv_8py_source_1l00022"/>00022 <emphasis role="keyword">from</emphasis>&#32;loguru&#32;<emphasis role="keyword">import</emphasis>&#32;logger
+<anchor xml:id="_lrgv_8py_source_1l00023"/>00023 
+<anchor xml:id="_lrgv_8py_source_1l00024"/>00024 logger.remove()
+<anchor xml:id="_lrgv_8py_source_1l00025"/><link linkend="_namespacelrgv_1ae5afb8c70aa9e376cfded3b954fcee22">00025</link> logger.add(sys.stdout,&#32;format=<emphasis role="stringliteral">&quot;{time:HH:mm:ss.SS}&#32;|&#32;{process}&#32;|&#32;{level}&#32;|&#32;{message}&quot;</emphasis>,&#32;level=<emphasis role="stringliteral">&quot;INFO&quot;</emphasis>)
+<anchor xml:id="_lrgv_8py_source_1l00026"/>00026 logger.add(<emphasis role="stringliteral">&quot;log_{time}.txt&quot;</emphasis>,&#32;format=<emphasis role="stringliteral">&quot;{time:HH:mm:ss.SS}&#32;|&#32;{process}&#32;|&#32;{level}&#32;|&#32;{message}&quot;</emphasis>,&#32;level=<emphasis role="stringliteral">&quot;INFO&quot;</emphasis>)
+<anchor xml:id="_lrgv_8py_source_1l00027"/>00027 
+<anchor xml:id="_lrgv_8py_source_1l00028"/><link linkend="_namespacelrgv_1a078e0fdbc2e213f557653587cefa72bd">00028</link> basepath&#32;=&#32;os.path.dirname(os.path.abspath(__file__))
+<anchor xml:id="_lrgv_8py_source_1l00029"/><link linkend="_namespacelrgv_1a8a9687b6d3550c4bb5c267849b510b66">00029</link> liblrgv&#32;=&#32;ct.cdll.LoadLibrary(basepath&#32;+&#32;<emphasis role="stringliteral">&apos;/../../fcmaes/lib/liblrgv.so&apos;</emphasis>)&#32;&#32;
+<anchor xml:id="_lrgv_8py_source_1l00030"/>00030 &#32;&#32;&#32;&#32;
+<anchor xml:id="_lrgv_8py_source_1l00031"/><link linkend="_namespacelrgv_1a64192d450a24357c2cf08680027a8edd">00031</link> lrgv_C&#32;=&#32;liblrgv.lrgv_C
+<anchor xml:id="_lrgv_8py_source_1l00032"/><link linkend="_namespacelrgv_1a7cf76f3222902615a0f385652a3e4ce5">00032</link> lrgv_C.argtypes&#32;=&#32;[ct.c_int,&#32;ct.POINTER(ct.c_char_p)]
+<anchor xml:id="_lrgv_8py_source_1l00033"/><link linkend="_namespacelrgv_1a9c3ec5665670484a0f69070cb3e0c7b7">00033</link> lrgv_C.restype&#32;=&#32;ct.c_long
+<anchor xml:id="_lrgv_8py_source_1l00034"/>00034 
+<anchor xml:id="_lrgv_8py_source_1l00035"/><link linkend="_namespacelrgv_1a64b62d5d00c14a2216d8eafc41bff520">00035</link> fitness_lrgv_C&#32;=&#32;liblrgv.fitness_lrgv_C
+<anchor xml:id="_lrgv_8py_source_1l00036"/>00036 fitness_lrgv_C.argtypes&#32;=&#32;[ct.c_long,&#32;ct.POINTER(ct.c_double),
+<anchor xml:id="_lrgv_8py_source_1l00037"/>00037 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ct.POINTER(ct.c_double),&#32;ct.POINTER(ct.c_double)]
+<anchor xml:id="_lrgv_8py_source_1l00038"/>00038 &#32;
+<anchor xml:id="_lrgv_8py_source_1l00039"/><link linkend="_namespacelrgv_1a64ff71a6edd5406dfab800588382ceb3">00039</link> dim&#32;=&#32;8
+<anchor xml:id="_lrgv_8py_source_1l00040"/><link linkend="_namespacelrgv_1a3eb25c6952cb525a4757fad05a972d18">00040</link> nobj&#32;=&#32;5
+<anchor xml:id="_lrgv_8py_source_1l00041"/><link linkend="_namespacelrgv_1ab821656770b8341f0037aeab40cbb563">00041</link> ncon&#32;=&#32;3
+<anchor xml:id="_lrgv_8py_source_1l00042"/>00042 
+<anchor xml:id="_lrgv_8py_source_1l00043"/><link linkend="_namespacelrgv_1a3c9fa67db16eafc90d80d9a8e725a9b5">00043</link> lb&#32;=&#32;np.array([0]*3&#32;+&#32;[0.1]&#32;+&#32;[0]*4)
+<anchor xml:id="_lrgv_8py_source_1l00044"/><link linkend="_namespacelrgv_1ad2579c2667c7abf4a40c88aa61aa9c8f">00044</link> ub&#32;=&#32;np.array([1]*3&#32;+&#32;[0.4]&#32;+&#32;[3]*4)
+<anchor xml:id="_lrgv_8py_source_1l00045"/>00045 
+<anchor xml:id="_lrgv_8py_source_1l00046"/><link linkend="_classlrgv_1_1lrgv">00046</link> <emphasis role="keyword">class&#32;</emphasis><link linkend="_classlrgv_1_1lrgv">lrgv</link>(object):
+<anchor xml:id="_lrgv_8py_source_1l00047"/>00047 &#32;&#32;&#32;&#32;
+<anchor xml:id="_lrgv_8py_source_1l00048"/><link linkend="_classlrgv_1_1lrgv_1a95e96bb1d82f80634803c206ff503c78">00048</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classlrgv_1_1lrgv_1a95e96bb1d82f80634803c206ff503c78">__init__</link>(self):
+<anchor xml:id="_lrgv_8py_source_1l00049"/><link linkend="_classlrgv_1_1lrgv_1a7555329caa09a7287805f9cb206fe3e7">00049</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classlrgv_1_1lrgv_1a7555329caa09a7287805f9cb206fe3e7">bounds</link>&#32;=&#32;Bounds(lb,&#32;ub)&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_lrgv_8py_source_1l00050"/><link linkend="_classlrgv_1_1lrgv_1a1c61933d3481441a96013ec8dab2fd08">00050</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classlrgv_1_1lrgv_1a1c61933d3481441a96013ec8dab2fd08">lrgv_p</link>&#32;=&#32;0&#32;
+<anchor xml:id="_lrgv_8py_source_1l00051"/><link linkend="_classlrgv_1_1lrgv_1acda438d56f30afb04402de3ddb607803">00051</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classlrgv_1_1lrgv_1acda438d56f30afb04402de3ddb607803">name</link>&#32;=&#32;<emphasis role="stringliteral">&quot;lrgvDE&quot;</emphasis>
+<anchor xml:id="_lrgv_8py_source_1l00052"/><link linkend="_classlrgv_1_1lrgv_1a6413e3e1992050f5801e1d8a5d31d6e0">00052</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classlrgv_1_1lrgv_1a6413e3e1992050f5801e1d8a5d31d6e0">best_y</link>&#32;=&#32;mp.RawValue(ct.c_double,&#32;np.inf)
+<anchor xml:id="_lrgv_8py_source_1l00053"/>00053 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_lrgv_8py_source_1l00054"/><link linkend="_classlrgv_1_1lrgv_1ab5c1283f83c705c307d7ae74f3474a1c">00054</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classlrgv_1_1lrgv_1ab5c1283f83c705c307d7ae74f3474a1c">__call__</link>(self,&#32;x):
+<anchor xml:id="_lrgv_8py_source_1l00055"/>00055 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;y&#32;=&#32;np.empty(nobj)&#32;<emphasis role="comment">#&#32;C&#32;fitness&#32;call&#32;returns&#32;6&#32;objectives</emphasis>
+<anchor xml:id="_lrgv_8py_source_1l00056"/>00056 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;c&#32;=&#32;np.empty(ncon)
+<anchor xml:id="_lrgv_8py_source_1l00057"/>00057 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x_p&#32;=&#32;x.ctypes.data_as(ct.POINTER(ct.c_double))
+<anchor xml:id="_lrgv_8py_source_1l00058"/>00058 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;y_p&#32;=&#32;y.ctypes.data_as(ct.POINTER(ct.c_double))&#32;&#32;
+<anchor xml:id="_lrgv_8py_source_1l00059"/>00059 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;c_p&#32;=&#32;c.ctypes.data_as(ct.POINTER(ct.c_double))&#32;&#32;
+<anchor xml:id="_lrgv_8py_source_1l00060"/>00060 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">try</emphasis>:&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_lrgv_8py_source_1l00061"/>00061 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;self.<link linkend="_classlrgv_1_1lrgv_1a1c61933d3481441a96013ec8dab2fd08">lrgv_p</link>&#32;==&#32;0:
+<anchor xml:id="_lrgv_8py_source_1l00062"/>00062 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;args&#32;=&#32;[<emphasis role="stringliteral">&quot;-m&quot;</emphasis>,<emphasis role="stringliteral">&quot;std-io&quot;</emphasis>,<emphasis role="stringliteral">&quot;-b&quot;</emphasis>,<emphasis role="stringliteral">&quot;AllDecAll&quot;</emphasis>,<emphasis role="stringliteral">&quot;-c&quot;</emphasis>,<emphasis role="stringliteral">&quot;ten-year&quot;</emphasis>]
+<anchor xml:id="_lrgv_8py_source_1l00063"/>00063 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;arguments&#32;=&#32;[bytes(argsi,&#32;<emphasis role="stringliteral">&apos;utf-8&apos;</emphasis>)&#32;<emphasis role="keywordflow">for</emphasis>&#32;argsi&#32;<emphasis role="keywordflow">in</emphasis>&#32;args]
+<anchor xml:id="_lrgv_8py_source_1l00064"/>00064 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;argv&#32;=&#32;(ct.c_char_p&#32;*&#32;len(arguments))()
+<anchor xml:id="_lrgv_8py_source_1l00065"/>00065 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;argv[:]&#32;=&#32;arguments
+<anchor xml:id="_lrgv_8py_source_1l00066"/>00066 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;argc&#32;=&#32;len(arguments)
+<anchor xml:id="_lrgv_8py_source_1l00067"/>00067 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classlrgv_1_1lrgv_1a1c61933d3481441a96013ec8dab2fd08">lrgv_p</link>&#32;=&#32;<link linkend="_namespacelrgv_1a64192d450a24357c2cf08680027a8edd">lrgv_C</link>(argc,&#32;argv)
+<anchor xml:id="_lrgv_8py_source_1l00068"/>00068 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_namespacelrgv_1a64b62d5d00c14a2216d8eafc41bff520">fitness_lrgv_C</link>(self.<link linkend="_classlrgv_1_1lrgv_1a1c61933d3481441a96013ec8dab2fd08">lrgv_p</link>,&#32;x_p,&#32;y_p,&#32;c_p)
+<anchor xml:id="_lrgv_8py_source_1l00069"/>00069 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">except</emphasis>&#32;Exception&#32;<emphasis role="keyword">as</emphasis>&#32;ex:
+<anchor xml:id="_lrgv_8py_source_1l00070"/>00070 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;print(str(ex))&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_lrgv_8py_source_1l00071"/>00071 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;np.array(list(y)&#32;+&#32;list(np.array(c)*-1.0))&#32;<emphasis role="comment">#&#32;negate&#32;constraints</emphasis>
+<anchor xml:id="_lrgv_8py_source_1l00072"/>00072 &#32;&#32;&#32;&#32;
+<anchor xml:id="_lrgv_8py_source_1l00073"/><link linkend="_classlrgv_1_1lrgv_1a527b9b7a7927721b5320ab433bf75aea">00073</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classlrgv_1_1lrgv_1a527b9b7a7927721b5320ab433bf75aea">qd_fitness</link>(self,&#32;x):&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_lrgv_8py_source_1l00074"/>00074 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;y&#32;=&#32;self.<link linkend="_classlrgv_1_1lrgv_1ab5c1283f83c705c307d7ae74f3474a1c">__call__</link>(x)
+<anchor xml:id="_lrgv_8py_source_1l00075"/>00075 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;b&#32;=&#32;y[:nobj].copy()
+<anchor xml:id="_lrgv_8py_source_1l00076"/>00076 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;constr&#32;=&#32;np.maximum(y[nobj:],&#32;0)&#32;<emphasis role="comment">#&#32;we&#32;are&#32;only&#32;interested&#32;in&#32;constraint&#32;violations&#32;&#32;&#32;&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_lrgv_8py_source_1l00077"/>00077 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;c&#32;=&#32;&#32;np.amax(constr)
+<anchor xml:id="_lrgv_8py_source_1l00078"/>00078 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;c&#32;&gt;&#32;0.001:&#32;c&#32;+=&#32;10&#32;
+<anchor xml:id="_lrgv_8py_source_1l00079"/>00079 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;y&#32;=&#32;(y[:nobj]&#32;-&#32;self.qd_bounds.lb)&#32;/&#32;(self.qd_bounds.ub&#32;-&#32;self.qd_bounds.lb)
+<anchor xml:id="_lrgv_8py_source_1l00080"/>00080 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ws&#32;=&#32;sum(y)&#32;+&#32;c
+<anchor xml:id="_lrgv_8py_source_1l00081"/>00081 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;ws&#32;&lt;&#32;self.<link linkend="_classlrgv_1_1lrgv_1a6413e3e1992050f5801e1d8a5d31d6e0">best_y</link>.value:
+<anchor xml:id="_lrgv_8py_source_1l00082"/>00082 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classlrgv_1_1lrgv_1a6413e3e1992050f5801e1d8a5d31d6e0">best_y</link>.value&#32;=&#32;ws
+<anchor xml:id="_lrgv_8py_source_1l00083"/>00083 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;print(f<emphasis role="stringliteral">&apos;{ws:.3f}&#32;{sum(constr):.3f}&#32;{&#32;list(b)&#32;}&apos;</emphasis>)&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_lrgv_8py_source_1l00084"/>00084 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;ws,&#32;b&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_lrgv_8py_source_1l00085"/>00085 &#32;
+<anchor xml:id="_lrgv_8py_source_1l00086"/>00086 &#32;
+<anchor xml:id="_lrgv_8py_source_1l00087"/><link linkend="_namespacelrgv_1a1864166a2be484c530fbbbff644f2841">00087</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacelrgv_1a1864166a2be484c530fbbbff644f2841">check_pymoo</link>(index):
+<anchor xml:id="_lrgv_8py_source_1l00088"/>00088 
+<anchor xml:id="_lrgv_8py_source_1l00089"/>00089 &#32;&#32;&#32;&#32;<emphasis role="keyword">from</emphasis>&#32;pymoo.core.problem&#32;<emphasis role="keyword">import</emphasis>&#32;ElementwiseProblem&#32;
+<anchor xml:id="_lrgv_8py_source_1l00090"/>00090 &#32;&#32;&#32;&#32;<emphasis role="keyword">from</emphasis>&#32;pymoo.algorithms.moo.nsga2&#32;<emphasis role="keyword">import</emphasis>&#32;NSGA2
+<anchor xml:id="_lrgv_8py_source_1l00091"/>00091 &#32;&#32;&#32;&#32;<emphasis role="keyword">from</emphasis>&#32;pymoo.algorithms.moo.age&#32;<emphasis role="keyword">import</emphasis>&#32;AGEMOEA
+<anchor xml:id="_lrgv_8py_source_1l00092"/>00092 &#32;&#32;&#32;&#32;<emphasis role="keyword">from</emphasis>&#32;pymoo.algorithms.moo.ctaea&#32;<emphasis role="keyword">import</emphasis>&#32;CTAEA
+<anchor xml:id="_lrgv_8py_source_1l00093"/>00093 &#32;&#32;&#32;&#32;<emphasis role="keyword">from</emphasis>&#32;pymoo.algorithms.soo.nonconvex.de&#32;<emphasis role="keyword">import</emphasis>&#32;DE
+<anchor xml:id="_lrgv_8py_source_1l00094"/>00094 &#32;&#32;&#32;&#32;<emphasis role="keyword">from</emphasis>&#32;pymoo.factory&#32;<emphasis role="keyword">import</emphasis>&#32;get_sampling,&#32;get_crossover,&#32;get_mutation&#32;&#32;&#32;&#32;
+<anchor xml:id="_lrgv_8py_source_1l00095"/>00095 &#32;&#32;&#32;&#32;<emphasis role="keyword">from</emphasis>&#32;pymoo.factory&#32;<emphasis role="keyword">import</emphasis>&#32;get_termination,&#32;get_reference_directions
+<anchor xml:id="_lrgv_8py_source_1l00096"/>00096 &#32;&#32;&#32;&#32;<emphasis role="keyword">from</emphasis>&#32;multiprocessing.pool&#32;<emphasis role="keyword">import</emphasis>&#32;ThreadPool
+<anchor xml:id="_lrgv_8py_source_1l00097"/>00097 &#32;&#32;&#32;&#32;<emphasis role="keyword">from</emphasis>&#32;pymoo.operators.sampling.lhs&#32;<emphasis role="keyword">import</emphasis>&#32;LHS
+<anchor xml:id="_lrgv_8py_source_1l00098"/>00098 &#32;&#32;&#32;&#32;
+<anchor xml:id="_lrgv_8py_source_1l00099"/>00099 &#32;&#32;&#32;&#32;lrgv_problem&#32;=&#32;<link linkend="_classlrgv_1_1lrgv">lrgv</link>()
+<anchor xml:id="_lrgv_8py_source_1l00100"/>00100 &#32;&#32;&#32;&#32;
+<anchor xml:id="_lrgv_8py_source_1l00101"/>00101 &#32;&#32;&#32;&#32;store&#32;=&#32;<link linkend="_classfcmaes_1_1mode_1_1store">mode.store</link>(dim,&#32;nobj,&#32;10240)
+<anchor xml:id="_lrgv_8py_source_1l00102"/>00102 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_lrgv_8py_source_1l00103"/>00103 &#32;&#32;&#32;&#32;wrapped&#32;=&#32;<link linkend="_classfcmaes_1_1mode_1_1wrapper">mode.wrapper</link>(lrgv_problem,&#32;nobj,&#32;store,&#32;plot=<emphasis role="keyword">True</emphasis>,&#32;interval&#32;=&#32;500,&#32;
+<anchor xml:id="_lrgv_8py_source_1l00104"/>00104 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;name=<emphasis role="stringliteral">&apos;nsga256_&apos;</emphasis>&#32;+&#32;str(index))&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_lrgv_8py_source_1l00105"/>00105 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_lrgv_8py_source_1l00106"/>00106 &#32;&#32;&#32;&#32;<emphasis role="keyword">class&#32;</emphasis>MyProblem(ElementwiseProblem):
+<anchor xml:id="_lrgv_8py_source_1l00107"/>00107 &#32;&#32;&#32;&#32;
+<anchor xml:id="_lrgv_8py_source_1l00108"/>00108 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis>__init__(self,&#32;**kwargs):
+<anchor xml:id="_lrgv_8py_source_1l00109"/>00109 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;super().__init__(n_var=dim,
+<anchor xml:id="_lrgv_8py_source_1l00110"/>00110 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;n_obj=nobj,
+<anchor xml:id="_lrgv_8py_source_1l00111"/>00111 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;n_constr=ncon,
+<anchor xml:id="_lrgv_8py_source_1l00112"/>00112 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xl=np.array(lb),
+<anchor xml:id="_lrgv_8py_source_1l00113"/>00113 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xu=np.array(ub),&#32;**kwargs)
+<anchor xml:id="_lrgv_8py_source_1l00114"/>00114 &#32;&#32;&#32;&#32;
+<anchor xml:id="_lrgv_8py_source_1l00115"/>00115 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis>_evaluate(self,&#32;x,&#32;out,&#32;*args,&#32;**kwargs):&#32;&#32;&#32;
+<anchor xml:id="_lrgv_8py_source_1l00116"/>00116 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;y&#32;=&#32;wrapped(x)
+<anchor xml:id="_lrgv_8py_source_1l00117"/>00117 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;out[<emphasis role="stringliteral">&quot;F&quot;</emphasis>]&#32;=&#32;y[:nobj]
+<anchor xml:id="_lrgv_8py_source_1l00118"/>00118 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;out[<emphasis role="stringliteral">&quot;G&quot;</emphasis>]&#32;=&#32;y[nobj:]
+<anchor xml:id="_lrgv_8py_source_1l00119"/>00119 
+<anchor xml:id="_lrgv_8py_source_1l00120"/>00120 &#32;&#32;&#32;&#32;problem&#32;=&#32;MyProblem()
+<anchor xml:id="_lrgv_8py_source_1l00121"/>00121 
+<anchor xml:id="_lrgv_8py_source_1l00122"/>00122 &#32;&#32;&#32;&#32;algorithm&#32;=&#32;NSGA2(
+<anchor xml:id="_lrgv_8py_source_1l00123"/>00123 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pop_size=256,
+<anchor xml:id="_lrgv_8py_source_1l00124"/>00124 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;n_offsprings=10,
+<anchor xml:id="_lrgv_8py_source_1l00125"/>00125 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;sampling=get_sampling(<emphasis role="stringliteral">&quot;real_random&quot;</emphasis>),
+<anchor xml:id="_lrgv_8py_source_1l00126"/>00126 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;crossover=get_crossover(<emphasis role="stringliteral">&quot;real_sbx&quot;</emphasis>,&#32;prob=0.9,&#32;eta=15),
+<anchor xml:id="_lrgv_8py_source_1l00127"/>00127 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;mutation=get_mutation(<emphasis role="stringliteral">&quot;real_pm&quot;</emphasis>,&#32;eta=20),&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_lrgv_8py_source_1l00128"/>00128 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;eliminate_duplicates=<emphasis role="keyword">True</emphasis>
+<anchor xml:id="_lrgv_8py_source_1l00129"/>00129 &#32;&#32;&#32;&#32;)&#32;&#32;&#32;&#32;
+<anchor xml:id="_lrgv_8py_source_1l00130"/>00130 &#32;&#32;&#32;&#32;
+<anchor xml:id="_lrgv_8py_source_1l00131"/>00131 &#32;&#32;&#32;&#32;<emphasis role="keyword">from</emphasis>&#32;pymoo.optimize&#32;<emphasis role="keyword">import</emphasis>&#32;minimize
+<anchor xml:id="_lrgv_8py_source_1l00132"/>00132 &#32;&#32;&#32;&#32;<emphasis role="keyword">import</emphasis>&#32;matplotlib.pyplot&#32;<emphasis role="keyword">as</emphasis>&#32;plt
+<anchor xml:id="_lrgv_8py_source_1l00133"/>00133 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_lrgv_8py_source_1l00134"/>00134 &#32;&#32;&#32;&#32;res&#32;=&#32;minimize(problem,
+<anchor xml:id="_lrgv_8py_source_1l00135"/>00135 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;algorithm,
+<anchor xml:id="_lrgv_8py_source_1l00136"/>00136 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;get_termination(<emphasis role="stringliteral">&quot;n_gen&quot;</emphasis>,&#32;10000),
+<anchor xml:id="_lrgv_8py_source_1l00137"/>00137 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;save_history=<emphasis role="keyword">True</emphasis>,
+<anchor xml:id="_lrgv_8py_source_1l00138"/>00138 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;verbose=<emphasis role="keyword">False</emphasis>)
+<anchor xml:id="_lrgv_8py_source_1l00139"/>00139 
+<anchor xml:id="_lrgv_8py_source_1l00140"/>00140 &#32;&#32;&#32;&#32;X&#32;=&#32;res.X
+<anchor xml:id="_lrgv_8py_source_1l00141"/>00141 &#32;&#32;&#32;&#32;F&#32;=&#32;res.F
+<anchor xml:id="_lrgv_8py_source_1l00142"/>00142 &#32;&#32;&#32;&#32;plt.figure(figsize=(7,&#32;5))
+<anchor xml:id="_lrgv_8py_source_1l00143"/>00143 &#32;&#32;&#32;&#32;plt.scatter(X[:,&#32;0],&#32;X[:,&#32;1],&#32;s=30,&#32;facecolors=<emphasis role="stringliteral">&apos;none&apos;</emphasis>,&#32;edgecolors=<emphasis role="stringliteral">&apos;r&apos;</emphasis>)
+<anchor xml:id="_lrgv_8py_source_1l00144"/>00144 &#32;&#32;&#32;&#32;plt.figure(figsize=(7,&#32;5))
+<anchor xml:id="_lrgv_8py_source_1l00145"/>00145 &#32;&#32;&#32;&#32;plt.scatter(F[:,&#32;0],&#32;F[:,&#32;1],&#32;s=30,&#32;facecolors=<emphasis role="stringliteral">&apos;none&apos;</emphasis>,&#32;edgecolors=<emphasis role="stringliteral">&apos;blue&apos;</emphasis>)
+<anchor xml:id="_lrgv_8py_source_1l00146"/>00146 &#32;&#32;&#32;&#32;plt.title(<emphasis role="stringliteral">&quot;Objective&#32;Space&quot;</emphasis>)
+<anchor xml:id="_lrgv_8py_source_1l00147"/>00147 &#32;&#32;&#32;&#32;<emphasis role="comment">#plt.show()</emphasis>
+<anchor xml:id="_lrgv_8py_source_1l00148"/>00148 &#32;&#32;&#32;&#32;plt.savefig(<emphasis role="stringliteral">&apos;NSGSII256-objective-space&apos;</emphasis>+&#32;str(index)&#32;+&#32;<emphasis role="stringliteral">&apos;.png&apos;</emphasis>)
+<anchor xml:id="_lrgv_8py_source_1l00149"/>00149 &#32;&#32;&#32;&#32;plt.clf()&#32;
+<anchor xml:id="_lrgv_8py_source_1l00150"/>00150 &#32;&#32;&#32;&#32;sys.exit()
+<anchor xml:id="_lrgv_8py_source_1l00151"/>00151 &#32;&#32;&#32;&#32;
+<anchor xml:id="_lrgv_8py_source_1l00152"/><link linkend="_namespacelrgv_1af66d50b3590ffa761afae82d3302a9e5">00152</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacelrgv_1af66d50b3590ffa761afae82d3302a9e5">optimize_mo</link>():
+<anchor xml:id="_lrgv_8py_source_1l00153"/>00153 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">try</emphasis>:&#32;
+<anchor xml:id="_lrgv_8py_source_1l00154"/>00154 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;check_pymoo(1)</emphasis>
+<anchor xml:id="_lrgv_8py_source_1l00155"/>00155 &#32;&#32;
+<anchor xml:id="_lrgv_8py_source_1l00156"/>00156 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;problem&#32;=&#32;<link linkend="_classlrgv_1_1lrgv">lrgv</link>()
+<anchor xml:id="_lrgv_8py_source_1l00157"/>00157 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_lrgv_8py_source_1l00158"/>00158 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;store&#32;=&#32;<link linkend="_classfcmaes_1_1mode_1_1store">mode.store</link>(dim,&#32;nobj,&#32;10240)
+<anchor xml:id="_lrgv_8py_source_1l00159"/>00159 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_lrgv_8py_source_1l00160"/>00160 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fun&#32;=&#32;<link linkend="_classfcmaes_1_1mode_1_1wrapper">mode.wrapper</link>(problem,&#32;nobj,&#32;store,&#32;plot=<emphasis role="keyword">True</emphasis>,&#32;interval&#32;=&#32;5000,&#32;name=<emphasis role="stringliteral">&apos;mode512.16&apos;</emphasis>)
+<anchor xml:id="_lrgv_8py_source_1l00161"/>00161 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_lrgv_8py_source_1l00162"/>00162 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;parallel&#32;function&#32;evaluation</emphasis>
+<anchor xml:id="_lrgv_8py_source_1l00163"/>00163 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;modecpp.minimize,&#32;the&#32;C++&#32;variant,&#32;works&#32;only&#32;with&#32;workers=1&#32;because&#32;of&#32;limitations&#32;of&#32;the</emphasis>
+<anchor xml:id="_lrgv_8py_source_1l00164"/>00164 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;used&#32;parallelization&#32;mechanism&#32;in&#32;combination&#32;with&#32;the&#32;way&#32;the&#32;objective&#32;function&#32;is&#32;initialized.</emphasis>
+<anchor xml:id="_lrgv_8py_source_1l00165"/>00165 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_lrgv_8py_source_1l00166"/>00166 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;mode.minimize(fun,&#32;
+<anchor xml:id="_lrgv_8py_source_1l00167"/>00167 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;nobj,&#32;ncon,&#32;problem.bounds,&#32;popsize&#32;=&#32;512,&#32;
+<anchor xml:id="_lrgv_8py_source_1l00168"/>00168 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_evaluations&#32;=&#32;200000,&#32;
+<anchor xml:id="_lrgv_8py_source_1l00169"/>00169 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;nsga_update=<emphasis role="keyword">False</emphasis>,&#32;workers=16)
+<anchor xml:id="_lrgv_8py_source_1l00170"/>00170 
+<anchor xml:id="_lrgv_8py_source_1l00171"/>00171 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;parallel&#32;optimization&#32;retry</emphasis>
+<anchor xml:id="_lrgv_8py_source_1l00172"/>00172 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_lrgv_8py_source_1l00173"/>00173 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;modecpp.retry(fun,&#32;nobj,&#32;ncon,&#32;</emphasis>
+<anchor xml:id="_lrgv_8py_source_1l00174"/>00174 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;problem.bounds,&#32;num_retries=640,&#32;popsize&#32;=&#32;256,&#32;</emphasis>
+<anchor xml:id="_lrgv_8py_source_1l00175"/>00175 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_evaluations&#32;=&#32;3000000,&#32;nsga_update&#32;=&#32;False,&#32;workers=32)</emphasis>
+<anchor xml:id="_lrgv_8py_source_1l00176"/>00176 
+<anchor xml:id="_lrgv_8py_source_1l00177"/>00177 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_lrgv_8py_source_1l00178"/>00178 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">except</emphasis>&#32;Exception&#32;<emphasis role="keyword">as</emphasis>&#32;ex:
+<anchor xml:id="_lrgv_8py_source_1l00179"/>00179 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;print(str(ex))&#32;&#32;
+<anchor xml:id="_lrgv_8py_source_1l00180"/>00180 
+<anchor xml:id="_lrgv_8py_source_1l00181"/><link linkend="_namespacelrgv_1a2fe3ed09ae5ef083c2fa961c8875803e">00181</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacelrgv_1a2fe3ed09ae5ef083c2fa961c8875803e">plot3d</link>(ys,&#32;name,&#32;xlabel=&apos;&apos;,&#32;ylabel=&apos;&apos;,&#32;zlabel=&apos;&apos;):
+<anchor xml:id="_lrgv_8py_source_1l00182"/>00182 &#32;&#32;&#32;&#32;<emphasis role="keyword">import</emphasis>&#32;matplotlib.pyplot&#32;<emphasis role="keyword">as</emphasis>&#32;plt
+<anchor xml:id="_lrgv_8py_source_1l00183"/>00183 &#32;&#32;&#32;&#32;x&#32;=&#32;ys[:,&#32;0];&#32;y&#32;=&#32;ys[:,&#32;3];&#32;z&#32;=&#32;ys[:,&#32;2]
+<anchor xml:id="_lrgv_8py_source_1l00184"/>00184 &#32;&#32;&#32;&#32;fig&#32;=&#32;plt.figure()
+<anchor xml:id="_lrgv_8py_source_1l00185"/>00185 &#32;&#32;&#32;&#32;ax&#32;=&#32;fig.add_subplot()&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_lrgv_8py_source_1l00186"/>00186 &#32;&#32;&#32;&#32;img&#32;=&#32;ax.scatter(x,&#32;y,&#32;s=4,&#32;c=z,&#32;cmap=<emphasis role="stringliteral">&apos;rainbow&apos;</emphasis>)
+<anchor xml:id="_lrgv_8py_source_1l00187"/>00187 &#32;&#32;&#32;&#32;cbar&#32;=&#32;fig.colorbar(img)
+<anchor xml:id="_lrgv_8py_source_1l00188"/>00188 &#32;&#32;&#32;&#32;plt.xlabel(xlabel)&#32;&#32;&#32;&#32;
+<anchor xml:id="_lrgv_8py_source_1l00189"/>00189 &#32;&#32;&#32;&#32;plt.ylabel(ylabel)
+<anchor xml:id="_lrgv_8py_source_1l00190"/>00190 &#32;&#32;&#32;&#32;cbar.set_label(zlabel)
+<anchor xml:id="_lrgv_8py_source_1l00191"/>00191 &#32;&#32;&#32;&#32;fig.set_figheight(8)
+<anchor xml:id="_lrgv_8py_source_1l00192"/>00192 &#32;&#32;&#32;&#32;fig.set_figwidth(8)
+<anchor xml:id="_lrgv_8py_source_1l00193"/>00193 &#32;&#32;&#32;&#32;fig.savefig(name,&#32;dpi=300)
+<anchor xml:id="_lrgv_8py_source_1l00194"/>00194 &#32;&#32;&#32;&#32;
+<anchor xml:id="_lrgv_8py_source_1l00195"/><link linkend="_namespacelrgv_1ab44b25d6ed6c94ba6a458846cb48830e">00195</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacelrgv_1ab44b25d6ed6c94ba6a458846cb48830e">plot_archive</link>(archive,&#32;problem):
+<anchor xml:id="_lrgv_8py_source_1l00196"/>00196 &#32;&#32;&#32;&#32;si&#32;=&#32;archive.argsort()
+<anchor xml:id="_lrgv_8py_source_1l00197"/>00197 &#32;&#32;&#32;&#32;ysp&#32;=&#32;[]
+<anchor xml:id="_lrgv_8py_source_1l00198"/>00198 &#32;&#32;&#32;&#32;descriptions&#32;=&#32;archive.get_ds()[si]
+<anchor xml:id="_lrgv_8py_source_1l00199"/>00199 &#32;&#32;&#32;&#32;ys&#32;=&#32;archive.get_ys()[si]
+<anchor xml:id="_lrgv_8py_source_1l00200"/>00200 &#32;&#32;&#32;&#32;xs&#32;=&#32;archive.get_xs()[si]&#32;&#32;&#32;
+<anchor xml:id="_lrgv_8py_source_1l00201"/>00201 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(len(si)):
+<anchor xml:id="_lrgv_8py_source_1l00202"/>00202 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;ys[i]&#32;&lt;&#32;np.inf:&#32;<emphasis role="comment">#&#32;throw&#32;out&#32;invalid</emphasis>
+<anchor xml:id="_lrgv_8py_source_1l00203"/>00203 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ysp.append(descriptions[i])
+<anchor xml:id="_lrgv_8py_source_1l00204"/>00204 &#32;&#32;&#32;&#32;ysp&#32;=&#32;np.array(ysp)
+<anchor xml:id="_lrgv_8py_source_1l00205"/>00205 &#32;&#32;&#32;&#32;<link linkend="_namespacelrgv_1a2fe3ed09ae5ef083c2fa961c8875803e">plot3d</link>(ysp,&#32;<emphasis role="stringliteral">&quot;lrgv_nd&quot;</emphasis>,&#32;<emphasis role="stringliteral">&apos;f1&apos;</emphasis>,&#32;<emphasis role="stringliteral">&apos;f4&apos;</emphasis>,&#32;<emphasis role="stringliteral">&apos;f3&apos;</emphasis>)&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_lrgv_8py_source_1l00206"/>00206 
+<anchor xml:id="_lrgv_8py_source_1l00207"/><link linkend="_namespacelrgv_1a6f6a9cf8f09f279c6e4a42bd1280b6bc">00207</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacelrgv_1a6f6a9cf8f09f279c6e4a42bd1280b6bc">optimize_qd</link>():
+<anchor xml:id="_lrgv_8py_source_1l00208"/>00208 
+<anchor xml:id="_lrgv_8py_source_1l00209"/>00209 &#32;&#32;&#32;&#32;problem&#32;=&#32;<link linkend="_classlrgv_1_1lrgv">lrgv</link>()
+<anchor xml:id="_lrgv_8py_source_1l00210"/>00210 &#32;&#32;&#32;&#32;problem.qd_dim&#32;=&#32;5
+<anchor xml:id="_lrgv_8py_source_1l00211"/>00211 &#32;&#32;&#32;&#32;problem.qd_bounds&#32;=&#32;Bounds(np.array([0.85E7,&#32;-1,&#32;10000,&#32;0,&#32;0]),&#32;
+<anchor xml:id="_lrgv_8py_source_1l00212"/>00212 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;np.array([1.4E7,&#32;-0.985,&#32;65000,&#32;65000,&#32;10]))&#32;
+<anchor xml:id="_lrgv_8py_source_1l00213"/>00213 &#32;&#32;&#32;&#32;name&#32;=&#32;<emphasis role="stringliteral">&apos;lrgv_qd&apos;</emphasis>
+<anchor xml:id="_lrgv_8py_source_1l00214"/>00214 &#32;&#32;&#32;&#32;opt_params0&#32;=&#32;{<emphasis role="stringliteral">&apos;solver&apos;</emphasis>:<emphasis role="stringliteral">&apos;elites&apos;</emphasis>,&#32;<emphasis role="stringliteral">&apos;popsize&apos;</emphasis>:32}
+<anchor xml:id="_lrgv_8py_source_1l00215"/>00215 &#32;&#32;&#32;&#32;opt_params1&#32;=&#32;{<emphasis role="stringliteral">&apos;solver&apos;</emphasis>:<emphasis role="stringliteral">&apos;CRMFNES_CPP&apos;</emphasis>,&#32;<emphasis role="stringliteral">&apos;max_evals&apos;</emphasis>:400,&#32;<emphasis role="stringliteral">&apos;popsize&apos;</emphasis>:16,&#32;<emphasis role="stringliteral">&apos;stall_criterion&apos;</emphasis>:3}
+<anchor xml:id="_lrgv_8py_source_1l00216"/>00216 &#32;&#32;&#32;&#32;<emphasis role="comment">#opt_params1&#32;=&#32;{&apos;solver&apos;:&apos;CMA_CPP&apos;,&#32;&apos;max_evals&apos;:400,&#32;&apos;popsize&apos;:16,&#32;&apos;stall_criterion&apos;:3}</emphasis>
+<anchor xml:id="_lrgv_8py_source_1l00217"/>00217 &#32;&#32;&#32;&#32;archive&#32;=&#32;diversifier.minimize(
+<anchor xml:id="_lrgv_8py_source_1l00218"/>00218 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classfcmaes_1_1mapelites_1_1wrapper">mapelites.wrapper</link>(problem.qd_fitness,&#32;problem.qd_dim,&#32;interval=1000,&#32;save_interval=200000),&#32;
+<anchor xml:id="_lrgv_8py_source_1l00219"/>00219 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;problem.bounds,&#32;problem.qd_bounds,&#32;opt_params=[opt_params0,&#32;opt_params1],&#32;max_evals=400000)
+<anchor xml:id="_lrgv_8py_source_1l00220"/>00220 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;archive&#32;=&#32;mapelites.load_archive(name,&#32;problem.bounds,&#32;problem.qd_bounds)</emphasis>
+<anchor xml:id="_lrgv_8py_source_1l00221"/>00221 &#32;&#32;&#32;&#32;print(<emphasis role="stringliteral">&apos;final&#32;archive:&apos;</emphasis>,&#32;archive.info())
+<anchor xml:id="_lrgv_8py_source_1l00222"/>00222 &#32;&#32;&#32;&#32;archive.save(name)
+<anchor xml:id="_lrgv_8py_source_1l00223"/>00223 &#32;&#32;&#32;&#32;
+<anchor xml:id="_lrgv_8py_source_1l00224"/>00224 &#32;&#32;&#32;&#32;<link linkend="_namespacelrgv_1ab44b25d6ed6c94ba6a458846cb48830e">plot_archive</link>(archive,&#32;problem)
+<anchor xml:id="_lrgv_8py_source_1l00225"/>00225 
+<anchor xml:id="_lrgv_8py_source_1l00226"/>00226 <emphasis role="keywordflow">if</emphasis>&#32;__name__&#32;==&#32;<emphasis role="stringliteral">&apos;__main__&apos;</emphasis>:
+<anchor xml:id="_lrgv_8py_source_1l00227"/>00227 &#32;&#32;&#32;&#32;<link linkend="_namespacelrgv_1af66d50b3590ffa761afae82d3302a9e5">optimize_mo</link>()
+<anchor xml:id="_lrgv_8py_source_1l00228"/>00228 &#32;&#32;&#32;&#32;<emphasis role="comment">#optimize_qd()</emphasis>
+<anchor xml:id="_lrgv_8py_source_1l00229"/>00229 &#32;&#32;&#32;&#32;&#32;
+</programlisting></section>

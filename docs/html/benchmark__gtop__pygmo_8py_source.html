@@ -1,0 +1,450 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>Fast CMA-ES: examples/benchmark_gtop_pygmo.py Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/TeX/AMSmath','[tex]/TeX/AMSsymbols']
+  },
+  tex: {
+    macros: {},
+    packages: ['base','configmacros','TeX/AMSmath','TeX/AMSsymbols']
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/jothepro/doxygen-awesome-css" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="fcames.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Fast CMA-ES
+   &#160;<span id="projectnumber">1.6.11</span>
+   </div>
+   <div id="projectbrief">Fast Covariance Matrix Adaptation Evolution Strategy (CMA-ES) implementation in C++ and Python</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.13.2 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('benchmark__gtop__pygmo_8py_source.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">benchmark_gtop_pygmo.py</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="benchmark__gtop__pygmo_8py.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1benchmark__gtop__pygmo.html">    1</a></span><span class="comment"># Copyright (c) Dietmar Wolz.</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">#</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"># This source code is licensed under the MIT license found in the</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"># LICENSE file in the root directory.</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"># Test for fcmaes coordinated retry applied to https://www.esa.int/gsp/ACT/projects/gtop/</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"># using https://github.com/esa/pygmo2 / pagmo2 optimization algorithms.</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment"># </span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment"># Requires pygmo which needs python 3.8, </span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment"># Create an python 3.8 environment:</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment"># mamba create -n env38 python=3.8</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment"># conda activate env38</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment"># Install dependencies:</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment"># pip install pygmo </span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="comment"># Tested using https://docs.conda.io/en/main/miniconda.html on Linux Mint 21.2</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">import</span> math</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">from</span> <a class="code hl_namespace" href="namespacefcmaes_1_1advretry.html">fcmaes.advretry</a> <span class="keyword">import</span> minimize</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">from</span> <a class="code hl_namespace" href="namespacefcmaes_1_1astro.html">fcmaes.astro</a> <span class="keyword">import</span> Messenger, Cassini2, Rosetta, Gtoc1, Cassini1, Sagas, Tandem, MessFull</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">from</span> <a class="code hl_namespace" href="namespacefcmaes_1_1optimizer.html">fcmaes.optimizer</a> <span class="keyword">import</span> dtime, Optimizer, Sequence, De_cpp, Cma_cpp</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">from</span> numpy.random <span class="keyword">import</span> MT19937, Generator</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keyword">from</span> scipy.optimize <span class="keyword">import</span> OptimizeResult</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="keyword">import</span> multiprocessing <span class="keyword">as</span> mp</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">import</span> pygmo <span class="keyword">as</span> pg</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="keyword">import</span> time</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keyword">import</span> sys </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="keyword">from</span> loguru <span class="keyword">import</span> logger</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>logger.remove()</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1benchmark__gtop__pygmo.html#ac734fa0c08aa511b65e95ca5c64f2a4c">   37</a></span>logger.add(sys.stdout, format=<span class="stringliteral">&quot;{time:HH:mm:ss.SS} | {process} | {level} | {message}&quot;</span>, level=<span class="stringliteral">&quot;INFO&quot;</span>)</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>logger.add(<span class="stringliteral">&quot;log_{time}.txt&quot;</span>, format=<span class="stringliteral">&quot;{time:HH:mm:ss.SS} | {process} | {level} | {message}&quot;</span>, level=<span class="stringliteral">&quot;INFO&quot;</span>)</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="keyword">class </span><a class="code hl_class" href="classexamples_1_1benchmark__gtop__pygmo_1_1pygmo__udp.html">pygmo_udp</a>(object):</div>
+<div class="foldopen" id="foldopen00041" data-start="" data-end="">
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="classexamples_1_1benchmark__gtop__pygmo_1_1pygmo__udp.html">   41</a></span>    <span class="stringliteral">&quot;&quot;&quot;Wraps a fcmaes fitness function as pygmo udp.&quot;&quot;&quot;</span></div>
+<div class="foldopen" id="foldopen00042" data-start="" data-end="">
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="classexamples_1_1benchmark__gtop__pygmo_1_1pygmo__udp.html#a554b734061744f3a24a94b3b2b5638b1">   42</a></span>    <span class="keyword">def </span><a class="code hl_function" href="classexamples_1_1benchmark__gtop__pygmo_1_1pygmo__udp.html#a554b734061744f3a24a94b3b2b5638b1">__init__</a>(self, fun, bounds): </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="classexamples_1_1benchmark__gtop__pygmo_1_1pygmo__udp.html#a3cbfcb92d557e07dca883659abd8375a">   43</a></span>        self.<a class="code hl_variable" href="classexamples_1_1benchmark__gtop__pygmo_1_1pygmo__udp.html#a3cbfcb92d557e07dca883659abd8375a">fun</a> = fun</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="classexamples_1_1benchmark__gtop__pygmo_1_1pygmo__udp.html#ab521631aff5164ef305cc19229711bb9">   44</a></span>        self.<a class="code hl_variable" href="classexamples_1_1benchmark__gtop__pygmo_1_1pygmo__udp.html#ab521631aff5164ef305cc19229711bb9">bounds</a> = bounds</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>              </div>
+</div>
+<div class="foldopen" id="foldopen00046" data-start="" data-end="">
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="classexamples_1_1benchmark__gtop__pygmo_1_1pygmo__udp.html#a8b05705866c5de83931191324a4e1311">   46</a></span>    <span class="keyword">def </span><a class="code hl_function" href="classexamples_1_1benchmark__gtop__pygmo_1_1pygmo__udp.html#a8b05705866c5de83931191324a4e1311">fitness</a>(self, x):</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keywordflow">return</span> [self.<a class="code hl_variable" href="classexamples_1_1benchmark__gtop__pygmo_1_1pygmo__udp.html#a3cbfcb92d557e07dca883659abd8375a">fun</a>(x)]</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+</div>
+<div class="foldopen" id="foldopen00049" data-start="" data-end="">
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="classexamples_1_1benchmark__gtop__pygmo_1_1pygmo__udp.html#a41d3b087b32923f75cbe401f3f2419e3">   49</a></span>    <span class="keyword">def </span><a class="code hl_function" href="classexamples_1_1benchmark__gtop__pygmo_1_1pygmo__udp.html#a41d3b087b32923f75cbe401f3f2419e3">get_bounds</a>(self):</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <span class="keywordflow">return</span> (self.<a class="code hl_variable" href="classexamples_1_1benchmark__gtop__pygmo_1_1pygmo__udp.html#ab521631aff5164ef305cc19229711bb9">bounds</a>.lb, self.<a class="code hl_variable" href="classexamples_1_1benchmark__gtop__pygmo_1_1pygmo__udp.html#ab521631aff5164ef305cc19229711bb9">bounds</a>.ub)</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+</div>
+</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1benchmark__gtop__pygmo.html#adacb1bdcd0ee085801b2b9e6e8022ace">de_cma_pyg</a>(max_evaluations = 50000, popsize=31, stop_fitness = -np.inf, </div>
+<div class="foldopen" id="foldopen00053" data-start="" data-end="">
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1benchmark__gtop__pygmo.html#adacb1bdcd0ee085801b2b9e6e8022ace">   53</a></span>           de_max_evals = None, cma_max_evals = None):</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="stringliteral">&quot;&quot;&quot;Sequence de1220 -&gt; cmaes pagmo.&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    deEvals = np.random.uniform(0.1, 0.3)</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keywordflow">if</span> de_max_evals <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        de_max_evals = int(deEvals*max_evaluations)</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keywordflow">if</span> cma_max_evals <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        cma_max_evals = int((1.0-deEvals)*max_evaluations)</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    opt1 = <a class="code hl_class" href="classexamples_1_1benchmark__gtop__pygmo_1_1_de__pyg.html">De_pyg</a>(popsize=popsize, max_evaluations = de_max_evals, stop_fitness = stop_fitness)</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    opt2 = <a class="code hl_class" href="classexamples_1_1benchmark__gtop__pygmo_1_1_cma__pyg.html">Cma_pyg</a>(popsize=popsize, max_evaluations = cma_max_evals, </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>                   stop_fitness = stop_fitness)</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keywordflow">return</span> <a class="code hl_class" href="classfcmaes_1_1optimizer_1_1_sequence.html">Sequence</a>([opt1, opt2])</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1benchmark__gtop__pygmo.html#ae9fd95cc51761a89ffc0635dba4aa504">pyg_de_cma</a>(max_evaluations = 50000, popsize=31, stop_fitness = -np.inf, </div>
+<div class="foldopen" id="foldopen00067" data-start="" data-end="">
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1benchmark__gtop__pygmo.html#ae9fd95cc51761a89ffc0635dba4aa504">   67</a></span>           de_max_evals = None, cma_max_evals = None):</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="stringliteral">&quot;&quot;&quot;Sequence de1220 -&gt; cmaes c++.&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    deEvals = np.random.uniform(0.1, 0.3)</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keywordflow">if</span> de_max_evals <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        de_max_evals = int(deEvals*max_evaluations)</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keywordflow">if</span> cma_max_evals <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        cma_max_evals = int((1.0-deEvals)*max_evaluations)</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    opt1 = <a class="code hl_class" href="classfcmaes_1_1optimizer_1_1_de__cpp.html">De_cpp</a>(popsize=popsize, max_evaluations = de_max_evals, stop_fitness = stop_fitness)</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    opt2 = <a class="code hl_class" href="classexamples_1_1benchmark__gtop__pygmo_1_1_cma__pyg.html">Cma_pyg</a>(popsize=popsize, max_evaluations = cma_max_evals, </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>                   stop_fitness = stop_fitness)</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="keywordflow">return</span> <a class="code hl_class" href="classfcmaes_1_1optimizer_1_1_sequence.html">Sequence</a>([opt1, opt2])</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
+</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1benchmark__gtop__pygmo.html#a35d3645d623ed7454908364351809f25">de_pyg_cma</a>(max_evaluations = 50000, popsize=31, stop_fitness = -np.inf, </div>
+<div class="foldopen" id="foldopen00081" data-start="" data-end="">
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1benchmark__gtop__pygmo.html#a35d3645d623ed7454908364351809f25">   81</a></span>           de_max_evals = None, cma_max_evals = None):</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="stringliteral">&quot;&quot;&quot;Sequence de c++ -&gt; cmaes pagmo.&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    deEvals = np.random.uniform(0.1, 0.3)</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="keywordflow">if</span> de_max_evals <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        de_max_evals = int(deEvals*max_evaluations)</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keywordflow">if</span> cma_max_evals <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        cma_max_evals = int((1.0-deEvals)*max_evaluations)</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    opt1 = <a class="code hl_class" href="classexamples_1_1benchmark__gtop__pygmo_1_1_de__pyg.html">De_pyg</a>(popsize=popsize, max_evaluations = de_max_evals, stop_fitness = stop_fitness)</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    opt2 = <a class="code hl_class" href="classfcmaes_1_1optimizer_1_1_cma__cpp.html">Cma_cpp</a>(popsize=popsize, max_evaluations = cma_max_evals, </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>                   stop_fitness = stop_fitness)</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <span class="keywordflow">return</span> <a class="code hl_class" href="classfcmaes_1_1optimizer_1_1_sequence.html">Sequence</a>([opt1, opt2])</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="keyword">class </span><a class="code hl_class" href="classexamples_1_1benchmark__gtop__pygmo_1_1_cma__pyg.html">Cma_pyg</a>(<a class="code hl_class" href="classfcmaes_1_1optimizer_1_1_optimizer.html">Optimizer</a>):</div>
+<div class="foldopen" id="foldopen00095" data-start="" data-end="">
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="classexamples_1_1benchmark__gtop__pygmo_1_1_cma__pyg.html">   95</a></span>    <span class="stringliteral">&quot;&quot;&quot;CMA_ES pagmo implementation.&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>   </div>
+<div class="foldopen" id="foldopen00097" data-start="" data-end="">
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="classexamples_1_1benchmark__gtop__pygmo_1_1_cma__pyg.html#a72cd3810a8aa777511b258e2c10179b5">   97</a></span>    <span class="keyword">def </span><a class="code hl_function" href="classexamples_1_1benchmark__gtop__pygmo_1_1_cma__pyg.html#a72cd3810a8aa777511b258e2c10179b5">__init__</a>(self, max_evaluations=50000, popsize = 31, guess=None, stop_fitness = -np.inf):        </div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        Optimizer.__init__(self, max_evaluations, <span class="stringliteral">&#39;cma pagmo&#39;</span>)</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="classexamples_1_1benchmark__gtop__pygmo_1_1_cma__pyg.html#a417a165a5ceee871a126af16ba74aa40">   99</a></span>        self.<a class="code hl_variable" href="classexamples_1_1benchmark__gtop__pygmo_1_1_cma__pyg.html#a417a165a5ceee871a126af16ba74aa40">popsize</a> = popsize</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno"><a class="line" href="classexamples_1_1benchmark__gtop__pygmo_1_1_cma__pyg.html#ab9b4f3a7942f95a90e46cabf2ae20641">  100</a></span>        self.<a class="code hl_variable" href="classexamples_1_1benchmark__gtop__pygmo_1_1_cma__pyg.html#ab9b4f3a7942f95a90e46cabf2ae20641">guess</a> = guess</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno"><a class="line" href="classexamples_1_1benchmark__gtop__pygmo_1_1_cma__pyg.html#abb8008f11f1ddb42806a01d4a70c931b">  101</a></span>        self.<a class="code hl_variable" href="classexamples_1_1benchmark__gtop__pygmo_1_1_cma__pyg.html#abb8008f11f1ddb42806a01d4a70c931b">stop_fitness</a> = stop_fitness</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
+</div>
+<div class="foldopen" id="foldopen00103" data-start="" data-end="">
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno"><a class="line" href="classexamples_1_1benchmark__gtop__pygmo_1_1_cma__pyg.html#ac6519a73a433d9af5f92b533f3e1520a">  103</a></span>    <span class="keyword">def </span><a class="code hl_function" href="classexamples_1_1benchmark__gtop__pygmo_1_1_cma__pyg.html#ac6519a73a433d9af5f92b533f3e1520a">minimize</a>(self, fun, bounds, guess=None, sdevs=0.3, rg=Generator(MT19937()), store=<span class="keywordtype">None</span>):</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        gen = int(self.<a class="code hl_function" href="classfcmaes_1_1optimizer_1_1_optimizer.html#adfc4b7f5b36503f186c68d521a9ede8a">max_eval_num</a>(store) / self.<a class="code hl_variable" href="classexamples_1_1benchmark__gtop__pygmo_1_1_cma__pyg.html#a417a165a5ceee871a126af16ba74aa40">popsize</a> + 1)       </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        algo = pg.algorithm(pg.cmaes(gen=gen, force_bounds = <span class="keyword">True</span>, </div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>                    sigma0 = np.mean(sdevs), seed = int(rg.uniform(0, 2**32 - 1))))</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        udp = <a class="code hl_class" href="classexamples_1_1benchmark__gtop__pygmo_1_1pygmo__udp.html">pygmo_udp</a>(fun, bounds)    </div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        prob = pg.problem(udp) </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        pop = pg.population(prob, self.<a class="code hl_variable" href="classexamples_1_1benchmark__gtop__pygmo_1_1_cma__pyg.html#a417a165a5ceee871a126af16ba74aa40">popsize</a>)</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        <span class="keywordflow">if</span> <span class="keywordflow">not</span> guess <span class="keywordflow">is</span> <span class="keywordtype">None</span>: </div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>            scale = np.multiply(0.5 * (bounds.ub - bounds.lb), sdevs)</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>            <span class="keywordflow">for</span> i <span class="keywordflow">in</span> range(self.<a class="code hl_variable" href="classexamples_1_1benchmark__gtop__pygmo_1_1_cma__pyg.html#a417a165a5ceee871a126af16ba74aa40">popsize</a>):</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>                xi = np.random.normal(guess, scale)</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>                xi = np.maximum(np.minimum(xi, bounds.ub), bounds.lb)</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>                pop.set_x(i, xi)</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        pop = algo.evolve(pop)</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        <span class="keywordflow">return</span> pop.champion_x, pop.champion_f, pop.problem.get_fevals()</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
+</div>
+</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="keyword">class </span><a class="code hl_class" href="classexamples_1_1benchmark__gtop__pygmo_1_1_de__pyg.html">De_pyg</a>(<a class="code hl_class" href="classfcmaes_1_1optimizer_1_1_optimizer.html">Optimizer</a>):</div>
+<div class="foldopen" id="foldopen00120" data-start="" data-end="">
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno"><a class="line" href="classexamples_1_1benchmark__gtop__pygmo_1_1_de__pyg.html">  120</a></span>    <span class="stringliteral">&quot;&quot;&quot;Differential Evolution pagmo implementation.&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    </div>
+<div class="foldopen" id="foldopen00122" data-start="" data-end="">
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno"><a class="line" href="classexamples_1_1benchmark__gtop__pygmo_1_1_de__pyg.html#a9f4fc297f56e80492558024b35ffa75c">  122</a></span>    <span class="keyword">def </span><a class="code hl_function" href="classexamples_1_1benchmark__gtop__pygmo_1_1_de__pyg.html#a9f4fc297f56e80492558024b35ffa75c">__init__</a>(self, max_evaluations=50000, popsize = None, stop_fitness = -np.inf):        </div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        Optimizer.__init__(self, max_evaluations, <span class="stringliteral">&#39;de1220 pagmo&#39;</span>)</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno"><a class="line" href="classexamples_1_1benchmark__gtop__pygmo_1_1_de__pyg.html#a3d8f82742cfd9cc92c3f9711096abbea">  124</a></span>        self.<a class="code hl_variable" href="classexamples_1_1benchmark__gtop__pygmo_1_1_de__pyg.html#a3d8f82742cfd9cc92c3f9711096abbea">popsize</a> = popsize</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno"><a class="line" href="classexamples_1_1benchmark__gtop__pygmo_1_1_de__pyg.html#a00ba15f8005bd8a195e420220b6b4773">  125</a></span>        self.<a class="code hl_variable" href="classexamples_1_1benchmark__gtop__pygmo_1_1_de__pyg.html#a00ba15f8005bd8a195e420220b6b4773">stop_fitness</a> = stop_fitness</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
+</div>
+<div class="foldopen" id="foldopen00127" data-start="" data-end="">
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno"><a class="line" href="classexamples_1_1benchmark__gtop__pygmo_1_1_de__pyg.html#ac378a2bf0efbc53ed2ef677fa017b916">  127</a></span>    <span class="keyword">def </span><a class="code hl_function" href="classexamples_1_1benchmark__gtop__pygmo_1_1_de__pyg.html#ac378a2bf0efbc53ed2ef677fa017b916">minimize</a>(self, fun, bounds, guess=None, sdevs=None, rg=Generator(MT19937()), store=<span class="keywordtype">None</span>):</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        gen = int(self.<a class="code hl_function" href="classfcmaes_1_1optimizer_1_1_optimizer.html#adfc4b7f5b36503f186c68d521a9ede8a">max_eval_num</a>(store) / self.<a class="code hl_variable" href="classexamples_1_1benchmark__gtop__pygmo_1_1_de__pyg.html#a3d8f82742cfd9cc92c3f9711096abbea">popsize</a> + 1)</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        algo = pg.algorithm(pg.de1220(gen=gen, allowed_variants = [1, 2, 4, 7, 10, 13, 14, 15, 16], </div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>                                      variant_adptv = 1, seed = int(rg.uniform(0, 2**32 - 1))))</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span><span class="comment">#         algo = pg.algorithm(pg.sade(gen=gen, variant_adptv = 1, seed = int(rg.uniform(0, 2**32 - 1))))</span></div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        udp = <a class="code hl_class" href="classexamples_1_1benchmark__gtop__pygmo_1_1pygmo__udp.html">pygmo_udp</a>(fun, bounds)    </div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        prob = pg.problem(udp) </div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        pop = pg.population(prob, self.<a class="code hl_variable" href="classexamples_1_1benchmark__gtop__pygmo_1_1_de__pyg.html#a3d8f82742cfd9cc92c3f9711096abbea">popsize</a>)</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        pop = algo.evolve(pop)</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>        <span class="keywordflow">return</span> pop.champion_x, pop.champion_f, pop.problem.get_fevals()</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span> </div>
+</div>
+</div>
+<div class="foldopen" id="foldopen00138" data-start="" data-end="">
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1benchmark__gtop__pygmo.html#a122592852c04a8a8e8a3b4d9cdc38bfa">  138</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1benchmark__gtop__pygmo.html#a122592852c04a8a8e8a3b4d9cdc38bfa">_test_optimizer</a>(opt, problem, num_retries = 10000, num = 1, value_limit = 100.0, </div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>                    stop_val = -1E99, log = logger()):</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    logger.info(<span class="stringliteral">&quot;Testing coordinated retry &quot;</span> + opt.name +  <span class="stringliteral">&#39; &#39;</span> + problem.name )</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    <span class="keywordflow">for</span> _ <span class="keywordflow">in</span> range(num):</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>        ret = minimize(problem.fun, problem.bounds, value_limit, num_retries, log, </div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>                       optimizer=opt, stop_fitness = stop_val)</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span> </div>
+</div>
+<div class="foldopen" id="foldopen00145" data-start="" data-end="">
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1benchmark__gtop__pygmo.html#a7778c5b75c17d1682355830441233819">  145</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1benchmark__gtop__pygmo.html#a7778c5b75c17d1682355830441233819">_test_archipelago</a>(algo, problem, num = 10000, stop_val = -1E99, log = logger()):   </div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    udp = <a class="code hl_class" href="classexamples_1_1benchmark__gtop__pygmo_1_1pygmo__udp.html">pygmo_udp</a>(problem.fun, problem.bounds)</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    prob = pg.problem(udp) </div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    best_y = np.inf</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    best_x = <span class="keywordtype">None</span></div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    t0 = time.perf_counter()</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>   </div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    <span class="keywordflow">for</span> _ <span class="keywordflow">in</span> range(num):</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>        archi = pg.archipelago(n=mp.cpu_count(), algo=algo, prob=prob, pop_size=64)</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>        archi.evolve()  </div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>        archi.wait()</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>        ys = archi.get_champions_f()</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>        <span class="keywordflow">if</span> <span class="keywordflow">not</span> ys <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> len(ys) &gt; 0: </div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>            sort = np.argsort([y[0] <span class="keywordflow">for</span> y <span class="keywordflow">in</span> ys])</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>            y = ys[sort[0]][0]</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>            <span class="keywordflow">if</span> y &lt; best_y:</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>                best_y = y</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>                best_x = archi.get_champions_x()[sort[0]]</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>                message = <span class="stringliteral">&#39;{0} {1} {2} {3!s}&#39;</span>.<a class="code hl_variable" href="namespaceexamples_1_1benchmark__gtop__pygmo.html#ac734fa0c08aa511b65e95ca5c64f2a4c">format</a>(</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>                    problem.name, dtime(t0), best_y, list(best_x))</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>                logger.info(message)</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>                <span class="keywordflow">if</span> best_y &lt; stop_val: </div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>                    <span class="keywordflow">break</span></div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    <span class="keywordflow">return</span> OptimizeResult(x=best_x, fun=best_y, success=<span class="keyword">True</span>)</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span> </div>
+</div>
+<div class="foldopen" id="foldopen00170" data-start="" data-end="">
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1benchmark__gtop__pygmo.html#acf3acdca1f90a44c0759ad0d1cda8b22">  170</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1benchmark__gtop__pygmo.html#acf3acdca1f90a44c0759ad0d1cda8b22">test_archipelago</a>():</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    max_evals = 500000</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    popsize = 32</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    gen = int(max_evals / popsize + 1)</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    algo = pg.algorithm(pg.de1220(gen=gen))</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    fac = 1.005</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    <a class="code hl_function" href="namespaceexamples_1_1benchmark__gtop__pygmo.html#a7778c5b75c17d1682355830441233819">_test_archipelago</a>(algo, <a class="code hl_class" href="classfcmaes_1_1astro_1_1_cassini1.html">Cassini1</a>(), num = 400, stop_val = 4.9307*fac)</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    <a class="code hl_function" href="namespaceexamples_1_1benchmark__gtop__pygmo.html#a7778c5b75c17d1682355830441233819">_test_archipelago</a>(algo, <a class="code hl_class" href="classfcmaes_1_1astro_1_1_cassini2.html">Cassini2</a>(), num = 600, stop_val = 8.383*fac)</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    <a class="code hl_function" href="namespaceexamples_1_1benchmark__gtop__pygmo.html#a7778c5b75c17d1682355830441233819">_test_archipelago</a>(algo, <a class="code hl_class" href="classfcmaes_1_1astro_1_1_gtoc1.html">Gtoc1</a>(), num = 1000, stop_val = -1581950/fac)</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    <a class="code hl_function" href="namespaceexamples_1_1benchmark__gtop__pygmo.html#a7778c5b75c17d1682355830441233819">_test_archipelago</a>(algo, <a class="code hl_class" href="classfcmaes_1_1astro_1_1_messenger.html">Messenger</a>(), num = 800, stop_val = 8.63*fac)</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>    <a class="code hl_function" href="namespaceexamples_1_1benchmark__gtop__pygmo.html#a7778c5b75c17d1682355830441233819">_test_archipelago</a>(algo, <a class="code hl_class" href="classfcmaes_1_1astro_1_1_rosetta.html">Rosetta</a>(), num = 400, stop_val = 1.3433*fac)</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>    <a class="code hl_function" href="namespaceexamples_1_1benchmark__gtop__pygmo.html#a7778c5b75c17d1682355830441233819">_test_archipelago</a>(algo, <a class="code hl_class" href="classfcmaes_1_1astro_1_1_sagas.html">Sagas</a>(), num = 400, stop_val = 18.187*fac)</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    <a class="code hl_function" href="namespaceexamples_1_1benchmark__gtop__pygmo.html#a7778c5b75c17d1682355830441233819">_test_archipelago</a>(algo, <a class="code hl_class" href="classfcmaes_1_1astro_1_1_tandem.html">Tandem</a>(5), num = 2000, stop_val = -1500.6/fac)</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    <a class="code hl_function" href="namespaceexamples_1_1benchmark__gtop__pygmo.html#a7778c5b75c17d1682355830441233819">_test_archipelago</a>(algo, <a class="code hl_class" href="classfcmaes_1_1astro_1_1_mess_full.html">MessFull</a>(), num = 5000, stop_val = 1.959*fac)</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span> </div>
+</div>
+<div class="foldopen" id="foldopen00185" data-start="" data-end="">
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1benchmark__gtop__pygmo.html#aeccaaa319086484e7320dee37695e81d">  185</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1benchmark__gtop__pygmo.html#aeccaaa319086484e7320dee37695e81d">test_coordinated_retry</a>():</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>    numRuns = 10</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>    min_evals = 1500</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>    algo = <a class="code hl_function" href="namespaceexamples_1_1benchmark__gtop__pygmo.html#adacb1bdcd0ee085801b2b9e6e8022ace">de_cma_pyg</a>(min_evals)</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>    <span class="comment">#algo = pyg_de_cma(min_evals)</span></div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>    <span class="comment">#algo = de_pyg_cma(min_evals)</span></div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    fac = 1.005</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>    <a class="code hl_function" href="namespaceexamples_1_1benchmark__gtop__pygmo.html#a122592852c04a8a8e8a3b4d9cdc38bfa">_test_optimizer</a>(algo, <a class="code hl_class" href="classfcmaes_1_1astro_1_1_gtoc1.html">Gtoc1</a>(), num_retries = 10000, num = numRuns, </div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>                    value_limit = -300000.0, stop_val = -1581950/fac)</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>    <a class="code hl_function" href="namespaceexamples_1_1benchmark__gtop__pygmo.html#a122592852c04a8a8e8a3b4d9cdc38bfa">_test_optimizer</a>(algo, <a class="code hl_class" href="classfcmaes_1_1astro_1_1_cassini1.html">Cassini1</a>(), num_retries = 4000, num = numRuns, </div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>                    value_limit = 20.0, stop_val = 4.9307*fac)</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    <a class="code hl_function" href="namespaceexamples_1_1benchmark__gtop__pygmo.html#a122592852c04a8a8e8a3b4d9cdc38bfa">_test_optimizer</a>(algo, <a class="code hl_class" href="classfcmaes_1_1astro_1_1_cassini2.html">Cassini2</a>(), num_retries = 6000, num = numRuns, </div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>                    value_limit = 20.0, stop_val = 8.383*fac)</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    <a class="code hl_function" href="namespaceexamples_1_1benchmark__gtop__pygmo.html#a122592852c04a8a8e8a3b4d9cdc38bfa">_test_optimizer</a>(algo, <a class="code hl_class" href="classfcmaes_1_1astro_1_1_messenger.html">Messenger</a>(), num_retries = 8000, num = numRuns, </div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>                    value_limit = 20.0, stop_val = 8.63*fac)</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    <a class="code hl_function" href="namespaceexamples_1_1benchmark__gtop__pygmo.html#a122592852c04a8a8e8a3b4d9cdc38bfa">_test_optimizer</a>(algo, <a class="code hl_class" href="classfcmaes_1_1astro_1_1_rosetta.html">Rosetta</a>(), num_retries = 4000, num = numRuns, </div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>                    value_limit = 20.0, stop_val = 1.3433*fac)</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    <a class="code hl_function" href="namespaceexamples_1_1benchmark__gtop__pygmo.html#a122592852c04a8a8e8a3b4d9cdc38bfa">_test_optimizer</a>(algo, <a class="code hl_class" href="classfcmaes_1_1astro_1_1_sagas.html">Sagas</a>(), num_retries = 4000, num = numRuns, </div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>                    value_limit = 100.0, stop_val = 18.187*fac)</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>    <a class="code hl_function" href="namespaceexamples_1_1benchmark__gtop__pygmo.html#a122592852c04a8a8e8a3b4d9cdc38bfa">_test_optimizer</a>(algo, <a class="code hl_class" href="classfcmaes_1_1astro_1_1_tandem.html">Tandem</a>(5), num_retries = 20000, num = numRuns, </div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>                    value_limit = -300.0, stop_val = -1500.6/fac)</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>    <a class="code hl_function" href="namespaceexamples_1_1benchmark__gtop__pygmo.html#a122592852c04a8a8e8a3b4d9cdc38bfa">_test_optimizer</a>(algo, <a class="code hl_class" href="classfcmaes_1_1astro_1_1_mess_full.html">MessFull</a>(), num_retries = 50000, num = numRuns, </div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>                    value_limit = 12.0, stop_val = 1.959*fac)</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span> </div>
+</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span><span class="keywordflow">if</span> __name__ == <span class="stringliteral">&#39;__main__&#39;</span>:</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>    <a class="code hl_function" href="namespaceexamples_1_1benchmark__gtop__pygmo.html#aeccaaa319086484e7320dee37695e81d">test_coordinated_retry</a>()</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>    <span class="comment">#test_archipelago()</span></div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span> </div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>    </div>
+<div class="ttc" id="aclassexamples_1_1benchmark__gtop__pygmo_1_1_cma__pyg_html"><div class="ttname"><a href="classexamples_1_1benchmark__gtop__pygmo_1_1_cma__pyg.html">examples.benchmark_gtop_pygmo.Cma_pyg</a></div><div class="ttdoc">CMA_ES pagmo implementation.</div><div class="ttdef"><b>Definition</b> <a href="#l00095">benchmark_gtop_pygmo.py:95</a></div></div>
+<div class="ttc" id="aclassexamples_1_1benchmark__gtop__pygmo_1_1_cma__pyg_html_a417a165a5ceee871a126af16ba74aa40"><div class="ttname"><a href="classexamples_1_1benchmark__gtop__pygmo_1_1_cma__pyg.html#a417a165a5ceee871a126af16ba74aa40">examples.benchmark_gtop_pygmo.Cma_pyg.popsize</a></div><div class="ttdeci">popsize</div><div class="ttdef"><b>Definition</b> <a href="#l00099">benchmark_gtop_pygmo.py:99</a></div></div>
+<div class="ttc" id="aclassexamples_1_1benchmark__gtop__pygmo_1_1_cma__pyg_html_a72cd3810a8aa777511b258e2c10179b5"><div class="ttname"><a href="classexamples_1_1benchmark__gtop__pygmo_1_1_cma__pyg.html#a72cd3810a8aa777511b258e2c10179b5">examples.benchmark_gtop_pygmo.Cma_pyg.__init__</a></div><div class="ttdeci">__init__(self, max_evaluations=50000, popsize=31, guess=None, stop_fitness=-np.inf)</div><div class="ttdef"><b>Definition</b> <a href="#l00097">benchmark_gtop_pygmo.py:97</a></div></div>
+<div class="ttc" id="aclassexamples_1_1benchmark__gtop__pygmo_1_1_cma__pyg_html_ab9b4f3a7942f95a90e46cabf2ae20641"><div class="ttname"><a href="classexamples_1_1benchmark__gtop__pygmo_1_1_cma__pyg.html#ab9b4f3a7942f95a90e46cabf2ae20641">examples.benchmark_gtop_pygmo.Cma_pyg.guess</a></div><div class="ttdeci">guess</div><div class="ttdef"><b>Definition</b> <a href="#l00100">benchmark_gtop_pygmo.py:100</a></div></div>
+<div class="ttc" id="aclassexamples_1_1benchmark__gtop__pygmo_1_1_cma__pyg_html_abb8008f11f1ddb42806a01d4a70c931b"><div class="ttname"><a href="classexamples_1_1benchmark__gtop__pygmo_1_1_cma__pyg.html#abb8008f11f1ddb42806a01d4a70c931b">examples.benchmark_gtop_pygmo.Cma_pyg.stop_fitness</a></div><div class="ttdeci">stop_fitness</div><div class="ttdef"><b>Definition</b> <a href="#l00101">benchmark_gtop_pygmo.py:101</a></div></div>
+<div class="ttc" id="aclassexamples_1_1benchmark__gtop__pygmo_1_1_cma__pyg_html_ac6519a73a433d9af5f92b533f3e1520a"><div class="ttname"><a href="classexamples_1_1benchmark__gtop__pygmo_1_1_cma__pyg.html#ac6519a73a433d9af5f92b533f3e1520a">examples.benchmark_gtop_pygmo.Cma_pyg.minimize</a></div><div class="ttdeci">minimize(self, fun, bounds, guess=None, sdevs=0.3, rg=Generator(MT19937()), store=None)</div><div class="ttdef"><b>Definition</b> <a href="#l00103">benchmark_gtop_pygmo.py:103</a></div></div>
+<div class="ttc" id="aclassexamples_1_1benchmark__gtop__pygmo_1_1_de__pyg_html"><div class="ttname"><a href="classexamples_1_1benchmark__gtop__pygmo_1_1_de__pyg.html">examples.benchmark_gtop_pygmo.De_pyg</a></div><div class="ttdoc">Differential Evolution pagmo implementation.</div><div class="ttdef"><b>Definition</b> <a href="#l00120">benchmark_gtop_pygmo.py:120</a></div></div>
+<div class="ttc" id="aclassexamples_1_1benchmark__gtop__pygmo_1_1_de__pyg_html_a00ba15f8005bd8a195e420220b6b4773"><div class="ttname"><a href="classexamples_1_1benchmark__gtop__pygmo_1_1_de__pyg.html#a00ba15f8005bd8a195e420220b6b4773">examples.benchmark_gtop_pygmo.De_pyg.stop_fitness</a></div><div class="ttdeci">stop_fitness</div><div class="ttdef"><b>Definition</b> <a href="#l00125">benchmark_gtop_pygmo.py:125</a></div></div>
+<div class="ttc" id="aclassexamples_1_1benchmark__gtop__pygmo_1_1_de__pyg_html_a3d8f82742cfd9cc92c3f9711096abbea"><div class="ttname"><a href="classexamples_1_1benchmark__gtop__pygmo_1_1_de__pyg.html#a3d8f82742cfd9cc92c3f9711096abbea">examples.benchmark_gtop_pygmo.De_pyg.popsize</a></div><div class="ttdeci">popsize</div><div class="ttdef"><b>Definition</b> <a href="#l00124">benchmark_gtop_pygmo.py:124</a></div></div>
+<div class="ttc" id="aclassexamples_1_1benchmark__gtop__pygmo_1_1_de__pyg_html_a9f4fc297f56e80492558024b35ffa75c"><div class="ttname"><a href="classexamples_1_1benchmark__gtop__pygmo_1_1_de__pyg.html#a9f4fc297f56e80492558024b35ffa75c">examples.benchmark_gtop_pygmo.De_pyg.__init__</a></div><div class="ttdeci">__init__(self, max_evaluations=50000, popsize=None, stop_fitness=-np.inf)</div><div class="ttdef"><b>Definition</b> <a href="#l00122">benchmark_gtop_pygmo.py:122</a></div></div>
+<div class="ttc" id="aclassexamples_1_1benchmark__gtop__pygmo_1_1_de__pyg_html_ac378a2bf0efbc53ed2ef677fa017b916"><div class="ttname"><a href="classexamples_1_1benchmark__gtop__pygmo_1_1_de__pyg.html#ac378a2bf0efbc53ed2ef677fa017b916">examples.benchmark_gtop_pygmo.De_pyg.minimize</a></div><div class="ttdeci">minimize(self, fun, bounds, guess=None, sdevs=None, rg=Generator(MT19937()), store=None)</div><div class="ttdef"><b>Definition</b> <a href="#l00127">benchmark_gtop_pygmo.py:127</a></div></div>
+<div class="ttc" id="aclassexamples_1_1benchmark__gtop__pygmo_1_1pygmo__udp_html"><div class="ttname"><a href="classexamples_1_1benchmark__gtop__pygmo_1_1pygmo__udp.html">examples.benchmark_gtop_pygmo.pygmo_udp</a></div><div class="ttdoc">Wraps a fcmaes fitness function as pygmo udp.</div><div class="ttdef"><b>Definition</b> <a href="#l00041">benchmark_gtop_pygmo.py:41</a></div></div>
+<div class="ttc" id="aclassexamples_1_1benchmark__gtop__pygmo_1_1pygmo__udp_html_a3cbfcb92d557e07dca883659abd8375a"><div class="ttname"><a href="classexamples_1_1benchmark__gtop__pygmo_1_1pygmo__udp.html#a3cbfcb92d557e07dca883659abd8375a">examples.benchmark_gtop_pygmo.pygmo_udp.fun</a></div><div class="ttdeci">fun</div><div class="ttdef"><b>Definition</b> <a href="#l00043">benchmark_gtop_pygmo.py:43</a></div></div>
+<div class="ttc" id="aclassexamples_1_1benchmark__gtop__pygmo_1_1pygmo__udp_html_a41d3b087b32923f75cbe401f3f2419e3"><div class="ttname"><a href="classexamples_1_1benchmark__gtop__pygmo_1_1pygmo__udp.html#a41d3b087b32923f75cbe401f3f2419e3">examples.benchmark_gtop_pygmo.pygmo_udp.get_bounds</a></div><div class="ttdeci">get_bounds(self)</div><div class="ttdef"><b>Definition</b> <a href="#l00049">benchmark_gtop_pygmo.py:49</a></div></div>
+<div class="ttc" id="aclassexamples_1_1benchmark__gtop__pygmo_1_1pygmo__udp_html_a554b734061744f3a24a94b3b2b5638b1"><div class="ttname"><a href="classexamples_1_1benchmark__gtop__pygmo_1_1pygmo__udp.html#a554b734061744f3a24a94b3b2b5638b1">examples.benchmark_gtop_pygmo.pygmo_udp.__init__</a></div><div class="ttdeci">__init__(self, fun, bounds)</div><div class="ttdef"><b>Definition</b> <a href="#l00042">benchmark_gtop_pygmo.py:42</a></div></div>
+<div class="ttc" id="aclassexamples_1_1benchmark__gtop__pygmo_1_1pygmo__udp_html_a8b05705866c5de83931191324a4e1311"><div class="ttname"><a href="classexamples_1_1benchmark__gtop__pygmo_1_1pygmo__udp.html#a8b05705866c5de83931191324a4e1311">examples.benchmark_gtop_pygmo.pygmo_udp.fitness</a></div><div class="ttdeci">fitness(self, x)</div><div class="ttdef"><b>Definition</b> <a href="#l00046">benchmark_gtop_pygmo.py:46</a></div></div>
+<div class="ttc" id="aclassexamples_1_1benchmark__gtop__pygmo_1_1pygmo__udp_html_ab521631aff5164ef305cc19229711bb9"><div class="ttname"><a href="classexamples_1_1benchmark__gtop__pygmo_1_1pygmo__udp.html#ab521631aff5164ef305cc19229711bb9">examples.benchmark_gtop_pygmo.pygmo_udp.bounds</a></div><div class="ttdeci">bounds</div><div class="ttdef"><b>Definition</b> <a href="#l00044">benchmark_gtop_pygmo.py:44</a></div></div>
+<div class="ttc" id="aclassfcmaes_1_1astro_1_1_cassini1_html"><div class="ttname"><a href="classfcmaes_1_1astro_1_1_cassini1.html">fcmaes.astro.Cassini1</a></div><div class="ttdoc">Cassini1 class that represents a specific astronomical function configuration.</div><div class="ttdef"><b>Definition</b> <a href="astro_8py_source.html#l00249">astro.py:249</a></div></div>
+<div class="ttc" id="aclassfcmaes_1_1astro_1_1_cassini2_html"><div class="ttname"><a href="classfcmaes_1_1astro_1_1_cassini2.html">fcmaes.astro.Cassini2</a></div><div class="ttdoc">Represents the Cassini2 optimization problem.</div><div class="ttdef"><b>Definition</b> <a href="astro_8py_source.html#l00279">astro.py:279</a></div></div>
+<div class="ttc" id="aclassfcmaes_1_1astro_1_1_gtoc1_html"><div class="ttname"><a href="classfcmaes_1_1astro_1_1_gtoc1.html">fcmaes.astro.Gtoc1</a></div><div class="ttdoc">Represents the GTOC1 class, which is a specialized subclass of Astrofun.</div><div class="ttdef"><b>Definition</b> <a href="astro_8py_source.html#l00193">astro.py:193</a></div></div>
+<div class="ttc" id="aclassfcmaes_1_1astro_1_1_mess_full_html"><div class="ttname"><a href="classfcmaes_1_1astro_1_1_mess_full.html">fcmaes.astro.MessFull</a></div><div class="ttdoc">Represents a specific type of &#39;messenger full&#39; configuration.</div><div class="ttdef"><b>Definition</b> <a href="astro_8py_source.html#l00121">astro.py:121</a></div></div>
+<div class="ttc" id="aclassfcmaes_1_1astro_1_1_messenger_html"><div class="ttname"><a href="classfcmaes_1_1astro_1_1_messenger.html">fcmaes.astro.Messenger</a></div><div class="ttdoc">Messenger class initialization and management.</div><div class="ttdef"><b>Definition</b> <a href="astro_8py_source.html#l00151">astro.py:151</a></div></div>
+<div class="ttc" id="aclassfcmaes_1_1astro_1_1_rosetta_html"><div class="ttname"><a href="classfcmaes_1_1astro_1_1_rosetta.html">fcmaes.astro.Rosetta</a></div><div class="ttdoc">Represents the Rosetta class.</div><div class="ttdef"><b>Definition</b> <a href="astro_8py_source.html#l00326">astro.py:326</a></div></div>
+<div class="ttc" id="aclassfcmaes_1_1astro_1_1_sagas_html"><div class="ttname"><a href="classfcmaes_1_1astro_1_1_sagas.html">fcmaes.astro.Sagas</a></div><div class="ttdef"><b>Definition</b> <a href="astro_8py_source.html#l00368">astro.py:368</a></div></div>
+<div class="ttc" id="aclassfcmaes_1_1astro_1_1_tandem_html"><div class="ttname"><a href="classfcmaes_1_1astro_1_1_tandem.html">fcmaes.astro.Tandem</a></div><div class="ttdoc">Represents a Tandem configuration with specific bounds, sequences, and functionalities.</div><div class="ttdef"><b>Definition</b> <a href="astro_8py_source.html#l00407">astro.py:407</a></div></div>
+<div class="ttc" id="aclassfcmaes_1_1optimizer_1_1_cma__cpp_html"><div class="ttname"><a href="classfcmaes_1_1optimizer_1_1_cma__cpp.html">fcmaes.optimizer.Cma_cpp</a></div><div class="ttdoc">This class implements the CMA-ES optimization algorithm with customization options.</div><div class="ttdef"><b>Definition</b> <a href="optimizer_8py_source.html#l01297">optimizer.py:1297</a></div></div>
+<div class="ttc" id="aclassfcmaes_1_1optimizer_1_1_de__cpp_html"><div class="ttname"><a href="classfcmaes_1_1optimizer_1_1_de__cpp.html">fcmaes.optimizer.De_cpp</a></div><div class="ttdoc">Differential Evolution optimizer using C++ backend.</div><div class="ttdef"><b>Definition</b> <a href="optimizer_8py_source.html#l01981">optimizer.py:1981</a></div></div>
+<div class="ttc" id="aclassfcmaes_1_1optimizer_1_1_optimizer_html"><div class="ttname"><a href="classfcmaes_1_1optimizer_1_1_optimizer.html">fcmaes.optimizer.Optimizer</a></div><div class="ttdoc">Provides functionalities for optimization tasks.</div><div class="ttdef"><b>Definition</b> <a href="optimizer_8py_source.html#l00277">optimizer.py:277</a></div></div>
+<div class="ttc" id="aclassfcmaes_1_1optimizer_1_1_optimizer_html_adfc4b7f5b36503f186c68d521a9ede8a"><div class="ttname"><a href="classfcmaes_1_1optimizer_1_1_optimizer.html#adfc4b7f5b36503f186c68d521a9ede8a">fcmaes.optimizer.Optimizer.max_eval_num</a></div><div class="ttdeci">max_eval_num(self, store=None)</div><div class="ttdoc">Evaluates and returns the maximum number of evaluations based on the provided store or the object&#39;s d...</div><div class="ttdef"><b>Definition</b> <a href="optimizer_8py_source.html#l00304">optimizer.py:304</a></div></div>
+<div class="ttc" id="aclassfcmaes_1_1optimizer_1_1_sequence_html"><div class="ttname"><a href="classfcmaes_1_1optimizer_1_1_sequence.html">fcmaes.optimizer.Sequence</a></div><div class="ttdoc">A class for sequentially combining multiple optimizers.</div><div class="ttdef"><b>Definition</b> <a href="optimizer_8py_source.html#l00335">optimizer.py:335</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1benchmark__gtop__pygmo_html_a122592852c04a8a8e8a3b4d9cdc38bfa"><div class="ttname"><a href="namespaceexamples_1_1benchmark__gtop__pygmo.html#a122592852c04a8a8e8a3b4d9cdc38bfa">examples.benchmark_gtop_pygmo._test_optimizer</a></div><div class="ttdeci">_test_optimizer(opt, problem, num_retries=10000, num=1, value_limit=100.0, stop_val=-1E99, log=logger())</div><div class="ttdef"><b>Definition</b> <a href="#l00138">benchmark_gtop_pygmo.py:139</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1benchmark__gtop__pygmo_html_a35d3645d623ed7454908364351809f25"><div class="ttname"><a href="namespaceexamples_1_1benchmark__gtop__pygmo.html#a35d3645d623ed7454908364351809f25">examples.benchmark_gtop_pygmo.de_pyg_cma</a></div><div class="ttdeci">de_pyg_cma(max_evaluations=50000, popsize=31, stop_fitness=-np.inf, de_max_evals=None, cma_max_evals=None)</div><div class="ttdoc">Sequence de c++ -&gt; cmaes pagmo.</div><div class="ttdef"><b>Definition</b> <a href="#l00081">benchmark_gtop_pygmo.py:82</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1benchmark__gtop__pygmo_html_a7778c5b75c17d1682355830441233819"><div class="ttname"><a href="namespaceexamples_1_1benchmark__gtop__pygmo.html#a7778c5b75c17d1682355830441233819">examples.benchmark_gtop_pygmo._test_archipelago</a></div><div class="ttdeci">_test_archipelago(algo, problem, num=10000, stop_val=-1E99, log=logger())</div><div class="ttdef"><b>Definition</b> <a href="#l00145">benchmark_gtop_pygmo.py:145</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1benchmark__gtop__pygmo_html_ac734fa0c08aa511b65e95ca5c64f2a4c"><div class="ttname"><a href="namespaceexamples_1_1benchmark__gtop__pygmo.html#ac734fa0c08aa511b65e95ca5c64f2a4c">examples.benchmark_gtop_pygmo.format</a></div><div class="ttdeci">format</div><div class="ttdef"><b>Definition</b> <a href="#l00037">benchmark_gtop_pygmo.py:37</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1benchmark__gtop__pygmo_html_acf3acdca1f90a44c0759ad0d1cda8b22"><div class="ttname"><a href="namespaceexamples_1_1benchmark__gtop__pygmo.html#acf3acdca1f90a44c0759ad0d1cda8b22">examples.benchmark_gtop_pygmo.test_archipelago</a></div><div class="ttdeci">test_archipelago()</div><div class="ttdef"><b>Definition</b> <a href="#l00170">benchmark_gtop_pygmo.py:170</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1benchmark__gtop__pygmo_html_adacb1bdcd0ee085801b2b9e6e8022ace"><div class="ttname"><a href="namespaceexamples_1_1benchmark__gtop__pygmo.html#adacb1bdcd0ee085801b2b9e6e8022ace">examples.benchmark_gtop_pygmo.de_cma_pyg</a></div><div class="ttdeci">de_cma_pyg(max_evaluations=50000, popsize=31, stop_fitness=-np.inf, de_max_evals=None, cma_max_evals=None)</div><div class="ttdoc">Sequence de1220 -&gt; cmaes pagmo.</div><div class="ttdef"><b>Definition</b> <a href="#l00053">benchmark_gtop_pygmo.py:54</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1benchmark__gtop__pygmo_html_ae9fd95cc51761a89ffc0635dba4aa504"><div class="ttname"><a href="namespaceexamples_1_1benchmark__gtop__pygmo.html#ae9fd95cc51761a89ffc0635dba4aa504">examples.benchmark_gtop_pygmo.pyg_de_cma</a></div><div class="ttdeci">pyg_de_cma(max_evaluations=50000, popsize=31, stop_fitness=-np.inf, de_max_evals=None, cma_max_evals=None)</div><div class="ttdoc">Sequence de1220 -&gt; cmaes c++.</div><div class="ttdef"><b>Definition</b> <a href="#l00067">benchmark_gtop_pygmo.py:68</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1benchmark__gtop__pygmo_html_aeccaaa319086484e7320dee37695e81d"><div class="ttname"><a href="namespaceexamples_1_1benchmark__gtop__pygmo.html#aeccaaa319086484e7320dee37695e81d">examples.benchmark_gtop_pygmo.test_coordinated_retry</a></div><div class="ttdeci">test_coordinated_retry()</div><div class="ttdef"><b>Definition</b> <a href="#l00185">benchmark_gtop_pygmo.py:185</a></div></div>
+<div class="ttc" id="anamespacefcmaes_1_1advretry_html"><div class="ttname"><a href="namespacefcmaes_1_1advretry.html">fcmaes.advretry</a></div><div class="ttdef"><b>Definition</b> <a href="advretry_8py_source.html#l00001">advretry.py:1</a></div></div>
+<div class="ttc" id="anamespacefcmaes_1_1astro_html"><div class="ttname"><a href="namespacefcmaes_1_1astro.html">fcmaes.astro</a></div><div class="ttdef"><b>Definition</b> <a href="astro_8py_source.html#l00001">astro.py:1</a></div></div>
+<div class="ttc" id="anamespacefcmaes_1_1optimizer_html"><div class="ttname"><a href="namespacefcmaes_1_1optimizer.html">fcmaes.optimizer</a></div><div class="ttdef"><b>Definition</b> <a href="optimizer_8py_source.html#l00001">optimizer.py:1</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d28a4824dc47e487b107a5db32ef43c4.html">examples</a></li><li class="navelem"><a class="el" href="benchmark__gtop__pygmo_8py.html">benchmark_gtop_pygmo.py</a></li>
+    <li class="footer">Generated on Tue Jun 24 2025 15:36:01 for Fast CMA-ES by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+  </ul>
+</div>
+</body>
+</html>

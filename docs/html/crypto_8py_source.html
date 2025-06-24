@@ -1,0 +1,582 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>Fast CMA-ES: examples/crypto.py Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/TeX/AMSmath','[tex]/TeX/AMSsymbols']
+  },
+  tex: {
+    macros: {},
+    packages: ['base','configmacros','TeX/AMSmath','TeX/AMSsymbols']
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/jothepro/doxygen-awesome-css" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="fcames.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Fast CMA-ES
+   &#160;<span id="projectnumber">1.6.11</span>
+   </div>
+   <div id="projectbrief">Fast Covariance Matrix Adaptation Evolution Strategy (CMA-ES) implementation in C++ and Python</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.13.2 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('crypto_8py_source.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">crypto.py</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="crypto_8py.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1crypto.html">    1</a></span><span class="comment"># Copyright (c) Dietmar Wolz.</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">#</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"># This source code is licensed under the MIT license found in the</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"># LICENSE file in the root directory.</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"># See https://github.com/dietmarwo/fast-cma-es/blob/master/tutorials/CryptoTrading.adoc for a detailed description.</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment"># Install dependencies:</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment"># pip install yfinance</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment"># pip install finplot</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment"># Tested using https://docs.conda.io/en/main/miniconda.html on Linux Mint 21.2</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">import</span> yfinance <span class="keyword">as</span> yf</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">import</span> finplot <span class="keyword">as</span> fplt</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">import</span> math, time</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">from</span> pathlib <span class="keyword">import</span> Path</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">from</span> fcmaes <span class="keyword">import</span> retry, modecpp</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">from</span> <a class="code hl_namespace" href="namespacefcmaes_1_1optimizer.html">fcmaes.optimizer</a> <span class="keyword">import</span> Bite_cpp, De_cpp, dtime</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">from</span> scipy.optimize <span class="keyword">import</span> Bounds</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">import</span> ctypes <span class="keyword">as</span> ct</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">import</span> multiprocessing <span class="keyword">as</span> mp </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">from</span> numba <span class="keyword">import</span> njit</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keyword">from</span> numba.typed <span class="keyword">import</span> List</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="keyword">import</span> sys </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">from</span> loguru <span class="keyword">import</span> logger</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>logger.remove()</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1crypto.html#a6973099c614186a0aaab015ae17aed7f">   33</a></span>logger.add(sys.stdout, format=<span class="stringliteral">&quot;{time:HH:mm:ss.SS} | {process} | {level} | {message}&quot;</span>, level=<span class="stringliteral">&quot;INFO&quot;</span>)</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>logger.add(<span class="stringliteral">&quot;log_{time}.txt&quot;</span>, format=<span class="stringliteral">&quot;{time:HH:mm:ss.SS} | {process} | {level} | {message}&quot;</span>, level=<span class="stringliteral">&quot;INFO&quot;</span>)</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1crypto.html#accaf5b53eed6cbec1e49d2a7292a15b1">   36</a></span>START_CASH = 1000000.0</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment"># download price history of a ticker and cache result into a csv file</span></div>
+<div class="foldopen" id="foldopen00039" data-start="" data-end="">
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1crypto.html#a2c916307beb743d28425fcd5c7568f01">   39</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1crypto.html#a2c916307beb743d28425fcd5c7568f01">get_history</a>(ticker, start, end):</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    p = Path(<span class="stringliteral">&#39;ticker_cache&#39;</span>)</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    p.mkdir(exist_ok=<span class="keyword">True</span>)</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    fname = f<span class="stringliteral">&#39;history_{ticker}_{start}_{end}.xz&#39;</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    files = p.glob(fname)</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordflow">for</span> file <span class="keywordflow">in</span> files: <span class="comment"># if cached just load the csv</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        df = pd.read_csv(file, compression=<span class="stringliteral">&#39;xz&#39;</span>)</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        df[<span class="stringliteral">&#39;Date&#39;</span>] = pd.to_datetime(df[<span class="stringliteral">&#39;Date&#39;</span>])</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        df = df.set_index(<span class="stringliteral">&#39;Date&#39;</span>) <span class="comment"># restore date index</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keywordflow">return</span> df</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    df = yf.download(ticker, start=start, end=end, auto_adjust = <span class="keyword">True</span>)</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    df.to_csv(<span class="stringliteral">&#39;ticker_cache/&#39;</span> + fname, compression=<span class="stringliteral">&#39;xz&#39;</span>)  <span class="comment"># save history</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keywordflow">return</span> df</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="comment"># compute the exponential mean average of a time series of prices</span></div>
+</div>
+<div class="foldopen" id="foldopen00054" data-start="" data-end="">
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1crypto.html#a38e3ca807ed30d1fa4d4a5cc478e1525">   54</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1crypto.html#a38e3ca807ed30d1fa4d4a5cc478e1525">get_ema</a>(prices, period):</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keywordflow">return</span> prices.ewm(span=period,min_periods=period,adjust=<span class="keyword">False</span>,ignore_na=<span class="keyword">False</span>).mean().to_numpy()</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="comment"># compute the simple mean average of a time series of prices</span></div>
+</div>
+<div class="foldopen" id="foldopen00058" data-start="" data-end="">
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1crypto.html#a8fe56bb9960bb347eee6e2c39ddbd90f">   58</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1crypto.html#a8fe56bb9960bb347eee6e2c39ddbd90f">get_sma</a>(prices, period):</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keywordflow">return</span> prices.rolling(period).mean().to_numpy()</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="comment"># use numba to speed up the trading simulation</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="preprocessor">@njit(fastmath=True)</span></div>
+</div>
+<div class="foldopen" id="foldopen00064" data-start="" data-end="">
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1crypto.html#a54eb39bc81fed172b7d1d74dcec022c2">   64</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1crypto.html#a54eb39bc81fed172b7d1d74dcec022c2">buy_all</a>(cash, num_coins, price, date, logs):</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    num = int(cash / price)</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keywordflow">if</span> <span class="keywordflow">not</span> date <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        logs.append(date + <span class="stringliteral">&quot; cash &quot;</span> + str(int(cash)) <span class="comment"># no string formatting in numba :-(</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>                    + <span class="stringliteral">&quot; buy &quot;</span> + str(num)</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>                    + <span class="stringliteral">&quot; num_coins &quot;</span> + str(num_coins)</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>                    + <span class="stringliteral">&quot; price &quot;</span> + str(int(100*price))+ <span class="stringliteral">&quot; ct&quot;</span>) <span class="comment"># see https://github.com/numba/numba/issues/4758</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keywordflow">return</span> cash - num*price, num_coins + num</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="preprocessor">@njit(fastmath=True)</span>    </div>
+</div>
+<div class="foldopen" id="foldopen00074" data-start="" data-end="">
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1crypto.html#a8e16e3bee50df8bd1b44e55fe8950e10">   74</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1crypto.html#a8e16e3bee50df8bd1b44e55fe8950e10">sell_all</a>(cash, num_coins, price, date, logs):</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keywordflow">if</span> <span class="keywordflow">not</span> date <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        logs.append(date + <span class="stringliteral">&quot; cash &quot;</span> + str(int(cash)) </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>                    + <span class="stringliteral">&quot; sell &quot;</span> + str(num_coins) </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>                    + <span class="stringliteral">&quot; num_coins &quot;</span> + str(num_coins)</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>                    + <span class="stringliteral">&quot; price &quot;</span> + str(int(100*price)) + <span class="stringliteral">&quot; ct&quot;</span>)</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="keywordflow">return</span> cash + num_coins*price, 0</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="comment"># simulate HODL strategy</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="preprocessor">@njit(fastmath=True)</span>        </div>
+</div>
+<div class="foldopen" id="foldopen00084" data-start="" data-end="">
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1crypto.html#a941dc0c737b40581bde98db6aef23525">   84</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1crypto.html#a941dc0c737b40581bde98db6aef23525">hodl</a>(close, start_cash):</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    cash, num_coins = <a class="code hl_function" href="namespaceexamples_1_1crypto.html#a54eb39bc81fed172b7d1d74dcec022c2">buy_all</a>(start_cash, 0, close[0], <span class="keywordtype">None</span>, <span class="keywordtype">None</span>) <span class="comment"># buy first day</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    cash, num_coins = <a class="code hl_function" href="namespaceexamples_1_1crypto.html#a8e16e3bee50df8bd1b44e55fe8950e10">sell_all</a>(cash, num_coins, close[-1], <span class="keywordtype">None</span>, <span class="keywordtype">None</span>) <span class="comment"># sell last day</span></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keywordflow">return</span> cash / start_cash <span class="comment"># return cash gain factor</span></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="comment"># simulate a simple crossing EMA/SMA trading strategy, return the resulting cash factor</span></div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="preprocessor">@njit(fastmath=True)</span>        </div>
+</div>
+<div class="foldopen" id="foldopen00091" data-start="" data-end="">
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1crypto.html#a61f6c93fa62a257ed271a0aa1210f604">   91</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1crypto.html#a61f6c93fa62a257ed271a0aa1210f604">strategy</a>(close, start_cash, ema, sma, wait_buy, wait_sell, dates):</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    cash = start_cash</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    num_coins = 0</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    last_trade = 0</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    logs = List(); logs.append(<span class="stringliteral">&quot;&quot;</span>) <span class="comment"># needs to be String typed</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    num_trades = 0</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <span class="comment"># for all trading days</span></div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="keywordflow">for</span> i <span class="keywordflow">in</span> range(len(close)):</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        c_ema = ema[i]; c_sma = sma[i]; price = close[i]  </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        date = dates[i] <span class="keywordflow">if</span> <span class="keywordflow">not</span> dates <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">else</span> <span class="keywordtype">None</span>       </div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        <span class="keywordflow">if</span> np.isnan(c_ema) <span class="keywordflow">or</span> np.isnan(c_sma):</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>            <span class="keywordflow">continue</span></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        <span class="comment"># buy if current ema &gt; current sma and &gt; wait_buy days since last trade</span></div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        <span class="keywordflow">if</span> num_coins == 0 <span class="keywordflow">and</span> c_ema &gt; c_sma <span class="keywordflow">and</span> i &gt; last_trade + wait_buy:</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>            cash, num_coins = <a class="code hl_function" href="namespaceexamples_1_1crypto.html#a54eb39bc81fed172b7d1d74dcec022c2">buy_all</a>(cash, num_coins, price, date, logs)</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>            last_trade = i</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>            num_trades += 1</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        <span class="comment"># sell if current ema &lt; current sma and &gt; wait_sell days since last trade</span></div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        <span class="keywordflow">elif</span> num_coins &gt; 0 <span class="keywordflow">and</span> c_ema &lt; c_sma <span class="keywordflow">and</span> i &gt; last_trade + wait_sell:</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>            cash, num_coins = <a class="code hl_function" href="namespaceexamples_1_1crypto.html#a8e16e3bee50df8bd1b44e55fe8950e10">sell_all</a>(cash, num_coins, price, date, logs)</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>            last_trade = i</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>            num_trades += 1</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    cash, num_coins = <a class="code hl_function" href="namespaceexamples_1_1crypto.html#a8e16e3bee50df8bd1b44e55fe8950e10">sell_all</a>(cash, num_coins, price, date, logs)</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    <span class="comment"># return cash gain factor compared with HODL strategy</span></div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <span class="keywordflow">return</span> cash / start_cash / <a class="code hl_function" href="namespaceexamples_1_1crypto.html#a941dc0c737b40581bde98db6aef23525">hodl</a>(close, start_cash), num_trades, logs</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
+</div>
+<div class="foldopen" id="foldopen00118" data-start="" data-end="">
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1crypto.html#a75d529296c6d83294ad1c37e55bd267f">  118</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1crypto.html#a75d529296c6d83294ad1c37e55bd267f">simulate</a>(prices, ema_period, sma_period, wait_buy, wait_sell, dates=None):</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    close = prices.to_numpy()</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    ema = <a class="code hl_function" href="namespaceexamples_1_1crypto.html#a38e3ca807ed30d1fa4d4a5cc478e1525">get_ema</a>(prices, ema_period)</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    sma = <a class="code hl_function" href="namespaceexamples_1_1crypto.html#a8fe56bb9960bb347eee6e2c39ddbd90f">get_sma</a>(prices, sma_period) </div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceexamples_1_1crypto.html#a61f6c93fa62a257ed271a0aa1210f604">strategy</a>(close, START_CASH, ema, sma, wait_buy, wait_sell, dates)</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
+</div>
+<div class="foldopen" id="foldopen00124" data-start="" data-end="">
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno"><a class="line" href="classexamples_1_1crypto_1_1fitness.html">  124</a></span><span class="keyword">class </span><a class="code hl_class" href="classexamples_1_1crypto_1_1fitness.html">fitness</a>(object):</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
+<div class="foldopen" id="foldopen00126" data-start="" data-end="">
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno"><a class="line" href="classexamples_1_1crypto_1_1fitness.html#ad9958db7a70ef673f3bcb9d5f5e5708b">  126</a></span>    <span class="keyword">def </span><a class="code hl_function" href="classexamples_1_1crypto_1_1fitness.html#ad9958db7a70ef673f3bcb9d5f5e5708b">__init__</a>(self, tickers, start, end, max_trades = None):</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno"><a class="line" href="classexamples_1_1crypto_1_1fitness.html#ae49c94306fd553fcf1163473d6db192d">  127</a></span>        self.<a class="code hl_variable" href="classexamples_1_1crypto_1_1fitness.html#ae49c94306fd553fcf1163473d6db192d">evals</a> = mp.RawValue(ct.c_int, 0) </div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno"><a class="line" href="classexamples_1_1crypto_1_1fitness.html#add3f7fd867bb662eb828f9ce44f7a9db">  128</a></span>        self.<a class="code hl_variable" href="classexamples_1_1crypto_1_1fitness.html#add3f7fd867bb662eb828f9ce44f7a9db">best_y</a> = mp.RawValue(ct.c_double, np.inf) </div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno"><a class="line" href="classexamples_1_1crypto_1_1fitness.html#a2dc1e4fe20038b1eff24554fcc9a7b3b">  129</a></span>        self.<a class="code hl_variable" href="classexamples_1_1crypto_1_1fitness.html#a2dc1e4fe20038b1eff24554fcc9a7b3b">t0</a> = time.perf_counter()</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno"><a class="line" href="classexamples_1_1crypto_1_1fitness.html#a9ffd824c461a915a2e1361a44428040e">  130</a></span>        self.<a class="code hl_variable" href="classexamples_1_1crypto_1_1fitness.html#a9ffd824c461a915a2e1361a44428040e">tickers</a> = tickers</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno"><a class="line" href="classexamples_1_1crypto_1_1fitness.html#a23a9ca5a0018097f299c6bbdb1463ec3">  131</a></span>        self.<a class="code hl_variable" href="classexamples_1_1crypto_1_1fitness.html#a23a9ca5a0018097f299c6bbdb1463ec3">max_trades</a> = max_trades</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno"><a class="line" href="classexamples_1_1crypto_1_1fitness.html#a996266cd94bc021d810079a4acaf9105">  132</a></span>        self.<a class="code hl_variable" href="classexamples_1_1crypto_1_1fitness.html#a996266cd94bc021d810079a4acaf9105">histories</a> = {}</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno"><a class="line" href="classexamples_1_1crypto_1_1fitness.html#abe072955ebed441ec3435097e2caf86b">  133</a></span>        self.<a class="code hl_variable" href="classexamples_1_1crypto_1_1fitness.html#abe072955ebed441ec3435097e2caf86b">closes</a> = {}</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno"><a class="line" href="classexamples_1_1crypto_1_1fitness.html#abe3f4d73b67a9b156c6188b9d644cec4">  134</a></span>        self.<a class="code hl_variable" href="classexamples_1_1crypto_1_1fitness.html#abe3f4d73b67a9b156c6188b9d644cec4">dates</a> = {}</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno"><a class="line" href="classexamples_1_1crypto_1_1fitness.html#a9c118b62e1b58bee262b99574abe0428">  135</a></span>        self.<a class="code hl_variable" href="classexamples_1_1crypto_1_1fitness.html#a9c118b62e1b58bee262b99574abe0428">hodls</a> = {}</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>        <span class="keywordflow">for</span> ticker <span class="keywordflow">in</span> tickers:</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>            self.<a class="code hl_variable" href="classexamples_1_1crypto_1_1fitness.html#a996266cd94bc021d810079a4acaf9105">histories</a>[ticker] = <a class="code hl_function" href="namespaceexamples_1_1crypto.html#a2c916307beb743d28425fcd5c7568f01">get_history</a>(ticker, start=start, end=end)</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>            self.<a class="code hl_variable" href="classexamples_1_1crypto_1_1fitness.html#abe072955ebed441ec3435097e2caf86b">closes</a>[ticker] = self.<a class="code hl_variable" href="classexamples_1_1crypto_1_1fitness.html#a996266cd94bc021d810079a4acaf9105">histories</a>[ticker].Close</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>            self.<a class="code hl_variable" href="classexamples_1_1crypto_1_1fitness.html#abe3f4d73b67a9b156c6188b9d644cec4">dates</a>[ticker] = np.array([d.strftime(<span class="stringliteral">&#39;%Y.%m.%d&#39;</span>) <span class="keywordflow">for</span> d <span class="keywordflow">in</span> self.<a class="code hl_variable" href="classexamples_1_1crypto_1_1fitness.html#a996266cd94bc021d810079a4acaf9105">histories</a>[ticker].index])</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>            self.<a class="code hl_variable" href="classexamples_1_1crypto_1_1fitness.html#a9c118b62e1b58bee262b99574abe0428">hodls</a>[ticker] = <a class="code hl_function" href="namespaceexamples_1_1crypto.html#a941dc0c737b40581bde98db6aef23525">hodl</a>(self.<a class="code hl_variable" href="classexamples_1_1crypto_1_1fitness.html#abe072955ebed441ec3435097e2caf86b">closes</a>[ticker].to_numpy(), START_CASH)   </div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>        hodls = list(self.<a class="code hl_variable" href="classexamples_1_1crypto_1_1fitness.html#a9c118b62e1b58bee262b99574abe0428">hodls</a>.values())                    </div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>        logger.info(<span class="stringliteral">&quot;hodl = {0:.3f} {1:s}&quot;</span></div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>                .<a class="code hl_variable" href="namespaceexamples_1_1crypto.html#a6973099c614186a0aaab015ae17aed7f">format</a>(np.prod(hodls) ** (1.0/len(hodls)), str([round(fi,1) <span class="keywordflow">for</span> fi <span class="keywordflow">in</span> hodls])))</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        </div>
+</div>
+<div class="foldopen" id="foldopen00145" data-start="" data-end="">
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno"><a class="line" href="classexamples_1_1crypto_1_1fitness.html#a5a933388f6d0303f80251156e30e6b9b">  145</a></span>    <span class="keyword">def </span><a class="code hl_function" href="classexamples_1_1crypto_1_1fitness.html#a5a933388f6d0303f80251156e30e6b9b">fun</a>(self, x):</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>        <span class="comment"># simulate the EMS/SMA strategy for all tickers</span></div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>        factors = []</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>        num_trades = []</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        <span class="keywordflow">for</span> ticker <span class="keywordflow">in</span> self.<a class="code hl_variable" href="classexamples_1_1crypto_1_1fitness.html#a9ffd824c461a915a2e1361a44428040e">tickers</a>:    </div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>            <span class="comment"># convert the optimization variables into integers and use them to configure the simulation</span></div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>            f, num, _ = <a class="code hl_function" href="namespaceexamples_1_1crypto.html#a75d529296c6d83294ad1c37e55bd267f">simulate</a>(self.<a class="code hl_variable" href="classexamples_1_1crypto_1_1fitness.html#abe072955ebed441ec3435097e2caf86b">closes</a>[ticker], int(x[0]), int(x[1]), int(x[2]), int(x[3]))</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>            factors.append(f)  </div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>            num_trades.append(num)          </div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>        factor = np.prod(factors) ** (1.0/len(factors)) <span class="comment"># normalize the accumulated factor</span></div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>        y = -factor <span class="comment"># our optimization algorithm minimizes the resulting value, we maximize factor</span></div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>        <span class="comment"># book keeping and logging for parallel optimization</span></div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>        self.<a class="code hl_variable" href="classexamples_1_1crypto_1_1fitness.html#ae49c94306fd553fcf1163473d6db192d">evals</a>.value += 1</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>        <span class="keywordflow">if</span> y &lt; self.<a class="code hl_variable" href="classexamples_1_1crypto_1_1fitness.html#add3f7fd867bb662eb828f9ce44f7a9db">best_y</a>.value:</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>            self.<a class="code hl_variable" href="classexamples_1_1crypto_1_1fitness.html#add3f7fd867bb662eb828f9ce44f7a9db">best_y</a>.value = y       </div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>            logger.info(<span class="stringliteral">&quot;nsim = {0}: time = {1:.1f} fac = {2:.3f} {3:s} ntr = {4:s} x = {5:s}&quot;</span></div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>                .<a class="code hl_variable" href="namespaceexamples_1_1crypto.html#a6973099c614186a0aaab015ae17aed7f">format</a>(self.<a class="code hl_variable" href="classexamples_1_1crypto_1_1fitness.html#ae49c94306fd553fcf1163473d6db192d">evals</a>.value, dtime(self.<a class="code hl_variable" href="classexamples_1_1crypto_1_1fitness.html#a2dc1e4fe20038b1eff24554fcc9a7b3b">t0</a>), -y, </div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>                        str([round(fi,1) <span class="keywordflow">for</span> fi <span class="keywordflow">in</span> factors]),</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>                        str([int(ntr) <span class="keywordflow">for</span> ntr <span class="keywordflow">in</span> num_trades]),  </div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>                        str([int(xi) <span class="keywordflow">for</span> xi <span class="keywordflow">in</span> x])))</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>        <span class="keywordflow">return</span> y, factors, num_trades      </div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>           </div>
+</div>
+<div class="foldopen" id="foldopen00167" data-start="" data-end="">
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno"><a class="line" href="classexamples_1_1crypto_1_1fitness.html#ac24e8f7966063c3bc0cc215a561cbadb">  167</a></span>    <span class="keyword">def </span><a class="code hl_function" href="classexamples_1_1crypto_1_1fitness.html#ac24e8f7966063c3bc0cc215a561cbadb">__call__</a>(self, x):  </div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>        y, _, _ = self.<a class="code hl_function" href="classexamples_1_1crypto_1_1fitness.html#a5a933388f6d0303f80251156e30e6b9b">fun</a>(x)</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>        <span class="keywordflow">return</span> y   </div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    </div>
+</div>
+<div class="foldopen" id="foldopen00171" data-start="" data-end="">
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno"><a class="line" href="classexamples_1_1crypto_1_1fitness.html#a1209aafc30c6a32427e2707c0bcadd22">  171</a></span>    <span class="keyword">def </span><a class="code hl_function" href="classexamples_1_1crypto_1_1fitness.html#a1209aafc30c6a32427e2707c0bcadd22">mofun</a>(self, x):</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>        _, factors, num_trades = self.<a class="code hl_function" href="classexamples_1_1crypto_1_1fitness.html#a5a933388f6d0303f80251156e30e6b9b">fun</a>(x)</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>        ys = [-f <span class="keywordflow">for</span> f <span class="keywordflow">in</span> factors] <span class="comment"># higher factor is better</span></div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>        constraints = [ntr - self.<a class="code hl_variable" href="classexamples_1_1crypto_1_1fitness.html#a23a9ca5a0018097f299c6bbdb1463ec3">max_trades</a> <span class="keywordflow">for</span> ntr <span class="keywordflow">in</span> num_trades] <span class="comment"># at most max_trades trades</span></div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>        <span class="keywordflow">return</span> np.array(ys + constraints)</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    </div>
+</div>
+<div class="foldopen" id="foldopen00177" data-start="" data-end="">
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno"><a class="line" href="classexamples_1_1crypto_1_1fitness.html#a3ba688bf0d5b34a2cc6268a2248dfaa0">  177</a></span>    <span class="keyword">def </span><a class="code hl_function" href="classexamples_1_1crypto_1_1fitness.html#a3ba688bf0d5b34a2cc6268a2248dfaa0">ndfun</a>(self, x):</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>        y, factors, _ = self.<a class="code hl_function" href="classexamples_1_1crypto_1_1fitness.html#a5a933388f6d0303f80251156e30e6b9b">fun</a>(x)</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>        <span class="keywordflow">return</span> 5+y, factors <span class="comment"># we need positive y values for tracking QD-Score</span></div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>     </div>
+</div>
+<div class="foldopen" id="foldopen00181" data-start="" data-end="">
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno"><a class="line" href="classexamples_1_1crypto_1_1fitness.html#a92e26f20d8494227c6ef3ff4cf6cae71">  181</a></span>    <span class="keyword">def </span><a class="code hl_function" href="classexamples_1_1crypto_1_1fitness.html#a92e26f20d8494227c6ef3ff4cf6cae71">get_trades</a>(self, ticker, x):</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>        _, _, log = <a class="code hl_function" href="namespaceexamples_1_1crypto.html#a75d529296c6d83294ad1c37e55bd267f">simulate</a>(self.<a class="code hl_variable" href="classexamples_1_1crypto_1_1fitness.html#abe072955ebed441ec3435097e2caf86b">closes</a>[ticker], int(x[0]), int(x[1]), int(x[2]), int(x[3]), self.<a class="code hl_variable" href="classexamples_1_1crypto_1_1fitness.html#abe3f4d73b67a9b156c6188b9d644cec4">dates</a>[ticker])</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>        trades = []</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>        <span class="keywordflow">for</span> i <span class="keywordflow">in</span> range(1,len(log)):</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>            l = log[i].split()</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>            trade = {<span class="stringliteral">&#39;date&#39;</span>: l[0], </div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>                <span class="stringliteral">&#39;cash&#39;</span>: int(l[2]), </div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>                <span class="stringliteral">&#39;type&#39;</span>: l[3],</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>                <span class="stringliteral">&#39;traded&#39;</span>: int(l[4]), </div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>                <span class="stringliteral">&#39;num_coins&#39;</span>: int(l[6]), </div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>                <span class="stringliteral">&#39;price&#39;</span>: int(l[8])/1000}</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>            trades.append(trade)</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>        logger.info(<span class="stringliteral">&#39;\n&#39;</span> + ticker)</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>        <span class="keywordflow">for</span> l <span class="keywordflow">in</span> log: logger.info(l)</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>        <span class="keywordflow">return</span> trades</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span> </div>
+</div>
+<div class="foldopen" id="foldopen00197" data-start="" data-end="">
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno"><a class="line" href="classexamples_1_1crypto_1_1fitness.html#a052fc5adc7b09eb7f0613dc254699a5d">  197</a></span>    <span class="keyword">def </span><a class="code hl_function" href="classexamples_1_1crypto_1_1fitness.html#a052fc5adc7b09eb7f0613dc254699a5d">get_values</a>(self, ticker, x):</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>        trades = self.<a class="code hl_function" href="classexamples_1_1crypto_1_1fitness.html#a92e26f20d8494227c6ef3ff4cf6cae71">get_trades</a>(ticker, x)   </div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>        cash = START_CASH</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>        num_coins = 0</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>        closes = self.<a class="code hl_variable" href="classexamples_1_1crypto_1_1fitness.html#abe072955ebed441ec3435097e2caf86b">closes</a>[ticker]</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>        dates = self.<a class="code hl_variable" href="classexamples_1_1crypto_1_1fitness.html#abe3f4d73b67a9b156c6188b9d644cec4">dates</a>[ticker]</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>        values = []</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>        i = 0</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>        <span class="keywordflow">for</span> date, price <span class="keywordflow">in</span> zip(dates,closes):</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>            trade = trades[i]</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>            tdate = trade[<span class="stringliteral">&#39;date&#39;</span>]</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>            <span class="keywordflow">if</span> date == tdate:</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>                i += 1</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>                traded = trade[<span class="stringliteral">&#39;traded&#39;</span>]</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>                <span class="keywordflow">if</span> trade[<span class="stringliteral">&#39;type&#39;</span>] == <span class="stringliteral">&#39;buy&#39;</span>:</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>                    num_coins, cash = num_coins + traded, cash - traded*price</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>                <span class="keywordflow">else</span>:</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>                    num_coins, cash = num_coins - traded, cash + traded*price   </div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>                <span class="comment"># print(trade)  </span></div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>            values.append(cash + num_coins*price)</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>        <span class="keywordflow">return</span> np.array(np.fromiter((v/START_CASH*closes[0] <span class="keywordflow">for</span> v <span class="keywordflow">in</span> values), dtype=float)) <span class="comment"># adjust to initial stock price        </span></div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>            </div>
+</div>
+<div class="foldopen" id="foldopen00219" data-start="" data-end="">
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno"><a class="line" href="classexamples_1_1crypto_1_1fitness.html#af74be6f5f7cb7648d11cc9852fb1ea05">  219</a></span>    <span class="keyword">def </span><a class="code hl_function" href="classexamples_1_1crypto_1_1fitness.html#af74be6f5f7cb7648d11cc9852fb1ea05">plot</a>(self, x):</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>        axs = {}</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>        ema_period = int(x[0])</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>        sma_period = int(x[1])        </div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>        <span class="keywordflow">for</span> ticker <span class="keywordflow">in</span> self.<a class="code hl_variable" href="classexamples_1_1crypto_1_1fitness.html#a9ffd824c461a915a2e1361a44428040e">tickers</a>:</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>            axs[ticker] = fplt.create_plot(ticker, maximize=<span class="keyword">False</span>) </div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>            history = self.<a class="code hl_variable" href="classexamples_1_1crypto_1_1fitness.html#a996266cd94bc021d810079a4acaf9105">histories</a>[ticker]</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>            candles = history[[<span class="stringliteral">&#39;Open&#39;</span>,<span class="stringliteral">&#39;Close&#39;</span>,<span class="stringliteral">&#39;High&#39;</span>,<span class="stringliteral">&#39;Low&#39;</span>]]</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>            fplt.candlestick_ochl(candles, ax=axs[ticker])</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>            volumes = history[[<span class="stringliteral">&#39;Open&#39;</span>,<span class="stringliteral">&#39;Close&#39;</span>,<span class="stringliteral">&#39;Volume&#39;</span>]]</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>            fplt.volume_ocv(volumes, ax=axs[ticker].overlay())</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>            fplt.plot(history.Close.rolling(sma_period).mean(), ax=axs[ticker])</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>            fplt.plot(history.Close.ewm(span=ema_period,min_periods=ema_period,</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>                                        adjust=<span class="keyword">False</span>,ignore_na=<span class="keyword">False</span>).mean(), ax=axs[ticker])</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>            values = self.<a class="code hl_function" href="classexamples_1_1crypto_1_1fitness.html#a052fc5adc7b09eb7f0613dc254699a5d">get_values</a>(ticker, x)</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>            history[<span class="stringliteral">&#39;Value&#39;</span>] = values</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>            fplt.plot(values, ax=axs[ticker])</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>            closes = history.Close.to_numpy()</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>            fplt.plot(closes, ax=axs[ticker])            </div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>            history.to_csv(ticker + <span class="stringliteral">&#39;.csv&#39;</span>)</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>        fplt.show()</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>    </div>
+</div>
+</div>
+<div class="foldopen" id="foldopen00241" data-start="" data-end="">
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1crypto.html#a7c596426791d1e3f74d126fdb08ec38f">  241</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1crypto.html#a7c596426791d1e3f74d126fdb08ec38f">optimize</a>(tickers, start, end):</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>    bounds = Bounds([20,50,10,10], [50,100,200,200])</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>    fit = <a class="code hl_class" href="classexamples_1_1crypto_1_1fitness.html">fitness</a>(tickers, start, end) </div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>    ret = retry.minimize(fit, bounds,</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>                          num_retries=32, optimizer=<a class="code hl_class" href="classfcmaes_1_1optimizer_1_1_bite__cpp.html">Bite_cpp</a>(2000))</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>    fit.plot(ret.x)</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>    </div>
+</div>
+<div class="foldopen" id="foldopen00248" data-start="" data-end="">
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1crypto.html#a8de0d53fbf350d4ad637d00dfa9e3318">  248</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1crypto.html#a8de0d53fbf350d4ad637d00dfa9e3318">optimize_mo</a>(tickers, start, end, nsga_update = True):</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>    nobj = len(tickers) <span class="comment"># number of objectives</span></div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>    ncon = nobj <span class="comment"># number of constraints</span></div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>    max_trades = 8</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>    fit = <a class="code hl_class" href="classexamples_1_1crypto_1_1fitness.html">fitness</a>(tickers, start, end, max_trades) </div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>    bounds = Bounds([20,50,10,10], [50,100,200,200])</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>    xs, front = modecpp.retry(fit.mofun, len(tickers), ncon, bounds, num_retries=24, popsize = 48, </div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>                  max_evaluations = 16000, nsga_update = nsga_update, workers=24)</div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>    <span class="keywordflow">for</span> y, x <span class="keywordflow">in</span> zip(front, xs):</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>        print(<span class="stringliteral">&quot;fac &quot;</span> + str([-round(yi,2) <span class="keywordflow">for</span> yi <span class="keywordflow">in</span> y[:nobj]]) +  </div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>              <span class="stringliteral">&quot; trades &quot;</span> + str([int(max_trades+ci) <span class="keywordflow">for</span> ci <span class="keywordflow">in</span> y[nobj:]]) + </div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>              <span class="stringliteral">&quot; x = &quot;</span> + str([int(xi) <span class="keywordflow">for</span> xi <span class="keywordflow">in</span> x]))</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span> </div>
+</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span><span class="keyword">from</span> fcmaes <span class="keyword">import</span> diversifier, mapelites</div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>    </div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1crypto.html#a284d5c864a794e437544590cb282efac">  264</a></span>bounds = Bounds([20,50,10,10], [50,100,200,200])</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1crypto.html#a9fefe2b65764ffc2422e189b7674e66b">  265</a></span>ddim = 4</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1crypto.html#a7b9a03eae92503954a62eb5a0510c852">  266</a></span>qd_bounds = Bounds([0]*ddim, [4]*ddim)</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1crypto.html#a5eede08c19254c6895849bb97c9257a7">  267</a></span>niche_num = 1000</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span> </div>
+<div class="foldopen" id="foldopen00269" data-start="" data-end="">
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1crypto.html#a832e3832c38bb9d153a7af1b37d2e24a">  269</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1crypto.html#a832e3832c38bb9d153a7af1b37d2e24a">bar</a>(tickers, start, end):</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>    archive = mapelites.load_archive(<span class="stringliteral">&quot;crypto_min_cma&quot;</span>, bounds, qd_bounds, niche_num)</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>    ys, ds, xs = archive.get_occupied_data()</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>    ys = 5-ys<span class="comment"># convert back to real ROI</span></div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>    n = len(xs)</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>    m = 201</div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>    ws = np.zeros((4, m))</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>    <span class="keywordflow">for</span> i <span class="keywordflow">in</span> range(n):</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>        <span class="keywordflow">for</span> j <span class="keywordflow">in</span> range(4):</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>            k = int(xs[i][j])</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>            ws[j][k] += ys[i]</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>    max = np.amax(ws, axis=1)</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>    fig, ax = plt.subplots()</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>    width = 0.9</div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>    ok = np.logical_or(ws[0] &gt; max[0]*0.1, \</div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>         np.logical_or(ws[1] &gt; max[1]*0.05, \</div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>         np.logical_or(ws[2] &gt; max[2]*0.7, ws[3] &gt; max[3]*0.7)))</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>    indices = np.array([i <span class="keywordflow">for</span> i <span class="keywordflow">in</span> range(m) <span class="keywordflow">if</span> ok[i]]) </div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>    labels = [str(i) <span class="keywordflow">for</span> i <span class="keywordflow">in</span> indices]    </div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>    x = np.arange(len(labels))  <span class="comment"># the label locations</span></div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>    </div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>    <span class="keywordflow">for</span> j <span class="keywordflow">in</span> range(4):</div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>        rects = ax.bar(x + (j-1.5)*width/4, </div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>                       ws[j][indices], width/4, label=<span class="stringliteral">&#39;parameter &#39;</span>+ str(j))</div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>        ax.bar_label(rects, padding=3, fmt=<span class="stringliteral">&#39;%d&#39;</span>)</div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>    </div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>    ax.set_xticks(x, labels)</div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>    ax.set_xlabel(<span class="stringliteral">&#39;Parameter Setting&#39;</span>)</div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>    ax.set_ylabel(<span class="stringliteral">&#39;Sum of ROI&#39;</span>)</div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>    ax.set_yscale(<span class="stringliteral">&#39;log&#39;</span>)</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>    ax.set_title(<span class="stringliteral">&#39;Parameter Setting / ROI&#39;</span>)</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>    ax.legend()        </div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>    fig.tight_layout()</div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>    plt.show()</div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>    </div>
+</div>
+<div class="foldopen" id="foldopen00304" data-start="" data-end="">
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1crypto.html#a89ff39f1a827fa14663f90898e5f3fef">  304</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1crypto.html#a89ff39f1a827fa14663f90898e5f3fef">optimize_nd</a>(tickers, start, end): </div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>    fit = <a class="code hl_class" href="classexamples_1_1crypto_1_1fitness.html">fitness</a>(tickers, start, end, <span class="keywordtype">None</span>) </div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>    opt_params0 = {<span class="stringliteral">&#39;solver&#39;</span>:<span class="stringliteral">&#39;elites&#39;</span>, <span class="stringliteral">&#39;popsize&#39;</span>:1000}</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>    opt_params1 = {<span class="stringliteral">&#39;solver&#39;</span>:<span class="stringliteral">&#39;CMA_CPP&#39;</span>, <span class="stringliteral">&#39;max_evals&#39;</span>:10000, <span class="stringliteral">&#39;popsize&#39;</span>:16, <span class="stringliteral">&#39;stall_criterion&#39;</span>:3}</div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>    archive = diversifier.minimize(</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>         <a class="code hl_class" href="classfcmaes_1_1mapelites_1_1wrapper.html">mapelites.wrapper</a>(fit.ndfun, ddim, interval=10000, save_interval=100000000), </div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>         bounds, qd_bounds, </div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>         opt_params=[opt_params0, opt_params1], max_evals=500000,</div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>         niche_num = niche_num, samples_per_niche = 20)</div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>    print(<span class="stringliteral">&quot;final archive: &quot;</span> + archive.info())</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>    archive.save(<span class="stringliteral">&quot;crypto_min_cma&quot;</span>)</div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span> </div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>    ysi = archive.argsort()</div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>    ys = archive.get_ys()[ysi]</div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>    ds = archive.get_ds()[ysi]</div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>    xs = archive.get_xs()[ysi]</div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>    occupied = (ys &lt; np.inf)</div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>        </div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>    <span class="keywordflow">for</span> i, (y, d, x) <span class="keywordflow">in</span> enumerate(zip(ys[occupied], ds[occupied], xs[occupied])):</div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>        print(str(i+1) + <span class="stringliteral">&quot;: y &quot;</span> + str(round(5-y,2)) +  </div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>              <span class="stringliteral">&quot; fac &quot;</span> + str([round(di,2) <span class="keywordflow">for</span> di <span class="keywordflow">in</span> d]) +  </div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>              <span class="stringliteral">&quot; x = &quot;</span> + str([int(xi) <span class="keywordflow">for</span> xi <span class="keywordflow">in</span> x]))</div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span> </div>
+</div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span><span class="keywordflow">if</span> __name__ == <span class="stringliteral">&#39;__main__&#39;</span>:</div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>    </div>
+<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>    <span class="comment"># ticker names: https://finance.yahoo.com/lookup</span></div>
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1crypto.html#a11fa498d14aab048b8ba856c68562161">  330</a></span>    tickers = [<span class="stringliteral">&#39;BTC-USD&#39;</span>, <span class="stringliteral">&#39;ETH-USD&#39;</span>, <span class="stringliteral">&#39;XRP-USD&#39;</span>, <span class="stringliteral">&#39;ADA-USD&#39;</span>]</div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>    <span class="comment">#tickers = [&#39;BTC-USD&#39;]</span></div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>    </div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1crypto.html#a69a1d45fff78e42c6f6b970bdab95bd5">  333</a></span>    start=<span class="stringliteral">&quot;2019-01-01&quot;</span></div>
+<div class="line"><a id="l00334" name="l00334"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1crypto.html#a8a8f7983f4ea099719a5b299d1b22ef6">  334</a></span>    end=<span class="stringliteral">&quot;2030-04-30&quot;</span> </div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>    </div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>    <a class="code hl_function" href="namespaceexamples_1_1crypto.html#a7c596426791d1e3f74d126fdb08ec38f">optimize</a>(tickers, start, end)</div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>    </div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>    <span class="comment">#optimize_mo(tickers, start, end)</span></div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>   </div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>    <span class="comment">#optimize_nd(tickers, start, end)</span></div>
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>    <span class="comment">#bar(tickers, start, end)</span></div>
+<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span> </div>
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>    <span class="comment"># fit = fitness(tickers, start, end) </span></div>
+<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>    <span class="comment"># fit.plot([20,60,10,10])</span></div>
+<div class="ttc" id="aclassexamples_1_1crypto_1_1fitness_html"><div class="ttname"><a href="classexamples_1_1crypto_1_1fitness.html">examples.crypto.fitness</a></div><div class="ttdef"><b>Definition</b> <a href="#l00124">crypto.py:124</a></div></div>
+<div class="ttc" id="aclassexamples_1_1crypto_1_1fitness_html_a052fc5adc7b09eb7f0613dc254699a5d"><div class="ttname"><a href="classexamples_1_1crypto_1_1fitness.html#a052fc5adc7b09eb7f0613dc254699a5d">examples.crypto.fitness.get_values</a></div><div class="ttdeci">get_values(self, ticker, x)</div><div class="ttdef"><b>Definition</b> <a href="#l00197">crypto.py:197</a></div></div>
+<div class="ttc" id="aclassexamples_1_1crypto_1_1fitness_html_a1209aafc30c6a32427e2707c0bcadd22"><div class="ttname"><a href="classexamples_1_1crypto_1_1fitness.html#a1209aafc30c6a32427e2707c0bcadd22">examples.crypto.fitness.mofun</a></div><div class="ttdeci">mofun(self, x)</div><div class="ttdef"><b>Definition</b> <a href="#l00171">crypto.py:171</a></div></div>
+<div class="ttc" id="aclassexamples_1_1crypto_1_1fitness_html_a23a9ca5a0018097f299c6bbdb1463ec3"><div class="ttname"><a href="classexamples_1_1crypto_1_1fitness.html#a23a9ca5a0018097f299c6bbdb1463ec3">examples.crypto.fitness.max_trades</a></div><div class="ttdeci">max_trades</div><div class="ttdef"><b>Definition</b> <a href="#l00131">crypto.py:131</a></div></div>
+<div class="ttc" id="aclassexamples_1_1crypto_1_1fitness_html_a2dc1e4fe20038b1eff24554fcc9a7b3b"><div class="ttname"><a href="classexamples_1_1crypto_1_1fitness.html#a2dc1e4fe20038b1eff24554fcc9a7b3b">examples.crypto.fitness.t0</a></div><div class="ttdeci">t0</div><div class="ttdef"><b>Definition</b> <a href="#l00129">crypto.py:129</a></div></div>
+<div class="ttc" id="aclassexamples_1_1crypto_1_1fitness_html_a3ba688bf0d5b34a2cc6268a2248dfaa0"><div class="ttname"><a href="classexamples_1_1crypto_1_1fitness.html#a3ba688bf0d5b34a2cc6268a2248dfaa0">examples.crypto.fitness.ndfun</a></div><div class="ttdeci">ndfun(self, x)</div><div class="ttdef"><b>Definition</b> <a href="#l00177">crypto.py:177</a></div></div>
+<div class="ttc" id="aclassexamples_1_1crypto_1_1fitness_html_a5a933388f6d0303f80251156e30e6b9b"><div class="ttname"><a href="classexamples_1_1crypto_1_1fitness.html#a5a933388f6d0303f80251156e30e6b9b">examples.crypto.fitness.fun</a></div><div class="ttdeci">fun(self, x)</div><div class="ttdef"><b>Definition</b> <a href="#l00145">crypto.py:145</a></div></div>
+<div class="ttc" id="aclassexamples_1_1crypto_1_1fitness_html_a92e26f20d8494227c6ef3ff4cf6cae71"><div class="ttname"><a href="classexamples_1_1crypto_1_1fitness.html#a92e26f20d8494227c6ef3ff4cf6cae71">examples.crypto.fitness.get_trades</a></div><div class="ttdeci">get_trades(self, ticker, x)</div><div class="ttdef"><b>Definition</b> <a href="#l00181">crypto.py:181</a></div></div>
+<div class="ttc" id="aclassexamples_1_1crypto_1_1fitness_html_a996266cd94bc021d810079a4acaf9105"><div class="ttname"><a href="classexamples_1_1crypto_1_1fitness.html#a996266cd94bc021d810079a4acaf9105">examples.crypto.fitness.histories</a></div><div class="ttdeci">dict histories</div><div class="ttdef"><b>Definition</b> <a href="#l00132">crypto.py:132</a></div></div>
+<div class="ttc" id="aclassexamples_1_1crypto_1_1fitness_html_a9c118b62e1b58bee262b99574abe0428"><div class="ttname"><a href="classexamples_1_1crypto_1_1fitness.html#a9c118b62e1b58bee262b99574abe0428">examples.crypto.fitness.hodls</a></div><div class="ttdeci">dict hodls</div><div class="ttdef"><b>Definition</b> <a href="#l00135">crypto.py:135</a></div></div>
+<div class="ttc" id="aclassexamples_1_1crypto_1_1fitness_html_a9ffd824c461a915a2e1361a44428040e"><div class="ttname"><a href="classexamples_1_1crypto_1_1fitness.html#a9ffd824c461a915a2e1361a44428040e">examples.crypto.fitness.tickers</a></div><div class="ttdeci">tickers</div><div class="ttdef"><b>Definition</b> <a href="#l00130">crypto.py:130</a></div></div>
+<div class="ttc" id="aclassexamples_1_1crypto_1_1fitness_html_abe072955ebed441ec3435097e2caf86b"><div class="ttname"><a href="classexamples_1_1crypto_1_1fitness.html#abe072955ebed441ec3435097e2caf86b">examples.crypto.fitness.closes</a></div><div class="ttdeci">dict closes</div><div class="ttdef"><b>Definition</b> <a href="#l00133">crypto.py:133</a></div></div>
+<div class="ttc" id="aclassexamples_1_1crypto_1_1fitness_html_abe3f4d73b67a9b156c6188b9d644cec4"><div class="ttname"><a href="classexamples_1_1crypto_1_1fitness.html#abe3f4d73b67a9b156c6188b9d644cec4">examples.crypto.fitness.dates</a></div><div class="ttdeci">dict dates</div><div class="ttdef"><b>Definition</b> <a href="#l00134">crypto.py:134</a></div></div>
+<div class="ttc" id="aclassexamples_1_1crypto_1_1fitness_html_ac24e8f7966063c3bc0cc215a561cbadb"><div class="ttname"><a href="classexamples_1_1crypto_1_1fitness.html#ac24e8f7966063c3bc0cc215a561cbadb">examples.crypto.fitness.__call__</a></div><div class="ttdeci">__call__(self, x)</div><div class="ttdef"><b>Definition</b> <a href="#l00167">crypto.py:167</a></div></div>
+<div class="ttc" id="aclassexamples_1_1crypto_1_1fitness_html_ad9958db7a70ef673f3bcb9d5f5e5708b"><div class="ttname"><a href="classexamples_1_1crypto_1_1fitness.html#ad9958db7a70ef673f3bcb9d5f5e5708b">examples.crypto.fitness.__init__</a></div><div class="ttdeci">__init__(self, tickers, start, end, max_trades=None)</div><div class="ttdef"><b>Definition</b> <a href="#l00126">crypto.py:126</a></div></div>
+<div class="ttc" id="aclassexamples_1_1crypto_1_1fitness_html_add3f7fd867bb662eb828f9ce44f7a9db"><div class="ttname"><a href="classexamples_1_1crypto_1_1fitness.html#add3f7fd867bb662eb828f9ce44f7a9db">examples.crypto.fitness.best_y</a></div><div class="ttdeci">best_y</div><div class="ttdef"><b>Definition</b> <a href="#l00128">crypto.py:128</a></div></div>
+<div class="ttc" id="aclassexamples_1_1crypto_1_1fitness_html_ae49c94306fd553fcf1163473d6db192d"><div class="ttname"><a href="classexamples_1_1crypto_1_1fitness.html#ae49c94306fd553fcf1163473d6db192d">examples.crypto.fitness.evals</a></div><div class="ttdeci">evals</div><div class="ttdef"><b>Definition</b> <a href="#l00127">crypto.py:127</a></div></div>
+<div class="ttc" id="aclassexamples_1_1crypto_1_1fitness_html_af74be6f5f7cb7648d11cc9852fb1ea05"><div class="ttname"><a href="classexamples_1_1crypto_1_1fitness.html#af74be6f5f7cb7648d11cc9852fb1ea05">examples.crypto.fitness.plot</a></div><div class="ttdeci">plot(self, x)</div><div class="ttdef"><b>Definition</b> <a href="#l00219">crypto.py:219</a></div></div>
+<div class="ttc" id="aclassfcmaes_1_1mapelites_1_1wrapper_html"><div class="ttname"><a href="classfcmaes_1_1mapelites_1_1wrapper.html">fcmaes.mapelites.wrapper</a></div><div class="ttdoc">A callable class designed to fit and evaluate a function with given inputs.</div><div class="ttdef"><b>Definition</b> <a href="mapelites_8py_source.html#l01301">mapelites.py:1301</a></div></div>
+<div class="ttc" id="aclassfcmaes_1_1optimizer_1_1_bite__cpp_html"><div class="ttname"><a href="classfcmaes_1_1optimizer_1_1_bite__cpp.html">fcmaes.optimizer.Bite_cpp</a></div><div class="ttdef"><b>Definition</b> <a href="optimizer_8py_source.html#l02617">optimizer.py:2617</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1crypto_html_a2c916307beb743d28425fcd5c7568f01"><div class="ttname"><a href="namespaceexamples_1_1crypto.html#a2c916307beb743d28425fcd5c7568f01">examples.crypto.get_history</a></div><div class="ttdeci">get_history(ticker, start, end)</div><div class="ttdef"><b>Definition</b> <a href="#l00039">crypto.py:39</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1crypto_html_a38e3ca807ed30d1fa4d4a5cc478e1525"><div class="ttname"><a href="namespaceexamples_1_1crypto.html#a38e3ca807ed30d1fa4d4a5cc478e1525">examples.crypto.get_ema</a></div><div class="ttdeci">get_ema(prices, period)</div><div class="ttdef"><b>Definition</b> <a href="#l00054">crypto.py:54</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1crypto_html_a54eb39bc81fed172b7d1d74dcec022c2"><div class="ttname"><a href="namespaceexamples_1_1crypto.html#a54eb39bc81fed172b7d1d74dcec022c2">examples.crypto.buy_all</a></div><div class="ttdeci">buy_all(cash, num_coins, price, date, logs)</div><div class="ttdef"><b>Definition</b> <a href="#l00064">crypto.py:64</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1crypto_html_a61f6c93fa62a257ed271a0aa1210f604"><div class="ttname"><a href="namespaceexamples_1_1crypto.html#a61f6c93fa62a257ed271a0aa1210f604">examples.crypto.strategy</a></div><div class="ttdeci">strategy(close, start_cash, ema, sma, wait_buy, wait_sell, dates)</div><div class="ttdef"><b>Definition</b> <a href="#l00091">crypto.py:91</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1crypto_html_a6973099c614186a0aaab015ae17aed7f"><div class="ttname"><a href="namespaceexamples_1_1crypto.html#a6973099c614186a0aaab015ae17aed7f">examples.crypto.format</a></div><div class="ttdeci">format</div><div class="ttdef"><b>Definition</b> <a href="#l00033">crypto.py:33</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1crypto_html_a75d529296c6d83294ad1c37e55bd267f"><div class="ttname"><a href="namespaceexamples_1_1crypto.html#a75d529296c6d83294ad1c37e55bd267f">examples.crypto.simulate</a></div><div class="ttdeci">simulate(prices, ema_period, sma_period, wait_buy, wait_sell, dates=None)</div><div class="ttdef"><b>Definition</b> <a href="#l00118">crypto.py:118</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1crypto_html_a7c596426791d1e3f74d126fdb08ec38f"><div class="ttname"><a href="namespaceexamples_1_1crypto.html#a7c596426791d1e3f74d126fdb08ec38f">examples.crypto.optimize</a></div><div class="ttdeci">optimize(tickers, start, end)</div><div class="ttdef"><b>Definition</b> <a href="#l00241">crypto.py:241</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1crypto_html_a832e3832c38bb9d153a7af1b37d2e24a"><div class="ttname"><a href="namespaceexamples_1_1crypto.html#a832e3832c38bb9d153a7af1b37d2e24a">examples.crypto.bar</a></div><div class="ttdeci">bar(tickers, start, end)</div><div class="ttdef"><b>Definition</b> <a href="#l00269">crypto.py:269</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1crypto_html_a89ff39f1a827fa14663f90898e5f3fef"><div class="ttname"><a href="namespaceexamples_1_1crypto.html#a89ff39f1a827fa14663f90898e5f3fef">examples.crypto.optimize_nd</a></div><div class="ttdeci">optimize_nd(tickers, start, end)</div><div class="ttdef"><b>Definition</b> <a href="#l00304">crypto.py:304</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1crypto_html_a8de0d53fbf350d4ad637d00dfa9e3318"><div class="ttname"><a href="namespaceexamples_1_1crypto.html#a8de0d53fbf350d4ad637d00dfa9e3318">examples.crypto.optimize_mo</a></div><div class="ttdeci">optimize_mo(tickers, start, end, nsga_update=True)</div><div class="ttdef"><b>Definition</b> <a href="#l00248">crypto.py:248</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1crypto_html_a8e16e3bee50df8bd1b44e55fe8950e10"><div class="ttname"><a href="namespaceexamples_1_1crypto.html#a8e16e3bee50df8bd1b44e55fe8950e10">examples.crypto.sell_all</a></div><div class="ttdeci">sell_all(cash, num_coins, price, date, logs)</div><div class="ttdef"><b>Definition</b> <a href="#l00074">crypto.py:74</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1crypto_html_a8fe56bb9960bb347eee6e2c39ddbd90f"><div class="ttname"><a href="namespaceexamples_1_1crypto.html#a8fe56bb9960bb347eee6e2c39ddbd90f">examples.crypto.get_sma</a></div><div class="ttdeci">get_sma(prices, period)</div><div class="ttdef"><b>Definition</b> <a href="#l00058">crypto.py:58</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1crypto_html_a941dc0c737b40581bde98db6aef23525"><div class="ttname"><a href="namespaceexamples_1_1crypto.html#a941dc0c737b40581bde98db6aef23525">examples.crypto.hodl</a></div><div class="ttdeci">hodl(close, start_cash)</div><div class="ttdef"><b>Definition</b> <a href="#l00084">crypto.py:84</a></div></div>
+<div class="ttc" id="anamespacefcmaes_1_1optimizer_html"><div class="ttname"><a href="namespacefcmaes_1_1optimizer.html">fcmaes.optimizer</a></div><div class="ttdef"><b>Definition</b> <a href="optimizer_8py_source.html#l00001">optimizer.py:1</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d28a4824dc47e487b107a5db32ef43c4.html">examples</a></li><li class="navelem"><a class="el" href="crypto_8py.html">crypto.py</a></li>
+    <li class="footer">Generated on Tue Jun 24 2025 15:36:01 for Fast CMA-ES by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+  </ul>
+</div>
+</body>
+</html>

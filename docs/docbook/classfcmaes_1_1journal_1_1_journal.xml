@@ -1,0 +1,699 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_classfcmaes_1_1journal_1_1_journal" xml:lang="en-US">
+<title>fcmaes.journal.Journal Class Reference</title>
+<indexterm><primary>fcmaes.journal.Journal</primary></indexterm>
+<para>
+
+<para>Handles logging of study, trial, parameter, and value information to a file. </para>
+ 
+</para>
+Collaboration diagram for fcmaes.journal.Journal:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1journal_1_1_journal__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Public Member Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1journal_1_1_journal_1ad6b76d939a19c9c3df8d3387357163c6">__init__</link> (self, <link linkend="_classfcmaes_1_1journal_1_1_journal_1a708be2ce8c89c052edabab8d0a9c250e">filename</link>, study_name, dir)</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1journal_1_1_journal_1acbbc07226630aecfb75ee29f74077fc7">study</link> (self, worker_id, study_name, dir)</para>
+
+<para>Writes the start of a study to a file. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1journal_1_1_journal_1aeefe1aea935c585f4bbed751cfd8332f">trial</link> (self, worker_id, study_id)</para>
+
+<para>Initiates a trial session by logging the start of the trial and ensuring that the log data is immediately written to disk. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1journal_1_1_journal_1a071316e37bbbe42be6c9dda9bfe0a7d7">param</link> (self, worker_id, trial_id, param_name, param_value_internal, low, high)</para>
+
+<para>Writes a parameter value to the associated file for a given trial and worker. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1journal_1_1_journal_1a657e3ac3b8ab3aa80bed8190a69e753d">value</link> (self, worker_id, trial_id, y)</para>
+
+<para>Writes the trial value to a file and ensures that data is written to disk. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1journal_1_1_journal_1a7f1df03b226966e2c112e449fe31747b">write_x</link> (self, worker_id, trial_id, x, bounds)</para>
+
+<para>Writes parameter values for a given trial and worker. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1journal_1_1_journal_1a745cc0929536fec00ae35f51264a1af1">write_xs</link> (self, trial_id, xs, bounds)</para>
+
+<para>Writes a set of parameter values (xs) for different workers associated with a trial. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1journal_1_1_journal_1a7dd993c2fa0347ea449a35ec8c953120">write_ys</link> (self, trial_id, ys)</para>
+
+<para>Writes a list of values to corresponding trial IDs for all workers. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1journal_1_1_journal_1aef6c2fd765119c081c3541b04831dedc">write_starts</link> (self, study_id, batch_size)</para>
+
+<para>Executes a series of trials for a given study ID. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1journal_1_1_journal_1a09aa7fd18b891e40b6cb2b1682565efd">close</link> (self)</para>
+
+<para>Closes the associated file resource. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Public Attributes    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1journal_1_1_journal_1a708be2ce8c89c052edabab8d0a9c250e">filename</link> = filename</para>
+
+<para>Path to the file where journal entries are logged. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1journal_1_1_journal_1a6a2f06762d55e23420c8a67aa056ba03">file</link> = open(self.filename, &apos;w&apos;)</para>
+
+<para>File object used for writing journal entries. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>Handles logging of study, trial, parameter, and value information to a file. </para>
+
+
+
+<para>This class facilitates logging structured data for studies and their associated trials into a file. Each method corresponds to specific types of log entries such as study start, trial start, trial parameters, and trial values. It ensures the data is written in real-time and provides methods for handling batch operations where multiple workers or trials need to be recorded. </para>
+<para>
+Definition at line <link linkend="_journal_8py_source_1l00353">353</link> of file <link linkend="_journal_8py_source">journal.py</link>.</para>
+</section>
+<section>
+<title>Constructor &amp; Destructor Documentation</title>
+<anchor xml:id="_classfcmaes_1_1journal_1_1_journal_1ad6b76d939a19c9c3df8d3387357163c6"/><section>
+    <title>__init__()</title>
+<indexterm><primary>__init__</primary><secondary>fcmaes.journal.Journal</secondary></indexterm>
+<indexterm><primary>fcmaes.journal.Journal</primary><secondary>__init__</secondary></indexterm>
+<para><computeroutput>fcmaes.journal.Journal.__init__ ( self,  filename,  study_name,  dir)</computeroutput></para><para>
+Definition at line <link linkend="_journal_8py_source_1l00368">368</link> of file <link linkend="_journal_8py_source">journal.py</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Function Documentation</title>
+<anchor xml:id="_classfcmaes_1_1journal_1_1_journal_1a09aa7fd18b891e40b6cb2b1682565efd"/><section>
+    <title>close()</title>
+<indexterm><primary>close</primary><secondary>fcmaes.journal.Journal</secondary></indexterm>
+<indexterm><primary>fcmaes.journal.Journal</primary><secondary>close</secondary></indexterm>
+<para><computeroutput>fcmaes.journal.Journal.close ( self)</computeroutput></para><para>
+
+<para>Closes the associated file resource. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method safely closes the file resource associated with the instance,
+   ensuring that any resources tied to it are properly released. It is crucial
+   to call this method after completion of file operations to avoid resource
+   leaks or locking issues.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>IOError</entry><entry>
+<para>If an I/O operation error occurs while closing the file. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_journal_8py_source_1l00505">505</link> of file <link linkend="_journal_8py_source">journal.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1journal_1_1_journal_a09aa7fd18b891e40b6cb2b1682565efd_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1journal_1_1_journal_a09aa7fd18b891e40b6cb2b1682565efd_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1journal_1_1_journal_1a071316e37bbbe42be6c9dda9bfe0a7d7"/><section>
+    <title>param()</title>
+<indexterm><primary>param</primary><secondary>fcmaes.journal.Journal</secondary></indexterm>
+<indexterm><primary>fcmaes.journal.Journal</primary><secondary>param</secondary></indexterm>
+<para><computeroutput>fcmaes.journal.Journal.param ( self,  worker_id,  trial_id,  param_name,  param_value_internal,  low,  high)</computeroutput></para><para>
+
+<para>Writes a parameter value to the associated file for a given trial and worker. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method serializes the parameter information using the `trial_param`
+   function and writes the resulting string representation to the file object
+   associated with this class. Additionally, it ensures that the data is promptly
+   written to disk.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>worker_id</entry><entry>
+<para>Identifier of the worker requesting the execution. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>trial_id</entry><entry>
+<para>Identifier of the trial being executed. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>param_name</entry><entry>
+<para>Name of the parameter to be used in the computation. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>param_value_internal</entry><entry>
+<para>Internal representation or reference of the parameter value. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>low</entry><entry>
+<para>The lower bound of the parameter&apos;s acceptable range. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>high</entry><entry>
+<para>The upper bound of the parameter&apos;s acceptable range. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_journal_8py_source_1l00417">417</link> of file <link linkend="_journal_8py_source">journal.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1journal_1_1_journal_a071316e37bbbe42be6c9dda9bfe0a7d7_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1journal_1_1_journal_a071316e37bbbe42be6c9dda9bfe0a7d7_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1journal_1_1_journal_1acbbc07226630aecfb75ee29f74077fc7"/><section>
+    <title>study()</title>
+<indexterm><primary>study</primary><secondary>fcmaes.journal.Journal</secondary></indexterm>
+<indexterm><primary>fcmaes.journal.Journal</primary><secondary>study</secondary></indexterm>
+<para><computeroutput>fcmaes.journal.Journal.study ( self,  worker_id,  study_name,  dir)</computeroutput></para><para>
+
+<para>Writes the start of a study to a file. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method appends a formatted string, indicating the start of a study,
+   to the specified file and flushes the file buffer to ensure the data is
+   written to disk immediately.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>worker_id</entry><entry>
+<para>Worker identifier as a string or integer. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>study_name</entry><entry>
+<para>Name of the study as a string. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>dir</entry><entry>
+<para>Directory or path related to the study as a string. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_journal_8py_source_1l00385">385</link> of file <link linkend="_journal_8py_source">journal.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1journal_1_1_journal_acbbc07226630aecfb75ee29f74077fc7_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1journal_1_1_journal_1aeefe1aea935c585f4bbed751cfd8332f"/><section>
+    <title>trial()</title>
+<indexterm><primary>trial</primary><secondary>fcmaes.journal.Journal</secondary></indexterm>
+<indexterm><primary>fcmaes.journal.Journal</primary><secondary>trial</secondary></indexterm>
+<para><computeroutput>fcmaes.journal.Journal.trial ( self,  worker_id,  study_id)</computeroutput></para><para>
+
+<para>Initiates a trial session by logging the start of the trial and ensuring that the log data is immediately written to disk. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>worker_id</entry><entry>
+<para>Unique identifier for the worker participating in the trial. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>study_id</entry><entry>
+<para>Unique identifier for the study to which the trial belongs. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_journal_8py_source_1l00397">397</link> of file <link linkend="_journal_8py_source">journal.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1journal_1_1_journal_aeefe1aea935c585f4bbed751cfd8332f_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1journal_1_1_journal_aeefe1aea935c585f4bbed751cfd8332f_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1journal_1_1_journal_1a657e3ac3b8ab3aa80bed8190a69e753d"/><section>
+    <title>value()</title>
+<indexterm><primary>value</primary><secondary>fcmaes.journal.Journal</secondary></indexterm>
+<indexterm><primary>fcmaes.journal.Journal</primary><secondary>value</secondary></indexterm>
+<para><computeroutput>fcmaes.journal.Journal.value ( self,  worker_id,  trial_id,  y)</computeroutput></para><para>
+
+<para>Writes the trial value to a file and ensures that data is written to disk. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>worker_id</entry><entry>
+<para>Identifier for the worker. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>trial_id</entry><entry>
+<para>Identifier for the trial. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>y</entry><entry>
+<para>Value associated with the trial. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_journal_8py_source_1l00430">430</link> of file <link linkend="_journal_8py_source">journal.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1journal_1_1_journal_a657e3ac3b8ab3aa80bed8190a69e753d_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1journal_1_1_journal_a657e3ac3b8ab3aa80bed8190a69e753d_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1journal_1_1_journal_1aef6c2fd765119c081c3541b04831dedc"/><section>
+    <title>write_starts()</title>
+<indexterm><primary>write_starts</primary><secondary>fcmaes.journal.Journal</secondary></indexterm>
+<indexterm><primary>fcmaes.journal.Journal</primary><secondary>write_starts</secondary></indexterm>
+<para><computeroutput>fcmaes.journal.Journal.write_starts ( self,  study_id,  batch_size)</computeroutput></para><para>
+
+<para>Executes a series of trials for a given study ID. </para>
+</para>
+
+<para><literallayout><computeroutput>   The method iterates over a range defined by the batch size and performs trials
+   by invoking the `trial` method with the respective worker ID and study ID.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>study_id</entry><entry>
+<para>The identifier of the study being processed. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>batch_size</entry><entry>
+<para>The number of workers/trials to execute. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_journal_8py_source_1l00490">490</link> of file <link linkend="_journal_8py_source">journal.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1journal_1_1_journal_aef6c2fd765119c081c3541b04831dedc_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1journal_1_1_journal_1a7f1df03b226966e2c112e449fe31747b"/><section>
+    <title>write_x()</title>
+<indexterm><primary>write_x</primary><secondary>fcmaes.journal.Journal</secondary></indexterm>
+<indexterm><primary>fcmaes.journal.Journal</primary><secondary>write_x</secondary></indexterm>
+<para><computeroutput>fcmaes.journal.Journal.write_x ( self,  worker_id,  trial_id,  x,  bounds)</computeroutput></para><para>
+
+<para>Writes parameter values for a given trial and worker. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method iterates through the input vector `x` and assigns parameter values
+   for corresponding indices, using lower and upper bounds provided in `bounds`.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>worker_id</entry><entry>
+<para>Identifier for the worker. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>trial_id</entry><entry>
+<para>Identifier for the trial. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>x</entry><entry>
+<para>List or array of parameter values. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>bounds</entry><entry>
+<para>Object containing lower (<computeroutput>lb</computeroutput>) and upper (<computeroutput>ub</computeroutput>) bounds for the parameters. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_journal_8py_source_1l00446">446</link> of file <link linkend="_journal_8py_source">journal.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1journal_1_1_journal_a7f1df03b226966e2c112e449fe31747b_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1journal_1_1_journal_a7f1df03b226966e2c112e449fe31747b_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1journal_1_1_journal_1a745cc0929536fec00ae35f51264a1af1"/><section>
+    <title>write_xs()</title>
+<indexterm><primary>write_xs</primary><secondary>fcmaes.journal.Journal</secondary></indexterm>
+<indexterm><primary>fcmaes.journal.Journal</primary><secondary>write_xs</secondary></indexterm>
+<para><computeroutput>fcmaes.journal.Journal.write_xs ( self,  trial_id,  xs,  bounds)</computeroutput></para><para>
+
+<para>Writes a set of parameter values (xs) for different workers associated with a trial. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method distributes parameter values to workers by iterating through the
+   list `xs`. Each parameter value in `xs` is assigned to a worker identified by
+   an incremental ID. The `write_x` method is invoked for each worker, linking the
+   trial, worker, and provided bounds.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>trial_id</entry><entry>
+<para>Identifier for the trial to which the parameters belong. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>xs</entry><entry>
+<para>A list of parameter values to be assigned to workers. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>bounds</entry><entry>
+<para>Bounds within which the parameter values are constrained. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_journal_8py_source_1l00463">463</link> of file <link linkend="_journal_8py_source">journal.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1journal_1_1_journal_a745cc0929536fec00ae35f51264a1af1_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1journal_1_1_journal_1a7dd993c2fa0347ea449a35ec8c953120"/><section>
+    <title>write_ys()</title>
+<indexterm><primary>write_ys</primary><secondary>fcmaes.journal.Journal</secondary></indexterm>
+<indexterm><primary>fcmaes.journal.Journal</primary><secondary>write_ys</secondary></indexterm>
+<para><computeroutput>fcmaes.journal.Journal.write_ys ( self,  trial_id,  ys)</computeroutput></para><para>
+
+<para>Writes a list of values to corresponding trial IDs for all workers. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>trial_id</entry><entry>
+<para>The base trial ID to which worker IDs and their corresponding values will be associated. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>ys</entry><entry>
+<para>A list of values to be written for each worker. The values in this list correspond to workers incrementally starting from worker ID 1. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_journal_8py_source_1l00476">476</link> of file <link linkend="_journal_8py_source">journal.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1journal_1_1_journal_a7dd993c2fa0347ea449a35ec8c953120_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+<section>
+<title>Member Data Documentation</title>
+<anchor xml:id="_classfcmaes_1_1journal_1_1_journal_1a6a2f06762d55e23420c8a67aa056ba03"/><section>
+    <title>file</title>
+<indexterm><primary>file</primary><secondary>fcmaes.journal.Journal</secondary></indexterm>
+<indexterm><primary>fcmaes.journal.Journal</primary><secondary>file</secondary></indexterm>
+<para><computeroutput>fcmaes.journal.Journal.file = open(self.filename, &apos;w&apos;)</computeroutput></para><para>
+
+<para>File object used for writing journal entries. </para>
+</para>
+
+<para>Initializes an instance for managing file operations and conducting initial study setup.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>filename</entry><entry>
+<para>Name of the file to be created and written into. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>study_name</entry><entry>
+<para>Name of the study to be initialized in the setup process. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>dir</entry><entry>
+<para>Directory path for the study workspace or initialization. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_journal_8py_source_1l00370">370</link> of file <link linkend="_journal_8py_source">journal.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1journal_1_1_journal_1a708be2ce8c89c052edabab8d0a9c250e"/><section>
+    <title>filename</title>
+<indexterm><primary>filename</primary><secondary>fcmaes.journal.Journal</secondary></indexterm>
+<indexterm><primary>fcmaes.journal.Journal</primary><secondary>filename</secondary></indexterm>
+<para><computeroutput>fcmaes.journal.Journal.filename = filename</computeroutput></para><para>
+
+<para>Path to the file where journal entries are logged. </para>
+</para>
+<para>
+Definition at line <link linkend="_journal_8py_source_1l00369">369</link> of file <link linkend="_journal_8py_source">journal.py</link>.</para>
+</section>
+<para>
+The documentation for this class was generated from the following file:</para>
+fcmaes/<link linkend="_journal_8py">journal.py</link></section>
+</section>

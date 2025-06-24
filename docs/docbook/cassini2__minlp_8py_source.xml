@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_cassini2__minlp_8py_source" xml:lang="en-US">
+<title>cassini2_minlp.py</title>
+<indexterm><primary>examples/cassini2_minlp.py</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_cassini2__minlp_8py_source_1l00001"/><link linkend="_namespaceexamples_1_1cassini2__minlp">00001</link> <emphasis role="comment">#&#32;Copyright&#32;(c)&#32;Dietmar&#32;Wolz.</emphasis>
+<anchor xml:id="_cassini2__minlp_8py_source_1l00002"/>00002 <emphasis role="comment">#</emphasis>
+<anchor xml:id="_cassini2__minlp_8py_source_1l00003"/>00003 <emphasis role="comment">#&#32;This&#32;source&#32;code&#32;is&#32;licensed&#32;under&#32;the&#32;MIT&#32;license&#32;found&#32;in&#32;the</emphasis>
+<anchor xml:id="_cassini2__minlp_8py_source_1l00004"/>00004 <emphasis role="comment">#&#32;LICENSE&#32;file&#32;in&#32;the&#32;root&#32;directory.</emphasis>
+<anchor xml:id="_cassini2__minlp_8py_source_1l00005"/>00005 
+<anchor xml:id="_cassini2__minlp_8py_source_1l00006"/>00006 <emphasis role="comment">#&#32;Tested&#32;using&#32;https://docs.conda.io/en/main/miniconda.html&#32;on&#32;Linux&#32;Mint&#32;21.2</emphasis>
+<anchor xml:id="_cassini2__minlp_8py_source_1l00007"/>00007 
+<anchor xml:id="_cassini2__minlp_8py_source_1l00008"/>00008 <emphasis role="keyword">import</emphasis>&#32;math
+<anchor xml:id="_cassini2__minlp_8py_source_1l00009"/>00009 <emphasis role="keyword">from</emphasis>&#32;fcmaes&#32;<emphasis role="keyword">import</emphasis>&#32;multiretry
+<anchor xml:id="_cassini2__minlp_8py_source_1l00010"/>00010 <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1astro">fcmaes.astro</link>&#32;<emphasis role="keyword">import</emphasis>&#32;cassini2multi
+<anchor xml:id="_cassini2__minlp_8py_source_1l00011"/>00011 <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1optimizer">fcmaes.optimizer</link>&#32;<emphasis role="keyword">import</emphasis>&#32;de_cma,&#32;logger
+<anchor xml:id="_cassini2__minlp_8py_source_1l00012"/>00012 <emphasis role="keyword">from</emphasis>&#32;scipy.optimize&#32;<emphasis role="keyword">import</emphasis>&#32;Bounds
+<anchor xml:id="_cassini2__minlp_8py_source_1l00013"/>00013 
+<anchor xml:id="_cassini2__minlp_8py_source_1l00014"/>00014 <emphasis role="keyword">import</emphasis>&#32;sys&#32;
+<anchor xml:id="_cassini2__minlp_8py_source_1l00015"/>00015 <emphasis role="keyword">from</emphasis>&#32;loguru&#32;<emphasis role="keyword">import</emphasis>&#32;logger
+<anchor xml:id="_cassini2__minlp_8py_source_1l00016"/>00016 
+<anchor xml:id="_cassini2__minlp_8py_source_1l00017"/>00017 logger.remove()
+<anchor xml:id="_cassini2__minlp_8py_source_1l00018"/><link linkend="_namespaceexamples_1_1cassini2__minlp_1ac69a1f693c2270d2d2b6c5264bcce4b7">00018</link> logger.add(sys.stdout,&#32;format=<emphasis role="stringliteral">&quot;{time:HH:mm:ss.SS}&#32;|&#32;{process}&#32;|&#32;{level}&#32;|&#32;{message}&quot;</emphasis>,&#32;level=<emphasis role="stringliteral">&quot;INFO&quot;</emphasis>)
+<anchor xml:id="_cassini2__minlp_8py_source_1l00019"/>00019 logger.add(<emphasis role="stringliteral">&quot;log_{time}.txt&quot;</emphasis>,&#32;format=<emphasis role="stringliteral">&quot;{time:HH:mm:ss.SS}&#32;|&#32;{process}&#32;|&#32;{level}&#32;|&#32;{message}&quot;</emphasis>,&#32;level=<emphasis role="stringliteral">&quot;INFO&quot;</emphasis>)
+<anchor xml:id="_cassini2__minlp_8py_source_1l00020"/>00020 
+<anchor xml:id="_cassini2__minlp_8py_source_1l00021"/><link linkend="_namespaceexamples_1_1cassini2__minlp_1a9292ad8cb402196ba3edfc2d9aef2874">00021</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1cassini2__minlp_1a9292ad8cb402196ba3edfc2d9aef2874">cassini1</link>(x):
+<anchor xml:id="_cassini2__minlp_8py_source_1l00022"/>00022 &#32;&#32;&#32;&#32;y&#32;=&#32;cassini2multi(x)
+<anchor xml:id="_cassini2__minlp_8py_source_1l00023"/>00023 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;y[0]
+<anchor xml:id="_cassini2__minlp_8py_source_1l00024"/>00024 
+<anchor xml:id="_cassini2__minlp_8py_source_1l00025"/>00025 <emphasis role="keyword">class&#32;</emphasis><link linkend="_classexamples_1_1cassini2__minlp_1_1_cassini_multi">CassiniMulti</link>(object):
+<anchor xml:id="_cassini2__minlp_8py_source_1l00026"/><link linkend="_classexamples_1_1cassini2__minlp_1_1_cassini_multi">00026</link> &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;&#32;see&#32;https://www.esa.int/gsp/ACT/projects/gtop/cassini2/&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_cassini2__minlp_8py_source_1l00027"/>00027 &#32;&#32;&#32;&#32;
+<anchor xml:id="_cassini2__minlp_8py_source_1l00028"/><link linkend="_classexamples_1_1cassini2__minlp_1_1_cassini_multi_1a7b9f7a7ba7000c00dba35044eb685546">00028</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1cassini2__minlp_1_1_cassini_multi_1a7b9f7a7ba7000c00dba35044eb685546">__init__</link>(self,&#32;planets&#32;=&#32;[2,2,3,5]):&#32;&#32;&#32;&#32;
+<anchor xml:id="_cassini2__minlp_8py_source_1l00029"/><link linkend="_classexamples_1_1cassini2__minlp_1_1_cassini_multi_1a8dd108b7c18754bbed5664852d3ec979">00029</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1cassini2__minlp_1_1_cassini_multi_1a8dd108b7c18754bbed5664852d3ec979">name</link>&#32;=&#32;<emphasis role="stringliteral">&quot;Cassini2&quot;</emphasis>
+<anchor xml:id="_cassini2__minlp_8py_source_1l00030"/><link linkend="_classexamples_1_1cassini2__minlp_1_1_cassini_multi_1a9104d16407bc98ce751502bc2d073b0b">00030</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1cassini2__minlp_1_1_cassini_multi_1a9104d16407bc98ce751502bc2d073b0b">planets</link>&#32;=&#32;planets
+<anchor xml:id="_cassini2__minlp_8py_source_1l00031"/><link linkend="_classexamples_1_1cassini2__minlp_1_1_cassini_multi_1a1367dda313a8adcb811f118feb2d7778">00031</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1cassini2__minlp_1_1_cassini_multi_1a1367dda313a8adcb811f118feb2d7778">fun</link>&#32;=&#32;self.<link linkend="_classexamples_1_1cassini2__minlp_1_1_cassini_multi_1a980bc8637afdfffe7d62ecf39135e8a0">cassini2</link>
+<anchor xml:id="_cassini2__minlp_8py_source_1l00032"/><link linkend="_classexamples_1_1cassini2__minlp_1_1_cassini_multi_1ae899337d59352a6884fb1a6c3384803d">00032</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1cassini2__minlp_1_1_cassini_multi_1ae899337d59352a6884fb1a6c3384803d">bounds</link>&#32;=&#32;Bounds([-1000,3,0,0,100,100,30,400,800,0.01,0.01,0.01,0.01,0.01,1.05,1.05,1.15,1.7,&#32;-math.pi,&#32;-math.pi,&#32;-math.pi,&#32;-math.pi],
+<anchor xml:id="_cassini2__minlp_8py_source_1l00033"/>00033 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[0,5,1,1,400,500,300,1600,2200,0.9,0.9,0.9,0.9,0.9,6,6,6.5,291,math.pi,&#32;&#32;math.pi,&#32;&#32;math.pi,&#32;&#32;math.pi])&#32;&#32;
+<anchor xml:id="_cassini2__minlp_8py_source_1l00034"/>00034 
+<anchor xml:id="_cassini2__minlp_8py_source_1l00035"/><link linkend="_classexamples_1_1cassini2__minlp_1_1_cassini_multi_1a980bc8637afdfffe7d62ecf39135e8a0">00035</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1cassini2__minlp_1_1_cassini_multi_1a980bc8637afdfffe7d62ecf39135e8a0">cassini2</link>(self,&#32;x):
+<anchor xml:id="_cassini2__minlp_8py_source_1l00036"/>00036 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_namespaceexamples_1_1cassini2__minlp_1a9292ad8cb402196ba3edfc2d9aef2874">cassini1</link>(list(x)&#32;+&#32;self.<link linkend="_classexamples_1_1cassini2__minlp_1_1_cassini_multi_1a9104d16407bc98ce751502bc2d073b0b">planets</link>)
+<anchor xml:id="_cassini2__minlp_8py_source_1l00037"/>00037 
+<anchor xml:id="_cassini2__minlp_8py_source_1l00038"/><link linkend="_namespaceexamples_1_1cassini2__minlp_1a1c7a0bf8fdb945a9d533cdd1f066a679">00038</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1cassini2__minlp_1a1c7a0bf8fdb945a9d533cdd1f066a679">sequences</link>():
+<anchor xml:id="_cassini2__minlp_8py_source_1l00039"/>00039 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;p1&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(2,4):
+<anchor xml:id="_cassini2__minlp_8py_source_1l00040"/>00040 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;p2&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(2,4):
+<anchor xml:id="_cassini2__minlp_8py_source_1l00041"/>00041 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;p3&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(2,4):
+<anchor xml:id="_cassini2__minlp_8py_source_1l00042"/>00042 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;p4&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(3,6):
+<anchor xml:id="_cassini2__minlp_8py_source_1l00043"/>00043 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">yield</emphasis>[p1,p2,p3,p4]
+<anchor xml:id="_cassini2__minlp_8py_source_1l00044"/>00044 
+<anchor xml:id="_cassini2__minlp_8py_source_1l00045"/>00045 <emphasis role="comment">#&#32;simultaneous&#32;optimization&#32;</emphasis>
+<anchor xml:id="_cassini2__minlp_8py_source_1l00046"/><link linkend="_namespaceexamples_1_1cassini2__minlp_1a4f9d143b00f952dc469300952129df01">00046</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1cassini2__minlp_1a4f9d143b00f952dc469300952129df01">check_multiretry</link>(retries_inc&#32;=&#32;100,&#32;
+<anchor xml:id="_cassini2__minlp_8py_source_1l00047"/>00047 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;keep&#32;=&#32;0.7,&#32;optimizer&#32;=&#32;de_cma(1500),&#32;repeat&#32;=&#32;100):
+<anchor xml:id="_cassini2__minlp_8py_source_1l00048"/>00048 &#32;&#32;&#32;&#32;problems&#32;=&#32;[]
+<anchor xml:id="_cassini2__minlp_8py_source_1l00049"/>00049 &#32;&#32;&#32;&#32;ids&#32;=&#32;[]
+<anchor xml:id="_cassini2__minlp_8py_source_1l00050"/>00050 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;seq&#32;<emphasis role="keywordflow">in</emphasis>&#32;<link linkend="_namespaceexamples_1_1cassini2__minlp_1a1c7a0bf8fdb945a9d533cdd1f066a679">sequences</link>():
+<anchor xml:id="_cassini2__minlp_8py_source_1l00051"/>00051 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;problems.append(<link linkend="_classexamples_1_1cassini2__minlp_1_1_cassini_multi">CassiniMulti</link>(planets&#32;=&#32;seq))
+<anchor xml:id="_cassini2__minlp_8py_source_1l00052"/>00052 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ids.append(str(seq))
+<anchor xml:id="_cassini2__minlp_8py_source_1l00053"/>00053 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_cassini2__minlp_8py_source_1l00054"/>00054 &#32;&#32;&#32;&#32;problem_stats&#32;=&#32;multiretry.minimize(problems,&#32;ids,&#32;retries_inc,&#32;
+<anchor xml:id="_cassini2__minlp_8py_source_1l00055"/>00055 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;retries_inc*repeat,&#32;keep,&#32;optimizer)
+<anchor xml:id="_cassini2__minlp_8py_source_1l00056"/>00056 &#32;&#32;&#32;&#32;ps&#32;=&#32;problem_stats[0]
+<anchor xml:id="_cassini2__minlp_8py_source_1l00057"/>00057 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;_&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(repeat):
+<anchor xml:id="_cassini2__minlp_8py_source_1l00058"/>00058 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;logger.info(<emphasis role="stringliteral">&quot;problem&#32;&quot;</emphasis>&#32;+&#32;ps.prob.name&#32;+&#32;<emphasis role="stringliteral">&apos;&#32;&apos;</emphasis>&#32;+&#32;str(ps.id))
+<anchor xml:id="_cassini2__minlp_8py_source_1l00059"/>00059 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ps.retry(optimizer)&#32;
+<anchor xml:id="_cassini2__minlp_8py_source_1l00060"/>00060 
+<anchor xml:id="_cassini2__minlp_8py_source_1l00061"/><link linkend="_namespaceexamples_1_1cassini2__minlp_1a2ee9f2bd126e600b50641bc9a006a7b4">00061</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1cassini2__minlp_1a2ee9f2bd126e600b50641bc9a006a7b4">main</link>():
+<anchor xml:id="_cassini2__minlp_8py_source_1l00062"/>00062 &#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1cassini2__minlp_1a4f9d143b00f952dc469300952129df01">check_multiretry</link>()
+<anchor xml:id="_cassini2__minlp_8py_source_1l00063"/>00063 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_cassini2__minlp_8py_source_1l00064"/>00064 <emphasis role="keywordflow">if</emphasis>&#32;__name__&#32;==&#32;<emphasis role="stringliteral">&apos;__main__&apos;</emphasis>:
+<anchor xml:id="_cassini2__minlp_8py_source_1l00065"/>00065 &#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1cassini2__minlp_1a2ee9f2bd126e600b50641bc9a006a7b4">main</link>()
+<anchor xml:id="_cassini2__minlp_8py_source_1l00066"/>00066 &#32;&#32;&#32;&#32;
+</programlisting></section>

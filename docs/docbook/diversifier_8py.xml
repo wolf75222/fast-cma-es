@@ -1,0 +1,131 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_diversifier_8py" xml:lang="en-US">
+<title>fcmaes/diversifier.py File Reference</title>
+<indexterm><primary>fcmaes/diversifier.py</primary></indexterm>
+<para>
+
+<para>============================================================================= </para>
+ 
+</para>
+<simplesect>
+    <title>Namespaces    </title>
+        <itemizedlist>
+            <listitem><para>namespace <link linkend="_namespacefcmaes">fcmaes</link></para>
+</listitem>
+            <listitem><para>namespace <link linkend="_namespacefcmaes_1_1diversifier">fcmaes.diversifier</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1mapelites_1_1_archive">Archive</link> <link linkend="_namespacefcmaes_1_1diversifier_1aff21c62cc4f78f4786b277e0b20cb216">fcmaes.diversifier.minimize</link> (Callable[[ArrayLike], Tuple[float, np.ndarray]] qd_fitness, Bounds bounds, Bounds qd_bounds, Optional[int] niche_num=10000, Optional[int] samples_per_niche=20, Optional[int] max_evals=None, Optional[int] workers=mp.cpu_count(), Optional[<link linkend="_classfcmaes_1_1mapelites_1_1_archive">Archive</link>] archive=None, Optional[Dict] opt_params={}, Optional[bool] use_stats=False)</para>
+
+<para>Performs parallel optimization to minimize the fitness function with a focus on quality-diversity. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1diversifier_1a02e1220deec92a5ffd1a04e5b168fe6c">fcmaes.diversifier.apply_advretry</link> (Callable[[ArrayLike], float] fitness, Callable[[ArrayLike], Tuple[float, np.ndarray]] qd_fitness, Bounds bounds, <link linkend="_classfcmaes_1_1mapelites_1_1_archive">Archive</link> archive, Optional[<link linkend="_classfcmaes_1_1optimizer_1_1_optimizer">Optimizer</link>] optimizer=None, Optional[int] num_retries=1000, Optional[int] workers=mp.cpu_count(), Optional[float] max_eval_fac=5.0, Optional[np.ndarray] xs=None, Optional[np.ndarray] ys=None, Callable[[ArrayLike], ArrayLike] x_conv=None)</para>
+
+<para>Applies an advanced retry mechanism to optimize solutions for a given fitness function and update an archive with optimized results. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1diversifier_1ab816a6a4e44baee3d8bee364a7522274">fcmaes.diversifier.minimize_parallel_</link> (archive, fitness, bounds, workers, opt_params, max_evals)</para>
+
+<para>Minimizes a fitness function in parallel using multiple workers. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1diversifier_1a37838757d6fbed5b0cd7e56fa51f194e">fcmaes.diversifier.run_minimize_</link> (archive, fitness, bounds, rg, opt_params, p, workers, evals, max_evals)</para>
+
+<para>Executes the optimization processes involving MAP-Elites or solvers in a sequential or multiple configuration depending on the provided optimization parameters. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1diversifier_1ae5fd5f192aa814e8e6abe660f4592d7d">fcmaes.diversifier.run_map_elites_</link> (archive, fitness, bounds, rg, evals, max_evals, opt_params={})</para>
+
+<para>Executes the MAP-Elites algorithm for a given archive and fitness function. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1diversifier_1a4e57f15d7add818aaf5dfe6223e98475">fcmaes.diversifier.minimize_</link> (archive, fitness, bounds, rg, evals, max_evals, opt_params, x0=None)</para>
+
+<para>Minimizes a given objective function using an evolutionary algorithm or the B.I.T.E. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1diversifier_1a91529f8a57353a18ce9ce8ea0e372f63">fcmaes.diversifier.run_bite_</link> (archive, fitness, bounds, rg, evals, max_evals, opt_params, x0=None)</para>
+
+<para>Runs the BiteOpt algorithm to optimize a given fitness function. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1diversifier_1a7360db2f799d60d42b8a3f76650f075a">fcmaes.diversifier.get_solver_</link> (bounds, opt_params, rg, x0=None)</para>
+
+<para>Selects and initializes the appropriate optimization solver based on the specified parameters. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>============================================================================= </para>
+
+<para>Fast version 1.6.11</para>
+
+<para>(c) 2025 – Dietmar Wolz (c) 2025 – Latitude</para>
+
+<para>License MIT</para>
+
+<para><itemizedlist>
+<listitem>
+<para><link linkend="_diversifier_8py">diversifier.py</link></para>
+</listitem></itemizedlist>
+</para>
+
+<para><formalpara>
+<title>Description</title>
+<para><itemizedlist>
+<listitem>
+<para>Numpy based implementation of an diversifying wrapper / parallel retry mechanism. </para>
+</listitem></itemizedlist>
+</para>
+</formalpara>
+<para>
+
+<para>Uses the archive from CVT MAP-Elites [2] to maintain a set of diverse solutions and generalizes ideas from CMA-ME [3] to other wrapped algorithms. </para>
+</para>
+<para>
+
+<para>Both the parallel retry and the archive based modification of the fitness function enhance the diversification of the optimization result. The resulting archive may be stored and can be used to continue the optimization later. </para>
+</para>
+<para>
+
+<para>Requires a QD-fitness function returning both an fitness value and a behavior vector used to determine the corresponding archive niche using Voronoi tesselation. </para>
+</para>
+<para>
+
+<para>Returns an archive of niche-elites containing also for each niche statistics about the associated solutions.</para>
+</para>
+<formalpara><title>Author</title>
+
+<para>:<itemizedlist>
+<listitem>
+<para>Dietmar Wolz <literallayout><computeroutput>-&#32;romain.despoullains<emphasis role="preprocessor">@latitude.eu</emphasis>
+-&#32;corentin.generet<emphasis role="preprocessor">@latitude.eu</emphasis>
+</computeroutput></literallayout></para>
+</listitem></itemizedlist>
+</para>
+</formalpara>
+<formalpara>
+<title>References</title>
+<para><itemizedlist>
+<listitem>
+<para>[1] <link xlink:href="https://github.com/dietmarwo/fast-cma-es">https://github.com/dietmarwo/fast-cma-es</link></para>
+</listitem><listitem>
+<para>[2] <link xlink:href="https://arxiv.org/abs/1610.05729">https://arxiv.org/abs/1610.05729</link></para>
+</listitem><listitem>
+<para>[3] <link xlink:href="https://arxiv.org/pdf/1912.02400.pdf">https://arxiv.org/pdf/1912.02400.pdf</link></para>
+</listitem></itemizedlist>
+</para>
+</formalpara>
+<formalpara>
+<title>Documentation</title>
+<para><itemizedlist>
+<listitem></listitem></itemizedlist>
+</para>
+</formalpara>
+<informaltable frame='bottom'><tgroup cols='1'><colspec align='center'/><tbody><row><entry align='center'>
+</entry></row></tbody></tgroup></informaltable>
+ </para>
+<para>
+Definition in file <link linkend="_diversifier_8py_source">diversifier.py</link>.</para>
+</section>
+</section>

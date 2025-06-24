@@ -1,0 +1,194 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_elitescass2_8py_source" xml:lang="en-US">
+<title>elitescass2.py</title>
+<indexterm><primary>examples/elitescass2.py</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_elitescass2_8py_source_1l00001"/><link linkend="_namespaceexamples_1_1elitescass2">00001</link> <emphasis role="comment">#&#32;Copyright&#32;(c)&#32;Dietmar&#32;Wolz.</emphasis>
+<anchor xml:id="_elitescass2_8py_source_1l00002"/>00002 <emphasis role="comment">#</emphasis>
+<anchor xml:id="_elitescass2_8py_source_1l00003"/>00003 <emphasis role="comment">#&#32;This&#32;source&#32;code&#32;is&#32;licensed&#32;under&#32;the&#32;MIT&#32;license&#32;found&#32;in&#32;the</emphasis>
+<anchor xml:id="_elitescass2_8py_source_1l00004"/>00004 <emphasis role="comment">#&#32;LICENSE&#32;file&#32;in&#32;the&#32;root&#32;directory.</emphasis>
+<anchor xml:id="_elitescass2_8py_source_1l00005"/>00005 
+<anchor xml:id="_elitescass2_8py_source_1l00006"/>00006 <emphasis role="comment">#&#32;Used&#32;to&#32;generate&#32;the&#32;results&#32;in&#32;https://github.com/dietmarwo/fast-cma-es/blob/master/tutorials/MapElites.adoc</emphasis>
+<anchor xml:id="_elitescass2_8py_source_1l00007"/>00007 
+<anchor xml:id="_elitescass2_8py_source_1l00008"/>00008 <emphasis role="comment">#&#32;Tested&#32;using&#32;https://docs.conda.io/en/main/miniconda.html&#32;on&#32;Linux&#32;Mint&#32;21.2</emphasis>
+<anchor xml:id="_elitescass2_8py_source_1l00009"/>00009 
+<anchor xml:id="_elitescass2_8py_source_1l00010"/>00010 <emphasis role="keyword">import</emphasis>&#32;numpy&#32;<emphasis role="keyword">as</emphasis>&#32;np
+<anchor xml:id="_elitescass2_8py_source_1l00011"/>00011 <emphasis role="keyword">from</emphasis>&#32;scipy.optimize&#32;<emphasis role="keyword">import</emphasis>&#32;Bounds
+<anchor xml:id="_elitescass2_8py_source_1l00012"/>00012 <emphasis role="keyword">from</emphasis>&#32;fcmaes&#32;<emphasis role="keyword">import</emphasis>&#32;mapelites,&#32;diversifier
+<anchor xml:id="_elitescass2_8py_source_1l00013"/>00013 <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1astro">fcmaes.astro</link>&#32;<emphasis role="keyword">import</emphasis>&#32;Cassini2
+<anchor xml:id="_elitescass2_8py_source_1l00014"/>00014 <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1optimizer">fcmaes.optimizer</link>&#32;<emphasis role="keyword">import</emphasis>&#32;wrapper
+<anchor xml:id="_elitescass2_8py_source_1l00015"/>00015 
+<anchor xml:id="_elitescass2_8py_source_1l00016"/>00016 <emphasis role="keyword">import</emphasis>&#32;sys&#32;
+<anchor xml:id="_elitescass2_8py_source_1l00017"/>00017 <emphasis role="keyword">from</emphasis>&#32;loguru&#32;<emphasis role="keyword">import</emphasis>&#32;logger
+<anchor xml:id="_elitescass2_8py_source_1l00018"/>00018 
+<anchor xml:id="_elitescass2_8py_source_1l00019"/>00019 logger.remove()
+<anchor xml:id="_elitescass2_8py_source_1l00020"/><link linkend="_namespaceexamples_1_1elitescass2_1a5361dd1597322715827d8fa8012c8f0e">00020</link> logger.add(sys.stdout,&#32;format=<emphasis role="stringliteral">&quot;{time:HH:mm:ss.SS}&#32;|&#32;{process}&#32;|&#32;{level}&#32;|&#32;{message}&quot;</emphasis>,&#32;level=<emphasis role="stringliteral">&quot;INFO&quot;</emphasis>)
+<anchor xml:id="_elitescass2_8py_source_1l00021"/>00021 logger.add(<emphasis role="stringliteral">&quot;log_{time}.txt&quot;</emphasis>,&#32;format=<emphasis role="stringliteral">&quot;{time:HH:mm:ss.SS}&#32;|&#32;{process}&#32;|&#32;{level}&#32;|&#32;{message}&quot;</emphasis>,&#32;level=<emphasis role="stringliteral">&quot;INFO&quot;</emphasis>)
+<anchor xml:id="_elitescass2_8py_source_1l00022"/>00022 
+<anchor xml:id="_elitescass2_8py_source_1l00023"/><link linkend="_namespaceexamples_1_1elitescass2_1ab94c74c431f8fff119e0db2a1ba6aec5">00023</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1elitescass2_1ab94c74c431f8fff119e0db2a1ba6aec5">plot3d</link>(ys,&#32;name,&#32;xlabel=&apos;&apos;,&#32;ylabel=&apos;&apos;,&#32;zlabel=&apos;&apos;):
+<anchor xml:id="_elitescass2_8py_source_1l00024"/>00024 &#32;&#32;&#32;&#32;<emphasis role="keyword">import</emphasis>&#32;matplotlib.pyplot&#32;<emphasis role="keyword">as</emphasis>&#32;plt
+<anchor xml:id="_elitescass2_8py_source_1l00025"/>00025 &#32;&#32;&#32;&#32;<emphasis role="keyword">import</emphasis>&#32;plotly
+<anchor xml:id="_elitescass2_8py_source_1l00026"/>00026 &#32;&#32;&#32;&#32;<emphasis role="keyword">import</emphasis>&#32;plotly.graph_objs&#32;<emphasis role="keyword">as</emphasis>&#32;go
+<anchor xml:id="_elitescass2_8py_source_1l00027"/>00027 &#32;&#32;&#32;&#32;x&#32;=&#32;ys[:,&#32;0];&#32;y&#32;=&#32;ys[:,&#32;1];&#32;z&#32;=&#32;ys[:,&#32;2]
+<anchor xml:id="_elitescass2_8py_source_1l00028"/>00028 &#32;&#32;&#32;&#32;fig&#32;=&#32;plt.figure()
+<anchor xml:id="_elitescass2_8py_source_1l00029"/>00029 &#32;&#32;&#32;&#32;ax&#32;=&#32;fig.add_subplot()&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_elitescass2_8py_source_1l00030"/>00030 &#32;&#32;&#32;&#32;img&#32;=&#32;ax.scatter(x,&#32;y,&#32;s=4,&#32;c=z,&#32;cmap=<emphasis role="stringliteral">&apos;rainbow&apos;</emphasis>)
+<anchor xml:id="_elitescass2_8py_source_1l00031"/>00031 &#32;&#32;&#32;&#32;cbar&#32;=&#32;fig.colorbar(img)
+<anchor xml:id="_elitescass2_8py_source_1l00032"/>00032 &#32;&#32;&#32;&#32;plt.xlabel(xlabel)&#32;&#32;&#32;&#32;
+<anchor xml:id="_elitescass2_8py_source_1l00033"/>00033 &#32;&#32;&#32;&#32;plt.ylabel(ylabel)
+<anchor xml:id="_elitescass2_8py_source_1l00034"/>00034 &#32;&#32;&#32;&#32;cbar.set_label(zlabel)
+<anchor xml:id="_elitescass2_8py_source_1l00035"/>00035 &#32;&#32;&#32;&#32;fig.set_figheight(8)
+<anchor xml:id="_elitescass2_8py_source_1l00036"/>00036 &#32;&#32;&#32;&#32;fig.set_figwidth(8)
+<anchor xml:id="_elitescass2_8py_source_1l00037"/>00037 &#32;&#32;&#32;&#32;fig.savefig(name,&#32;dpi=300)
+<anchor xml:id="_elitescass2_8py_source_1l00038"/>00038 &#32;&#32;&#32;&#32;
+<anchor xml:id="_elitescass2_8py_source_1l00039"/>00039 &#32;&#32;&#32;&#32;fig1&#32;=&#32;go.Scatter3d(x=x,
+<anchor xml:id="_elitescass2_8py_source_1l00040"/>00040 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;y=y,
+<anchor xml:id="_elitescass2_8py_source_1l00041"/>00041 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;z=z,
+<anchor xml:id="_elitescass2_8py_source_1l00042"/>00042 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;marker=dict(opacity=0.9,
+<anchor xml:id="_elitescass2_8py_source_1l00043"/>00043 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;reversescale=<emphasis role="keyword">True</emphasis>,
+<anchor xml:id="_elitescass2_8py_source_1l00044"/>00044 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;colorscale=<emphasis role="stringliteral">&apos;Blues&apos;</emphasis>,
+<anchor xml:id="_elitescass2_8py_source_1l00045"/>00045 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;size=5),
+<anchor xml:id="_elitescass2_8py_source_1l00046"/>00046 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;line=dict&#32;(width=0.02),
+<anchor xml:id="_elitescass2_8py_source_1l00047"/>00047 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;mode=<emphasis role="stringliteral">&apos;markers&apos;</emphasis>)
+<anchor xml:id="_elitescass2_8py_source_1l00048"/>00048 &#32;&#32;&#32;&#32;mylayout&#32;=&#32;go.Layout(scene=dict(
+<anchor xml:id="_elitescass2_8py_source_1l00049"/>00049 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xaxis=dict(title=xlabel),
+<anchor xml:id="_elitescass2_8py_source_1l00050"/>00050 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;yaxis=dict(title=ylabel),
+<anchor xml:id="_elitescass2_8py_source_1l00051"/>00051 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;zaxis=dict(title=zlabel),
+<anchor xml:id="_elitescass2_8py_source_1l00052"/>00052 &#32;&#32;&#32;&#32;),)
+<anchor xml:id="_elitescass2_8py_source_1l00053"/>00053 &#32;&#32;&#32;&#32;plotly.offline.plot({<emphasis role="stringliteral">&quot;data&quot;</emphasis>:&#32;[fig1],
+<anchor xml:id="_elitescass2_8py_source_1l00054"/>00054 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;layout&quot;</emphasis>:&#32;mylayout},
+<anchor xml:id="_elitescass2_8py_source_1l00055"/>00055 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;auto_open=<emphasis role="keyword">True</emphasis>,
+<anchor xml:id="_elitescass2_8py_source_1l00056"/>00056 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;filename=(name&#32;+&#32;<emphasis role="stringliteral">&quot;.html&quot;</emphasis>))
+<anchor xml:id="_elitescass2_8py_source_1l00057"/><link linkend="_namespaceexamples_1_1elitescass2_1a30538a53214b86ebd4dde6f1ce3fe044">00057</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1elitescass2_1a30538a53214b86ebd4dde6f1ce3fe044">plot_archive</link>(archive,&#32;max_dv&#32;=&#32;20):
+<anchor xml:id="_elitescass2_8py_source_1l00058"/>00058 &#32;&#32;&#32;&#32;si&#32;=&#32;archive.argsort()
+<anchor xml:id="_elitescass2_8py_source_1l00059"/>00059 &#32;&#32;&#32;&#32;ysp&#32;=&#32;[]
+<anchor xml:id="_elitescass2_8py_source_1l00060"/>00060 &#32;&#32;&#32;&#32;descriptions&#32;=&#32;archive.get_ds()[si]
+<anchor xml:id="_elitescass2_8py_source_1l00061"/>00061 &#32;&#32;&#32;&#32;ys&#32;=&#32;archive.get_ys()[si]
+<anchor xml:id="_elitescass2_8py_source_1l00062"/>00062 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(len(si)):
+<anchor xml:id="_elitescass2_8py_source_1l00063"/>00063 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;desc&#32;=&#32;descriptions[i]
+<anchor xml:id="_elitescass2_8py_source_1l00064"/>00064 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ysp.append([desc[0],&#32;desc[1],&#32;ys[i]])
+<anchor xml:id="_elitescass2_8py_source_1l00065"/>00065 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;ys[i]&#32;&gt;&#32;max_dv:&#32;<emphasis role="keywordflow">break</emphasis>
+<anchor xml:id="_elitescass2_8py_source_1l00066"/>00066 &#32;&#32;&#32;&#32;ysp&#32;=&#32;np.array(ysp)
+<anchor xml:id="_elitescass2_8py_source_1l00067"/>00067 &#32;&#32;&#32;&#32;print(len(ysp))
+<anchor xml:id="_elitescass2_8py_source_1l00068"/>00068 &#32;&#32;&#32;&#32;print(ysp)
+<anchor xml:id="_elitescass2_8py_source_1l00069"/>00069 &#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1elitescass2_1ab94c74c431f8fff119e0db2a1ba6aec5">plot3d</link>(ysp,&#32;<emphasis role="stringliteral">&quot;cassini_2d&quot;</emphasis>,&#32;<emphasis role="stringliteral">&apos;time&#32;of&#32;flight&apos;</emphasis>,&#32;<emphasis role="stringliteral">&apos;start&#32;day&apos;</emphasis>,&#32;<emphasis role="stringliteral">&apos;delta&#32;V&#32;/&#32;propellant&apos;</emphasis>)
+<anchor xml:id="_elitescass2_8py_source_1l00070"/>00070 
+<anchor xml:id="_elitescass2_8py_source_1l00071"/><link linkend="_namespaceexamples_1_1elitescass2_1a8a12d69ae5d847736ef1e1cd7b56b00e">00071</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1elitescass2_1a8a12d69ae5d847736ef1e1cd7b56b00e">tof</link>(x):
+<anchor xml:id="_elitescass2_8py_source_1l00072"/>00072 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;sum(x[4:9])
+<anchor xml:id="_elitescass2_8py_source_1l00073"/>00073 
+<anchor xml:id="_elitescass2_8py_source_1l00074"/><link linkend="_namespaceexamples_1_1elitescass2_1a069f5085f77c4946500c11941955469a">00074</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1elitescass2_1a069f5085f77c4946500c11941955469a">launch</link>(x):
+<anchor xml:id="_elitescass2_8py_source_1l00075"/>00075 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;x[0]
+<anchor xml:id="_elitescass2_8py_source_1l00076"/>00076 
+<anchor xml:id="_elitescass2_8py_source_1l00077"/>00077 <emphasis role="keyword">class&#32;</emphasis><link linkend="_classexamples_1_1elitescass2_1_1_cassini2__me">Cassini2_me</link>():
+<anchor xml:id="_elitescass2_8py_source_1l00078"/><link linkend="_classexamples_1_1elitescass2_1_1_cassini2__me">00078</link> &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&apos;&apos;&apos;&#32;Map-Elites&#32;wrapper&#32;for&#32;the&#32;ESA&#32;Cassini2&#32;benchmark&#32;problem&apos;&apos;&apos;</emphasis>
+<anchor xml:id="_elitescass2_8py_source_1l00079"/>00079 &#32;&#32;&#32;&#32;
+<anchor xml:id="_elitescass2_8py_source_1l00080"/><link linkend="_classexamples_1_1elitescass2_1_1_cassini2__me_1a15675ecc9dcc21266fa36a00fcd783b3">00080</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1elitescass2_1_1_cassini2__me_1a15675ecc9dcc21266fa36a00fcd783b3">__init__</link>(self,&#32;prob):
+<anchor xml:id="_elitescass2_8py_source_1l00081"/><link linkend="_classexamples_1_1elitescass2_1_1_cassini2__me_1ad199e628fa4287d3484e5eb73fd96bcd">00081</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1elitescass2_1_1_cassini2__me_1ad199e628fa4287d3484e5eb73fd96bcd">problem</link>&#32;=&#32;prob
+<anchor xml:id="_elitescass2_8py_source_1l00082"/><link linkend="_classexamples_1_1elitescass2_1_1_cassini2__me_1a116c9714a687bf3a8a90a7651e8316b3">00082</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1elitescass2_1_1_cassini2__me_1a116c9714a687bf3a8a90a7651e8316b3">dim</link>&#32;=&#32;len(prob.bounds.lb)
+<anchor xml:id="_elitescass2_8py_source_1l00083"/><link linkend="_classexamples_1_1elitescass2_1_1_cassini2__me_1ab43522dfa7fb4fbe19fecc73c2aff920">00083</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1elitescass2_1_1_cassini2__me_1ab43522dfa7fb4fbe19fecc73c2aff920">qd_dim</link>&#32;=&#32;2
+<anchor xml:id="_elitescass2_8py_source_1l00084"/><link linkend="_classexamples_1_1elitescass2_1_1_cassini2__me_1a470e4358bf82c6b5b4afc9c0fc02c4ea">00084</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1elitescass2_1_1_cassini2__me_1a470e4358bf82c6b5b4afc9c0fc02c4ea">bounds</link>&#32;=&#32;prob.bounds
+<anchor xml:id="_elitescass2_8py_source_1l00085"/>00085 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_elitescass2_8py_source_1l00086"/>00086 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;min_tof&#32;=&#32;<link linkend="_namespaceexamples_1_1elitescass2_1a8a12d69ae5d847736ef1e1cd7b56b00e">tof</link>(prob.bounds.lb)
+<anchor xml:id="_elitescass2_8py_source_1l00087"/>00087 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_tof&#32;=&#32;<link linkend="_namespaceexamples_1_1elitescass2_1a8a12d69ae5d847736ef1e1cd7b56b00e">tof</link>(prob.bounds.ub)
+<anchor xml:id="_elitescass2_8py_source_1l00088"/>00088 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;min_launch&#32;=&#32;<link linkend="_namespaceexamples_1_1elitescass2_1a069f5085f77c4946500c11941955469a">launch</link>(prob.bounds.lb)
+<anchor xml:id="_elitescass2_8py_source_1l00089"/>00089 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_launch&#32;=&#32;<link linkend="_namespaceexamples_1_1elitescass2_1a069f5085f77c4946500c11941955469a">launch</link>(prob.bounds.ub)
+<anchor xml:id="_elitescass2_8py_source_1l00090"/>00090 
+<anchor xml:id="_elitescass2_8py_source_1l00091"/><link linkend="_classexamples_1_1elitescass2_1_1_cassini2__me_1a7dbfdf90184670926eb557ba4b449236">00091</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classexamples_1_1elitescass2_1_1_cassini2__me_1a7dbfdf90184670926eb557ba4b449236">qd_bounds</link>&#32;=&#32;Bounds([min_tof,&#32;min_launch],&#32;[max_tof,&#32;max_launch])&#32;
+<anchor xml:id="_elitescass2_8py_source_1l00092"/>00092 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_elitescass2_8py_source_1l00093"/><link linkend="_classexamples_1_1elitescass2_1_1_cassini2__me_1a2ef9f353092f4e6e21687a58c231fca0">00093</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1elitescass2_1_1_cassini2__me_1a2ef9f353092f4e6e21687a58c231fca0">qd_fitness</link>(self,&#32;x):
+<anchor xml:id="_elitescass2_8py_source_1l00094"/>00094 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;self.<link linkend="_classexamples_1_1elitescass2_1_1_cassini2__me_1ad199e628fa4287d3484e5eb73fd96bcd">problem</link>.fun(x),&#32;np.array([<link linkend="_namespaceexamples_1_1elitescass2_1a8a12d69ae5d847736ef1e1cd7b56b00e">tof</link>(x),&#32;<link linkend="_namespaceexamples_1_1elitescass2_1a069f5085f77c4946500c11941955469a">launch</link>(x)])
+<anchor xml:id="_elitescass2_8py_source_1l00095"/>00095 
+<anchor xml:id="_elitescass2_8py_source_1l00096"/><link linkend="_classexamples_1_1elitescass2_1_1_cassini2__me_1a44b48c8d4953332ba7cbc476dd162002">00096</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1elitescass2_1_1_cassini2__me_1a44b48c8d4953332ba7cbc476dd162002">fitness</link>(self,&#32;x):
+<anchor xml:id="_elitescass2_8py_source_1l00097"/>00097 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;self.<link linkend="_classexamples_1_1elitescass2_1_1_cassini2__me_1ad199e628fa4287d3484e5eb73fd96bcd">problem</link>.fun(x)
+<anchor xml:id="_elitescass2_8py_source_1l00098"/>00098 &#32;&#32;&#32;&#32;
+<anchor xml:id="_elitescass2_8py_source_1l00099"/><link linkend="_classexamples_1_1elitescass2_1_1_cassini2__me_1a668a8d93c21c94c40c4917e8e232453a">00099</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classexamples_1_1elitescass2_1_1_cassini2__me_1a668a8d93c21c94c40c4917e8e232453a">descriptors</link>(self,&#32;x):
+<anchor xml:id="_elitescass2_8py_source_1l00100"/>00100 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;np.array([<link linkend="_namespaceexamples_1_1elitescass2_1a8a12d69ae5d847736ef1e1cd7b56b00e">tof</link>(x),&#32;<link linkend="_namespaceexamples_1_1elitescass2_1a069f5085f77c4946500c11941955469a">launch</link>(x)])
+<anchor xml:id="_elitescass2_8py_source_1l00101"/>00101 
+<anchor xml:id="_elitescass2_8py_source_1l00102"/>00102 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1elitescass2_1aa7e89bb3fe0e85f83c4faff8a3112640">cma_elite</link>(problem,&#32;archive,&#32;num=300):&#32;&#32;&#32;&#32;
+<anchor xml:id="_elitescass2_8py_source_1l00103"/><link linkend="_namespaceexamples_1_1elitescass2_1aa7e89bb3fe0e85f83c4faff8a3112640">00103</link> &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&apos;&apos;&apos;&#32;applies&#32;CMA-ES&#32;to&#32;the&#32;best&#32;num&#32;niches&apos;&apos;&apos;</emphasis>
+<anchor xml:id="_elitescass2_8py_source_1l00104"/>00104 &#32;&#32;&#32;&#32;si&#32;=&#32;archive.argsort()
+<anchor xml:id="_elitescass2_8py_source_1l00105"/>00105 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(1,&#32;num+1):
+<anchor xml:id="_elitescass2_8py_source_1l00106"/>00106 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">try</emphasis>:
+<anchor xml:id="_elitescass2_8py_source_1l00107"/>00107 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;j&#32;=&#32;si[i]
+<anchor xml:id="_elitescass2_8py_source_1l00108"/>00108 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">print</emphasis>&#32;(j,&#32;archive.get_count(j))
+<anchor xml:id="_elitescass2_8py_source_1l00109"/>00109 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">print</emphasis>&#32;(archive.get_x_mean(j))
+<anchor xml:id="_elitescass2_8py_source_1l00110"/>00110 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">print</emphasis>&#32;(archive.get_x_min(j))
+<anchor xml:id="_elitescass2_8py_source_1l00111"/>00111 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">print</emphasis>&#32;(archive.get_x_max(j))
+<anchor xml:id="_elitescass2_8py_source_1l00112"/>00112 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">print</emphasis>&#32;(list(archive.get_x_stdev(j)))
+<anchor xml:id="_elitescass2_8py_source_1l00113"/>00113 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_elitescass2_8py_source_1l00114"/>00114 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;guess&#32;=&#32;archive.get_x(j)&#32;
+<anchor xml:id="_elitescass2_8py_source_1l00115"/>00115 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fun&#32;=&#32;archive.in_niche_filter(problem.qd_fitness,&#32;j)
+<anchor xml:id="_elitescass2_8py_source_1l00116"/>00116 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">print</emphasis>&#32;(archive.get_y(j),&#32;fun(guess))
+<anchor xml:id="_elitescass2_8py_source_1l00117"/>00117 &#32;&#32;&#32;&#32;
+<anchor xml:id="_elitescass2_8py_source_1l00118"/>00118 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;lb&#32;=&#32;np.nan_to_num(archive.get_x_min(j),&#32;nan=-np.inf)
+<anchor xml:id="_elitescass2_8py_source_1l00119"/>00119 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ub&#32;=&#32;np.nan_to_num(archive.get_x_max(j),&#32;nan=np.inf)&#32;
+<anchor xml:id="_elitescass2_8py_source_1l00120"/>00120 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;bounds&#32;=&#32;Bounds(np.maximum(problem.bounds.lb,&#32;lb),&#32;
+<anchor xml:id="_elitescass2_8py_source_1l00121"/>00121 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;np.minimum(problem.bounds.ub,&#32;ub))&#32;
+<anchor xml:id="_elitescass2_8py_source_1l00122"/>00122 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">from</emphasis>&#32;fcmaes&#32;<emphasis role="keyword">import</emphasis>&#32;retry
+<anchor xml:id="_elitescass2_8py_source_1l00123"/>00123 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1optimizer">fcmaes.optimizer</link>&#32;<emphasis role="keyword">import</emphasis>&#32;Cma_cpp
+<anchor xml:id="_elitescass2_8py_source_1l00124"/>00124 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;res&#32;=&#32;retry.minimize(fun,&#32;bounds,&#32;num_retries=24*8,&#32;
+<anchor xml:id="_elitescass2_8py_source_1l00125"/>00125 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;optimizer=Cma_cpp(guess=guess,&#32;sdevs=0.001,&#32;workers=24)
+<anchor xml:id="_elitescass2_8py_source_1l00126"/>00126 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;)&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_elitescass2_8py_source_1l00127"/>00127 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;y,&#32;d&#32;=&#32;problem.qd_fitness(res.x)&#32;
+<anchor xml:id="_elitescass2_8py_source_1l00128"/>00128 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">print</emphasis>&#32;(j,&#32;res.fun,&#32;fun(res.x),&#32;y,&#32;d)
+<anchor xml:id="_elitescass2_8py_source_1l00129"/>00129 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;archive.set(j,&#32;[y,d],&#32;res.x)
+<anchor xml:id="_elitescass2_8py_source_1l00130"/>00130 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;i&#32;%&#32;50&#32;==&#32;0:
+<anchor xml:id="_elitescass2_8py_source_1l00131"/>00131 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;archive.save(<emphasis role="stringliteral">&quot;cass2archCma&quot;</emphasis>&#32;+&#32;str(i))
+<anchor xml:id="_elitescass2_8py_source_1l00132"/>00132 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">except</emphasis>&#32;Exception&#32;<emphasis role="keyword">as</emphasis>&#32;ex:
+<anchor xml:id="_elitescass2_8py_source_1l00133"/>00133 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">pass</emphasis>
+<anchor xml:id="_elitescass2_8py_source_1l00134"/>00134 &#32;&#32;&#32;&#32;archive.save(<emphasis role="stringliteral">&quot;cass2archCma&quot;</emphasis>)
+<anchor xml:id="_elitescass2_8py_source_1l00135"/>00135 
+<anchor xml:id="_elitescass2_8py_source_1l00136"/><link linkend="_namespaceexamples_1_1elitescass2_1a3e032f90428595a2bce8f124ecdd22f8">00136</link> niche_num&#32;=&#32;10000&#32;&#32;&#32;&#32;
+<anchor xml:id="_elitescass2_8py_source_1l00137"/>00137 
+<anchor xml:id="_elitescass2_8py_source_1l00138"/><link linkend="_namespaceexamples_1_1elitescass2_1a99523598aa4aa14064852c19c9db7cdb">00138</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1elitescass2_1a99523598aa4aa14064852c19c9db7cdb">plot</link>(name):
+<anchor xml:id="_elitescass2_8py_source_1l00139"/>00139 &#32;&#32;&#32;&#32;problem&#32;=&#32;<link linkend="_classexamples_1_1elitescass2_1_1_cassini2__me">Cassini2_me</link>(<link linkend="_classfcmaes_1_1astro_1_1_cassini2">Cassini2</link>())
+<anchor xml:id="_elitescass2_8py_source_1l00140"/>00140 &#32;&#32;&#32;&#32;archive&#32;=&#32;mapelites.load_archive(name,&#32;problem.bounds,&#32;problem.qd_bounds,&#32;niche_num)
+<anchor xml:id="_elitescass2_8py_source_1l00141"/>00141 &#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1elitescass2_1a30538a53214b86ebd4dde6f1ce3fe044">plot_archive</link>(archive)
+<anchor xml:id="_elitescass2_8py_source_1l00142"/>00142 
+<anchor xml:id="_elitescass2_8py_source_1l00143"/><link linkend="_namespaceexamples_1_1elitescass2_1a585abcf3e78b314f5965d009c5a42fcd">00143</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1elitescass2_1a585abcf3e78b314f5965d009c5a42fcd">run_diversifier</link>():
+<anchor xml:id="_elitescass2_8py_source_1l00144"/>00144 &#32;&#32;&#32;&#32;name&#32;=&#32;<emphasis role="stringliteral">&apos;cass2div&apos;</emphasis>
+<anchor xml:id="_elitescass2_8py_source_1l00145"/>00145 &#32;&#32;&#32;&#32;problem&#32;=&#32;<link linkend="_classexamples_1_1elitescass2_1_1_cassini2__me">Cassini2_me</link>(<link linkend="_classfcmaes_1_1astro_1_1_cassini2">Cassini2</link>())
+<anchor xml:id="_elitescass2_8py_source_1l00146"/>00146 &#32;&#32;&#32;&#32;opt_params0&#32;=&#32;{<emphasis role="stringliteral">&apos;solver&apos;</emphasis>:<emphasis role="stringliteral">&apos;elites&apos;</emphasis>,&#32;<emphasis role="stringliteral">&apos;popsize&apos;</emphasis>:640}
+<anchor xml:id="_elitescass2_8py_source_1l00147"/>00147 &#32;&#32;&#32;&#32;opt_params1&#32;=&#32;{<emphasis role="stringliteral">&apos;solver&apos;</emphasis>:<emphasis role="stringliteral">&apos;DE_CPP&apos;</emphasis>,&#32;<emphasis role="stringliteral">&apos;max_evals&apos;</emphasis>:20000,&#32;<emphasis role="stringliteral">&apos;popsize&apos;</emphasis>:32,&#32;<emphasis role="stringliteral">&apos;stall_criterion&apos;</emphasis>:3}
+<anchor xml:id="_elitescass2_8py_source_1l00148"/>00148 &#32;&#32;&#32;&#32;opt_params2&#32;=&#32;{<emphasis role="stringliteral">&apos;solver&apos;</emphasis>:<emphasis role="stringliteral">&apos;CMA_CPP&apos;</emphasis>,&#32;<emphasis role="stringliteral">&apos;max_evals&apos;</emphasis>:50000,&#32;<emphasis role="stringliteral">&apos;popsize&apos;</emphasis>:32,&#32;<emphasis role="stringliteral">&apos;stall_criterion&apos;</emphasis>:3}
+<anchor xml:id="_elitescass2_8py_source_1l00149"/>00149 &#32;&#32;&#32;&#32;archive&#32;=&#32;diversifier.minimize(
+<anchor xml:id="_elitescass2_8py_source_1l00150"/>00150 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classfcmaes_1_1mapelites_1_1wrapper">mapelites.wrapper</link>(problem.qd_fitness,&#32;2),&#32;problem.bounds,&#32;problem.qd_bounds,&#32;
+<anchor xml:id="_elitescass2_8py_source_1l00151"/>00151 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;opt_params=[opt_params0,&#32;opt_params1,&#32;opt_params2],&#32;max_evals=640000000,&#32;
+<anchor xml:id="_elitescass2_8py_source_1l00152"/>00152 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;niche_num=160*160,&#32;samples_per_niche=12)
+<anchor xml:id="_elitescass2_8py_source_1l00153"/>00153 &#32;&#32;&#32;&#32;diversifier.apply_advretry(<link linkend="_classfcmaes_1_1optimizer_1_1wrapper">wrapper</link>(problem.fitness),&#32;problem.descriptors,&#32;
+<anchor xml:id="_elitescass2_8py_source_1l00154"/>00154 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;problem.bounds,&#32;archive,&#32;num_retries=40000)
+<anchor xml:id="_elitescass2_8py_source_1l00155"/>00155 &#32;&#32;&#32;&#32;print(<emphasis role="stringliteral">&apos;final&#32;archive:&apos;</emphasis>,&#32;archive.info())
+<anchor xml:id="_elitescass2_8py_source_1l00156"/>00156 &#32;&#32;&#32;&#32;archive.save(name)
+<anchor xml:id="_elitescass2_8py_source_1l00157"/>00157 &#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1elitescass2_1a30538a53214b86ebd4dde6f1ce3fe044">plot_archive</link>(archive)
+<anchor xml:id="_elitescass2_8py_source_1l00158"/>00158 &#32;&#32;&#32;
+<anchor xml:id="_elitescass2_8py_source_1l00159"/><link linkend="_namespaceexamples_1_1elitescass2_1a2d34737ea1ce88ba22a59acf69e098a2">00159</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1elitescass2_1a2d34737ea1ce88ba22a59acf69e098a2">run_map_elites</link>():
+<anchor xml:id="_elitescass2_8py_source_1l00160"/>00160 &#32;&#32;&#32;&#32;problem&#32;=&#32;<link linkend="_classexamples_1_1elitescass2_1_1_cassini2__me">Cassini2_me</link>(<link linkend="_classfcmaes_1_1astro_1_1_cassini2">Cassini2</link>())
+<anchor xml:id="_elitescass2_8py_source_1l00161"/>00161 &#32;&#32;&#32;&#32;name&#32;=&#32;<emphasis role="stringliteral">&apos;cass2me&apos;</emphasis>
+<anchor xml:id="_elitescass2_8py_source_1l00162"/>00162 &#32;&#32;&#32;&#32;archive&#32;=&#32;<emphasis role="keywordtype">None</emphasis>
+<anchor xml:id="_elitescass2_8py_source_1l00163"/>00163 &#32;&#32;&#32;&#32;<emphasis role="comment">#archive&#32;=&#32;mapelites.load_archive(name,&#32;&#32;problem.bounds,&#32;problem.qd_bounds,&#32;niche_num)</emphasis>
+<anchor xml:id="_elitescass2_8py_source_1l00164"/>00164 &#32;&#32;&#32;&#32;
+<anchor xml:id="_elitescass2_8py_source_1l00165"/>00165 &#32;&#32;&#32;&#32;<emphasis role="comment">#fast&#32;preview,&#32;switches&#32;CMA-ES&#32;off</emphasis>
+<anchor xml:id="_elitescass2_8py_source_1l00166"/>00166 &#32;&#32;&#32;&#32;me_params&#32;=&#32;{<emphasis role="stringliteral">&apos;generations&apos;</emphasis>:100,&#32;<emphasis role="stringliteral">&apos;chunk_size&apos;</emphasis>:1000}
+<anchor xml:id="_elitescass2_8py_source_1l00167"/>00167 &#32;&#32;&#32;&#32;cma_params&#32;=&#32;{<emphasis role="stringliteral">&apos;cma_generations&apos;</emphasis>:0,&#32;<emphasis role="stringliteral">&apos;best_n&apos;</emphasis>:200,&#32;<emphasis role="stringliteral">&apos;maxiters&apos;</emphasis>:400,&#32;<emphasis role="stringliteral">&apos;stall_criterion&apos;</emphasis>:3}
+<anchor xml:id="_elitescass2_8py_source_1l00168"/>00168 
+<anchor xml:id="_elitescass2_8py_source_1l00169"/>00169 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;use&#32;CMA-ES&#32;</emphasis>
+<anchor xml:id="_elitescass2_8py_source_1l00170"/>00170 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;me_params&#32;=&#32;{&apos;generations&apos;:100,&#32;&apos;chunk_size&apos;:1000}</emphasis>
+<anchor xml:id="_elitescass2_8py_source_1l00171"/>00171 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;cma_params&#32;=&#32;{&apos;cma_generations&apos;:100,&#32;&apos;best_n&apos;:200,&#32;&apos;maxiters&apos;:400,&#32;&apos;stall_criterion&apos;:3}</emphasis>
+<anchor xml:id="_elitescass2_8py_source_1l00172"/>00172 &#32;&#32;&#32;&#32;
+<anchor xml:id="_elitescass2_8py_source_1l00173"/>00173 &#32;&#32;&#32;&#32;fitness&#32;=&#32;&#32;<link linkend="_classfcmaes_1_1mapelites_1_1wrapper">mapelites.wrapper</link>(problem.qd_fitness,&#32;problem.qd_dim)
+<anchor xml:id="_elitescass2_8py_source_1l00174"/>00174 
+<anchor xml:id="_elitescass2_8py_source_1l00175"/>00175 &#32;&#32;&#32;&#32;archive&#32;=&#32;mapelites.optimize_map_elites(
+<anchor xml:id="_elitescass2_8py_source_1l00176"/>00176 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fitness,&#32;problem.bounds,&#32;problem.qd_bounds,&#32;niche_num&#32;=&#32;niche_num,
+<anchor xml:id="_elitescass2_8py_source_1l00177"/>00177 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;iterations&#32;=&#32;50,&#32;archive&#32;=&#32;archive,&#32;
+<anchor xml:id="_elitescass2_8py_source_1l00178"/>00178 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;me_params&#32;=&#32;me_params,&#32;cma_params&#32;=&#32;cma_params)
+<anchor xml:id="_elitescass2_8py_source_1l00179"/>00179 &#32;&#32;&#32;&#32;
+<anchor xml:id="_elitescass2_8py_source_1l00180"/>00180 &#32;&#32;&#32;&#32;archive.save(name)
+<anchor xml:id="_elitescass2_8py_source_1l00181"/>00181 &#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1elitescass2_1a30538a53214b86ebd4dde6f1ce3fe044">plot_archive</link>(archive)
+<anchor xml:id="_elitescass2_8py_source_1l00182"/>00182 &#32;&#32;&#32;&#32;print(<emphasis role="stringliteral">&apos;final&#32;archive:&apos;</emphasis>,&#32;archive.info())
+<anchor xml:id="_elitescass2_8py_source_1l00183"/>00183 
+<anchor xml:id="_elitescass2_8py_source_1l00184"/>00184 <emphasis role="keywordflow">if</emphasis>&#32;__name__&#32;==&#32;<emphasis role="stringliteral">&apos;__main__&apos;</emphasis>:
+<anchor xml:id="_elitescass2_8py_source_1l00185"/>00185 &#32;&#32;&#32;&#32;
+<anchor xml:id="_elitescass2_8py_source_1l00186"/>00186 &#32;&#32;&#32;&#32;<emphasis role="comment">#run_map_elites()</emphasis>
+<anchor xml:id="_elitescass2_8py_source_1l00187"/>00187 &#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1elitescass2_1a585abcf3e78b314f5965d009c5a42fcd">run_diversifier</link>()
+<anchor xml:id="_elitescass2_8py_source_1l00188"/>00188 &#32;&#32;&#32;&#32;<emphasis role="comment">#plot(&apos;cass2&apos;)</emphasis>
+<anchor xml:id="_elitescass2_8py_source_1l00189"/>00189 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">pass</emphasis>
+</programlisting></section>

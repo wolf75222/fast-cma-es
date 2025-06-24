@@ -1,0 +1,271 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_classfcmaes_1_1retry_1_1_shared2d" xml:lang="en-US">
+<title>fcmaes.retry.Shared2d Class Reference</title>
+<indexterm><primary>fcmaes.retry.Shared2d</primary></indexterm>
+<para>
+
+<para>A 2D shared memory array wrapper. </para>
+ 
+</para>
+Collaboration diagram for fcmaes.retry.Shared2d:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1retry_1_1_shared2d__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Public Member Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1retry_1_1_shared2d_1a0d1c9d735b97086605baf64547e9a92d">__init__</link> (self, xs)</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1retry_1_1_shared2d_1a8f215e97145f12a7b2dc9b322652e8e5">set_i</link> (self, i, x)</para>
+
+<para>Updates a specific row in the object&apos;s view with new data. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1retry_1_1_shared2d_1a7c6d7c872ffb38a8a3ede6267c3abd28">view</link> (self)</para>
+
+<para>Converts the binary data buffer to a NumPy array and reshapes it according to the specified rows and columns. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1retry_1_1_shared2d_1ad2452a4e2d5797f2fd2b7e86caea1843">set</link> (self, xs)</para>
+
+<para>Sets the values of the object by copying the given array to its data view. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Public Attributes    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1retry_1_1_shared2d_1a57ba9eed93c6e87be18f57516cd8bfc0">rows</link></para>
+
+<para>Number of rows in the 2D array. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1retry_1_1_shared2d_1a3e421506a60c206e6c1ebec288294a2f">cols</link> = xs.shape</para>
+
+<para>Number of columns in the 2D array. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1retry_1_1_shared2d_1a2a200e99ea9271c4a48476903aa31a25">dtype</link> = xs.dtype</para>
+
+<para>Data type of the elements in the 2D array. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1retry_1_1_shared2d_1aa9c58dfba6f7887648069920eef16ade">ra</link> = mp.RawArray(<link linkend="_namespacefcmaes_1_1retry_1a59360006c21e3c4b3c0cd45bd65a5f25">dtype_map</link>[str(xs.dtype)], self.rows*self.cols)</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>A 2D shared memory array wrapper. </para>
+
+
+
+<para>This class allows sharing of a 2D NumPy array between processes using shared memory. It provides methods to set and retrieve the data, as well as to update specific rows of the array. </para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00331">331</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+<section>
+<title>Constructor &amp; Destructor Documentation</title>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_shared2d_1a0d1c9d735b97086605baf64547e9a92d"/><section>
+    <title>__init__()</title>
+<indexterm><primary>__init__</primary><secondary>fcmaes.retry.Shared2d</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Shared2d</primary><secondary>__init__</secondary></indexterm>
+<para><computeroutput>fcmaes.retry.Shared2d.__init__ ( self,  xs)</computeroutput></para><para>
+Definition at line <link linkend="_retry_8py_source_1l00349">349</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Function Documentation</title>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_shared2d_1ad2452a4e2d5797f2fd2b7e86caea1843"/><section>
+    <title>set()</title>
+<indexterm><primary>set</primary><secondary>fcmaes.retry.Shared2d</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Shared2d</primary><secondary>set</secondary></indexterm>
+<para><computeroutput>fcmaes.retry.Shared2d.set ( self,  xs)</computeroutput></para><para>
+
+<para>Sets the values of the object by copying the given array to its data view. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>xs</entry><entry>
+<para>The array-like object whose values are to be copied. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00386">386</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1retry_1_1_shared2d_ad2452a4e2d5797f2fd2b7e86caea1843_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_shared2d_1a8f215e97145f12a7b2dc9b322652e8e5"/><section>
+    <title>set_i()</title>
+<indexterm><primary>set_i</primary><secondary>fcmaes.retry.Shared2d</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Shared2d</primary><secondary>set_i</secondary></indexterm>
+<para><computeroutput>fcmaes.retry.Shared2d.set_i ( self,  i,  x)</computeroutput></para><para>
+
+<para>Updates a specific row in the object&apos;s view with new data. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method modifies the specified row of the object&apos;s view by replacing it
+   with the provided data.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>i</entry><entry>
+<para>Index of the row to update within the view. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>x</entry><entry>
+<para>New data to replace the current row content. The type should match the requirements of the view. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00366">366</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1retry_1_1_shared2d_a8f215e97145f12a7b2dc9b322652e8e5_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_shared2d_1a7c6d7c872ffb38a8a3ede6267c3abd28"/><section>
+    <title>view()</title>
+<indexterm><primary>view</primary><secondary>fcmaes.retry.Shared2d</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Shared2d</primary><secondary>view</secondary></indexterm>
+<para><computeroutput>fcmaes.retry.Shared2d.view ( self)</computeroutput></para><para>
+
+<para>Converts the binary data buffer to a NumPy array and reshapes it according to the specified rows and columns. </para>
+</para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>numpy A reshaped NumPy array created from the binary buffer. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00376">376</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1retry_1_1_shared2d_a7c6d7c872ffb38a8a3ede6267c3abd28_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+<section>
+<title>Member Data Documentation</title>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_shared2d_1a3e421506a60c206e6c1ebec288294a2f"/><section>
+    <title>cols</title>
+<indexterm><primary>cols</primary><secondary>fcmaes.retry.Shared2d</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Shared2d</primary><secondary>cols</secondary></indexterm>
+<para><computeroutput>fcmaes.retry.Shared2d.cols = xs.shape</computeroutput></para><para>
+
+<para>Number of columns in the 2D array. </para>
+</para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00350">350</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_shared2d_1a2a200e99ea9271c4a48476903aa31a25"/><section>
+    <title>dtype</title>
+<indexterm><primary>dtype</primary><secondary>fcmaes.retry.Shared2d</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Shared2d</primary><secondary>dtype</secondary></indexterm>
+<para><computeroutput>fcmaes.retry.Shared2d.dtype = xs.dtype</computeroutput></para><para>
+
+<para>Data type of the elements in the 2D array. </para>
+</para>
+
+<para>Initializes an instance with given data, extracting shape and data type, and setting up a shared memory array.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>xs</entry><entry>
+<para>numpy.ndarray The input array used to initialize the instance. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00351">351</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_shared2d_1aa9c58dfba6f7887648069920eef16ade"/><section>
+    <title>ra</title>
+<indexterm><primary>ra</primary><secondary>fcmaes.retry.Shared2d</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Shared2d</primary><secondary>ra</secondary></indexterm>
+<para><computeroutput>fcmaes.retry.Shared2d.ra = mp.RawArray(<link linkend="_namespacefcmaes_1_1retry_1a59360006c21e3c4b3c0cd45bd65a5f25">dtype_map</link>[str(xs.dtype)], self.rows*self.cols)</computeroutput></para><para>
+Definition at line <link linkend="_retry_8py_source_1l00352">352</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1retry_1_1_shared2d_1a57ba9eed93c6e87be18f57516cd8bfc0"/><section>
+    <title>rows</title>
+<indexterm><primary>rows</primary><secondary>fcmaes.retry.Shared2d</secondary></indexterm>
+<indexterm><primary>fcmaes.retry.Shared2d</primary><secondary>rows</secondary></indexterm>
+<para><computeroutput>fcmaes.retry.Shared2d.rows</computeroutput></para><para>
+
+<para>Number of rows in the 2D array. </para>
+</para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00350">350</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+<para>
+The documentation for this class was generated from the following file:</para>
+fcmaes/<link linkend="_retry_8py">retry.py</link></section>
+</section>

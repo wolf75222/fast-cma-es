@@ -1,0 +1,948 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.13.2" xml:lang="en-US">
+  <compounddef id="ascent_8cpp" kind="file" language="C++">
+    <compoundname>ascent.cpp</compoundname>
+    <includes local="yes">ascent/Ascent.h</includes>
+    <includes local="no">math.h</includes>
+    <includes local="no">stdio.h</includes>
+    <includes local="no">stdlib.h</includes>
+    <includes local="no">string.h</includes>
+    <includes local="yes">keplerian_toolbox/core_functions/propagate_lagrangian.hpp</includes>
+    <includes local="yes">keplerian_toolbox/core_functions/propagate_taylor.hpp</includes>
+    <includes local="yes">keplerian_toolbox/core_functions/propagate_taylor_J2.hpp</includes>
+    <includes local="yes">keplerian_toolbox/core_functions/par2ic.hpp</includes>
+    <includes local="yes">keplerian_toolbox/core_functions/ic2par.hpp</includes>
+    <includes local="yes">keplerian_toolbox/core_functions/fb_vel.hpp</includes>
+    <includes local="yes">keplerian_toolbox/core_functions/fb_prop.hpp</includes>
+    <includes local="yes">keplerian_toolbox/core_functions/lambert_find_N.hpp</includes>
+    <includes local="yes">keplerian_toolbox/planet/base.hpp</includes>
+    <includes local="yes">keplerian_toolbox/planet/jpl_low_precision.hpp</includes>
+    <includes local="yes">keplerian_toolbox/lambert_problem.hpp</includes>
+    <incdepgraph>
+      <node id="1">
+        <label>_fcmaescpp/ascent.cpp</label>
+        <link refid="ascent_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>ascent/Ascent.h</label>
+      </node>
+      <node id="13">
+        <label>keplerian_toolbox/core_functions/fb_prop.hpp</label>
+      </node>
+      <node id="12">
+        <label>keplerian_toolbox/core_functions/fb_vel.hpp</label>
+      </node>
+      <node id="11">
+        <label>keplerian_toolbox/core_functions/ic2par.hpp</label>
+      </node>
+      <node id="14">
+        <label>keplerian_toolbox/core_functions/lambert_find_N.hpp</label>
+      </node>
+      <node id="10">
+        <label>keplerian_toolbox/core_functions/par2ic.hpp</label>
+      </node>
+      <node id="7">
+        <label>keplerian_toolbox/core_functions/propagate_lagrangian.hpp</label>
+      </node>
+      <node id="8">
+        <label>keplerian_toolbox/core_functions/propagate_taylor.hpp</label>
+      </node>
+      <node id="9">
+        <label>keplerian_toolbox/core_functions/propagate_taylor_J2.hpp</label>
+      </node>
+      <node id="17">
+        <label>keplerian_toolbox/lambert_problem.hpp</label>
+      </node>
+      <node id="15">
+        <label>keplerian_toolbox/planet/base.hpp</label>
+      </node>
+      <node id="16">
+        <label>keplerian_toolbox/planet/jpl_low_precision.hpp</label>
+      </node>
+      <node id="3">
+        <label>math.h</label>
+      </node>
+      <node id="4">
+        <label>stdio.h</label>
+      </node>
+      <node id="5">
+        <label>stdlib.h</label>
+      </node>
+      <node id="6">
+        <label>string.h</label>
+      </node>
+    </incdepgraph>
+    <innerclass refid="struct_p_v_thrust" prot="public">PVThrust</innerclass>
+    <innerclass refid="struct_damp" prot="public">Damp</innerclass>
+    <innerclass refid="struct_f8" prot="public">F8</innerclass>
+    <innerclass refid="struct_p_v_twaste" prot="public">PVTwaste</innerclass>
+    <innernamespace refid="namespaceasc">asc</innernamespace>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="ascent_8cpp_1ad82324920dbdc173d7bc71c3e8ebf7c8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double *</type>
+        <definition>double * integratePVthrust</definition>
+        <argsstring>(double *yd, double mu, double ux, double uy, double uz, double veff, double dt, double step)</argsstring>
+        <name>integratePVthrust</name>
+        <param>
+          <type>double *</type>
+          <declname>yd</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>mu</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>ux</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>uy</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>uz</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>veff</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>dt</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>step</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/ascent.cpp" line="53" column="8" bodyfile="_fcmaescpp/ascent.cpp" bodystart="53" bodyend="103"/>
+        <references refid="struct_p_v_thrust_1aff57ae6be1d59ba76d1d5cb20ab3f7a8" compoundref="ascent_8cpp" startline="23">PVThrust::_mu</references>
+        <references refid="struct_p_v_thrust_1afc970af5b54428f05ed1e14b32fe00e1" compoundref="ascent_8cpp" startline="27">PVThrust::_unorm</references>
+        <references refid="struct_p_v_thrust_1a7c9b6042921c8a1f6ea50625739f4e77" compoundref="ascent_8cpp" startline="24">PVThrust::_ux</references>
+        <references refid="struct_p_v_thrust_1a1aabd4508e41926e63411a74fbab4b19" compoundref="ascent_8cpp" startline="25">PVThrust::_uy</references>
+        <references refid="struct_p_v_thrust_1a07f93fb87261c551035e907d7ba133eb" compoundref="ascent_8cpp" startline="26">PVThrust::_uz</references>
+        <references refid="struct_p_v_thrust_1ae8a9c89ffadcb3ee34c8a73cc1915a02" compoundref="ascent_8cpp" startline="22">PVThrust::_veff</references>
+      </memberdef>
+      <memberdef kind="function" id="ascent_8cpp_1a91f8ebf7f31b0db72464aede82c3a2bd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double *</type>
+        <definition>double * integrateDamp_C</definition>
+        <argsstring>(double *yd, double alpha, double dt, double step)</argsstring>
+        <name>integrateDamp_C</name>
+        <param>
+          <type>double *</type>
+          <declname>yd</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>alpha</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>dt</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>step</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/ascent.cpp" line="121" column="8" bodyfile="_fcmaescpp/ascent.cpp" bodystart="121" bodyend="148"/>
+        <references refid="struct_damp_1ac4918310ac12cfdf15bb7fb8bccbf930" compoundref="ascent_8cpp" startline="109">Damp::alpha</references>
+      </memberdef>
+      <memberdef kind="function" id="ascent_8cpp_1a6bf1992b7bf98468c32c6b6f19185dbf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double *</type>
+        <definition>double * integrateF8_C</definition>
+        <argsstring>(double *yd, double w, double dt, double step)</argsstring>
+        <name>integrateF8_C</name>
+        <param>
+          <type>double *</type>
+          <declname>yd</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>w</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>dt</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>step</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/ascent.cpp" line="186" column="8" bodyfile="_fcmaescpp/ascent.cpp" bodystart="186" bodyend="213"/>
+      </memberdef>
+      <memberdef kind="function" id="ascent_8cpp_1a7029b8dc4f9351f6a28fbfc893a920a6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void wic2par</definition>
+        <argsstring>(state_t rv, double *kep, double mu)</argsstring>
+        <name>wic2par</name>
+        <param>
+          <type>state_t</type>
+          <declname>rv</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>kep</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>mu</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/ascent.cpp" line="217" column="6" bodyfile="_fcmaescpp/ascent.cpp" bodystart="217" bodyend="225"/>
+        <referencedby refid="ascent_8cpp_1ae5ba225583cb2594ec1b3c02e0da17fb" compoundref="ascent_8cpp" startline="498" endline="609">integratePVTwasteN_C</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="ascent_8cpp_1a3ac859a2fc844d9b3218d8377ff8ddc3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int integratePVTwaste_C</definition>
+        <argsstring>(double *rvt, double dt, double step, double cram, bool dopri)</argsstring>
+        <name>integratePVTwaste_C</name>
+        <param>
+          <type>double *</type>
+          <declname>rvt</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>dt</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>step</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>cram</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>dopri</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/ascent.cpp" line="432" column="5" bodyfile="_fcmaescpp/ascent.cpp" bodystart="432" bodyend="496"/>
+        <references refid="struct_p_v_twaste_1a2d0bba9d3cc1604b9b7f5d246424ff26" compoundref="ascent_8cpp" startline="258">PVTwaste::_cram</references>
+      </memberdef>
+      <memberdef kind="function" id="ascent_8cpp_1ae5ba225583cb2594ec1b3c02e0da17fb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void integratePVTwasteN_C</definition>
+        <argsstring>(double *rvt, double dtN, double step, double cram, int N, bool dopri, double *res)</argsstring>
+        <name>integratePVTwasteN_C</name>
+        <param>
+          <type>double *</type>
+          <declname>rvt</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>dtN</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>step</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>cram</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>N</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>dopri</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>res</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="_fcmaescpp/ascent.cpp" line="498" column="6" bodyfile="_fcmaescpp/ascent.cpp" bodystart="498" bodyend="609"/>
+        <references refid="struct_p_v_twaste_1a2d0bba9d3cc1604b9b7f5d246424ff26" compoundref="ascent_8cpp" startline="258">PVTwaste::_cram</references>
+        <references refid="struct_p_v_twaste_1a3fec432bcbb1df023d16d391281c851c" compoundref="ascent_8cpp" startline="229">PVTwaste::muE</references>
+        <references refid="ascent_8cpp_1a7029b8dc4f9351f6a28fbfc893a920a6" compoundref="ascent_8cpp" startline="217" endline="225">wic2par</references>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;ascent/Ascent.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;math.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdio.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdlib.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;keplerian_toolbox/core_functions/propagate_lagrangian.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;keplerian_toolbox/core_functions/propagate_taylor.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;keplerian_toolbox/core_functions/propagate_taylor_J2.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;keplerian_toolbox/core_functions/par2ic.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;keplerian_toolbox/core_functions/ic2par.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;keplerian_toolbox/core_functions/fb_vel.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;keplerian_toolbox/core_functions/fb_prop.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;keplerian_toolbox/core_functions/lambert_find_N.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;keplerian_toolbox/planet/base.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;keplerian_toolbox/planet/jpl_low_precision.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;keplerian_toolbox/lambert_problem.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="keyword">using<sp/>namespace<sp/></highlight><highlight class="normal">asc;</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20" refid="struct_p_v_thrust" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_p_v_thrust" kindref="compound">PVThrust</ref><sp/>{</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22" refid="struct_p_v_thrust_1ae8a9c89ffadcb3ee34c8a73cc1915a02" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="struct_p_v_thrust_1ae8a9c89ffadcb3ee34c8a73cc1915a02" kindref="member">_veff</ref>;</highlight></codeline>
+<codeline lineno="23" refid="struct_p_v_thrust_1aff57ae6be1d59ba76d1d5cb20ab3f7a8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="struct_p_v_thrust_1aff57ae6be1d59ba76d1d5cb20ab3f7a8" kindref="member">_mu</ref>;</highlight></codeline>
+<codeline lineno="24" refid="struct_p_v_thrust_1a7c9b6042921c8a1f6ea50625739f4e77" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="struct_p_v_thrust_1a7c9b6042921c8a1f6ea50625739f4e77" kindref="member">_ux</ref>;</highlight></codeline>
+<codeline lineno="25" refid="struct_p_v_thrust_1a1aabd4508e41926e63411a74fbab4b19" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="struct_p_v_thrust_1a1aabd4508e41926e63411a74fbab4b19" kindref="member">_uy</ref>;</highlight></codeline>
+<codeline lineno="26" refid="struct_p_v_thrust_1a07f93fb87261c551035e907d7ba133eb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="struct_p_v_thrust_1a07f93fb87261c551035e907d7ba133eb" kindref="member">_uz</ref>;</highlight></codeline>
+<codeline lineno="27" refid="struct_p_v_thrust_1afc970af5b54428f05ed1e14b32fe00e1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="struct_p_v_thrust_1afc970af5b54428f05ed1e14b32fe00e1" kindref="member">_unorm</ref>;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29" refid="struct_p_v_thrust_1a6eb2b209c427f2d8477af8e066c7fe07" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="struct_p_v_thrust_1a6eb2b209c427f2d8477af8e066c7fe07" kindref="member">operator()</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>state_t<sp/>&amp;pv,<sp/>state_t<sp/>&amp;yDot,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>x<sp/>=<sp/>pv[0];<sp/><sp/></highlight><highlight class="comment">//<sp/>position</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>y<sp/>=<sp/>pv[1];</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>z<sp/>=<sp/>pv[2];</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>m<sp/>=<sp/>pv[6];</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>r<sp/>=<sp/>sqrt(x<sp/>*<sp/>x<sp/>+<sp/>y<sp/>*<sp/>y<sp/>+<sp/>z<sp/>*<sp/>z);</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>rrr<sp/>=<sp/>r<sp/>*<sp/>r<sp/>*<sp/>r;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>yDot[0]<sp/>=<sp/>pv[3];<sp/></highlight><highlight class="comment">//<sp/>velocity</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>yDot[1]<sp/>=<sp/>pv[4];</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>yDot[2]<sp/>=<sp/>pv[5];</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>yDot[3]<sp/>=<sp/>-<ref refid="struct_p_v_thrust_1aff57ae6be1d59ba76d1d5cb20ab3f7a8" kindref="member">_mu</ref><sp/>*<sp/>x<sp/>/<sp/>(rrr);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>yDot[4]<sp/>=<sp/>-<ref refid="struct_p_v_thrust_1aff57ae6be1d59ba76d1d5cb20ab3f7a8" kindref="member">_mu</ref><sp/>*<sp/>y<sp/>/<sp/>(rrr);</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>yDot[5]<sp/>=<sp/>-<ref refid="struct_p_v_thrust_1aff57ae6be1d59ba76d1d5cb20ab3f7a8" kindref="member">_mu</ref><sp/>*<sp/>z<sp/>/<sp/>(rrr);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(m<sp/>&gt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>yDot[3]<sp/>+=<sp/><ref refid="struct_p_v_thrust_1a7c9b6042921c8a1f6ea50625739f4e77" kindref="member">_ux</ref><sp/>/<sp/>m;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>yDot[4]<sp/>+=<sp/><ref refid="struct_p_v_thrust_1a1aabd4508e41926e63411a74fbab4b19" kindref="member">_uy</ref><sp/>/<sp/>m;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>yDot[5]<sp/>+=<sp/><ref refid="struct_p_v_thrust_1a07f93fb87261c551035e907d7ba133eb" kindref="member">_uz</ref><sp/>/<sp/>m;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>yDot[6]<sp/>=<sp/>-<ref refid="struct_p_v_thrust_1afc970af5b54428f05ed1e14b32fe00e1" kindref="member">_unorm</ref><sp/>/<sp/><ref refid="struct_p_v_thrust_1ae8a9c89ffadcb3ee34c8a73cc1915a02" kindref="member">_veff</ref>;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="50"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="53" refid="ascent_8cpp_1ad82324920dbdc173d7bc71c3e8ebf7c8" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/><ref refid="ascent_8cpp_1ad82324920dbdc173d7bc71c3e8ebf7c8" kindref="member">integratePVthrust</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*yd,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>mu,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>ux,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>uy,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>uz,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>veff,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>dt,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>step)<sp/>{</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/>state_t<sp/>y(7);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>7;<sp/>i++)</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>y[i]<sp/>=<sp/>yd[i];</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>RK4<sp/>integrator;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>DOPRI45<sp/>integrator;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>ABM4<sp/>integrator;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>PC233<sp/>integrator;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>VABM<sp/>integrator;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_p_v_thrust" kindref="compound">PVThrust</ref><sp/>pvt;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/>pvt.<ref refid="struct_p_v_thrust_1ae8a9c89ffadcb3ee34c8a73cc1915a02" kindref="member">_veff</ref><sp/>=<sp/>veff;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/>pvt.<ref refid="struct_p_v_thrust_1aff57ae6be1d59ba76d1d5cb20ab3f7a8" kindref="member">_mu</ref><sp/>=<sp/>mu;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/>pvt.<ref refid="struct_p_v_thrust_1a7c9b6042921c8a1f6ea50625739f4e77" kindref="member">_ux</ref><sp/>=<sp/>ux;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/>pvt.<ref refid="struct_p_v_thrust_1a1aabd4508e41926e63411a74fbab4b19" kindref="member">_uy</ref><sp/>=<sp/>uy;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/>pvt.<ref refid="struct_p_v_thrust_1a07f93fb87261c551035e907d7ba133eb" kindref="member">_uz</ref><sp/>=<sp/>uz;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/>pvt.<ref refid="struct_p_v_thrust_1afc970af5b54428f05ed1e14b32fe00e1" kindref="member">_unorm</ref><sp/>=<sp/>sqrt(ux<sp/>*<sp/>ux<sp/>+<sp/>uy<sp/>*<sp/>uy<sp/>+<sp/>uz<sp/>*<sp/>uz);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>Recorder<sp/>recorder;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>steps<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>t<sp/>=<sp/>0.0;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dt<sp/>&gt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(t<sp/>&lt;<sp/>dt)<sp/>{</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/>recorder({<sp/>t,<sp/>y[0],<sp/>y[1],<sp/>y[2],<sp/>y[3],<sp/>y[4],<sp/>y[5],<sp/>y[6]<sp/>});</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>steps++;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(t<sp/>+<sp/>step<sp/>&gt;=<sp/>dt)<sp/>{</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>integrator(pvt,<sp/>y,<sp/>t,<sp/>dt<sp/>-<sp/>t);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>integrator(pvt,<sp/>y,<sp/>t,<sp/>step);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/>recorder.csv(&quot;PVThrust&quot;,<sp/>{<sp/>&quot;t&quot;,<sp/>&quot;x&quot;,<sp/>&quot;y&quot;,<sp/>&quot;z&quot;,<sp/>&quot;vx&quot;,<sp/>&quot;vy&quot;,<sp/>&quot;vz&quot;,<sp/>&quot;m&quot;<sp/>});</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(t<sp/>&gt;<sp/>dt)<sp/>{</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>steps++;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(t<sp/>-<sp/>step<sp/>&lt;=<sp/>dt)<sp/>{</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>integrator(pvt,<sp/>y,<sp/>t,<sp/>dt<sp/>-<sp/>t);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>integrator(pvt,<sp/>y,<sp/>t,<sp/>-step);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*res<sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">[7];</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>7;<sp/>i++)</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>res[i]<sp/>=<sp/>y[i];</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>res;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="104"><highlight class="normal">;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107" refid="struct_damp" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_damp" kindref="compound">Damp</ref><sp/>{</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109" refid="struct_damp_1ac4918310ac12cfdf15bb7fb8bccbf930" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="struct_damp_1ac4918310ac12cfdf15bb7fb8bccbf930" kindref="member">alpha</ref>;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111" refid="struct_damp_1a5b5c78ee17f6b01bbedd2c9490fe706d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="struct_damp_1a5b5c78ee17f6b01bbedd2c9490fe706d" kindref="member">operator()</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>state_t<sp/>&amp;y,<sp/>state_t<sp/>&amp;yDot,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>x1<sp/>=<sp/>y[0];</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>x2<sp/>=<sp/>y[1];</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>yDot[0]<sp/>=<sp/>x2;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>yDot[1]<sp/>=<sp/>-x1<sp/>+<sp/><ref refid="struct_damp_1ac4918310ac12cfdf15bb7fb8bccbf930" kindref="member">alpha</ref>;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="118"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="121" refid="ascent_8cpp_1a91f8ebf7f31b0db72464aede82c3a2bd" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/><ref refid="ascent_8cpp_1a91f8ebf7f31b0db72464aede82c3a2bd" kindref="member">integrateDamp_C</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*yd,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>alpha,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>dt,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>step)<sp/>{</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/>state_t<sp/>y(2);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>2;<sp/>i++)</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>y[i]<sp/>=<sp/>yd[i];</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>RK4<sp/>integrator;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>DOPRI45<sp/>integrator;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>ABM4<sp/>integrator;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/>PC233<sp/>integrator;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>VABM<sp/>integrator;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_damp" kindref="compound">Damp</ref><sp/>damp;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/>damp.<ref refid="struct_damp_1ac4918310ac12cfdf15bb7fb8bccbf930" kindref="member">alpha</ref><sp/>=<sp/>alpha;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>steps<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>t<sp/>=<sp/>0.0;</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(t<sp/>&lt;<sp/>dt)<sp/>{</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>steps++;</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(t<sp/>+<sp/>step<sp/>&gt;=<sp/>dt)<sp/>{</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>integrator(damp,<sp/>y,<sp/>t,<sp/>dt<sp/>-<sp/>t);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>integrator(damp,<sp/>y,<sp/>t,<sp/>step);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*res<sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">[2];</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>2;<sp/>i++)</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>res[i]<sp/>=<sp/>y[i];</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>res;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="149"><highlight class="normal">;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152" refid="struct_f8" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_f8" kindref="compound">F8</ref><sp/>{</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154" refid="struct_f8_1a049ead0e788956d08e235dd4ce263c9f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="struct_f8_1a049ead0e788956d08e235dd4ce263c9f" kindref="member">ksi</ref><sp/>=<sp/>0.05236;</highlight></codeline>
+<codeline lineno="155" refid="struct_f8_1aa3fcaa03c86beb1785f1f205a4fa3f15" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="struct_f8_1aa3fcaa03c86beb1785f1f205a4fa3f15" kindref="member">ksi_2</ref><sp/>=<sp/><ref refid="struct_f8_1a049ead0e788956d08e235dd4ce263c9f" kindref="member">ksi</ref><sp/>*<sp/><ref refid="struct_f8_1a049ead0e788956d08e235dd4ce263c9f" kindref="member">ksi</ref>;</highlight></codeline>
+<codeline lineno="156" refid="struct_f8_1ab005a6e178e54c61d0360419108a067a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="struct_f8_1ab005a6e178e54c61d0360419108a067a" kindref="member">ksi_3</ref><sp/>=<sp/><ref refid="struct_f8_1a049ead0e788956d08e235dd4ce263c9f" kindref="member">ksi</ref><sp/>*<sp/><ref refid="struct_f8_1aa3fcaa03c86beb1785f1f205a4fa3f15" kindref="member">ksi_2</ref>;</highlight></codeline>
+<codeline lineno="157" refid="struct_f8_1aab1a8275b253b608be5771f9beadb04e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="struct_f8_1aab1a8275b253b608be5771f9beadb04e" kindref="member">w</ref>;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159" refid="struct_f8_1a765d953b5bc8963d058e899423a0180e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="struct_f8_1a765d953b5bc8963d058e899423a0180e" kindref="member">operator()</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>state_t<sp/>&amp;y,<sp/>state_t<sp/>&amp;yDot,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>y0<sp/>=<sp/>y[0];</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>y0_2<sp/>=<sp/>y0<sp/>*<sp/>y0;</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>y0_3<sp/>=<sp/>y0_2<sp/>*<sp/>y0;</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>y1<sp/>=<sp/>y[1];</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>y1_2<sp/>=<sp/>y1<sp/>*<sp/>y1;</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>y2<sp/>=<sp/>y[2];</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>yDot[0]<sp/>=<sp/>-0.877<sp/>*<sp/>y0<sp/>+<sp/>y2<sp/>-<sp/>0.088<sp/>*<sp/>y0<sp/>*<sp/>y2<sp/>+<sp/>0.47<sp/>*<sp/>y0_2</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>0.019<sp/>*<sp/>y1_2<sp/>-<sp/>y0_2<sp/>*<sp/>y2<sp/>+<sp/>3.846<sp/>*<sp/>y0_3<sp/>+<sp/>0.215<sp/>*<sp/><ref refid="struct_f8_1a049ead0e788956d08e235dd4ce263c9f" kindref="member">ksi</ref></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>0.28<sp/>*<sp/>y0_2<sp/>*<sp/><ref refid="struct_f8_1a049ead0e788956d08e235dd4ce263c9f" kindref="member">ksi</ref><sp/>+<sp/>0.47<sp/>*<sp/>y0<sp/>*<sp/><ref refid="struct_f8_1aa3fcaa03c86beb1785f1f205a4fa3f15" kindref="member">ksi_2</ref><sp/>-<sp/>0.63<sp/>*<sp/><ref refid="struct_f8_1ab005a6e178e54c61d0360419108a067a" kindref="member">ksi_3</ref></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>(0.215<sp/>*<sp/><ref refid="struct_f8_1a049ead0e788956d08e235dd4ce263c9f" kindref="member">ksi</ref><sp/>-<sp/>0.28<sp/>*<sp/>y0_2<sp/>*<sp/><ref refid="struct_f8_1a049ead0e788956d08e235dd4ce263c9f" kindref="member">ksi</ref><sp/>-<sp/>0.63<sp/>*<sp/><ref refid="struct_f8_1ab005a6e178e54c61d0360419108a067a" kindref="member">ksi_3</ref>)<sp/>*<sp/>2<sp/>*<sp/><ref refid="struct_f8_1aab1a8275b253b608be5771f9beadb04e" kindref="member">w</ref>;</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>yDot[1]<sp/>=<sp/>y2;</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>yDot[2]<sp/>=<sp/>-4.208<sp/>*<sp/>y0<sp/>-<sp/>0.396<sp/>*<sp/>y2<sp/>-<sp/>0.47<sp/>*<sp/>y0_2<sp/>-<sp/>3.564<sp/>*<sp/>y0_3</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+<sp/>20.967<sp/>*<sp/><ref refid="struct_f8_1a049ead0e788956d08e235dd4ce263c9f" kindref="member">ksi</ref><sp/>-<sp/>6.265<sp/>*<sp/>y0_2<sp/>*<sp/><ref refid="struct_f8_1a049ead0e788956d08e235dd4ce263c9f" kindref="member">ksi</ref><sp/>+<sp/>46<sp/>*<sp/>y0<sp/>*<sp/><ref refid="struct_f8_1aa3fcaa03c86beb1785f1f205a4fa3f15" kindref="member">ksi_2</ref></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>61.4<sp/>*<sp/><ref refid="struct_f8_1ab005a6e178e54c61d0360419108a067a" kindref="member">ksi_3</ref></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>(20.967<sp/>*<sp/><ref refid="struct_f8_1a049ead0e788956d08e235dd4ce263c9f" kindref="member">ksi</ref><sp/>-<sp/>6.265<sp/>*<sp/>y0_2<sp/>*<sp/><ref refid="struct_f8_1a049ead0e788956d08e235dd4ce263c9f" kindref="member">ksi</ref><sp/>-<sp/>61.4<sp/>*<sp/><ref refid="struct_f8_1ab005a6e178e54c61d0360419108a067a" kindref="member">ksi_3</ref>)<sp/>*<sp/>2<sp/>*<sp/><ref refid="struct_f8_1aab1a8275b253b608be5771f9beadb04e" kindref="member">w</ref>;</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="180"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight><highlight class="comment">//#include<sp/>&quot;ascent/integrators_modular/VABM.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight><highlight class="comment">//#using<sp/>VABM<sp/>=<sp/>VABM&lt;state_t&gt;;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="186" refid="ascent_8cpp_1a6bf1992b7bf98468c32c6b6f19185dbf" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/><ref refid="ascent_8cpp_1a6bf1992b7bf98468c32c6b6f19185dbf" kindref="member">integrateF8_C</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*yd,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>w,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>dt,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>step)<sp/>{</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/>state_t<sp/>y(3);</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>3;<sp/>i++)</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>y[i]<sp/>=<sp/>yd[i];</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>RK4<sp/>integrator;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>DOPRI45<sp/>integrator;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>ABM4<sp/>integrator;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/>PC233<sp/>integrator;</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>VABM<sp/>integrator;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_f8" kindref="compound">F8</ref><sp/>f8;</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/>f8.w<sp/>=<sp/>w;</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>steps<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>t<sp/>=<sp/>0.0;</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(t<sp/>&lt;<sp/>dt)<sp/>{</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>steps++;</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(t<sp/>+<sp/>step<sp/>&gt;=<sp/>dt)<sp/>{</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>integrator(f8,<sp/>y,<sp/>t,<sp/>dt<sp/>-<sp/>t);</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>integrator(f8,<sp/>y,<sp/>t,<sp/>step);</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*res<sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">[3];</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>3;<sp/>i++)</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>res[i]<sp/>=<sp/>y[i];</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>res;</highlight></codeline>
+<codeline lineno="213"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="214"><highlight class="normal">;</highlight></codeline>
+<codeline lineno="215"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight></codeline>
+<codeline lineno="217" refid="ascent_8cpp_1a7029b8dc4f9351f6a28fbfc893a920a6" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="ascent_8cpp_1a7029b8dc4f9351f6a28fbfc893a920a6" kindref="member">wic2par</ref>(state_t<sp/>rv,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/>kep,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>mu)<sp/>{</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/>kep_toolbox::array3D<sp/>rk;</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/>kep_toolbox::array3D<sp/>vk;</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>3;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rk[i]<sp/>=<sp/>rv[i];</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>vk[i]<sp/>=<sp/>rv[i+3];</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/>kep_toolbox::ic2par(rk,<sp/>vk,<sp/>mu,<sp/>kep);</highlight></codeline>
+<codeline lineno="225"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight></codeline>
+<codeline lineno="227" refid="struct_p_v_twaste" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_p_v_twaste" kindref="compound">PVTwaste</ref><sp/>{</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"></highlight></codeline>
+<codeline lineno="229" refid="struct_p_v_twaste_1a3fec432bcbb1df023d16d391281c851c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="struct_p_v_twaste_1a3fec432bcbb1df023d16d391281c851c" kindref="member">muE</ref><sp/>=<sp/>3.986004407799724E5;</highlight></codeline>
+<codeline lineno="230" refid="struct_p_v_twaste_1a52e84d9913b95d595e0bacf4f7ca9de4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="struct_p_v_twaste_1a52e84d9913b95d595e0bacf4f7ca9de4" kindref="member">muS</ref><sp/>=<sp/>1.32712440018E11;</highlight></codeline>
+<codeline lineno="231" refid="struct_p_v_twaste_1a943290c3b910f9f1016d0dced0705b5d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="struct_p_v_twaste_1a943290c3b910f9f1016d0dced0705b5d" kindref="member">muM</ref><sp/>=<sp/>4.9028E3;</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight></codeline>
+<codeline lineno="233" refid="struct_p_v_twaste_1ae6cc1ca203ca5714f009597f21084df7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="struct_p_v_twaste_1ae6cc1ca203ca5714f009597f21084df7" kindref="member">Re</ref><sp/>=<sp/>6378.1363;</highlight></codeline>
+<codeline lineno="234" refid="struct_p_v_twaste_1ac38aab594992fbf42162e262a5198fe8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="struct_p_v_twaste_1ac38aab594992fbf42162e262a5198fe8" kindref="member">C20</ref><sp/>=<sp/>-4.84165371736E-4;</highlight></codeline>
+<codeline lineno="235" refid="struct_p_v_twaste_1ac151accd6ddb505bc4dcb0e733bf63d6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="struct_p_v_twaste_1ac151accd6ddb505bc4dcb0e733bf63d6" kindref="member">C22</ref><sp/>=<sp/>2.43914352398E-6;</highlight></codeline>
+<codeline lineno="236" refid="struct_p_v_twaste_1a2e8b7d56d53ecea62d2eab181484c289" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="struct_p_v_twaste_1a2e8b7d56d53ecea62d2eab181484c289" kindref="member">S22</ref><sp/>=<sp/>-1.40016683654E-6;</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight></codeline>
+<codeline lineno="238" refid="struct_p_v_twaste_1a837536dbf943a0e98a06baf33501fff5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="struct_p_v_twaste_1a837536dbf943a0e98a06baf33501fff5" kindref="member">muERe2V5C20</ref><sp/>=<sp/><ref refid="struct_p_v_twaste_1a3fec432bcbb1df023d16d391281c851c" kindref="member">muE</ref>*<ref refid="struct_p_v_twaste_1ae6cc1ca203ca5714f009597f21084df7" kindref="member">Re</ref>*<ref refid="struct_p_v_twaste_1ae6cc1ca203ca5714f009597f21084df7" kindref="member">Re</ref>*sqrt(5)*<ref refid="struct_p_v_twaste_1ac38aab594992fbf42162e262a5198fe8" kindref="member">C20</ref>;</highlight></codeline>
+<codeline lineno="239" refid="struct_p_v_twaste_1afbeafc30daf033bf6e391c52acc30de0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="struct_p_v_twaste_1afbeafc30daf033bf6e391c52acc30de0" kindref="member">muERe2V15C22</ref><sp/>=<sp/><ref refid="struct_p_v_twaste_1a3fec432bcbb1df023d16d391281c851c" kindref="member">muE</ref>*<ref refid="struct_p_v_twaste_1ae6cc1ca203ca5714f009597f21084df7" kindref="member">Re</ref>*<ref refid="struct_p_v_twaste_1ae6cc1ca203ca5714f009597f21084df7" kindref="member">Re</ref>*sqrt(15)*<ref refid="struct_p_v_twaste_1ac151accd6ddb505bc4dcb0e733bf63d6" kindref="member">C22</ref>;</highlight></codeline>
+<codeline lineno="240" refid="struct_p_v_twaste_1a269ded5e0e6bf15f9555b8051fd41ab6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="struct_p_v_twaste_1a269ded5e0e6bf15f9555b8051fd41ab6" kindref="member">muERe2V15S22</ref><sp/>=<sp/><ref refid="struct_p_v_twaste_1a3fec432bcbb1df023d16d391281c851c" kindref="member">muE</ref>*<ref refid="struct_p_v_twaste_1ae6cc1ca203ca5714f009597f21084df7" kindref="member">Re</ref>*<ref refid="struct_p_v_twaste_1ae6cc1ca203ca5714f009597f21084df7" kindref="member">Re</ref>*sqrt(15)*<ref refid="struct_p_v_twaste_1a2e8b7d56d53ecea62d2eab181484c289" kindref="member">S22</ref>;</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"></highlight></codeline>
+<codeline lineno="242" refid="struct_p_v_twaste_1ae2c0e25846d64775a15258981426f1ba" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="struct_p_v_twaste_1ae2c0e25846d64775a15258981426f1ba" kindref="member">thetaG</ref><sp/>=<sp/>280.4606*M_PI/180.0;</highlight></codeline>
+<codeline lineno="243" refid="struct_p_v_twaste_1afb0a11e7c464f1d5e2ea31ac73457e1b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="struct_p_v_twaste_1afb0a11e7c464f1d5e2ea31ac73457e1b" kindref="member">vE</ref><sp/>=<sp/>4.178074622024230E-3*M_PI/180.0;</highlight></codeline>
+<codeline lineno="244" refid="struct_p_v_twaste_1a65eb3aee288895471a46b161b71a2075" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="struct_p_v_twaste_1a65eb3aee288895471a46b161b71a2075" kindref="member">vMa</ref><sp/>=<sp/>1.512151961904581E-4*M_PI/180.0;</highlight></codeline>
+<codeline lineno="245" refid="struct_p_v_twaste_1ac16a357b63460839f8817382093ce2e2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="struct_p_v_twaste_1ac16a357b63460839f8817382093ce2e2" kindref="member">vMp</ref><sp/>=<sp/>1.2893925235125941E-6*M_PI/180.0;</highlight></codeline>
+<codeline lineno="246" refid="struct_p_v_twaste_1ac94bac84a19f62603f096eb832ccacdf" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="struct_p_v_twaste_1ac94bac84a19f62603f096eb832ccacdf" kindref="member">vMs</ref><sp/>=<sp/>6.128913003523574E-7*M_PI/180.0;</highlight></codeline>
+<codeline lineno="247" refid="struct_p_v_twaste_1a6de94e89e8e369b52666fe682ad31c43" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="struct_p_v_twaste_1a6de94e89e8e369b52666fe682ad31c43" kindref="member">aS</ref><sp/>=<sp/>1.49619E8;</highlight></codeline>
+<codeline lineno="248" refid="struct_p_v_twaste_1ae2e5af7b7e92b4f42357a69a54d98463" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="struct_p_v_twaste_1ae2e5af7b7e92b4f42357a69a54d98463" kindref="member">Psrp</ref><sp/>=<sp/>4.56E-3;</highlight></codeline>
+<codeline lineno="249" refid="struct_p_v_twaste_1ab5ec885cc8046aa8cc73ad72f9aef8da" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="struct_p_v_twaste_1ab5ec885cc8046aa8cc73ad72f9aef8da" kindref="member">Psrpas2</ref><sp/>=<sp/><ref refid="struct_p_v_twaste_1ae2e5af7b7e92b4f42357a69a54d98463" kindref="member">Psrp</ref>*<ref refid="struct_p_v_twaste_1a6de94e89e8e369b52666fe682ad31c43" kindref="member">aS</ref>*<ref refid="struct_p_v_twaste_1a6de94e89e8e369b52666fe682ad31c43" kindref="member">aS</ref>;</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"></highlight></codeline>
+<codeline lineno="251" refid="struct_p_v_twaste_1aa423f7cadbdad2fd76457f73a144b9e3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="struct_p_v_twaste_1aa423f7cadbdad2fd76457f73a144b9e3" kindref="member">phiS</ref><sp/>=<sp/>357.5256*M_PI/180.0;</highlight></codeline>
+<codeline lineno="252" refid="struct_p_v_twaste_1a9e79ddea190aeb198ef6ab36181c95cf" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="struct_p_v_twaste_1a9e79ddea190aeb198ef6ab36181c95cf" kindref="member">OMomS</ref><sp/>=<sp/>282.94*M_PI/180.0;</highlight></codeline>
+<codeline lineno="253" refid="struct_p_v_twaste_1ab8ade552c1fccf17ddaa56c7f842b1e2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="struct_p_v_twaste_1ab8ade552c1fccf17ddaa56c7f842b1e2" kindref="member">vS</ref><sp/>=<sp/>1.1407410259335311E-5*M_PI/180.0;</highlight></codeline>
+<codeline lineno="254" refid="struct_p_v_twaste_1a926ed0db0d282eab35a5072abc024b22" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="struct_p_v_twaste_1a926ed0db0d282eab35a5072abc024b22" kindref="member">ep</ref><sp/>=<sp/>23.4392911*M_PI/180.0;</highlight></codeline>
+<codeline lineno="255" refid="struct_p_v_twaste_1a51a1f5057c4468e7a27a0dfacf72934b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="struct_p_v_twaste_1a51a1f5057c4468e7a27a0dfacf72934b" kindref="member">cosep</ref><sp/>=<sp/>cos(<ref refid="struct_p_v_twaste_1a926ed0db0d282eab35a5072abc024b22" kindref="member">ep</ref>);</highlight></codeline>
+<codeline lineno="256" refid="struct_p_v_twaste_1a9920cfb5cdf508bc5ed7053e9b8dae90" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="struct_p_v_twaste_1a9920cfb5cdf508bc5ed7053e9b8dae90" kindref="member">sinep</ref><sp/>=<sp/>sin(<ref refid="struct_p_v_twaste_1a926ed0db0d282eab35a5072abc024b22" kindref="member">ep</ref>);</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"></highlight></codeline>
+<codeline lineno="258" refid="struct_p_v_twaste_1a2d0bba9d3cc1604b9b7f5d246424ff26" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="struct_p_v_twaste_1a2d0bba9d3cc1604b9b7f5d246424ff26" kindref="member">_cram</ref>;</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"></highlight></codeline>
+<codeline lineno="260" refid="struct_p_v_twaste_1a24eeb47274a02f75d1e1f4cce1d0e858" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="struct_p_v_twaste_1a24eeb47274a02f75d1e1f4cce1d0e858" kindref="member">sunr</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>t,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">&amp;<sp/>xsun,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">&amp;<sp/>ysun,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">&amp;<sp/>zsun)<sp/>{</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>lsun<sp/>=<sp/><ref refid="struct_p_v_twaste_1aa423f7cadbdad2fd76457f73a144b9e3" kindref="member">phiS</ref><sp/>+<sp/><ref refid="struct_p_v_twaste_1ab8ade552c1fccf17ddaa56c7f842b1e2" kindref="member">vS</ref><sp/>*<sp/>t;</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>rsun<sp/>=<sp/>1E6<sp/>*<sp/>(149.619<sp/>-<sp/>2.499*cos(lsun)</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>0.021*cos(2*lsun));</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>lambdas<sp/>=<sp/><ref refid="struct_p_v_twaste_1a9e79ddea190aeb198ef6ab36181c95cf" kindref="member">OMomS</ref><sp/>+<sp/>lsun<sp/>+</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(6892.0/3600.0*sin(lsun)<sp/>+</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>72.0/3600.0*sin(2*lsun))*M_PI/180.0;</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xsun<sp/>=<sp/>rsun<sp/>*<sp/>cos(lambdas);</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ysun<sp/>=<sp/>rsun<sp/>*<sp/>sin(lambdas)<sp/>*<sp/><ref refid="struct_p_v_twaste_1a51a1f5057c4468e7a27a0dfacf72934b" kindref="member">cosep</ref>;</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>zsun<sp/>=<sp/>rsun<sp/>*<sp/>sin(lambdas)<sp/>*<sp/><ref refid="struct_p_v_twaste_1a9920cfb5cdf508bc5ed7053e9b8dae90" kindref="member">sinep</ref>;</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"></highlight></codeline>
+<codeline lineno="272" refid="struct_p_v_twaste_1a1cfca4e9f5f2698750985837e6cb9098" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="struct_p_v_twaste_1a1cfca4e9f5f2698750985837e6cb9098" kindref="member">moonr</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>t,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">&amp;<sp/>xM,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">&amp;<sp/>yM,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">&amp;<sp/>zM)<sp/>{</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>phiM<sp/>=<sp/><ref refid="struct_p_v_twaste_1ab8ade552c1fccf17ddaa56c7f842b1e2" kindref="member">vS</ref><sp/>*<sp/>t;</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>phiMa<sp/>=<sp/><ref refid="struct_p_v_twaste_1a65eb3aee288895471a46b161b71a2075" kindref="member">vMa</ref><sp/>*<sp/>t;</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>phiMp<sp/>=<sp/><ref refid="struct_p_v_twaste_1ac16a357b63460839f8817382093ce2e2" kindref="member">vMp</ref><sp/>*<sp/>t;</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>phiMs<sp/>=<sp/><ref refid="struct_p_v_twaste_1ac94bac84a19f62603f096eb832ccacdf" kindref="member">vMs</ref><sp/>*<sp/>t;</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>L0<sp/>=<sp/>phiMp<sp/>+<sp/>phiMa<sp/>+<sp/>218.31617*M_PI/180.0;</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>lM<sp/>=<sp/>phiMa<sp/>+<sp/>134.96292*M_PI/180.0;</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>lsM<sp/>=<sp/>phiM<sp/>+<sp/>357.5256*M_PI/180.0;</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>FM<sp/>=<sp/>phiMp<sp/>+<sp/>phiMa<sp/>+<sp/>phiMs<sp/>+<sp/>93.27283*M_PI/180.0;</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>DM<sp/>=<sp/>phiMp<sp/>+<sp/>phiMa<sp/>-<sp/>phiM<sp/>+<sp/>297.85027*M_PI/180.0;</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"></highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>rM<sp/>=<sp/>385000.0<sp/>-<sp/>20905.0<sp/>*<sp/>cos(lM)<sp/>-<sp/>3699.0<sp/>*<sp/>cos(2*DM<sp/>-<sp/>lM)</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>2956.0<sp/>*<sp/>cos(2*DM)<sp/>-<sp/>570.0<sp/>*<sp/>cos(2*lM)</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+<sp/>246.0<sp/>*<sp/>cos(2*lM<sp/>-<sp/>2*DM)<sp/>-<sp/>205.0<sp/>*<sp/>cos(lsM<sp/>-<sp/>2*DM)</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>171.0<sp/>*<sp/>cos(lM<sp/>+<sp/>2*DM)</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>152.0<sp/>*<sp/>cos(lM<sp/>+<sp/>lsM<sp/>-<sp/>2*DM);</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"></highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>lambdaM<sp/>=<sp/>L0</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+<sp/>(22640.0<sp/>/<sp/>3600.0<sp/>*<sp/>sin(lM)<sp/>+<sp/>769.0<sp/>/<sp/>3600.0<sp/>*<sp/>sin(2<sp/>*<sp/>lM)</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>4856.0<sp/>/<sp/>3600.0<sp/>*<sp/>sin(lM<sp/>-<sp/>2*DM)<sp/>+<sp/>2370.0<sp/>/<sp/>3600.0<sp/>*<sp/>sin(2*DM)</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>668.0<sp/>/<sp/>3600.0<sp/>*<sp/>sin(lsM)<sp/>-<sp/>412.0<sp/>/<sp/>3600.0<sp/>*<sp/>sin(2*FM)</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>212.0<sp/>/<sp/>3600.0<sp/>*<sp/>sin(2*lM<sp/>-<sp/>2*DM)<sp/>-<sp/>206.0<sp/>/<sp/>3600.0<sp/>*<sp/>sin(lM<sp/>+<sp/>lsM<sp/>-<sp/>2*DM)</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+<sp/>192.0<sp/>/<sp/>3600.0<sp/>*<sp/>sin(lM<sp/>+<sp/>2*DM)<sp/>-<sp/>165.0<sp/>/<sp/>3600.0<sp/>*<sp/>sin(lsM<sp/>-<sp/>2*DM)</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+<sp/>148.0<sp/>/<sp/>3600.0<sp/>*<sp/>sin(lM<sp/>-<sp/>lsM)<sp/>-<sp/>125.0<sp/>/<sp/>3600.0<sp/>*<sp/>sin(DM)</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>110.0<sp/>/<sp/>3600.0<sp/>*<sp/>sin(lM<sp/>+<sp/>lsM)<sp/>-<sp/>55.0<sp/>/<sp/>3600.0<sp/>*<sp/>sin(2*FM<sp/>-<sp/>2*DM))</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>M_PI/180.0;</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"></highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>betaM<sp/>=<sp/><sp/>(18520.0/3600.0<sp/>*<sp/>sin(FM<sp/>+<sp/>lambdaM<sp/>-<sp/>L0<sp/>+<sp/>(412.0<sp/>/<sp/>3600.0<sp/>*<sp/>sin(2*FM)</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+<sp/>541.0<sp/>/<sp/>3600.0<sp/>*<sp/>sin(lsM)))<sp/>*<sp/>M_PI/180.0</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>526.0<sp/>/<sp/>3600.0<sp/>*<sp/>sin(FM<sp/>-<sp/>2*DM)</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+<sp/>44.0<sp/>/<sp/>3600.0<sp/>*<sp/>sin(lM<sp/>+<sp/>FM<sp/>-<sp/>2*DM)<sp/>-<sp/>31.0<sp/>/<sp/>3600.0<sp/>*<sp/>sin(-lM<sp/>+<sp/>FM<sp/>-<sp/>2*DM)</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>25.0<sp/>/<sp/>3600.0<sp/>*<sp/>sin(-2*lM<sp/>+<sp/>FM)<sp/>-<sp/>23.0<sp/>/<sp/>3600.0<sp/>*<sp/>sin(lsM<sp/>+<sp/>FM<sp/>-<sp/>2*DM)</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+<sp/>21.0<sp/>/<sp/>3600.0<sp/>*<sp/>sin(-lM<sp/>+<sp/>FM)<sp/>+<sp/>11.0<sp/>/<sp/>3600.0<sp/>*<sp/>sin(-lsM<sp/>+<sp/>FM<sp/>-<sp/>2*DM))</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>M_PI/180.0;</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"></highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>M1<sp/>=<sp/>rM<sp/>*<sp/>cos(lambdaM)<sp/>*<sp/>cos(betaM);</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>M2<sp/>=<sp/>rM<sp/>*<sp/>sin(lambdaM)<sp/>*<sp/>cos(betaM);</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>M3<sp/>=<sp/>rM<sp/>*<sp/>sin(betaM);</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"></highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xM<sp/>=<sp/>M1;</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>yM<sp/>=<sp/><ref refid="struct_p_v_twaste_1a51a1f5057c4468e7a27a0dfacf72934b" kindref="member">cosep</ref><sp/>*<sp/>M2<sp/>-<sp/><ref refid="struct_p_v_twaste_1a9920cfb5cdf508bc5ed7053e9b8dae90" kindref="member">sinep</ref><sp/>*<sp/>M3;</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>zM<sp/>=<sp/><ref refid="struct_p_v_twaste_1a9920cfb5cdf508bc5ed7053e9b8dae90" kindref="member">sinep</ref><sp/>*<sp/>M2<sp/>+<sp/><ref refid="struct_p_v_twaste_1a51a1f5057c4468e7a27a0dfacf72934b" kindref="member">cosep</ref><sp/>*<sp/>M3;</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"></highlight></codeline>
+<codeline lineno="316" refid="struct_p_v_twaste_1a5750399f7beaf3ada4493ba6ae4634b0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="struct_p_v_twaste_1a5750399f7beaf3ada4493ba6ae4634b0" kindref="member">operator()</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>state_t<sp/>&amp;pv,<sp/>state_t<sp/>&amp;yDot,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>t)<sp/>{</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"></highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>position</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>x<sp/>=<sp/>pv[0];</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>y<sp/>=<sp/>pv[1];</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>z<sp/>=<sp/>pv[2];</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"></highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>velocity</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>yDot[0]<sp/>=<sp/>pv[3];</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>yDot[1]<sp/>=<sp/>pv[4];</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>yDot[2]<sp/>=<sp/>pv[5];</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"></highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>rq<sp/>=<sp/>x<sp/>*<sp/>x<sp/>+<sp/>y<sp/>*<sp/>y<sp/>+<sp/>z<sp/>*<sp/>z;</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>r<sp/>=<sp/>sqrt(rq);</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>rq2<sp/>=<sp/>rq<sp/>*<sp/>rq;</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>rq3<sp/>=<sp/>rq2<sp/>*<sp/>rq;</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>rrr<sp/>=<sp/>r*r*r;</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"></highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>z15<sp/>=<sp/>15.0*z*z<sp/>/<sp/>rq3;</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>rq23<sp/>=<sp/>3.0<sp/>/<sp/>rq2;</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>muERe2V5C20q2r<sp/>=<sp/><ref refid="struct_p_v_twaste_1a837536dbf943a0e98a06baf33501fff5" kindref="member">muERe2V5C20</ref><sp/>/<sp/>(2*r);</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"></highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>earth<sp/>gravity</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>fkepX<sp/>=<sp/>-<ref refid="struct_p_v_twaste_1a3fec432bcbb1df023d16d391281c851c" kindref="member">muE</ref><sp/>*<sp/>x<sp/>/<sp/>rrr;</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>fkepY<sp/>=<sp/>-<ref refid="struct_p_v_twaste_1a3fec432bcbb1df023d16d391281c851c" kindref="member">muE</ref><sp/>*<sp/>y<sp/>/<sp/>rrr;</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>fkepZ<sp/>=<sp/>-<ref refid="struct_p_v_twaste_1a3fec432bcbb1df023d16d391281c851c" kindref="member">muE</ref><sp/>*<sp/>z<sp/>/<sp/>rrr;</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"></highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>J2<sp/>perturbation</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>fJ2X<sp/>=<sp/>muERe2V5C20q2r<sp/>*<sp/>x<sp/>*<sp/>(rq23<sp/>-<sp/>z15);</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>fJ2Y<sp/>=<sp/>muERe2V5C20q2r<sp/>*<sp/>y<sp/>*<sp/>(rq23<sp/>-<sp/>z15);</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>fJ2Z<sp/>=<sp/>muERe2V5C20q2r<sp/>*<sp/>z<sp/>*<sp/>(3*rq23<sp/>-<sp/>z15);</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"></highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>solar<sp/>radiation<sp/>pressure</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>xsun,<sp/>ysun,<sp/>zsun;</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_p_v_twaste_1a24eeb47274a02f75d1e1f4cce1d0e858" kindref="member">sunr</ref>(t,<sp/>xsun,<sp/>ysun,<sp/>zsun);</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"></highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>rsun<sp/>=<sp/>sqrt(xsun<sp/>*<sp/>xsun<sp/>+<sp/>ysun<sp/>*<sp/>ysun<sp/>+<sp/>zsun<sp/>*<sp/>zsun);</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>rsun3<sp/>=<sp/>rsun*rsun*rsun;</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"></highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>xsd<sp/>=<sp/>x<sp/>-<sp/>xsun;</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>ysd<sp/>=<sp/>y<sp/>-<sp/>ysun;</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>zsd<sp/>=<sp/>z<sp/>-<sp/>zsun;</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"></highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>rsd<sp/>=<sp/>sqrt(xsd<sp/>*<sp/>xsd<sp/>+<sp/>ysd<sp/>*<sp/>ysd<sp/>+<sp/>zsd<sp/>*<sp/>zsd);</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>rsd3<sp/>=<sp/>rsd*rsd*rsd;</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"></highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>fSRPX<sp/>=<sp/><ref refid="struct_p_v_twaste_1a2d0bba9d3cc1604b9b7f5d246424ff26" kindref="member">_cram</ref><sp/>*<sp/>xsd<sp/>*<sp/><ref refid="struct_p_v_twaste_1ab5ec885cc8046aa8cc73ad72f9aef8da" kindref="member">Psrpas2</ref><sp/>/<sp/>rsd3;</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>fSRPY<sp/>=<sp/><ref refid="struct_p_v_twaste_1a2d0bba9d3cc1604b9b7f5d246424ff26" kindref="member">_cram</ref><sp/>*<sp/>ysd<sp/>*<sp/><ref refid="struct_p_v_twaste_1ab5ec885cc8046aa8cc73ad72f9aef8da" kindref="member">Psrpas2</ref><sp/>/<sp/>rsd3;</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>fSRPZ<sp/>=<sp/><ref refid="struct_p_v_twaste_1a2d0bba9d3cc1604b9b7f5d246424ff26" kindref="member">_cram</ref><sp/>*<sp/>zsd<sp/>*<sp/><ref refid="struct_p_v_twaste_1ab5ec885cc8046aa8cc73ad72f9aef8da" kindref="member">Psrpas2</ref><sp/>/<sp/>rsd3;</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"></highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>C22</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>tGvEt<sp/>=<sp/><ref refid="struct_p_v_twaste_1ae2c0e25846d64775a15258981426f1ba" kindref="member">thetaG</ref><sp/>+<sp/><ref refid="struct_p_v_twaste_1afb0a11e7c464f1d5e2ea31ac73457e1b" kindref="member">vE</ref><sp/>*<sp/>t;</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>costGvEt<sp/>=<sp/>cos(tGvEt);</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>sintGvEt<sp/>=<sp/>sin(tGvEt);</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"></highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>xc<sp/>=<sp/>x<sp/>*<sp/>costGvEt<sp/>+<sp/>y<sp/>*<sp/>sintGvEt;</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>yc<sp/>=<sp/>-x<sp/>*<sp/>sintGvEt<sp/>+<sp/>y<sp/>*<sp/>costGvEt;</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>zc<sp/>=<sp/>z;</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"></highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>xcq<sp/>=<sp/>xc*xc;</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>ycq<sp/>=<sp/>yc*yc;</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>zcq<sp/>=<sp/>zc*zc;</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"></highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>rc<sp/>=<sp/>xcq<sp/>+<sp/>ycq<sp/>+<sp/>zcq;</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>rc5<sp/>=<sp/>rc*rc*rc*rc*rc;</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>rc5s<sp/>=<sp/>sqrt(rc5);</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>rc7s<sp/>=<sp/>sqrt(rc5*rc*rc);</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"></highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>fc22x<sp/>=<sp/>5*<ref refid="struct_p_v_twaste_1afbeafc30daf033bf6e391c52acc30de0" kindref="member">muERe2V15C22</ref>*xc*(ycq-xcq)<sp/>/<sp/>(2*rc7s)<sp/>+<sp/><ref refid="struct_p_v_twaste_1afbeafc30daf033bf6e391c52acc30de0" kindref="member">muERe2V15C22</ref>*x<sp/>/<sp/>rc5s;</highlight></codeline>
+<codeline lineno="385"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>fc22y<sp/>=<sp/>5*<ref refid="struct_p_v_twaste_1afbeafc30daf033bf6e391c52acc30de0" kindref="member">muERe2V15C22</ref>*yc*(ycq-xcq)<sp/>/<sp/>(2*rc7s)<sp/>+<sp/><ref refid="struct_p_v_twaste_1afbeafc30daf033bf6e391c52acc30de0" kindref="member">muERe2V15C22</ref>*y<sp/>/<sp/>rc5s;</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>fc22Z<sp/>=<sp/>5*<ref refid="struct_p_v_twaste_1afbeafc30daf033bf6e391c52acc30de0" kindref="member">muERe2V15C22</ref>*zc*(ycq-xcq)<sp/>/<sp/>(2*rc7s);</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>fc22X<sp/>=<sp/>fc22x<sp/>*<sp/>costGvEt<sp/>-<sp/>fc22y<sp/>*<sp/>sintGvEt;</highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>fc22Y<sp/>=<sp/>fc22x<sp/>*<sp/>sintGvEt<sp/>-<sp/>fc22y<sp/>*<sp/>costGvEt;</highlight></codeline>
+<codeline lineno="389"><highlight class="normal"></highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>S22</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="391"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>fs22x<sp/>=<sp/>-5*<ref refid="struct_p_v_twaste_1a269ded5e0e6bf15f9555b8051fd41ab6" kindref="member">muERe2V15S22</ref>*xcq*y<sp/>/<sp/>rc7s<sp/>+<sp/><ref refid="struct_p_v_twaste_1a269ded5e0e6bf15f9555b8051fd41ab6" kindref="member">muERe2V15S22</ref>*y<sp/>/<sp/>rc5s;</highlight></codeline>
+<codeline lineno="392"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>fs22y<sp/>=<sp/>-5*<ref refid="struct_p_v_twaste_1a269ded5e0e6bf15f9555b8051fd41ab6" kindref="member">muERe2V15S22</ref>*xc*ycq<sp/>/<sp/>rc7s<sp/>+<sp/><ref refid="struct_p_v_twaste_1a269ded5e0e6bf15f9555b8051fd41ab6" kindref="member">muERe2V15S22</ref>*x<sp/>/<sp/>rc5s;</highlight></codeline>
+<codeline lineno="393"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>fs22Z<sp/>=<sp/>-5*<ref refid="struct_p_v_twaste_1a269ded5e0e6bf15f9555b8051fd41ab6" kindref="member">muERe2V15S22</ref>*zc*(ycq-xcq)<sp/>/<sp/>rc7s;</highlight></codeline>
+<codeline lineno="394"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>fs22X<sp/>=<sp/>fs22x<sp/>*<sp/>costGvEt<sp/>-<sp/>fs22y<sp/>*<sp/>sintGvEt;</highlight></codeline>
+<codeline lineno="395"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>fs22Y<sp/>=<sp/>fs22x<sp/>*<sp/>sintGvEt<sp/>-<sp/>fs22y<sp/>*<sp/>costGvEt;</highlight></codeline>
+<codeline lineno="396"><highlight class="normal"></highlight></codeline>
+<codeline lineno="397"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>solar<sp/>gravity</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="398"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>fsunX<sp/>=<sp/>-<ref refid="struct_p_v_twaste_1a52e84d9913b95d595e0bacf4f7ca9de4" kindref="member">muS</ref><sp/>*<sp/>(xsd<sp/>/<sp/>rsd3<sp/>+<sp/>xsun<sp/>/<sp/>rsun3);</highlight></codeline>
+<codeline lineno="399"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>fsunY<sp/>=<sp/>-<ref refid="struct_p_v_twaste_1a52e84d9913b95d595e0bacf4f7ca9de4" kindref="member">muS</ref><sp/>*<sp/>(ysd<sp/>/<sp/>rsd3<sp/>+<sp/>ysun<sp/>/<sp/>rsun3);</highlight></codeline>
+<codeline lineno="400"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>fsunZ<sp/>=<sp/>-<ref refid="struct_p_v_twaste_1a52e84d9913b95d595e0bacf4f7ca9de4" kindref="member">muS</ref><sp/>*<sp/>(zsd<sp/>/<sp/>rsd3<sp/>+<sp/>zsun<sp/>/<sp/>rsun3);</highlight></codeline>
+<codeline lineno="401"><highlight class="normal"></highlight></codeline>
+<codeline lineno="402"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>lunar<sp/>gravity</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="403"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>solar<sp/>radiation<sp/>pressure</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="404"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>xmoo,<sp/>ymoo,<sp/>zmoo;</highlight></codeline>
+<codeline lineno="405"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_p_v_twaste_1a1cfca4e9f5f2698750985837e6cb9098" kindref="member">moonr</ref>(t,<sp/>xmoo,<sp/>ymoo,<sp/>zmoo);</highlight></codeline>
+<codeline lineno="406"><highlight class="normal"></highlight></codeline>
+<codeline lineno="407"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>rmoo<sp/>=<sp/>sqrt(xmoo<sp/>*<sp/>xmoo<sp/>+<sp/>ymoo<sp/>*<sp/>ymoo<sp/>+<sp/>zmoo<sp/>*<sp/>zmoo);</highlight></codeline>
+<codeline lineno="408"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>rmoo3<sp/>=<sp/>rmoo*rmoo*rmoo;</highlight></codeline>
+<codeline lineno="409"><highlight class="normal"></highlight></codeline>
+<codeline lineno="410"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>xmd<sp/>=<sp/>x<sp/>-<sp/>xmoo;</highlight></codeline>
+<codeline lineno="411"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>ymd<sp/>=<sp/>y<sp/>-<sp/>ymoo;</highlight></codeline>
+<codeline lineno="412"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>zmd<sp/>=<sp/>z<sp/>-<sp/>zmoo;</highlight></codeline>
+<codeline lineno="413"><highlight class="normal"></highlight></codeline>
+<codeline lineno="414"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>rmd<sp/>=<sp/>sqrt(xmd<sp/>*<sp/>xmd<sp/>+<sp/>ymd<sp/>*<sp/>ymd<sp/>+<sp/>zmd<sp/>*<sp/>zmd);</highlight></codeline>
+<codeline lineno="415"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>rmd3<sp/>=<sp/>rmd*rmd*rmd;</highlight></codeline>
+<codeline lineno="416"><highlight class="normal"></highlight></codeline>
+<codeline lineno="417"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>fmooX<sp/>=<sp/>-<ref refid="struct_p_v_twaste_1a943290c3b910f9f1016d0dced0705b5d" kindref="member">muM</ref><sp/>*<sp/>(xmd<sp/>/<sp/>rmd3<sp/>+<sp/>xmoo<sp/>/<sp/>rmoo3);</highlight></codeline>
+<codeline lineno="418"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>fmooY<sp/>=<sp/>-<ref refid="struct_p_v_twaste_1a943290c3b910f9f1016d0dced0705b5d" kindref="member">muM</ref><sp/>*<sp/>(ymd<sp/>/<sp/>rmd3<sp/>+<sp/>ymoo<sp/>/<sp/>rmoo3);</highlight></codeline>
+<codeline lineno="419"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>fmooZ<sp/>=<sp/>-<ref refid="struct_p_v_twaste_1a943290c3b910f9f1016d0dced0705b5d" kindref="member">muM</ref><sp/>*<sp/>(zmd<sp/>/<sp/>rmd3<sp/>+<sp/>zmoo<sp/>/<sp/>rmoo3);</highlight></codeline>
+<codeline lineno="420"><highlight class="normal"></highlight></codeline>
+<codeline lineno="421"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>acceleration</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="422"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>yDot[3]<sp/>=<sp/>fkepX<sp/>+<sp/>fJ2X<sp/>+<sp/>fSRPX<sp/>+<sp/>fc22X<sp/>+<sp/>fs22X<sp/>+<sp/>fsunX<sp/>+<sp/>fmooX;</highlight></codeline>
+<codeline lineno="423"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>yDot[4]<sp/>=<sp/>fkepY<sp/>+<sp/>fJ2Y<sp/>+<sp/>fSRPY<sp/>+<sp/>fc22Y<sp/>+<sp/>fs22Y<sp/>+<sp/>fsunY<sp/>+<sp/>fmooY;</highlight></codeline>
+<codeline lineno="424"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>yDot[5]<sp/>=<sp/>fkepZ<sp/>+<sp/>fJ2Z<sp/>+<sp/>fSRPZ<sp/>+<sp/>fc22Z<sp/>+<sp/>fs22Z<sp/>+<sp/>fsunZ<sp/>+<sp/>fmooZ;</highlight></codeline>
+<codeline lineno="425"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="426"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="427"><highlight class="normal"></highlight></codeline>
+<codeline lineno="428"><highlight class="normal"></highlight><highlight class="keyword">using<sp/>namespace<sp/></highlight><highlight class="normal">std;</highlight></codeline>
+<codeline lineno="429"><highlight class="normal"></highlight></codeline>
+<codeline lineno="430"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="431"><highlight class="normal"></highlight></codeline>
+<codeline lineno="432" refid="ascent_8cpp_1a3ac859a2fc844d9b3218d8377ff8ddc3" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="ascent_8cpp_1a3ac859a2fc844d9b3218d8377ff8ddc3" kindref="member">integratePVTwaste_C</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*rvt,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>dt,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>step,</highlight></codeline>
+<codeline lineno="433"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>cram,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>dopri)<sp/>{</highlight></codeline>
+<codeline lineno="434"><highlight class="normal"></highlight></codeline>
+<codeline lineno="435"><highlight class="normal"><sp/><sp/><sp/><sp/>state_t<sp/>y(6);</highlight></codeline>
+<codeline lineno="436"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>6;<sp/>i++)<sp/></highlight><highlight class="comment">//<sp/>r,<sp/>v</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="437"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>y[i]<sp/>=<sp/>rvt[i];</highlight></codeline>
+<codeline lineno="438"><highlight class="normal"></highlight></codeline>
+<codeline lineno="439"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_p_v_twaste" kindref="compound">PVTwaste</ref><sp/>pvt;</highlight></codeline>
+<codeline lineno="440"><highlight class="normal"><sp/><sp/><sp/><sp/>pvt.<ref refid="struct_p_v_twaste_1a2d0bba9d3cc1604b9b7f5d246424ff26" kindref="member">_cram</ref><sp/>=<sp/>cram;</highlight></codeline>
+<codeline lineno="441"><highlight class="normal"></highlight></codeline>
+<codeline lineno="442"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>steps<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="443"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>t<sp/>=<sp/>rvt[7];</highlight></codeline>
+<codeline lineno="444"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>tN<sp/>=<sp/>t<sp/>+<sp/>dt;</highlight></codeline>
+<codeline lineno="445"><highlight class="normal"></highlight></codeline>
+<codeline lineno="446"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dt<sp/>&gt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="447"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dopri)<sp/>{</highlight></codeline>
+<codeline lineno="448"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DOPRI45<sp/>integrator;</highlight></codeline>
+<codeline lineno="449"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(t<sp/>&lt;<sp/>tN)<sp/>{</highlight></codeline>
+<codeline lineno="450"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>steps++;</highlight></codeline>
+<codeline lineno="451"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(t<sp/>+<sp/>step<sp/>&gt;=<sp/>tN)<sp/>{</highlight></codeline>
+<codeline lineno="452"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>integrator(pvt,<sp/>y,<sp/>t,<sp/>tN<sp/>-<sp/>t);</highlight></codeline>
+<codeline lineno="453"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="454"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="455"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>integrator(pvt,<sp/>y,<sp/>t,<sp/>step);</highlight></codeline>
+<codeline lineno="456"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="457"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="458"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RK4<sp/>integrator;</highlight></codeline>
+<codeline lineno="459"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(t<sp/>&lt;<sp/>tN)<sp/>{</highlight></codeline>
+<codeline lineno="460"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>steps++;</highlight></codeline>
+<codeline lineno="461"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(t<sp/>+<sp/>step<sp/>&gt;=<sp/>tN)<sp/>{</highlight></codeline>
+<codeline lineno="462"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>integrator(pvt,<sp/>y,<sp/>t,<sp/>tN<sp/>-<sp/>t);</highlight></codeline>
+<codeline lineno="463"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="464"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="465"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>integrator(pvt,<sp/>y,<sp/>t,<sp/>step);</highlight></codeline>
+<codeline lineno="466"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="467"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="468"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="469"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>step<sp/>=<sp/>-abs(step);<sp/></highlight><highlight class="comment">//<sp/>step<sp/>negative</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="470"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dopri)<sp/>{</highlight></codeline>
+<codeline lineno="471"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DOPRI45<sp/>integrator;</highlight></codeline>
+<codeline lineno="472"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(t<sp/>&gt;<sp/>dt)<sp/>{</highlight></codeline>
+<codeline lineno="473"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>steps++;</highlight></codeline>
+<codeline lineno="474"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(t<sp/>+<sp/>step<sp/>&lt;=<sp/>tN)<sp/>{</highlight></codeline>
+<codeline lineno="475"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>integrator(pvt,<sp/>y,<sp/>t,<sp/>tN<sp/>-<sp/>t);</highlight></codeline>
+<codeline lineno="476"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="477"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="478"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>integrator(pvt,<sp/>y,<sp/>t,<sp/>step);</highlight></codeline>
+<codeline lineno="479"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="480"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="481"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RK4<sp/>integrator;</highlight></codeline>
+<codeline lineno="482"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(t<sp/>&gt;<sp/>dt)<sp/>{</highlight></codeline>
+<codeline lineno="483"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>steps++;</highlight></codeline>
+<codeline lineno="484"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(t<sp/>+<sp/>step<sp/>&lt;=<sp/>tN)<sp/>{</highlight></codeline>
+<codeline lineno="485"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>integrator(pvt,<sp/>y,<sp/>t,<sp/>tN<sp/>-<sp/>t);</highlight></codeline>
+<codeline lineno="486"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="487"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="488"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>integrator(pvt,<sp/>y,<sp/>t,<sp/>step);</highlight></codeline>
+<codeline lineno="489"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="490"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="491"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="492"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>6;<sp/>i++)</highlight></codeline>
+<codeline lineno="493"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rvt[i]<sp/>=<sp/>y[i];</highlight></codeline>
+<codeline lineno="494"><highlight class="normal"><sp/><sp/><sp/><sp/>rvt[7]<sp/>=<sp/>tN;</highlight></codeline>
+<codeline lineno="495"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>steps;</highlight></codeline>
+<codeline lineno="496"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="497"><highlight class="normal"></highlight></codeline>
+<codeline lineno="498" refid="ascent_8cpp_1ae5ba225583cb2594ec1b3c02e0da17fb" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="ascent_8cpp_1ae5ba225583cb2594ec1b3c02e0da17fb" kindref="member">integratePVTwasteN_C</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*rvt,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>dtN,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>step,</highlight></codeline>
+<codeline lineno="499"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>cram,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>N,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>dopri,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/>res)<sp/>{</highlight></codeline>
+<codeline lineno="500"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">try</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="501"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>state_t<sp/>y(6);</highlight></codeline>
+<codeline lineno="502"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>6;<sp/>i++)<sp/></highlight><highlight class="comment">//<sp/>r,<sp/>v</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="503"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>y[i]<sp/>=<sp/>rvt[i];</highlight></codeline>
+<codeline lineno="504"><highlight class="normal"></highlight></codeline>
+<codeline lineno="505"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_p_v_twaste" kindref="compound">PVTwaste</ref><sp/>pvt;</highlight></codeline>
+<codeline lineno="506"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pvt.<ref refid="struct_p_v_twaste_1a2d0bba9d3cc1604b9b7f5d246424ff26" kindref="member">_cram</ref><sp/>=<sp/>cram;</highlight></codeline>
+<codeline lineno="507"><highlight class="normal"></highlight></codeline>
+<codeline lineno="508"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>time[1],<sp/>r[3],<sp/>v[3],<sp/>kep[6]</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="509"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>t<sp/>=<sp/>rvt[7];</highlight></codeline>
+<codeline lineno="510"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>tN<sp/>=<sp/>t<sp/>+<sp/>dtN;</highlight></codeline>
+<codeline lineno="511"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>dt<sp/>=<sp/>(tN<sp/>-<sp/>t)<sp/>/<sp/>N;</highlight></codeline>
+<codeline lineno="512"><highlight class="normal"></highlight></codeline>
+<codeline lineno="513"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dtN<sp/>&gt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="514"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dopri)<sp/>{</highlight></codeline>
+<codeline lineno="515"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DOPRI45<sp/>integrator;</highlight></codeline>
+<codeline lineno="516"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="517"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>N+1;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="518"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>res[j++]<sp/>=<sp/>t;</highlight></codeline>
+<codeline lineno="519"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>k<sp/>=<sp/>0;<sp/>k<sp/>&lt;<sp/>6;<sp/>k++)</highlight></codeline>
+<codeline lineno="520"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>res[j++]<sp/>=<sp/>y[k];</highlight></codeline>
+<codeline lineno="521"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>kep[6];</highlight></codeline>
+<codeline lineno="522"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="ascent_8cpp_1a7029b8dc4f9351f6a28fbfc893a920a6" kindref="member">wic2par</ref>(y,<sp/>kep,<sp/>pvt.<ref refid="struct_p_v_twaste_1a3fec432bcbb1df023d16d391281c851c" kindref="member">muE</ref>);</highlight></codeline>
+<codeline lineno="523"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>k<sp/>=<sp/>0;<sp/>k<sp/>&lt;<sp/>6;<sp/>k++)</highlight></codeline>
+<codeline lineno="524"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>res[j++]<sp/>=<sp/>kep[k];</highlight></codeline>
+<codeline lineno="525"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(i<sp/>==<sp/>N)<sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="526"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>nextT<sp/>=<sp/>t<sp/>+<sp/>dt;</highlight></codeline>
+<codeline lineno="527"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(t<sp/>&lt;<sp/>nextT)<sp/>{</highlight></codeline>
+<codeline lineno="528"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(t<sp/>+<sp/>step<sp/>&gt;=<sp/>nextT)<sp/>{</highlight></codeline>
+<codeline lineno="529"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>integrator(pvt,<sp/>y,<sp/>t,<sp/>nextT<sp/>-<sp/>t);</highlight></codeline>
+<codeline lineno="530"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="531"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="532"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>integrator(pvt,<sp/>y,<sp/>t,<sp/>step);</highlight></codeline>
+<codeline lineno="533"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="534"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="535"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="536"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RK4<sp/>integrator;</highlight></codeline>
+<codeline lineno="537"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="538"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>N+1;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="539"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>res[j++]<sp/>=<sp/>t;</highlight></codeline>
+<codeline lineno="540"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>k<sp/>=<sp/>0;<sp/>k<sp/>&lt;<sp/>6;<sp/>k++)</highlight></codeline>
+<codeline lineno="541"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>res[j++]<sp/>=<sp/>y[k];</highlight></codeline>
+<codeline lineno="542"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>kep[6];</highlight></codeline>
+<codeline lineno="543"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="ascent_8cpp_1a7029b8dc4f9351f6a28fbfc893a920a6" kindref="member">wic2par</ref>(y,<sp/>kep,<sp/>pvt.<ref refid="struct_p_v_twaste_1a3fec432bcbb1df023d16d391281c851c" kindref="member">muE</ref>);</highlight></codeline>
+<codeline lineno="544"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>k<sp/>=<sp/>0;<sp/>k<sp/>&lt;<sp/>6;<sp/>k++)</highlight></codeline>
+<codeline lineno="545"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>res[j++]<sp/>=<sp/>kep[k];</highlight></codeline>
+<codeline lineno="546"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(i<sp/>==<sp/>N)<sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="547"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>nextT<sp/>=<sp/>t<sp/>+<sp/>dt;</highlight></codeline>
+<codeline lineno="548"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(t<sp/>&lt;<sp/>nextT)<sp/>{</highlight></codeline>
+<codeline lineno="549"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(t<sp/>+<sp/>step<sp/>&gt;=<sp/>nextT)<sp/>{</highlight></codeline>
+<codeline lineno="550"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>integrator(pvt,<sp/>y,<sp/>t,<sp/>nextT<sp/>-<sp/>t);</highlight></codeline>
+<codeline lineno="551"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="552"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="553"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>integrator(pvt,<sp/>y,<sp/>t,<sp/>step);</highlight></codeline>
+<codeline lineno="554"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="555"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="556"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="557"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="558"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>step<sp/>=<sp/>-abs(step);<sp/></highlight><highlight class="comment">//<sp/>step<sp/>negative</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="559"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dopri)<sp/>{</highlight></codeline>
+<codeline lineno="560"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DOPRI45<sp/>integrator;</highlight></codeline>
+<codeline lineno="561"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="562"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>N+1;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="563"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>res[j++]<sp/>=<sp/>t;</highlight></codeline>
+<codeline lineno="564"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>k<sp/>=<sp/>0;<sp/>k<sp/>&lt;<sp/>6;<sp/>k++)</highlight></codeline>
+<codeline lineno="565"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>res[j++]<sp/>=<sp/>y[k];</highlight></codeline>
+<codeline lineno="566"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>kep[6];</highlight></codeline>
+<codeline lineno="567"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="ascent_8cpp_1a7029b8dc4f9351f6a28fbfc893a920a6" kindref="member">wic2par</ref>(y,<sp/>kep,<sp/>pvt.<ref refid="struct_p_v_twaste_1a3fec432bcbb1df023d16d391281c851c" kindref="member">muE</ref>);</highlight></codeline>
+<codeline lineno="568"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>k<sp/>=<sp/>0;<sp/>k<sp/>&lt;<sp/>6;<sp/>k++)</highlight></codeline>
+<codeline lineno="569"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>res[j++]<sp/>=<sp/>kep[k];</highlight></codeline>
+<codeline lineno="570"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(i<sp/>==<sp/>N)<sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="571"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>nextT<sp/>=<sp/>t<sp/>+<sp/>dt;</highlight></codeline>
+<codeline lineno="572"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(t<sp/>&gt;<sp/>nextT)<sp/>{</highlight></codeline>
+<codeline lineno="573"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(t<sp/>+<sp/>step<sp/>&lt;=<sp/>nextT)<sp/>{</highlight></codeline>
+<codeline lineno="574"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>integrator(pvt,<sp/>y,<sp/>t,<sp/>nextT<sp/>-<sp/>t);</highlight></codeline>
+<codeline lineno="575"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="576"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="577"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>integrator(pvt,<sp/>y,<sp/>t,<sp/>step);</highlight></codeline>
+<codeline lineno="578"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="579"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="580"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="581"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RK4<sp/>integrator;</highlight></codeline>
+<codeline lineno="582"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="583"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>N+1;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="584"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>res[j++]<sp/>=<sp/>t;</highlight></codeline>
+<codeline lineno="585"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>k<sp/>=<sp/>0;<sp/>k<sp/>&lt;<sp/>6;<sp/>k++)</highlight></codeline>
+<codeline lineno="586"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>res[j++]<sp/>=<sp/>y[k];</highlight></codeline>
+<codeline lineno="587"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>kep[6];</highlight></codeline>
+<codeline lineno="588"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="ascent_8cpp_1a7029b8dc4f9351f6a28fbfc893a920a6" kindref="member">wic2par</ref>(y,<sp/>kep,<sp/>pvt.<ref refid="struct_p_v_twaste_1a3fec432bcbb1df023d16d391281c851c" kindref="member">muE</ref>);</highlight></codeline>
+<codeline lineno="589"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>k<sp/>=<sp/>0;<sp/>k<sp/>&lt;<sp/>6;<sp/>k++)</highlight></codeline>
+<codeline lineno="590"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>res[j++]<sp/>=<sp/>kep[k];</highlight></codeline>
+<codeline lineno="591"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(i<sp/>==<sp/>N)<sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="592"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>nextT<sp/>=<sp/>t<sp/>+<sp/>dt;</highlight></codeline>
+<codeline lineno="593"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(t<sp/>&gt;<sp/>nextT)<sp/>{</highlight></codeline>
+<codeline lineno="594"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(t<sp/>+<sp/>step<sp/>&lt;=<sp/>nextT)<sp/>{</highlight></codeline>
+<codeline lineno="595"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>integrator(pvt,<sp/>y,<sp/>t,<sp/>nextT<sp/>-<sp/>t);</highlight></codeline>
+<codeline lineno="596"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="597"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="598"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>integrator(pvt,<sp/>y,<sp/>t,<sp/>step);</highlight></codeline>
+<codeline lineno="599"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="600"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="601"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="602"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="603"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>6;<sp/>i++)</highlight></codeline>
+<codeline lineno="604"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rvt[i]<sp/>=<sp/>y[i];</highlight></codeline>
+<codeline lineno="605"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rvt[7]<sp/>=<sp/>tN;</highlight></codeline>
+<codeline lineno="606"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">catch</highlight><highlight class="normal"><sp/>(std::exception<sp/>&amp;e)<sp/>{</highlight></codeline>
+<codeline lineno="607"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cout<sp/>&lt;&lt;<sp/>e.what()<sp/>&lt;&lt;<sp/>endl;</highlight></codeline>
+<codeline lineno="608"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="609"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="610"><highlight class="normal"></highlight></codeline>
+<codeline lineno="611"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="612"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="_fcmaescpp/ascent.cpp"/>
+  </compounddef>
+</doxygen>

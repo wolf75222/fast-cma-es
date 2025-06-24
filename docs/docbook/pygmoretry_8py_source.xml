@@ -1,0 +1,167 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_pygmoretry_8py_source" xml:lang="en-US">
+<title>pygmoretry.py</title>
+<indexterm><primary>fcmaes/pygmoretry.py</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_pygmoretry_8py_source_1l00001"/><link linkend="_namespacefcmaes_1_1pygmoretry">00001</link> <emphasis role="comment">#&#32;-*-&#32;coding:&#32;utf-8&#32;-*-</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00002"/>00002 <emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00003"/>00003 <emphasis role="stringliteral">=============================================================================</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00004"/>00004 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00005"/>00005 <emphasis role="stringliteral">&#32;Fast&#32;CMA-ES&#32;-&#32;version&#32;1.6.11</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00006"/>00006 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00007"/>00007 <emphasis role="stringliteral">&#32;(c)&#32;2025&#32;–&#32;Dietmar&#32;Wolz</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00008"/>00008 <emphasis role="stringliteral">&#32;(c)&#32;2025&#32;–&#32;Latitude</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00009"/>00009 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00010"/>00010 <emphasis role="stringliteral">&#32;License:&#32;MIT</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00011"/>00011 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00012"/>00012 <emphasis role="stringliteral">&#32;File:</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00013"/>00013 <emphasis role="stringliteral">&#32;&#32;-&#32;pygmoretry.py</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00014"/>00014 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00015"/>00015 <emphasis role="stringliteral">&#32;Description:</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00016"/>00016 <emphasis role="stringliteral">&#32;&#32;-&#32;This&#32;module&#32;provides&#32;a&#32;retry&#32;mechanism&#32;for&#32;the&#32;PYGMO/PAGMO&#32;optimization&#32;framework.</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00017"/>00017 <emphasis role="stringliteral">&#32;&#32;-&#32;It&#32;allows&#32;for&#32;parallel&#32;retries&#32;of&#32;optimization&#32;problems&#32;using&#32;the&#32;PYGMO/PAGMO&#32;library.</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00018"/>00018 <emphasis role="stringliteral">&#32;&#32;-&#32;It&#32;is&#32;designed&#32;to&#32;work&#32;with&#32;problems&#32;that&#32;have&#32;constraints&#32;or&#32;multiple&#32;objectives,</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00019"/>00019 <emphasis role="stringliteral">&#32;&#32;which&#32;cannot&#32;be&#32;handled&#32;by&#32;the&#32;standard&#32;fcmaes.retry&#32;module.</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00020"/>00020 <emphasis role="stringliteral">&#32;&#32;-&#32;The&#32;retry&#32;mechanism&#32;uses&#32;multiprocessing&#32;to&#32;perform&#32;multiple&#32;optimization&#32;attempts</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00021"/>00021 <emphasis role="stringliteral">&#32;&#32;in&#32;parallel,&#32;improving&#32;efficiency&#32;and&#32;scalability.</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00022"/>00022 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00023"/>00023 <emphasis role="stringliteral">&#32;Authors:</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00024"/>00024 <emphasis role="stringliteral">&#32;&#32;-&#32;Dietmar&#32;Wolz</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00025"/>00025 <emphasis role="stringliteral">&#32;&#32;-&#32;romain.despoullains@latitude.eu</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00026"/>00026 <emphasis role="stringliteral">&#32;&#32;-&#32;corentin.generet@latitude.eu</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00027"/>00027 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00028"/>00028 <emphasis role="stringliteral">&#32;References:</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00029"/>00029 <emphasis role="stringliteral">&#32;&#32;-&#32;[1]&#32;https://github.com/dietmarwo/fast-cma-es</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00030"/>00030 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00031"/>00031 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00032"/>00032 <emphasis role="stringliteral">&#32;Documentation:</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00033"/>00033 <emphasis role="stringliteral">&#32;&#32;-</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00034"/>00034 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00035"/>00035 <emphasis role="stringliteral">=============================================================================</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00036"/>00036 <emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00037"/>00037 <emphasis role="keyword">import</emphasis>&#32;math
+<anchor xml:id="_pygmoretry_8py_source_1l00038"/>00038 <emphasis role="keyword">import</emphasis>&#32;os
+<anchor xml:id="_pygmoretry_8py_source_1l00039"/>00039 <emphasis role="keyword">import</emphasis>&#32;sys
+<anchor xml:id="_pygmoretry_8py_source_1l00040"/>00040 <emphasis role="keyword">import</emphasis>&#32;numpy&#32;<emphasis role="keyword">as</emphasis>&#32;np
+<anchor xml:id="_pygmoretry_8py_source_1l00041"/>00041 <emphasis role="keyword">from</emphasis>&#32;numpy.random&#32;<emphasis role="keyword">import</emphasis>&#32;Generator,&#32;PCG64DXSM,&#32;SeedSequence
+<anchor xml:id="_pygmoretry_8py_source_1l00042"/>00042 <emphasis role="keyword">from</emphasis>&#32;scipy.optimize&#32;<emphasis role="keyword">import</emphasis>&#32;OptimizeResult,&#32;Bounds
+<anchor xml:id="_pygmoretry_8py_source_1l00043"/>00043 <emphasis role="keyword">import</emphasis>&#32;multiprocessing&#32;<emphasis role="keyword">as</emphasis>&#32;mp
+<anchor xml:id="_pygmoretry_8py_source_1l00044"/>00044 <emphasis role="keyword">from</emphasis>&#32;multiprocessing&#32;<emphasis role="keyword">import</emphasis>&#32;Process
+<anchor xml:id="_pygmoretry_8py_source_1l00045"/>00045 <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1retry">fcmaes.retry</link>&#32;<emphasis role="keyword">import</emphasis>&#32;Store
+<anchor xml:id="_pygmoretry_8py_source_1l00046"/>00046 
+<anchor xml:id="_pygmoretry_8py_source_1l00047"/>00047 os.environ[<emphasis role="stringliteral">&apos;MKL_DEBUG_CPU_TYPE&apos;</emphasis>]&#32;=&#32;<emphasis role="stringliteral">&apos;5&apos;</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00048"/>00048 os.environ[<emphasis role="stringliteral">&apos;MKL_NUM_THREADS&apos;</emphasis>]&#32;=&#32;<emphasis role="stringliteral">&apos;1&apos;</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00049"/>00049 os.environ[<emphasis role="stringliteral">&apos;OPENBLAS_NUM_THREADS&apos;</emphasis>]&#32;=&#32;<emphasis role="stringliteral">&apos;1&apos;</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00050"/>00050 
+<anchor xml:id="_pygmoretry_8py_source_1l00051"/>00051 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefcmaes_1_1pygmoretry_1a328972de17ce781527987b521bc1d1bf">minimize</link>(prob,&#32;
+<anchor xml:id="_pygmoretry_8py_source_1l00052"/>00052 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;algo,
+<anchor xml:id="_pygmoretry_8py_source_1l00053"/>00053 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;value_limit&#32;=&#32;np.inf,
+<anchor xml:id="_pygmoretry_8py_source_1l00054"/>00054 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;num_retries&#32;=&#32;100*mp.cpu_count(),
+<anchor xml:id="_pygmoretry_8py_source_1l00055"/>00055 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;workers&#32;=&#32;mp.cpu_count(),
+<anchor xml:id="_pygmoretry_8py_source_1l00056"/>00056 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;popsize&#32;=&#32;1,&#32;
+<anchor xml:id="_pygmoretry_8py_source_1l00057"/>00057 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;)&#32;-&gt;&#32;OptimizeResult:
+<anchor xml:id="_pygmoretry_8py_source_1l00058"/>00058 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00059"/>00059 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Minimizes&#32;an&#32;optimization&#32;problem&#32;using&#32;given&#32;algorithm&#32;and&#32;configurations.</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00060"/>00060 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00061"/>00061 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;This&#32;function&#32;attempts&#32;to&#32;find&#32;the&#32;minimum&#32;of&#32;the&#32;given&#32;problem&#32;by&#32;applying</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00062"/>00062 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;the&#32;specified&#32;algorithm.&#32;It&#32;retries&#32;the&#32;operation&#32;a&#32;specified&#32;number&#32;of</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00063"/>00063 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;times&#32;with&#32;multiple&#32;workers&#32;and&#32;uses&#32;given&#32;population&#32;size&#32;for&#32;optimization.</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00064"/>00064 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00065"/>00065 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00066"/>00066 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;prob:&#32;The&#32;optimization&#32;problem&#32;that&#32;defines&#32;the&#32;objective&#32;function&#32;and</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00067"/>00067 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;constraints.</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00068"/>00068 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;algo:&#32;The&#32;optimization&#32;algorithm&#32;to&#32;be&#32;applied.</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00069"/>00069 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;value_limit:&#32;An&#32;optional&#32;upper&#32;limit&#32;on&#32;the&#32;value&#32;of&#32;the&#32;objective</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00070"/>00070 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;function.&#32;Defaults&#32;to&#32;positive&#32;infinity.</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00071"/>00071 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;num_retries:&#32;The&#32;number&#32;of&#32;retries&#32;allowed&#32;for&#32;the&#32;optimization&#32;process.</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00072"/>00072 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Defaults&#32;to&#32;100&#32;times&#32;the&#32;number&#32;of&#32;CPU&#32;cores&#32;available.</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00073"/>00073 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;workers:&#32;The&#32;number&#32;of&#32;worker&#32;processes&#32;to&#32;use&#32;for&#32;parallel&#32;computation.</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00074"/>00074 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Defaults&#32;to&#32;the&#32;number&#32;of&#32;CPU&#32;cores&#32;available.</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00075"/>00075 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;popsize:&#32;The&#32;size&#32;of&#32;the&#32;population&#32;for&#32;optimization.&#32;Defaults&#32;to&#32;1.</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00076"/><link linkend="_namespacefcmaes_1_1pygmoretry_1a328972de17ce781527987b521bc1d1bf">00076</link> <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00077"/>00077 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Returns:</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00078"/>00078 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;OptimizeResult:&#32;The&#32;result&#32;of&#32;the&#32;optimization&#32;process,&#32;including&#32;the</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00079"/>00079 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;solution&#32;and&#32;other&#32;relevant&#32;information&#32;about&#32;the&#32;optimization.</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00080"/>00080 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00081"/>00081 
+<anchor xml:id="_pygmoretry_8py_source_1l00082"/>00082 &#32;&#32;&#32;&#32;lb,&#32;ub&#32;=&#32;prob.get_bounds()
+<anchor xml:id="_pygmoretry_8py_source_1l00083"/>00083 &#32;&#32;&#32;&#32;bounds&#32;=&#32;Bounds(lb,&#32;ub)
+<anchor xml:id="_pygmoretry_8py_source_1l00084"/>00084 &#32;&#32;&#32;&#32;store&#32;=&#32;<link linkend="_classfcmaes_1_1retry_1_1_store">Store</link>(bounds)
+<anchor xml:id="_pygmoretry_8py_source_1l00085"/>00085 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;retry(store,&#32;prob,&#32;algo,&#32;num_retries,&#32;value_limit,&#32;popsize,&#32;workers)
+<anchor xml:id="_pygmoretry_8py_source_1l00086"/>00086 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_pygmoretry_8py_source_1l00087"/>00087 <emphasis role="keyword">def&#32;</emphasis>retry(store,&#32;prob,&#32;algo,&#32;num_retries,&#32;value_limit&#32;=&#32;np.inf,&#32;popsize=1,&#32;workers=mp.cpu_count()):
+<anchor xml:id="_pygmoretry_8py_source_1l00088"/>00088 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00089"/>00089 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Retries&#32;optimization&#32;over&#32;multiple&#32;attempts&#32;across&#32;parallel&#32;workers&#32;to&#32;find</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00090"/>00090 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;the&#32;best&#32;result.&#32;The&#32;function&#32;orchestrates&#32;the&#32;parallel&#32;execution,&#32;manages</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00091"/>00091 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;random&#32;number&#32;generators&#32;for&#32;each&#32;worker,&#32;and&#32;aggregates&#32;the&#32;results.</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00092"/>00092 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00093"/>00093 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00094"/>00094 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;store:&#32;An&#32;object&#32;responsible&#32;for&#32;storing&#32;and&#32;managing&#32;the&#32;optimization</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00095"/>00095 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;results.</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00096"/>00096 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;prob:&#32;The&#32;optimization&#32;problem&#32;to&#32;be&#32;solved.</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00097"/>00097 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;algo:&#32;The&#32;algorithm&#32;used&#32;to&#32;perform&#32;optimization.</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00098"/>00098 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;num_retries:&#32;The&#32;number&#32;of&#32;retries&#32;to&#32;attempt&#32;for&#32;the&#32;optimization&#32;process.</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00099"/>00099 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;value_limit:&#32;The&#32;upper&#32;limit&#32;for&#32;the&#32;values&#32;considered&#32;valid&#32;in&#32;the</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00100"/>00100 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;optimization&#32;result&#32;(default&#32;is&#32;np.inf).</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00101"/>00101 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;popsize:&#32;The&#32;population&#32;size&#32;used&#32;in&#32;the&#32;optimization&#32;process</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00102"/>00102 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;(default&#32;is&#32;1).</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00103"/>00103 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;workers:&#32;The&#32;number&#32;of&#32;parallel&#32;workers&#32;to&#32;use&#32;for&#32;the&#32;optimization</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00104"/>00104 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;(default&#32;is&#32;the&#32;number&#32;of&#32;CPU&#32;cores&#32;available).</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00105"/>00105 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00106"/>00106 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Returns:</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00107"/>00107 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;OptimizeResult:&#32;An&#32;object&#32;containing&#32;the&#32;best&#32;solution&#32;(`x`),&#32;the&#32;best</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00108"/>00108 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;objective&#32;value&#32;(`fun`),&#32;the&#32;number&#32;of&#32;function&#32;evaluations&#32;performed</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00109"/>00109 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;(`nfev`),&#32;and&#32;the&#32;success&#32;status&#32;of&#32;the&#32;optimization&#32;(`success`).</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00110"/>00110 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00111"/>00111 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Raises:</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00112"/>00112 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ImportError:&#32;If&#32;the&#32;Pygmo&#32;library&#32;is&#32;not&#32;installed.</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00113"/>00113 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00114"/>00114 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">try</emphasis>:
+<anchor xml:id="_pygmoretry_8py_source_1l00115"/><link linkend="_namespacefcmaes_1_1pygmoretry_1a81cd046316826e2601d9f2510b44f629">00115</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">import</emphasis>&#32;pygmo&#32;<emphasis role="keyword">as</emphasis>&#32;pg
+<anchor xml:id="_pygmoretry_8py_source_1l00116"/>00116 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">except</emphasis>&#32;ImportError&#32;<emphasis role="keyword">as</emphasis>&#32;e:
+<anchor xml:id="_pygmoretry_8py_source_1l00117"/>00117 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">raise</emphasis>&#32;ImportError(<emphasis role="stringliteral">&quot;Please&#32;install&#32;PYGMO&#32;(pip&#32;install&#32;pygmo)&#32;to&#32;use&#32;PAGMO&#32;optimizers&quot;</emphasis>)&#32;<emphasis role="keyword">from</emphasis>&#32;e
+<anchor xml:id="_pygmoretry_8py_source_1l00118"/>00118 &#32;&#32;&#32;&#32;sg&#32;=&#32;SeedSequence()
+<anchor xml:id="_pygmoretry_8py_source_1l00119"/>00119 &#32;&#32;&#32;&#32;rgs&#32;=&#32;[Generator(PCG64DXSM(s))&#32;<emphasis role="keywordflow">for</emphasis>&#32;s&#32;<emphasis role="keywordflow">in</emphasis>&#32;sg.spawn(workers)]
+<anchor xml:id="_pygmoretry_8py_source_1l00120"/>00120 &#32;&#32;&#32;&#32;proc=[Process(target=_retry_loop,
+<anchor xml:id="_pygmoretry_8py_source_1l00121"/>00121 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;args=(pid,&#32;rgs,&#32;store,&#32;prob,&#32;algo,&#32;num_retries,&#32;value_limit,&#32;popsize,&#32;pg))&#32;<emphasis role="keywordflow">for</emphasis>&#32;pid&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(workers)]
+<anchor xml:id="_pygmoretry_8py_source_1l00122"/>00122 &#32;&#32;&#32;&#32;[p.start()&#32;<emphasis role="keywordflow">for</emphasis>&#32;p&#32;<emphasis role="keywordflow">in</emphasis>&#32;proc]
+<anchor xml:id="_pygmoretry_8py_source_1l00123"/>00123 &#32;&#32;&#32;&#32;[p.join()&#32;<emphasis role="keywordflow">for</emphasis>&#32;p&#32;<emphasis role="keywordflow">in</emphasis>&#32;proc]
+<anchor xml:id="_pygmoretry_8py_source_1l00124"/>00124 &#32;&#32;&#32;&#32;store.sort(store.get_xs())
+<anchor xml:id="_pygmoretry_8py_source_1l00125"/>00125 &#32;&#32;&#32;&#32;store.dump()
+<anchor xml:id="_pygmoretry_8py_source_1l00126"/>00126 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;OptimizeResult(x=store.get_x_best(),&#32;fun=store.get_y_best(),&#32;
+<anchor xml:id="_pygmoretry_8py_source_1l00127"/>00127 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;nfev=store.get_count_evals(),&#32;success=<emphasis role="keyword">True</emphasis>)
+<anchor xml:id="_pygmoretry_8py_source_1l00128"/>00128 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_pygmoretry_8py_source_1l00129"/>00129 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefcmaes_1_1pygmoretry_1a9ee4304fb34177166a0d9bcfd176c179">_retry_loop</link>(pid,&#32;rgs,&#32;store,&#32;prob,&#32;algo,&#32;num_retries,&#32;value_limit,&#32;popsize,&#32;pg):
+<anchor xml:id="_pygmoretry_8py_source_1l00130"/>00130 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00131"/>00131 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Executes&#32;a&#32;retry&#32;loop&#32;for&#32;a&#32;given&#32;probabilistic&#32;algorithm&#32;to&#32;attempt&#32;finding&#32;a&#32;feasible&#32;solution.</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00132"/>00132 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00133"/>00133 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;The&#32;function&#32;runs&#32;multiple&#32;attempts&#32;to&#32;generate&#32;solutions&#32;using&#32;a&#32;probabilistic&#32;algorithm.&#32;It&#32;retrieves&#32;a&#32;random&#32;seed,</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00134"/>00134 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;evolves&#32;a&#32;population,&#32;and&#32;evaluates&#32;the&#32;best&#32;solution.&#32;Feasible&#32;solutions&#32;meeting&#32;specified&#32;criteria&#32;are&#32;added&#32;to&#32;a</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00135"/>00135 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;result&#32;store.</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00136"/>00136 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00137"/>00137 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00138"/>00138 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pid&#32;(int):&#32;Identifier&#32;for&#32;the&#32;process&#32;or&#32;individual&#32;task.</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00139"/>00139 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;rgs&#32;(list):&#32;List&#32;of&#32;random&#32;generators&#32;corresponding&#32;to&#32;each&#32;identifier.</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00140"/>00140 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;store&#32;(object):&#32;Object&#32;responsible&#32;for&#32;storing&#32;results&#32;and&#32;managing&#32;retries.</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00141"/>00141 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;prob&#32;(object):&#32;Problem&#32;object&#32;defining&#32;the&#32;optimization&#32;problem.</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00142"/>00142 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;algo&#32;(object):&#32;Algorithm&#32;used&#32;to&#32;evolve&#32;populations.</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00143"/>00143 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;num_retries&#32;(int):&#32;Maximum&#32;number&#32;of&#32;retries&#32;to&#32;evolve&#32;a&#32;solution.</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00144"/>00144 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;value_limit&#32;(float):&#32;Feasibility&#32;threshold&#32;for&#32;solutions.</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00145"/>00145 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;popsize&#32;(int):&#32;Size&#32;of&#32;the&#32;population&#32;used&#32;in&#32;each&#32;evolutionary&#32;attempt.</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00146"/>00146 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pg&#32;(object):&#32;External&#32;module&#32;used&#32;for&#32;handling&#32;evolutionary&#32;population&#32;and&#32;problem&#32;definition.</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00147"/>00147 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00148"/>00148 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">while</emphasis>&#32;store.get_runs_compare_incr(num_retries):&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_pygmoretry_8py_source_1l00149"/>00149 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">try</emphasis>:&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_pygmoretry_8py_source_1l00150"/>00150 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;seed&#32;=&#32;int(rgs[pid].<link linkend="_evaluator_8h_1ad408c1ac0c479863b2d1291c483c5593">uniform</link>(0,&#32;2**32&#32;-&#32;1))
+<anchor xml:id="_pygmoretry_8py_source_1l00151"/><link linkend="_namespacefcmaes_1_1pygmoretry_1a9ee4304fb34177166a0d9bcfd176c179">00151</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pop&#32;=&#32;pg.population(prob,&#32;popsize,&#32;seed=seed)
+<anchor xml:id="_pygmoretry_8py_source_1l00152"/>00152 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pop&#32;=&#32;algo.evolve(pop)
+<anchor xml:id="_pygmoretry_8py_source_1l00153"/>00153 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">except</emphasis>&#32;Exception:
+<anchor xml:id="_pygmoretry_8py_source_1l00154"/>00154 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">pass</emphasis>&#32;&#32;<emphasis role="comment">#&#32;ignore&#32;&quot;Maximum&#32;number&#32;of&#32;iteration&#32;reached&quot;&#32;&#32;&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_pygmoretry_8py_source_1l00155"/>00155 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;sol&#32;=&#32;pop.champion_x
+<anchor xml:id="_pygmoretry_8py_source_1l00156"/>00156 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;y&#32;=&#32;pop.champion_f
+<anchor xml:id="_pygmoretry_8py_source_1l00157"/>00157 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;evals&#32;=&#32;pop.problem.get_fevals()
+<anchor xml:id="_pygmoretry_8py_source_1l00158"/>00158 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_pygmoretry_8py_source_1l00159"/>00159 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;_feasible&#32;=&#32;prob.feasibility_x(pop.champion_x)
+<anchor xml:id="_pygmoretry_8py_source_1l00160"/>00160 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;_feasible:
+<anchor xml:id="_pygmoretry_8py_source_1l00161"/>00161 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;store.add_result(y[0],&#32;sol,&#32;evals,&#32;value_limit)
+<anchor xml:id="_pygmoretry_8py_source_1l00162"/>00162 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;store.dump()
+</programlisting></section>

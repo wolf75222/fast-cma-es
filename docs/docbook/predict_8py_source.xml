@@ -1,0 +1,349 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_predict_8py_source" xml:lang="en-US">
+<title>predict.py</title>
+<indexterm><primary>examples/lichtman/predict.py</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_predict_8py_source_1l00001"/><link linkend="_namespacepredict">00001</link> 
+<anchor xml:id="_predict_8py_source_1l00002"/>00002 <emphasis role="stringliteral">&apos;&apos;&apos;</emphasis>
+<anchor xml:id="_predict_8py_source_1l00003"/>00003 <emphasis role="stringliteral">This&#32;example&#32;is&#32;based&#32;on&#32;election&#32;prediction&#32;data&#32;from</emphasis>
+<anchor xml:id="_predict_8py_source_1l00004"/>00004 <emphasis role="stringliteral">https://en.wikipedia.org/wiki/The_Keys_to_the_White_House</emphasis>
+<anchor xml:id="_predict_8py_source_1l00005"/>00005 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_predict_8py_source_1l00006"/>00006 <emphasis role="stringliteral">The&#32;prediction&#32;model&#32;was&#32;developed&#32;by&#32;Allan&#32;Lichtman&#32;and&#32;Russian&#32;geophysicist&#32;Vladimir&#32;Keilis-Borok&#32;</emphasis>
+<anchor xml:id="_predict_8py_source_1l00007"/>00007 <emphasis role="stringliteral">and&#32;uses&#32;13&#32;key&#32;properties&#32;to&#32;predict&#32;the&#32;outcome&#32;of&#32;an&#32;election.&#32;</emphasis>
+<anchor xml:id="_predict_8py_source_1l00008"/>00008 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_predict_8py_source_1l00009"/>00009 <emphasis role="stringliteral">It&#32;can&#32;predict&#32;correctly&#32;almost&#32;all&#32;past&#32;presidential&#32;elections&#32;in&#32;the&#32;USA&#32;since&#32;1860.&#32;</emphasis>
+<anchor xml:id="_predict_8py_source_1l00010"/>00010 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_predict_8py_source_1l00011"/>00011 <emphasis role="stringliteral">This&#32;example&#32;proves,&#32;that&#32;it&#32;cannot&#32;reliably&#32;predict&#32;the&#32;2024&#32;election.&#32;</emphasis>
+<anchor xml:id="_predict_8py_source_1l00012"/>00012 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_predict_8py_source_1l00013"/>00013 <emphasis role="stringliteral">Lichtmann&#32;assigns&#32;all&#32;his&#32;criteria&#32;the&#32;same&#32;weight&#32;(1.0)&#32;and&#32;defines&#32;a&#32;limit&#32;sum,&#32;</emphasis>
+<anchor xml:id="_predict_8py_source_1l00014"/>00014 <emphasis role="stringliteral">which&#32;fits&#32;well&#32;with&#32;past&#32;elections.</emphasis>
+<anchor xml:id="_predict_8py_source_1l00015"/>00015 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_predict_8py_source_1l00016"/>00016 <emphasis role="stringliteral">If&#32;we&#32;could&#32;apply&#32;different&#32;weights&#32;and&#32;thresholds&#32;to&#32;Lichtman&apos;s&#32;criteria,&#32;</emphasis>
+<anchor xml:id="_predict_8py_source_1l00017"/>00017 <emphasis role="stringliteral">it&#32;suggests&#32;that&#32;the&#32;model&#32;could&#32;yield&#32;alternative&#32;predictions,&#32;</emphasis>
+<anchor xml:id="_predict_8py_source_1l00018"/>00018 <emphasis role="stringliteral">especially&#32;for&#32;elections&#32;where&#32;the&#32;context&#32;varies&#32;from&#32;those&#32;on&#32;which&#32;the&#32;model&#32;</emphasis>
+<anchor xml:id="_predict_8py_source_1l00019"/>00019 <emphasis role="stringliteral">was&#32;originally&#32;calibrated.&#32;This&#32;means&#32;that&#32;while&#32;the&#32;&quot;13&#32;Keys&quot;&#32;may&#32;fit&#32;historical&#32;data&#32;well,&#32;</emphasis>
+<anchor xml:id="_predict_8py_source_1l00020"/>00020 <emphasis role="stringliteral">other&#32;configurations&#32;might&#32;fit&#32;just&#32;as&#32;well&#32;but&#32;lead&#32;to&#32;different&#32;forecasts.&#32;</emphasis>
+<anchor xml:id="_predict_8py_source_1l00021"/>00021 <emphasis role="stringliteral">Essentially,&#32;Lichtman’s&#32;model&#32;may&#32;not&#32;be&#32;the&#32;only&#32;equally&#32;valid&#32;model;&#32;</emphasis>
+<anchor xml:id="_predict_8py_source_1l00022"/>00022 <emphasis role="stringliteral">alternative&#32;configurations&#32;could&#32;yield&#32;differing,&#32;yet&#32;valid,&#32;predictions,&#32;</emphasis>
+<anchor xml:id="_predict_8py_source_1l00023"/>00023 <emphasis role="stringliteral">implying&#32;potential&#32;flexibility&#32;in&#32;interpreting&#32;election&#32;outcomes.</emphasis>
+<anchor xml:id="_predict_8py_source_1l00024"/>00024 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_predict_8py_source_1l00025"/>00025 <emphasis role="stringliteral">To&#32;prove&#32;this&#32;statement&#32;we&#32;have&#32;to&#32;find&#32;weights&#32;for&#32;the&#32;13&#32;keys&#32;and&#32;corresponding&#32;limits,&#32;so&#32;that</emphasis>
+<anchor xml:id="_predict_8py_source_1l00026"/>00026 <emphasis role="stringliteral">a)&#32;It&#32;is&#32;predicted&#32;that&#32;Harris&#32;wins&#32;2024</emphasis>
+<anchor xml:id="_predict_8py_source_1l00027"/>00027 <emphasis role="stringliteral">and&#32;other&#32;weights&#32;+&#32;limits,&#32;so&#32;that&#32;</emphasis>
+<anchor xml:id="_predict_8py_source_1l00028"/>00028 <emphasis role="stringliteral">b)&#32;It&#32;is&#32;predicted&#32;that&#32;Trump&#32;wins&#32;2024</emphasis>
+<anchor xml:id="_predict_8py_source_1l00029"/>00029 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_predict_8py_source_1l00030"/>00030 <emphasis role="stringliteral">Executing&#32;test_harris_prediciton()&#32;we&#32;get:</emphasis>
+<anchor xml:id="_predict_8py_source_1l00031"/>00031 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_predict_8py_source_1l00032"/>00032 <emphasis role="stringliteral">Harris&#32;looses</emphasis>
+<anchor xml:id="_predict_8py_source_1l00033"/>00033 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_predict_8py_source_1l00034"/>00034 <emphasis role="stringliteral">num&#32;correct&#32;42.0&#32;weights&#32;[1.684,&#32;1.731,&#32;1.968,&#32;0.47,&#32;2.326,&#32;1.491,&#32;0.104,&#32;0.924,&#32;0.93,&#32;0.516,&#32;0.213,&#32;0.585,&#32;0.057]&#32;limit&#32;4.75</emphasis>
+<anchor xml:id="_predict_8py_source_1l00035"/>00035 <emphasis role="stringliteral">num&#32;correct&#32;42.0&#32;weights&#32;[1.637,&#32;1.552,&#32;1.122,&#32;0.015,&#32;1.434,&#32;0.329,&#32;0.969,&#32;0.697,&#32;0.487,&#32;1.711,&#32;0.024,&#32;1.709,&#32;1.314]&#32;limit&#32;5.458</emphasis>
+<anchor xml:id="_predict_8py_source_1l00036"/>00036 <emphasis role="stringliteral">num&#32;correct&#32;42.0&#32;weights&#32;[1.457,&#32;1.685,&#32;0.888,&#32;0.072,&#32;1.996,&#32;0.115,&#32;0.576,&#32;0.949,&#32;0.95,&#32;1.641,&#32;0.292,&#32;1.186,&#32;1.191]&#32;limit&#32;4.915</emphasis>
+<anchor xml:id="_predict_8py_source_1l00037"/>00037 <emphasis role="stringliteral">num&#32;correct&#32;42.0&#32;weights&#32;[1.483,&#32;1.538,&#32;1.71,&#32;0.039,&#32;1.648,&#32;0.204,&#32;0.512,&#32;0.629,&#32;0.907,&#32;1.21,&#32;0.459,&#32;1.466,&#32;1.196]&#32;limit&#32;5.261</emphasis>
+<anchor xml:id="_predict_8py_source_1l00038"/>00038 <emphasis role="stringliteral">num&#32;correct&#32;42.0&#32;weights&#32;[1.709,&#32;1.71,&#32;1.507,&#32;0.9,&#32;1.072,&#32;0.216,&#32;0.924,&#32;0.93,&#32;1.092,&#32;1.54,&#32;0.258,&#32;0.919,&#32;0.224]&#32;limit&#32;5.343</emphasis>
+<anchor xml:id="_predict_8py_source_1l00039"/>00039 <emphasis role="stringliteral">num&#32;correct&#32;42.0&#32;weights&#32;[1.04,&#32;1.247,&#32;1.462,&#32;0.667,&#32;1.423,&#32;0.357,&#32;0.539,&#32;0.992,&#32;0.762,&#32;1.444,&#32;0.522,&#32;1.203,&#32;1.34]&#32;limit&#32;5.122</emphasis>
+<anchor xml:id="_predict_8py_source_1l00040"/>00040 <emphasis role="stringliteral">num&#32;correct&#32;42.0&#32;weights&#32;[1.636,&#32;2.098,&#32;1.194,&#32;0.455,&#32;1.312,&#32;0.493,&#32;0.383,&#32;0.499,&#32;0.802,&#32;1.237,&#32;0.136,&#32;1.725,&#32;1.031]&#32;limit&#32;5.789</emphasis>
+<anchor xml:id="_predict_8py_source_1l00041"/>00041 <emphasis role="stringliteral">num&#32;correct&#32;42.0&#32;weights&#32;[2.028,&#32;0.921,&#32;1.675,&#32;0.644,&#32;1.532,&#32;0.313,&#32;0.224,&#32;0.36,&#32;0.277,&#32;1.382,&#32;0.995,&#32;1.474,&#32;1.176]&#32;limit&#32;5.871</emphasis>
+<anchor xml:id="_predict_8py_source_1l00042"/>00042 <emphasis role="stringliteral">num&#32;correct&#32;42.0&#32;weights&#32;[2.746,&#32;2.226,&#32;1.448,&#32;0.419,&#32;0.801,&#32;0.137,&#32;1.11,&#32;0.157,&#32;1.799,&#32;1.203,&#32;0.663,&#32;0.011,&#32;0.28]&#32;limit&#32;5.056</emphasis>
+<anchor xml:id="_predict_8py_source_1l00043"/>00043 <emphasis role="stringliteral">num&#32;correct&#32;42.0&#32;weights&#32;[1.375,&#32;1.496,&#32;1.436,&#32;0.252,&#32;1.553,&#32;0.555,&#32;0.807,&#32;0.558,&#32;0.695,&#32;1.817,&#32;0.988,&#32;0.489,&#32;0.98]&#32;limit&#32;4.561</emphasis>
+<anchor xml:id="_predict_8py_source_1l00044"/>00044 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_predict_8py_source_1l00045"/>00045 <emphasis role="stringliteral">Harris&#32;wins</emphasis>
+<anchor xml:id="_predict_8py_source_1l00046"/>00046 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_predict_8py_source_1l00047"/>00047 <emphasis role="stringliteral">num&#32;correct&#32;42.0&#32;weights&#32;[1.227,&#32;0.999,&#32;1.124,&#32;1.446,&#32;0.937,&#32;0.89,&#32;1.47,&#32;1.059,&#32;0.668,&#32;1.089,&#32;0.419,&#32;0.712,&#32;0.958]&#32;limit&#32;5.597</emphasis>
+<anchor xml:id="_predict_8py_source_1l00048"/>00048 <emphasis role="stringliteral">num&#32;correct&#32;42.0&#32;weights&#32;[1.449,&#32;1.521,&#32;1.416,&#32;0.982,&#32;1.456,&#32;1.202,&#32;0.119,&#32;0.791,&#32;0.847,&#32;0.099,&#32;0.695,&#32;1.111,&#32;1.312]&#32;limit&#32;5.328</emphasis>
+<anchor xml:id="_predict_8py_source_1l00049"/>00049 <emphasis role="stringliteral">num&#32;correct&#32;42.0&#32;weights&#32;[1.598,&#32;0.878,&#32;1.299,&#32;1.021,&#32;1.233,&#32;0.883,&#32;0.927,&#32;1.146,&#32;0.804,&#32;0.956,&#32;1.384,&#32;0.137,&#32;0.734]&#32;limit&#32;5.603</emphasis>
+<anchor xml:id="_predict_8py_source_1l00050"/>00050 <emphasis role="stringliteral">num&#32;correct&#32;42.0&#32;weights&#32;[0.202,&#32;1.353,&#32;0.649,&#32;1.236,&#32;0.516,&#32;1.37,&#32;1.094,&#32;1.305,&#32;1.2,&#32;0.354,&#32;0.932,&#32;1.479,&#32;1.311]&#32;limit&#32;5.455</emphasis>
+<anchor xml:id="_predict_8py_source_1l00051"/>00051 <emphasis role="stringliteral">num&#32;correct&#32;42.0&#32;weights&#32;[1.058,&#32;0.966,&#32;1.137,&#32;1.044,&#32;1.082,&#32;0.876,&#32;0.838,&#32;1.578,&#32;0.688,&#32;0.711,&#32;1.012,&#32;0.919,&#32;1.09]&#32;limit&#32;5.786</emphasis>
+<anchor xml:id="_predict_8py_source_1l00052"/>00052 <emphasis role="stringliteral">num&#32;correct&#32;42.0&#32;weights&#32;[1.361,&#32;1.053,&#32;1.308,&#32;1.399,&#32;0.139,&#32;1.254,&#32;1.702,&#32;1.593,&#32;1.603,&#32;0.586,&#32;0.568,&#32;0.396,&#32;0.037]&#32;limit&#32;6.042</emphasis>
+<anchor xml:id="_predict_8py_source_1l00053"/>00053 <emphasis role="stringliteral">num&#32;correct&#32;42.0&#32;weights&#32;[0.84,&#32;0.964,&#32;0.526,&#32;1.111,&#32;1.426,&#32;1.096,&#32;1.136,&#32;1.328,&#32;0.929,&#32;0.85,&#32;1.029,&#32;0.489,&#32;1.276]&#32;limit&#32;4.969</emphasis>
+<anchor xml:id="_predict_8py_source_1l00054"/>00054 <emphasis role="stringliteral">num&#32;correct&#32;42.0&#32;weights&#32;[0.912,&#32;0.909,&#32;1.165,&#32;1.137,&#32;1.382,&#32;0.472,&#32;1.562,&#32;1.094,&#32;0.81,&#32;0.521,&#32;1.228,&#32;1.451,&#32;0.358]&#32;limit&#32;6.675</emphasis>
+<anchor xml:id="_predict_8py_source_1l00055"/>00055 <emphasis role="stringliteral">num&#32;correct&#32;42.0&#32;weights&#32;[0.822,&#32;1.167,&#32;1.204,&#32;1.129,&#32;1.159,&#32;0.744,&#32;0.63,&#32;0.857,&#32;0.783,&#32;0.978,&#32;1.208,&#32;1.145,&#32;1.174]&#32;limit&#32;5.149</emphasis>
+<anchor xml:id="_predict_8py_source_1l00056"/>00056 <emphasis role="stringliteral">num&#32;correct&#32;42.0&#32;weights&#32;[0.722,&#32;1.037,&#32;0.781,&#32;1.008,&#32;1.098,&#32;1.111,&#32;1.038,&#32;1.061,&#32;1.019,&#32;1.056,&#32;1.109,&#32;0.961,&#32;0.999]&#32;limit&#32;5.564</emphasis>
+<anchor xml:id="_predict_8py_source_1l00057"/>00057 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_predict_8py_source_1l00058"/>00058 <emphasis role="stringliteral">All&#32;42&#32;predictions&#32;were&#32;correct&#32;in&#32;both&#32;cases,&#32;even&#32;when&#32;we&#32;change&#32;the&#32;last&#32;prediction&#32;for&#32;2024.&#32;</emphasis>
+<anchor xml:id="_predict_8py_source_1l00059"/>00059 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_predict_8py_source_1l00060"/>00060 <emphasis role="stringliteral">Remarks:&#32;</emphasis>
+<anchor xml:id="_predict_8py_source_1l00061"/>00061 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_predict_8py_source_1l00062"/>00062 <emphasis role="stringliteral">-&#32;The&#32;weights&#32;are&#32;normalized&#32;to&#32;be&#32;compatible&#32;with&#32;the&#32;original&#32;weights&#32;-&#32;1.0&#32;on&#32;average.</emphasis>
+<anchor xml:id="_predict_8py_source_1l00063"/>00063 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_predict_8py_source_1l00064"/>00064 <emphasis role="stringliteral">-&#32;The&#32;high&#32;variation&#32;of&#32;&quot;fitting&quot;&#32;weights&#32;shows&#32;that&#32;Lichtmanns&#32;weights&#32;and&#32;limit&#32;value&#32;are&#32;not&#32;special,&#32;</emphasis>
+<anchor xml:id="_predict_8py_source_1l00065"/>00065 <emphasis role="stringliteral">&#32;&#32;many&#32;other&#32;weight&#32;sets&#32;work&#32;equally&#32;well&#32;-&#32;and&#32;could&#32;be&#32;justified&#32;for&#32;other&#32;reasons.&#32;&#32;</emphasis>
+<anchor xml:id="_predict_8py_source_1l00066"/>00066 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_predict_8py_source_1l00067"/>00067 <emphasis role="stringliteral">-&#32;If&#32;Lichtmanns&#32;weights&#32;would&#32;be&#32;&quot;well&#32;balanced&quot;&#32;you&#32;would&#32;expect&#32;an&#32;average&#32;weight&#32;value&#32;of&#32;1.0&#32;if&#32;you&#32;compute&#32;many&#32;solutions.&#32;</emphasis>
+<anchor xml:id="_predict_8py_source_1l00068"/>00068 <emphasis role="stringliteral">&#32;&#32;But&#32;the&#32;first&#32;key&#32;usually&#32;gets&#32;a&#32;much&#32;higher&#32;weight&#32;as&#32;the&#32;fourth&#32;or&#32;the&#32;sixth&#32;one.&#32;Interestingly&#32;this&#32;holds&#32;only&#32;for&#32;the&#32;</emphasis>
+<anchor xml:id="_predict_8py_source_1l00069"/>00069 <emphasis role="stringliteral">&#32;&#32;&quot;Harris&#32;wins&quot;&#32;prediction.&#32;</emphasis>
+<anchor xml:id="_predict_8py_source_1l00070"/>00070 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_predict_8py_source_1l00071"/>00071 <emphasis role="stringliteral">-&#32;If&#32;you&#32;collect&#32;a&#32;large&#32;number&#32;of&#32;solutions,&#32;the&#32;average&#32;value&#32;for&#32;a&#32;specific&#32;weight&#32;could&#32;indicate&#32;that&#32;this&#32;average&#32;used&#32;</emphasis>
+<anchor xml:id="_predict_8py_source_1l00072"/>00072 <emphasis role="stringliteral">&#32;&#32;as&#32;weight&#32;could&#32;improve&#32;the&#32;reliability&#32;of&#32;future&#32;predictions.&#32;</emphasis>
+<anchor xml:id="_predict_8py_source_1l00073"/>00073 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_predict_8py_source_1l00074"/>00074 <emphasis role="stringliteral">-&#32;Nate&#32;Silver&#32;already&#32;said&#32;that&#32;&quot;It’s&#32;less&#32;that&#32;he&#32;has&#32;discovered&#32;the&#32;right&#32;set&#32;of&#32;keys&#32;than&#32;that&#32;he’s&#32;a&#32;locksmith&#32;and&#32;can&#32;</emphasis>
+<anchor xml:id="_predict_8py_source_1l00075"/>00075 <emphasis role="stringliteral">&#32;&#32;keep&#32;minting&#32;new&#32;keys&#32;until&#32;he&#32;happens&#32;to&#32;open&#32;all&#32;38&#32;doors&quot;.&#32;This&#32;example&#32;shows&#32;that&#32;you&#32;don&apos;t&#32;need&#32;to&#32;invent&#32;new&#32;keys</emphasis>
+<anchor xml:id="_predict_8py_source_1l00076"/>00076 <emphasis role="stringliteral">&#32;&#32;to&#32;be&#32;a&#32;&quot;locksmith&quot;&#32;opening&#32;all&#32;doors,&#32;including&#32;future&#32;ones,&#32;predicting&#32;exactly&#32;what&#32;you&#32;want&#32;according&#32;to&#32;</emphasis>
+<anchor xml:id="_predict_8py_source_1l00077"/>00077 <emphasis role="stringliteral">&#32;&#32;your&#32;political&#32;agenda.&#32;</emphasis>
+<anchor xml:id="_predict_8py_source_1l00078"/>00078 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_predict_8py_source_1l00079"/>00079 <emphasis role="stringliteral">-----------------------------------------------------------------------------------------------------------</emphasis>
+<anchor xml:id="_predict_8py_source_1l00080"/>00080 <emphasis role="stringliteral">&#32;&#32;</emphasis>
+<anchor xml:id="_predict_8py_source_1l00081"/>00081 <emphasis role="stringliteral">Is&#32;there&#32;a&#32;way&#32;we&#32;can&#32;measure&#32;the&#32;&quot;robustness&quot;&#32;of&#32;a&#32;model?&#32;We&#32;could&#32;use&#32;an&#32;epsilon&#32;value&#32;defining&#32;a</emphasis>
+<anchor xml:id="_predict_8py_source_1l00082"/>00082 <emphasis role="stringliteral">limit&#32;area&#32;[limit-eps,&#32;limit+eps]&#32;and&#32;could&#32;maximize&#32;this&#32;epsilon&#32;still&#32;maintaining&#32;all&#32;predictions&#32;correct.&#32;</emphasis>
+<anchor xml:id="_predict_8py_source_1l00083"/>00083 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_predict_8py_source_1l00084"/>00084 <emphasis role="stringliteral">Executing&#32;test_harris_prediciton_eps()&#32;we&#32;get:</emphasis>
+<anchor xml:id="_predict_8py_source_1l00085"/>00085 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_predict_8py_source_1l00086"/>00086 <emphasis role="stringliteral">Harris&#32;looses</emphasis>
+<anchor xml:id="_predict_8py_source_1l00087"/>00087 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_predict_8py_source_1l00088"/>00088 <emphasis role="stringliteral">num&#32;correct&#32;42.0&#32;eps&#32;0.795&#32;weights&#32;[2.498,&#32;2.183,&#32;2.07,&#32;0.401,&#32;2.42,&#32;0.032,&#32;0.807,&#32;0.777,&#32;0.136,&#32;1.424,&#32;0.118,&#32;0.087,&#32;0.047]&#32;limit&#32;5.254</emphasis>
+<anchor xml:id="_predict_8py_source_1l00089"/>00089 <emphasis role="stringliteral">num&#32;correct&#32;42.0&#32;eps&#32;0.806&#32;weights&#32;[2.866,&#32;1.82,&#32;2.559,&#32;0.634,&#32;2.667,&#32;0.194,&#32;0.766,&#32;0.706,&#32;0.006,&#32;0.653,&#32;0.025,&#32;0.014,&#32;0.089]&#32;limit&#32;5.232</emphasis>
+<anchor xml:id="_predict_8py_source_1l00090"/>00090 <emphasis role="stringliteral">num&#32;correct&#32;42.0&#32;eps&#32;0.707&#32;weights&#32;[2.128,&#32;1.999,&#32;2.034,&#32;0.467,&#32;1.967,&#32;0.114,&#32;0.928,&#32;0.93,&#32;0.344,&#32;1.366,&#32;0.023,&#32;0.646,&#32;0.054]&#32;limit&#32;5.437</emphasis>
+<anchor xml:id="_predict_8py_source_1l00091"/>00091 <emphasis role="stringliteral">num&#32;correct&#32;42.0&#32;eps&#32;0.815&#32;weights&#32;[2.918,&#32;2.108,&#32;2.256,&#32;0.462,&#32;2.344,&#32;0.152,&#32;0.515,&#32;0.917,&#32;0.109,&#32;0.912,&#32;0.092,&#32;0.057,&#32;0.157]&#32;limit&#32;5.328</emphasis>
+<anchor xml:id="_predict_8py_source_1l00092"/>00092 <emphasis role="stringliteral">num&#32;correct&#32;42.0&#32;eps&#32;0.806&#32;weights&#32;[2.573,&#32;1.622,&#32;2.445,&#32;0.786,&#32;2.038,&#32;0.003,&#32;0.74,&#32;0.741,&#32;0.451,&#32;1.049,&#32;0.345,&#32;0.061,&#32;0.147]&#32;limit&#32;5.314</emphasis>
+<anchor xml:id="_predict_8py_source_1l00093"/>00093 <emphasis role="stringliteral">num&#32;correct&#32;42.0&#32;eps&#32;0.775&#32;weights&#32;[2.351,&#32;2.221,&#32;1.823,&#32;0.219,&#32;2.398,&#32;0.027,&#32;0.838,&#32;0.82,&#32;0.139,&#32;1.508,&#32;0.06,&#32;0.032,&#32;0.564]&#32;limit&#32;4.924</emphasis>
+<anchor xml:id="_predict_8py_source_1l00094"/>00094 <emphasis role="stringliteral">num&#32;correct&#32;42.0&#32;eps&#32;0.824&#32;weights&#32;[2.992,&#32;1.78,&#32;2.444,&#32;0.676,&#32;1.962,&#32;0.038,&#32;0.467,&#32;0.754,&#32;0.151,&#32;0.68,&#32;0.225,&#32;0.241,&#32;0.59]&#32;limit&#32;5.515</emphasis>
+<anchor xml:id="_predict_8py_source_1l00095"/>00095 <emphasis role="stringliteral">num&#32;correct&#32;42.0&#32;eps&#32;0.855&#32;weights&#32;[2.829,&#32;1.766,&#32;2.519,&#32;0.746,&#32;2.268,&#32;0.004,&#32;0.676,&#32;0.754,&#32;0.226,&#32;0.79,&#32;0.113,&#32;0.004,&#32;0.306]&#32;limit&#32;5.258</emphasis>
+<anchor xml:id="_predict_8py_source_1l00096"/>00096 <emphasis role="stringliteral">num&#32;correct&#32;42.0&#32;eps&#32;0.677&#32;weights&#32;[1.961,&#32;1.982,&#32;1.857,&#32;0.421,&#32;2.061,&#32;0.007,&#32;0.849,&#32;0.972,&#32;0.414,&#32;1.429,&#32;0.026,&#32;0.643,&#32;0.377]&#32;limit&#32;5.187</emphasis>
+<anchor xml:id="_predict_8py_source_1l00097"/>00097 <emphasis role="stringliteral">num&#32;correct&#32;42.0&#32;eps&#32;0.861&#32;weights&#32;[2.902,&#32;1.827,&#32;2.402,&#32;0.628,&#32;2.181,&#32;0.039,&#32;0.641,&#32;0.642,&#32;0.597,&#32;0.713,&#32;0.045,&#32;0.144,&#32;0.239]&#32;limit&#32;5.289</emphasis>
+<anchor xml:id="_predict_8py_source_1l00098"/>00098 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_predict_8py_source_1l00099"/>00099 <emphasis role="stringliteral">Harris&#32;wins</emphasis>
+<anchor xml:id="_predict_8py_source_1l00100"/>00100 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_predict_8py_source_1l00101"/>00101 <emphasis role="stringliteral">num&#32;correct&#32;42.0&#32;eps&#32;1.366&#32;weights&#32;[1.869,&#32;3.041,&#32;0.697,&#32;0.987,&#32;2.705,&#32;0.175,&#32;0.869,&#32;0.909,&#32;0.87,&#32;0.178,&#32;0.003,&#32;0.031,&#32;0.665]&#32;limit&#32;5.142</emphasis>
+<anchor xml:id="_predict_8py_source_1l00102"/>00102 <emphasis role="stringliteral">num&#32;correct&#32;42.0&#32;eps&#32;1.381&#32;weights&#32;[1.779,&#32;2.993,&#32;0.799,&#32;0.865,&#32;2.387,&#32;1.15,&#32;1.03,&#32;0.947,&#32;0.402,&#32;0.018,&#32;0.176,&#32;0.02,&#32;0.434]&#32;limit&#32;5.39</emphasis>
+<anchor xml:id="_predict_8py_source_1l00103"/>00103 <emphasis role="stringliteral">num&#32;correct&#32;42.0&#32;eps&#32;1.466&#32;weights&#32;[1.699,&#32;3.483,&#32;0.404,&#32;0.755,&#32;2.676,&#32;0.727,&#32;1.245,&#32;0.951,&#32;0.854,&#32;0.11,&#32;0.0,&#32;0.036,&#32;0.058]&#32;limit&#32;5.4</emphasis>
+<anchor xml:id="_predict_8py_source_1l00104"/>00104 <emphasis role="stringliteral">num&#32;correct&#32;42.0&#32;eps&#32;1.311&#32;weights&#32;[1.797,&#32;2.869,&#32;0.971,&#32;0.907,&#32;2.094,&#32;0.815,&#32;0.94,&#32;0.936,&#32;0.889,&#32;0.007,&#32;0.007,&#32;0.768,&#32;0.001]&#32;limit&#32;5.943</emphasis>
+<anchor xml:id="_predict_8py_source_1l00105"/>00105 <emphasis role="stringliteral">num&#32;correct&#32;42.0&#32;eps&#32;1.399&#32;weights&#32;[1.941,&#32;3.16,&#32;0.847,&#32;0.873,&#32;2.015,&#32;1.095,&#32;1.025,&#32;1.018,&#32;0.747,&#32;0.002,&#32;0.058,&#32;0.21,&#32;0.009]&#32;limit&#32;5.683</emphasis>
+<anchor xml:id="_predict_8py_source_1l00106"/>00106 <emphasis role="stringliteral">num&#32;correct&#32;42.0&#32;eps&#32;1.406&#32;weights&#32;[1.789,&#32;3.271,&#32;0.473,&#32;0.914,&#32;2.306,&#32;0.671,&#32;1.04,&#32;0.868,&#32;0.947,&#32;0.223,&#32;0.0,&#32;0.014,&#32;0.482]&#32;limit&#32;5.17</emphasis>
+<anchor xml:id="_predict_8py_source_1l00107"/>00107 <emphasis role="stringliteral">num&#32;correct&#32;42.0&#32;eps&#32;1.407&#32;weights&#32;[1.577,&#32;3.531,&#32;0.142,&#32;0.769,&#32;2.159,&#32;0.984,&#32;1.262,&#32;0.806,&#32;1.051,&#32;0.06,&#32;0.148,&#32;0.102,&#32;0.409]&#32;limit&#32;5.337</emphasis>
+<anchor xml:id="_predict_8py_source_1l00108"/>00108 <emphasis role="stringliteral">num&#32;correct&#32;42.0&#32;eps&#32;1.385&#32;weights&#32;[1.547,&#32;3.297,&#32;0.303,&#32;0.747,&#32;3.296,&#32;0.512,&#32;1.249,&#32;0.8,&#32;0.909,&#32;0.154,&#32;0.039,&#32;0.105,&#32;0.045]&#32;limit&#32;5.135</emphasis>
+<anchor xml:id="_predict_8py_source_1l00109"/>00109 <emphasis role="stringliteral">num&#32;correct&#32;42.0&#32;eps&#32;1.347&#32;weights&#32;[2.085,&#32;2.899,&#32;1.094,&#32;0.87,&#32;2.053,&#32;0.834,&#32;1.0,&#32;0.938,&#32;1.11,&#32;0.095,&#32;0.011,&#32;0.007,&#32;0.004]&#32;limit&#32;5.439</emphasis>
+<anchor xml:id="_predict_8py_source_1l00110"/>00110 <emphasis role="stringliteral">num&#32;correct&#32;42.0&#32;eps&#32;1.349&#32;weights&#32;[1.656,&#32;3.134,&#32;0.523,&#32;0.873,&#32;3.05,&#32;0.607,&#32;1.176,&#32;0.876,&#32;0.778,&#32;0.041,&#32;0.013,&#32;0.084,&#32;0.189]&#32;limit&#32;5.173</emphasis>
+<anchor xml:id="_predict_8py_source_1l00111"/>00111 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_predict_8py_source_1l00112"/>00112 <emphasis role="stringliteral">Still&#32;all&#32;42&#32;predictions&#32;were&#32;correct&#32;in&#32;both&#32;cases,&#32;even&#32;when&#32;we&#32;change&#32;the&#32;last&#32;prediction&#32;for&#32;2024.&#32;</emphasis>
+<anchor xml:id="_predict_8py_source_1l00113"/>00113 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_predict_8py_source_1l00114"/>00114 <emphasis role="stringliteral">Remarks:&#32;</emphasis>
+<anchor xml:id="_predict_8py_source_1l00115"/>00115 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_predict_8py_source_1l00116"/>00116 <emphasis role="stringliteral">-&#32;Now&#32;it&#32;becomes&#32;clear&#32;that&#32;some&#32;keys&#32;are&#32;almost&#32;irrelevant.</emphasis>
+<anchor xml:id="_predict_8py_source_1l00117"/>00117 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_predict_8py_source_1l00118"/>00118 <emphasis role="stringliteral">-&#32;Maximizing&#32;robustness&#32;-&#32;epsilon&#32;around&#32;the&#32;limit&#32;-&#32;leads&#32;to&#32;quite&#32;similar&#32;weight&#32;values&#32;in&#32;all&#32;optimization&#32;runs.&#32;</emphasis>
+<anchor xml:id="_predict_8py_source_1l00119"/>00119 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_predict_8py_source_1l00120"/>00120 <emphasis role="stringliteral">-&#32;The&#32;&quot;Harris&#32;wins&quot;&#32;prediction&#32;leads&#32;to&#32;a&#32;much&#32;larger&#32;epsilon&#32;value,&#32;so&#32;this&#32;prediction&#32;seems&#32;more&#32;robust.&#32;</emphasis>
+<anchor xml:id="_predict_8py_source_1l00121"/>00121 <emphasis role="stringliteral">&#32;&#32;This&#32;result&#32;is&#32;consistent&#32;with&#32;Lichtmanns&#32;original&#32;prediction:&#32;Harris&#32;wins.&#32;</emphasis>
+<anchor xml:id="_predict_8py_source_1l00122"/>00122 <emphasis role="stringliteral">&#32;&#32;In&#32;an&#32;earlier&#32;version&#32;of&#32;this&#32;example&#32;because&#32;of&#32;an&#32;error&#32;interpreting&#32;the&#32;prediction&#32;the&#32;result&#32;was&#32;different.</emphasis>
+<anchor xml:id="_predict_8py_source_1l00123"/>00123 <emphasis role="stringliteral">&#32;&#32;</emphasis>
+<anchor xml:id="_predict_8py_source_1l00124"/>00124 <emphasis role="stringliteral">---------------------------------------------------------------------------------------------------------------------------------------------</emphasis>
+<anchor xml:id="_predict_8py_source_1l00125"/>00125 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_predict_8py_source_1l00126"/>00126 <emphasis role="stringliteral">Finally&#32;lets&#32;maximize&#32;the&#32;limit&#32;area&#32;[limit-eps,&#32;limit+eps]&#32;for&#32;all&#32;old&#32;elections&#32;computing&#32;the&#32;optimal&#32;weights&#32;</emphasis>
+<anchor xml:id="_predict_8py_source_1l00127"/>00127 <emphasis role="stringliteral">preserving&#32;all&#32;correct&#32;predictions.&#32;Then&#32;we&#32;compute&#32;the&#32;weighted&#32;sum&#32;for&#32;the&#32;2024&#32;election.&#32;</emphasis>
+<anchor xml:id="_predict_8py_source_1l00128"/>00128 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_predict_8py_source_1l00129"/>00129 <emphasis role="stringliteral">num&#32;correct&#32;41.0&#32;eps&#32;1.381&#32;weights&#32;[1.68,&#32;3.213,&#32;0.461,&#32;0.803,&#32;2.368,&#32;0.804,&#32;1.119,&#32;0.864,&#32;0.771,&#32;0.076,&#32;0.025,&#32;0.731,&#32;0.084]&#32;limit&#32;5.822</emphasis>
+<anchor xml:id="_predict_8py_source_1l00130"/>00130 <emphasis role="stringliteral">if&#32;sum&#32;is&#32;&gt;&#32;7.203&#32;challenger&#32;wins,&#32;&#32;if&#32;sum&#32;is&#32;&lt;&#32;4.441&#32;challenger&#32;looses</emphasis>
+<anchor xml:id="_predict_8py_source_1l00131"/>00131 <emphasis role="stringliteral">2024&#32;election,&#32;challenger&#32;wins&#32;=&#32;?,&#32;sum&#32;=&#32;2.948</emphasis>
+<anchor xml:id="_predict_8py_source_1l00132"/>00132 <emphasis role="stringliteral">num&#32;correct&#32;41.0&#32;eps&#32;1.325&#32;weights&#32;[2.096,&#32;2.997,&#32;1.06,&#32;0.844,&#32;1.905,&#32;1.221,&#32;0.821,&#32;1.108,&#32;0.782,&#32;0.0,&#32;0.108,&#32;0.052,&#32;0.006]&#32;limit&#32;5.575</emphasis>
+<anchor xml:id="_predict_8py_source_1l00133"/>00133 <emphasis role="stringliteral">if&#32;sum&#32;is&#32;&gt;&#32;6.9&#32;challenger&#32;wins,&#32;&#32;if&#32;sum&#32;is&#32;&lt;&#32;4.249&#32;challenger&#32;looses</emphasis>
+<anchor xml:id="_predict_8py_source_1l00134"/>00134 <emphasis role="stringliteral">2024&#32;election,&#32;challenger&#32;wins&#32;=&#32;?,&#32;sum&#32;=&#32;3.207</emphasis>
+<anchor xml:id="_predict_8py_source_1l00135"/>00135 <emphasis role="stringliteral">num&#32;correct&#32;41.0&#32;eps&#32;1.387&#32;weights&#32;[1.704,&#32;3.399,&#32;0.47,&#32;0.875,&#32;2.178,&#32;1.329,&#32;1.102,&#32;1.018,&#32;0.516,&#32;0.127,&#32;0.251,&#32;0.016,&#32;0.015]&#32;limit&#32;5.551</emphasis>
+<anchor xml:id="_predict_8py_source_1l00136"/>00136 <emphasis role="stringliteral">if&#32;sum&#32;is&#32;&gt;&#32;6.938&#32;challenger&#32;wins,&#32;&#32;if&#32;sum&#32;is&#32;&lt;&#32;4.163&#32;challenger&#32;looses</emphasis>
+<anchor xml:id="_predict_8py_source_1l00137"/>00137 <emphasis role="stringliteral">2024&#32;election,&#32;challenger&#32;wins&#32;=&#32;?,&#32;sum&#32;=&#32;2.317</emphasis>
+<anchor xml:id="_predict_8py_source_1l00138"/>00138 <emphasis role="stringliteral">num&#32;correct&#32;41.0&#32;eps&#32;1.348&#32;weights&#32;[2.028,&#32;3.18,&#32;0.65,&#32;0.97,&#32;2.334,&#32;0.73,&#32;0.672,&#32;1.112,&#32;0.322,&#32;0.037,&#32;0.002,&#32;0.01,&#32;0.953]&#32;limit&#32;5.19</emphasis>
+<anchor xml:id="_predict_8py_source_1l00139"/>00139 <emphasis role="stringliteral">if&#32;sum&#32;is&#32;&gt;&#32;6.538&#32;challenger&#32;wins,&#32;&#32;if&#32;sum&#32;is&#32;&lt;&#32;3.843&#32;challenger&#32;looses</emphasis>
+<anchor xml:id="_predict_8py_source_1l00140"/>00140 <emphasis role="stringliteral">2024&#32;election,&#32;challenger&#32;wins&#32;=&#32;?,&#32;sum&#32;=&#32;2.725</emphasis>
+<anchor xml:id="_predict_8py_source_1l00141"/>00141 <emphasis role="stringliteral">num&#32;correct&#32;41.0&#32;eps&#32;1.376&#32;weights&#32;[1.967,&#32;2.796,&#32;1.004,&#32;1.042,&#32;2.249,&#32;0.663,&#32;0.796,&#32;1.041,&#32;0.671,&#32;0.002,&#32;0.029,&#32;0.0,&#32;0.74]&#32;limit&#32;5.213</emphasis>
+<anchor xml:id="_predict_8py_source_1l00142"/>00142 <emphasis role="stringliteral">if&#32;sum&#32;is&#32;&gt;&#32;6.589&#32;challenger&#32;wins,&#32;&#32;if&#32;sum&#32;is&#32;&lt;&#32;3.838&#32;challenger&#32;looses</emphasis>
+<anchor xml:id="_predict_8py_source_1l00143"/>00143 <emphasis role="stringliteral">2024&#32;election,&#32;challenger&#32;wins&#32;=&#32;?,&#32;sum&#32;=&#32;2.973</emphasis>
+<anchor xml:id="_predict_8py_source_1l00144"/>00144 <emphasis role="stringliteral">num&#32;correct&#32;41.0&#32;eps&#32;1.355&#32;weights&#32;[1.621,&#32;3.287,&#32;0.604,&#32;0.676,&#32;2.891,&#32;1.056,&#32;1.234,&#32;1.058,&#32;0.205,&#32;0.223,&#32;0.006,&#32;0.089,&#32;0.05]&#32;limit&#32;5.369</emphasis>
+<anchor xml:id="_predict_8py_source_1l00145"/>00145 <emphasis role="stringliteral">if&#32;sum&#32;is&#32;&gt;&#32;6.724&#32;challenger&#32;wins,&#32;&#32;if&#32;sum&#32;is&#32;&lt;&#32;4.013&#32;challenger&#32;looses</emphasis>
+<anchor xml:id="_predict_8py_source_1l00146"/>00146 <emphasis role="stringliteral">2024&#32;election,&#32;challenger&#32;wins&#32;=&#32;?,&#32;sum&#32;=&#32;2.536</emphasis>
+<anchor xml:id="_predict_8py_source_1l00147"/>00147 <emphasis role="stringliteral">num&#32;correct&#32;41.0&#32;eps&#32;1.379&#32;weights&#32;[1.86,&#32;2.816,&#32;1.065,&#32;1.107,&#32;1.92,&#32;0.985,&#32;1.027,&#32;1.032,&#32;0.986,&#32;0.013,&#32;0.134,&#32;0.048,&#32;0.007]&#32;limit&#32;5.557</emphasis>
+<anchor xml:id="_predict_8py_source_1l00148"/>00148 <emphasis role="stringliteral">if&#32;sum&#32;is&#32;&gt;&#32;6.936&#32;challenger&#32;wins,&#32;&#32;if&#32;sum&#32;is&#32;&lt;&#32;4.178&#32;challenger&#32;looses</emphasis>
+<anchor xml:id="_predict_8py_source_1l00149"/>00149 <emphasis role="stringliteral">2024&#32;election,&#32;challenger&#32;wins&#32;=&#32;?,&#32;sum&#32;=&#32;2.985</emphasis>
+<anchor xml:id="_predict_8py_source_1l00150"/>00150 <emphasis role="stringliteral">num&#32;correct&#32;41.0&#32;eps&#32;1.431&#32;weights&#32;[1.52,&#32;3.65,&#32;0.015,&#32;0.765,&#32;2.919,&#32;0.782,&#32;1.432,&#32;0.773,&#32;0.885,&#32;0.157,&#32;0.002,&#32;0.001,&#32;0.099]&#32;limit&#32;5.166</emphasis>
+<anchor xml:id="_predict_8py_source_1l00151"/>00151 <emphasis role="stringliteral">if&#32;sum&#32;is&#32;&gt;&#32;6.597&#32;challenger&#32;wins,&#32;&#32;if&#32;sum&#32;is&#32;&lt;&#32;3.735&#32;challenger&#32;looses</emphasis>
+<anchor xml:id="_predict_8py_source_1l00152"/>00152 <emphasis role="stringliteral">2024&#32;election,&#32;challenger&#32;wins&#32;=&#32;?,&#32;sum&#32;=&#32;1.693</emphasis>
+<anchor xml:id="_predict_8py_source_1l00153"/>00153 <emphasis role="stringliteral">num&#32;correct&#32;41.0&#32;eps&#32;1.394&#32;weights&#32;[1.621,&#32;3.375,&#32;0.396,&#32;0.871,&#32;2.117,&#32;0.833,&#32;1.191,&#32;0.851,&#32;1.274,&#32;0.019,&#32;0.008,&#32;0.01,&#32;0.436]&#32;limit&#32;5.197</emphasis>
+<anchor xml:id="_predict_8py_source_1l00154"/>00154 <emphasis role="stringliteral">if&#32;sum&#32;is&#32;&gt;&#32;6.591&#32;challenger&#32;wins,&#32;&#32;if&#32;sum&#32;is&#32;&lt;&#32;3.803&#32;challenger&#32;looses</emphasis>
+<anchor xml:id="_predict_8py_source_1l00155"/>00155 <emphasis role="stringliteral">2024&#32;election,&#32;challenger&#32;wins&#32;=&#32;?,&#32;sum&#32;=&#32;2.045</emphasis>
+<anchor xml:id="_predict_8py_source_1l00156"/>00156 <emphasis role="stringliteral">num&#32;correct&#32;41.0&#32;eps&#32;1.378&#32;weights&#32;[1.681,&#32;3.251,&#32;0.512,&#32;0.951,&#32;1.905,&#32;1.064,&#32;1.116,&#32;0.776,&#32;1.227,&#32;0.109,&#32;0.14,&#32;0.016,&#32;0.252]&#32;limit&#32;5.319</emphasis>
+<anchor xml:id="_predict_8py_source_1l00157"/>00157 <emphasis role="stringliteral">if&#32;sum&#32;is&#32;&gt;&#32;6.697&#32;challenger&#32;wins,&#32;&#32;if&#32;sum&#32;is&#32;&lt;&#32;3.941&#32;challenger&#32;looses</emphasis>
+<anchor xml:id="_predict_8py_source_1l00158"/>00158 <emphasis role="stringliteral">2024&#32;election,&#32;challenger&#32;wins&#32;=&#32;?,&#32;sum&#32;=&#32;2.318</emphasis>
+<anchor xml:id="_predict_8py_source_1l00159"/>00159 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_predict_8py_source_1l00160"/>00160 <emphasis role="stringliteral">So&#32;for&#32;all&#32;10&#32;runs&#32;the&#32;weighted&#32;sum&#32;is&#32;way&#32;below&#32;the&#32;threshold&#32;limit&#32;-&#32;eps,&#32;so&#32;we&#32;predict:&#32;Harris&#32;wins.&#32;</emphasis>
+<anchor xml:id="_predict_8py_source_1l00161"/>00161 <emphasis role="stringliteral">&apos;&apos;&apos;</emphasis>
+<anchor xml:id="_predict_8py_source_1l00162"/>00162 
+<anchor xml:id="_predict_8py_source_1l00163"/>00163 <emphasis role="keyword">import</emphasis>&#32;numpy&#32;<emphasis role="keyword">as</emphasis>&#32;np
+<anchor xml:id="_predict_8py_source_1l00164"/>00164 <emphasis role="keyword">import</emphasis>&#32;sys
+<anchor xml:id="_predict_8py_source_1l00165"/>00165 <emphasis role="keyword">from</emphasis>&#32;fcmaes&#32;<emphasis role="keyword">import</emphasis>&#32;retry
+<anchor xml:id="_predict_8py_source_1l00166"/>00166 <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1optimizer">fcmaes.optimizer</link>&#32;<emphasis role="keyword">import</emphasis>&#32;Bite_cpp
+<anchor xml:id="_predict_8py_source_1l00167"/>00167 <emphasis role="keyword">from</emphasis>&#32;scipy.optimize&#32;<emphasis role="keyword">import</emphasis>&#32;Bounds
+<anchor xml:id="_predict_8py_source_1l00168"/>00168 <emphasis role="keyword">from</emphasis>&#32;functools&#32;<emphasis role="keyword">import</emphasis>&#32;partial
+<anchor xml:id="_predict_8py_source_1l00169"/>00169 
+<anchor xml:id="_predict_8py_source_1l00170"/>00170 <emphasis role="keyword">from</emphasis>&#32;loguru&#32;<emphasis role="keyword">import</emphasis>&#32;logger
+<anchor xml:id="_predict_8py_source_1l00171"/>00171 logger.remove()
+<anchor xml:id="_predict_8py_source_1l00172"/><link linkend="_namespacepredict_1a5ec9a88a847ca576c451fae35a5275ab">00172</link> logger.add(sys.stdout,&#32;format=<emphasis role="stringliteral">&quot;{time:HH:mm:ss.SS}&#32;|&#32;{level}&#32;|&#32;{message}&quot;</emphasis>,&#32;level=<emphasis role="stringliteral">&quot;INFO&quot;</emphasis>)
+<anchor xml:id="_predict_8py_source_1l00173"/>00173 
+<anchor xml:id="_predict_8py_source_1l00174"/><link linkend="_namespacepredict_1a9eb8a7f2d97c2232ac5e77fa90d9df04">00174</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacepredict_1a9eb8a7f2d97c2232ac5e77fa90d9df04">r</link>(v,&#32;n=3):&#32;<emphasis role="keywordflow">return</emphasis>&#32;round(v,n)
+<anchor xml:id="_predict_8py_source_1l00175"/><link linkend="_namespacepredict_1aabf7895b0c2014fbaf861964feb49186">00175</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacepredict_1aabf7895b0c2014fbaf861964feb49186">rl</link>(l,&#32;n=3):&#32;<emphasis role="keywordflow">return</emphasis>&#32;str([<link linkend="_namespacepredict_1a9eb8a7f2d97c2232ac5e77fa90d9df04">r</link>(v,&#32;n)&#32;<emphasis role="keywordflow">for</emphasis>&#32;v&#32;<emphasis role="keywordflow">in</emphasis>&#32;l])
+<anchor xml:id="_predict_8py_source_1l00176"/>00176 
+<anchor xml:id="_predict_8py_source_1l00177"/><link linkend="_namespacepredict_1ad531a3e16645e8674c98c955cf8d8878">00177</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacepredict_1ad531a3e16645e8674c98c955cf8d8878">is_false</link>(s):
+<anchor xml:id="_predict_8py_source_1l00178"/>00178 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;s.lower()&#32;==&#32;<emphasis role="stringliteral">&apos;true&apos;</emphasis>:
+<anchor xml:id="_predict_8py_source_1l00179"/>00179 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;0
+<anchor xml:id="_predict_8py_source_1l00180"/>00180 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">elif</emphasis>&#32;s.lower()&#32;==&#32;<emphasis role="stringliteral">&apos;false&apos;</emphasis>:
+<anchor xml:id="_predict_8py_source_1l00181"/>00181 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;1
+<anchor xml:id="_predict_8py_source_1l00182"/>00182 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>:
+<anchor xml:id="_predict_8py_source_1l00183"/>00183 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>
+<anchor xml:id="_predict_8py_source_1l00184"/>00184 
+<anchor xml:id="_predict_8py_source_1l00185"/><link linkend="_namespacepredict_1a599dbaaf3e028846b0a9caa9488934df">00185</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacepredict_1a599dbaaf3e028846b0a9caa9488934df">read_data</link>(fname):
+<anchor xml:id="_predict_8py_source_1l00186"/>00186 &#32;&#32;&#32;&#32;
+<anchor xml:id="_predict_8py_source_1l00187"/>00187 &#32;&#32;&#32;&#32;<emphasis role="keyword">with</emphasis>&#32;open(fname)&#32;<emphasis role="keyword">as</emphasis>&#32;f:
+<anchor xml:id="_predict_8py_source_1l00188"/>00188 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;lines&#32;=&#32;f.readlines()
+<anchor xml:id="_predict_8py_source_1l00189"/>00189 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;data&#32;=&#32;[]
+<anchor xml:id="_predict_8py_source_1l00190"/>00190 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;line&#32;<emphasis role="keywordflow">in</emphasis>&#32;lines:
+<anchor xml:id="_predict_8py_source_1l00191"/>00191 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;l&#32;=&#32;line.split()
+<anchor xml:id="_predict_8py_source_1l00192"/>00192 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;len(l)&#32;&lt;&#32;2:
+<anchor xml:id="_predict_8py_source_1l00193"/>00193 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>
+<anchor xml:id="_predict_8py_source_1l00194"/>00194 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;len(l)&#32;&lt;&#32;6:
+<anchor xml:id="_predict_8py_source_1l00195"/>00195 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;incumbant&#32;=&#32;l[-1]
+<anchor xml:id="_predict_8py_source_1l00196"/>00196 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>:
+<anchor xml:id="_predict_8py_source_1l00197"/>00197 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;winner&#32;=&#32;l[-1]
+<anchor xml:id="_predict_8py_source_1l00198"/>00198 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;prop_vals&#32;=&#32;np.array([<link linkend="_namespacepredict_1ad531a3e16645e8674c98c955cf8d8878">is_false</link>(s)&#32;<emphasis role="keywordflow">for</emphasis>&#32;s&#32;<emphasis role="keywordflow">in</emphasis>&#32;l&#32;<emphasis role="keywordflow">if</emphasis>&#32;<emphasis role="keywordflow">not</emphasis>&#32;<link linkend="_namespacepredict_1ad531a3e16645e8674c98c955cf8d8878">is_false</link>(s)&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>])
+<anchor xml:id="_predict_8py_source_1l00199"/>00199 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_predict_8py_source_1l00200"/>00200 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#print(prop_vals,&#32;sum(prop_vals),&#32;incumbant&#32;==&#32;winner,&#32;(incumbant&#32;==&#32;winner)&#32;==&#32;(sum(prop_vals)&#32;&gt;&#32;5))</emphasis>
+<anchor xml:id="_predict_8py_source_1l00201"/>00201 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(incumbant&#32;==&#32;winner)&#32;!=&#32;(sum(prop_vals)&#32;&gt;&#32;5):
+<anchor xml:id="_predict_8py_source_1l00202"/>00202 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;print(<emphasis role="stringliteral">&quot;exclude&quot;</emphasis>,&#32;prop_vals,&#32;sum(prop_vals),&#32;incumbant&#32;==&#32;winner,&#32;(incumbant&#32;==&#32;winner)&#32;==&#32;(sum(prop_vals)&#32;&gt;&#32;5),&#32;file=sys.stderr)
+<anchor xml:id="_predict_8py_source_1l00203"/>00203 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>:&#32;<emphasis role="comment">#&#32;use&#32;only&#32;correct&#32;predictions:</emphasis>
+<anchor xml:id="_predict_8py_source_1l00204"/>00204 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;data.append((prop_vals,&#32;incumbant&#32;==&#32;winner))&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_predict_8py_source_1l00205"/>00205 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;data
+<anchor xml:id="_predict_8py_source_1l00206"/>00206 
+<anchor xml:id="_predict_8py_source_1l00207"/><link linkend="_namespacepredict_1afdbf92a42255fcb6b3887ac00ea347f9">00207</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacepredict_1afdbf92a42255fcb6b3887ac00ea347f9">collect_all_data</link>():
+<anchor xml:id="_predict_8py_source_1l00208"/>00208 &#32;&#32;&#32;&#32;data_old&#32;=&#32;<link linkend="_namespacepredict_1a599dbaaf3e028846b0a9caa9488934df">read_data</link>(<emphasis role="stringliteral">&apos;data_old.txt&apos;</emphasis>)
+<anchor xml:id="_predict_8py_source_1l00209"/>00209 &#32;&#32;&#32;&#32;data_new&#32;=&#32;<link linkend="_namespacepredict_1a599dbaaf3e028846b0a9caa9488934df">read_data</link>(<emphasis role="stringliteral">&apos;data_new.txt&apos;</emphasis>)
+<anchor xml:id="_predict_8py_source_1l00210"/>00210 &#32;&#32;&#32;&#32;data&#32;=&#32;data_old&#32;+&#32;data_new
+<anchor xml:id="_predict_8py_source_1l00211"/>00211 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;check&#32;all&#32;predictions</emphasis>
+<anchor xml:id="_predict_8py_source_1l00212"/>00212 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;props,&#32;inc_is_winner&#32;<emphasis role="keywordflow">in</emphasis>&#32;data:
+<anchor xml:id="_predict_8py_source_1l00213"/>00213 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;inc_is_winner&#32;!=&#32;(sum(props)&#32;&gt;&#32;5):
+<anchor xml:id="_predict_8py_source_1l00214"/>00214 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;print(<emphasis role="stringliteral">&quot;error,&#32;sum&#32;props&quot;</emphasis>,&#32;sum(props),&#32;<emphasis role="stringliteral">&quot;incumbant&#32;is&#32;winner&quot;</emphasis>,&#32;inc_is_winner,&#32;file=sys.stderr)
+<anchor xml:id="_predict_8py_source_1l00215"/>00215 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;data
+<anchor xml:id="_predict_8py_source_1l00216"/>00216 
+<anchor xml:id="_predict_8py_source_1l00217"/>00217 <emphasis role="comment">#&#32;optimize&#32;the&#32;correct&#32;predictions&#32;for&#32;a&#32;given&#32;model&#32;defined&#32;by&#32;its&#32;weights&#32;+&#32;limit</emphasis>
+<anchor xml:id="_predict_8py_source_1l00218"/><link linkend="_namespacepredict_1ae7622bff7fe9037ec444e436cb460d90">00218</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacepredict_1ae7622bff7fe9037ec444e436cb460d90">fit</link>(n,&#32;props,&#32;inc_is_winner,&#32;x):
+<anchor xml:id="_predict_8py_source_1l00219"/>00219 &#32;&#32;&#32;&#32;weights&#32;=&#32;x[:-1]
+<anchor xml:id="_predict_8py_source_1l00220"/>00220 &#32;&#32;&#32;&#32;limit&#32;=&#32;x[-1]
+<anchor xml:id="_predict_8py_source_1l00221"/>00221 &#32;&#32;&#32;&#32;weights&#32;*=&#32;len(weights)/sum(weights)&#32;<emphasis role="comment">#&#32;normalize&#32;weights&#32;so&#32;that&#32;sum&#32;is&#32;num_props</emphasis>
+<anchor xml:id="_predict_8py_source_1l00222"/>00222 &#32;&#32;&#32;&#32;weighted_props&#32;=&#32;weights*props
+<anchor xml:id="_predict_8py_source_1l00223"/>00223 &#32;&#32;&#32;&#32;num_correct&#32;=&#32;sum(&#32;[&#32;inc_is_winner[i]&#32;==&#32;(sum(weighted_props[i])&#32;&gt;&#32;limit)&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(n)]&#32;)
+<anchor xml:id="_predict_8py_source_1l00224"/>00224 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;-num_correct
+<anchor xml:id="_predict_8py_source_1l00225"/>00225 
+<anchor xml:id="_predict_8py_source_1l00226"/>00226 <emphasis role="comment">#&#32;show&#32;10&#32;solution&#32;models&#32;for&#32;&quot;Harris&#32;wins&quot;&#32;and&#32;10&#32;for&#32;&quot;Harris&#32;looses&quot;</emphasis>
+<anchor xml:id="_predict_8py_source_1l00227"/><link linkend="_namespacepredict_1ad077eccae37490e4ed56b294cbd4befd">00227</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacepredict_1ad077eccae37490e4ed56b294cbd4befd">find_other_model</link>(data,&#32;harris_predict&#32;=&#32;True):
+<anchor xml:id="_predict_8py_source_1l00228"/>00228 &#32;&#32;&#32;&#32;
+<anchor xml:id="_predict_8py_source_1l00229"/>00229 &#32;&#32;&#32;&#32;props&#32;=&#32;np.array([d[0]&#32;<emphasis role="keywordflow">for</emphasis>&#32;d&#32;<emphasis role="keywordflow">in</emphasis>&#32;data])
+<anchor xml:id="_predict_8py_source_1l00230"/>00230 &#32;&#32;&#32;&#32;inc_is_winner&#32;=&#32;np.array([d[1]&#32;<emphasis role="keywordflow">for</emphasis>&#32;d&#32;<emphasis role="keywordflow">in</emphasis>&#32;data])
+<anchor xml:id="_predict_8py_source_1l00231"/>00231 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;set&#32;for&#32;harris&#32;-&#32;last&#32;prediction</emphasis>
+<anchor xml:id="_predict_8py_source_1l00232"/>00232 &#32;&#32;&#32;&#32;inc_is_winner[-1]&#32;=&#32;harris_predict
+<anchor xml:id="_predict_8py_source_1l00233"/>00233 &#32;&#32;&#32;&#32;
+<anchor xml:id="_predict_8py_source_1l00234"/>00234 &#32;&#32;&#32;&#32;n&#32;=&#32;len(data)
+<anchor xml:id="_predict_8py_source_1l00235"/>00235 &#32;&#32;&#32;&#32;num_props&#32;=&#32;13
+<anchor xml:id="_predict_8py_source_1l00236"/>00236 &#32;&#32;&#32;&#32;dim&#32;=&#32;num_props&#32;+&#32;1
+<anchor xml:id="_predict_8py_source_1l00237"/>00237 &#32;&#32;&#32;&#32;lb&#32;=&#32;[0.0]*dim
+<anchor xml:id="_predict_8py_source_1l00238"/>00238 &#32;&#32;&#32;&#32;ub&#32;=&#32;[1.0]*num_props&#32;+&#32;[13.0]
+<anchor xml:id="_predict_8py_source_1l00239"/>00239 &#32;&#32;&#32;&#32;bounds&#32;=&#32;Bounds(lb,ub)
+<anchor xml:id="_predict_8py_source_1l00240"/>00240 &#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_predict_8py_source_1l00241"/>00241 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(10):
+<anchor xml:id="_predict_8py_source_1l00242"/>00242 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ret&#32;=&#32;retry.minimize(partial(fit,&#32;n,&#32;props,&#32;inc_is_winner),&#32;bounds,&#32;optimizer=<link linkend="_classfcmaes_1_1optimizer_1_1_bite__cpp">Bite_cpp</link>(1000),
+<anchor xml:id="_predict_8py_source_1l00243"/>00243 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;num_retries=32)
+<anchor xml:id="_predict_8py_source_1l00244"/>00244 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;weights&#32;=&#32;ret.x[:-1]
+<anchor xml:id="_predict_8py_source_1l00245"/>00245 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;limit&#32;=&#32;ret.x[-1]
+<anchor xml:id="_predict_8py_source_1l00246"/>00246 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;weights&#32;*=&#32;num_props/sum(weights)&#32;<emphasis role="comment">#&#32;normalize&#32;weights&#32;so&#32;that&#32;sum&#32;is&#32;num_props</emphasis>
+<anchor xml:id="_predict_8py_source_1l00247"/>00247 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">print</emphasis>&#32;(<emphasis role="stringliteral">&quot;num&#32;correct&quot;</emphasis>,&#32;-ret.fun,&#32;<emphasis role="stringliteral">&quot;weights&quot;</emphasis>,&#32;<link linkend="_namespacepredict_1aabf7895b0c2014fbaf861964feb49186">rl</link>(list(weights)),&#32;<emphasis role="stringliteral">&quot;limit&quot;</emphasis>,&#32;<link linkend="_namespacepredict_1a9eb8a7f2d97c2232ac5e77fa90d9df04">r</link>(limit))
+<anchor xml:id="_predict_8py_source_1l00248"/>00248 
+<anchor xml:id="_predict_8py_source_1l00249"/><link linkend="_namespacepredict_1ad246ba8a830fe9fd72e974cf6daeaff8">00249</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacepredict_1ad246ba8a830fe9fd72e974cf6daeaff8">test_harris_prediciton</link>():
+<anchor xml:id="_predict_8py_source_1l00250"/>00250 &#32;&#32;&#32;&#32;data&#32;=&#32;<link linkend="_namespacepredict_1afdbf92a42255fcb6b3887ac00ea347f9">collect_all_data</link>()
+<anchor xml:id="_predict_8py_source_1l00251"/>00251 &#32;&#32;&#32;&#32;print(<emphasis role="stringliteral">&quot;Harris&#32;looses&quot;</emphasis>)
+<anchor xml:id="_predict_8py_source_1l00252"/>00252 &#32;&#32;&#32;&#32;<link linkend="_namespacepredict_1ad077eccae37490e4ed56b294cbd4befd">find_other_model</link>(data,&#32;harris_predict&#32;=&#32;<emphasis role="keyword">True</emphasis>)&#32;<emphasis role="comment">#&#32;challenger&#32;(Trump)&#32;wins</emphasis>
+<anchor xml:id="_predict_8py_source_1l00253"/>00253 &#32;&#32;&#32;&#32;print(<emphasis role="stringliteral">&quot;Harris&#32;wins&quot;</emphasis>)
+<anchor xml:id="_predict_8py_source_1l00254"/>00254 &#32;&#32;&#32;&#32;<link linkend="_namespacepredict_1ad077eccae37490e4ed56b294cbd4befd">find_other_model</link>(data,&#32;harris_predict&#32;=&#32;<emphasis role="keyword">False</emphasis>)&#32;<emphasis role="comment">#&#32;challenger&#32;(Trump)&#32;looses</emphasis>
+<anchor xml:id="_predict_8py_source_1l00255"/>00255 
+<anchor xml:id="_predict_8py_source_1l00256"/>00256 <emphasis role="comment">#&#32;optimize&#32;the&#32;correct&#32;predictions&#32;for&#32;a&#32;given&#32;model&#32;defined&#32;by&#32;its&#32;weights&#32;+&#32;limit</emphasis>
+<anchor xml:id="_predict_8py_source_1l00257"/>00257 <emphasis role="comment">#&#32;maximize&#32;an&#32;epsilon&#32;around&#32;the&#32;limit&#32;to&#32;improve&#32;robustness</emphasis>
+<anchor xml:id="_predict_8py_source_1l00258"/><link linkend="_namespacepredict_1a4507d36f763c4844a0397a6d87c04351">00258</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacepredict_1a4507d36f763c4844a0397a6d87c04351">fit_eps</link>(n,&#32;props,&#32;inc_is_winner,&#32;x):
+<anchor xml:id="_predict_8py_source_1l00259"/>00259 &#32;&#32;&#32;&#32;weights&#32;=&#32;x[:-2]
+<anchor xml:id="_predict_8py_source_1l00260"/>00260 &#32;&#32;&#32;&#32;eps&#32;=&#32;x[-1]
+<anchor xml:id="_predict_8py_source_1l00261"/>00261 &#32;&#32;&#32;&#32;limit&#32;=&#32;x[-2]
+<anchor xml:id="_predict_8py_source_1l00262"/>00262 &#32;&#32;&#32;&#32;weights&#32;*=&#32;len(weights)/sum(weights)&#32;<emphasis role="comment">#&#32;normalize&#32;weights&#32;so&#32;that&#32;sum&#32;is&#32;num_props</emphasis>
+<anchor xml:id="_predict_8py_source_1l00263"/>00263 &#32;&#32;&#32;&#32;weighted_props&#32;=&#32;weights*props
+<anchor xml:id="_predict_8py_source_1l00264"/>00264 &#32;&#32;&#32;&#32;num_correct1&#32;=&#32;sum(&#32;[&#32;inc_is_winner[i]&#32;==&#32;(sum(weighted_props[i])&#32;&gt;&#32;limit&#32;+&#32;eps)&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(n)]&#32;)
+<anchor xml:id="_predict_8py_source_1l00265"/>00265 &#32;&#32;&#32;&#32;num_correct2&#32;=&#32;sum(&#32;[&#32;(<emphasis role="keywordflow">not</emphasis>&#32;inc_is_winner[i])&#32;==&#32;(sum(weighted_props[i])&#32;&lt;&#32;limit&#32;-&#32;eps)&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(n)]&#32;)
+<anchor xml:id="_predict_8py_source_1l00266"/>00266 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;-&#32;(num_correct1&#32;+&#32;num_correct2&#32;+&#32;0.1*eps)
+<anchor xml:id="_predict_8py_source_1l00267"/>00267 
+<anchor xml:id="_predict_8py_source_1l00268"/>00268 <emphasis role="comment">#&#32;show&#32;10&#32;solution&#32;models&#32;for&#32;&quot;Harris&#32;wins&quot;&#32;and&#32;10&#32;for&#32;&quot;Harris&#32;looses&quot;&#32;thereby&#32;maximizing&#32;epsilon</emphasis>
+<anchor xml:id="_predict_8py_source_1l00269"/><link linkend="_namespacepredict_1af5ad07c8bb3af886e070227f63a64f49">00269</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacepredict_1af5ad07c8bb3af886e070227f63a64f49">find_other_model_eps</link>(data,&#32;harris_predict&#32;=&#32;True):
+<anchor xml:id="_predict_8py_source_1l00270"/>00270 &#32;&#32;&#32;&#32;
+<anchor xml:id="_predict_8py_source_1l00271"/>00271 &#32;&#32;&#32;&#32;props&#32;=&#32;np.array([d[0]&#32;<emphasis role="keywordflow">for</emphasis>&#32;d&#32;<emphasis role="keywordflow">in</emphasis>&#32;data])
+<anchor xml:id="_predict_8py_source_1l00272"/>00272 &#32;&#32;&#32;&#32;inc_is_winner&#32;=&#32;np.array([d[1]&#32;<emphasis role="keywordflow">for</emphasis>&#32;d&#32;<emphasis role="keywordflow">in</emphasis>&#32;data])
+<anchor xml:id="_predict_8py_source_1l00273"/>00273 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;set&#32;for&#32;harris&#32;-&#32;last&#32;prediction</emphasis>
+<anchor xml:id="_predict_8py_source_1l00274"/>00274 &#32;&#32;&#32;&#32;inc_is_winner[-1]&#32;=&#32;harris_predict
+<anchor xml:id="_predict_8py_source_1l00275"/>00275 &#32;&#32;&#32;&#32;
+<anchor xml:id="_predict_8py_source_1l00276"/>00276 &#32;&#32;&#32;&#32;n&#32;=&#32;len(data)
+<anchor xml:id="_predict_8py_source_1l00277"/>00277 &#32;&#32;&#32;&#32;num_props&#32;=&#32;13
+<anchor xml:id="_predict_8py_source_1l00278"/>00278 &#32;&#32;&#32;&#32;dim&#32;=&#32;num_props&#32;+&#32;2
+<anchor xml:id="_predict_8py_source_1l00279"/>00279 &#32;&#32;&#32;&#32;lb&#32;=&#32;[0.0]*dim
+<anchor xml:id="_predict_8py_source_1l00280"/>00280 &#32;&#32;&#32;&#32;ub&#32;=&#32;[1.0]*num_props&#32;+&#32;[13.0]&#32;+&#32;[4.999]
+<anchor xml:id="_predict_8py_source_1l00281"/>00281 &#32;&#32;&#32;&#32;bounds&#32;=&#32;Bounds(lb,ub)
+<anchor xml:id="_predict_8py_source_1l00282"/>00282 &#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_predict_8py_source_1l00283"/>00283 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(10):
+<anchor xml:id="_predict_8py_source_1l00284"/>00284 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ret&#32;=&#32;retry.minimize(partial(fit_eps,&#32;n,&#32;props,&#32;inc_is_winner),&#32;bounds,&#32;optimizer=<link linkend="_classfcmaes_1_1optimizer_1_1_bite__cpp">Bite_cpp</link>(5000),
+<anchor xml:id="_predict_8py_source_1l00285"/>00285 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;num_retries=32)
+<anchor xml:id="_predict_8py_source_1l00286"/>00286 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;weights&#32;=&#32;ret.x[:-2]
+<anchor xml:id="_predict_8py_source_1l00287"/>00287 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;limit&#32;=&#32;ret.x[-2]
+<anchor xml:id="_predict_8py_source_1l00288"/>00288 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;eps&#32;=&#32;ret.x[-1]
+<anchor xml:id="_predict_8py_source_1l00289"/>00289 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;weights&#32;*=&#32;num_props/sum(weights)&#32;<emphasis role="comment">#&#32;normalize&#32;weights&#32;so&#32;that&#32;sum&#32;is&#32;num_props</emphasis>
+<anchor xml:id="_predict_8py_source_1l00290"/>00290 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;corr&#32;=&#32;int(-ret.fun)&#32;/&#32;2
+<anchor xml:id="_predict_8py_source_1l00291"/>00291 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">print</emphasis>&#32;(<emphasis role="stringliteral">&quot;num&#32;correct&quot;</emphasis>,&#32;corr,&#32;<emphasis role="stringliteral">&quot;eps&quot;</emphasis>,&#32;<link linkend="_namespacepredict_1a9eb8a7f2d97c2232ac5e77fa90d9df04">r</link>(eps),&#32;<emphasis role="stringliteral">&quot;weights&quot;</emphasis>,&#32;<link linkend="_namespacepredict_1aabf7895b0c2014fbaf861964feb49186">rl</link>(list(weights)),&#32;<emphasis role="stringliteral">&quot;limit&quot;</emphasis>,&#32;<link linkend="_namespacepredict_1a9eb8a7f2d97c2232ac5e77fa90d9df04">r</link>(limit))
+<anchor xml:id="_predict_8py_source_1l00292"/>00292 
+<anchor xml:id="_predict_8py_source_1l00293"/><link linkend="_namespacepredict_1ad721282821c568630118f56abb709e48">00293</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacepredict_1ad721282821c568630118f56abb709e48">test_harris_prediciton_eps</link>():
+<anchor xml:id="_predict_8py_source_1l00294"/>00294 &#32;&#32;&#32;&#32;data&#32;=&#32;<link linkend="_namespacepredict_1afdbf92a42255fcb6b3887ac00ea347f9">collect_all_data</link>()
+<anchor xml:id="_predict_8py_source_1l00295"/>00295 &#32;&#32;&#32;&#32;print(<emphasis role="stringliteral">&quot;Harris&#32;looses&quot;</emphasis>)
+<anchor xml:id="_predict_8py_source_1l00296"/>00296 &#32;&#32;&#32;&#32;<link linkend="_namespacepredict_1af5ad07c8bb3af886e070227f63a64f49">find_other_model_eps</link>(data,&#32;harris_predict&#32;=&#32;<emphasis role="keyword">True</emphasis>)&#32;<emphasis role="comment">#&#32;challenger&#32;(Trump)&#32;wins</emphasis>
+<anchor xml:id="_predict_8py_source_1l00297"/>00297 &#32;&#32;&#32;&#32;print(<emphasis role="stringliteral">&quot;Harris&#32;wins&quot;</emphasis>)
+<anchor xml:id="_predict_8py_source_1l00298"/>00298 &#32;&#32;&#32;&#32;<link linkend="_namespacepredict_1af5ad07c8bb3af886e070227f63a64f49">find_other_model_eps</link>(data,&#32;harris_predict&#32;=&#32;<emphasis role="keyword">False</emphasis>)&#32;<emphasis role="comment">#&#32;challenger&#32;(Trump)&#32;looses</emphasis>
+<anchor xml:id="_predict_8py_source_1l00299"/>00299 
+<anchor xml:id="_predict_8py_source_1l00300"/><link linkend="_namespacepredict_1a78af025818b30b1095a47b0c156e5bf5">00300</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacepredict_1a78af025818b30b1095a47b0c156e5bf5">single_sum</link>(n,&#32;single_props,&#32;weights):
+<anchor xml:id="_predict_8py_source_1l00301"/>00301 &#32;&#32;&#32;&#32;weights&#32;*=&#32;len(weights)/sum(weights)&#32;<emphasis role="comment">#&#32;normalize&#32;weights&#32;so&#32;that&#32;sum&#32;is&#32;num_props</emphasis>
+<anchor xml:id="_predict_8py_source_1l00302"/>00302 &#32;&#32;&#32;&#32;weighted_props&#32;=&#32;weights*single_props
+<anchor xml:id="_predict_8py_source_1l00303"/>00303 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;np.sum(weighted_props)
+<anchor xml:id="_predict_8py_source_1l00304"/>00304 
+<anchor xml:id="_predict_8py_source_1l00305"/><link linkend="_namespacepredict_1ae74d61a5e7d5bd7326999923fe2a4f05">00305</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacepredict_1ae74d61a5e7d5bd7326999923fe2a4f05">find_harris_estimate_eps</link>(data):
+<anchor xml:id="_predict_8py_source_1l00306"/>00306 &#32;&#32;&#32;&#32;
+<anchor xml:id="_predict_8py_source_1l00307"/>00307 &#32;&#32;&#32;&#32;harris_data&#32;=&#32;data[-1:]&#32;<emphasis role="comment">#&#32;harris&#32;props</emphasis>
+<anchor xml:id="_predict_8py_source_1l00308"/>00308 &#32;&#32;&#32;&#32;single_props&#32;=&#32;harris_data[0][0]
+<anchor xml:id="_predict_8py_source_1l00309"/>00309 &#32;&#32;&#32;&#32;
+<anchor xml:id="_predict_8py_source_1l00310"/>00310 &#32;&#32;&#32;&#32;data&#32;=&#32;data[:-1]&#32;<emphasis role="comment">#&#32;remove&#32;harris&#32;result</emphasis>
+<anchor xml:id="_predict_8py_source_1l00311"/>00311 &#32;&#32;&#32;&#32;props&#32;=&#32;np.array([d[0]&#32;<emphasis role="keywordflow">for</emphasis>&#32;d&#32;<emphasis role="keywordflow">in</emphasis>&#32;data])
+<anchor xml:id="_predict_8py_source_1l00312"/>00312 &#32;&#32;&#32;&#32;inc_is_winner&#32;=&#32;np.array([d[1]&#32;<emphasis role="keywordflow">for</emphasis>&#32;d&#32;<emphasis role="keywordflow">in</emphasis>&#32;data])
+<anchor xml:id="_predict_8py_source_1l00313"/>00313 &#32;&#32;&#32;&#32;
+<anchor xml:id="_predict_8py_source_1l00314"/>00314 &#32;&#32;&#32;&#32;n&#32;=&#32;len(data)
+<anchor xml:id="_predict_8py_source_1l00315"/>00315 &#32;&#32;&#32;&#32;num_props&#32;=&#32;13
+<anchor xml:id="_predict_8py_source_1l00316"/>00316 &#32;&#32;&#32;&#32;dim&#32;=&#32;num_props&#32;+&#32;2
+<anchor xml:id="_predict_8py_source_1l00317"/>00317 &#32;&#32;&#32;&#32;lb&#32;=&#32;[0.0]*dim
+<anchor xml:id="_predict_8py_source_1l00318"/>00318 &#32;&#32;&#32;&#32;ub&#32;=&#32;[1.0]*num_props&#32;+&#32;[13.0]&#32;+&#32;[4.999]
+<anchor xml:id="_predict_8py_source_1l00319"/>00319 &#32;&#32;&#32;&#32;bounds&#32;=&#32;Bounds(lb,ub)
+<anchor xml:id="_predict_8py_source_1l00320"/>00320 &#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_predict_8py_source_1l00321"/>00321 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(10):
+<anchor xml:id="_predict_8py_source_1l00322"/>00322 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ret&#32;=&#32;retry.minimize(partial(fit_eps,&#32;n,&#32;props,&#32;inc_is_winner),&#32;bounds,&#32;optimizer=<link linkend="_classfcmaes_1_1optimizer_1_1_bite__cpp">Bite_cpp</link>(5000),
+<anchor xml:id="_predict_8py_source_1l00323"/>00323 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;num_retries=32)
+<anchor xml:id="_predict_8py_source_1l00324"/>00324 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;weights&#32;=&#32;ret.x[:-2]
+<anchor xml:id="_predict_8py_source_1l00325"/>00325 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;limit&#32;=&#32;ret.x[-2]
+<anchor xml:id="_predict_8py_source_1l00326"/>00326 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;eps&#32;=&#32;ret.x[-1]
+<anchor xml:id="_predict_8py_source_1l00327"/>00327 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;weights&#32;*=&#32;num_props/sum(weights)&#32;<emphasis role="comment">#&#32;normalize&#32;weights&#32;so&#32;that&#32;sum&#32;is&#32;num_props</emphasis>
+<anchor xml:id="_predict_8py_source_1l00328"/>00328 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;corr&#32;=&#32;int(-ret.fun)&#32;/&#32;2
+<anchor xml:id="_predict_8py_source_1l00329"/>00329 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">print</emphasis>&#32;(<emphasis role="stringliteral">&quot;num&#32;correct&quot;</emphasis>,&#32;corr,&#32;<emphasis role="stringliteral">&quot;eps&quot;</emphasis>,&#32;<link linkend="_namespacepredict_1a9eb8a7f2d97c2232ac5e77fa90d9df04">r</link>(eps),&#32;<emphasis role="stringliteral">&quot;weights&quot;</emphasis>,&#32;<link linkend="_namespacepredict_1aabf7895b0c2014fbaf861964feb49186">rl</link>(list(weights)),&#32;<emphasis role="stringliteral">&quot;limit&quot;</emphasis>,&#32;<link linkend="_namespacepredict_1a9eb8a7f2d97c2232ac5e77fa90d9df04">r</link>(limit))
+<anchor xml:id="_predict_8py_source_1l00330"/>00330 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">print</emphasis>&#32;(f<emphasis role="stringliteral">&apos;if&#32;sum&#32;is&#32;&gt;&#32;{r(limit+eps)}&#32;challenger&#32;wins,&#32;&#32;if&#32;sum&#32;is&#32;&lt;&#32;{r(limit-eps)}&#32;challenger&#32;looses&apos;</emphasis>)
+<anchor xml:id="_predict_8py_source_1l00331"/>00331 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;for&#32;i&#32;in&#32;range(len(data)):&#32;#&#32;uncomment&#32;to&#32;verify&#32;old&#32;predictions</emphasis>
+<anchor xml:id="_predict_8py_source_1l00332"/>00332 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;&#32;&#32;&#32;&#32;print(f&apos;election&#32;{i},&#32;challenger&#32;wins&#32;=&#32;{inc_is_winner[i]},&#32;sum&#32;=&#32;{r(single_sum(n,&#32;props[i],&#32;weights))}&apos;)</emphasis>
+<anchor xml:id="_predict_8py_source_1l00333"/>00333 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;print(f<emphasis role="stringliteral">&apos;2024&#32;election,&#32;challenger&#32;wins&#32;=&#32;?,&#32;sum&#32;=&#32;{r(single_sum(n,&#32;single_props,&#32;weights))}&apos;</emphasis>)
+<anchor xml:id="_predict_8py_source_1l00334"/>00334 
+<anchor xml:id="_predict_8py_source_1l00335"/><link linkend="_namespacepredict_1a3a578b72e4180dffe78dd9382cb34426">00335</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacepredict_1a3a578b72e4180dffe78dd9382cb34426">test_harris_estimate_eps</link>():
+<anchor xml:id="_predict_8py_source_1l00336"/>00336 &#32;&#32;&#32;&#32;data&#32;=&#32;<link linkend="_namespacepredict_1afdbf92a42255fcb6b3887ac00ea347f9">collect_all_data</link>()
+<anchor xml:id="_predict_8py_source_1l00337"/>00337 &#32;&#32;&#32;&#32;print(<emphasis role="stringliteral">&quot;without&#32;Harris&#32;election&quot;</emphasis>)
+<anchor xml:id="_predict_8py_source_1l00338"/>00338 &#32;&#32;&#32;&#32;<link linkend="_namespacepredict_1ae74d61a5e7d5bd7326999923fe2a4f05">find_harris_estimate_eps</link>(data)&#32;
+<anchor xml:id="_predict_8py_source_1l00339"/>00339 
+<anchor xml:id="_predict_8py_source_1l00340"/>00340 <emphasis role="keywordflow">if</emphasis>&#32;__name__&#32;==&#32;<emphasis role="stringliteral">&apos;__main__&apos;</emphasis>:
+<anchor xml:id="_predict_8py_source_1l00341"/>00341 &#32;&#32;&#32;&#32;<link linkend="_namespacepredict_1ad246ba8a830fe9fd72e974cf6daeaff8">test_harris_prediciton</link>()
+<anchor xml:id="_predict_8py_source_1l00342"/>00342 &#32;&#32;&#32;&#32;<link linkend="_namespacepredict_1ad721282821c568630118f56abb709e48">test_harris_prediciton_eps</link>()
+<anchor xml:id="_predict_8py_source_1l00343"/>00343 &#32;&#32;&#32;&#32;<link linkend="_namespacepredict_1a3a578b72e4180dffe78dd9382cb34426">test_harris_estimate_eps</link>()
+<anchor xml:id="_predict_8py_source_1l00344"/>00344 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">pass</emphasis>
+</programlisting></section>

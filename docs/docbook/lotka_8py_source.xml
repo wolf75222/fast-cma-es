@@ -1,0 +1,121 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_lotka_8py_source" xml:lang="en-US">
+<title>lotka.py</title>
+<indexterm><primary>examples/lotka.py</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_lotka_8py_source_1l00001"/><link linkend="_namespaceexamples_1_1lotka">00001</link> <emphasis role="comment">#&#32;Copyright&#32;(c)&#32;Dietmar&#32;Wolz.</emphasis>
+<anchor xml:id="_lotka_8py_source_1l00002"/>00002 <emphasis role="comment">#</emphasis>
+<anchor xml:id="_lotka_8py_source_1l00003"/>00003 <emphasis role="comment">#&#32;This&#32;source&#32;code&#32;is&#32;licensed&#32;under&#32;the&#32;MIT&#32;license&#32;found&#32;in&#32;the</emphasis>
+<anchor xml:id="_lotka_8py_source_1l00004"/>00004 <emphasis role="comment">#&#32;LICENSE&#32;file&#32;in&#32;the&#32;root&#32;directory.</emphasis>
+<anchor xml:id="_lotka_8py_source_1l00005"/>00005 
+<anchor xml:id="_lotka_8py_source_1l00006"/>00006 <emphasis role="comment">#&#32;Tested&#32;using&#32;https://docs.conda.io/en/main/miniconda.html&#32;on&#32;Linux&#32;Mint&#32;21.2</emphasis>
+<anchor xml:id="_lotka_8py_source_1l00007"/>00007 
+<anchor xml:id="_lotka_8py_source_1l00008"/>00008 <emphasis role="keyword">import</emphasis>&#32;time,&#32;sys,&#32;warnings,&#32;math
+<anchor xml:id="_lotka_8py_source_1l00009"/>00009 
+<anchor xml:id="_lotka_8py_source_1l00010"/>00010 <emphasis role="keyword">from</emphasis>&#32;fcmaes&#32;<emphasis role="keyword">import</emphasis>&#32;retry,&#32;advretry
+<anchor xml:id="_lotka_8py_source_1l00011"/>00011 <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1optimizer">fcmaes.optimizer</link>&#32;<emphasis role="keyword">import</emphasis>&#32;de_cma,&#32;Bite_cpp,&#32;De_cpp,&#32;Cma_cpp,&#32;LDe_cpp,&#32;Minimize,&#32;dtime
+<anchor xml:id="_lotka_8py_source_1l00012"/>00012 <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1de">fcmaes.de</link>&#32;<emphasis role="keyword">import</emphasis>&#32;DE
+<anchor xml:id="_lotka_8py_source_1l00013"/>00013 <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1cmaes">fcmaes.cmaes</link>&#32;<emphasis role="keyword">import</emphasis>&#32;Cmaes
+<anchor xml:id="_lotka_8py_source_1l00014"/>00014 <emphasis role="keyword">import</emphasis>&#32;numpy&#32;<emphasis role="keyword">as</emphasis>&#32;np
+<anchor xml:id="_lotka_8py_source_1l00015"/>00015 <emphasis role="keyword">from</emphasis>&#32;scipy.integrate&#32;<emphasis role="keyword">import</emphasis>&#32;ode
+<anchor xml:id="_lotka_8py_source_1l00016"/>00016 <emphasis role="keyword">from</emphasis>&#32;scipy.optimize&#32;<emphasis role="keyword">import</emphasis>&#32;Bounds
+<anchor xml:id="_lotka_8py_source_1l00017"/>00017 
+<anchor xml:id="_lotka_8py_source_1l00018"/>00018 <emphasis role="keyword">import</emphasis>&#32;ctypes&#32;<emphasis role="keyword">as</emphasis>&#32;ct
+<anchor xml:id="_lotka_8py_source_1l00019"/>00019 <emphasis role="keyword">import</emphasis>&#32;multiprocessing&#32;<emphasis role="keyword">as</emphasis>&#32;mp&#32;
+<anchor xml:id="_lotka_8py_source_1l00020"/>00020 
+<anchor xml:id="_lotka_8py_source_1l00021"/>00021 <emphasis role="keyword">import</emphasis>&#32;sys&#32;
+<anchor xml:id="_lotka_8py_source_1l00022"/>00022 <emphasis role="keyword">from</emphasis>&#32;loguru&#32;<emphasis role="keyword">import</emphasis>&#32;logger
+<anchor xml:id="_lotka_8py_source_1l00023"/>00023 
+<anchor xml:id="_lotka_8py_source_1l00024"/>00024 logger.remove()
+<anchor xml:id="_lotka_8py_source_1l00025"/>00025 logger.add(sys.stdout,&#32;format=<emphasis role="stringliteral">&quot;{time:HH:mm:ss.SS}&#32;|&#32;{process}&#32;|&#32;{level}&#32;|&#32;{message}&quot;</emphasis>,&#32;level=<emphasis role="stringliteral">&quot;INFO&quot;</emphasis>)
+<anchor xml:id="_lotka_8py_source_1l00026"/>00026 logger.add(<emphasis role="stringliteral">&quot;log_{time}.txt&quot;</emphasis>,&#32;format=<emphasis role="stringliteral">&quot;{time:HH:mm:ss.SS}&#32;|&#32;{process}&#32;|&#32;{level}&#32;|&#32;{message}&quot;</emphasis>,&#32;level=<emphasis role="stringliteral">&quot;INFO&quot;</emphasis>)
+<anchor xml:id="_lotka_8py_source_1l00027"/>00027 
+<anchor xml:id="_lotka_8py_source_1l00028"/>00028 <emphasis role="comment">#&#32;Definition&#32;of&#32;parameters&#32;from&#32;https://scipy-cookbook.readthedocs.io/items/LoktaVolterraTutorial.html</emphasis>
+<anchor xml:id="_lotka_8py_source_1l00029"/>00029 a&#32;=&#32;1.
+<anchor xml:id="_lotka_8py_source_1l00030"/>00030 b&#32;=&#32;0.1
+<anchor xml:id="_lotka_8py_source_1l00031"/>00031 c&#32;=&#32;1.5
+<anchor xml:id="_lotka_8py_source_1l00032"/>00032 d&#32;=&#32;b*0.75
+<anchor xml:id="_lotka_8py_source_1l00033"/>00033 pop0&#32;=&#32;[10,&#32;5]&#32;<emphasis role="comment">#&#32;initial&#32;population&#32;10&#32;rabbits,&#32;5&#32;foxes&#32;at&#32;t0&#32;=&#32;0</emphasis>
+<anchor xml:id="_lotka_8py_source_1l00034"/>00034 dim&#32;=&#32;20&#32;<emphasis role="comment">#&#32;years</emphasis>
+<anchor xml:id="_lotka_8py_source_1l00035"/>00035 bounds&#32;=&#32;Bounds([-1]*dim,&#32;[1]*dim)&#32;<emphasis role="comment">#&#32;X[i]&#32;&lt;&#32;0&#32;means:&#32;no&#32;fox&#32;killing&#32;this&#32;year</emphasis>
+<anchor xml:id="_lotka_8py_source_1l00036"/>00036 
+<anchor xml:id="_lotka_8py_source_1l00037"/>00037 <emphasis role="comment">#&#32;Lodka&#32;Volterra&#32;differential&#32;equations&#32;</emphasis>
+<anchor xml:id="_lotka_8py_source_1l00038"/>00038 <emphasis role="comment">#&#32;Propagates&#32;a&#32;population&#32;of&#32;x&#32;rabbits&#32;and&#32;y&#32;foxes</emphasis>
+<anchor xml:id="_lotka_8py_source_1l00039"/>00039 <emphasis role="keyword">def&#32;</emphasis>lotkavolterra(t,&#32;pop,&#32;a,&#32;b,&#32;c,&#32;d):
+<anchor xml:id="_lotka_8py_source_1l00040"/>00040 &#32;&#32;&#32;&#32;x,&#32;y&#32;=&#32;pop
+<anchor xml:id="_lotka_8py_source_1l00041"/>00041 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;[a*x&#32;-&#32;b*x*y,&#32;-c*y&#32;+&#32;d*x*y]
+<anchor xml:id="_lotka_8py_source_1l00042"/>00042 
+<anchor xml:id="_lotka_8py_source_1l00043"/>00043 <emphasis role="keyword">def&#32;</emphasis>integrator():
+<anchor xml:id="_lotka_8py_source_1l00044"/>00044 &#32;&#32;&#32;&#32;I&#32;=&#32;ode(lotkavolterra)
+<anchor xml:id="_lotka_8py_source_1l00045"/>00045 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;see&#32;https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.ode.html</emphasis>
+<anchor xml:id="_lotka_8py_source_1l00046"/>00046 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;the&#32;“dopri5”&#32;integrator&#32;is&#32;reentrant</emphasis>
+<anchor xml:id="_lotka_8py_source_1l00047"/>00047 &#32;&#32;&#32;&#32;I.set_integrator(<emphasis role="stringliteral">&quot;dopri5&quot;</emphasis>,&#32;nsteps=1000,&#32;rtol=1e-6,&#32;atol=1e-6)
+<anchor xml:id="_lotka_8py_source_1l00048"/>00048 &#32;&#32;&#32;&#32;I.set_f_params(a,b,c,d)
+<anchor xml:id="_lotka_8py_source_1l00049"/>00049 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;I
+<anchor xml:id="_lotka_8py_source_1l00050"/>00050 
+<anchor xml:id="_lotka_8py_source_1l00051"/>00051 <emphasis role="keyword">def&#32;</emphasis>integrate(I,&#32;t):
+<anchor xml:id="_lotka_8py_source_1l00052"/>00052 &#32;&#32;&#32;&#32;<emphasis role="keyword">with</emphasis>&#32;warnings.catch_warnings():
+<anchor xml:id="_lotka_8py_source_1l00053"/>00053 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;warnings.simplefilter(<emphasis role="stringliteral">&quot;ignore&quot;</emphasis>)
+<anchor xml:id="_lotka_8py_source_1l00054"/>00054 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;I.integrate(t)
+<anchor xml:id="_lotka_8py_source_1l00055"/>00055 
+<anchor xml:id="_lotka_8py_source_1l00056"/>00056 <emphasis role="comment">#&#32;maximal&#32;rabbit&#32;population&#32;after&#32;dim&#32;years&#32;of&#32;fox&#32;killings&#32;</emphasis>
+<anchor xml:id="_lotka_8py_source_1l00057"/>00057 <emphasis role="keyword">class&#32;</emphasis>fitness(object):
+<anchor xml:id="_lotka_8py_source_1l00058"/>00058 
+<anchor xml:id="_lotka_8py_source_1l00059"/>00059 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis>__init__(self):
+<anchor xml:id="_lotka_8py_source_1l00060"/>00060 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.evals&#32;=&#32;mp.RawValue(ct.c_int,&#32;0)&#32;
+<anchor xml:id="_lotka_8py_source_1l00061"/>00061 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.best_y&#32;=&#32;mp.RawValue(ct.c_double,&#32;np.inf)&#32;
+<anchor xml:id="_lotka_8py_source_1l00062"/>00062 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.t0&#32;=&#32;time.perf_counter()
+<anchor xml:id="_lotka_8py_source_1l00063"/>00063 
+<anchor xml:id="_lotka_8py_source_1l00064"/>00064 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis>__call__(self,&#32;X):
+<anchor xml:id="_lotka_8py_source_1l00065"/>00065 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ts&#32;=&#32;[]
+<anchor xml:id="_lotka_8py_source_1l00066"/>00066 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;year,&#32;x&#32;<emphasis role="keywordflow">in</emphasis>&#32;enumerate(X):
+<anchor xml:id="_lotka_8py_source_1l00067"/>00067 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;x&#32;&gt;&#32;0:&#32;<emphasis role="comment">#&#32;should&#32;we&#32;kill&#32;a&#32;fox&#32;this&#32;year?&#32;</emphasis>
+<anchor xml:id="_lotka_8py_source_1l00068"/>00068 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ts.append(year&#32;+&#32;x)&#32;<emphasis role="comment">#&#32;when&#32;exactly?</emphasis>
+<anchor xml:id="_lotka_8py_source_1l00069"/>00069 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;I&#32;=&#32;integrator()
+<anchor xml:id="_lotka_8py_source_1l00070"/>00070 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;I.set_initial_value(pop0,&#32;0)
+<anchor xml:id="_lotka_8py_source_1l00071"/>00071 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(len(ts)):
+<anchor xml:id="_lotka_8py_source_1l00072"/>00072 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pop&#32;=&#32;integrate(I,&#32;ts[i])&#32;<emphasis role="comment">#&#32;propagate&#32;rabbit&#32;and&#32;fox&#32;population&#32;to&#32;ts[i]&#32;&#32;&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_lotka_8py_source_1l00073"/>00073 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pop[1]&#32;=&#32;max(1,&#32;pop[1]-1)&#32;<emphasis role="comment">#&#32;kill&#32;one&#32;fox,&#32;but&#32;keep&#32;at&#32;least&#32;one</emphasis>
+<anchor xml:id="_lotka_8py_source_1l00074"/>00074 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;I.set_initial_value(pop,&#32;ts[i])
+<anchor xml:id="_lotka_8py_source_1l00075"/>00075 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;value&#32;is&#32;maximal&#32;rabbit&#32;population&#32;during&#32;the&#32;following&#32;5&#32;years&#32;without&#32;fox&#32;killings</emphasis>
+<anchor xml:id="_lotka_8py_source_1l00076"/>00076 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;y&#32;=&#32;-max([integrate(I,&#32;t)[0]&#32;<emphasis role="keywordflow">for</emphasis>&#32;t&#32;<emphasis role="keywordflow">in</emphasis>&#32;np.linspace(dim,&#32;dim&#32;+&#32;5,&#32;50)])
+<anchor xml:id="_lotka_8py_source_1l00077"/>00077 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;book&#32;keeping&#32;and&#32;logging</emphasis>
+<anchor xml:id="_lotka_8py_source_1l00078"/>00078 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.evals.value&#32;+=&#32;1
+<anchor xml:id="_lotka_8py_source_1l00079"/>00079 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;y&#32;&lt;&#32;self.best_y.value:
+<anchor xml:id="_lotka_8py_source_1l00080"/>00080 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.best_y.value&#32;=&#32;y
+<anchor xml:id="_lotka_8py_source_1l00081"/>00081 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;logger.info(<emphasis role="stringliteral">&quot;nfev&#32;=&#32;{0}:&#32;t&#32;=&#32;{1:.1f}&#32;fval&#32;=&#32;{2:.3f}&#32;fox&#32;kill&#32;at&#32;{3:s}&#32;x&#32;=&#32;{4:s}&quot;</emphasis>
+<anchor xml:id="_lotka_8py_source_1l00082"/>00082 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;.format(self.evals.value,&#32;dtime(self.t0),&#32;y,&#32;str([round(t,2)&#32;<emphasis role="keywordflow">for</emphasis>&#32;t&#32;<emphasis role="keywordflow">in</emphasis>&#32;ts[:-1]]),&#32;str(list(X))))
+<anchor xml:id="_lotka_8py_source_1l00083"/>00083 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;y&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_lotka_8py_source_1l00084"/>00084 
+<anchor xml:id="_lotka_8py_source_1l00085"/>00085 <emphasis role="comment">#&#32;parallel&#32;optimization&#32;with&#32;smart&#32;boundary&#32;management,&#32;DE&#32;works&#32;best</emphasis>
+<anchor xml:id="_lotka_8py_source_1l00086"/>00086 <emphasis role="keyword">def&#32;</emphasis>smart_retry(opt&#32;=&#32;De_cpp(1500)):
+<anchor xml:id="_lotka_8py_source_1l00087"/>00087 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;advretry.minimize(fitness(),&#32;bounds,&#32;optimizer=opt,&#32;num_retries=50000,&#32;max_eval_fac=20)
+<anchor xml:id="_lotka_8py_source_1l00088"/>00088 
+<anchor xml:id="_lotka_8py_source_1l00089"/>00089 <emphasis role="comment">#&#32;parallel&#32;independent&#32;optimization,&#32;BiteOpt&#32;works&#32;best</emphasis>
+<anchor xml:id="_lotka_8py_source_1l00090"/>00090 <emphasis role="keyword">def&#32;</emphasis>parallel_retry(opt&#32;=&#32;Bite_cpp(100000,&#32;M=8)):
+<anchor xml:id="_lotka_8py_source_1l00091"/>00091 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;retry.minimize(fitness(),&#32;bounds,&#32;optimizer=opt)
+<anchor xml:id="_lotka_8py_source_1l00092"/>00092 
+<anchor xml:id="_lotka_8py_source_1l00093"/>00093 <emphasis role="comment">#&#32;parallel&#32;independent&#32;optimization&#32;for&#32;improvement&#32;of&#32;an&#32;existing&#32;solution.&#32;Bite_cpp,&#32;LDe_cpp&#32;and&#32;Cma_cpp&#32;can&#32;be&#32;used.</emphasis>
+<anchor xml:id="_lotka_8py_source_1l00094"/>00094 <emphasis role="keyword">def&#32;</emphasis>parallel_improve(opt):
+<anchor xml:id="_lotka_8py_source_1l00095"/>00095 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;retry.minimize(fitness(),&#32;bounds,&#32;optimizer=opt)
+<anchor xml:id="_lotka_8py_source_1l00096"/>00096 
+<anchor xml:id="_lotka_8py_source_1l00097"/>00097 <emphasis role="comment">#&#32;parallel&#32;function&#32;evaluation,&#32;single&#32;optimization,&#32;DE&#32;works&#32;best</emphasis>
+<anchor xml:id="_lotka_8py_source_1l00098"/>00098 <emphasis role="keyword">def&#32;</emphasis>parallel_eval(opt&#32;=&#32;DE(dim,&#32;bounds)):
+<anchor xml:id="_lotka_8py_source_1l00099"/>00099 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;opt.do_optimize_delayed_update(fun=fitness(),&#32;max_evals=5000000)
+<anchor xml:id="_lotka_8py_source_1l00100"/>00100 
+<anchor xml:id="_lotka_8py_source_1l00101"/>00101 solution&#32;=&#32;[0.7764942271302568,&#32;9.831131324541304e-13,&#32;-0.4392523575954558,&#32;0.9999999991093724,&#32;0.9999999993419174,&#32;0.877806604524956,&#32;-0.21969547982373291,&#32;0.9877830923045987,&#32;0.21691094924304902,&#32;-0.016089523522436144,&#32;1.0,&#32;0.7622848572479829,&#32;-0.0004231871176822595,&#32;-0.015617623735551967,&#32;-0.9227281069513724,&#32;0.8517521143397784,&#32;8.397851857275901e-19,&#32;1.0,&#32;1.0,&#32;0.1509108812092751]
+<anchor xml:id="_lotka_8py_source_1l00102"/>00102 
+<anchor xml:id="_lotka_8py_source_1l00103"/>00103 <emphasis role="keywordflow">if</emphasis>&#32;__name__&#32;==&#32;<emphasis role="stringliteral">&apos;__main__&apos;</emphasis>:
+<anchor xml:id="_lotka_8py_source_1l00104"/>00104 &#32;&#32;&#32;&#32;print(<emphasis role="stringliteral">&quot;shoot&#32;no&#32;fox&#32;at&#32;all,&#32;fitness&#32;=&quot;</emphasis>,&#32;fitness()([-0.5]*dim))&#32;
+<anchor xml:id="_lotka_8py_source_1l00105"/>00105 &#32;&#32;&#32;&#32;print(<emphasis role="stringliteral">&quot;shoot&#32;a&#32;fox&#32;every&#32;year,&#32;fitness&#32;=&quot;</emphasis>,&#32;fitness()([0.5]*dim))&#32;
+<anchor xml:id="_lotka_8py_source_1l00106"/>00106 &#32;&#32;&#32;&#32;print(<emphasis role="stringliteral">&quot;best&#32;solution,&#32;fitness&#32;=&quot;</emphasis>,&#32;fitness()(solution))
+<anchor xml:id="_lotka_8py_source_1l00107"/>00107 &#32;&#32;&#32;&#32;
+<anchor xml:id="_lotka_8py_source_1l00108"/>00108 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;lets&#32;find&#32;the&#32;best&#32;solution</emphasis>
+<anchor xml:id="_lotka_8py_source_1l00109"/>00109 &#32;&#32;&#32;&#32;ret&#32;=&#32;smart_retry()&#32;&#32;&#32;&#32;
+<anchor xml:id="_lotka_8py_source_1l00110"/>00110 &#32;&#32;&#32;&#32;<emphasis role="comment">#ret&#32;=&#32;parallel_retry()</emphasis>
+<anchor xml:id="_lotka_8py_source_1l00111"/>00111 &#32;&#32;&#32;&#32;<emphasis role="comment">#ret&#32;=&#32;parallel_eval()</emphasis>
+<anchor xml:id="_lotka_8py_source_1l00112"/>00112 &#32;&#32;&#32;&#32;<emphasis role="comment">#parallel_improve(Bite_cpp(1000000,&#32;M=16,&#32;guess=sol))</emphasis>
+<anchor xml:id="_lotka_8py_source_1l00113"/>00113 &#32;&#32;&#32;&#32;<emphasis role="comment">#parallel_improve(LDe_cpp(1000000,&#32;guess=sol))</emphasis>
+<anchor xml:id="_lotka_8py_source_1l00114"/>00114 &#32;&#32;&#32;&#32;<emphasis role="comment">#parallel_improve(Cma_cpp(1000000,&#32;guess=sol))</emphasis>
+<anchor xml:id="_lotka_8py_source_1l00115"/>00115 
+<anchor xml:id="_lotka_8py_source_1l00116"/>00116 &#32;&#32;&#32;&#32;<emphasis role="comment">#parallel_retry(opt&#32;=&#32;Minimize(500000))</emphasis>
+</programlisting></section>

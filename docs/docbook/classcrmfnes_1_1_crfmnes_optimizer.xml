@@ -1,0 +1,837 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_classcrmfnes_1_1_crfmnes_optimizer" xml:lang="en-US">
+<title>crmfnes::CrfmnesOptimizer Class Reference</title>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary></indexterm>
+Collaboration diagram for crmfnes::CrfmnesOptimizer:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classcrmfnes_1_1_crfmnes_optimizer__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Public Member Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1a05253e344b7c87ba83627a8b15bf384b">CrfmnesOptimizer</link> (int64_t runid_, <link linkend="_class_fitness">Fitness</link> *fitfun_, int dim_, <link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> m_, double sigma_, int lamb_, int maxEvaluations_, double stopfitness_, double penalty_coef_, bool use_constraint_violation_, int64_t seed)</para>
+</listitem>
+            <listitem><para>virtual <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1a23aa6d542c16d17a68a0fd29b13b36b9">~CrfmnesOptimizer</link> ()</para>
+</listitem>
+            <listitem><para>void <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1aa451fe19e5c4b4617099daf96ed4d171">doOptimize</link> ()</para>
+</listitem>
+            <listitem><para><link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link> <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1a2351c27b7cd4710d802d0a86dd6ea39f">getPopulation</link> ()</para>
+</listitem>
+            <listitem><para><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1a7ee78ff487813e794ab15e0374a35f6c">getBestX</link> ()</para>
+</listitem>
+            <listitem><para>double <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1abea9bcf06910aef210b31f43504c340c">getBestValue</link> ()</para>
+</listitem>
+            <listitem><para>double <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1a4735fca2ded46c9ae1e713ae3d77b152">getIterations</link> ()</para>
+</listitem>
+            <listitem><para>int <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1acdb727b084e729ed508db581aaee4ee7">getStop</link> ()</para>
+</listitem>
+            <listitem><para><link linkend="_class_fitness">Fitness</link> * <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1a07a2bffa713685aa8e13ff615d46081c">getFitfun</link> ()</para>
+</listitem>
+            <listitem><para>int <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1a7f114cfa6d21f79ace8fed2094960cce">getDim</link> ()</para>
+</listitem>
+            <listitem><para>int <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1ab5d2acf44525abcdfae3a8ec346f345a">getPopsize</link> ()</para>
+</listitem>
+            <listitem><para><link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link> <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1ac3695788414c855140e6615040309e42">ask</link> ()</para>
+</listitem>
+            <listitem><para>void <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1aae1806b3f5cca0f2f27363c38c83a836">tell</link> (<link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> &amp;evs)</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Private Member Functions    </title>
+        <itemizedlist>
+            <listitem><para>double <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1a1c0bc5770261a21ed819387c339b3c05">cexp</link> (double a)</para>
+</listitem>
+            <listitem><para>double <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1a61b800bdcb2be2c0add38eabc9bb2df5">c1</link> (double lambF)</para>
+</listitem>
+            <listitem><para>double <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1ae0b69c9a8ba0266efb3fe667de42134f">eta_B</link> (double lambF)</para>
+</listitem>
+            <listitem><para>double <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1a13448f49cc0f161fa5fdbd6430cc7804">alpha_dist</link> (double lambF)</para>
+</listitem>
+            <listitem><para>double <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1ad0e305a53657d5e357d198610c0c21e3">w_dist_hat</link> (<link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link> <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1af8751cd4ca7041f11f83cb5e3faffde1">z</link>, double lambF)</para>
+</listitem>
+            <listitem><para>double <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1afa07fb187d0982f0bdcf00c943e9e641">eta_stag_sigma</link> (double lambF)</para>
+</listitem>
+            <listitem><para>double <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1a1748dadb5cbf900c7835cabfbb898456">eta_conv_sigma</link> (double lambF)</para>
+</listitem>
+            <listitem><para>double <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1a8f9c2b6e89e25a5c3e0d50a8eb4011be">f</link> (double a)</para>
+</listitem>
+            <listitem><para>double <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1a7f306ac3a58b6ed9f29babc44fbe466b">f_prime</link> (double a)</para>
+</listitem>
+            <listitem><para>double <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1af30c10c32f611845931c3a8dc034874f">get_h_inv</link> (int <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1ae8f11358c33f0923b4a9e8b5717fcc9b">dim</link>)</para>
+</listitem>
+            <listitem><para>int <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1adae78062208e6dc79abad146a0461ec3">num_feasible</link> (const <link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> &amp;evals)</para>
+</listitem>
+            <listitem><para><link linkend="_daoptimizer_8cpp_1aa45a218a6a9d424e78898121d21f082d">ivec</link> <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1a914d39cf65f7277f14b0ed3cbf4e0d73">sort_indices_by</link> (const <link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> &amp;evals, <link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link> <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1af8751cd4ca7041f11f83cb5e3faffde1">z</link>)</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Private Attributes    </title>
+        <itemizedlist>
+            <listitem><para>int64_t <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1a94ef5ecb5b443d6bea2755f8f5ff101e">runid</link></para>
+</listitem>
+            <listitem><para><link linkend="_class_fitness">Fitness</link> * <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1a4c445b517a62b00b96b57dfb9813d6df">fitfun</link></para>
+</listitem>
+            <listitem><para>int <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1ae8f11358c33f0923b4a9e8b5717fcc9b">dim</link></para>
+</listitem>
+            <listitem><para><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1af0db5eb5a3f56f27d4b98d761e72d1a0">m</link></para>
+</listitem>
+            <listitem><para>double <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1a4c0820d04c88fd8fee328b76e876b802">sigma</link></para>
+</listitem>
+            <listitem><para>int <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1ab1d3f2692777e3bd4c769b8a10b9a3cd">lamb</link></para>
+</listitem>
+            <listitem><para>int <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1a36b0425100406234215eea1c9b13e9ce">mu</link></para>
+</listitem>
+            <listitem><para>bool <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1a129a0aa8de197876c8b303efb52aec42">use_constraint_violation</link></para>
+</listitem>
+            <listitem><para>pcg64 * <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1aadf548da26f22c15246e777fd2a5f850">rs</link></para>
+</listitem>
+            <listitem><para><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1acbc3a84327f441962eeda759eb1e888c">v</link></para>
+</listitem>
+            <listitem><para><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1a684b752fdb0d7c4b1f2cdf467930faf5">D</link></para>
+</listitem>
+            <listitem><para>double <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1a8e0fa412cfd0b5c7e65ecab47b329cdc">penalty_coef</link></para>
+</listitem>
+            <listitem><para><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1a276111d6b0fdeb972925d988901da9b4">w_rank_hat</link></para>
+</listitem>
+            <listitem><para><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1a696d7a7a6fa5842a0aefc5c61de232b6">w_rank</link></para>
+</listitem>
+            <listitem><para>double <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1aab8f01e12fdcb233497debd49422d67c">mueff</link></para>
+</listitem>
+            <listitem><para>double <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1aff1006f7662b3b17b824b151b40a8165">cs</link></para>
+</listitem>
+            <listitem><para>double <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1aa5bfe0c1ff87f0fefc54e2246a06c2ad">cc</link></para>
+</listitem>
+            <listitem><para>double <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1acf5da4897c7d05b4a560483aa902dc85">c1_cma</link></para>
+</listitem>
+            <listitem><para>double <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1aa5b420b40b5781750b33e17ccdb2d2d6">chiN</link></para>
+</listitem>
+            <listitem><para><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1ac80232587fb6c3f7ee255f6f008cde98">pc</link></para>
+</listitem>
+            <listitem><para><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1ae3129ee6c7c9205a66634a2f2df6ae0b">ps</link></para>
+</listitem>
+            <listitem><para>double <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1afb276c3887c0b199f31b724b3d4c82e5">h_inv</link></para>
+</listitem>
+            <listitem><para>double <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1a352856a88945aa103202f415a9b8b90f">eta_m</link></para>
+</listitem>
+            <listitem><para>double <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1aa686eecadca99ea7ee1064afda80c369">eta_move_sigma</link></para>
+</listitem>
+            <listitem><para>double <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1aad0299e6e1ed76e143db1ef75d1a3c7b">g</link> = 0</para>
+</listitem>
+            <listitem><para>int <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1a85f1a006b0a3aa878e22e0b65517142e">no_of_evals</link></para>
+</listitem>
+            <listitem><para><link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link> <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1af8751cd4ca7041f11f83cb5e3faffde1">z</link></para>
+</listitem>
+            <listitem><para>double <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1ae7104ec4f55d2e4bedb9ac8e885cc3d9">f_best</link></para>
+</listitem>
+            <listitem><para><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1af415b05895f150b3f59613fb3e5a67ed">x_best</link></para>
+</listitem>
+            <listitem><para><link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link> <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1ad68ee5ba071c8eb355a3fbe1b306adb7">xs_no_sort</link></para>
+</listitem>
+            <listitem><para><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1a676c36938614690f4db2c6d9ccee7df4">evals_no_sort</link></para>
+</listitem>
+            <listitem><para>int <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1a9979f360a5500c2e9eb53522659bd745">iterations</link></para>
+</listitem>
+            <listitem><para>int <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1abbde930c83008df3cc0ffc0274f9d42f">maxEvaluations</link></para>
+</listitem>
+            <listitem><para>double <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1ae32d48173c079d73cce875635b480add">stopfitness</link></para>
+</listitem>
+            <listitem><para>int <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1a052fd208dd9ea12039373c6fc9d3f272">stop</link></para>
+</listitem>
+            <listitem><para>double <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1a7bc978613195f2ba7b83cc3a48e102ba">normv</link></para>
+</listitem>
+            <listitem><para>double <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1a864c3927e72f4eac9fa682e84396cd0e">normv2</link></para>
+</listitem>
+            <listitem><para><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1aa12a412b683512f38cfe0dc8e2575dbb">vbar</link></para>
+</listitem>
+            <listitem><para><link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link> <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1a70a1083d613aed87133542c0817f0df9">y</link></para>
+</listitem>
+            <listitem><para><link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link> <link linkend="_classcrmfnes_1_1_crfmnes_optimizer_1ab3f078f7cce59803c94ed53e685f2e3b">x</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+<para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00039">39</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+<section>
+<title>Constructor &amp; Destructor Documentation</title>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1a05253e344b7c87ba83627a8b15bf384b"/><section>
+    <title>CrfmnesOptimizer()</title>
+<indexterm><primary>CrfmnesOptimizer</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>CrfmnesOptimizer</secondary></indexterm>
+<para><computeroutput>crmfnes::CrfmnesOptimizer::CrfmnesOptimizer (int64_t runid_, <link linkend="_class_fitness">Fitness</link> * fitfun_, int dim_, <link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> m_, double sigma_, int lamb_, int maxEvaluations_, double stopfitness_, double penalty_coef_, bool use_constraint_violation_, int64_t seed)<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00043">43</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classcrmfnes_1_1_crfmnes_optimizer_a05253e344b7c87ba83627a8b15bf384b_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1a23aa6d542c16d17a68a0fd29b13b36b9"/><section>
+    <title>~CrfmnesOptimizer()</title>
+<indexterm><primary>~CrfmnesOptimizer</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>~CrfmnesOptimizer</secondary></indexterm>
+<para><computeroutput>virtual crmfnes::CrfmnesOptimizer::~CrfmnesOptimizer ( )<computeroutput>[inline]</computeroutput>, <computeroutput>[virtual]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00087">87</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Function Documentation</title>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1a13448f49cc0f161fa5fdbd6430cc7804"/><section>
+    <title>alpha_dist()</title>
+<indexterm><primary>alpha_dist</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>alpha_dist</secondary></indexterm>
+<para><computeroutput>double crmfnes::CrfmnesOptimizer::alpha_dist (double lambF)<computeroutput>[inline]</computeroutput>, <computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00269">269</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classcrmfnes_1_1_crfmnes_optimizer_a13448f49cc0f161fa5fdbd6430cc7804_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1ac3695788414c855140e6615040309e42"/><section>
+    <title>ask()</title>
+<indexterm><primary>ask</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>ask</secondary></indexterm>
+<para><computeroutput><link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link> crmfnes::CrfmnesOptimizer::ask ( )<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00141">141</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classcrmfnes_1_1_crfmnes_optimizer_ac3695788414c855140e6615040309e42_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classcrmfnes_1_1_crfmnes_optimizer_ac3695788414c855140e6615040309e42_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1a61b800bdcb2be2c0add38eabc9bb2df5"/><section>
+    <title>c1()</title>
+<indexterm><primary>c1</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>c1</secondary></indexterm>
+<para><computeroutput>double crmfnes::CrfmnesOptimizer::c1 (double lambF)<computeroutput>[inline]</computeroutput>, <computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00267">267</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classcrmfnes_1_1_crfmnes_optimizer_a61b800bdcb2be2c0add38eabc9bb2df5_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1a1c0bc5770261a21ed819387c339b3c05"/><section>
+    <title>cexp()</title>
+<indexterm><primary>cexp</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>cexp</secondary></indexterm>
+<para><computeroutput>double crmfnes::CrfmnesOptimizer::cexp (double a)<computeroutput>[inline]</computeroutput>, <computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00266">266</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classcrmfnes_1_1_crfmnes_optimizer_a1c0bc5770261a21ed819387c339b3c05_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1aa451fe19e5c4b4617099daf96ed4d171"/><section>
+    <title>doOptimize()</title>
+<indexterm><primary>doOptimize</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>doOptimize</secondary></indexterm>
+<para><computeroutput>void crmfnes::CrfmnesOptimizer::doOptimize ( )<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00091">91</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classcrmfnes_1_1_crfmnes_optimizer_aa451fe19e5c4b4617099daf96ed4d171_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1ae0b69c9a8ba0266efb3fe667de42134f"/><section>
+    <title>eta_B()</title>
+<indexterm><primary>eta_B</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>eta_B</secondary></indexterm>
+<para><computeroutput>double crmfnes::CrfmnesOptimizer::eta_B (double lambF)<computeroutput>[inline]</computeroutput>, <computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00268">268</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classcrmfnes_1_1_crfmnes_optimizer_ae0b69c9a8ba0266efb3fe667de42134f_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1a1748dadb5cbf900c7835cabfbb898456"/><section>
+    <title>eta_conv_sigma()</title>
+<indexterm><primary>eta_conv_sigma</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>eta_conv_sigma</secondary></indexterm>
+<para><computeroutput>double crmfnes::CrfmnesOptimizer::eta_conv_sigma (double lambF)<computeroutput>[inline]</computeroutput>, <computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00272">272</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classcrmfnes_1_1_crfmnes_optimizer_a1748dadb5cbf900c7835cabfbb898456_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1afa07fb187d0982f0bdcf00c943e9e641"/><section>
+    <title>eta_stag_sigma()</title>
+<indexterm><primary>eta_stag_sigma</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>eta_stag_sigma</secondary></indexterm>
+<para><computeroutput>double crmfnes::CrfmnesOptimizer::eta_stag_sigma (double lambF)<computeroutput>[inline]</computeroutput>, <computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00271">271</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classcrmfnes_1_1_crfmnes_optimizer_afa07fb187d0982f0bdcf00c943e9e641_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1a8f9c2b6e89e25a5c3e0d50a8eb4011be"/><section>
+    <title>f()</title>
+<indexterm><primary>f</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>f</secondary></indexterm>
+<para><computeroutput>double crmfnes::CrfmnesOptimizer::f (double a)<computeroutput>[inline]</computeroutput>, <computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00273">273</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classcrmfnes_1_1_crfmnes_optimizer_a8f9c2b6e89e25a5c3e0d50a8eb4011be_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classcrmfnes_1_1_crfmnes_optimizer_a8f9c2b6e89e25a5c3e0d50a8eb4011be_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1a7f306ac3a58b6ed9f29babc44fbe466b"/><section>
+    <title>f_prime()</title>
+<indexterm><primary>f_prime</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>f_prime</secondary></indexterm>
+<para><computeroutput>double crmfnes::CrfmnesOptimizer::f_prime (double a)<computeroutput>[inline]</computeroutput>, <computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00274">274</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classcrmfnes_1_1_crfmnes_optimizer_a7f306ac3a58b6ed9f29babc44fbe466b_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classcrmfnes_1_1_crfmnes_optimizer_a7f306ac3a58b6ed9f29babc44fbe466b_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1af30c10c32f611845931c3a8dc034874f"/><section>
+    <title>get_h_inv()</title>
+<indexterm><primary>get_h_inv</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>get_h_inv</secondary></indexterm>
+<para><computeroutput>double crmfnes::CrfmnesOptimizer::get_h_inv (int dim)<computeroutput>[inline]</computeroutput>, <computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00276">276</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classcrmfnes_1_1_crfmnes_optimizer_af30c10c32f611845931c3a8dc034874f_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classcrmfnes_1_1_crfmnes_optimizer_af30c10c32f611845931c3a8dc034874f_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1abea9bcf06910aef210b31f43504c340c"/><section>
+    <title>getBestValue()</title>
+<indexterm><primary>getBestValue</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>getBestValue</secondary></indexterm>
+<para><computeroutput>double crmfnes::CrfmnesOptimizer::getBestValue ( )<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00117">117</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1a7ee78ff487813e794ab15e0374a35f6c"/><section>
+    <title>getBestX()</title>
+<indexterm><primary>getBestX</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>getBestX</secondary></indexterm>
+<para><computeroutput><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> crmfnes::CrfmnesOptimizer::getBestX ( )<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00113">113</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1a7f114cfa6d21f79ace8fed2094960cce"/><section>
+    <title>getDim()</title>
+<indexterm><primary>getDim</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>getDim</secondary></indexterm>
+<para><computeroutput>int crmfnes::CrfmnesOptimizer::getDim ( )<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00133">133</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1a07a2bffa713685aa8e13ff615d46081c"/><section>
+    <title>getFitfun()</title>
+<indexterm><primary>getFitfun</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>getFitfun</secondary></indexterm>
+<para><computeroutput><link linkend="_class_fitness">Fitness</link> * crmfnes::CrfmnesOptimizer::getFitfun ( )<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00129">129</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1a4735fca2ded46c9ae1e713ae3d77b152"/><section>
+    <title>getIterations()</title>
+<indexterm><primary>getIterations</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>getIterations</secondary></indexterm>
+<para><computeroutput>double crmfnes::CrfmnesOptimizer::getIterations ( )<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00121">121</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1ab5d2acf44525abcdfae3a8ec346f345a"/><section>
+    <title>getPopsize()</title>
+<indexterm><primary>getPopsize</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>getPopsize</secondary></indexterm>
+<para><computeroutput>int crmfnes::CrfmnesOptimizer::getPopsize ( )<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00137">137</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1a2351c27b7cd4710d802d0a86dd6ea39f"/><section>
+    <title>getPopulation()</title>
+<indexterm><primary>getPopulation</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>getPopulation</secondary></indexterm>
+<para><computeroutput><link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link> crmfnes::CrfmnesOptimizer::getPopulation ( )<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00109">109</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1acdb727b084e729ed508db581aaee4ee7"/><section>
+    <title>getStop()</title>
+<indexterm><primary>getStop</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>getStop</secondary></indexterm>
+<para><computeroutput>int crmfnes::CrfmnesOptimizer::getStop ( )<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00125">125</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1adae78062208e6dc79abad146a0461ec3"/><section>
+    <title>num_feasible()</title>
+<indexterm><primary>num_feasible</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>num_feasible</secondary></indexterm>
+<para><computeroutput>int crmfnes::CrfmnesOptimizer::num_feasible (const <link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> &amp; evals)<computeroutput>[inline]</computeroutput>, <computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00283">283</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classcrmfnes_1_1_crfmnes_optimizer_adae78062208e6dc79abad146a0461ec3_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1a914d39cf65f7277f14b0ed3cbf4e0d73"/><section>
+    <title>sort_indices_by()</title>
+<indexterm><primary>sort_indices_by</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>sort_indices_by</secondary></indexterm>
+<para><computeroutput><link linkend="_daoptimizer_8cpp_1aa45a218a6a9d424e78898121d21f082d">ivec</link> crmfnes::CrfmnesOptimizer::sort_indices_by (const <link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> &amp; evals, <link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link> z)<computeroutput>[inline]</computeroutput>, <computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00290">290</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classcrmfnes_1_1_crfmnes_optimizer_a914d39cf65f7277f14b0ed3cbf4e0d73_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classcrmfnes_1_1_crfmnes_optimizer_a914d39cf65f7277f14b0ed3cbf4e0d73_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1aae1806b3f5cca0f2f27363c38c83a836"/><section>
+    <title>tell()</title>
+<indexterm><primary>tell</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>tell</secondary></indexterm>
+<para><computeroutput>void crmfnes::CrfmnesOptimizer::tell (<link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> &amp; evs)<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00155">155</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classcrmfnes_1_1_crfmnes_optimizer_aae1806b3f5cca0f2f27363c38c83a836_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classcrmfnes_1_1_crfmnes_optimizer_aae1806b3f5cca0f2f27363c38c83a836_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1ad0e305a53657d5e357d198610c0c21e3"/><section>
+    <title>w_dist_hat()</title>
+<indexterm><primary>w_dist_hat</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>w_dist_hat</secondary></indexterm>
+<para><computeroutput>double crmfnes::CrfmnesOptimizer::w_dist_hat (<link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link> z, double lambF)<computeroutput>[inline]</computeroutput>, <computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00270">270</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classcrmfnes_1_1_crfmnes_optimizer_ad0e305a53657d5e357d198610c0c21e3_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classcrmfnes_1_1_crfmnes_optimizer_ad0e305a53657d5e357d198610c0c21e3_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+<section>
+<title>Member Data Documentation</title>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1acf5da4897c7d05b4a560483aa902dc85"/><section>
+    <title>c1_cma</title>
+<indexterm><primary>c1_cma</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>c1_cma</secondary></indexterm>
+<para><computeroutput>double crmfnes::CrfmnesOptimizer::c1_cma<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00328">328</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1aa5bfe0c1ff87f0fefc54e2246a06c2ad"/><section>
+    <title>cc</title>
+<indexterm><primary>cc</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>cc</secondary></indexterm>
+<para><computeroutput>double crmfnes::CrfmnesOptimizer::cc<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00327">327</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1aa5b420b40b5781750b33e17ccdb2d2d6"/><section>
+    <title>chiN</title>
+<indexterm><primary>chiN</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>chiN</secondary></indexterm>
+<para><computeroutput>double crmfnes::CrfmnesOptimizer::chiN<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00330">330</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1aff1006f7662b3b17b824b151b40a8165"/><section>
+    <title>cs</title>
+<indexterm><primary>cs</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>cs</secondary></indexterm>
+<para><computeroutput>double crmfnes::CrfmnesOptimizer::cs<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00326">326</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1a684b752fdb0d7c4b1f2cdf467930faf5"/><section>
+    <title>D</title>
+<indexterm><primary>D</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>D</secondary></indexterm>
+<para><computeroutput><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> crmfnes::CrfmnesOptimizer::D<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00321">321</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1ae8f11358c33f0923b4a9e8b5717fcc9b"/><section>
+    <title>dim</title>
+<indexterm><primary>dim</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>dim</secondary></indexterm>
+<para><computeroutput>int crmfnes::CrfmnesOptimizer::dim<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00313">313</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1a352856a88945aa103202f415a9b8b90f"/><section>
+    <title>eta_m</title>
+<indexterm><primary>eta_m</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>eta_m</secondary></indexterm>
+<para><computeroutput>double crmfnes::CrfmnesOptimizer::eta_m<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00336">336</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1aa686eecadca99ea7ee1064afda80c369"/><section>
+    <title>eta_move_sigma</title>
+<indexterm><primary>eta_move_sigma</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>eta_move_sigma</secondary></indexterm>
+<para><computeroutput>double crmfnes::CrfmnesOptimizer::eta_move_sigma<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00337">337</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1a676c36938614690f4db2c6d9ccee7df4"/><section>
+    <title>evals_no_sort</title>
+<indexterm><primary>evals_no_sort</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>evals_no_sort</secondary></indexterm>
+<para><computeroutput><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> crmfnes::CrfmnesOptimizer::evals_no_sort<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00346">346</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1ae7104ec4f55d2e4bedb9ac8e885cc3d9"/><section>
+    <title>f_best</title>
+<indexterm><primary>f_best</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>f_best</secondary></indexterm>
+<para><computeroutput>double crmfnes::CrfmnesOptimizer::f_best<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00343">343</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1a4c445b517a62b00b96b57dfb9813d6df"/><section>
+    <title>fitfun</title>
+<indexterm><primary>fitfun</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>fitfun</secondary></indexterm>
+<para><computeroutput><link linkend="_class_fitness">Fitness</link>* crmfnes::CrfmnesOptimizer::fitfun<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00312">312</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1aad0299e6e1ed76e143db1ef75d1a3c7b"/><section>
+    <title>g</title>
+<indexterm><primary>g</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>g</secondary></indexterm>
+<para><computeroutput>double crmfnes::CrfmnesOptimizer::g = 0<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00339">339</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1afb276c3887c0b199f31b724b3d4c82e5"/><section>
+    <title>h_inv</title>
+<indexterm><primary>h_inv</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>h_inv</secondary></indexterm>
+<para><computeroutput>double crmfnes::CrfmnesOptimizer::h_inv<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00334">334</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1a9979f360a5500c2e9eb53522659bd745"/><section>
+    <title>iterations</title>
+<indexterm><primary>iterations</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>iterations</secondary></indexterm>
+<para><computeroutput>int crmfnes::CrfmnesOptimizer::iterations<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00348">348</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1ab1d3f2692777e3bd4c769b8a10b9a3cd"/><section>
+    <title>lamb</title>
+<indexterm><primary>lamb</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>lamb</secondary></indexterm>
+<para><computeroutput>int crmfnes::CrfmnesOptimizer::lamb<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00316">316</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1af0db5eb5a3f56f27d4b98d761e72d1a0"/><section>
+    <title>m</title>
+<indexterm><primary>m</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>m</secondary></indexterm>
+<para><computeroutput><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> crmfnes::CrfmnesOptimizer::m<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00314">314</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1abbde930c83008df3cc0ffc0274f9d42f"/><section>
+    <title>maxEvaluations</title>
+<indexterm><primary>maxEvaluations</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>maxEvaluations</secondary></indexterm>
+<para><computeroutput>int crmfnes::CrfmnesOptimizer::maxEvaluations<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00349">349</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1a36b0425100406234215eea1c9b13e9ce"/><section>
+    <title>mu</title>
+<indexterm><primary>mu</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>mu</secondary></indexterm>
+<para><computeroutput>int crmfnes::CrfmnesOptimizer::mu<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00317">317</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1aab8f01e12fdcb233497debd49422d67c"/><section>
+    <title>mueff</title>
+<indexterm><primary>mueff</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>mueff</secondary></indexterm>
+<para><computeroutput>double crmfnes::CrfmnesOptimizer::mueff<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00325">325</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1a85f1a006b0a3aa878e22e0b65517142e"/><section>
+    <title>no_of_evals</title>
+<indexterm><primary>no_of_evals</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>no_of_evals</secondary></indexterm>
+<para><computeroutput>int crmfnes::CrfmnesOptimizer::no_of_evals<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00340">340</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1a7bc978613195f2ba7b83cc3a48e102ba"/><section>
+    <title>normv</title>
+<indexterm><primary>normv</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>normv</secondary></indexterm>
+<para><computeroutput>double crmfnes::CrfmnesOptimizer::normv<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00353">353</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1a864c3927e72f4eac9fa682e84396cd0e"/><section>
+    <title>normv2</title>
+<indexterm><primary>normv2</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>normv2</secondary></indexterm>
+<para><computeroutput>double crmfnes::CrfmnesOptimizer::normv2<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00354">354</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1ac80232587fb6c3f7ee255f6f008cde98"/><section>
+    <title>pc</title>
+<indexterm><primary>pc</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>pc</secondary></indexterm>
+<para><computeroutput><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> crmfnes::CrfmnesOptimizer::pc<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00331">331</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1a8e0fa412cfd0b5c7e65ecab47b329cdc"/><section>
+    <title>penalty_coef</title>
+<indexterm><primary>penalty_coef</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>penalty_coef</secondary></indexterm>
+<para><computeroutput>double crmfnes::CrfmnesOptimizer::penalty_coef<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00322">322</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1ae3129ee6c7c9205a66634a2f2df6ae0b"/><section>
+    <title>ps</title>
+<indexterm><primary>ps</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>ps</secondary></indexterm>
+<para><computeroutput><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> crmfnes::CrfmnesOptimizer::ps<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00332">332</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1aadf548da26f22c15246e777fd2a5f850"/><section>
+    <title>rs</title>
+<indexterm><primary>rs</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>rs</secondary></indexterm>
+<para><computeroutput>pcg64* crmfnes::CrfmnesOptimizer::rs<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00319">319</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1a94ef5ecb5b443d6bea2755f8f5ff101e"/><section>
+    <title>runid</title>
+<indexterm><primary>runid</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>runid</secondary></indexterm>
+<para><computeroutput>int64_t crmfnes::CrfmnesOptimizer::runid<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00311">311</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1a4c0820d04c88fd8fee328b76e876b802"/><section>
+    <title>sigma</title>
+<indexterm><primary>sigma</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>sigma</secondary></indexterm>
+<para><computeroutput>double crmfnes::CrfmnesOptimizer::sigma<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00315">315</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1a052fd208dd9ea12039373c6fc9d3f272"/><section>
+    <title>stop</title>
+<indexterm><primary>stop</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>stop</secondary></indexterm>
+<para><computeroutput>int crmfnes::CrfmnesOptimizer::stop<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00351">351</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1ae32d48173c079d73cce875635b480add"/><section>
+    <title>stopfitness</title>
+<indexterm><primary>stopfitness</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>stopfitness</secondary></indexterm>
+<para><computeroutput>double crmfnes::CrfmnesOptimizer::stopfitness<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00350">350</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1a129a0aa8de197876c8b303efb52aec42"/><section>
+    <title>use_constraint_violation</title>
+<indexterm><primary>use_constraint_violation</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>use_constraint_violation</secondary></indexterm>
+<para><computeroutput>bool crmfnes::CrfmnesOptimizer::use_constraint_violation<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00318">318</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1acbc3a84327f441962eeda759eb1e888c"/><section>
+    <title>v</title>
+<indexterm><primary>v</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>v</secondary></indexterm>
+<para><computeroutput><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> crmfnes::CrfmnesOptimizer::v<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00320">320</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1aa12a412b683512f38cfe0dc8e2575dbb"/><section>
+    <title>vbar</title>
+<indexterm><primary>vbar</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>vbar</secondary></indexterm>
+<para><computeroutput><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> crmfnes::CrfmnesOptimizer::vbar<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00355">355</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1a696d7a7a6fa5842a0aefc5c61de232b6"/><section>
+    <title>w_rank</title>
+<indexterm><primary>w_rank</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>w_rank</secondary></indexterm>
+<para><computeroutput><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> crmfnes::CrfmnesOptimizer::w_rank<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00324">324</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1a276111d6b0fdeb972925d988901da9b4"/><section>
+    <title>w_rank_hat</title>
+<indexterm><primary>w_rank_hat</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>w_rank_hat</secondary></indexterm>
+<para><computeroutput><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> crmfnes::CrfmnesOptimizer::w_rank_hat<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00323">323</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1ab3f078f7cce59803c94ed53e685f2e3b"/><section>
+    <title>x</title>
+<indexterm><primary>x</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>x</secondary></indexterm>
+<para><computeroutput><link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link> crmfnes::CrfmnesOptimizer::x<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00357">357</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1af415b05895f150b3f59613fb3e5a67ed"/><section>
+    <title>x_best</title>
+<indexterm><primary>x_best</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>x_best</secondary></indexterm>
+<para><computeroutput><link linkend="_daoptimizer_8cpp_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> crmfnes::CrfmnesOptimizer::x_best<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00344">344</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1ad68ee5ba071c8eb355a3fbe1b306adb7"/><section>
+    <title>xs_no_sort</title>
+<indexterm><primary>xs_no_sort</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>xs_no_sort</secondary></indexterm>
+<para><computeroutput><link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link> crmfnes::CrfmnesOptimizer::xs_no_sort<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00345">345</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1a70a1083d613aed87133542c0817f0df9"/><section>
+    <title>y</title>
+<indexterm><primary>y</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>y</secondary></indexterm>
+<para><computeroutput><link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link> crmfnes::CrfmnesOptimizer::y<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00356">356</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+<anchor xml:id="_classcrmfnes_1_1_crfmnes_optimizer_1af8751cd4ca7041f11f83cb5e3faffde1"/><section>
+    <title>z</title>
+<indexterm><primary>z</primary><secondary>crmfnes::CrfmnesOptimizer</secondary></indexterm>
+<indexterm><primary>crmfnes::CrfmnesOptimizer</primary><secondary>z</secondary></indexterm>
+<para><computeroutput><link linkend="_daoptimizer_8cpp_1af0f7533253586ad2aba962e9537d90bc">mat</link> crmfnes::CrfmnesOptimizer::z<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_crfmnes_8cpp_source_1l00341">341</link> of file <link linkend="_crfmnes_8cpp_source">crfmnes.cpp</link>.</para>
+</section>
+<para>
+The documentation for this class was generated from the following file:</para>
+_fcmaescpp/<link linkend="_crfmnes_8cpp">crfmnes.cpp</link></section>
+</section>

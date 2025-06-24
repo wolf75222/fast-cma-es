@@ -1,0 +1,433 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_prophet__opt_8py_source" xml:lang="en-US">
+<title>prophet_opt.py</title>
+<indexterm><primary>examples/prophet_opt.py</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_prophet__opt_8py_source_1l00001"/><link linkend="_namespaceexamples_1_1prophet__opt">00001</link> <emphasis role="stringliteral">&apos;&apos;&apos;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00002"/>00002 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;How&#32;to&#32;optimize&#32;an&#32;AI&#32;generated&#32;algorithmic&#32;trading&#32;strategy?</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00003"/>00003 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00004"/>00004 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Resolve&#32;dependencies:</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00005"/>00005 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00006"/>00006 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;pip&#32;install&#32;plotly&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00007"/>00007 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;pip&#32;install&#32;yfinance</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00008"/>00008 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;pip&#32;install&#32;fcmaes&#32;--upgrade</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00009"/>00009 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;pip&#32;install&#32;prophet</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00010"/>00010 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00011"/>00011 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;This&#32;example&#32;code&#32;is&#32;partly&#32;generated&#32;by&#32;o1-preview.&#32;&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00012"/>00012 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;LLMs&#32;can&#32;help&#32;to&#32;generate&#32;the&#32;code&#32;and&#32;to&#32;understand&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00013"/>00013 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;its&#32;concepts.&#32;It&#32;can&#32;even&#32;propose&#32;ways&#32;to&#32;optimize&#32;the&#32;trading</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00014"/>00014 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;strategy.&#32;This&#32;example&#32;shows&#32;how&#32;this&#32;optimization&#32;process&#32;can&#32;be&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00015"/>00015 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;automated&#32;using&#32;fcmaes.&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00016"/>00016 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00017"/>00017 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;-&#32;Executing&#32;the&#32;trading&#32;strategy&#32;takes&#32;time,&#32;so&#32;a&#32;complete&#32;parameter</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00018"/>00018 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;sweep&#32;is&#32;slow.</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00019"/>00019 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;-&#32;We&#32;exploit&#32;the&#32;fact&#32;the&#32;fcmaes&#32;uses&#32;parallel&#32;processes&#32;to&#32;speed&#32;up</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00020"/>00020 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;the&#32;optimization&#32;process.&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00021"/>00021 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;-&#32;An&#32;evolutionary&#32;optimizer&#32;like&#32;Differential&#32;Evolution&#32;refines&#32;&quot;promising&quot;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00022"/>00022 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;parameter&#32;sets,&#32;thereby&#32;avoiding&#32;to&#32;get&#32;stuck&#32;at&#32;local&#32;optima.</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00023"/>00023 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00024"/>00024 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Used&#32;prompts:</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00025"/>00025 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00026"/>00026 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&apos;why&#32;are&#32;HMMs&#32;not&#32;typically&#32;used&#32;for&#32;point&#32;forecasts?&apos;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00027"/>00027 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00028"/>00028 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;o1-preview&#32;lists&#32;the&#32;reasons,&#32;shows&#32;alternatives,&#32;one&#32;is&#32;to&#32;use&#32;Prophet.</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00029"/>00029 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00030"/>00030 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&apos;show&#32;python&#32;code&#32;using&#32;Prophet&#32;for&#32;implementing&#32;a&#32;trading&#32;strategy&apos;&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00031"/>00031 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&apos;list&#32;this&#32;code&#32;in&#32;one&#32;chunk&apos;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00032"/>00032 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00033"/>00033 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;the&#32;generated&#32;code&#32;desn&apos;t&#32;work&#32;with&#32;newest&#32;yfinance,&#32;so&#32;method&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00034"/>00034 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&apos;load_data&apos;&#32;requires&#32;a&#32;minor&#32;fix.&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00035"/>00035 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00036"/>00036 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&apos;how&#32;can&#32;the&#32;code&#32;be&#32;adapted&#32;to&#32;bitcoin&#32;reflecting&#32;the&#32;4&#32;year&#32;bitcoin&#32;cycle?&apos;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00037"/>00037 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&apos;apply&#32;this&#32;model&#32;to&#32;implement&#32;and&#32;test&#32;a&#32;trading&#32;strategy&#32;for&#32;BTC&apos;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00038"/>00038 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00039"/>00039 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Now&#32;we&#32;want&#32;to&#32;know&#32;how&#32;to&#32;optimize&#32;the&#32;strategy:</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00040"/>00040 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00041"/>00041 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&apos;what&#32;can&#32;I&#32;try&#32;to&#32;optimize&#32;market&#32;return?&apos;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00042"/>00042 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00043"/>00043 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-&#32;Experiment&#32;with&#32;different&#32;values&#32;of&#32;changepoint_prior_scale.</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00044"/>00044 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-&#32;Adjust&#32;the&#32;fourier_order&#32;for&#32;the&#32;yearly&#32;and&#32;custom&#32;4-year&#32;seasonalities.</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00045"/>00045 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-&#32;Change&#32;Seasonality&#32;Modes,&#32;can&#32;be&#32;either&#32;&apos;additive&apos;&#32;or&#32;&apos;multiplicative&apos;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00046"/>00046 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-&#32;...</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00047"/>00047 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00048"/>00048 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Additionally&#32;-&#32;not&#32;mentioned&#32;by&#32;o1-preview,&#32;we&#32;could&#32;vary&#32;the&#32;4-year&#32;cycle</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00049"/>00049 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00050"/>00050 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;We&#32;show&#32;how&#32;fcmaes&#32;Differential&#32;Evolution&#32;can&#32;be&#32;applied&#32;to&#32;optimize&#32;these&#32;parameters.&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00051"/>00051 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00052"/>00052 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;But&#32;first&#32;we&#32;have&#32;to&#32;get&#32;rid&#32;of&#32;the&#32;Prophecy&#32;log&#32;messages,&#32;since&#32;they&#32;interfere</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00053"/>00053 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;with&#32;the&#32;log&#32;messages&#32;of&#32;the&#32;optimizer.&#32;We&#32;use&#32;the&#32;prompt:&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00054"/>00054 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00055"/>00055 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&apos;how&#32;to&#32;supress&#32;prophecy&#32;log&#32;messages?&apos;&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00056"/>00056 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00057"/>00057 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;The&#32;resulting&#32;code&#32;is&#32;shown&#32;below.&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00058"/>00058 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00059"/>00059 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Notes:</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00060"/>00060 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00061"/>00061 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;-&#32;Differential&#32;Evolution&#32;uses&#32;contiuous&#32;decision&#32;variables,&#32;so&#32;we&#32;have&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00062"/>00062 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;to&#32;convert&#32;these&#32;into&#32;the&#32;strategy&#32;parameters&#32;prposed&#32;by&#32;o1-preview&#32;(see&#32;convert_x)</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00063"/>00063 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;-&#32;The&#32;boxed&#32;boundaries&#32;of&#32;the&#32;parameters&#32;are&#32;defined&#32;by&#32;the&#32;line:</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00064"/>00064 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;bounds&#32;=&#32;Bounds([0.001,&#32;300,&#32;3,&#32;0],&#32;[1,&#32;1600,&#32;12,&#32;1])&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00065"/>00065 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;You&#32;may&#32;ask&#32;o1-preview&#32;for&#32;feasible&#32;parameter&#32;ranges.</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00066"/>00066 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;-&#32;On&#32;an&#32;AMD&#32;9950x&#32;16&#32;core&#32;processor&#32;on&#32;Linux&#32;we&#32;get&#32;about&#32;7&#32;trading&#32;simulations&#32;per&#32;second.</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00067"/>00067 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;The&#32;code&#32;works&#32;on&#32;Windows,&#32;but&#32;is&#32;significantly&#32;slower.&#32;&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00068"/>00068 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;-&#32;btc_eval_params&#32;modifies&#32;the&#32;Dataframe&#32;used&#32;as&#32;its&#32;input&#32;parameter.&#32;How&#32;does&#32;this&#32;work,&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00069"/>00069 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;since&#32;btc_eval_params&#32;is&#32;called&#32;in&#32;parallel?&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00070"/>00070 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;fcmaes&#32;&apos;de&apos;&#32;uses&#32;Python&#32;multiprocessing,&#32;so&#32;each&#32;Process&#32;has&#32;its&#32;own&#32;copy&#32;of&#32;the&#32;Dataframe.</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00071"/>00071 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;-&#32;the&#32;optimimal&#32;period&#32;is&#32;535&#32;days&#32;which&#32;is&#32;inconsistent&#32;with&#32;the&#32;assumed&#32;4&#32;year&#32;cycle.</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00072"/>00072 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;-&#32;After&#32;some&#32;hours&#32;we&#32;get&#32;the&#32;following&#32;optimized&#32;strategy&#32;parameters:</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00073"/>00073 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00074"/>00074 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;changepoint&#32;prior&#32;scale:&#32;0.05</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00075"/>00075 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;period:&#32;535.0</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00076"/>00076 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fourier&#32;order:&#32;8</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00077"/>00077 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;seasonality_mode:&#32;additive</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00078"/>00078 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Total&#32;Market&#32;Return:&#32;15800.96%</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00079"/>00079 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Total&#32;Strategy&#32;Return:&#32;678644.32%</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00080"/>00080 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Annualized&#32;Sharpe&#32;Ratio&#32;of&#32;the&#32;Strategy:&#32;2.03</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00081"/>00081 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00082"/>00082 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;May&#32;be&#32;there&#32;is&#32;some&#32;overfitting&#32;involved.&#32;So&#32;take&#32;this&#32;result&#32;with&#32;some&#32;grain&#32;of&#32;salt.&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00083"/>00083 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;This&#32;tutorial&#32;shows&#32;how&#32;to&#32;automate&#32;parameter&#32;sweeping&#32;using&#32;parallel&#32;optimization.&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00084"/>00084 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;You&#32;could&#32;use&#32;o1-preview&#32;or&#32;another&#32;LLM&#32;to&#32;create&#32;your&#32;own&#32;strategy&#32;which&#32;you&#32;then</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00085"/>00085 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;could&#32;optimize&#32;in&#32;a&#32;similar&#32;manner.&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00086"/>00086 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00087"/>00087 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;What&#32;if&#32;we&#32;ask&#32;o1-preview&#32;how&#32;to&#32;implement&#32;optimization&#32;of&#32;the&#32;strategy&#32;parameters?</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00088"/>00088 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00089"/>00089 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;It&#32;recommends&#32;to&#32;use&#32;https://optuna.org/[Optuna]&#32;which&#32;indeed&#32;is&#32;a&#32;very&#32;good&#32;choice.&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00090"/>00090 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;We&#32;tried&#32;other&#32;alternatives,&#32;but&#32;only&#32;Optuna&#32;successfully&#32;parallelized&#32;the&#32;tranding&#32;strategy</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00091"/>00091 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;simulation.&#32;Its&#32;default&#32;optimizer&#32;(using&#32;Parzen&#32;Trees)&#32;does&#32;a&#32;good&#32;job,&#32;comparable&#32;to&#32;what&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00092"/>00092 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;fcmaes&#32;DE&#32;can&#32;achieve:</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00093"/>00093 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00094"/>00094 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;-&#32;Good&#32;results&#32;for&#32;low&#32;evaluation&#32;counts.</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00095"/>00095 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;-&#32;Strange&#32;slow-down&#32;for&#32;high&#32;evaluation&#32;counts&#32;for&#32;this&#32;example.</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00096"/>00096 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00097"/>00097 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Other&#32;Optuna&#32;optimizers&#32;(like&#32;Bayesian&#32;Optimization&#32;and&#32;CMA-ES)&#32;don&apos;t&#32;work&#32;as&#32;well.&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00098"/>00098 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00099"/>00099 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Optuna&#32;has&#32;a&#32;valuable&#32;feature:&#32;A&#32;https://github.com/optuna/optuna-dashboard[dashboard]</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00100"/>00100 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;providing&#32;real&#32;time&#32;insights&#32;into&#32;the&#32;optimization&#32;process.&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00101"/>00101 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00102"/>00102 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Fortunately&#32;we&#32;can&#32;make&#32;this&#32;dashboard&#32;work&#32;also&#32;for&#32;fcmaes:</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00103"/>00103 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00104"/>00104 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;-&#32;There&#32;is&#32;an&#32;Optuna&#32;journal&#32;file&#32;generating&#32;wrapper&#32;for&#32;the&#32;objective&#32;function&#32;used&#32;by&#32;fcmaes</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00105"/>00105 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;optimizers.&#32;Because&#32;of&#32;the&#32;order&#32;parallel&#32;objective&#32;function&#32;evaluations&#32;are&#32;scheduled&#32;by&#32;fcmaes,</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00106"/>00106 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;some&#32;results&#32;cannot&#32;be&#32;captured,&#32;but&#32;in&#32;practice&#32;the&#32;dashboard&#32;works&#32;quite&#32;well.</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00107"/>00107 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Instead&#32;of&#32;&quot;batches&quot;&#32;a&#32;more&#32;sophisticated&#32;parallelization&#32;approach&#32;is&#32;implemented,&#32;which&#32;exploits&#32;the&#32;fact</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00108"/>00108 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;that&#32;objective&#32;function&#32;evaluations&#32;can&#32;require&#32;vastly&#32;different&#32;execution&#32;times.&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00109"/>00109 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;So&#32;evaluation&#32;in&#32;&quot;batches&quot;&#32;would&#32;cause&#32;some&#32;CPU&#32;cores&#32;to&#32;idle&#32;waiting&#32;for&#32;the&#32;slow&#32;ones.&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00110"/>00110 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00111"/>00111 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Using&#32;fcmaes&#32;ask/tell&#32;interface&#32;batch&#32;evaluation&#32;can&#32;be&#32;enforced&#32;if&#32;you&#32;prefer&#32;this.</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00112"/>00112 <emphasis role="stringliteral">&apos;&apos;&apos;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00113"/>00113 
+<anchor xml:id="_prophet__opt_8py_source_1l00114"/>00114 <emphasis role="keyword">import</emphasis>&#32;pandas&#32;<emphasis role="keyword">as</emphasis>&#32;pd
+<anchor xml:id="_prophet__opt_8py_source_1l00115"/>00115 <emphasis role="keyword">import</emphasis>&#32;numpy&#32;<emphasis role="keyword">as</emphasis>&#32;np
+<anchor xml:id="_prophet__opt_8py_source_1l00116"/>00116 <emphasis role="keyword">import</emphasis>&#32;yfinance&#32;<emphasis role="keyword">as</emphasis>&#32;yf
+<anchor xml:id="_prophet__opt_8py_source_1l00117"/>00117 <emphasis role="keyword">import</emphasis>&#32;sys
+<anchor xml:id="_prophet__opt_8py_source_1l00118"/>00118 <emphasis role="keyword">import</emphasis>&#32;matplotlib.pyplot&#32;<emphasis role="keyword">as</emphasis>&#32;plt
+<anchor xml:id="_prophet__opt_8py_source_1l00119"/>00119 <emphasis role="keyword">from</emphasis>&#32;prophet&#32;<emphasis role="keyword">import</emphasis>&#32;Prophet
+<anchor xml:id="_prophet__opt_8py_source_1l00120"/>00120 
+<anchor xml:id="_prophet__opt_8py_source_1l00121"/>00121 <emphasis role="comment">#&#32;Suppress&#32;log&#32;messages&#32;from&#32;Prophet&#32;and&#32;its&#32;dependencies</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00122"/>00122 <emphasis role="keyword">import</emphasis>&#32;logging
+<anchor xml:id="_prophet__opt_8py_source_1l00123"/>00123 logging.getLogger(<emphasis role="stringliteral">&apos;prophet&apos;</emphasis>).setLevel(logging.ERROR)
+<anchor xml:id="_prophet__opt_8py_source_1l00124"/>00124 logging.getLogger(<emphasis role="stringliteral">&apos;cmdstanpy&apos;</emphasis>).setLevel(logging.ERROR)
+<anchor xml:id="_prophet__opt_8py_source_1l00125"/>00125 logging.getLogger(<emphasis role="stringliteral">&apos;pystan&apos;</emphasis>).setLevel(logging.ERROR)
+<anchor xml:id="_prophet__opt_8py_source_1l00126"/>00126 
+<anchor xml:id="_prophet__opt_8py_source_1l00127"/>00127 <emphasis role="comment">#&#32;Remove&#32;any&#32;existing&#32;handlers</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00128"/>00128 logger&#32;=&#32;logging.getLogger(<emphasis role="stringliteral">&apos;cmdstanpy&apos;</emphasis>)
+<anchor xml:id="_prophet__opt_8py_source_1l00129"/>00129 <emphasis role="keywordflow">if</emphasis>&#32;logger.hasHandlers():
+<anchor xml:id="_prophet__opt_8py_source_1l00130"/>00130 &#32;&#32;&#32;&#32;logger.handlers.clear()
+<anchor xml:id="_prophet__opt_8py_source_1l00131"/>00131 
+<anchor xml:id="_prophet__opt_8py_source_1l00132"/>00132 <emphasis role="comment">#&#32;Create&#32;a&#32;null&#32;handler&#32;to&#32;absorb&#32;logs</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00133"/>00133 null_handler&#32;=&#32;logging.NullHandler()
+<anchor xml:id="_prophet__opt_8py_source_1l00134"/>00134 logger.addHandler(null_handler)
+<anchor xml:id="_prophet__opt_8py_source_1l00135"/>00135 
+<anchor xml:id="_prophet__opt_8py_source_1l00136"/>00136 <emphasis role="comment">#&#32;Suppress&#32;warnings</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00137"/>00137 <emphasis role="keyword">import</emphasis>&#32;warnings
+<anchor xml:id="_prophet__opt_8py_source_1l00138"/>00138 warnings.filterwarnings(<emphasis role="stringliteral">&apos;ignore&apos;</emphasis>)
+<anchor xml:id="_prophet__opt_8py_source_1l00139"/>00139 
+<anchor xml:id="_prophet__opt_8py_source_1l00140"/>00140 
+<anchor xml:id="_prophet__opt_8py_source_1l00141"/>00141 <emphasis role="comment">#&#32;generated&#32;by&#32;o1-preview,&#32;refactored&#32;in&#32;a&#32;separate&#32;method&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00142"/><link linkend="_namespaceexamples_1_1prophet__opt_1a43ce737dcffd73d540d9e21f70f783c7">00142</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1prophet__opt_1a7549217e0180b68ae1bd365ca7287fe4">load_data</link>(symbol&#32;=&#32;&apos;BTC-USD&apos;,&#32;start_date&#32;=&#32;&apos;2013-01-01&apos;,&#32;end_date&#32;=&#32;&apos;2024-10-30&apos;):
+<anchor xml:id="_prophet__opt_8py_source_1l00143"/>00143 &#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00144"/>00144 &#32;&#32;&#32;&#32;data&#32;=&#32;yf.download(symbol,&#32;start=start_date,&#32;end=end_date)
+<anchor xml:id="_prophet__opt_8py_source_1l00145"/>00145 &#32;&#32;&#32;&#32;data.columns&#32;=&#32;data.columns.get_level_values(0)&#32;<emphasis role="comment">#&#32;take&#32;first&#32;element&#32;of&#32;the&#32;multi&#32;index&#32;column&#32;label</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00146"/>00146 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Prepare&#32;the&#32;data</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00147"/><link linkend="_namespaceexamples_1_1prophet__opt_1a7790ff1362e83048ddbf1967cb4488ad">00147</link> &#32;&#32;&#32;&#32;df&#32;=&#32;data.reset_index()[[<emphasis role="stringliteral">&apos;Date&apos;</emphasis>,&#32;<emphasis role="stringliteral">&apos;Adj&#32;Close&apos;</emphasis>]]
+<anchor xml:id="_prophet__opt_8py_source_1l00148"/>00148 &#32;&#32;&#32;&#32;df.rename(columns={<emphasis role="stringliteral">&apos;Date&apos;</emphasis>:&#32;<emphasis role="stringliteral">&apos;ds&apos;</emphasis>,&#32;<emphasis role="stringliteral">&apos;Adj&#32;Close&apos;</emphasis>:&#32;<emphasis role="stringliteral">&apos;y&apos;</emphasis>},&#32;inplace=<emphasis role="keyword">True</emphasis>)
+<anchor xml:id="_prophet__opt_8py_source_1l00149"/>00149 &#32;&#32;&#32;&#32;df[<emphasis role="stringliteral">&apos;ds&apos;</emphasis>]&#32;=&#32;df[<emphasis role="stringliteral">&apos;ds&apos;</emphasis>].dt.tz_localize(<emphasis role="keywordtype">None</emphasis>)&#32;<emphasis role="comment">#&#32;remove&#32;time-zone&#32;info</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00150"/>00150 &#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00151"/>00151 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Handle&#32;missing&#32;values</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00152"/>00152 &#32;&#32;&#32;&#32;df.dropna(inplace=<emphasis role="keyword">True</emphasis>)
+<anchor xml:id="_prophet__opt_8py_source_1l00153"/>00153 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;df
+<anchor xml:id="_prophet__opt_8py_source_1l00154"/>00154 
+<anchor xml:id="_prophet__opt_8py_source_1l00155"/>00155 <emphasis role="comment">#&#32;generated&#32;by&#32;o1-preview&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00156"/><link linkend="_namespaceexamples_1_1prophet__opt_1a7549217e0180b68ae1bd365ca7287fe4">00156</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1prophet__opt_1a61ac51634dd7cfd9cf39a7947fcbd281">btc_strategy</link>():
+<anchor xml:id="_prophet__opt_8py_source_1l00157"/>00157 &#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00158"/>00158 &#32;&#32;&#32;&#32;df&#32;=&#32;<link linkend="_namespaceexamples_1_1prophet__opt_1a7549217e0180b68ae1bd365ca7287fe4">load_data</link>()
+<anchor xml:id="_prophet__opt_8py_source_1l00159"/>00159 &#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00160"/>00160 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Initialize&#32;the&#32;Prophet&#32;model</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00161"/>00161 &#32;&#32;&#32;&#32;model&#32;=&#32;Prophet(
+<anchor xml:id="_prophet__opt_8py_source_1l00162"/>00162 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;daily_seasonality=<emphasis role="keyword">False</emphasis>,
+<anchor xml:id="_prophet__opt_8py_source_1l00163"/>00163 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;weekly_seasonality=<emphasis role="keyword">False</emphasis>,
+<anchor xml:id="_prophet__opt_8py_source_1l00164"/>00164 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;yearly_seasonality=<emphasis role="keyword">True</emphasis>,&#32;&#32;<emphasis role="comment">#&#32;Keep&#32;yearly&#32;seasonality</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00165"/>00165 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;changepoint_prior_scale=0.5&#32;&#32;<emphasis role="comment">#&#32;Adjust&#32;for&#32;Bitcoin&apos;s&#32;volatility</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00166"/>00166 &#32;&#32;&#32;&#32;)
+<anchor xml:id="_prophet__opt_8py_source_1l00167"/>00167 &#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00168"/>00168 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Add&#32;custom&#32;4-year&#32;seasonality</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00169"/>00169 &#32;&#32;&#32;&#32;model.add_seasonality(
+<anchor xml:id="_prophet__opt_8py_source_1l00170"/><link linkend="_namespaceexamples_1_1prophet__opt_1a61ac51634dd7cfd9cf39a7947fcbd281">00170</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;name=<emphasis role="stringliteral">&apos;four_year_cycle&apos;</emphasis>,
+<anchor xml:id="_prophet__opt_8py_source_1l00171"/>00171 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;period=1461,&#32;&#32;<emphasis role="comment">#&#32;365.25&#32;days&#32;*&#32;4&#32;years&#32;(accounting&#32;for&#32;leap&#32;years)</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00172"/>00172 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fourier_order=5
+<anchor xml:id="_prophet__opt_8py_source_1l00173"/>00173 &#32;&#32;&#32;&#32;)
+<anchor xml:id="_prophet__opt_8py_source_1l00174"/>00174 &#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00175"/>00175 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Fit&#32;the&#32;model</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00176"/>00176 &#32;&#32;&#32;&#32;model.fit(df)
+<anchor xml:id="_prophet__opt_8py_source_1l00177"/>00177 &#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00178"/>00178 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Create&#32;a&#32;DataFrame&#32;to&#32;hold&#32;predictions</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00179"/>00179 &#32;&#32;&#32;&#32;future&#32;=&#32;model.make_future_dataframe(periods=90)&#32;&#32;<emphasis role="comment">#&#32;Forecasting&#32;the&#32;next&#32;90&#32;days</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00180"/>00180 &#32;&#32;&#32;&#32;forecast&#32;=&#32;model.predict(future)
+<anchor xml:id="_prophet__opt_8py_source_1l00181"/>00181 &#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00182"/>00182 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Plot&#32;the&#32;forecast</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00183"/>00183 &#32;&#32;&#32;&#32;model.plot(forecast)
+<anchor xml:id="_prophet__opt_8py_source_1l00184"/>00184 &#32;&#32;&#32;&#32;plt.title(<emphasis role="stringliteral">&apos;Bitcoin&#32;Price&#32;Forecast&#32;with&#32;4-Year&#32;Cycle&apos;</emphasis>)
+<anchor xml:id="_prophet__opt_8py_source_1l00185"/>00185 &#32;&#32;&#32;&#32;plt.xlabel(<emphasis role="stringliteral">&apos;Date&apos;</emphasis>)
+<anchor xml:id="_prophet__opt_8py_source_1l00186"/>00186 &#32;&#32;&#32;&#32;plt.ylabel(<emphasis role="stringliteral">&apos;Price&#32;(USD)&apos;</emphasis>)
+<anchor xml:id="_prophet__opt_8py_source_1l00187"/>00187 &#32;&#32;&#32;&#32;plt.show()
+<anchor xml:id="_prophet__opt_8py_source_1l00188"/>00188 &#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00189"/>00189 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Plot&#32;the&#32;components&#32;to&#32;see&#32;the&#32;effect&#32;of&#32;the&#32;4-year&#32;cycle</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00190"/>00190 &#32;&#32;&#32;&#32;model.plot_components(forecast)
+<anchor xml:id="_prophet__opt_8py_source_1l00191"/>00191 &#32;&#32;&#32;&#32;plt.show()
+<anchor xml:id="_prophet__opt_8py_source_1l00192"/>00192 &#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00193"/>00193 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Merge&#32;the&#32;forecast&#32;with&#32;the&#32;original&#32;data</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00194"/>00194 &#32;&#32;&#32;&#32;forecast&#32;=&#32;forecast[[<emphasis role="stringliteral">&apos;ds&apos;</emphasis>,&#32;<emphasis role="stringliteral">&apos;yhat&apos;</emphasis>]]
+<anchor xml:id="_prophet__opt_8py_source_1l00195"/>00195 &#32;&#32;&#32;&#32;df&#32;=&#32;df.merge(forecast,&#32;on=<emphasis role="stringliteral">&apos;ds&apos;</emphasis>,&#32;how=<emphasis role="stringliteral">&apos;left&apos;</emphasis>)
+<anchor xml:id="_prophet__opt_8py_source_1l00196"/>00196 &#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00197"/>00197 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Calculate&#32;the&#32;daily&#32;change&#32;in&#32;predicted&#32;prices</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00198"/>00198 &#32;&#32;&#32;&#32;df[<emphasis role="stringliteral">&apos;yhat_change&apos;</emphasis>]&#32;=&#32;df[<emphasis role="stringliteral">&apos;yhat&apos;</emphasis>].diff()
+<anchor xml:id="_prophet__opt_8py_source_1l00199"/>00199 &#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00200"/>00200 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Set&#32;a&#32;threshold&#32;for&#32;generating&#32;signals</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00201"/>00201 &#32;&#32;&#32;&#32;threshold&#32;=&#32;df[<emphasis role="stringliteral">&apos;yhat_change&apos;</emphasis>].<link linkend="_namespacestd">std</link>()&#32;&#32;<emphasis role="comment">#&#32;Use&#32;standard&#32;deviation&#32;as&#32;threshold</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00202"/>00202 &#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00203"/>00203 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Initialize&#32;the&#32;signal&#32;column</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00204"/>00204 &#32;&#32;&#32;&#32;df[<emphasis role="stringliteral">&apos;signal&apos;</emphasis>]&#32;=&#32;0
+<anchor xml:id="_prophet__opt_8py_source_1l00205"/>00205 &#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00206"/>00206 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Generate&#32;signals</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00207"/>00207 &#32;&#32;&#32;&#32;df.loc[df[<emphasis role="stringliteral">&apos;yhat_change&apos;</emphasis>]&#32;&gt;&#32;threshold,&#32;<emphasis role="stringliteral">&apos;signal&apos;</emphasis>]&#32;=&#32;1&#32;&#32;&#32;<emphasis role="comment">#&#32;Buy&#32;signal</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00208"/>00208 &#32;&#32;&#32;&#32;df.loc[df[<emphasis role="stringliteral">&apos;yhat_change&apos;</emphasis>]&#32;&lt;&#32;-threshold,&#32;<emphasis role="stringliteral">&apos;signal&apos;</emphasis>]&#32;=&#32;-1&#32;&#32;<emphasis role="comment">#&#32;Sell&#32;signal</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00209"/>00209 &#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00210"/>00210 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Calculate&#32;daily&#32;returns</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00211"/>00211 &#32;&#32;&#32;&#32;df[<emphasis role="stringliteral">&apos;return&apos;</emphasis>]&#32;=&#32;df[<emphasis role="stringliteral">&apos;y&apos;</emphasis>].pct_change()
+<anchor xml:id="_prophet__opt_8py_source_1l00212"/>00212 &#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00213"/>00213 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Shift&#32;the&#32;signal&#32;by&#32;1&#32;day&#32;to&#32;simulate&#32;trading&#32;at&#32;the&#32;next&#32;day&apos;s&#32;open</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00214"/>00214 &#32;&#32;&#32;&#32;df[<emphasis role="stringliteral">&apos;strategy_return&apos;</emphasis>]&#32;=&#32;df[<emphasis role="stringliteral">&apos;signal&apos;</emphasis>].shift(1)&#32;*&#32;df[<emphasis role="stringliteral">&apos;return&apos;</emphasis>]
+<anchor xml:id="_prophet__opt_8py_source_1l00215"/>00215 &#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00216"/>00216 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Calculate&#32;cumulative&#32;returns</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00217"/>00217 &#32;&#32;&#32;&#32;df[<emphasis role="stringliteral">&apos;cumulative_market_return&apos;</emphasis>]&#32;=&#32;(1&#32;+&#32;df[<emphasis role="stringliteral">&apos;return&apos;</emphasis>]).cumprod()
+<anchor xml:id="_prophet__opt_8py_source_1l00218"/>00218 &#32;&#32;&#32;&#32;df[<emphasis role="stringliteral">&apos;cumulative_strategy_return&apos;</emphasis>]&#32;=&#32;(1&#32;+&#32;df[<emphasis role="stringliteral">&apos;strategy_return&apos;</emphasis>]).cumprod()
+<anchor xml:id="_prophet__opt_8py_source_1l00219"/>00219 &#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1prophet__opt_1a8a4ce6e419eeaa24cd84dcbd0930f019">plot_df</link>(df)
+<anchor xml:id="_prophet__opt_8py_source_1l00220"/>00220 &#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00221"/>00221 <emphasis role="comment">#&#32;generated&#32;by&#32;o1-preview,&#32;refactored&#32;in&#32;a&#32;separate&#32;method&#32;&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00222"/>00222 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1prophet__opt_1a8a4ce6e419eeaa24cd84dcbd0930f019">plot_df</link>(df):
+<anchor xml:id="_prophet__opt_8py_source_1l00223"/>00223 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Plot&#32;cumulative&#32;returns</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00224"/>00224 &#32;&#32;&#32;&#32;plt.figure(figsize=(14,&#32;7))
+<anchor xml:id="_prophet__opt_8py_source_1l00225"/>00225 &#32;&#32;&#32;&#32;plt.plot(df[<emphasis role="stringliteral">&apos;ds&apos;</emphasis>],&#32;df[<emphasis role="stringliteral">&apos;cumulative_market_return&apos;</emphasis>],&#32;label=<emphasis role="stringliteral">&apos;Market&#32;Return&apos;</emphasis>)
+<anchor xml:id="_prophet__opt_8py_source_1l00226"/>00226 &#32;&#32;&#32;&#32;plt.plot(df[<emphasis role="stringliteral">&apos;ds&apos;</emphasis>],&#32;df[<emphasis role="stringliteral">&apos;cumulative_strategy_return&apos;</emphasis>],&#32;label=<emphasis role="stringliteral">&apos;Strategy&#32;Return&apos;</emphasis>)
+<anchor xml:id="_prophet__opt_8py_source_1l00227"/>00227 &#32;&#32;&#32;&#32;plt.legend()
+<anchor xml:id="_prophet__opt_8py_source_1l00228"/>00228 &#32;&#32;&#32;&#32;plt.title(<emphasis role="stringliteral">&apos;Cumulative&#32;Returns:&#32;Strategy&#32;vs.&#32;Market&apos;</emphasis>)
+<anchor xml:id="_prophet__opt_8py_source_1l00229"/>00229 &#32;&#32;&#32;&#32;plt.xlabel(<emphasis role="stringliteral">&apos;Date&apos;</emphasis>)
+<anchor xml:id="_prophet__opt_8py_source_1l00230"/>00230 &#32;&#32;&#32;&#32;plt.ylabel(<emphasis role="stringliteral">&apos;Cumulative&#32;Return&apos;</emphasis>)
+<anchor xml:id="_prophet__opt_8py_source_1l00231"/>00231 &#32;&#32;&#32;&#32;plt.show()
+<anchor xml:id="_prophet__opt_8py_source_1l00232"/>00232 &#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00233"/>00233 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Calculate&#32;total&#32;returns</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00234"/>00234 &#32;&#32;&#32;&#32;total_market_return&#32;=&#32;df[<emphasis role="stringliteral">&apos;cumulative_market_return&apos;</emphasis>].iloc[-1]&#32;-&#32;1
+<anchor xml:id="_prophet__opt_8py_source_1l00235"/>00235 &#32;&#32;&#32;&#32;total_strategy_return&#32;=&#32;df[<emphasis role="stringliteral">&apos;cumulative_strategy_return&apos;</emphasis>].iloc[-1]&#32;-&#32;1
+<anchor xml:id="_prophet__opt_8py_source_1l00236"/><link linkend="_namespaceexamples_1_1prophet__opt_1a8a4ce6e419eeaa24cd84dcbd0930f019">00236</link> &#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00237"/>00237 &#32;&#32;&#32;&#32;print(f<emphasis role="stringliteral">&quot;Total&#32;Market&#32;Return:&#32;{total_market_return:.2%}&quot;</emphasis>)
+<anchor xml:id="_prophet__opt_8py_source_1l00238"/>00238 &#32;&#32;&#32;&#32;print(f<emphasis role="stringliteral">&quot;Total&#32;Strategy&#32;Return:&#32;{total_strategy_return:.2%}&quot;</emphasis>)
+<anchor xml:id="_prophet__opt_8py_source_1l00239"/>00239 &#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00240"/>00240 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Plot&#32;the&#32;signals&#32;on&#32;the&#32;Bitcoin&#32;price</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00241"/>00241 &#32;&#32;&#32;&#32;plt.figure(figsize=(14,&#32;7))
+<anchor xml:id="_prophet__opt_8py_source_1l00242"/>00242 &#32;&#32;&#32;&#32;plt.plot(df[<emphasis role="stringliteral">&apos;ds&apos;</emphasis>],&#32;df[<emphasis role="stringliteral">&apos;y&apos;</emphasis>],&#32;label=<emphasis role="stringliteral">&apos;Bitcoin&#32;Price&apos;</emphasis>)
+<anchor xml:id="_prophet__opt_8py_source_1l00243"/>00243 &#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00244"/>00244 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Plot&#32;buy&#32;signals</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00245"/>00245 &#32;&#32;&#32;&#32;buy_signals&#32;=&#32;df[df[<emphasis role="stringliteral">&apos;signal&apos;</emphasis>]&#32;==&#32;1]
+<anchor xml:id="_prophet__opt_8py_source_1l00246"/>00246 &#32;&#32;&#32;&#32;plt.scatter(buy_signals[<emphasis role="stringliteral">&apos;ds&apos;</emphasis>],&#32;buy_signals[<emphasis role="stringliteral">&apos;y&apos;</emphasis>],&#32;marker=<emphasis role="stringliteral">&apos;^&apos;</emphasis>,&#32;color=<emphasis role="stringliteral">&apos;green&apos;</emphasis>,&#32;label=<emphasis role="stringliteral">&apos;Buy&#32;Signal&apos;</emphasis>,&#32;alpha=1)
+<anchor xml:id="_prophet__opt_8py_source_1l00247"/>00247 &#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00248"/>00248 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Plot&#32;sell&#32;signals</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00249"/>00249 &#32;&#32;&#32;&#32;sell_signals&#32;=&#32;df[df[<emphasis role="stringliteral">&apos;signal&apos;</emphasis>]&#32;==&#32;-1]
+<anchor xml:id="_prophet__opt_8py_source_1l00250"/>00250 &#32;&#32;&#32;&#32;plt.scatter(sell_signals[<emphasis role="stringliteral">&apos;ds&apos;</emphasis>],&#32;sell_signals[<emphasis role="stringliteral">&apos;y&apos;</emphasis>],&#32;marker=<emphasis role="stringliteral">&apos;v&apos;</emphasis>,&#32;color=<emphasis role="stringliteral">&apos;red&apos;</emphasis>,&#32;label=<emphasis role="stringliteral">&apos;Sell&#32;Signal&apos;</emphasis>,&#32;alpha=1)
+<anchor xml:id="_prophet__opt_8py_source_1l00251"/>00251 &#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00252"/>00252 &#32;&#32;&#32;&#32;plt.legend()
+<anchor xml:id="_prophet__opt_8py_source_1l00253"/>00253 &#32;&#32;&#32;&#32;plt.title(<emphasis role="stringliteral">&apos;Trading&#32;Signals&#32;on&#32;Bitcoin&#32;Price&apos;</emphasis>)
+<anchor xml:id="_prophet__opt_8py_source_1l00254"/>00254 &#32;&#32;&#32;&#32;plt.xlabel(<emphasis role="stringliteral">&apos;Date&apos;</emphasis>)
+<anchor xml:id="_prophet__opt_8py_source_1l00255"/>00255 &#32;&#32;&#32;&#32;plt.ylabel(<emphasis role="stringliteral">&apos;Price&#32;(USD)&apos;</emphasis>)
+<anchor xml:id="_prophet__opt_8py_source_1l00256"/>00256 &#32;&#32;&#32;&#32;plt.show()
+<anchor xml:id="_prophet__opt_8py_source_1l00257"/>00257 &#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00258"/>00258 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Calculate&#32;Sharpe&#32;Ratio</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00259"/>00259 &#32;&#32;&#32;&#32;strategy_returns&#32;=&#32;df[<emphasis role="stringliteral">&apos;strategy_return&apos;</emphasis>].dropna()
+<anchor xml:id="_prophet__opt_8py_source_1l00260"/>00260 &#32;&#32;&#32;&#32;sharpe_ratio&#32;=&#32;(strategy_returns.mean()&#32;/&#32;strategy_returns.std())&#32;*&#32;np.sqrt(252)&#32;<emphasis role="comment">#&#32;Annualized&#32;Sharpe&#32;Ratio</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00261"/>00261 &#32;&#32;&#32;&#32;print(f<emphasis role="stringliteral">&quot;Annualized&#32;Sharpe&#32;Ratio&#32;of&#32;the&#32;Strategy:&#32;{sharpe_ratio:.2f}&quot;</emphasis>)
+<anchor xml:id="_prophet__opt_8py_source_1l00262"/>00262 &#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00263"/>00263 &#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00264"/>00264 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1prophet__opt_1aaef1882f68b34d7af026e8781098c1d5">btc_eval_params</link>(df,&#32;changepoint_prior_scale,&#32;period,&#32;fourier_order,&#32;seasonality_mode):
+<anchor xml:id="_prophet__opt_8py_source_1l00265"/>00265 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00266"/>00266 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Initialize&#32;the&#32;Prophet&#32;model</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00267"/>00267 &#32;&#32;&#32;&#32;model&#32;=&#32;Prophet(
+<anchor xml:id="_prophet__opt_8py_source_1l00268"/>00268 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;seasonality_mode=seasonality_mode,
+<anchor xml:id="_prophet__opt_8py_source_1l00269"/>00269 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;daily_seasonality=<emphasis role="keyword">False</emphasis>,
+<anchor xml:id="_prophet__opt_8py_source_1l00270"/>00270 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;weekly_seasonality=<emphasis role="keyword">False</emphasis>,
+<anchor xml:id="_prophet__opt_8py_source_1l00271"/>00271 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;yearly_seasonality=<emphasis role="keyword">True</emphasis>,&#32;&#32;<emphasis role="comment">#&#32;Keep&#32;yearly&#32;seasonality</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00272"/>00272 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;changepoint_prior_scale=changepoint_prior_scale&#32;&#32;<emphasis role="comment">#&#32;Adjust&#32;for&#32;Bitcoin&apos;s&#32;volatility</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00273"/>00273 &#32;&#32;&#32;&#32;)
+<anchor xml:id="_prophet__opt_8py_source_1l00274"/>00274 &#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00275"/>00275 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Add&#32;custom&#32;4-year&#32;seasonality</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00276"/>00276 &#32;&#32;&#32;&#32;model.add_seasonality(
+<anchor xml:id="_prophet__opt_8py_source_1l00277"/>00277 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;name=<emphasis role="stringliteral">&apos;four_year_cycle&apos;</emphasis>,
+<anchor xml:id="_prophet__opt_8py_source_1l00278"/><link linkend="_namespaceexamples_1_1prophet__opt_1aaef1882f68b34d7af026e8781098c1d5">00278</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;period=period,&#32;&#32;<emphasis role="comment">#&#32;365.25&#32;days&#32;*&#32;4&#32;years&#32;(accounting&#32;for&#32;leap&#32;years)</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00279"/>00279 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fourier_order=fourier_order
+<anchor xml:id="_prophet__opt_8py_source_1l00280"/>00280 &#32;&#32;&#32;&#32;)
+<anchor xml:id="_prophet__opt_8py_source_1l00281"/>00281 &#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00282"/>00282 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Fit&#32;the&#32;model</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00283"/>00283 &#32;&#32;&#32;&#32;model.fit(df)
+<anchor xml:id="_prophet__opt_8py_source_1l00284"/>00284 &#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00285"/>00285 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Create&#32;a&#32;DataFrame&#32;to&#32;hold&#32;predictions</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00286"/>00286 &#32;&#32;&#32;&#32;future&#32;=&#32;model.make_future_dataframe(periods=90)&#32;&#32;<emphasis role="comment">#&#32;Forecasting&#32;the&#32;next&#32;90&#32;days</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00287"/>00287 &#32;&#32;&#32;&#32;forecast&#32;=&#32;model.predict(future)
+<anchor xml:id="_prophet__opt_8py_source_1l00288"/>00288 
+<anchor xml:id="_prophet__opt_8py_source_1l00289"/>00289 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Merge&#32;the&#32;forecast&#32;with&#32;the&#32;original&#32;data</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00290"/>00290 &#32;&#32;&#32;&#32;forecast&#32;=&#32;forecast[[<emphasis role="stringliteral">&apos;ds&apos;</emphasis>,&#32;<emphasis role="stringliteral">&apos;yhat&apos;</emphasis>]]
+<anchor xml:id="_prophet__opt_8py_source_1l00291"/>00291 &#32;&#32;&#32;&#32;df&#32;=&#32;df.merge(forecast,&#32;on=<emphasis role="stringliteral">&apos;ds&apos;</emphasis>,&#32;how=<emphasis role="stringliteral">&apos;left&apos;</emphasis>)
+<anchor xml:id="_prophet__opt_8py_source_1l00292"/>00292 &#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00293"/>00293 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Calculate&#32;the&#32;daily&#32;change&#32;in&#32;predicted&#32;prices</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00294"/>00294 &#32;&#32;&#32;&#32;df[<emphasis role="stringliteral">&apos;yhat_change&apos;</emphasis>]&#32;=&#32;df[<emphasis role="stringliteral">&apos;yhat&apos;</emphasis>].diff()
+<anchor xml:id="_prophet__opt_8py_source_1l00295"/>00295 &#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00296"/>00296 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Set&#32;a&#32;threshold&#32;for&#32;generating&#32;signals</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00297"/>00297 &#32;&#32;&#32;&#32;threshold&#32;=&#32;df[<emphasis role="stringliteral">&apos;yhat_change&apos;</emphasis>].<link linkend="_namespacestd">std</link>()&#32;&#32;<emphasis role="comment">#&#32;Use&#32;standard&#32;deviation&#32;as&#32;threshold</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00298"/>00298 &#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00299"/>00299 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Initialize&#32;the&#32;signal&#32;column</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00300"/>00300 &#32;&#32;&#32;&#32;df[<emphasis role="stringliteral">&apos;signal&apos;</emphasis>]&#32;=&#32;0
+<anchor xml:id="_prophet__opt_8py_source_1l00301"/>00301 &#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00302"/>00302 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Generate&#32;signals</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00303"/>00303 &#32;&#32;&#32;&#32;df.loc[df[<emphasis role="stringliteral">&apos;yhat_change&apos;</emphasis>]&#32;&gt;&#32;threshold,&#32;<emphasis role="stringliteral">&apos;signal&apos;</emphasis>]&#32;=&#32;1&#32;&#32;&#32;<emphasis role="comment">#&#32;Buy&#32;signal</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00304"/>00304 &#32;&#32;&#32;&#32;df.loc[df[<emphasis role="stringliteral">&apos;yhat_change&apos;</emphasis>]&#32;&lt;&#32;-threshold,&#32;<emphasis role="stringliteral">&apos;signal&apos;</emphasis>]&#32;=&#32;-1&#32;&#32;<emphasis role="comment">#&#32;Sell&#32;signal</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00305"/>00305 &#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00306"/>00306 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Calculate&#32;daily&#32;returns</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00307"/>00307 &#32;&#32;&#32;&#32;df[<emphasis role="stringliteral">&apos;return&apos;</emphasis>]&#32;=&#32;df[<emphasis role="stringliteral">&apos;y&apos;</emphasis>].pct_change()
+<anchor xml:id="_prophet__opt_8py_source_1l00308"/>00308 &#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00309"/>00309 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Shift&#32;the&#32;signal&#32;by&#32;1&#32;day&#32;to&#32;simulate&#32;trading&#32;at&#32;the&#32;next&#32;day&apos;s&#32;open</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00310"/>00310 &#32;&#32;&#32;&#32;df[<emphasis role="stringliteral">&apos;strategy_return&apos;</emphasis>]&#32;=&#32;df[<emphasis role="stringliteral">&apos;signal&apos;</emphasis>].shift(1)&#32;*&#32;df[<emphasis role="stringliteral">&apos;return&apos;</emphasis>]
+<anchor xml:id="_prophet__opt_8py_source_1l00311"/>00311 &#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00312"/>00312 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Calculate&#32;cumulative&#32;returns</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00313"/>00313 &#32;&#32;&#32;&#32;df[<emphasis role="stringliteral">&apos;cumulative_market_return&apos;</emphasis>]&#32;=&#32;(1&#32;+&#32;df[<emphasis role="stringliteral">&apos;return&apos;</emphasis>]).cumprod()
+<anchor xml:id="_prophet__opt_8py_source_1l00314"/>00314 &#32;&#32;&#32;&#32;df[<emphasis role="stringliteral">&apos;cumulative_strategy_return&apos;</emphasis>]&#32;=&#32;(1&#32;+&#32;df[<emphasis role="stringliteral">&apos;strategy_return&apos;</emphasis>]).cumprod()
+<anchor xml:id="_prophet__opt_8py_source_1l00315"/>00315 &#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00316"/>00316 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Calculate&#32;total&#32;returns</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00317"/>00317 &#32;&#32;&#32;&#32;total_market_return&#32;=&#32;df[<emphasis role="stringliteral">&apos;cumulative_market_return&apos;</emphasis>].iloc[-1]&#32;-&#32;1
+<anchor xml:id="_prophet__opt_8py_source_1l00318"/>00318 &#32;&#32;&#32;&#32;total_strategy_return&#32;=&#32;df[<emphasis role="stringliteral">&apos;cumulative_strategy_return&apos;</emphasis>].iloc[-1]&#32;-&#32;1
+<anchor xml:id="_prophet__opt_8py_source_1l00319"/>00319 &#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00320"/>00320 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;print(f&quot;Total&#32;Market&#32;Return:&#32;{total_market_return:.2%}&quot;)</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00321"/>00321 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;print(f&quot;Total&#32;Strategy&#32;Return:&#32;{total_strategy_return:.2%}&quot;)</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00322"/>00322 
+<anchor xml:id="_prophet__opt_8py_source_1l00323"/>00323 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;#&#32;Calculate&#32;Sharpe&#32;Ratio</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00324"/>00324 &#32;&#32;&#32;&#32;strategy_returns&#32;=&#32;df[<emphasis role="stringliteral">&apos;strategy_return&apos;</emphasis>].dropna()
+<anchor xml:id="_prophet__opt_8py_source_1l00325"/>00325 &#32;&#32;&#32;&#32;sharpe_ratio&#32;=&#32;strategy_returns.mean()&#32;/&#32;strategy_returns.std()&#32;*&#32;np.sqrt(252)&#32;&#32;<emphasis role="comment">#&#32;Annualized&#32;Sharpe&#32;Ratio&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00326"/>00326 &#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00327"/>00327 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;sharpe_ratio,&#32;total_strategy_return,&#32;total_market_return,&#32;df
+<anchor xml:id="_prophet__opt_8py_source_1l00328"/>00328 &#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00329"/>00329 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1prophet__opt_1ae4e0f5b1e89fcbb3c76d779137998d54">btc_show_params</link>(df,&#32;changepoint_prior_scale,&#32;period,&#32;fourier_order,&#32;seasonality_mode):
+<anchor xml:id="_prophet__opt_8py_source_1l00330"/>00330 &#32;&#32;&#32;&#32;sharpe_ratio,&#32;total_strategy_return,&#32;total_market_return,&#32;df&#32;=&#32;\
+<anchor xml:id="_prophet__opt_8py_source_1l00331"/>00331 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1prophet__opt_1aaef1882f68b34d7af026e8781098c1d5">btc_eval_params</link>(df,&#32;changepoint_prior_scale,&#32;period,&#32;fourier_order,&#32;seasonality_mode)
+<anchor xml:id="_prophet__opt_8py_source_1l00332"/>00332 &#32;&#32;&#32;&#32;print(f<emphasis role="stringliteral">&quot;changepoint&#32;prior&#32;scale:&#32;{changepoint_prior_scale:.2f}&quot;</emphasis>)
+<anchor xml:id="_prophet__opt_8py_source_1l00333"/>00333 &#32;&#32;&#32;&#32;print(f<emphasis role="stringliteral">&quot;period:&#32;{period:.1f}&quot;</emphasis>)
+<anchor xml:id="_prophet__opt_8py_source_1l00334"/>00334 &#32;&#32;&#32;&#32;print(f<emphasis role="stringliteral">&quot;fourier&#32;order:&#32;{fourier_order}&quot;</emphasis>)
+<anchor xml:id="_prophet__opt_8py_source_1l00335"/>00335 &#32;&#32;&#32;&#32;print(f<emphasis role="stringliteral">&quot;seasonality_mode:&#32;{seasonality_mode}&quot;</emphasis>)
+<anchor xml:id="_prophet__opt_8py_source_1l00336"/>00336 &#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1prophet__opt_1a8a4ce6e419eeaa24cd84dcbd0930f019">plot_df</link>(df)
+<anchor xml:id="_prophet__opt_8py_source_1l00337"/>00337 
+<anchor xml:id="_prophet__opt_8py_source_1l00338"/>00338 <emphasis role="comment">#&#32;convert&#32;the&#32;continuous&#32;decision&#32;variable&#32;vector&#32;x&#32;into&#32;strategy&#32;parameters:</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00339"/>00339 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1prophet__opt_1a6de43eaac1a61a76257187d2827f2ece">convert_x</link>(x):
+<anchor xml:id="_prophet__opt_8py_source_1l00340"/>00340 &#32;&#32;&#32;&#32;changepoint_prior_scale&#32;=&#32;x[0]
+<anchor xml:id="_prophet__opt_8py_source_1l00341"/>00341 &#32;&#32;&#32;&#32;period&#32;=&#32;int(x[1])
+<anchor xml:id="_prophet__opt_8py_source_1l00342"/>00342 &#32;&#32;&#32;&#32;fourier_order&#32;=&#32;int(x[2])
+<anchor xml:id="_prophet__opt_8py_source_1l00343"/><link linkend="_namespaceexamples_1_1prophet__opt_1ae4e0f5b1e89fcbb3c76d779137998d54">00343</link> &#32;&#32;&#32;&#32;seasonality_mode&#32;=&#32;<emphasis role="stringliteral">&apos;multiplicative&apos;</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>&#32;int(x[3])&#32;&lt;&#32;0.5&#32;<emphasis role="keywordflow">else</emphasis>&#32;<emphasis role="stringliteral">&apos;additive&apos;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00344"/>00344 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;changepoint_prior_scale,&#32;period,&#32;fourier_order,&#32;seasonality_mode
+<anchor xml:id="_prophet__opt_8py_source_1l00345"/>00345 &#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00346"/>00346 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1prophet__opt_1a18a248c54de45c4841f27809e3a642b1">btc_show_x</link>(df,&#32;x):
+<anchor xml:id="_prophet__opt_8py_source_1l00347"/>00347 &#32;&#32;&#32;&#32;changepoint_prior_scale,&#32;period,&#32;fourier_order,&#32;seasonality_mode&#32;=&#32;<link linkend="_namespaceexamples_1_1prophet__opt_1a6de43eaac1a61a76257187d2827f2ece">convert_x</link>(x)
+<anchor xml:id="_prophet__opt_8py_source_1l00348"/>00348 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_namespaceexamples_1_1prophet__opt_1ae4e0f5b1e89fcbb3c76d779137998d54">btc_show_params</link>(df,&#32;changepoint_prior_scale,&#32;period,&#32;fourier_order,&#32;seasonality_mode)
+<anchor xml:id="_prophet__opt_8py_source_1l00349"/>00349 &#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00350"/>00350 <emphasis role="keyword">from</emphasis>&#32;loguru&#32;<emphasis role="keyword">import</emphasis>&#32;logger
+<anchor xml:id="_prophet__opt_8py_source_1l00351"/>00351 <emphasis role="keyword">from</emphasis>&#32;functools&#32;<emphasis role="keyword">import</emphasis>&#32;partial
+<anchor xml:id="_prophet__opt_8py_source_1l00352"/>00352 <emphasis role="keyword">from</emphasis>&#32;scipy.optimize&#32;<emphasis role="keyword">import</emphasis>&#32;Bounds
+<anchor xml:id="_prophet__opt_8py_source_1l00353"/><link linkend="_namespaceexamples_1_1prophet__opt_1a6de43eaac1a61a76257187d2827f2ece">00353</link> <emphasis role="keyword">from</emphasis>&#32;fcmaes&#32;<emphasis role="keyword">import</emphasis>&#32;de,&#32;decpp,&#32;evaluator
+<anchor xml:id="_prophet__opt_8py_source_1l00354"/>00354 <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1optimizer">fcmaes.optimizer</link>&#32;<emphasis role="keyword">import</emphasis>&#32;wrapper
+<anchor xml:id="_prophet__opt_8py_source_1l00355"/>00355 <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1journal">fcmaes.journal</link>&#32;<emphasis role="keyword">import</emphasis>&#32;Journal,&#32;journal_wrapper
+<anchor xml:id="_prophet__opt_8py_source_1l00356"/>00356 &#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00357"/>00357 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1prophet__opt_1ab552129c694447ce6fc44ad3f49825e9">fitness</link>(df,&#32;x):
+<anchor xml:id="_prophet__opt_8py_source_1l00358"/>00358 &#32;&#32;&#32;&#32;changepoint_prior_scale,&#32;period,&#32;fourier_order,&#32;seasonality_mode&#32;=&#32;<link linkend="_namespaceexamples_1_1prophet__opt_1a6de43eaac1a61a76257187d2827f2ece">convert_x</link>(x)
+<anchor xml:id="_prophet__opt_8py_source_1l00359"/>00359 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;use&#32;only&#32;negative&#32;sharpe&#32;ratio&#32;-&#32;we&#32;want&#32;to&#32;maximize&#32;</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00360"/><link linkend="_namespaceexamples_1_1prophet__opt_1a18a248c54de45c4841f27809e3a642b1">00360</link> &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;-<link linkend="_namespaceexamples_1_1prophet__opt_1aaef1882f68b34d7af026e8781098c1d5">btc_eval_params</link>(df,&#32;changepoint_prior_scale,&#32;period,&#32;fourier_order,&#32;seasonality_mode)[0]
+<anchor xml:id="_prophet__opt_8py_source_1l00361"/>00361 
+<anchor xml:id="_prophet__opt_8py_source_1l00362"/>00362 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1prophet__opt_1a89edb34f6787ecf7671d592512524b7f">optimize_btc</link>():&#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00363"/>00363 &#32;&#32;&#32;&#32;logger.remove()
+<anchor xml:id="_prophet__opt_8py_source_1l00364"/>00364 &#32;&#32;&#32;&#32;logger.add(sys.stdout,&#32;format=<emphasis role="stringliteral">&quot;{time:HH:mm:ss.SS}&#32;|&#32;{level}&#32;|&#32;{message}&quot;</emphasis>,&#32;level=<emphasis role="stringliteral">&quot;INFO&quot;</emphasis>)
+<anchor xml:id="_prophet__opt_8py_source_1l00365"/>00365 &#32;&#32;&#32;&#32;logger.add(<emphasis role="stringliteral">&quot;log_{time}.txt&quot;</emphasis>,&#32;format=<emphasis role="stringliteral">&quot;{time:HH:mm:ss.SS}&#32;|&#32;{level}&#32;|&#32;{message}&quot;</emphasis>,&#32;level=<emphasis role="stringliteral">&quot;INFO&quot;</emphasis>)
+<anchor xml:id="_prophet__opt_8py_source_1l00366"/>00366 
+<anchor xml:id="_prophet__opt_8py_source_1l00367"/>00367 &#32;&#32;&#32;&#32;df&#32;=&#32;<link linkend="_namespaceexamples_1_1prophet__opt_1a7549217e0180b68ae1bd365ca7287fe4">load_data</link>()
+<anchor xml:id="_prophet__opt_8py_source_1l00368"/>00368 &#32;&#32;&#32;&#32;fit&#32;=&#32;<link linkend="_classfcmaes_1_1optimizer_1_1wrapper">wrapper</link>(partial(fitness,&#32;df))
+<anchor xml:id="_prophet__opt_8py_source_1l00369"/>00369 &#32;&#32;&#32;&#32;bounds&#32;=&#32;Bounds([0.001,&#32;300,&#32;3,&#32;0],&#32;[1,&#32;1600,&#32;11.999,&#32;1.0])&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00370"/>00370 &#32;&#32;&#32;&#32;dim&#32;=&#32;len(bounds.lb)
+<anchor xml:id="_prophet__opt_8py_source_1l00371"/><link linkend="_namespaceexamples_1_1prophet__opt_1ab552129c694447ce6fc44ad3f49825e9">00371</link> &#32;&#32;&#32;&#32;batch_size&#32;=&#32;16
+<anchor xml:id="_prophet__opt_8py_source_1l00372"/>00372 &#32;&#32;&#32;&#32;study_id&#32;=&#32;0
+<anchor xml:id="_prophet__opt_8py_source_1l00373"/>00373 &#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00374"/>00374 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;using&#32;journal&#32;wrapper</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00375"/>00375 &#32;&#32;&#32;&#32;fit&#32;=&#32;<link linkend="_classfcmaes_1_1journal_1_1journal__wrapper">journal_wrapper</link>(fit,&#32;bounds,&#32;<emphasis role="stringliteral">&quot;journal.log&quot;</emphasis>,&#32;<emphasis role="stringliteral">&quot;BTC_strategy&quot;</emphasis>,&#32;study_id,&#32;batch_size)
+<anchor xml:id="_prophet__opt_8py_source_1l00376"/><link linkend="_namespaceexamples_1_1prophet__opt_1a89edb34f6787ecf7671d592512524b7f">00376</link> &#32;&#32;&#32;&#32;result&#32;=&#32;de.minimize(fit,&#32;dim,&#32;bounds,&#32;popsize&#32;=&#32;batch_size,&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00377"/>00377 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_evaluations=10000,&#32;workers=batch_size)&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00378"/>00378 &#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1prophet__opt_1a18a248c54de45c4841f27809e3a642b1">btc_show_x</link>(df,&#32;result.x)
+<anchor xml:id="_prophet__opt_8py_source_1l00379"/>00379 
+<anchor xml:id="_prophet__opt_8py_source_1l00380"/>00380 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1prophet__opt_1a6036ff4e616cbf09671db7d938061190">optimize_btc_ask_tell</link>():&#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00381"/>00381 &#32;&#32;&#32;&#32;logger.remove()
+<anchor xml:id="_prophet__opt_8py_source_1l00382"/>00382 &#32;&#32;&#32;&#32;logger.add(sys.stdout,&#32;format=<emphasis role="stringliteral">&quot;{time:HH:mm:ss.SS}&#32;|&#32;{level}&#32;|&#32;{message}&quot;</emphasis>,&#32;level=<emphasis role="stringliteral">&quot;INFO&quot;</emphasis>)
+<anchor xml:id="_prophet__opt_8py_source_1l00383"/>00383 &#32;&#32;&#32;&#32;logger.add(<emphasis role="stringliteral">&quot;log_{time}.txt&quot;</emphasis>,&#32;format=<emphasis role="stringliteral">&quot;{time:HH:mm:ss.SS}&#32;|&#32;{level}&#32;|&#32;{message}&quot;</emphasis>,&#32;level=<emphasis role="stringliteral">&quot;INFO&quot;</emphasis>)
+<anchor xml:id="_prophet__opt_8py_source_1l00384"/>00384 
+<anchor xml:id="_prophet__opt_8py_source_1l00385"/>00385 &#32;&#32;&#32;&#32;df&#32;=&#32;<link linkend="_namespaceexamples_1_1prophet__opt_1a7549217e0180b68ae1bd365ca7287fe4">load_data</link>()
+<anchor xml:id="_prophet__opt_8py_source_1l00386"/>00386 &#32;&#32;&#32;&#32;fit&#32;=&#32;<link linkend="_classfcmaes_1_1optimizer_1_1wrapper">wrapper</link>(partial(fitness,&#32;df))
+<anchor xml:id="_prophet__opt_8py_source_1l00387"/>00387 &#32;&#32;&#32;&#32;bounds&#32;=&#32;Bounds([0.001,&#32;300,&#32;3,&#32;0],&#32;[1,&#32;1600,&#32;11.999,&#32;1.0])&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00388"/>00388 &#32;&#32;&#32;&#32;dim&#32;=&#32;len(bounds.lb)
+<anchor xml:id="_prophet__opt_8py_source_1l00389"/>00389 &#32;&#32;&#32;&#32;batch_size&#32;=&#32;16
+<anchor xml:id="_prophet__opt_8py_source_1l00390"/>00390 &#32;&#32;&#32;&#32;study_id&#32;=&#32;0
+<anchor xml:id="_prophet__opt_8py_source_1l00391"/>00391 
+<anchor xml:id="_prophet__opt_8py_source_1l00392"/>00392 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;using&#32;ask&#32;/&#32;tell&#32;interface&#32;+&#32;journal</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00393"/>00393 &#32;&#32;&#32;&#32;journal&#32;=&#32;<link linkend="_classfcmaes_1_1journal_1_1_journal">Journal</link>(<emphasis role="stringliteral">&quot;journal2.log&quot;</emphasis>,&#32;<emphasis role="stringliteral">&quot;BTC_strategy&quot;</emphasis>,&#32;1)
+<anchor xml:id="_prophet__opt_8py_source_1l00394"/><link linkend="_namespaceexamples_1_1prophet__opt_1a6036ff4e616cbf09671db7d938061190">00394</link> &#32;&#32;&#32;&#32;pfit&#32;=&#32;<link linkend="_classfcmaes_1_1evaluator_1_1parallel">evaluator.parallel</link>(fit,&#32;workers=batch_size)&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00395"/>00395 &#32;&#32;&#32;&#32;es&#32;=&#32;<link linkend="_classfcmaes_1_1de_1_1_d_e">de.DE</link>(dim,&#32;bounds&#32;=&#32;bounds,&#32;popsize=batch_size)
+<anchor xml:id="_prophet__opt_8py_source_1l00396"/>00396 &#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00397"/>00397 &#32;&#32;&#32;&#32;iters&#32;=&#32;10000
+<anchor xml:id="_prophet__opt_8py_source_1l00398"/>00398 &#32;&#32;&#32;&#32;trial_id&#32;=&#32;1
+<anchor xml:id="_prophet__opt_8py_source_1l00399"/>00399 &#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00400"/>00400 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;iter&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(iters):
+<anchor xml:id="_prophet__opt_8py_source_1l00401"/>00401 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;journal.write_starts(study_id,&#32;batch_size)
+<anchor xml:id="_prophet__opt_8py_source_1l00402"/>00402 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xs&#32;=&#32;es.ask()
+<anchor xml:id="_prophet__opt_8py_source_1l00403"/>00403 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;journal.write_xs(trial_id,&#32;xs,&#32;bounds)
+<anchor xml:id="_prophet__opt_8py_source_1l00404"/>00404 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ys&#32;=&#32;pfit(xs)&#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00405"/>00405 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;journal.write_ys(trial_id,&#32;ys)
+<anchor xml:id="_prophet__opt_8py_source_1l00406"/>00406 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;trial_id&#32;+=&#32;batch_size
+<anchor xml:id="_prophet__opt_8py_source_1l00407"/>00407 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;stop&#32;=&#32;es.tell(ys)
+<anchor xml:id="_prophet__opt_8py_source_1l00408"/>00408 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;stop&#32;!=&#32;0:
+<anchor xml:id="_prophet__opt_8py_source_1l00409"/>00409 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00410"/>00410 &#32;&#32;&#32;&#32;x&#32;=&#32;es.best_x
+<anchor xml:id="_prophet__opt_8py_source_1l00411"/>00411 &#32;&#32;&#32;&#32;y&#32;=&#32;es.best_value
+<anchor xml:id="_prophet__opt_8py_source_1l00412"/>00412 &#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1prophet__opt_1a18a248c54de45c4841f27809e3a642b1">btc_show_x</link>(df,&#32;x)&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00413"/>00413 &#32;&#32;&#32;&#32;
+<anchor xml:id="_prophet__opt_8py_source_1l00414"/>00414 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespaceexamples_1_1prophet__opt_1ae9fc3dd94248f2146ad53fcf139d55fb">show_good_result</link>():
+<anchor xml:id="_prophet__opt_8py_source_1l00415"/>00415 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Total&#32;Market&#32;Return:&#32;15800.96%</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00416"/>00416 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Total&#32;Strategy&#32;Return:&#32;708605.56%</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00417"/>00417 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Annualized&#32;Sharpe&#32;Ratio&#32;of&#32;the&#32;Strategy:&#32;2.02</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00418"/>00418 &#32;&#32;&#32;&#32;x&#32;=&#32;[0.05398682129917759,&#32;534.0752343371352,&#32;8.880921187256302,&#32;1.0]
+<anchor xml:id="_prophet__opt_8py_source_1l00419"/>00419 &#32;&#32;&#32;&#32;df&#32;=&#32;<link linkend="_namespaceexamples_1_1prophet__opt_1a7549217e0180b68ae1bd365ca7287fe4">load_data</link>()
+<anchor xml:id="_prophet__opt_8py_source_1l00420"/>00420 &#32;&#32;&#32;&#32;y&#32;=&#32;<link linkend="_namespaceexamples_1_1prophet__opt_1ab552129c694447ce6fc44ad3f49825e9">fitness</link>(df,&#32;x)
+<anchor xml:id="_prophet__opt_8py_source_1l00421"/>00421 &#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1prophet__opt_1a18a248c54de45c4841f27809e3a642b1">btc_show_x</link>(df,&#32;x)
+<anchor xml:id="_prophet__opt_8py_source_1l00422"/>00422 
+<anchor xml:id="_prophet__opt_8py_source_1l00423"/>00423 <emphasis role="keywordflow">if</emphasis>&#32;__name__&#32;==&#32;<emphasis role="stringliteral">&apos;__main__&apos;</emphasis>:
+<anchor xml:id="_prophet__opt_8py_source_1l00424"/>00424 &#32;&#32;&#32;&#32;<emphasis role="comment">#btc_strategy()</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00425"/>00425 &#32;&#32;&#32;&#32;<emphasis role="comment">#optimize_btc()</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00426"/>00426 &#32;&#32;&#32;&#32;<emphasis role="comment">#optimize_btc_ask_tell()</emphasis>
+<anchor xml:id="_prophet__opt_8py_source_1l00427"/>00427 &#32;&#32;&#32;&#32;<link linkend="_namespaceexamples_1_1prophet__opt_1ae9fc3dd94248f2146ad53fcf139d55fb">show_good_result</link>()
+<anchor xml:id="_prophet__opt_8py_source_1l00428"/><link linkend="_namespaceexamples_1_1prophet__opt_1ae9fc3dd94248f2146ad53fcf139d55fb">00428</link> &#32;&#32;&#32;&#32;<emphasis role="keywordflow">pass</emphasis>
+</programlisting></section>

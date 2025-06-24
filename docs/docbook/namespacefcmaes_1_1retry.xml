@@ -1,0 +1,609 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_namespacefcmaes_1_1retry" xml:lang="en-US">
+<title>fcmaes.retry Namespace Reference</title>
+<indexterm><primary>fcmaes.retry</primary></indexterm>
+<simplesect>
+    <title>Classes    </title>
+        <itemizedlist>
+            <listitem><para>class <link linkend="_classfcmaes_1_1retry_1_1_shared2d">Shared2d</link></para>
+
+<para>A 2D shared memory array wrapper. </para>
+</listitem>
+            <listitem><para>class <link linkend="_classfcmaes_1_1retry_1_1_store">Store</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para>OptimizeResult <link linkend="_namespacefcmaes_1_1retry_1ae5cef7db4d25eedc630e6e7b3fd077a7">minimize</link> (Callable[[ArrayLike], float] fun, Bounds bounds, Optional[float] value_limit=np.inf, Optional[int] num_retries=1024, Optional[int] workers=mp.cpu_count(), Optional[int] popsize=31, Optional[int] max_evaluations=50000, Optional[int] capacity=500, Optional[float] stop_fitness=-np.inf, Optional[<link linkend="_classfcmaes_1_1optimizer_1_1_optimizer">Optimizer</link>] optimizer=None, Optional[int] statistic_num=0)</para>
+
+<para>Minimizes a given objective function using the specified optimizer and stores the progress. </para>
+</listitem>
+            <listitem><para>OptimizeResult <link linkend="_namespacefcmaes_1_1retry_1a2a07e0a25785c0590b0426a946de6009">retry</link> (<link linkend="_classfcmaes_1_1retry_1_1_store">Store</link> store, Callable optimize, int num_retries, Optional[float] value_limit=np.inf, Optional[int] workers=mp.cpu_count(), Optional[float] stop_fitness=-np.inf)</para>
+
+<para>Retries optimization multiple times using the specified number of worker processes. </para>
+</listitem>
+            <listitem><para>OptimizeResult <link linkend="_namespacefcmaes_1_1retry_1aa3fad9513845a768be702efc7bdd594a">minimize_plot</link> (str name, <link linkend="_classfcmaes_1_1optimizer_1_1_optimizer">Optimizer</link> optimizer, Callable[[ArrayLike], float] fun, Bounds bounds, Optional[float] value_limit=np.inf, Optional[float] plot_limit=np.inf, Optional[int] num_retries=1024, Optional[int] workers=mp.cpu_count(), Optional[float] stop_fitness=-np.inf, Optional[int] statistic_num=5000)</para>
+
+<para>Minimizes an optimization problem and plots the improvement process while storing results. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1retry_1a52b831afcdd723de9f72a3430e75afe8">plot</link> (ArrayLike front, str fname, Optional[bool] interp=True, Optional[str] label=r &apos;$\chi$&apos;, Optional[str] xlabel=r &apos; $f_1$&apos;, Optional[str] ylabel=r &apos; $f_2$&apos;, Optional[str] zlabel=r &apos; $f_3$&apos;, Optional[bool] plot3d=False, s=1, dpi=300)</para>
+
+<para>Plots a given front using either 2D or 3D visualization, with options for interpolation and customization of the appearance and labels. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1retry_1a754240fc233254e554ddcc58503d84a3">plot3</link> (ArrayLike front, str fname, Optional[str] label=r &apos;$\chi$&apos;, Optional[str] xlabel=r &apos; $f_1$&apos;, Optional[str] ylabel=r &apos; $f_2$&apos;, Optional[str] zlabel=r &apos; $f_3$&apos;)</para>
+
+<para>Creates and saves a 3D scatter plot from given data. </para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1retry_1a30908c77918cbc9dd9e43456662cda26">_retry_loop</link> (pid, rgs, store, optimize, num_retries, value_limit, stop_fitness=-np.inf)</para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1retry_1a35537fa2c742d879961164339775fd72">_convertBounds</link> (bounds)</para>
+
+<para>Convert bounds to a pair of arrays representing lower and upper limits. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Variables    </title>
+        <itemizedlist>
+            <listitem><para>dict <link linkend="_namespacefcmaes_1_1retry_1a59360006c21e3c4b3c0cd45bd65a5f25">dtype_map</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Function Documentation</title>
+<anchor xml:id="_namespacefcmaes_1_1retry_1a35537fa2c742d879961164339775fd72"/><section>
+    <title>_convertBounds()</title>
+<indexterm><primary>_convertBounds</primary><secondary>fcmaes.retry</secondary></indexterm>
+<indexterm><primary>fcmaes.retry</primary><secondary>_convertBounds</secondary></indexterm>
+<para><computeroutput>fcmaes.retry._convertBounds ( bounds)<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+
+<para>Convert bounds to a pair of arrays representing lower and upper limits. </para>
+</para>
+
+<para>This function processes the given <computeroutput>bounds</computeroutput> and converts them into two arrays that represent the lower and upper bounds, respectively. The <computeroutput>bounds</computeroutput> argument must either be an instance of the <computeroutput>Bounds</computeroutput> class or a sequence of real valued (min, max) pairs for each variable.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>ValueError</entry><entry>
+<para>If `bounds` is None. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>ValueError</entry><entry>
+<para>If `bounds` is not an instance of `Bounds` or a valid sequence of (min, max) pairs. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>ValueError</entry><entry>
+<para>If size or values within the `bounds` are not finite real </para>
+</entry>
+                            </row>
+                            <row>
+<entry>values.</entry><entry></entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>bounds</entry><entry>
+<para>The bounds to process, either as an instance of the <computeroutput>Bounds</computeroutput> class or a sequence of real valued (min, max) pairs for each variable.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>Tuple[np.ndarray, np.ndarray]: A tuple containing two arrays. The first array represents the lower limits, and the second represents the upper limits. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00942">942</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1retry_1a30908c77918cbc9dd9e43456662cda26"/><section>
+    <title>_retry_loop()</title>
+<indexterm><primary>_retry_loop</primary><secondary>fcmaes.retry</secondary></indexterm>
+<indexterm><primary>fcmaes.retry</primary><secondary>_retry_loop</secondary></indexterm>
+<para><computeroutput>fcmaes.retry._retry_loop ( pid,  rgs,  store,  optimize,  num_retries,  value_limit,  stop_fitness = <computeroutput>-np.inf</computeroutput>
+)<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_retry_8py_source_1l00902">902</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1retry_1ae5cef7db4d25eedc630e6e7b3fd077a7"/><section>
+    <title>minimize()</title>
+<indexterm><primary>minimize</primary><secondary>fcmaes.retry</secondary></indexterm>
+<indexterm><primary>fcmaes.retry</primary><secondary>minimize</secondary></indexterm>
+<para><computeroutput> OptimizeResult fcmaes.retry.minimize (Callable[[ArrayLike], float] fun, Bounds bounds, Optional[float]  value_limit = <computeroutput>np.inf</computeroutput>
+, Optional[int]  num_retries = <computeroutput>1024</computeroutput>
+, Optional[int]  workers = <computeroutput>mp.cpu_count()</computeroutput>
+, Optional[int]  popsize = <computeroutput>31</computeroutput>
+, Optional[int]  max_evaluations = <computeroutput>50000</computeroutput>
+, Optional[int]  capacity = <computeroutput>500</computeroutput>
+, Optional[float]  stop_fitness = <computeroutput>-np.inf</computeroutput>
+, Optional[<link linkend="_classfcmaes_1_1optimizer_1_1_optimizer">Optimizer</link>]  optimizer = <computeroutput>None</computeroutput>
+, Optional[int]  statistic_num = <computeroutput>0</computeroutput>
+)</computeroutput></para><para>
+
+<para>Minimizes a given objective function using the specified optimizer and stores the progress. </para>
+</para>
+
+<para>This function attempts to find the minimum value of a given function within the bounds provided. It incorporates retry logic to handle multiple optimization attempts in case of failure or suboptimal results. The optimization process can also operate in a multiprocess environment with a configurable number of workers. Additionally, progress data is stored to analyze statistical results throughout the optimization.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>fun</entry><entry>
+<para>The objective function to minimize. The function must accept an array-like input and return a scalar float as the function value. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>bounds</entry><entry>
+<para>Bounds for the input variables of the objective function. Defines the acceptable search space during optimization. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>value_limit</entry><entry>
+<para>Upper limit for the acceptable function value. Defaults to infinity. After reaching this limit, retries are triggered if configured. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>num_retries</entry><entry>
+<para>Number of times the optimization process should be retried upon failure or suboptimal results. Defaults to 1024. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>workers</entry><entry>
+<para>The number of parallel workers to use for optimization. Defaults to the number of CPU cores available. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>popsize</entry><entry>
+<para>Population size for the optimization process. Determines the number of potential solutions considered at each iteration. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>max_evaluations</entry><entry>
+<para>The maximum number of evaluations allowed in the optimization process. This is a hard limit on computational effort. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>capacity</entry><entry>
+<para>The storage capacity for retaining past evaluation results or progress data. Used for analyzing statistics or performance. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>stop_fitness</entry><entry>
+<para>The target fitness value for stopping the optimization. When a result meets or exceeds this fitness value, the process terminates. Defaults to negative infinity. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>optimizer</entry><entry>
+<para>An optimization algorithm instance to drive the optimization process. If not provided, a default optimizer is created based on <computeroutput>de_cma</computeroutput>. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>statistic_num</entry><entry>
+<para>The statistical metric number to associate with the optimization data. Used for tracking or analyzing statistical trends.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>OptimizeResult The result of the optimization process, including details about the optimal solution, number of function evaluations, and success status. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00106">106</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1retry_ae5cef7db4d25eedc630e6e7b3fd077a7_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1retry_1aa3fad9513845a768be702efc7bdd594a"/><section>
+    <title>minimize_plot()</title>
+<indexterm><primary>minimize_plot</primary><secondary>fcmaes.retry</secondary></indexterm>
+<indexterm><primary>fcmaes.retry</primary><secondary>minimize_plot</secondary></indexterm>
+<para><computeroutput> OptimizeResult fcmaes.retry.minimize_plot (str name, <link linkend="_classfcmaes_1_1optimizer_1_1_optimizer">Optimizer</link> optimizer, Callable[[ArrayLike], float] fun, Bounds bounds, Optional[float]  value_limit = <computeroutput>np.inf</computeroutput>
+, Optional[float]  plot_limit = <computeroutput>np.inf</computeroutput>
+, Optional[int]  num_retries = <computeroutput>1024</computeroutput>
+, Optional[int]  workers = <computeroutput>mp.cpu_count()</computeroutput>
+, Optional[float]  stop_fitness = <computeroutput>-np.inf</computeroutput>
+, Optional[int]  statistic_num = <computeroutput>5000</computeroutput>
+)</computeroutput></para><para>
+
+<para>Minimizes an optimization problem and plots the improvement process while storing results. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>name</entry><entry>
+<para>A string serving as the descriptive name or title for the optimization process. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>optimizer</entry><entry>
+<para>An instance of the <link linkend="_classfcmaes_1_1optimizer_1_1_optimizer">Optimizer</link> class used for carrying out the optimization. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>fun</entry><entry>
+<para>A callable that represents the objective function to minimize, which takes an array-like input and returns a float value. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>bounds</entry><entry>
+<para>An instance of the Bounds class specifying the valid range for the optimization. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>value_limit</entry><entry>
+<para>Optional float indicating the upper limit for significant improvements. Defaults to positive infinity. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>plot_limit</entry><entry>
+<para>Optional float representing the limit for including improvements in the plot. Defaults to positive infinity. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>num_retries</entry><entry>
+<para>Optional integer specifying the maximum number of retries for the optimization process. Defaults to 1024. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>workers</entry><entry>
+<para>Optional integer indicating the number of multiprocessing workers to run the optimization. Defaults to the number of available CPU cores. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>stop_fitness</entry><entry>
+<para>Optional float defining the fitness value at which to stop the optimization early if achieved. Defaults to negative infinity. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>statistic_num</entry><entry>
+<para>Optional integer indicating the number of most recent statistics to retain in memory. Defaults to 5000.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>OptimizeResult The result object generated by the optimizer containing information on the solution, including the best parameters found and associated fitness value. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00188">188</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1retry_aa3fad9513845a768be702efc7bdd594a_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1retry_1a52b831afcdd723de9f72a3430e75afe8"/><section>
+    <title>plot()</title>
+<indexterm><primary>plot</primary><secondary>fcmaes.retry</secondary></indexterm>
+<indexterm><primary>fcmaes.retry</primary><secondary>plot</secondary></indexterm>
+<para><computeroutput>fcmaes.retry.plot (ArrayLike front, str fname, Optional[bool]  interp = <computeroutput>True</computeroutput>
+, Optional[str]  label = <computeroutput>r&apos;$\chi$&apos;</computeroutput>
+, Optional[str]  xlabel = <computeroutput>r&apos;$f_1$&apos;</computeroutput>
+, Optional[str]  ylabel = <computeroutput>r&apos;$f_2$&apos;</computeroutput>
+, Optional[str]  zlabel = <computeroutput>r&apos;$f_3$&apos;</computeroutput>
+, Optional[bool]  plot3d = <computeroutput>False</computeroutput>
+,  s = <computeroutput>1</computeroutput>
+,  dpi = <computeroutput>300</computeroutput>
+)</computeroutput></para><para>
+
+<para>Plots a given front using either 2D or 3D visualization, with options for interpolation and customization of the appearance and labels. </para>
+</para>
+
+<para>If the input front has one or more objectives, it chooses the appropriate plotting method based on dimensionality, adds interpolated lines if specified, and saves the resulting figure to a file.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>front</entry><entry>
+<para>Array-like structure representing the input data points. Each row corresponds to a point, and each column represents a dimension (objective value). </para>
+</entry>
+                            </row>
+                            <row>
+<entry>fname</entry><entry>
+<para>str. Path and name of the file where the plot will be saved. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>interp</entry><entry>
+<para>Optional[bool]. Enables interpolation to smooth the 2D plot lines. Default is True. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>label</entry><entry>
+<para>Optional[str]. Label for the data points on the plot. Default is r&apos;$\chi$&apos;. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>xlabel</entry><entry>
+<para>Optional[str]. Label for the x-axis. Default is r&apos;$f_1$&apos;. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>ylabel</entry><entry>
+<para>Optional[str]. Label for the y-axis. Default is r&apos;$f_2$&apos;. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>zlabel</entry><entry>
+<para>Optional[str]. Label for the z-axis. Used only for 3D plots. Default is r&apos;$f_3$&apos;. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>plot3d</entry><entry>
+<para>Optional[bool]. If True and the front has 3 dimensions, generates a 3D scatter plot. Default is False. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>s</entry><entry>
+<para>Plot marker size for scatter points. Default is 1. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>dpi</entry><entry>
+<para>Resolution of the saved plot in dots per inch. Default is 300. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00242">242</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1retry_a52b831afcdd723de9f72a3430e75afe8_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1retry_a52b831afcdd723de9f72a3430e75afe8_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1retry_1a754240fc233254e554ddcc58503d84a3"/><section>
+    <title>plot3()</title>
+<indexterm><primary>plot3</primary><secondary>fcmaes.retry</secondary></indexterm>
+<indexterm><primary>fcmaes.retry</primary><secondary>plot3</secondary></indexterm>
+<para><computeroutput>fcmaes.retry.plot3 (ArrayLike front, str fname, Optional[str]  label = <computeroutput>r&apos;$\chi$&apos;</computeroutput>
+, Optional[str]  xlabel = <computeroutput>r&apos;$f_1$&apos;</computeroutput>
+, Optional[str]  ylabel = <computeroutput>r&apos;$f_2$&apos;</computeroutput>
+, Optional[str]  zlabel = <computeroutput>r&apos;$f_3$&apos;</computeroutput>
+)</computeroutput></para><para>
+
+<para>Creates and saves a 3D scatter plot from given data. </para>
+</para>
+
+<para>This function generates a 3D scatter plot with labeled axes using the data provided in a 2D array-like object. The plot is saved to the specified file with high resolution. The labels for each axis and the plot can be customized.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>front</entry><entry>
+<para>A 2D array-like object containing the data points to plot. It should have exactly three columns corresponding to the x, y, and z coordinates. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>fname</entry><entry>
+<para>The file name where the generated plot should be saved. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>label</entry><entry>
+<para>The label for the scatter plot. Defaults to r&apos;$\chi$&apos;. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>xlabel</entry><entry>
+<para>The label for the x-axis. Defaults to r&apos;$f_1$&apos;. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>ylabel</entry><entry>
+<para>The label for the y-axis. Defaults to r&apos;$f_2$&apos;. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>zlabel</entry><entry>
+<para>The label for the z-axis. Defaults to r&apos;$f_3$&apos;. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00298">298</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacefcmaes_1_1retry_a754240fc233254e554ddcc58503d84a3_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespacefcmaes_1_1retry_1a2a07e0a25785c0590b0426a946de6009"/><section>
+    <title>retry()</title>
+<indexterm><primary>retry</primary><secondary>fcmaes.retry</secondary></indexterm>
+<indexterm><primary>fcmaes.retry</primary><secondary>retry</secondary></indexterm>
+<para><computeroutput> OptimizeResult fcmaes.retry.retry (<link linkend="_classfcmaes_1_1retry_1_1_store">Store</link> store, Callable optimize, int num_retries, Optional[float]  value_limit = <computeroutput>np.inf</computeroutput>
+, Optional[int]  workers = <computeroutput>mp.cpu_count()</computeroutput>
+, Optional[float]  stop_fitness = <computeroutput>-np.inf</computeroutput>
+)</computeroutput></para><para>
+
+<para>Retries optimization multiple times using the specified number of worker processes. </para>
+</para>
+
+<para>Each worker conducts optimization in parallel and contributes to the shared results store. After all workers complete their tasks, the stored results are sorted, persisted, and the best result is returned.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>store</entry><entry>
+<para>A shared result store object that collects optimization results from all workers. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>optimize</entry><entry>
+<para>A callable function that performs the optimization for a single run. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>num_retries</entry><entry>
+<para>The number of retries/iterations each worker should perform. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>value_limit</entry><entry>
+<para>The upper limit for objective values to consider valid. Defaults to positive infinity. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>workers</entry><entry>
+<para>The number of worker processes to spawn for parallel optimization. Defaults to the number of CPU cores available. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>stop_fitness</entry><entry>
+<para>The fitness value at which the optimization can early stop. Defaults to negative infinity.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>OptimizeResult An object containing the best solution found, its objective value, number of function evaluations, and a success status. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_retry_8py_source_1l00144">144</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+</section>
+<section>
+<title>Variable Documentation</title>
+<anchor xml:id="_namespacefcmaes_1_1retry_1a59360006c21e3c4b3c0cd45bd65a5f25"/><section>
+    <title>dtype_map</title>
+<indexterm><primary>dtype_map</primary><secondary>fcmaes.retry</secondary></indexterm>
+<indexterm><primary>fcmaes.retry</primary><secondary>dtype_map</secondary></indexterm>
+<para><computeroutput>dict fcmaes.retry.dtype_map</computeroutput></para><emphasis role="strong">Initial value:</emphasis><programlisting linenumbering="unnumbered">00001 =&#32;&#32;{
+00002 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&apos;int32&apos;</emphasis>:&#32;ct.c_int32,
+00003 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&apos;int64&apos;</emphasis>:&#32;ct.c_int64,
+00004 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&apos;float32&apos;</emphasis>:&#32;ct.c_float,
+00005 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&apos;float64&apos;</emphasis>:&#32;ct.c_double,
+00006 }
+</programlisting><para>
+Definition at line <link linkend="_retry_8py_source_1l00316">316</link> of file <link linkend="_retry_8py_source">retry.py</link>.</para>
+</section>
+</section>
+</section>

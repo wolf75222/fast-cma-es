@@ -1,0 +1,239 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_classevaluator" xml:lang="en-US">
+<title>evaluator Class Reference</title>
+<indexterm><primary>evaluator</primary></indexterm>
+<para>
+<computeroutput>#include &lt;evaluator.h&gt;</computeroutput>
+</para>
+Collaboration diagram for evaluator:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classevaluator__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Classes    </title>
+        <itemizedlist>
+            <listitem><para>class <link linkend="_classevaluator_1_1evaluator__job">evaluator_job</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Public Member Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classevaluator_1ad503d1b0d07dc0123f2619f613fe2365">evaluator</link> (<link linkend="_class_fitness">Fitness</link> *fit, int nobj, int workers)</para>
+</listitem>
+            <listitem><para><link linkend="_classevaluator_1a68ea26494aa55c644bbab86b39d29d9d">~evaluator</link> ()</para>
+</listitem>
+            <listitem><para>void <link linkend="_classevaluator_1a62e9fb557b5a2ecfabc49a01eb7f59d5">evaluate</link> (<link linkend="_evaluator_8h_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> &amp;x, int id)</para>
+</listitem>
+            <listitem><para><link linkend="_structvec__id">vec_id</link> * <link linkend="_classevaluator_1a71fc6fd970c9d9f19af8202500c51b05">result</link> ()</para>
+</listitem>
+            <listitem><para>void <link linkend="_classevaluator_1a39a80a3c8535b71a004ef2b395015ade">execute</link> (int thread_id)</para>
+</listitem>
+            <listitem><para>void <link linkend="_classevaluator_1aaedd24a31a5d9e98e59596ba5e86cae2">join</link> ()</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Private Attributes    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_class_fitness">Fitness</link> * <link linkend="_classevaluator_1a55728e92361122eb506a3f53d7ca7965">_fit</link></para>
+</listitem>
+            <listitem><para>int <link linkend="_classevaluator_1aa9acff16e9a1fff7e8374d02bcb5897b">_nobj</link></para>
+</listitem>
+            <listitem><para>int <link linkend="_classevaluator_1a01d0a89d9e703daa46c72471b2245727">_workers</link></para>
+</listitem>
+            <listitem><para>bool <link linkend="_classevaluator_1a475abe7cc16b726f9257c4c99170903c">_stop</link></para>
+</listitem>
+            <listitem><para><link linkend="_classblocking__queue">blocking_queue</link>&lt; <link linkend="_structvec__id">vec_id</link> * &gt; * <link linkend="_classevaluator_1a52c19bb405788ea2d4de4915dfcce2e0">_requests</link></para>
+</listitem>
+            <listitem><para><link linkend="_classblocking__queue">blocking_queue</link>&lt; <link linkend="_structvec__id">vec_id</link> * &gt; * <link linkend="_classevaluator_1af0459baf3cf0e1917cd7254a041825f3">_evaled</link></para>
+</listitem>
+            <listitem><para>std::vector&lt; <link linkend="_classevaluator_1_1evaluator__job">evaluator_job</link> &gt; <link linkend="_classevaluator_1aaa142677c82d588bf35f42c80ae932e3">_jobs</link></para>
+</listitem>
+            <listitem><para>time_point&lt; <link linkend="_evaluator_8h_1a19bfb27380067c74ae297dd7dad5fb37">Clock</link> &gt; <link linkend="_classevaluator_1a91dbe1e8f9bc305dbdd890718ce890c8">_t0</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+<para>
+Definition at line <link linkend="_evaluator_8h_source_1l00419">419</link> of file <link linkend="_evaluator_8h_source">evaluator.h</link>.</para>
+</section>
+<section>
+<title>Constructor &amp; Destructor Documentation</title>
+<anchor xml:id="_classevaluator_1ad503d1b0d07dc0123f2619f613fe2365"/><section>
+    <title>evaluator()</title>
+<indexterm><primary>evaluator</primary><secondary>evaluator</secondary></indexterm>
+<indexterm><primary>evaluator</primary><secondary>evaluator</secondary></indexterm>
+<para><computeroutput>evaluator::evaluator (<link linkend="_class_fitness">Fitness</link> * fit, int nobj, int workers)<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_evaluator_8h_source_1l00422">422</link> of file <link linkend="_evaluator_8h_source">evaluator.h</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classevaluator_ad503d1b0d07dc0123f2619f613fe2365_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classevaluator_1a68ea26494aa55c644bbab86b39d29d9d"/><section>
+    <title>~evaluator()</title>
+<indexterm><primary>~evaluator</primary><secondary>evaluator</secondary></indexterm>
+<indexterm><primary>evaluator</primary><secondary>~evaluator</secondary></indexterm>
+<para><computeroutput>evaluator::~evaluator ( )<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_evaluator_8h_source_1l00434">434</link> of file <link linkend="_evaluator_8h_source">evaluator.h</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classevaluator_a68ea26494aa55c644bbab86b39d29d9d_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+<section>
+<title>Member Function Documentation</title>
+<anchor xml:id="_classevaluator_1a62e9fb557b5a2ecfabc49a01eb7f59d5"/><section>
+    <title>evaluate()</title>
+<indexterm><primary>evaluate</primary><secondary>evaluator</secondary></indexterm>
+<indexterm><primary>evaluator</primary><secondary>evaluate</secondary></indexterm>
+<para><computeroutput>void evaluator::evaluate (<link linkend="_evaluator_8h_1aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</link> &amp; x, int id)<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_evaluator_8h_source_1l00440">440</link> of file <link linkend="_evaluator_8h_source">evaluator.h</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classevaluator_a62e9fb557b5a2ecfabc49a01eb7f59d5_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classevaluator_1a39a80a3c8535b71a004ef2b395015ade"/><section>
+    <title>execute()</title>
+<indexterm><primary>execute</primary><secondary>evaluator</secondary></indexterm>
+<indexterm><primary>evaluator</primary><secondary>execute</secondary></indexterm>
+<para><computeroutput>void evaluator::execute (int thread_id)<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_evaluator_8h_source_1l00449">449</link> of file <link linkend="_evaluator_8h_source">evaluator.h</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classevaluator_a39a80a3c8535b71a004ef2b395015ade_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classevaluator_a39a80a3c8535b71a004ef2b395015ade_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classevaluator_1aaedd24a31a5d9e98e59596ba5e86cae2"/><section>
+    <title>join()</title>
+<indexterm><primary>join</primary><secondary>evaluator</secondary></indexterm>
+<indexterm><primary>evaluator</primary><secondary>join</secondary></indexterm>
+<para><computeroutput>void evaluator::join ( )<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_evaluator_8h_source_1l00466">466</link> of file <link linkend="_evaluator_8h_source">evaluator.h</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classevaluator_aaedd24a31a5d9e98e59596ba5e86cae2_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classevaluator_1a71fc6fd970c9d9f19af8202500c51b05"/><section>
+    <title>result()</title>
+<indexterm><primary>result</primary><secondary>evaluator</secondary></indexterm>
+<indexterm><primary>evaluator</primary><secondary>result</secondary></indexterm>
+<para><computeroutput><link linkend="_structvec__id">vec_id</link> * evaluator::result ( )<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_evaluator_8h_source_1l00445">445</link> of file <link linkend="_evaluator_8h_source">evaluator.h</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classevaluator_a71fc6fd970c9d9f19af8202500c51b05_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+<section>
+<title>Member Data Documentation</title>
+<anchor xml:id="_classevaluator_1af0459baf3cf0e1917cd7254a041825f3"/><section>
+    <title>_evaled</title>
+<indexterm><primary>_evaled</primary><secondary>evaluator</secondary></indexterm>
+<indexterm><primary>evaluator</primary><secondary>_evaled</secondary></indexterm>
+<para><computeroutput><link linkend="_classblocking__queue">blocking_queue</link>&lt;<link linkend="_structvec__id">vec_id</link>*&gt;* evaluator::_evaled<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_evaluator_8h_source_1l00501">501</link> of file <link linkend="_evaluator_8h_source">evaluator.h</link>.</para>
+</section>
+<anchor xml:id="_classevaluator_1a55728e92361122eb506a3f53d7ca7965"/><section>
+    <title>_fit</title>
+<indexterm><primary>_fit</primary><secondary>evaluator</secondary></indexterm>
+<indexterm><primary>evaluator</primary><secondary>_fit</secondary></indexterm>
+<para><computeroutput><link linkend="_class_fitness">Fitness</link>* evaluator::_fit<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_evaluator_8h_source_1l00496">496</link> of file <link linkend="_evaluator_8h_source">evaluator.h</link>.</para>
+</section>
+<anchor xml:id="_classevaluator_1aaa142677c82d588bf35f42c80ae932e3"/><section>
+    <title>_jobs</title>
+<indexterm><primary>_jobs</primary><secondary>evaluator</secondary></indexterm>
+<indexterm><primary>evaluator</primary><secondary>_jobs</secondary></indexterm>
+<para><computeroutput>std::vector&lt;<link linkend="_classevaluator_1_1evaluator__job">evaluator_job</link>&gt; evaluator::_jobs<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_evaluator_8h_source_1l00502">502</link> of file <link linkend="_evaluator_8h_source">evaluator.h</link>.</para>
+</section>
+<anchor xml:id="_classevaluator_1aa9acff16e9a1fff7e8374d02bcb5897b"/><section>
+    <title>_nobj</title>
+<indexterm><primary>_nobj</primary><secondary>evaluator</secondary></indexterm>
+<indexterm><primary>evaluator</primary><secondary>_nobj</secondary></indexterm>
+<para><computeroutput>int evaluator::_nobj<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_evaluator_8h_source_1l00497">497</link> of file <link linkend="_evaluator_8h_source">evaluator.h</link>.</para>
+</section>
+<anchor xml:id="_classevaluator_1a52c19bb405788ea2d4de4915dfcce2e0"/><section>
+    <title>_requests</title>
+<indexterm><primary>_requests</primary><secondary>evaluator</secondary></indexterm>
+<indexterm><primary>evaluator</primary><secondary>_requests</secondary></indexterm>
+<para><computeroutput><link linkend="_classblocking__queue">blocking_queue</link>&lt;<link linkend="_structvec__id">vec_id</link>*&gt;* evaluator::_requests<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_evaluator_8h_source_1l00500">500</link> of file <link linkend="_evaluator_8h_source">evaluator.h</link>.</para>
+</section>
+<anchor xml:id="_classevaluator_1a475abe7cc16b726f9257c4c99170903c"/><section>
+    <title>_stop</title>
+<indexterm><primary>_stop</primary><secondary>evaluator</secondary></indexterm>
+<indexterm><primary>evaluator</primary><secondary>_stop</secondary></indexterm>
+<para><computeroutput>bool evaluator::_stop<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_evaluator_8h_source_1l00499">499</link> of file <link linkend="_evaluator_8h_source">evaluator.h</link>.</para>
+</section>
+<anchor xml:id="_classevaluator_1a91dbe1e8f9bc305dbdd890718ce890c8"/><section>
+    <title>_t0</title>
+<indexterm><primary>_t0</primary><secondary>evaluator</secondary></indexterm>
+<indexterm><primary>evaluator</primary><secondary>_t0</secondary></indexterm>
+<para><computeroutput>time_point&lt;<link linkend="_evaluator_8h_1a19bfb27380067c74ae297dd7dad5fb37">Clock</link>&gt; evaluator::_t0<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_evaluator_8h_source_1l00503">503</link> of file <link linkend="_evaluator_8h_source">evaluator.h</link>.</para>
+</section>
+<anchor xml:id="_classevaluator_1a01d0a89d9e703daa46c72471b2245727"/><section>
+    <title>_workers</title>
+<indexterm><primary>_workers</primary><secondary>evaluator</secondary></indexterm>
+<indexterm><primary>evaluator</primary><secondary>_workers</secondary></indexterm>
+<para><computeroutput>int evaluator::_workers<computeroutput>[private]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_evaluator_8h_source_1l00498">498</link> of file <link linkend="_evaluator_8h_source">evaluator.h</link>.</para>
+</section>
+<para>
+The documentation for this class was generated from the following file:</para>
+_fcmaescpp/include/<link linkend="_evaluator_8h">evaluator.h</link></section>
+</section>

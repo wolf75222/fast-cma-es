@@ -1,0 +1,752 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_class_c_bite_rnd" xml:lang="en-US">
+<title>CBiteRnd Class Reference</title>
+<indexterm><primary>CBiteRnd</primary></indexterm>
+<para>
+<computeroutput>#include &lt;biteaux.h&gt;</computeroutput>
+</para>
+Collaboration diagram for CBiteRnd:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="class_c_bite_rnd__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Public Member Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_class_c_bite_rnd_1a2776cd41c02588346bf91d928a5c8c87">CBiteRnd</link> ()</para>
+</listitem>
+            <listitem><para><link linkend="_class_c_bite_rnd_1a6cc79f28d1026941dffddd9590586ef6">CBiteRnd</link> (const int NewSeed)</para>
+</listitem>
+            <listitem><para>void <link linkend="_class_c_bite_rnd_1a568e9d76b0dcac410bdb0292d1aef2e0">init</link> (const int NewSeed, <link linkend="_biteaux_8h_1a4522f40aac41a9fcbd22f042fea916a5">biteopt_rng</link> const arf=NULL, void *const ardata=NULL)</para>
+</listitem>
+            <listitem><para>double <link linkend="_class_c_bite_rnd_1afdb77334884f1a612780def0dec0a326">get</link> ()</para>
+</listitem>
+            <listitem><para>int <link linkend="_class_c_bite_rnd_1a4e9ad0a5c5e09149a60f849736d8d7ce">getInt</link> (const int N1)</para>
+</listitem>
+            <listitem><para>double <link linkend="_class_c_bite_rnd_1aabbf1ffd535ca8fe31fda768f15ccd1b">getSqr</link> ()</para>
+</listitem>
+            <listitem><para>double <link linkend="_class_c_bite_rnd_1aa4c960b792982f495cc19c04ad9c2705">getPow</link> (const double p)</para>
+</listitem>
+            <listitem><para>double <link linkend="_class_c_bite_rnd_1a5ca4595f6d0ef48367ad0ee06b337bf3">getLog</link> ()</para>
+</listitem>
+            <listitem><para>int <link linkend="_class_c_bite_rnd_1ab73d2c6a6e4c1f5da7441168f165529d">getSqrInt</link> (const int N1)</para>
+</listitem>
+            <listitem><para>int <link linkend="_class_c_bite_rnd_1adca97316ecce595b9175815493f7a3a2">getPowInt</link> (const double p, const int N1)</para>
+</listitem>
+            <listitem><para>int <link linkend="_class_c_bite_rnd_1ab5e3f4ddf78ebb400f3ddd6dd7ddf016">getLogInt</link> (const int N1)</para>
+</listitem>
+            <listitem><para>uint64_t <link linkend="_class_c_bite_rnd_1a6e9234ff0489b0d3d38ef71be159b34d">getRaw</link> ()</para>
+</listitem>
+            <listitem><para>double <link linkend="_class_c_bite_rnd_1a97eb8d3dce6693178a1f54cf4a076fd0">getTPDF</link> ()</para>
+</listitem>
+            <listitem><para>double <link linkend="_class_c_bite_rnd_1a3f6c22ff1f6f19de24f7c837530f31c4">getGaussian</link> ()</para>
+</listitem>
+            <listitem><para>int <link linkend="_class_c_bite_rnd_1a6ccc0608cbc9080d9509a0e4c483adfe">getBit</link> ()</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Protected Member Functions    </title>
+        <itemizedlist>
+            <listitem><para>uint64_t <link linkend="_class_c_bite_rnd_1ae1167f8ecac85f268ced4bc1d2fa953b">advance</link> ()</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Protected Attributes    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_biteaux_8h_1a4522f40aac41a9fcbd22f042fea916a5">biteopt_rng</link> <link linkend="_class_c_bite_rnd_1a008bb9aa42951c18a447c999800e0f60">rf</link></para>
+
+<para>the default PRNG. </para>
+</listitem>
+            <listitem><para>void * <link linkend="_class_c_bite_rnd_1a44e318756bc7385e8924011349aa4f51">rdata</link></para>
+
+<para>Data pointer to pass to the &quot;rf&quot; function. </para>
+</listitem>
+            <listitem><para>uint64_t <link linkend="_class_c_bite_rnd_1af5a87e0a942d6232222aafc648ed511c">Seed</link></para>
+</listitem>
+            <listitem><para>uint64_t <link linkend="_class_c_bite_rnd_1ae34e558692230f33fe667766c67c1856">lcg</link></para>
+</listitem>
+            <listitem><para>uint64_t <link linkend="_class_c_bite_rnd_1ab5b48a474edb75ca3c24f62b56e9a4ff">Hash</link></para>
+
+<para>PRNG state variables. </para>
+</listitem>
+            <listitem><para>uint64_t <link linkend="_class_c_bite_rnd_1ab1e875c012a97278485cc502a660664a">BitPool</link></para>
+
+<para>Bit pool. </para>
+</listitem>
+            <listitem><para>int <link linkend="_class_c_bite_rnd_1a3ba7429a43a41566ccbc4e59ba73bb3d">BitsLeft</link></para>
+
+<para>The number of bits left in the bit pool. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>Class that implements a pseudo-random number generator (PRNG). The default implementation includes a fast high-quality PRNG (2^159 period). See <link xlink:href="https://github.com/avaneev/prvhash">https://github.com/avaneev/prvhash</link> for more details. </para>
+<para>
+Definition at line <link linkend="_biteaux_8h_source_1l00058">58</link> of file <link linkend="_biteaux_8h_source">biteaux.h</link>.</para>
+</section>
+<section>
+<title>Constructor &amp; Destructor Documentation</title>
+<anchor xml:id="_class_c_bite_rnd_1a2776cd41c02588346bf91d928a5c8c87"/><section>
+    <title>CBiteRnd()<computeroutput>[1/2]</computeroutput></title>
+<indexterm><primary>CBiteRnd</primary><secondary>CBiteRnd</secondary></indexterm>
+<indexterm><primary>CBiteRnd</primary><secondary>CBiteRnd</secondary></indexterm>
+<para><computeroutput>CBiteRnd::CBiteRnd ( )<computeroutput>[inline]</computeroutput></computeroutput></para>
+<para>Default constructor, calls the <link linkend="_class_c_bite_rnd_1a568e9d76b0dcac410bdb0292d1aef2e0">init()</link> function. </para>
+<para>
+Definition at line <link linkend="_biteaux_8h_source_1l00065">65</link> of file <link linkend="_biteaux_8h_source">biteaux.h</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="class_c_bite_rnd_a2776cd41c02588346bf91d928a5c8c87_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_class_c_bite_rnd_1a6cc79f28d1026941dffddd9590586ef6"/><section>
+    <title>CBiteRnd()<computeroutput>[2/2]</computeroutput></title>
+<indexterm><primary>CBiteRnd</primary><secondary>CBiteRnd</secondary></indexterm>
+<indexterm><primary>CBiteRnd</primary><secondary>CBiteRnd</secondary></indexterm>
+<para><computeroutput>CBiteRnd::CBiteRnd (const int NewSeed)<computeroutput>[inline]</computeroutput></computeroutput></para>
+<para>Constructor, calls the <link linkend="_class_c_bite_rnd_1a568e9d76b0dcac410bdb0292d1aef2e0">init()</link> function.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>NewSeed</entry><entry>
+<para>Random seed value. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_biteaux_8h_source_1l00076">76</link> of file <link linkend="_biteaux_8h_source">biteaux.h</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="class_c_bite_rnd_a6cc79f28d1026941dffddd9590586ef6_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+<section>
+<title>Member Function Documentation</title>
+<anchor xml:id="_class_c_bite_rnd_1ae1167f8ecac85f268ced4bc1d2fa953b"/><section>
+    <title>advance()</title>
+<indexterm><primary>advance</primary><secondary>CBiteRnd</secondary></indexterm>
+<indexterm><primary>CBiteRnd</primary><secondary>advance</secondary></indexterm>
+<para><computeroutput>uint64_t CBiteRnd::advance ( )<computeroutput>[inline]</computeroutput>, <computeroutput>[protected]</computeroutput></computeroutput></para>
+<para>Function advances the PRNG and returns the next PRNG value. </para>
+<para>
+Definition at line <link linkend="_biteaux_8h_source_1l00351">351</link> of file <link linkend="_biteaux_8h_source">biteaux.h</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="class_c_bite_rnd_ae1167f8ecac85f268ced4bc1d2fa953b_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_class_c_bite_rnd_1afdb77334884f1a612780def0dec0a326"/><section>
+    <title>get()</title>
+<indexterm><primary>get</primary><secondary>CBiteRnd</secondary></indexterm>
+<indexterm><primary>CBiteRnd</primary><secondary>get</secondary></indexterm>
+<para><computeroutput>double CBiteRnd::get ( )<computeroutput>[inline]</computeroutput></computeroutput></para>
+<para><formalpara><title>Returns</title>
+
+<para>Random number in the range [0; 1). </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_biteaux_8h_source_1l00115">115</link> of file <link linkend="_biteaux_8h_source">biteaux.h</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="class_c_bite_rnd_afdb77334884f1a612780def0dec0a326_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="class_c_bite_rnd_afdb77334884f1a612780def0dec0a326_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_class_c_bite_rnd_1a6ccc0608cbc9080d9509a0e4c483adfe"/><section>
+    <title>getBit()</title>
+<indexterm><primary>getBit</primary><secondary>CBiteRnd</secondary></indexterm>
+<indexterm><primary>CBiteRnd</primary><secondary>getBit</secondary></indexterm>
+<para><computeroutput>int CBiteRnd::getBit ( )<computeroutput>[inline]</computeroutput></computeroutput></para>
+<para>Function returns the next random bit, usually used for 50% probability evaluations efficiently. </para>
+<para>
+Definition at line <link linkend="_biteaux_8h_source_1l00317">317</link> of file <link linkend="_biteaux_8h_source">biteaux.h</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="class_c_bite_rnd_a6ccc0608cbc9080d9509a0e4c483adfe_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="class_c_bite_rnd_a6ccc0608cbc9080d9509a0e4c483adfe_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_class_c_bite_rnd_1a3f6c22ff1f6f19de24f7c837530f31c4"/><section>
+    <title>getGaussian()</title>
+<indexterm><primary>getGaussian</primary><secondary>CBiteRnd</secondary></indexterm>
+<indexterm><primary>CBiteRnd</primary><secondary>getGaussian</secondary></indexterm>
+<para><computeroutput>double CBiteRnd::getGaussian ( )<computeroutput>[inline]</computeroutput></computeroutput></para>
+<para>Function generates a Gaussian-distributed pseudo-random number with mean=0 and std.dev=1.</para>
+
+<para>Algorithm is adopted from &quot;Leva, J. L. 1992. &quot;A Fast Normal Random Number Generator&quot;, ACM Transactions on Mathematical Software, vol. 18,
+no. 4, pp. 449-453&quot;. </para>
+<para>
+Definition at line <link linkend="_biteaux_8h_source_1l00282">282</link> of file <link linkend="_biteaux_8h_source">biteaux.h</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="class_c_bite_rnd_a3f6c22ff1f6f19de24f7c837530f31c4_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="class_c_bite_rnd_a3f6c22ff1f6f19de24f7c837530f31c4_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_class_c_bite_rnd_1a4e9ad0a5c5e09149a60f849736d8d7ce"/><section>
+    <title>getInt()</title>
+<indexterm><primary>getInt</primary><secondary>CBiteRnd</secondary></indexterm>
+<indexterm><primary>CBiteRnd</primary><secondary>getInt</secondary></indexterm>
+<para><computeroutput>int CBiteRnd::getInt (const int N1)<computeroutput>[inline]</computeroutput></computeroutput></para>
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>N1</entry><entry>
+<para>Integer value range. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>Random integer number in the range [0; N1). N1 denotes the number of bins, not the maximal returned value. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_biteaux_8h_source_1l00126">126</link> of file <link linkend="_biteaux_8h_source">biteaux.h</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="class_c_bite_rnd_a4e9ad0a5c5e09149a60f849736d8d7ce_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="class_c_bite_rnd_a4e9ad0a5c5e09149a60f849736d8d7ce_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_class_c_bite_rnd_1a5ca4595f6d0ef48367ad0ee06b337bf3"/><section>
+    <title>getLog()</title>
+<indexterm><primary>getLog</primary><secondary>CBiteRnd</secondary></indexterm>
+<indexterm><primary>CBiteRnd</primary><secondary>getLog</secondary></indexterm>
+<para><computeroutput>double CBiteRnd::getLog ( )<computeroutput>[inline]</computeroutput></computeroutput></para>
+<para><formalpara><title>Returns</title>
+
+<para>Random number in the range (-1; 1) with approximately logarithmic PDF, two-lobe with peak at 0. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_biteaux_8h_source_1l00212">212</link> of file <link linkend="_biteaux_8h_source">biteaux.h</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="class_c_bite_rnd_a5ca4595f6d0ef48367ad0ee06b337bf3_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="class_c_bite_rnd_a5ca4595f6d0ef48367ad0ee06b337bf3_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_class_c_bite_rnd_1ab5e3f4ddf78ebb400f3ddd6dd7ddf016"/><section>
+    <title>getLogInt()</title>
+<indexterm><primary>getLogInt</primary><secondary>CBiteRnd</secondary></indexterm>
+<indexterm><primary>CBiteRnd</primary><secondary>getLogInt</secondary></indexterm>
+<para><computeroutput>int CBiteRnd::getLogInt (const int N1)<computeroutput>[inline]</computeroutput></computeroutput></para>
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>N1</entry><entry>
+<para>Integer value range. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>Random integer number in the range [0; N1), with approximately logarithmic PDF, peak at 0. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_biteaux_8h_source_1l00247">247</link> of file <link linkend="_biteaux_8h_source">biteaux.h</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="class_c_bite_rnd_ab5e3f4ddf78ebb400f3ddd6dd7ddf016_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_class_c_bite_rnd_1aa4c960b792982f495cc19c04ad9c2705"/><section>
+    <title>getPow()</title>
+<indexterm><primary>getPow</primary><secondary>CBiteRnd</secondary></indexterm>
+<indexterm><primary>CBiteRnd</primary><secondary>getPow</secondary></indexterm>
+<para><computeroutput>double CBiteRnd::getPow (const double p)<computeroutput>[inline]</computeroutput></computeroutput></para>
+<para><formalpara><title>Returns</title>
+
+<para>Random number in the range [0; 1), raised to the specified power. The function has branching for optimization. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_biteaux_8h_source_1l00148">148</link> of file <link linkend="_biteaux_8h_source">biteaux.h</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="class_c_bite_rnd_aa4c960b792982f495cc19c04ad9c2705_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="class_c_bite_rnd_aa4c960b792982f495cc19c04ad9c2705_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_class_c_bite_rnd_1adca97316ecce595b9175815493f7a3a2"/><section>
+    <title>getPowInt()</title>
+<indexterm><primary>getPowInt</primary><secondary>CBiteRnd</secondary></indexterm>
+<indexterm><primary>CBiteRnd</primary><secondary>getPowInt</secondary></indexterm>
+<para><computeroutput>int CBiteRnd::getPowInt (const double p, const int N1)<computeroutput>[inline]</computeroutput></computeroutput></para>
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>N1</entry><entry>
+<para>Integer value range. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>Random integer number in the range [0; N1), raised to the specified power. N1 denotes the number of bins, not the maximal returned value. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_biteaux_8h_source_1l00236">236</link> of file <link linkend="_biteaux_8h_source">biteaux.h</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="class_c_bite_rnd_adca97316ecce595b9175815493f7a3a2_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="class_c_bite_rnd_adca97316ecce595b9175815493f7a3a2_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_class_c_bite_rnd_1a6e9234ff0489b0d3d38ef71be159b34d"/><section>
+    <title>getRaw()</title>
+<indexterm><primary>getRaw</primary><secondary>CBiteRnd</secondary></indexterm>
+<indexterm><primary>CBiteRnd</primary><secondary>getRaw</secondary></indexterm>
+<para><computeroutput>uint64_t CBiteRnd::getRaw ( )<computeroutput>[inline]</computeroutput></computeroutput></para>
+<para><formalpara><title>Returns</title>
+
+<para>Uniformly-distributed random number in the &quot;raw&quot; scale. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_biteaux_8h_source_1l00256">256</link> of file <link linkend="_biteaux_8h_source">biteaux.h</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="class_c_bite_rnd_a6e9234ff0489b0d3d38ef71be159b34d_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="class_c_bite_rnd_a6e9234ff0489b0d3d38ef71be159b34d_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_class_c_bite_rnd_1aabbf1ffd535ca8fe31fda768f15ccd1b"/><section>
+    <title>getSqr()</title>
+<indexterm><primary>getSqr</primary><secondary>CBiteRnd</secondary></indexterm>
+<indexterm><primary>CBiteRnd</primary><secondary>getSqr</secondary></indexterm>
+<para><computeroutput>double CBiteRnd::getSqr ( )<computeroutput>[inline]</computeroutput></computeroutput></para>
+<para><formalpara><title>Returns</title>
+
+<para>Random number in the range [0; 1). Beta distribution with Alpha=0.5, Beta=1 (squared). </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_biteaux_8h_source_1l00136">136</link> of file <link linkend="_biteaux_8h_source">biteaux.h</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="class_c_bite_rnd_aabbf1ffd535ca8fe31fda768f15ccd1b_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="class_c_bite_rnd_aabbf1ffd535ca8fe31fda768f15ccd1b_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_class_c_bite_rnd_1ab73d2c6a6e4c1f5da7441168f165529d"/><section>
+    <title>getSqrInt()</title>
+<indexterm><primary>getSqrInt</primary><secondary>CBiteRnd</secondary></indexterm>
+<indexterm><primary>CBiteRnd</primary><secondary>getSqrInt</secondary></indexterm>
+<para><computeroutput>int CBiteRnd::getSqrInt (const int N1)<computeroutput>[inline]</computeroutput></computeroutput></para>
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>N1</entry><entry>
+<para>Integer value range. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>Random integer number in the range [0; N1). Beta distribution with Alpha=0.5, Beta=1 (squared). N1 denotes the number of bins, not the maximal returned value. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_biteaux_8h_source_1l00224">224</link> of file <link linkend="_biteaux_8h_source">biteaux.h</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="class_c_bite_rnd_ab73d2c6a6e4c1f5da7441168f165529d_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="class_c_bite_rnd_ab73d2c6a6e4c1f5da7441168f165529d_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_class_c_bite_rnd_1a97eb8d3dce6693178a1f54cf4a076fd0"/><section>
+    <title>getTPDF()</title>
+<indexterm><primary>getTPDF</primary><secondary>CBiteRnd</secondary></indexterm>
+<indexterm><primary>CBiteRnd</primary><secondary>getTPDF</secondary></indexterm>
+<para><computeroutput>double CBiteRnd::getTPDF ( )<computeroutput>[inline]</computeroutput></computeroutput></para>
+<para><formalpara><title>Returns</title>
+
+<para>TPDF random number in the range (-1; 1). </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_biteaux_8h_source_1l00265">265</link> of file <link linkend="_biteaux_8h_source">biteaux.h</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="class_c_bite_rnd_a97eb8d3dce6693178a1f54cf4a076fd0_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="class_c_bite_rnd_a97eb8d3dce6693178a1f54cf4a076fd0_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_class_c_bite_rnd_1a568e9d76b0dcac410bdb0292d1aef2e0"/><section>
+    <title>init()</title>
+<indexterm><primary>init</primary><secondary>CBiteRnd</secondary></indexterm>
+<indexterm><primary>CBiteRnd</primary><secondary>init</secondary></indexterm>
+<para><computeroutput>void CBiteRnd::init (const int NewSeed, <link linkend="_biteaux_8h_1a4522f40aac41a9fcbd22f042fea916a5">biteopt_rng</link> const arf = <computeroutput>NULL</computeroutput>
+, void *const ardata = <computeroutput>NULL</computeroutput>
+)<computeroutput>[inline]</computeroutput></computeroutput></para>
+<para>Function initializes *this PRNG object.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>NewSeed</entry><entry>
+<para>New random seed value. Ignored, if &quot;arf&quot; is non-NULL. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>arf</entry><entry>
+<para>External random number generator to use; NULL: use the default PRNG. Note that the external RNG should be seeded externally. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>ardata</entry><entry>
+<para>Data pointer to pass to the &quot;arf&quot; function. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_biteaux_8h_source_1l00090">90</link> of file <link linkend="_biteaux_8h_source">biteaux.h</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="class_c_bite_rnd_a568e9d76b0dcac410bdb0292d1aef2e0_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="class_c_bite_rnd_a568e9d76b0dcac410bdb0292d1aef2e0_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+<section>
+<title>Member Data Documentation</title>
+<anchor xml:id="_class_c_bite_rnd_1ab1e875c012a97278485cc502a660664a"/><section>
+    <title>BitPool</title>
+<indexterm><primary>BitPool</primary><secondary>CBiteRnd</secondary></indexterm>
+<indexterm><primary>CBiteRnd</primary><secondary>BitPool</secondary></indexterm>
+<para><computeroutput>uint64_t CBiteRnd::BitPool<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+
+<para>Bit pool. </para>
+</para>
+<para>
+Definition at line <link linkend="_biteaux_8h_source_1l00344">344</link> of file <link linkend="_biteaux_8h_source">biteaux.h</link>.</para>
+</section>
+<anchor xml:id="_class_c_bite_rnd_1a3ba7429a43a41566ccbc4e59ba73bb3d"/><section>
+    <title>BitsLeft</title>
+<indexterm><primary>BitsLeft</primary><secondary>CBiteRnd</secondary></indexterm>
+<indexterm><primary>CBiteRnd</primary><secondary>BitsLeft</secondary></indexterm>
+<para><computeroutput>int CBiteRnd::BitsLeft<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+
+<para>The number of bits left in the bit pool. </para>
+</para>
+<para>
+Definition at line <link linkend="_biteaux_8h_source_1l00345">345</link> of file <link linkend="_biteaux_8h_source">biteaux.h</link>.</para>
+</section>
+<anchor xml:id="_class_c_bite_rnd_1ab5b48a474edb75ca3c24f62b56e9a4ff"/><section>
+    <title>Hash</title>
+<indexterm><primary>Hash</primary><secondary>CBiteRnd</secondary></indexterm>
+<indexterm><primary>CBiteRnd</primary><secondary>Hash</secondary></indexterm>
+<para><computeroutput>uint64_t CBiteRnd::Hash<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+
+<para>PRNG state variables. </para>
+</para>
+<para>
+Definition at line <link linkend="_biteaux_8h_source_1l00343">343</link> of file <link linkend="_biteaux_8h_source">biteaux.h</link>.</para>
+</section>
+<anchor xml:id="_class_c_bite_rnd_1ae34e558692230f33fe667766c67c1856"/><section>
+    <title>lcg</title>
+<indexterm><primary>lcg</primary><secondary>CBiteRnd</secondary></indexterm>
+<indexterm><primary>CBiteRnd</primary><secondary>lcg</secondary></indexterm>
+<para><computeroutput>uint64_t CBiteRnd::lcg<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_biteaux_8h_source_1l00343">343</link> of file <link linkend="_biteaux_8h_source">biteaux.h</link>.</para>
+</section>
+<anchor xml:id="_class_c_bite_rnd_1a44e318756bc7385e8924011349aa4f51"/><section>
+    <title>rdata</title>
+<indexterm><primary>rdata</primary><secondary>CBiteRnd</secondary></indexterm>
+<indexterm><primary>CBiteRnd</primary><secondary>rdata</secondary></indexterm>
+<para><computeroutput>void* CBiteRnd::rdata<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+
+<para>Data pointer to pass to the &quot;rf&quot; function. </para>
+</para>
+<para>
+Definition at line <link linkend="_biteaux_8h_source_1l00342">342</link> of file <link linkend="_biteaux_8h_source">biteaux.h</link>.</para>
+</section>
+<anchor xml:id="_class_c_bite_rnd_1a008bb9aa42951c18a447c999800e0f60"/><section>
+    <title>rf</title>
+<indexterm><primary>rf</primary><secondary>CBiteRnd</secondary></indexterm>
+<indexterm><primary>CBiteRnd</primary><secondary>rf</secondary></indexterm>
+<para><computeroutput><link linkend="_biteaux_8h_1a4522f40aac41a9fcbd22f042fea916a5">biteopt_rng</link> CBiteRnd::rf<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+
+<para>the default PRNG. </para>
+</para>
+
+<para>External random number generator to use; NULL: use </para>
+<para>
+Definition at line <link linkend="_biteaux_8h_source_1l00340">340</link> of file <link linkend="_biteaux_8h_source">biteaux.h</link>.</para>
+</section>
+<anchor xml:id="_class_c_bite_rnd_1af5a87e0a942d6232222aafc648ed511c"/><section>
+    <title>Seed</title>
+<indexterm><primary>Seed</primary><secondary>CBiteRnd</secondary></indexterm>
+<indexterm><primary>CBiteRnd</primary><secondary>Seed</secondary></indexterm>
+<para><computeroutput>uint64_t CBiteRnd::Seed<computeroutput>[protected]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_biteaux_8h_source_1l00343">343</link> of file <link linkend="_biteaux_8h_source">biteaux.h</link>.</para>
+</section>
+<para>
+The documentation for this class was generated from the following file:</para>
+_fcmaescpp/include/<link linkend="_biteaux_8h">biteaux.h</link></section>
+</section>

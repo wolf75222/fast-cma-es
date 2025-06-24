@@ -1,0 +1,186 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.13.2" xml:lang="en-US">
+  <compounddef id="classfcmaes_1_1optimizer_1_1random__search" kind="class" language="Python" prot="public">
+    <compoundname>fcmaes::optimizer::random_search</compoundname>
+    <basecompoundref refid="classfcmaes_1_1optimizer_1_1_optimizer" prot="public" virt="non-virtual">fcmaes.optimizer.Optimizer</basecompoundref>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classfcmaes_1_1optimizer_1_1random__search_1a6fa5aeb0f39108286986746640a41331" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>fcmaes.optimizer.random_search.__init__</definition>
+        <argsstring>(self, max_evaluations=50000)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>fcmaes.optimizer.random_search.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type><ref refid="classfcmaes_1_1optimizer_1_1_optimizer_1a434f96f307e1bf0b0196933945d518e6" kindref="member">max_evaluations</ref></type>
+          <defname>max_evaluations</defname>
+          <defval>50000</defval>
+        </param>
+        <briefdescription>
+<para>Initializes an instance of the optimizer with a random search strategy. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>       max_evaluations (int, optional): The maximum number of evaluations for
+           the optimization process. Defaults to 50000.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="fcmaes/optimizer.py" line="2456" column="1" bodyfile="fcmaes/optimizer.py" bodystart="2456" bodyend="2458"/>
+      </memberdef>
+      <memberdef kind="function" id="classfcmaes_1_1optimizer_1_1random__search_1a32252573912d707c4725f05041d70db1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Tuple[np.ndarray, float, int]</type>
+        <definition> Tuple[np.ndarray, float, int] fcmaes.optimizer.random_search.minimize</definition>
+        <argsstring>(self, Callable[[ArrayLike], float] fun, Optional[Bounds] bounds, Optional[ArrayLike] guess=None, Optional[float] sdevs=None, Optional[Generator] rg=Generator(PCG64DXSM()), store=None)</argsstring>
+        <name>minimize</name>
+        <qualifiedname>fcmaes.optimizer.random_search.minimize</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>Callable</type>
+          <defname>fun</defname>
+          <array>[[ArrayLike]</array>
+        </param>
+        <param>
+          <type>float]</type>
+          <declname>fun</declname>
+          <defname>bounds</defname>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>bounds</declname>
+          <defname>guess</defname>
+          <array>[Bounds]</array>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>guess</declname>
+          <defname>sdevs</defname>
+          <array>[ArrayLike]</array>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>sdevs</declname>
+          <defname>rg</defname>
+          <array>[float]</array>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>Optional</type>
+          <declname>rg</declname>
+          <defname>store</defname>
+          <array>[Generator]</array>
+          <defval>Generator(PCG64DXSM())</defval>
+        </param>
+        <param>
+          <type>store</type>
+          <defval>None</defval>
+        </param>
+        <briefdescription>
+<para>Minimizes a given function within the specified bounds using a random sampling method. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The method repeatedly samples points within the bounds, evaluates the function at those points, and keeps track of the point with the minimum function value.</para>
+<para><verbatim>       fun (Callable[[ArrayLike], float]): Objective function to be minimized.
+</verbatim> <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>bounds</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optimization bounds specifying the lower (lb) and upper (ub) limits for the variables. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>guess</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Initial guess for the solution (ignored by this implementation). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sdevs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Not used in the implementation (ignored). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Random number generator to sample points within bounds, defaults to <computeroutput>Generator(PCG64DXSM())</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>store</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Auxiliary data structure to track the state or additional information (details not specified).</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Tuple[np.ndarray, float, int]: A tuple containing the best input point found (x_min), the minimum function value (y_min), and the total number of function evaluations performed (evals).</para>
+</simplesect>
+<verbatim>       None explicitly raised, but function evaluations or sampling may fail
+       due to improper configuration or input.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="fcmaes/optimizer.py" line="2485" column="1" bodyfile="fcmaes/optimizer.py" bodystart="2491" bodyend="2506"/>
+        <references refid="classfcmaes_1_1optimizer_1_1_optimizer_1adfc4b7f5b36503f186c68d521a9ede8a" compoundref="optimizer_8py" startline="304" endline="307">fcmaes.optimizer.Optimizer.max_eval_num</references>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>A class for performing optimization using a random search strategy. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>This class implements a random search optimization algorithm, which is a straightforward method that randomly samples candidate solutions within the specified bounds to minimize the objective function. It is useful for exploring high-dimensional or complicated search spaces and does not rely on gradient information.</para>
+<para><verbatim>       process. Determines the computational budget for the search.
+</verbatim> </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>fcmaes.optimizer.random_search</label>
+        <link refid="classfcmaes_1_1optimizer_1_1random__search"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>fcmaes.optimizer.Optimizer</label>
+        <link refid="classfcmaes_1_1optimizer_1_1_optimizer"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>fcmaes.optimizer.random_search</label>
+        <link refid="classfcmaes_1_1optimizer_1_1random__search"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>fcmaes.optimizer.Optimizer</label>
+        <link refid="classfcmaes_1_1optimizer_1_1_optimizer"/>
+      </node>
+    </collaborationgraph>
+    <location file="fcmaes/optimizer.py" line="2444" column="1" bodyfile="fcmaes/optimizer.py" bodystart="2444" bodyend="2506"/>
+    <listofallmembers>
+      <member refid="classfcmaes_1_1optimizer_1_1random__search_1a6fa5aeb0f39108286986746640a41331" prot="public" virt="non-virtual"><scope>fcmaes::optimizer::random_search</scope><name>__init__</name></member>
+      <member refid="classfcmaes_1_1optimizer_1_1_optimizer_1acf09b9b314cc4faf25c9935e76ae1821" prot="public" virt="non-virtual"><scope>fcmaes::optimizer::random_search</scope><name>get_count_runs</name></member>
+      <member refid="classfcmaes_1_1optimizer_1_1_optimizer_1adfc4b7f5b36503f186c68d521a9ede8a" prot="public" virt="non-virtual"><scope>fcmaes::optimizer::random_search</scope><name>max_eval_num</name></member>
+      <member refid="classfcmaes_1_1optimizer_1_1_optimizer_1a434f96f307e1bf0b0196933945d518e6" prot="public" virt="non-virtual"><scope>fcmaes::optimizer::random_search</scope><name>max_evaluations</name></member>
+      <member refid="classfcmaes_1_1optimizer_1_1random__search_1a32252573912d707c4725f05041d70db1" prot="public" virt="non-virtual"><scope>fcmaes::optimizer::random_search</scope><name>minimize</name></member>
+      <member refid="classfcmaes_1_1optimizer_1_1_optimizer_1ae0423ec54db7b25862e01d7863ab4708" prot="public" virt="non-virtual"><scope>fcmaes::optimizer::random_search</scope><name>name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_decpp_8py" xml:lang="en-US">
+<title>fcmaes/decpp.py File Reference</title>
+<indexterm><primary>fcmaes/decpp.py</primary></indexterm>
+<para>
+
+<para>============================================================================= </para>
+ 
+</para>
+<simplesect>
+    <title>Classes    </title>
+        <itemizedlist>
+            <listitem><para>class <link linkend="_classfcmaes_1_1decpp_1_1_d_e___c">fcmaes.decpp.DE_C</link></para>
+
+<para>A class to perform Differential Evolution (DE) algorithm using a C implementation backend. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Namespaces    </title>
+        <itemizedlist>
+            <listitem><para>namespace <link linkend="_namespacefcmaes">fcmaes</link></para>
+</listitem>
+            <listitem><para>namespace <link linkend="_namespacefcmaes_1_1decpp">fcmaes.decpp</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para>OptimizeResult <link linkend="_namespacefcmaes_1_1decpp_1a5f109c8aa67919ea612f518860268ea3">fcmaes.decpp.minimize</link> (Callable[[ArrayLike], float] fun, Optional[int] dim=None, Optional[Bounds] bounds=None, Optional[int] popsize=31, Optional[int] max_evaluations=100000, Optional[float] stop_fitness=-np.inf, Optional[int] keep=200, Optional[float] f=0.5, Optional[float] cr=0.9, Optional[Generator] rg=Generator(PCG64DXSM()), Optional[ArrayLike] ints=None, Optional[float] min_mutate=0.1, Optional[float] max_mutate=0.5, Optional[int] workers=1, Optional[Callable[[ArrayLike, float], bool]] is_terminate=None, Optional[ArrayLike] x0=None, Optional[Union[float, ArrayLike, Callable]] input_sigma=None, Optional[float] min_sigma=0, Optional[int] runid=0)</para>
+
+<para>Performs optimization using the Differential Evolution algorithm. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Variables    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_namespacefcmaes_1_1decpp_1a890d0db67042ae71d4c7df9adec2d3ec">fcmaes.decpp.optimizeDE_C</link> = libcmalib.optimizeDE_C</para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1decpp_1a6f58a442e0eb6c6c1ec1396e794faf04">fcmaes.decpp.argtypes</link></para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1decpp_1ae77a3d487fdde3b54015c3fcb4758e17">fcmaes.decpp.initDE_C</link> = libcmalib.initDE_C</para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1decpp_1abe8daeb234f718819dbb5a946b16d39b">fcmaes.decpp.restype</link></para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1decpp_1adecb8709958be364970da9957340521a">fcmaes.decpp.destroyDE_C</link> = libcmalib.destroyDE_C</para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1decpp_1a63c8f68ce2fc471736fe8dbf0a9c297e">fcmaes.decpp.askDE_C</link> = libcmalib.askDE_C</para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1decpp_1a42e7c91ec427be0aca79ecf4bec8319f">fcmaes.decpp.tellDE_C</link> = libcmalib.tellDE_C</para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1decpp_1a83480897deb0e4a967b6de51edd57f3e">fcmaes.decpp.populationDE_C</link> = libcmalib.populationDE_C</para>
+</listitem>
+            <listitem><para><link linkend="_namespacefcmaes_1_1decpp_1af82bf7db3d2be348a9dbec6a24087b14">fcmaes.decpp.resultDE_C</link> = libcmalib.resultDE_C</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>============================================================================= </para>
+
+<para>Fast version 1.6.11</para>
+
+<para>(c) 2025 – Dietmar Wolz (c) 2025 – Latitude</para>
+
+<para>License MIT</para>
+
+<para><itemizedlist>
+<listitem>
+<para><link linkend="_decpp_8py">decpp.py</link></para>
+</listitem></itemizedlist>
+</para>
+
+<para><formalpara>
+<title>Description</title>
+<para><itemizedlist>
+<listitem>
+<para>Eigen based implementation of differential evolution using the DE/best/1 strategy. Uses three deviations from the standard DE algorithm: a) temporal locality introduced in [2]. b) reinitialization of individuals based on their age. c) oscillating CR/F parameters. </para>
+</listitem></itemizedlist>
+</para>
+</formalpara>
+<para>
+
+<para>The ints parameter is a boolean array indicating which parameters are discrete integer values. This parameter was introduced after observing non optimal results for the ESP2 benchmark problem: <literallayout><computeroutput>[3]
+</computeroutput></literallayout> If defined it causes a &quot;special treatment&quot; for discrete variables: They are rounded to the next integer value and there is an additional mutation to avoid getting stuck to local minima.</para>
+</para>
+<formalpara><title>Author</title>
+
+<para>:<itemizedlist>
+<listitem>
+<para>Dietmar Wolz <literallayout><computeroutput>-&#32;romain.despoullains<emphasis role="preprocessor">@latitude.eu</emphasis>
+-&#32;corentin.generet<emphasis role="preprocessor">@latitude.eu</emphasis>
+</computeroutput></literallayout></para>
+</listitem></itemizedlist>
+</para>
+</formalpara>
+<formalpara>
+<title>References</title>
+<para><itemizedlist>
+<listitem>
+<para>[1] <link xlink:href="https://github.com/dietmarwo/fast-cma-es">https://github.com/dietmarwo/fast-cma-es</link></para>
+</listitem><listitem>
+<para>[2] <link xlink:href="https://www.researchgate.net/publication/309179699_Differential_evolution_for_protein_folding_optimization_based_on_a_three-dimensional_AB_off-lattice_model">https://www.researchgate.net/publication/309179699_Differential_evolution_for_protein_folding_optimization_based_on_a_three-dimensional_AB_off-lattice_model</link></para>
+</listitem><listitem>
+<para>[3] <link xlink:href="https://github.com/AlgTUDelft/ExpensiveOptimBenchmark/blob/master/expensiveoptimbenchmark/problems/DockerCFDBenchmark.py">https://github.com/AlgTUDelft/ExpensiveOptimBenchmark/blob/master/expensiveoptimbenchmark/problems/DockerCFDBenchmark.py</link></para>
+</listitem></itemizedlist>
+</para>
+</formalpara>
+<formalpara>
+<title>Documentation</title>
+<para><itemizedlist>
+<listitem></listitem></itemizedlist>
+</para>
+</formalpara>
+<informaltable frame='bottom'><tgroup cols='1'><colspec align='center'/><tbody><row><entry align='center'>
+</entry></row></tbody></tgroup></informaltable>
+ </para>
+<para>
+Definition in file <link linkend="_decpp_8py_source">decpp.py</link>.</para>
+</section>
+</section>

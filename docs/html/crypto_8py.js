@@ -1,0 +1,27 @@
+var crypto_8py =
+[
+    [ "examples.crypto.fitness", "classexamples_1_1crypto_1_1fitness.html", "classexamples_1_1crypto_1_1fitness" ],
+    [ "examples.crypto.bar", "namespaceexamples_1_1crypto.html#a832e3832c38bb9d153a7af1b37d2e24a", null ],
+    [ "examples.crypto.buy_all", "namespaceexamples_1_1crypto.html#a54eb39bc81fed172b7d1d74dcec022c2", null ],
+    [ "examples.crypto.get_ema", "namespaceexamples_1_1crypto.html#a38e3ca807ed30d1fa4d4a5cc478e1525", null ],
+    [ "examples.crypto.get_history", "namespaceexamples_1_1crypto.html#a2c916307beb743d28425fcd5c7568f01", null ],
+    [ "examples.crypto.get_sma", "namespaceexamples_1_1crypto.html#a8fe56bb9960bb347eee6e2c39ddbd90f", null ],
+    [ "examples.crypto.hodl", "namespaceexamples_1_1crypto.html#a941dc0c737b40581bde98db6aef23525", null ],
+    [ "examples.crypto.optimize", "namespaceexamples_1_1crypto.html#a7c596426791d1e3f74d126fdb08ec38f", null ],
+    [ "examples.crypto.optimize_mo", "namespaceexamples_1_1crypto.html#a8de0d53fbf350d4ad637d00dfa9e3318", null ],
+    [ "examples.crypto.optimize_nd", "namespaceexamples_1_1crypto.html#a89ff39f1a827fa14663f90898e5f3fef", null ],
+    [ "examples.crypto.sell_all", "namespaceexamples_1_1crypto.html#a8e16e3bee50df8bd1b44e55fe8950e10", null ],
+    [ "examples.crypto.simulate", "namespaceexamples_1_1crypto.html#a75d529296c6d83294ad1c37e55bd267f", null ],
+    [ "examples.crypto.strategy", "namespaceexamples_1_1crypto.html#a61f6c93fa62a257ed271a0aa1210f604", null ],
+    [ "examples.crypto.bounds", "namespaceexamples_1_1crypto.html#a284d5c864a794e437544590cb282efac", null ],
+    [ "examples.crypto.ddim", "namespaceexamples_1_1crypto.html#a9fefe2b65764ffc2422e189b7674e66b", null ],
+    [ "examples.crypto.end", "namespaceexamples_1_1crypto.html#a8a8f7983f4ea099719a5b299d1b22ef6", null ],
+    [ "examples.crypto.format", "namespaceexamples_1_1crypto.html#a6973099c614186a0aaab015ae17aed7f", null ],
+    [ "examples.crypto.level", "namespaceexamples_1_1crypto.html#ae6b082b78a586ad18f44525f886f79f9", null ],
+    [ "examples.crypto.niche_num", "namespaceexamples_1_1crypto.html#a5eede08c19254c6895849bb97c9257a7", null ],
+    [ "examples.crypto.qd_bounds", "namespaceexamples_1_1crypto.html#a7b9a03eae92503954a62eb5a0510c852", null ],
+    [ "examples.crypto.start", "namespaceexamples_1_1crypto.html#a69a1d45fff78e42c6f6b970bdab95bd5", null ],
+    [ "examples.crypto.START_CASH", "namespaceexamples_1_1crypto.html#accaf5b53eed6cbec1e49d2a7292a15b1", null ],
+    [ "examples.crypto.stdout", "namespaceexamples_1_1crypto.html#a6b5e9bcf79e1fc78cf493c28c73d7404", null ],
+    [ "examples.crypto.tickers", "namespaceexamples_1_1crypto.html#a11fa498d14aab048b8ba856c68562161", null ]
+];

@@ -1,0 +1,1497 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_classfcmaes_1_1cmaes_1_1_cmaes" xml:lang="en-US">
+<title>fcmaes.cmaes.Cmaes Class Reference</title>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary></indexterm>
+<para>
+
+<para>Optimization solver implementing the Covariance Matrix Adaptation Evolution Strategy (CMA-ES). </para>
+ 
+</para>
+Collaboration diagram for fcmaes.cmaes.Cmaes:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1cmaes_1_1_cmaes__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Public Member Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1a081d9143661974676245efab12c318cb">__init__</link> (self, Optional[Bounds] bounds=None, Optional[ArrayLike] x0=None, Optional[Union[float, ArrayLike, Callable]] <link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1abfb4fec954b64eec89f44d931515ed48">input_sigma</link>=0.3, Optional[int] <link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1a761c0d9f4dee80eeede32decb57c33df">popsize</link>=31, Optional[int] <link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1ae9bf236b9972f1dbb22e45c0938591b3">max_evaluations</link>=100000, Optional[int] <link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1aa7a7a3eb4886eedbfa5e3b46c35adede">max_iterations</link>=100000, Optional[int] <link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1ae977d12b9b7f088beb9df50d43936122">accuracy</link>=1.0, Optional[float] <link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1ab77d778b85b64826f6a8e7c004387f35">stop_fitness</link>=-np.inf, Optional[bool] <link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1a53ccd69a742fb33d4a8c783cdcd2b51a">is_terminate</link>=None, Optional[Generator] <link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1a472913cd6e65e99db64b742fc0b348f8">rg</link>=Generator(PCG64DXSM()), Optional[Callable] <link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1abc49c506631c8deb58566ce95a1b3069">randn</link>=np.random.randn, Optional[int] <link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1aaf84ee8e2f184fa2e5b5b49f681fb5ed">runid</link>=0, Optional[bool] normalize=True, Optional[int] update_gap=None, Optional[Callable[[ArrayLike], float]] fun=None)</para>
+
+<para>Initializes the optimizer with user-defined or default parameters. </para>
+</listitem>
+            <listitem><para>np.array <link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1a56c7e2c2ad921a3fc6263e5be6a873f8">ask</link> (self)</para>
+
+<para>Generates a NumPy array by decoding elements in the current data structure. </para>
+</listitem>
+            <listitem><para>int <link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1a398738e6fcf7fe101cce3257fb0d579d">tell</link> (self, np.ndarray ys, Optional[np.ndarray] xs=None)</para>
+
+<para>Processes the input function values and updates the internal state of the CMA-ES algorithm. </para>
+</listitem>
+            <listitem><para>np.array <link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1a7d18b1bc7ca57941c7ca07bde288c8f5">population</link> (self)</para>
+
+<para>Decodes the given array of representations into their respective solutions. </para>
+</listitem>
+            <listitem><para>OptimizeResult <link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1a5c6955cf059c16dfea867a214b485501">result</link> (self)</para>
+
+<para>Returns the optimization result containing the details of the optimization process. </para>
+</listitem>
+            <listitem><para>np.array <link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1ab89a6f59ef9aafbe855a9547c80669f5">ask_one</link> (self)</para>
+
+<para>Generates a single decoded solution vector based on the current distribution. </para>
+</listitem>
+            <listitem><para>int <link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1ac7cbecf8b29fb1048bd4cc7ec900692c">tell_one</link> (self, float y, np.array x)</para>
+
+<para>Processes the given fitness value and solution vector, performs updates to internal data structures, and logs progress during optimization. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1aff1c6aff205dfd66b677b1237f3566e7">newArgs</link> (self)</para>
+
+<para>Generates a new population of candidate solutions for optimization. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1ae86966099ee875815394d69b087738f4">do_optimize_delayed_update</link> (self, fun, max_evals=None, workers=mp.cpu_count())</para>
+
+<para>Optimizes a given function asynchronously with delayed updates. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1a974188898932b9c2ecacb33387c08fd8">doOptimize</link> (self)</para>
+
+<para>Performs an optimization process within a generation loop until termination conditions are met. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1a7dada2c399890feafb59c01d1f424ee5">updateCMA</link> (self)</para>
+
+<para>Updates the evolutionary process using the Covariance Matrix Adaptation (CMA) strategy. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1ae3fd3fbe79efd9509bb8462382d63bdd">updateEvolutionPaths</link> (self, zmean, xold)</para>
+
+<para>Updates the evolution paths required for generating new samples in the covariance matrix adaptation evolution strategy (CMA-ES). </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1afd8b8665d87f14c53cd60da16c932336">updateCovariance</link> (self, hsig, bestArx, <link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1a219b889766de63a8dcca256df781a0e5">arz</link>, arindex, xold)</para>
+
+<para>Updates the covariance matrix and returns the negative covariance scaling factor. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1ae26e42639fa8cb28b64c1fe1bcd7109c">updateBD</link> (self, negccov)</para>
+
+<para>Updates the internal state of the covariance matrix and its derived attributes, such as eigenvalues, eigenvectors, and transformations for sampling scaled isotropic Gaussian distributions. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Public Attributes    </title>
+        <itemizedlist>
+            <listitem><para>list <link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1a84f0007d9d933264673eb08e17e2bc8a">arx</link> = np.array([self.fitfun.encode(x) for x in xs])</para>
+</listitem>
+            <listitem><para>int <link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1a94c7703c8ab62c0696018a9dec53e7ac">evals</link> = 0;</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Static Public Attributes    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1aaf84ee8e2f184fa2e5b5b49f681fb5ed">runid</link> = 6</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1a81bf83c8277ff8319a7c2ee4c4189669">lower</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1aee7e5c28fcdad6c41c9589f49d05a56a">upper</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1ad60e13f5cfc1f2c51e12bc24507708e9">guess</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1aab6158b518a6657e69010bb347c9d72f">fitfun</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1a472913cd6e65e99db64b742fc0b348f8">rg</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1abc49c506631c8deb58566ce95a1b3069">randn</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1ae977d12b9b7f088beb9df50d43936122">accuracy</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1a53ccd69a742fb33d4a8c783cdcd2b51a">is_terminate</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1a2e2ca07b4daef2f2ad49d42d3220f268">dim</link> = self.pc</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1a761c0d9f4dee80eeede32decb57c33df">popsize</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1abfb4fec954b64eec89f44d931515ed48">input_sigma</link> = input_sigma()</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1a255bb1d29dc205cf8a37e794bb7fa209">insigma</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1a0c1c9cf3e185d2a6d4e8d64db0a2f256">sigma</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1ae9bf236b9972f1dbb22e45c0938591b3">max_evaluations</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1aa7a7a3eb4886eedbfa5e3b46c35adede">max_iterations</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1ab77d778b85b64826f6a8e7c004387f35">stop_fitness</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1afaa10b55e67589d51b3781645d801da2">stopTolUpX</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1abebaeee4cae9bad0d9ea507610aad62a">stopTolX</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1a87a139a9830d96524ee8cac362cc03a0">stopTolFun</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1aaa66313795089b51ff1f38a62e2664fd">stopTolHistFun</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1a3d8d08495e9ebae0cc1e8164f92bbda0">mu</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1a7dc4517b21d000a43313255dd7f7b5ee">best_y</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1a13f1cc130df08ee63adedf73d9bb0d45">n_evals</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1a83af54c38e948804ee8aceba231d25ab">time_0</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1afa1dbc74053584467bcd74d4d7cbcf4c">weights</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1a88afdde6c2904cd36c827facfb43e8a9">sumw</link> = np.sum(self.weights)</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1a2ca9e07a6a38eba18c3370262eb550fd">sumwq</link> = np.einsum(&apos;i,i-&gt;&apos;, self.weights, self.weights)</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1a87b45423cf6e89e57e4682ff318a5c88">mueff</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1a896dcfff9b45acea10fdf6f918ca8329">cc</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1a8c15e41b9f3e7d6eb11ff2112109cd52">cs</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1aa86568b2e35fa0abc9c44441370001b6">damps</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1a64138cc1569696378f425b77a1133c55">ccov1</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1ac4f76391f5b24411336fd43932b1f32d">ccovmu</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1af748707b894a344fc39d3d933ddd6875">chiN</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1ad83a90d453bf38c57926596aab31f741">ccov1Sep</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1ad28c8205ed7b2094888c758757511eea">ccovmuSep</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1abd695ddec4028c73504ddc1e56d9ddbb">lazy_update_gap</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1ab23d2436d1c72f54ab99839058c1adf3">xmean</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1a72279ffee64f7ce0014f5a6f2a5dcbe2">pc</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1abf10f8059a83dd6d1d02c17f8c9317b0">ps</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1a6c0ece7221cef9045ab5c872974c78fc">normps</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1aa02345ac78df378d92478bf7bb17362e">B</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1a7da80a6a1a85ca8df878d8d205b21d25">diagD</link> = 5</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1a02064e035283dd8a57de4869703c8977">diagC</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1addeb9c3f1881d703fcbdab203a81e8ba">BD</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1a69e5ed885bebdebca4855961f2a3c4cb">C</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1af7581432fe2911ae409ec703de2cbc13">iterations</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1a91dd0137d82524d5c7f82d0992ca823c">historySize</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1afada885234491b531340c56405686608">last_update</link></para>
+</listitem>
+            <listitem><para>int <link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1acc278543fe1ef34927806184e59ad84c">stop</link></para>
+</listitem>
+            <listitem><para>list <link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1abe14f6b9326248e7d16f17edd05660c4">best_value</link></para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1a180e3a8a1099625f1d089209c93a6d85">best_x</link> = 1</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1a37fe790f8441da81e8e25dd57ebe5e38">fitness_history</link></para>
+</listitem>
+            <listitem><para>tuple <link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1a219b889766de63a8dcca256df781a0e5">arz</link></para>
+</listitem>
+            <listitem><para>list <link linkend="_classfcmaes_1_1cmaes_1_1_cmaes_1a777ec51b23b513f06524b1d0a73e47ef">fitness</link> = []</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>Optimization solver implementing the Covariance Matrix Adaptation Evolution Strategy (CMA-ES). </para>
+
+
+
+<para>The CMA-ES algorithm is an evolutionary strategy for solving complex optimization problems. This class is used to configure and execute the </para>
+<para>
+Definition at line <link linkend="_cmaes_8py_source_1l00144">144</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<section>
+<title>Constructor &amp; Destructor Documentation</title>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1a081d9143661974676245efab12c318cb"/><section>
+    <title>__init__()</title>
+<indexterm><primary>__init__</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>__init__</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.__init__ ( self, Optional[Bounds]  bounds = <computeroutput>None</computeroutput>
+, Optional[ArrayLike]  x0 = <computeroutput>None</computeroutput>
+, Optional[Union[float, ArrayLike, Callable]]  input_sigma = <computeroutput>0.3</computeroutput>
+, Optional[int]  popsize = <computeroutput>31</computeroutput>
+, Optional[int]  max_evaluations = <computeroutput>100000</computeroutput>
+, Optional[int]  max_iterations = <computeroutput>100000</computeroutput>
+, Optional[int]  accuracy = <computeroutput>1.0</computeroutput>
+, Optional[float]  stop_fitness = <computeroutput>-np.inf</computeroutput>
+, Optional[bool]  is_terminate = <computeroutput>None</computeroutput>
+, Optional[Generator]  rg = <computeroutput>Generator(PCG64DXSM())</computeroutput>
+, Optional[Callable]  randn = <computeroutput>np.random.randn</computeroutput>
+, Optional[int]  runid = <computeroutput>0</computeroutput>
+, Optional[bool]  normalize = <computeroutput>True</computeroutput>
+, Optional[int]  update_gap = <computeroutput>None</computeroutput>
+, Optional[Callable[[ArrayLike], float]]  fun = <computeroutput>None</computeroutput>
+)</computeroutput></para><para>
+
+<para>Initializes the optimizer with user-defined or default parameters. </para>
+</para>
+
+<para><literallayout><computeroutput>   This constructor sets up the configuration for the optimization process. Users can customize the
+   initial state, population size, termination criteria, and other critical parameters to tune the
+   algorithm&apos;s behavior. The initialization process also ensures that random generation settings are
+   appropriately defined or defaulted.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>bounds</entry><entry>
+<para>Specifies the boundaries within which the optimization will occur. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>x0</entry><entry>
+<para>Initial guess or starting point for optimization. input_sigma (Optional[Union[float, ArrayLike, Callable]]): Initial standard deviation of the distribution used in the optimization process, with a default value of 0.3. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>popsize</entry><entry>
+<para>Population size for the evolutionary algorithm; default is 31. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>max_evaluations</entry><entry>
+<para>Maximum number of function evaluations allowed during the optimization process; default is 100000. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>max_iterations</entry><entry>
+<para>Maximum number of optimization iterations; default is 100000. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>accuracy</entry><entry>
+<para>Desired accuracy or precision level for the optimization process, with a default value of 1.0. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>stop_fitness</entry><entry>
+<para><link linkend="_class_fitness">Fitness</link> value at which the optimization terminates early. The default is negative infinity (-np.inf), implying no fitness-based stopping criterion. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>is_terminate</entry><entry>
+<para>Flag indicating whether early termination criteria are defined. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>rg</entry><entry>
+<para>A generator object for random number generation, used if x0 is undefined; the default is Generator(PCG64DXSM()). </para>
+</entry>
+                            </row>
+                            <row>
+<entry>randn</entry><entry>
+<para>Function for generating random offspring during the optimization process; default is <computeroutput>np.random.randn</computeroutput>. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>runid</entry><entry>
+<para>Identifier for the optimization run, useful for tracking multiple runs; <literallayout><computeroutput>default&#32;<emphasis role="keywordflow">is</emphasis>&#32;0.
+</computeroutput></literallayout> normalize (Optional[bool]): Flag indicating whether inputs should be normalized during the process; default is True. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>update_gap</entry><entry>
+<para>Frequency of updating certain parameters or values in the optimization process. fun (Optional[Callable[[ArrayLike], float]]): Objective function to be minimized or maximized. This function should accept an array-like input and return a float value representing the objective value. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_cmaes_8py_source_1l00184">184</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Function Documentation</title>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1a56c7e2c2ad921a3fc6263e5be6a873f8"/><section>
+    <title>ask()</title>
+<indexterm><primary>ask</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>ask</secondary></indexterm>
+<para><computeroutput> np.array fcmaes.cmaes.Cmaes.ask ( self)</computeroutput></para><para>
+
+<para>Generates a NumPy array by decoding elements in the current data structure. </para>
+</para>
+
+<para><literallayout><computeroutput>   The method processes elements stored in the internal structure, applies a decoding
+   mechanism via the fitfun&apos;s decode method, and produces an array containing the results.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>self</entry><entry>
+<para>Instance of the class containing necessary properties and methods to execute the decoding logic.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>np A NumPy array containing the decoded elements. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_cmaes_8py_source_1l00338">338</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1cmaes_1_1_cmaes_a56c7e2c2ad921a3fc6263e5be6a873f8_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1cmaes_1_1_cmaes_a56c7e2c2ad921a3fc6263e5be6a873f8_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1ab89a6f59ef9aafbe855a9547c80669f5"/><section>
+    <title>ask_one()</title>
+<indexterm><primary>ask_one</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>ask_one</secondary></indexterm>
+<para><computeroutput> np.array fcmaes.cmaes.Cmaes.ask_one ( self)</computeroutput></para><para>
+
+<para>Generates a single decoded solution vector based on the current distribution. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method utilizes the generated random numbers and transformation matrices to
+   produce a candidate solution vector that adheres to feasibility constraints, while
+   decoding it through the associated objective function.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>self</entry><entry>
+<para>Instance of the class containing current state for generating a feasible and decoded solution vector.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>np A decoded feasible solution vector. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_cmaes_8py_source_1l00432">432</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1cmaes_1_1_cmaes_ab89a6f59ef9aafbe855a9547c80669f5_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1ae86966099ee875815394d69b087738f4"/><section>
+    <title>do_optimize_delayed_update()</title>
+<indexterm><primary>do_optimize_delayed_update</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>do_optimize_delayed_update</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.do_optimize_delayed_update ( self,  fun,  max_evals = <computeroutput>None</computeroutput>
+,  workers = <computeroutput>mp.cpu_count()</computeroutput>
+)</computeroutput></para><para>
+
+<para>Optimizes a given function asynchronously with delayed updates. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method performs optimization by evaluating the function in parallel.
+   It uses a worker-based approach where several evaluations of `fun` are
+   performed simultaneously to explore the parameter space. The results
+   are processed iteratively to determine the best solution based on the given
+   optimization criteria.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>self</entry><entry>
+<para>Represents the instance of the class in which this function is </para>
+</entry>
+                            </row>
+                            <row>
+<entry>defined.</entry><entry>
+<para></para>
+</entry>
+                            </row>
+                            <row>
+<entry>fun</entry><entry>
+<para>Callable optimization objective function to be minimized or maximized. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>max_evals</entry><entry>
+<para>Optional; Maximum number of evaluations to perform. If not provided, the default value of <computeroutput>self.max_evaluations</computeroutput> is used. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>workers</entry><entry>
+<para>Optional; The number of parallel workers to use for evaluating the objective function. Defaults to the number of CPU cores.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>tuple A tuple containing:<itemizedlist>
+<listitem>
+<para>best_x: The best solution found for the input function.</para>
+</listitem><listitem>
+<para>best_value: The best function value found.</para>
+</listitem><listitem>
+<para>evals: The total number of evaluations performed.</para>
+</listitem><listitem>
+<para>iterations: The number of iterations completed during optimization.</para>
+</listitem><listitem>
+<para>stop: The stop condition or code signaling the termination reason. </para>
+</listitem></itemizedlist>
+</para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_cmaes_8py_source_1l00530">530</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1a974188898932b9c2ecacb33387c08fd8"/><section>
+    <title>doOptimize()</title>
+<indexterm><primary>doOptimize</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>doOptimize</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.doOptimize ( self)</computeroutput></para><para>
+
+<para>Performs an optimization process within a generation loop until termination conditions are met. </para>
+</para>
+
+<para>This method repeatedly generates candidate solutions, evaluates them using the objective function, updates the optimization state, and checks for stopping criteria.</para>
+
+<para><literallayout><computeroutput>       self:
+</computeroutput></literallayout></para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>tuple A tuple containing the following elements:<itemizedlist>
+<listitem>
+<para>best_x: The best solution found during the optimization process.</para>
+</listitem><listitem>
+<para>best_value: The objective function value of the best solution.</para>
+</listitem><listitem>
+<para>fitfun.evaluation_counter: Total number of evaluations performed.</para>
+</listitem><listitem>
+<para>iterations: Total number of iterations executed.</para>
+</listitem><listitem>
+<para>stop: Stop flag indicating the reason for termination. </para>
+</listitem></itemizedlist>
+</para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_cmaes_8py_source_1l00576">576</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1cmaes_1_1_cmaes_a974188898932b9c2ecacb33387c08fd8_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1aff1c6aff205dfd66b677b1237f3566e7"/><section>
+    <title>newArgs()</title>
+<indexterm><primary>newArgs</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>newArgs</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.newArgs ( self)</computeroutput></para><para>
+
+<para>Generates a new population of candidate solutions for optimization. </para>
+</para>
+
+<para><literallayout><computeroutput>   The method produces random offspring solutions based on the current mean and the
+   covariance matrix of the search distribution. These offspring are then adjusted
+   to ensure they are closest to feasible solutions within the search space.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>self</entry><entry>
+<para>The instance of the class invoking this method. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_cmaes_8py_source_1l00498">498</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1cmaes_1_1_cmaes_aff1c6aff205dfd66b677b1237f3566e7_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1a7d18b1bc7ca57941c7ca07bde288c8f5"/><section>
+    <title>population()</title>
+<indexterm><primary>population</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>population</secondary></indexterm>
+<para><computeroutput> np.array fcmaes.cmaes.Cmaes.population ( self)</computeroutput></para><para>
+
+<para>Decodes the given array of representations into their respective solutions. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method utilizes the decoding function defined by the `fitfun` attribute to
+   convert the input array `arx` into a population of solutions. The returned value
+   is the decoded representation of the input data.
+</computeroutput></literallayout></para>
+
+<para><formalpara><title>Returns</title>
+
+<para></para>
+
+<para>np Decoded population solutions. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_cmaes_8py_source_1l00389">389</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1a5c6955cf059c16dfea867a214b485501"/><section>
+    <title>result()</title>
+<indexterm><primary>result</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>result</secondary></indexterm>
+<para><computeroutput> OptimizeResult fcmaes.cmaes.Cmaes.result ( self)</computeroutput></para><para>
+
+<para>Returns the optimization result containing the details of the optimization process. </para>
+</para>
+
+<para><literallayout><computeroutput>   The result is an instance of `OptimizeResult`, which summarizes the outcome
+   of the optimization, including the final optimum, function values, and
+   additional side information.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>self</entry><entry>
+<para>The instance of the class containing the optimization process data.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>OptimizeResult A dataclass containing the following attributes:<itemizedlist>
+<listitem>
+<para>x: The best solution found during the optimization process.</para>
+</listitem><listitem>
+<para>fun: The value of the function at the best solution.</para>
+</listitem><listitem>
+<para>nfev: The number of function evaluations performed.</para>
+</listitem><listitem>
+<para>nit: The total number of iterations performed.</para>
+</listitem><listitem>
+<para>status: The status code indicating the stopping condition.</para>
+</listitem><listitem>
+<para>success: A boolean value indicating if the optimization was </para>
+</listitem></itemizedlist>
+</para>
+
+<para>successful. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_cmaes_8py_source_1l00413">413</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1a398738e6fcf7fe101cce3257fb0d579d"/><section>
+    <title>tell()</title>
+<indexterm><primary>tell</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>tell</secondary></indexterm>
+<para><computeroutput> int fcmaes.cmaes.Cmaes.tell ( self, np.ndarray ys, Optional[np.ndarray]  xs = <computeroutput>None</computeroutput>
+)</computeroutput></para><para>
+
+<para>Processes the input function values and updates the internal state of the CMA-ES algorithm. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>ys</entry><entry>
+<para>An array of objective function values corresponding to the solutions. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>xs</entry><entry>
+<para>An optional array of candidate solutions. If not provided, must have <computeroutput>arz</computeroutput> defined or <computeroutput>ask</computeroutput> must have been called prior.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>int The stop condition value indicating the status of the CMA-ES run.</para>
+</formalpara>
+
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>ValueError</entry><entry>
+<para>If `xs` is None and `arz` is not defined or `ask` has not been previously </para>
+</entry>
+                            </row>
+                            <row>
+<entry>called.</entry><entry>
+<para></para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_cmaes_8py_source_1l00358">358</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1cmaes_1_1_cmaes_a398738e6fcf7fe101cce3257fb0d579d_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1ac7cbecf8b29fb1048bd4cc7ec900692c"/><section>
+    <title>tell_one()</title>
+<indexterm><primary>tell_one</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>tell_one</secondary></indexterm>
+<para><computeroutput> int fcmaes.cmaes.Cmaes.tell_one ( self, float y, np.array x)</computeroutput></para><para>
+
+<para>Processes the given fitness value and solution vector, performs updates to internal data structures, and logs progress during optimization. </para>
+</para>
+
+<para>This function evaluates and integrates a solution (x) and its corresponding fitness value (y), updating the CMA-ES optimization state when the required population size is reached.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>y</entry><entry>
+<para>A float representing the fitness value of the solution. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>x</entry><entry>
+<para>A numpy array containing the solution.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>An integer indicating whether the optimization process should stop. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_cmaes_8py_source_1l00453">453</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1cmaes_1_1_cmaes_ac7cbecf8b29fb1048bd4cc7ec900692c_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1cmaes_1_1_cmaes_ac7cbecf8b29fb1048bd4cc7ec900692c_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1ae26e42639fa8cb28b64c1fe1bcd7109c"/><section>
+    <title>updateBD()</title>
+<indexterm><primary>updateBD</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>updateBD</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.updateBD ( self,  negccov)</computeroutput></para><para>
+
+<para>Updates the internal state of the covariance matrix and its derived attributes, such as eigenvalues, eigenvectors, and transformations for sampling scaled isotropic Gaussian distributions. </para>
+</para>
+
+<para>The method ensures numerical stability by handling edge cases like non-positive eigenvalues or large differences between eigenvalues.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>self</entry><entry>
+<para>Instance of the class. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>negccov</entry><entry>
+<para>The covariance matrix adjustment parameter used for updating. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_cmaes_8py_source_1l00776">776</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1cmaes_1_1_cmaes_ae26e42639fa8cb28b64c1fe1bcd7109c_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1a7dada2c399890feafb59c01d1f424ee5"/><section>
+    <title>updateCMA()</title>
+<indexterm><primary>updateCMA</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>updateCMA</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.updateCMA ( self)</computeroutput></para><para>
+
+<para>Updates the evolutionary process using the Covariance Matrix Adaptation (CMA) strategy. </para>
+</para>
+
+<para>This method handles the main operational logic for adaptive step-size control, selection, recombination, fitness evaluation, constraint checking, and diverse termination criteria during the optimization.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>self</entry><entry>
+<para>Instance of the class to which this method belongs.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>int Returns -1 if the fitness values contain NaN or infinite entries; otherwise, returns nothing. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_cmaes_8py_source_1l00604">604</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1cmaes_1_1_cmaes_a7dada2c399890feafb59c01d1f424ee5_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1cmaes_1_1_cmaes_a7dada2c399890feafb59c01d1f424ee5_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1afd8b8665d87f14c53cd60da16c932336"/><section>
+    <title>updateCovariance()</title>
+<indexterm><primary>updateCovariance</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>updateCovariance</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.updateCovariance ( self,  hsig,  bestArx,  arz,  arindex,  xold)</computeroutput></para><para>
+
+<para>Updates the covariance matrix and returns the negative covariance scaling factor. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method adjusts the covariance matrix based on the current best solution, the
+   distribution of previous samples, and other adaptations. It incorporates mechanisms
+   to adaptively handle both positive and negative covariance contributions and ensures
+   that minimal residual variance is maintained for better exploration capabilities.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>self</entry><entry>
+<para>Instance of the class calling this method. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>hsig</entry><entry>
+<para>Indicates the success of the covariance step size adaptation. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>bestArx</entry><entry>
+<para>Array containing the best solutions in the current iteration. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>arz</entry><entry>
+<para>Array of normalized random vectors representing candidate solutions. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>arindex</entry><entry>
+<para>Array containing sorted indices corresponding to ranked solutions. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>xold</entry><entry>
+<para>Centroid of the previous population.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>float The negative covariance scaling factor (negccov), which indicates the adaptation strength for negative covariance components. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_cmaes_8py_source_1l00726">726</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1cmaes_1_1_cmaes_afd8b8665d87f14c53cd60da16c932336_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1ae3fd3fbe79efd9509bb8462382d63bdd"/><section>
+    <title>updateEvolutionPaths()</title>
+<indexterm><primary>updateEvolutionPaths</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>updateEvolutionPaths</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.updateEvolutionPaths ( self,  zmean,  xold)</computeroutput></para><para>
+
+<para>Updates the evolution paths required for generating new samples in the covariance matrix adaptation evolution strategy (CMA-ES). </para>
+</para>
+
+<para>This method modifies the evolution paths <computeroutput>ps</computeroutput> and <computeroutput>pc</computeroutput> based on the weighted mean of new samples (<computeroutput>zmean</computeroutput>) and the previous solution (<computeroutput>xold</computeroutput>). Additionally, it computes a flag (<computeroutput>hsig</computeroutput>) indicating whether the evolution path <computeroutput>ps</computeroutput> satisfies specific conditions, which is used to adapt the covariance matrix of the algorithm.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>zmean</entry><entry>
+<para>Weighted mean of new samples in the search space. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>xold</entry><entry>
+<para>Previous solution in the search space.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para></para>
+
+<para>bool A flag indicating whether the evolution path <computeroutput>ps</computeroutput> satisfies the computed conditions. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_cmaes_8py_source_1l00695">695</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1cmaes_1_1_cmaes_ae3fd3fbe79efd9509bb8462382d63bdd_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+<section>
+<title>Member Data Documentation</title>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1ae977d12b9b7f088beb9df50d43936122"/><section>
+    <title>accuracy</title>
+<indexterm><primary>accuracy</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>accuracy</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.accuracy<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00212">212</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1a84f0007d9d933264673eb08e17e2bc8a"/><section>
+    <title>arx</title>
+<indexterm><primary>arx</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>arx</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.arx = np.array([self.fitfun.encode(x) for x in xs])</computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00366">366</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1a219b889766de63a8dcca256df781a0e5"/><section>
+    <title>arz</title>
+<indexterm><primary>arz</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>arz</secondary></indexterm>
+<para><computeroutput>tuple fcmaes.cmaes.Cmaes.arz<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00322">322</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1aa02345ac78df378d92478bf7bb17362e"/><section>
+    <title>B</title>
+<indexterm><primary>B</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>B</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.B<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00301">301</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1addeb9c3f1881d703fcbdab203a81e8ba"/><section>
+    <title>BD</title>
+<indexterm><primary>BD</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>BD</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.BD<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00306">306</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1abe14f6b9326248e7d16f17edd05660c4"/><section>
+    <title>best_value</title>
+<indexterm><primary>best_value</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>best_value</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.best_value<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00317">317</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1a180e3a8a1099625f1d089209c93a6d85"/><section>
+    <title>best_x</title>
+<indexterm><primary>best_x</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>best_x</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.best_x = 1<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00318">318</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1a7dc4517b21d000a43313255dd7f7b5ee"/><section>
+    <title>best_y</title>
+<indexterm><primary>best_y</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>best_y</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.best_y<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00258">258</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1a69e5ed885bebdebca4855961f2a3c4cb"/><section>
+    <title>C</title>
+<indexterm><primary>C</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>C</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.C<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00308">308</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1a896dcfff9b45acea10fdf6f918ca8329"/><section>
+    <title>cc</title>
+<indexterm><primary>cc</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>cc</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.cc<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00272">272</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1a64138cc1569696378f425b77a1133c55"/><section>
+    <title>ccov1</title>
+<indexterm><primary>ccov1</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>ccov1</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.ccov1<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00279">279</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1ad83a90d453bf38c57926596aab31f741"/><section>
+    <title>ccov1Sep</title>
+<indexterm><primary>ccov1Sep</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>ccov1Sep</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.ccov1Sep<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00285">285</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1ac4f76391f5b24411336fd43932b1f32d"/><section>
+    <title>ccovmu</title>
+<indexterm><primary>ccovmu</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>ccovmu</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.ccovmu<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00281">281</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1ad28c8205ed7b2094888c758757511eea"/><section>
+    <title>ccovmuSep</title>
+<indexterm><primary>ccovmuSep</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>ccovmuSep</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.ccovmuSep<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00286">286</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1af748707b894a344fc39d3d933ddd6875"/><section>
+    <title>chiN</title>
+<indexterm><primary>chiN</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>chiN</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.chiN<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00284">284</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1a8c15e41b9f3e7d6eb11ff2112109cd52"/><section>
+    <title>cs</title>
+<indexterm><primary>cs</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>cs</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.cs<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00274">274</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1aa86568b2e35fa0abc9c44441370001b6"/><section>
+    <title>damps</title>
+<indexterm><primary>damps</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>damps</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.damps<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00276">276</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1a02064e035283dd8a57de4869703c8977"/><section>
+    <title>diagC</title>
+<indexterm><primary>diagC</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>diagC</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.diagC<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00304">304</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1a7da80a6a1a85ca8df878d8d205b21d25"/><section>
+    <title>diagD</title>
+<indexterm><primary>diagD</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>diagD</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.diagD = 5<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00303">303</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1a2e2ca07b4daef2f2ad49d42d3220f268"/><section>
+    <title>dim</title>
+<indexterm><primary>dim</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>dim</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.dim = self.pc<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00216">216</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1a94c7703c8ab62c0696018a9dec53e7ac"/><section>
+    <title>evals</title>
+<indexterm><primary>evals</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>evals</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.evals = 0;</computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00536">536</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1aab6158b518a6657e69010bb347c9d72f"/><section>
+    <title>fitfun</title>
+<indexterm><primary>fitfun</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>fitfun</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.fitfun<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00205">205</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1a777ec51b23b513f06524b1d0a73e47ef"/><section>
+    <title>fitness</title>
+<indexterm><primary>fitness</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>fitness</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.fitness = []<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00323">323</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1a37fe790f8441da81e8e25dd57ebe5e38"/><section>
+    <title>fitness_history</title>
+<indexterm><primary>fitness_history</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>fitness_history</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.fitness_history<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00320">320</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1ad60e13f5cfc1f2c51e12bc24507708e9"/><section>
+    <title>guess</title>
+<indexterm><primary>guess</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>guess</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.guess<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00204">204</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1a91dd0137d82524d5c7f82d0992ca823c"/><section>
+    <title>historySize</title>
+<indexterm><primary>historySize</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>historySize</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.historySize<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00312">312</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1abfb4fec954b64eec89f44d931515ed48"/><section>
+    <title>input_sigma</title>
+<indexterm><primary>input_sigma</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>input_sigma</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.input_sigma = input_sigma()<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00230">230</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1a255bb1d29dc205cf8a37e794bb7fa209"/><section>
+    <title>insigma</title>
+<indexterm><primary>insigma</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>insigma</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.insigma<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00232">232</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1a53ccd69a742fb33d4a8c783cdcd2b51a"/><section>
+    <title>is_terminate</title>
+<indexterm><primary>is_terminate</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>is_terminate</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.is_terminate<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00214">214</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1af7581432fe2911ae409ec703de2cbc13"/><section>
+    <title>iterations</title>
+<indexterm><primary>iterations</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>iterations</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.iterations<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00310">310</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1afada885234491b531340c56405686608"/><section>
+    <title>last_update</title>
+<indexterm><primary>last_update</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>last_update</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.last_update<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00315">315</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1abd695ddec4028c73504ddc1e56d9ddbb"/><section>
+    <title>lazy_update_gap</title>
+<indexterm><primary>lazy_update_gap</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>lazy_update_gap</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.lazy_update_gap<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00288">288</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1a81bf83c8277ff8319a7c2ee4c4189669"/><section>
+    <title>lower</title>
+<indexterm><primary>lower</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>lower</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.lower<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00204">204</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1ae9bf236b9972f1dbb22e45c0938591b3"/><section>
+    <title>max_evaluations</title>
+<indexterm><primary>max_evaluations</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>max_evaluations</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.max_evaluations<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00241">241</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1aa7a7a3eb4886eedbfa5e3b46c35adede"/><section>
+    <title>max_iterations</title>
+<indexterm><primary>max_iterations</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>max_iterations</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.max_iterations<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00242">242</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1a3d8d08495e9ebae0cc1e8164f92bbda0"/><section>
+    <title>mu</title>
+<indexterm><primary>mu</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>mu</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.mu<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00255">255</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1a87b45423cf6e89e57e4682ff318a5c88"/><section>
+    <title>mueff</title>
+<indexterm><primary>mueff</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>mueff</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.mueff<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00268">268</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1a13f1cc130df08ee63adedf73d9bb0d45"/><section>
+    <title>n_evals</title>
+<indexterm><primary>n_evals</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>n_evals</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.n_evals<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00259">259</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1a6c0ece7221cef9045ab5c872974c78fc"/><section>
+    <title>normps</title>
+<indexterm><primary>normps</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>normps</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.normps<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00299">299</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1a72279ffee64f7ce0014f5a6f2a5dcbe2"/><section>
+    <title>pc</title>
+<indexterm><primary>pc</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>pc</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.pc<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00295">295</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1a761c0d9f4dee80eeede32decb57c33df"/><section>
+    <title>popsize</title>
+<indexterm><primary>popsize</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>popsize</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.popsize<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00223">223</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1abf10f8059a83dd6d1d02c17f8c9317b0"/><section>
+    <title>ps</title>
+<indexterm><primary>ps</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>ps</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.ps<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00297">297</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1abc49c506631c8deb58566ce95a1b3069"/><section>
+    <title>randn</title>
+<indexterm><primary>randn</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>randn</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.randn<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00210">210</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1a472913cd6e65e99db64b742fc0b348f8"/><section>
+    <title>rg</title>
+<indexterm><primary>rg</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>rg</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.rg<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00209">209</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1aaf84ee8e2f184fa2e5b5b49f681fb5ed"/><section>
+    <title>runid</title>
+<indexterm><primary>runid</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>runid</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.runid = 6<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00202">202</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1a0c1c9cf3e185d2a6d4e8d64db0a2f256"/><section>
+    <title>sigma</title>
+<indexterm><primary>sigma</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>sigma</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.sigma<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00238">238</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1acc278543fe1ef34927806184e59ad84c"/><section>
+    <title>stop</title>
+<indexterm><primary>stop</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>stop</secondary></indexterm>
+<para><computeroutput>int fcmaes.cmaes.Cmaes.stop<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00316">316</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1ab77d778b85b64826f6a8e7c004387f35"/><section>
+    <title>stop_fitness</title>
+<indexterm><primary>stop_fitness</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>stop_fitness</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.stop_fitness<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00244">244</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1a87a139a9830d96524ee8cac362cc03a0"/><section>
+    <title>stopTolFun</title>
+<indexterm><primary>stopTolFun</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>stopTolFun</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.stopTolFun<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00250">250</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1aaa66313795089b51ff1f38a62e2664fd"/><section>
+    <title>stopTolHistFun</title>
+<indexterm><primary>stopTolHistFun</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>stopTolHistFun</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.stopTolHistFun<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00252">252</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1afaa10b55e67589d51b3781645d801da2"/><section>
+    <title>stopTolUpX</title>
+<indexterm><primary>stopTolUpX</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>stopTolUpX</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.stopTolUpX<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00246">246</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1abebaeee4cae9bad0d9ea507610aad62a"/><section>
+    <title>stopTolX</title>
+<indexterm><primary>stopTolX</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>stopTolX</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.stopTolX<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00248">248</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1a88afdde6c2904cd36c827facfb43e8a9"/><section>
+    <title>sumw</title>
+<indexterm><primary>sumw</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>sumw</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.sumw = np.sum(self.weights)<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00264">264</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1a2ca9e07a6a38eba18c3370262eb550fd"/><section>
+    <title>sumwq</title>
+<indexterm><primary>sumwq</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>sumwq</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.sumwq = np.einsum(&apos;i,i-&gt;&apos;, self.weights, self.weights)<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00265">265</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1a83af54c38e948804ee8aceba231d25ab"/><section>
+    <title>time_0</title>
+<indexterm><primary>time_0</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>time_0</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.time_0<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00260">260</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1aee7e5c28fcdad6c41c9589f49d05a56a"/><section>
+    <title>upper</title>
+<indexterm><primary>upper</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>upper</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.upper<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00204">204</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1afa1dbc74053584467bcd74d4d7cbcf4c"/><section>
+    <title>weights</title>
+<indexterm><primary>weights</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>weights</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.weights<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00263">263</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1cmaes_1_1_cmaes_1ab23d2436d1c72f54ab99839058c1adf3"/><section>
+    <title>xmean</title>
+<indexterm><primary>xmean</primary><secondary>fcmaes.cmaes.Cmaes</secondary></indexterm>
+<indexterm><primary>fcmaes.cmaes.Cmaes</primary><secondary>xmean</secondary></indexterm>
+<para><computeroutput>fcmaes.cmaes.Cmaes.xmean<computeroutput>[static]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="_cmaes_8py_source_1l00293">293</link> of file <link linkend="_cmaes_8py_source">cmaes.py</link>.</para>
+</section>
+<para>
+The documentation for this class was generated from the following file:</para>
+fcmaes/<link linkend="_cmaes_8py">cmaes.py</link></section>
+</section>

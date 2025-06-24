@@ -1,0 +1,366 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>Fast CMA-ES: examples/quant.py Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/TeX/AMSmath','[tex]/TeX/AMSsymbols']
+  },
+  tex: {
+    macros: {},
+    packages: ['base','configmacros','TeX/AMSmath','TeX/AMSsymbols']
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/jothepro/doxygen-awesome-css" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="fcames.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Fast CMA-ES
+   &#160;<span id="projectnumber">1.6.11</span>
+   </div>
+   <div id="projectbrief">Fast Covariance Matrix Adaptation Evolution Strategy (CMA-ES) implementation in C++ and Python</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.13.2 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('quant_8py_source.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">quant.py</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="quant_8py.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1quant.html">    1</a></span><span class="stringliteral">&#39;&#39;&#39;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="stringliteral">Adapted from &quot;Example with a Single Qubit Variational Form&quot;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="stringliteral">https://qiskit.org/textbook/ch-applications/vqe-molecules.html#Example-with-a-Single-Qubit-Variational-Form</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="stringliteral">Read https://qiskit.org/documentation/getting_started.html about setting up your environment</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="stringliteral">Install dependencies:</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="stringliteral">pip install qiskit</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="stringliteral">pip install qiskit-aer-gpu (doesn&#39;t work on AMD GPUs and is not required for executing this file)</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="stringliteral">See https://github.com/dietmarwo/fast-cma-es/blob/master/tutorials/Quant.adoc for a detailed description.</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="stringliteral">&#39;&#39;&#39;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment"># Tested using https://docs.conda.io/en/main/miniconda.html on Linux Mint 21.2</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">from</span> qiskit <span class="keyword">import</span> QuantumCircuit, assemble, Aer, transpile, ClassicalRegister, QuantumRegister</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">from</span> qiskit.algorithms.optimizers <span class="keyword">import</span> COBYLA</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">from</span> time <span class="keyword">import</span> perf_counter</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">from</span> <a class="code hl_namespace" href="namespacefcmaes_1_1optimizer.html">fcmaes.optimizer</a> <span class="keyword">import</span> Bite_cpp, dtime, wrapper</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">from</span> scipy.optimize <span class="keyword">import</span> Bounds</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">from</span> fcmaes <span class="keyword">import</span> retry, de, cmaes, bitecpp, cmaescpp, decpp</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1quant.html#a65c7b887b7f7367afcbfd16db3d1c42d">   24</a></span>backend = Aer.get_backend(<span class="stringliteral">&quot;qasm_simulator&quot;</span>, max_parallel_threads=1)</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="comment">#backend.set_options(device=&#39;GPU&#39;) # if you switch GPU on, parallel simulation will crash</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keyword">import</span> sys </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="keyword">from</span> loguru <span class="keyword">import</span> logger</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>logger.remove()</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1quant.html#a7cb7bd52f8064e1948012d4cf23aba31">   31</a></span>logger.add(sys.stdout, format=<span class="stringliteral">&quot;{time:HH:mm:ss.SS} | {process} | {level} | {message}&quot;</span>, level=<span class="stringliteral">&quot;INFO&quot;</span>)</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>logger.add(<span class="stringliteral">&quot;log_{time}.txt&quot;</span>, format=<span class="stringliteral">&quot;{time:HH:mm:ss.SS} | {process} | {level} | {message}&quot;</span>, level=<span class="stringliteral">&quot;INFO&quot;</span>)</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1quant.html#ad4a54ae9ebc5e270133852a96105cf56">   34</a></span>NUM_SHOTS = 10000</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="foldopen" id="foldopen00036" data-start="" data-end="">
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1quant.html#a9072d95c70ea7d05b666c80254547034">   36</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1quant.html#a9072d95c70ea7d05b666c80254547034">get_var_form</a>(params):</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    qr = QuantumRegister(1, name=<span class="stringliteral">&quot;q&quot;</span>)</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    cr = ClassicalRegister(1, name=<span class="stringliteral">&#39;c&#39;</span>)</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    qc = QuantumCircuit(qr, cr)</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    qc.u(params[0], params[1], params[2], qr[0])</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    qc.measure(qr, cr[0])</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordflow">return</span> qc</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+</div>
+<div class="foldopen" id="foldopen00044" data-start="" data-end="">
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1quant.html#a9757373bc2b175a335aa0d5f752dcd78">   44</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1quant.html#a9757373bc2b175a335aa0d5f752dcd78">get_probability_distribution</a>(counts):</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    output_distr = [v / NUM_SHOTS <span class="keywordflow">for</span> v <span class="keywordflow">in</span> counts.values()]</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordflow">if</span> len(output_distr) == 1:</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        output_distr.append(1 - output_distr[0])</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordflow">return</span> output_distr</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+</div>
+<div class="foldopen" id="foldopen00050" data-start="" data-end="">
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1quant.html#ada40b79fd0f923b6c0b1757cdafd4603">   50</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1quant.html#ada40b79fd0f923b6c0b1757cdafd4603">random_target_distr</a>():</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    target_distr = np.random.rand(2)</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="comment"># We now convert the random vector into a valid probability vector</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    target_distr /= sum(target_distr)</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keywordflow">return</span> target_distr</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+</div>
+<div class="foldopen" id="foldopen00056" data-start="" data-end="">
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1quant.html#ab0e48a116239e90fe916567c6a16fb23">   56</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1quant.html#ab0e48a116239e90fe916567c6a16fb23">objective_function</a>(params, target_distr):</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="comment"># Obtain a quantum circuit instance from the parameters</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    qc = <a class="code hl_function" href="namespaceexamples_1_1quant.html#a9072d95c70ea7d05b666c80254547034">get_var_form</a>(params)</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="comment"># Execute the quantum circuit to obtain the probability distribution associated with the current parameters</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    t_qc = transpile(qc, backend)</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    qobj = assemble(t_qc, shots=NUM_SHOTS)</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    result = backend.run(qobj).result()</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="comment"># Obtain the counts for each measured state, and convert those counts into a probability vector</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    output_distr = <a class="code hl_function" href="namespaceexamples_1_1quant.html#a9757373bc2b175a335aa0d5f752dcd78">get_probability_distribution</a>(result.get_counts(qc))</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="comment"># Calculate the cost as the distance between the output distribution and the target distribution</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    cost = sum([np.abs(output_distr[i] - target_distr[i]) <span class="keywordflow">for</span> i <span class="keywordflow">in</span> range(2)])</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keywordflow">return</span> cost</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+</div>
+<div class="foldopen" id="foldopen00069" data-start="" data-end="">
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="classexamples_1_1quant_1_1_fitness.html">   69</a></span><span class="keyword">class </span><a class="code hl_class" href="classexamples_1_1quant_1_1_fitness.html">Fitness</a>(object):</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    </div>
+<div class="foldopen" id="foldopen00071" data-start="" data-end="">
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="classexamples_1_1quant_1_1_fitness.html#ab9f14ed15a75c6f2dd7a8031eadd7ddf">   71</a></span>    <span class="keyword">def </span><a class="code hl_function" href="classexamples_1_1quant_1_1_fitness.html#ab9f14ed15a75c6f2dd7a8031eadd7ddf">__init__</a>(self, target_distr):</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="classexamples_1_1quant_1_1_fitness.html#ae776c81b56af72978888efa1e430e0c1">   72</a></span>        self.<a class="code hl_variable" href="classexamples_1_1quant_1_1_fitness.html#ae776c81b56af72978888efa1e430e0c1">target_distr</a> = target_distr</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="classexamples_1_1quant_1_1_fitness.html#a505efb4be4047efca40ea53ae1b3b1c1">   73</a></span>        self.<a class="code hl_variable" href="classexamples_1_1quant_1_1_fitness.html#a505efb4be4047efca40ea53ae1b3b1c1">bounds</a> = Bounds([0]*3, [2]*3)      </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        </div>
+</div>
+<div class="foldopen" id="foldopen00075" data-start="" data-end="">
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="classexamples_1_1quant_1_1_fitness.html#a83ad6e774865c0d543ab7f356378e48a">   75</a></span>    <span class="keyword">def </span><a class="code hl_function" href="classexamples_1_1quant_1_1_fitness.html#a83ad6e774865c0d543ab7f356378e48a">__call__</a>(self, x):</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        <span class="keywordflow">try</span>:     </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>            y = <a class="code hl_function" href="namespaceexamples_1_1quant.html#ab0e48a116239e90fe916567c6a16fb23">objective_function</a>(x, self.<a class="code hl_variable" href="classexamples_1_1quant_1_1_fitness.html#ae776c81b56af72978888efa1e430e0c1">target_distr</a>)</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>            <span class="keywordflow">if</span> <span class="keywordflow">not</span> np.isfinite(y) <span class="keywordflow">or</span> y &gt; 1E9: </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>                <span class="keywordflow">return</span> 1E9</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>            <span class="keywordflow">else</span>:</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>                <span class="keywordflow">return</span> y</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <span class="keywordflow">except</span> Exception <span class="keyword">as</span> ex:</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>            print(str(ex))     </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>            <span class="keywordflow">return</span> 1E9</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    </div>
+</div>
+</div>
+<div class="foldopen" id="foldopen00086" data-start="" data-end="">
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1quant.html#a27dda8d7474d2d824515d4e27ee7c1e4">   86</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1quant.html#a27dda8d7474d2d824515d4e27ee7c1e4">opt_differential_evolution_loop</a>(fits):</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    t0 = perf_counter()</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    distances = []</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <span class="keywordflow">for</span> fit <span class="keywordflow">in</span> fits: </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        ret = de.minimize(fit, 3, fit.bounds, max_evaluations = 1000, </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>                          stop_fitness = 0.00001, workers=16)</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        print(<span class="stringliteral">&quot;de time&quot;</span>, dtime(t0), <span class="stringliteral">&quot;distance&quot;</span>, ret.fun)</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        distances.append(ret.fun)</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    print(<span class="stringliteral">&quot;de mean distance = &quot;</span> +  str(np.mean(distances)))</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    print(<span class="stringliteral">&quot;de std distance = &quot;</span> +  str(np.std(distances)))</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
+</div>
+<div class="foldopen" id="foldopen00097" data-start="" data-end="">
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1quant.html#a308d4239e56d47cf999cd1b6ed9925f5">   97</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1quant.html#a308d4239e56d47cf999cd1b6ed9925f5">opt_cmaes_loop</a>(fits):</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    t0 = perf_counter()</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    distances = []</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <span class="keywordflow">for</span> fit <span class="keywordflow">in</span> fits: </div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        ret = cmaes.minimize(fit, fit.bounds, input_sigma=0.7, max_evaluations = 1000, </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>                            stop_fitness = 0.00001, workers=16)</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        print(<span class="stringliteral">&quot;cmaes time&quot;</span>, dtime(t0), <span class="stringliteral">&quot;distance&quot;</span>, ret.fun)</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        distances.append(ret.fun)</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    print(<span class="stringliteral">&quot;cmaes mean distance = &quot;</span> +  str(np.mean(distances)))</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    print(<span class="stringliteral">&quot;cmaes std distance = &quot;</span> +  str(np.std(distances)))</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
+</div>
+<div class="foldopen" id="foldopen00108" data-start="" data-end="">
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1quant.html#a9bdd19a5ca466377aa79f0d5eb64da2a">  108</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1quant.html#a9bdd19a5ca466377aa79f0d5eb64da2a">opt_biteopt_loop</a>(fits):</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    t0 = perf_counter()</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    distances = []</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <span class="keywordflow">for</span> fit <span class="keywordflow">in</span> fits:  </div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        ret = retry.minimize(fit, fit.bounds,</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>                              num_retries=16, optimizer=<a class="code hl_class" href="classfcmaes_1_1optimizer_1_1_bite__cpp.html">Bite_cpp</a>(100), workers=16)</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        print(<span class="stringliteral">&quot;bite time&quot;</span>, dtime(t0), <span class="stringliteral">&quot;distance&quot;</span>, ret.fun)</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        distances.append(ret.fun)</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    print(<span class="stringliteral">&quot;bite mean distance = &quot;</span> +  str(np.mean(distances)))</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    print(<span class="stringliteral">&quot;bite std distance = &quot;</span> +  str(np.std(distances)))</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
+</div>
+<div class="foldopen" id="foldopen00119" data-start="" data-end="">
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1quant.html#a59120aaeb10828e4a2d789db7e1895af">  119</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1quant.html#a59120aaeb10828e4a2d789db7e1895af">opt_COBYLA_evolution_loop</a>(fits):</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    <span class="comment"># Initialize the COBYLA optimizer</span></div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    <span class="comment"># Create the initial parameters (noting that our single qubit variational form has 3 parameters)</span></div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    t0 = perf_counter()</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    distances = []</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    <span class="keywordflow">for</span> fit <span class="keywordflow">in</span> fits:</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        params = np.random.rand(3)</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        optimizer = COBYLA(maxiter=50000, tol=0.00001)</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        ret = optimizer.minimize(fun=fit, x0=params)</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        print(<span class="stringliteral">&quot;COBYLA time&quot;</span>, dtime(t0), <span class="stringliteral">&quot;distance&quot;</span>, ret.fun)</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        distances.append(ret.fun)</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    print(<span class="stringliteral">&quot;COBYLA mean distance = &quot;</span> +  str(np.mean(distances)))</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    print(<span class="stringliteral">&quot;COBYLA std distance = &quot;</span> +  str(np.std(distances)))</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    </div>
+</div>
+<div class="foldopen" id="foldopen00133" data-start="" data-end="">
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1quant.html#aa8a413cdec1ed5fb8fd269635d471ce2">  133</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1quant.html#aa8a413cdec1ed5fb8fd269635d471ce2">find_COBYLA_weakness</a>():</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    </div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    <span class="keyword">def </span>fitness(x):</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>        params = x[:3] <span class="comment"># use first three decision variables as guess for COBYLA</span></div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>        target_distr =  x[3:] <span class="comment"># use two decision variables as target</span></div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>        <span class="keywordflow">if</span> min(target_distr) &lt; 0.01: <span class="keywordflow">return</span> 0 <span class="comment"># avoid division by 0</span></div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>        target_distr /= sum(target_distr)        </div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>        fit = <a class="code hl_class" href="classexamples_1_1quant_1_1_fitness.html">Fitness</a>(target_distr)</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span> </div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>        ret = COBYLA(maxiter=50000, tol=0.00001).minimize(fun=fit, x0=params)</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>        <span class="comment">#ret = bitecpp.minimize(fit, fit.bounds, x0=params, max_evaluations=1000, M=6)</span></div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        <span class="comment">#ret = bitecpp.minimize(fit, fit.bounds, x0=params, max_evaluations=300, stop_fitness=0.05)</span></div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        <span class="comment">#ret = cmaescpp.minimize(fit, fit.bounds, x0=params, max_evaluations=300, stop_fitness=0.05)</span></div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>        <span class="comment">#ret = decpp.minimize(fit, 3, fit.bounds, max_evaluations=300, stop_fitness=0.05)</span></div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>        </div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>        <span class="keywordflow">return</span> -ret.fun <span class="comment"># we maximize the distance</span></div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        </div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    bounds = Bounds([0]*5, [2]*3 + [1]*2)</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    ret = de.minimize(<a class="code hl_class" href="classfcmaes_1_1optimizer_1_1wrapper.html">wrapper</a>(fitness), 5, bounds, max_evaluations = 300, workers=16)</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    print(<span class="stringliteral">&quot;worst COBYLA distance = &quot;</span> +  str(ret.fun))</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span> </div>
+</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span><span class="keywordflow">if</span> __name__ == <span class="stringliteral">&#39;__main__&#39;</span>:</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    </div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    <span class="comment"># generate Fitness objects associated to random target distributions</span></div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1quant.html#a7749e368860b241dc9bdd4d28b06f835">  157</a></span>    fits = [<a class="code hl_class" href="classexamples_1_1quant_1_1_fitness.html">Fitness</a>(<a class="code hl_function" href="namespaceexamples_1_1quant.html#ada40b79fd0f923b6c0b1757cdafd4603">random_target_distr</a>()) <span class="keywordflow">for</span> i <span class="keywordflow">in</span> range(10)]</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    <a class="code hl_function" href="namespaceexamples_1_1quant.html#a27dda8d7474d2d824515d4e27ee7c1e4">opt_differential_evolution_loop</a>(fits)</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    <a class="code hl_function" href="namespaceexamples_1_1quant.html#a308d4239e56d47cf999cd1b6ed9925f5">opt_cmaes_loop</a>(fits)</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    <a class="code hl_function" href="namespaceexamples_1_1quant.html#a9bdd19a5ca466377aa79f0d5eb64da2a">opt_biteopt_loop</a>(fits)</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    <a class="code hl_function" href="namespaceexamples_1_1quant.html#a59120aaeb10828e4a2d789db7e1895af">opt_COBYLA_evolution_loop</a>(fits)</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    <span class="comment"># find_COBYLA_weakness() # check for weaknesses of COBYLA</span></div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    <span class="keywordflow">pass</span></div>
+<div class="ttc" id="aclassexamples_1_1quant_1_1_fitness_html"><div class="ttname"><a href="classexamples_1_1quant_1_1_fitness.html">examples.quant.Fitness</a></div><div class="ttdef"><b>Definition</b> <a href="#l00069">quant.py:69</a></div></div>
+<div class="ttc" id="aclassexamples_1_1quant_1_1_fitness_html_a505efb4be4047efca40ea53ae1b3b1c1"><div class="ttname"><a href="classexamples_1_1quant_1_1_fitness.html#a505efb4be4047efca40ea53ae1b3b1c1">examples.quant.Fitness.bounds</a></div><div class="ttdeci">bounds</div><div class="ttdef"><b>Definition</b> <a href="#l00073">quant.py:73</a></div></div>
+<div class="ttc" id="aclassexamples_1_1quant_1_1_fitness_html_a83ad6e774865c0d543ab7f356378e48a"><div class="ttname"><a href="classexamples_1_1quant_1_1_fitness.html#a83ad6e774865c0d543ab7f356378e48a">examples.quant.Fitness.__call__</a></div><div class="ttdeci">__call__(self, x)</div><div class="ttdef"><b>Definition</b> <a href="#l00075">quant.py:75</a></div></div>
+<div class="ttc" id="aclassexamples_1_1quant_1_1_fitness_html_ab9f14ed15a75c6f2dd7a8031eadd7ddf"><div class="ttname"><a href="classexamples_1_1quant_1_1_fitness.html#ab9f14ed15a75c6f2dd7a8031eadd7ddf">examples.quant.Fitness.__init__</a></div><div class="ttdeci">__init__(self, target_distr)</div><div class="ttdef"><b>Definition</b> <a href="#l00071">quant.py:71</a></div></div>
+<div class="ttc" id="aclassexamples_1_1quant_1_1_fitness_html_ae776c81b56af72978888efa1e430e0c1"><div class="ttname"><a href="classexamples_1_1quant_1_1_fitness.html#ae776c81b56af72978888efa1e430e0c1">examples.quant.Fitness.target_distr</a></div><div class="ttdeci">target_distr</div><div class="ttdef"><b>Definition</b> <a href="#l00072">quant.py:72</a></div></div>
+<div class="ttc" id="aclassfcmaes_1_1optimizer_1_1_bite__cpp_html"><div class="ttname"><a href="classfcmaes_1_1optimizer_1_1_bite__cpp.html">fcmaes.optimizer.Bite_cpp</a></div><div class="ttdef"><b>Definition</b> <a href="optimizer_8py_source.html#l02617">optimizer.py:2617</a></div></div>
+<div class="ttc" id="aclassfcmaes_1_1optimizer_1_1wrapper_html"><div class="ttname"><a href="classfcmaes_1_1optimizer_1_1wrapper.html">fcmaes.optimizer.wrapper</a></div><div class="ttdoc">Wrapper for optimization evaluation and logging.</div><div class="ttdef"><b>Definition</b> <a href="optimizer_8py_source.html#l00203">optimizer.py:203</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1quant_html_a27dda8d7474d2d824515d4e27ee7c1e4"><div class="ttname"><a href="namespaceexamples_1_1quant.html#a27dda8d7474d2d824515d4e27ee7c1e4">examples.quant.opt_differential_evolution_loop</a></div><div class="ttdeci">opt_differential_evolution_loop(fits)</div><div class="ttdef"><b>Definition</b> <a href="#l00086">quant.py:86</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1quant_html_a308d4239e56d47cf999cd1b6ed9925f5"><div class="ttname"><a href="namespaceexamples_1_1quant.html#a308d4239e56d47cf999cd1b6ed9925f5">examples.quant.opt_cmaes_loop</a></div><div class="ttdeci">opt_cmaes_loop(fits)</div><div class="ttdef"><b>Definition</b> <a href="#l00097">quant.py:97</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1quant_html_a59120aaeb10828e4a2d789db7e1895af"><div class="ttname"><a href="namespaceexamples_1_1quant.html#a59120aaeb10828e4a2d789db7e1895af">examples.quant.opt_COBYLA_evolution_loop</a></div><div class="ttdeci">opt_COBYLA_evolution_loop(fits)</div><div class="ttdef"><b>Definition</b> <a href="#l00119">quant.py:119</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1quant_html_a9072d95c70ea7d05b666c80254547034"><div class="ttname"><a href="namespaceexamples_1_1quant.html#a9072d95c70ea7d05b666c80254547034">examples.quant.get_var_form</a></div><div class="ttdeci">get_var_form(params)</div><div class="ttdef"><b>Definition</b> <a href="#l00036">quant.py:36</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1quant_html_a9757373bc2b175a335aa0d5f752dcd78"><div class="ttname"><a href="namespaceexamples_1_1quant.html#a9757373bc2b175a335aa0d5f752dcd78">examples.quant.get_probability_distribution</a></div><div class="ttdeci">get_probability_distribution(counts)</div><div class="ttdef"><b>Definition</b> <a href="#l00044">quant.py:44</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1quant_html_a9bdd19a5ca466377aa79f0d5eb64da2a"><div class="ttname"><a href="namespaceexamples_1_1quant.html#a9bdd19a5ca466377aa79f0d5eb64da2a">examples.quant.opt_biteopt_loop</a></div><div class="ttdeci">opt_biteopt_loop(fits)</div><div class="ttdef"><b>Definition</b> <a href="#l00108">quant.py:108</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1quant_html_aa8a413cdec1ed5fb8fd269635d471ce2"><div class="ttname"><a href="namespaceexamples_1_1quant.html#aa8a413cdec1ed5fb8fd269635d471ce2">examples.quant.find_COBYLA_weakness</a></div><div class="ttdeci">find_COBYLA_weakness()</div><div class="ttdef"><b>Definition</b> <a href="#l00133">quant.py:133</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1quant_html_ab0e48a116239e90fe916567c6a16fb23"><div class="ttname"><a href="namespaceexamples_1_1quant.html#ab0e48a116239e90fe916567c6a16fb23">examples.quant.objective_function</a></div><div class="ttdeci">objective_function(params, target_distr)</div><div class="ttdef"><b>Definition</b> <a href="#l00056">quant.py:56</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1quant_html_ada40b79fd0f923b6c0b1757cdafd4603"><div class="ttname"><a href="namespaceexamples_1_1quant.html#ada40b79fd0f923b6c0b1757cdafd4603">examples.quant.random_target_distr</a></div><div class="ttdeci">random_target_distr()</div><div class="ttdef"><b>Definition</b> <a href="#l00050">quant.py:50</a></div></div>
+<div class="ttc" id="anamespacefcmaes_1_1optimizer_html"><div class="ttname"><a href="namespacefcmaes_1_1optimizer.html">fcmaes.optimizer</a></div><div class="ttdef"><b>Definition</b> <a href="optimizer_8py_source.html#l00001">optimizer.py:1</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d28a4824dc47e487b107a5db32ef43c4.html">examples</a></li><li class="navelem"><a class="el" href="quant_8py.html">quant.py</a></li>
+    <li class="footer">Generated on Tue Jun 24 2025 15:36:06 for Fast CMA-ES by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+  </ul>
+</div>
+</body>
+</html>

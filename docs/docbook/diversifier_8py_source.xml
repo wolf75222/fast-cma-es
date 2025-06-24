@@ -1,0 +1,532 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_diversifier_8py_source" xml:lang="en-US">
+<title>diversifier.py</title>
+<indexterm><primary>fcmaes/diversifier.py</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_diversifier_8py_source_1l00001"/><link linkend="_namespacefcmaes_1_1diversifier">00001</link> <emphasis role="comment">#&#32;-*-&#32;coding:&#32;utf-8&#32;-*-</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00002"/>00002 <emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00003"/>00003 <emphasis role="stringliteral">=============================================================================</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00004"/>00004 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00005"/>00005 <emphasis role="stringliteral">&#32;Fast&#32;CMA-ES&#32;-&#32;version&#32;1.6.11</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00006"/>00006 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00007"/>00007 <emphasis role="stringliteral">&#32;(c)&#32;2025&#32;–&#32;Dietmar&#32;Wolz</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00008"/>00008 <emphasis role="stringliteral">&#32;(c)&#32;2025&#32;–&#32;Latitude</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00009"/>00009 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00010"/>00010 <emphasis role="stringliteral">&#32;License:&#32;MIT</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00011"/>00011 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00012"/>00012 <emphasis role="stringliteral">&#32;File:</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00013"/>00013 <emphasis role="stringliteral">&#32;&#32;-&#32;diversifier.py</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00014"/>00014 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00015"/>00015 <emphasis role="stringliteral">&#32;Description:</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00016"/>00016 <emphasis role="stringliteral">&#32;&#32;-&#32;Numpy&#32;based&#32;implementation&#32;of&#32;an&#32;diversifying&#32;wrapper&#32;/&#32;parallel&#32;retry&#32;mechanism.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00017"/>00017 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00018"/>00018 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Uses&#32;the&#32;archive&#32;from&#32;CVT&#32;MAP-Elites&#32;[2]&#32;to&#32;maintain&#32;a&#32;set&#32;of&#32;diverse&#32;solutions</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00019"/>00019 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;and&#32;generalizes&#32;ideas&#32;from&#32;CMA-ME&#32;[3]</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00020"/>00020 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;to&#32;other&#32;wrapped&#32;algorithms.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00021"/>00021 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00022"/>00022 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Both&#32;the&#32;parallel&#32;retry&#32;and&#32;the&#32;archive&#32;based&#32;modification&#32;of&#32;the&#32;fitness</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00023"/>00023 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;function&#32;enhance&#32;the&#32;diversification&#32;of&#32;the&#32;optimization&#32;result.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00024"/>00024 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;The&#32;resulting&#32;archive&#32;may&#32;be&#32;stored&#32;and&#32;can&#32;be&#32;used&#32;to&#32;continue&#32;the</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00025"/>00025 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;optimization&#32;later.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00026"/>00026 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00027"/>00027 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Requires&#32;a&#32;QD-fitness&#32;function&#32;returning&#32;both&#32;an&#32;fitness&#32;value&#32;and&#32;a</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00028"/>00028 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;behavior&#32;vector&#32;used&#32;to&#32;determine&#32;the&#32;corresponding&#32;archive&#32;niche&#32;using</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00029"/>00029 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Voronoi&#32;tesselation.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00030"/>00030 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00031"/>00031 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Returns&#32;an&#32;archive&#32;of&#32;niche-elites&#32;containing&#32;also&#32;for&#32;each&#32;niche&#32;statistics</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00032"/>00032 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;about&#32;the&#32;associated&#32;solutions.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00033"/>00033 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00034"/>00034 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00035"/>00035 <emphasis role="stringliteral">&#32;Authors:</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00036"/>00036 <emphasis role="stringliteral">&#32;&#32;-&#32;Dietmar&#32;Wolz</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00037"/>00037 <emphasis role="stringliteral">&#32;&#32;-&#32;romain.despoullains@latitude.eu</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00038"/>00038 <emphasis role="stringliteral">&#32;&#32;-&#32;corentin.generet@latitude.eu</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00039"/>00039 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00040"/>00040 <emphasis role="stringliteral">&#32;References:</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00041"/>00041 <emphasis role="stringliteral">&#32;&#32;-&#32;[1]&#32;https://github.com/dietmarwo/fast-cma-es</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00042"/>00042 <emphasis role="stringliteral">&#32;&#32;-&#32;[2]&#32;https://arxiv.org/abs/1610.05729</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00043"/>00043 <emphasis role="stringliteral">&#32;&#32;-&#32;[3]&#32;https://arxiv.org/pdf/1912.02400.pdf</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00044"/>00044 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00045"/>00045 <emphasis role="stringliteral">&#32;Documentation:</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00046"/>00046 <emphasis role="stringliteral">&#32;&#32;-</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00047"/>00047 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00048"/>00048 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00049"/>00049 <emphasis role="stringliteral">=============================================================================</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00050"/>00050 <emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00051"/>00051 <emphasis role="keyword">from</emphasis>&#32;__future__&#32;<emphasis role="keyword">import</emphasis>&#32;annotations
+<anchor xml:id="_diversifier_8py_source_1l00052"/>00052 
+<anchor xml:id="_diversifier_8py_source_1l00053"/>00053 
+<anchor xml:id="_diversifier_8py_source_1l00054"/>00054 <emphasis role="keyword">import</emphasis>&#32;numpy&#32;<emphasis role="keyword">as</emphasis>&#32;np
+<anchor xml:id="_diversifier_8py_source_1l00055"/>00055 <emphasis role="keyword">from</emphasis>&#32;numpy.random&#32;<emphasis role="keyword">import</emphasis>&#32;Generator,&#32;PCG64DXSM,&#32;SeedSequence
+<anchor xml:id="_diversifier_8py_source_1l00056"/>00056 <emphasis role="keyword">from</emphasis>&#32;multiprocessing&#32;<emphasis role="keyword">import</emphasis>&#32;Process
+<anchor xml:id="_diversifier_8py_source_1l00057"/>00057 <emphasis role="keyword">from</emphasis>&#32;scipy.optimize&#32;<emphasis role="keyword">import</emphasis>&#32;Bounds
+<anchor xml:id="_diversifier_8py_source_1l00058"/>00058 <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1optimizer">fcmaes.optimizer</link>&#32;<emphasis role="keyword">import</emphasis>&#32;dtime,&#32;de_cma,&#32;Optimizer
+<anchor xml:id="_diversifier_8py_source_1l00059"/>00059 <emphasis role="keyword">import</emphasis>&#32;multiprocessing&#32;<emphasis role="keyword">as</emphasis>&#32;mp
+<anchor xml:id="_diversifier_8py_source_1l00060"/>00060 <emphasis role="keyword">import</emphasis>&#32;ctypes&#32;<emphasis role="keyword">as</emphasis>&#32;ct
+<anchor xml:id="_diversifier_8py_source_1l00061"/>00061 <emphasis role="keyword">from</emphasis>&#32;time&#32;<emphasis role="keyword">import</emphasis>&#32;perf_counter
+<anchor xml:id="_diversifier_8py_source_1l00062"/>00062 <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1mapelites">fcmaes.mapelites</link>&#32;<emphasis role="keyword">import</emphasis>&#32;Archive,&#32;update_archive,&#32;rng
+<anchor xml:id="_diversifier_8py_source_1l00063"/>00063 <emphasis role="keyword">from</emphasis>&#32;fcmaes&#32;<emphasis role="keyword">import</emphasis>&#32;advretry
+<anchor xml:id="_diversifier_8py_source_1l00064"/>00064 <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1evaluator">fcmaes.evaluator</link>&#32;<emphasis role="keyword">import</emphasis>&#32;is_debug_active
+<anchor xml:id="_diversifier_8py_source_1l00065"/>00065 <emphasis role="keyword">from</emphasis>&#32;loguru&#32;<emphasis role="keyword">import</emphasis>&#32;logger
+<anchor xml:id="_diversifier_8py_source_1l00066"/>00066 <emphasis role="keyword">import</emphasis>&#32;threadpoolctl
+<anchor xml:id="_diversifier_8py_source_1l00067"/>00067 
+<anchor xml:id="_diversifier_8py_source_1l00068"/>00068 <emphasis role="keyword">from</emphasis>&#32;typing&#32;<emphasis role="keyword">import</emphasis>&#32;Optional,&#32;Callable,&#32;Tuple,&#32;Dict
+<anchor xml:id="_diversifier_8py_source_1l00069"/>00069 <emphasis role="keyword">from</emphasis>&#32;numpy.typing&#32;<emphasis role="keyword">import</emphasis>&#32;ArrayLike
+<anchor xml:id="_diversifier_8py_source_1l00070"/>00070 
+<anchor xml:id="_diversifier_8py_source_1l00071"/>00071 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefcmaes_1_1diversifier_1aff21c62cc4f78f4786b277e0b20cb216">minimize</link>(qd_fitness:&#32;Callable[[ArrayLike],&#32;Tuple[float,&#32;np.ndarray]],&#32;
+<anchor xml:id="_diversifier_8py_source_1l00072"/>00072 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;bounds:&#32;Bounds,
+<anchor xml:id="_diversifier_8py_source_1l00073"/>00073 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;qd_bounds:&#32;Bounds,
+<anchor xml:id="_diversifier_8py_source_1l00074"/>00074 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;niche_num:&#32;Optional[int]&#32;=&#32;10000,
+<anchor xml:id="_diversifier_8py_source_1l00075"/>00075 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;samples_per_niche:&#32;Optional[int]&#32;=&#32;20,
+<anchor xml:id="_diversifier_8py_source_1l00076"/>00076 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_evals:&#32;Optional[int]&#32;=&#32;<emphasis role="keywordtype">None</emphasis>,
+<anchor xml:id="_diversifier_8py_source_1l00077"/>00077 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;workers:&#32;Optional[int]&#32;=&#32;mp.cpu_count(),
+<anchor xml:id="_diversifier_8py_source_1l00078"/>00078 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;archive:&#32;Optional[Archive]&#32;=&#32;<emphasis role="keywordtype">None</emphasis>,
+<anchor xml:id="_diversifier_8py_source_1l00079"/>00079 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;opt_params:&#32;Optional[Dict]&#32;=&#32;{},
+<anchor xml:id="_diversifier_8py_source_1l00080"/>00080 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;use_stats:&#32;Optional[bool]&#32;=&#32;<emphasis role="keyword">False</emphasis>,&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_diversifier_8py_source_1l00081"/>00081 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;)&#32;-&gt;&#32;Archive:
+<anchor xml:id="_diversifier_8py_source_1l00082"/>00082 
+<anchor xml:id="_diversifier_8py_source_1l00083"/>00083 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00084"/>00084 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Performs&#32;parallel&#32;optimization&#32;to&#32;minimize&#32;the&#32;fitness&#32;function&#32;with&#32;a&#32;focus&#32;on</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00085"/>00085 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;quality-diversity.&#32;The&#32;function&#32;initializes&#32;an&#32;archive&#32;that&#32;stores&#32;optimal</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00086"/>00086 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;inputs&#32;and&#32;their&#32;fitness&#32;values,&#32;organizes&#32;the&#32;records&#32;into&#32;defined&#32;niches,</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00087"/>00087 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;and&#32;carries&#32;out&#32;optimization&#32;using&#32;parallel&#32;processing.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00088"/>00088 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00089"/>00089 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00090"/>00090 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;qd_fitness:&#32;Callable&#32;fitness&#32;function&#32;that&#32;takes&#32;an&#32;input&#32;array&#32;and&#32;returns</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00091"/>00091 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;a&#32;tuple&#32;containing&#32;a&#32;scalar&#32;objective&#32;value&#32;and&#32;an&#32;array&#32;of&#32;descriptor</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00092"/>00092 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;values.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00093"/>00093 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;bounds:&#32;Bounds&#32;object&#32;defining&#32;the&#32;lower&#32;and&#32;upper&#32;bounds&#32;of&#32;the&#32;search</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00094"/>00094 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;space.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00095"/>00095 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;qd_bounds:&#32;Bounds&#32;object&#32;defining&#32;the&#32;lower&#32;and&#32;upper&#32;bounds&#32;for&#32;the</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00096"/>00096 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;quality-diversity&#32;archive.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00097"/>00097 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;niche_num:&#32;Optional;&#32;The&#32;number&#32;of&#32;niches&#32;to&#32;partition&#32;the&#32;archive.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00098"/>00098 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Default&#32;is&#32;10000.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00099"/>00099 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;samples_per_niche:&#32;Optional;&#32;The&#32;number&#32;of&#32;samples&#32;to&#32;initialize&#32;in&#32;each</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00100"/>00100 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;niche.&#32;Default&#32;is&#32;20.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00101"/>00101 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_evals:&#32;Optional;&#32;The&#32;maximum&#32;number&#32;of&#32;function&#32;evaluations.&#32;If&#32;not</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00102"/>00102 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;provided,&#32;the&#32;default&#32;is&#32;workers&#32;*&#32;50000.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00103"/>00103 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;workers:&#32;Optional;&#32;The&#32;number&#32;of&#32;parallel&#32;processes&#32;to&#32;use.&#32;Default&#32;is&#32;the</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00104"/>00104 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;number&#32;of&#32;CPU&#32;cores&#32;available.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00105"/>00105 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;archive:&#32;Optional;&#32;An&#32;existing&#32;archive&#32;object&#32;to&#32;initialize&#32;the&#32;optimization</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00106"/>00106 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;process.&#32;If&#32;not&#32;provided,&#32;a&#32;new&#32;archive&#32;is&#32;created.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00107"/>00107 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;opt_params:&#32;Optional;&#32;A&#32;dictionary&#32;of&#32;parameters&#32;used&#32;by&#32;the&#32;optimization</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00108"/>00108 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;function.&#32;Default&#32;is&#32;an&#32;empty&#32;dictionary.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00109"/>00109 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;use_stats:&#32;Optional;&#32;A&#32;flag&#32;to&#32;determine&#32;whether&#32;to&#32;track&#32;statistical</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00110"/><link linkend="_namespacefcmaes_1_1diversifier_1aff21c62cc4f78f4786b277e0b20cb216">00110</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;properties&#32;within&#32;the&#32;archive.&#32;Default&#32;is&#32;False.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00111"/>00111 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00112"/>00112 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Returns:</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00113"/>00113 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Archive:&#32;An&#32;archive&#32;object&#32;containing&#32;the&#32;optimized&#32;results,&#32;including</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00114"/>00114 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fitness&#32;values&#32;and&#32;descriptors.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00115"/>00115 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00116"/>00116 
+<anchor xml:id="_diversifier_8py_source_1l00117"/>00117 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;max_evals&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>:
+<anchor xml:id="_diversifier_8py_source_1l00118"/>00118 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_evals&#32;=&#32;workers*50000
+<anchor xml:id="_diversifier_8py_source_1l00119"/>00119 &#32;&#32;&#32;&#32;dim&#32;=&#32;len(bounds.lb)
+<anchor xml:id="_diversifier_8py_source_1l00120"/>00120 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;archive&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>:&#32;
+<anchor xml:id="_diversifier_8py_source_1l00121"/>00121 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;archive&#32;=&#32;<link linkend="_classfcmaes_1_1mapelites_1_1_archive">Archive</link>(dim,&#32;qd_bounds,&#32;niche_num,&#32;use_stats)
+<anchor xml:id="_diversifier_8py_source_1l00122"/>00122 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;archive.init_niches(samples_per_niche)
+<anchor xml:id="_diversifier_8py_source_1l00123"/>00123 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;initialize&#32;archive&#32;with&#32;random&#32;values</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00124"/>00124 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;archive.xs_view[:]&#32;=&#32;rng.uniform(bounds.lb,&#32;bounds.ub,&#32;(niche_num,&#32;dim))&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_diversifier_8py_source_1l00125"/>00125 &#32;&#32;&#32;&#32;t0&#32;=&#32;perf_counter()&#32;&#32;&#32;
+<anchor xml:id="_diversifier_8py_source_1l00126"/>00126 &#32;&#32;&#32;&#32;qd_fitness.archive&#32;=&#32;archive&#32;<emphasis role="comment">#&#32;attach&#32;archive&#32;for&#32;logging&#32;&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00127"/>00127 &#32;&#32;&#32;&#32;<link linkend="_namespacefcmaes_1_1diversifier_1ab816a6a4e44baee3d8bee364a7522274">minimize_parallel_</link>(archive,&#32;qd_fitness,&#32;bounds,&#32;workers,&#32;opt_params,&#32;max_evals)
+<anchor xml:id="_diversifier_8py_source_1l00128"/>00128 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;is_debug_active():
+<anchor xml:id="_diversifier_8py_source_1l00129"/>00129 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ys&#32;=&#32;np.sort(archive.get_ys())[:min(100,&#32;archive.capacity)]&#32;<emphasis role="comment">#&#32;best&#32;fitness&#32;values</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00130"/>00130 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;logger.debug(f<emphasis role="stringliteral">&apos;best&#32;{min(ys):.3f}&#32;worst&#32;{max(ys):.3f}&#32;&apos;</emphasis>&#32;+&#32;
+<anchor xml:id="_diversifier_8py_source_1l00131"/>00131 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;f<emphasis role="stringliteral">&apos;mean&#32;{np.mean(ys):.3f}&#32;stdev&#32;{np.std(ys):.3f}&#32;time&#32;{dtime(t0)}&#32;s&apos;</emphasis>)
+<anchor xml:id="_diversifier_8py_source_1l00132"/>00132 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;archive
+<anchor xml:id="_diversifier_8py_source_1l00133"/>00133 
+<anchor xml:id="_diversifier_8py_source_1l00134"/>00134 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefcmaes_1_1diversifier_1a02e1220deec92a5ffd1a04e5b168fe6c">apply_advretry</link>(fitness:&#32;Callable[[ArrayLike],&#32;float],&#32;
+<anchor xml:id="_diversifier_8py_source_1l00135"/>00135 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;qd_fitness:&#32;Callable[[ArrayLike],&#32;Tuple[float,&#32;np.ndarray]],&#32;
+<anchor xml:id="_diversifier_8py_source_1l00136"/>00136 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;bounds:&#32;Bounds,&#32;
+<anchor xml:id="_diversifier_8py_source_1l00137"/>00137 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;archive:&#32;Archive,&#32;
+<anchor xml:id="_diversifier_8py_source_1l00138"/>00138 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;optimizer:&#32;Optional[Optimizer]&#32;=&#32;<emphasis role="keywordtype">None</emphasis>,&#32;
+<anchor xml:id="_diversifier_8py_source_1l00139"/>00139 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;num_retries:&#32;Optional[int]&#32;=&#32;1000,&#32;
+<anchor xml:id="_diversifier_8py_source_1l00140"/>00140 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;workers:&#32;Optional[int]&#32;=&#32;mp.cpu_count(),
+<anchor xml:id="_diversifier_8py_source_1l00141"/>00141 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_eval_fac:&#32;Optional[float]&#32;=&#32;5.0,
+<anchor xml:id="_diversifier_8py_source_1l00142"/>00142 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xs:&#32;Optional[np.ndarray]&#32;=&#32;<emphasis role="keywordtype">None</emphasis>,
+<anchor xml:id="_diversifier_8py_source_1l00143"/>00143 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ys:&#32;Optional[np.ndarray]&#32;=&#32;<emphasis role="keywordtype">None</emphasis>,
+<anchor xml:id="_diversifier_8py_source_1l00144"/>00144 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x_conv:&#32;Callable[[ArrayLike],&#32;ArrayLike]&#32;=&#32;<emphasis role="keywordtype">None</emphasis>):
+<anchor xml:id="_diversifier_8py_source_1l00145"/>00145 
+<anchor xml:id="_diversifier_8py_source_1l00146"/>00146 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00147"/>00147 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Applies&#32;an&#32;advanced&#32;retry&#32;mechanism&#32;to&#32;optimize&#32;solutions&#32;for&#32;a&#32;given&#32;fitness&#32;function</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00148"/>00148 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;and&#32;update&#32;an&#32;archive&#32;with&#32;optimized&#32;results.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00149"/>00149 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00150"/>00150 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;This&#32;function&#32;manages&#32;an&#32;iterative&#32;process&#32;where&#32;previously&#32;computed&#32;solutions&#32;from</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00151"/>00151 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;an&#32;archive&#32;are&#32;refined&#32;and&#32;optimized&#32;using&#32;a&#32;specified&#32;optimizer.&#32;Advanced&#32;retry&#32;logic</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00152"/>00152 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;is&#32;utilized&#32;to&#32;ensure&#32;the&#32;process&#32;effectively&#32;minimizes&#32;the&#32;given&#32;fitness&#32;function</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00153"/>00153 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;within&#32;the&#32;defined&#32;bounds&#32;and&#32;constraints.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00154"/>00154 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00155"/>00155 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00156"/>00156 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fitness:&#32;Callable&#32;that&#32;evaluates&#32;the&#32;fitness&#32;of&#32;a&#32;solution.&#32;Must&#32;return&#32;a</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00157"/>00157 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;floating-point&#32;fitness&#32;score&#32;for&#32;a&#32;given&#32;input.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00158"/>00158 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;qd_fitness:&#32;Callable&#32;that&#32;evaluates&#32;the&#32;quality-diversity&#32;of&#32;a&#32;solution.&#32;Returns</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00159"/>00159 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;a&#32;tuple&#32;where&#32;the&#32;first&#32;item&#32;is&#32;the&#32;fitness&#32;value&#32;(float)&#32;and&#32;the&#32;second&#32;item&#32;is</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00160"/>00160 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;a&#32;feature&#32;descriptor&#32;(e.g.,&#32;NumPy&#32;array).</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00161"/>00161 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;bounds:&#32;Boundary&#32;constraints&#32;for&#32;the&#32;optimization&#32;process.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00162"/>00162 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;archive:&#32;Archive&#32;object&#32;that&#32;stores&#32;and&#32;manages&#32;solutions.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00163"/>00163 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;optimizer:&#32;Optional&#32;optimizer&#32;to&#32;be&#32;used&#32;for&#32;the&#32;minimization&#32;process.&#32;If&#32;none,</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00164"/>00164 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;defaults&#32;to&#32;a&#32;DE-CMA&#32;optimizer&#32;with&#32;1500&#32;iterations.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00165"/>00165 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;num_retries:&#32;Optional&#32;integer&#32;setting&#32;the&#32;number&#32;of&#32;retries&#32;allowed&#32;in</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00166"/>00166 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;advanced&#32;retry&#32;logic.&#32;Defaults&#32;to&#32;1000.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00167"/>00167 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;workers:&#32;Optional&#32;integer&#32;specifying&#32;the&#32;number&#32;of&#32;workers&#32;for&#32;parallelization.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00168"/>00168 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Defaults&#32;to&#32;the&#32;number&#32;of&#32;CPUs&#32;available.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00169"/>00169 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_eval_fac:&#32;Optional&#32;floating-point&#32;factor&#32;setting&#32;the&#32;maximum&#32;allowed</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00170"/>00170 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fitness&#32;function&#32;evaluations&#32;per&#32;retry.&#32;Defaults&#32;to&#32;5.0.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00171"/>00171 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xs:&#32;Optional&#32;NumPy&#32;array&#32;containing&#32;a&#32;set&#32;of&#32;previously&#32;obtained&#32;solutions.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00172"/><link linkend="_namespacefcmaes_1_1diversifier_1a02e1220deec92a5ffd1a04e5b168fe6c">00172</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;If&#32;none,&#32;solutions&#32;are&#32;derived&#32;from&#32;the&#32;archive&apos;s&#32;current&#32;entries.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00173"/>00173 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ys:&#32;Optional&#32;NumPy&#32;array&#32;containing&#32;fitness&#32;values&#32;corresponding&#32;to&#32;`xs`.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00174"/>00174 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;If&#32;none,&#32;fitness&#32;values&#32;are&#32;derived&#32;from&#32;the&#32;archive&apos;s&#32;entries.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00175"/>00175 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x_conv:&#32;Optional&#32;callable&#32;to&#32;transform&#32;or&#32;convert&#32;solutions&#32;(`xs`)&#32;before</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00176"/>00176 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;evaluating&#32;their&#32;quality-diversity&#32;fitness.&#32;If&#32;none,&#32;no&#32;transformation&#32;is&#32;applied.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00177"/>00177 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00178"/>00178 
+<anchor xml:id="_diversifier_8py_source_1l00179"/>00179 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;optimizer&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>:
+<anchor xml:id="_diversifier_8py_source_1l00180"/>00180 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;optimizer&#32;=&#32;de_cma(1500)
+<anchor xml:id="_diversifier_8py_source_1l00181"/>00181 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;generate&#32;advretry&#32;store</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00182"/>00182 &#32;&#32;&#32;&#32;store&#32;=&#32;<link linkend="_classfcmaes_1_1advretry_1_1_store">advretry.Store</link>(fitness,&#32;bounds,&#32;num_retries=num_retries,&#32;
+<anchor xml:id="_diversifier_8py_source_1l00183"/>00183 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_eval_fac=max_eval_fac)&#32;&#32;
+<anchor xml:id="_diversifier_8py_source_1l00184"/>00184 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_diversifier_8py_source_1l00185"/>00185 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;select&#32;only&#32;occupied&#32;entries</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00186"/>00186 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;xs&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>:
+<anchor xml:id="_diversifier_8py_source_1l00187"/>00187 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ys&#32;=&#32;archive.get_ys()&#32;&#32;&#32;&#32;
+<anchor xml:id="_diversifier_8py_source_1l00188"/>00188 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;valid&#32;=&#32;(ys&#32;&lt;&#32;np.inf)
+<anchor xml:id="_diversifier_8py_source_1l00189"/>00189 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ys&#32;=&#32;ys[valid]
+<anchor xml:id="_diversifier_8py_source_1l00190"/>00190 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xs&#32;=&#32;archive.xs_view[valid]
+<anchor xml:id="_diversifier_8py_source_1l00191"/>00191 &#32;&#32;&#32;&#32;t0&#32;=&#32;perf_counter()&#32;
+<anchor xml:id="_diversifier_8py_source_1l00192"/>00192 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;transfer&#32;to&#32;advretry&#32;store</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00193"/>00193 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(len(ys)):
+<anchor xml:id="_diversifier_8py_source_1l00194"/>00194 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;store.add_result(ys[i],&#32;xs[i],&#32;1)
+<anchor xml:id="_diversifier_8py_source_1l00195"/>00195 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;perform&#32;parallel&#32;retry</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00196"/>00196 &#32;&#32;&#32;&#32;advretry.retry(store,&#32;optimizer.minimize,&#32;workers=workers)
+<anchor xml:id="_diversifier_8py_source_1l00197"/>00197 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;transfer&#32;back&#32;to&#32;archive&#32;</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00198"/>00198 &#32;&#32;&#32;&#32;xs&#32;=&#32;store.xs_view
+<anchor xml:id="_diversifier_8py_source_1l00199"/>00199 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;<emphasis role="keywordflow">not</emphasis>&#32;x_conv&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>:
+<anchor xml:id="_diversifier_8py_source_1l00200"/>00200 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xs&#32;=&#32;[x_conv(x)&#32;<emphasis role="keywordflow">for</emphasis>&#32;x&#32;<emphasis role="keywordflow">in</emphasis>&#32;xs]
+<anchor xml:id="_diversifier_8py_source_1l00201"/>00201 &#32;&#32;&#32;&#32;yds&#32;=&#32;[qd_fitness(x)&#32;<emphasis role="keywordflow">for</emphasis>&#32;x&#32;<emphasis role="keywordflow">in</emphasis>&#32;xs]
+<anchor xml:id="_diversifier_8py_source_1l00202"/>00202 &#32;&#32;&#32;&#32;descs&#32;=&#32;np.array([yd[1]&#32;<emphasis role="keywordflow">for</emphasis>&#32;yd&#32;<emphasis role="keywordflow">in</emphasis>&#32;yds])
+<anchor xml:id="_diversifier_8py_source_1l00203"/>00203 &#32;&#32;&#32;&#32;ys&#32;=&#32;np.array([yd[0]&#32;<emphasis role="keywordflow">for</emphasis>&#32;yd&#32;<emphasis role="keywordflow">in</emphasis>&#32;yds])
+<anchor xml:id="_diversifier_8py_source_1l00204"/>00204 &#32;&#32;&#32;&#32;niches&#32;=&#32;archive.index_of_niches(descs)
+<anchor xml:id="_diversifier_8py_source_1l00205"/>00205 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(len(ys)):
+<anchor xml:id="_diversifier_8py_source_1l00206"/>00206 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;archive.set(niches[i],&#32;(ys[i],&#32;descs[i]),&#32;xs[i])
+<anchor xml:id="_diversifier_8py_source_1l00207"/>00207 &#32;&#32;&#32;&#32;archive.argsort()
+<anchor xml:id="_diversifier_8py_source_1l00208"/>00208 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;is_debug_active():
+<anchor xml:id="_diversifier_8py_source_1l00209"/>00209 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ys&#32;=&#32;np.sort(archive.get_ys())[:min(100,&#32;archive.capacity)]&#32;<emphasis role="comment">#&#32;best&#32;fitness&#32;values</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00210"/>00210 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;logger.debug(f<emphasis role="stringliteral">&apos;best&#32;{min(ys):.3f}&#32;worst&#32;{max(ys):.3f}&#32;&apos;</emphasis>&#32;+&#32;
+<anchor xml:id="_diversifier_8py_source_1l00211"/>00211 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;f<emphasis role="stringliteral">&apos;mean&#32;{np.mean(ys):.3f}&#32;stdev&#32;{np.std(ys):.3f}&#32;time&#32;{dtime(t0)}&#32;s&apos;</emphasis>)&#32;&#32;&#32;&#32;
+<anchor xml:id="_diversifier_8py_source_1l00212"/>00212 
+<anchor xml:id="_diversifier_8py_source_1l00213"/>00213 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefcmaes_1_1diversifier_1ab816a6a4e44baee3d8bee364a7522274">minimize_parallel_</link>(archive,&#32;fitness,&#32;bounds,&#32;workers,&#32;opt_params,&#32;max_evals):
+<anchor xml:id="_diversifier_8py_source_1l00214"/>00214 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00215"/>00215 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Minimizes&#32;a&#32;fitness&#32;function&#32;in&#32;parallel&#32;using&#32;multiple&#32;workers.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00216"/>00216 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00217"/>00217 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;This&#32;function&#32;utilizes&#32;multiprocessing&#32;to&#32;divide&#32;the&#32;workload&#32;of&#32;minimizing</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00218"/>00218 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;a&#32;fitness&#32;function&#32;across&#32;several&#32;worker&#32;processes.&#32;Each&#32;worker&#32;operates</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00219"/>00219 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;independently&#32;using&#32;its&#32;own&#32;random&#32;number&#32;generator,&#32;and&#32;the&#32;results&#32;are</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00220"/>00220 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;combined&#32;to&#32;find&#32;the&#32;minimum&#32;value.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00221"/>00221 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00222"/>00222 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00223"/>00223 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;archive:&#32;Object&#32;or&#32;structure&#32;used&#32;to&#32;store&#32;and&#32;manage&#32;state&#32;or&#32;intermediate</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00224"/>00224 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;results&#32;during&#32;the&#32;optimization&#32;process.&#32;Details&#32;of&#32;its&#32;structure&#32;or</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00225"/>00225 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;behavior&#32;depend&#32;on&#32;the&#32;implementation.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00226"/>00226 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fitness:&#32;Callable&#32;that&#32;evaluates&#32;the&#32;fitness&#32;or&#32;cost&#32;function&#32;to&#32;be</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00227"/>00227 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;minimized.&#32;Accepts&#32;input&#32;variables&#32;and&#32;returns&#32;a&#32;numerical&#32;value</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00228"/>00228 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;representing&#32;the&#32;cost/fitness.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00229"/>00229 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;bounds:&#32;Defines&#32;the&#32;boundaries&#32;within&#32;which&#32;the&#32;optimization&#32;process&#32;is</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00230"/>00230 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;allowed&#32;to&#32;search.&#32;Typically,&#32;this&#32;can&#32;be&#32;a&#32;list&#32;of&#32;tuples&#32;specifying</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00231"/>00231 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;the&#32;lower&#32;and&#32;upper&#32;bounds&#32;for&#32;each&#32;dimension.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00232"/>00232 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;workers:&#32;Integer&#32;specifying&#32;the&#32;number&#32;of&#32;parallel&#32;workers&#32;(processes)&#32;to</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00233"/>00233 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;execute&#32;the&#32;fitness&#32;function&#32;evaluation&#32;and&#32;optimization&#32;tasks.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00234"/>00234 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;opt_params:&#32;Parameters&#32;or&#32;configuration&#32;values&#32;required&#32;for&#32;the&#32;optimization</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00235"/>00235 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;method.&#32;Includes&#32;details&#32;specific&#32;to&#32;the&#32;optimization&#32;algorithm&#32;being</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00236"/>00236 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;employed.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00237"/>00237 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_evals:&#32;Integer&#32;representing&#32;the&#32;maximum&#32;number&#32;of&#32;fitness&#32;function</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00238"/>00238 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;evaluations&#32;allowed&#32;across&#32;all&#32;worker&#32;processes&#32;in&#32;total.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00239"/>00239 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00240"/>00240 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00241"/>00241 &#32;&#32;&#32;&#32;sg&#32;=&#32;SeedSequence()
+<anchor xml:id="_diversifier_8py_source_1l00242"/>00242 &#32;&#32;&#32;&#32;rgs&#32;=&#32;[Generator(PCG64DXSM(s))&#32;<emphasis role="keywordflow">for</emphasis>&#32;s&#32;<emphasis role="keywordflow">in</emphasis>&#32;sg.spawn(workers)]
+<anchor xml:id="_diversifier_8py_source_1l00243"/>00243 &#32;&#32;&#32;&#32;evals&#32;=&#32;mp.RawValue(ct.c_long,&#32;0)
+<anchor xml:id="_diversifier_8py_source_1l00244"/>00244 &#32;&#32;&#32;&#32;proc=[Process(target=run_minimize_,
+<anchor xml:id="_diversifier_8py_source_1l00245"/>00245 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;args=(archive,&#32;fitness,&#32;bounds,&#32;rgs[p],
+<anchor xml:id="_diversifier_8py_source_1l00246"/><link linkend="_namespacefcmaes_1_1diversifier_1ab816a6a4e44baee3d8bee364a7522274">00246</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;opt_params,&#32;p,&#32;workers,&#32;evals,&#32;max_evals))&#32;<emphasis role="keywordflow">for</emphasis>&#32;p&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(workers)]
+<anchor xml:id="_diversifier_8py_source_1l00247"/>00247 &#32;&#32;&#32;&#32;[p.start()&#32;<emphasis role="keywordflow">for</emphasis>&#32;p&#32;<emphasis role="keywordflow">in</emphasis>&#32;proc]
+<anchor xml:id="_diversifier_8py_source_1l00248"/>00248 &#32;&#32;&#32;&#32;[p.join()&#32;<emphasis role="keywordflow">for</emphasis>&#32;p&#32;<emphasis role="keywordflow">in</emphasis>&#32;proc]
+<anchor xml:id="_diversifier_8py_source_1l00249"/>00249 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_diversifier_8py_source_1l00250"/>00250 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefcmaes_1_1diversifier_1a37838757d6fbed5b0cd7e56fa51f194e">run_minimize_</link>(archive,&#32;fitness,&#32;bounds,&#32;rg,&#32;opt_params,&#32;p,&#32;workers,&#32;evals,&#32;max_evals):
+<anchor xml:id="_diversifier_8py_source_1l00251"/>00251 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00252"/>00252 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Executes&#32;the&#32;optimization&#32;processes&#32;involving&#32;MAP-Elites&#32;or&#32;solvers&#32;in&#32;a&#32;sequential&#32;or</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00253"/>00253 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;multiple&#32;configuration&#32;depending&#32;on&#32;the&#32;provided&#32;optimization&#32;parameters.&#32;The&#32;method&#32;adapts</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00254"/>00254 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;to&#32;the&#32;given&#32;`opt_params`,&#32;evaluating&#32;various&#32;solvers&#32;until&#32;the&#32;maximum&#32;number&#32;of&#32;allowed</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00255"/>00255 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;evaluations&#32;(`max_evals`)&#32;is&#32;reached.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00256"/>00256 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00257"/>00257 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00258"/>00258 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;archive:&#32;Archive&#32;object&#32;used&#32;for&#32;storing&#32;solutions&#32;and&#32;managing&#32;population&#32;niches.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00259"/>00259 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fitness:&#32;A&#32;callable&#32;fitness&#32;function&#32;used&#32;to&#32;evaluate&#32;solutions.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00260"/>00260 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;bounds:&#32;Boundary&#32;constraints&#32;associated&#32;with&#32;the&#32;problem.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00261"/>00261 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;rg:&#32;Random&#32;generator&#32;for&#32;deterministic&#32;random&#32;processes.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00262"/>00262 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;opt_params:&#32;Optimization&#32;parameters,&#32;which&#32;can&#32;be&#32;in&#32;the&#32;form&#32;of&#32;a&#32;dictionary,&#32;list,</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00263"/>00263 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;tuple,&#32;or&#32;NumPy&#32;array.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00264"/>00264 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;p:&#32;Integer&#32;indicating&#32;the&#32;number&#32;of&#32;processing&#32;resources&#32;available.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00265"/>00265 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;workers:&#32;Integer&#32;specifying&#32;the&#32;number&#32;of&#32;worker&#32;threads&#32;or&#32;processes&#32;allocated&#32;for</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00266"/>00266 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;solver&#32;execution.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00267"/>00267 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;evals:&#32;A&#32;shared&#32;counter&#32;object&#32;tracking&#32;the&#32;current&#32;total&#32;number&#32;of&#32;evaluations&#32;performed.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00268"/>00268 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_evals:&#32;Maximum&#32;allowed&#32;number&#32;of&#32;evaluations&#32;over&#32;the&#32;optimization&#32;processes.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00269"/>00269 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00270"/>00270 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00271"/>00271 &#32;&#32;&#32;&#32;<emphasis role="keyword">with</emphasis>&#32;threadpoolctl.threadpool_limits(limits=1,&#32;user_api=<emphasis role="stringliteral">&quot;blas&quot;</emphasis>):
+<anchor xml:id="_diversifier_8py_source_1l00272"/>00272 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;isinstance(opt_params,&#32;(list,&#32;tuple,&#32;np.ndarray)):
+<anchor xml:id="_diversifier_8py_source_1l00273"/>00273 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;default_workers&#32;=&#32;int(workers/2)&#32;<emphasis role="keywordflow">if</emphasis>&#32;len(opt_params)&#32;&gt;&#32;1&#32;<emphasis role="keywordflow">else</emphasis>&#32;workers
+<anchor xml:id="_diversifier_8py_source_1l00274"/>00274 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;params&#32;<emphasis role="keywordflow">in</emphasis>&#32;opt_params:&#32;<emphasis role="comment">#&#32;call&#32;MAP-Elites</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00275"/>00275 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;<emphasis role="stringliteral">&apos;elites&apos;</emphasis>&#32;==&#32;params.get(<emphasis role="stringliteral">&apos;solver&apos;</emphasis>):
+<anchor xml:id="_diversifier_8py_source_1l00276"/><link linkend="_namespacefcmaes_1_1diversifier_1a37838757d6fbed5b0cd7e56fa51f194e">00276</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;elites_workers&#32;=&#32;params.get(<emphasis role="stringliteral">&apos;workers&apos;</emphasis>,&#32;default_workers)&#32;
+<anchor xml:id="_diversifier_8py_source_1l00277"/>00277 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;p&#32;&lt;&#32;elites_workers:
+<anchor xml:id="_diversifier_8py_source_1l00278"/>00278 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_namespacefcmaes_1_1diversifier_1ae5fd5f192aa814e8e6abe660f4592d7d">run_map_elites_</link>(archive,&#32;fitness,&#32;bounds,&#32;rg,&#32;evals,&#32;max_evals,&#32;params)
+<anchor xml:id="_diversifier_8py_source_1l00279"/>00279 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00280"/>00280 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">while</emphasis>&#32;evals.value&#32;&lt;&#32;max_evals:&#32;<emphasis role="comment">#&#32;call&#32;solvers&#32;in&#32;loop&#32;&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00281"/>00281 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;best_x&#32;=&#32;<emphasis role="keywordtype">None</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00282"/>00282 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;isinstance(opt_params,&#32;(list,&#32;tuple,&#32;np.ndarray)):
+<anchor xml:id="_diversifier_8py_source_1l00283"/>00283 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;params&#32;<emphasis role="keywordflow">in</emphasis>&#32;opt_params:&#32;<emphasis role="comment">#&#32;call&#32;in&#32;sequence</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00284"/>00284 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;<emphasis role="stringliteral">&apos;elites&apos;</emphasis>&#32;==&#32;params.get(<emphasis role="stringliteral">&apos;solver&apos;</emphasis>):
+<anchor xml:id="_diversifier_8py_source_1l00285"/>00285 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>&#32;<emphasis role="comment">#&#32;ignore&#32;in&#32;loop</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00286"/>00286 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;best_x&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>:
+<anchor xml:id="_diversifier_8py_source_1l00287"/>00287 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;selecting&#32;a&#32;niche&#32;elite&#32;is&#32;no&#32;improvement&#32;over&#32;random&#32;x0</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00288"/>00288 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x0&#32;=&#32;<emphasis role="keywordtype">None</emphasis><emphasis role="comment">#,&#32;_,&#32;_&#32;=&#32;archive.random_xs_one(select_n,&#32;rg)</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00289"/>00289 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;best_x&#32;=&#32;<link linkend="_namespacefcmaes_1_1diversifier_1a4e57f15d7add818aaf5dfe6223e98475">minimize_</link>(archive,&#32;fitness,&#32;bounds,&#32;rg,&#32;evals,&#32;max_evals,&#32;params,&#32;
+<anchor xml:id="_diversifier_8py_source_1l00290"/>00290 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x0&#32;=&#32;x0)
+<anchor xml:id="_diversifier_8py_source_1l00291"/>00291 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>:
+<anchor xml:id="_diversifier_8py_source_1l00292"/>00292 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;best_x&#32;=&#32;<link linkend="_namespacefcmaes_1_1diversifier_1a4e57f15d7add818aaf5dfe6223e98475">minimize_</link>(archive,&#32;fitness,&#32;bounds,&#32;rg,&#32;evals,&#32;max_evals,&#32;params,&#32;x0&#32;=&#32;best_x)
+<anchor xml:id="_diversifier_8py_source_1l00293"/>00293 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>:&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_diversifier_8py_source_1l00294"/>00294 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_namespacefcmaes_1_1diversifier_1a4e57f15d7add818aaf5dfe6223e98475">minimize_</link>(archive,&#32;fitness,&#32;bounds,&#32;rg,&#32;evals,&#32;max_evals,&#32;opt_params)&#32;
+<anchor xml:id="_diversifier_8py_source_1l00295"/>00295 
+<anchor xml:id="_diversifier_8py_source_1l00296"/>00296 <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1mapelites">fcmaes.mapelites</link>&#32;<emphasis role="keyword">import</emphasis>&#32;variation_,&#32;&#32;iso_dd_
+<anchor xml:id="_diversifier_8py_source_1l00297"/>00297 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_diversifier_8py_source_1l00298"/>00298 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefcmaes_1_1diversifier_1ae5fd5f192aa814e8e6abe660f4592d7d">run_map_elites_</link>(archive,&#32;fitness,&#32;bounds,&#32;rg,&#32;evals,&#32;max_evals,&#32;opt_params&#32;=&#32;{}):
+<anchor xml:id="_diversifier_8py_source_1l00299"/>00299 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00300"/>00300 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Executes&#32;the&#32;MAP-Elites&#32;algorithm&#32;for&#32;a&#32;given&#32;archive&#32;and&#32;fitness&#32;function.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00301"/>00301 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00302"/>00302 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;The&#32;function&#32;iteratively&#32;generates&#32;a&#32;population&#32;of&#32;individuals,&#32;applies&#32;variation</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00303"/>00303 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;operators&#32;on&#32;them,&#32;evaluates&#32;their&#32;fitness,&#32;and&#32;updates&#32;the&#32;archive&#32;with&#32;the&#32;newly</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00304"/>00304 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;generated&#32;individuals.&#32;It&#32;can&#32;utilize&#32;either&#32;simulated&#32;binary&#32;crossover&#32;(SBX)&#32;or&#32;isolation</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00305"/>00305 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;distribution&#32;crossover&#32;(ISO/DD)&#32;depending&#32;on&#32;the&#32;specified&#32;optimization&#32;parameters.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00306"/>00306 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Additionally,&#32;the&#32;function&#32;includes&#32;boundaries&#32;for&#32;the&#32;search&#32;space&#32;and&#32;adjusts&#32;the</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00307"/>00307 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;archive&#32;to&#32;maintain&#32;its&#32;capacity.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00308"/>00308 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00309"/>00309 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00310"/>00310 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;archive&#32;(object):&#32;The&#32;data&#32;structure&#32;representing&#32;the&#32;archive&#32;of&#32;solutions.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00311"/>00311 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fitness&#32;(callable):&#32;The&#32;fitness&#32;function&#32;to&#32;evaluate&#32;each&#32;solution.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00312"/>00312 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;bounds&#32;(object):&#32;The&#32;search&#32;space&#32;bounds&#32;containing&#32;lower&#32;(`lb`)&#32;and&#32;upper&#32;(`ub`)</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00313"/>00313 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;limits&#32;for&#32;variables.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00314"/>00314 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;rg&#32;(numpy.random.Generator):&#32;Random&#32;number&#32;generator&#32;for&#32;stochastic&#32;operations.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00315"/>00315 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;evals&#32;(object):&#32;Object&#32;to&#32;track&#32;the&#32;number&#32;of&#32;evaluations&#32;performed.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00316"/>00316 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_evals&#32;(int):&#32;Maximum&#32;number&#32;of&#32;evaluations&#32;allowed&#32;for&#32;the&#32;algorithm.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00317"/>00317 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;opt_params&#32;(dict,&#32;optional):&#32;A&#32;dictionary&#32;of&#32;optional&#32;parameters&#32;for&#32;optimization.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00318"/>00318 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Includes:</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00319"/>00319 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-&#32;popsize&#32;(int):&#32;Population&#32;size&#32;for&#32;the&#32;algorithm&#32;(default:&#32;32).</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00320"/>00320 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-&#32;use_sbx&#32;(bool):&#32;Whether&#32;to&#32;use&#32;simulated&#32;binary&#32;crossover&#32;(default:&#32;True).</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00321"/>00321 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-&#32;dis_c&#32;(float):&#32;Distribution&#32;index&#32;for&#32;simulated&#32;binary&#32;crossover&#32;(SBX)&#32;(default:&#32;20).</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00322"/>00322 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-&#32;dis_m&#32;(float):&#32;Distribution&#32;index&#32;for&#32;mutation&#32;(default:&#32;20).</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00323"/>00323 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-&#32;iso_sigma&#32;(float):&#32;Standard&#32;deviation&#32;for&#32;isotropic&#32;distribution&#32;(default:&#32;0.01).</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00324"/>00324 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-&#32;line_sigma&#32;(float):&#32;Standard&#32;deviation&#32;for&#32;line&#32;distribution&#32;(default:&#32;0.2).</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00325"/>00325 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00326"/>00326 &#32;&#32;&#32;&#32;popsize&#32;=&#32;opt_params.get(<emphasis role="stringliteral">&apos;popsize&apos;</emphasis>,&#32;32)&#32;&#32;
+<anchor xml:id="_diversifier_8py_source_1l00327"/>00327 &#32;&#32;&#32;&#32;use_sbx&#32;=&#32;opt_params.get(<emphasis role="stringliteral">&apos;use_sbx&apos;</emphasis>,&#32;<emphasis role="keyword">True</emphasis>)&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_diversifier_8py_source_1l00328"/>00328 &#32;&#32;&#32;&#32;dis_c&#32;=&#32;opt_params.get(<emphasis role="stringliteral">&apos;dis_c&apos;</emphasis>,&#32;20)&#32;&#32;&#32;
+<anchor xml:id="_diversifier_8py_source_1l00329"/>00329 &#32;&#32;&#32;&#32;dis_m&#32;=&#32;opt_params.get(<emphasis role="stringliteral">&apos;dis_m&apos;</emphasis>,&#32;20)&#32;&#32;
+<anchor xml:id="_diversifier_8py_source_1l00330"/>00330 &#32;&#32;&#32;&#32;iso_sigma&#32;=&#32;opt_params.get(<emphasis role="stringliteral">&apos;iso_sigma&apos;</emphasis>,&#32;0.01)
+<anchor xml:id="_diversifier_8py_source_1l00331"/><link linkend="_namespacefcmaes_1_1diversifier_1ae5fd5f192aa814e8e6abe660f4592d7d">00331</link> &#32;&#32;&#32;&#32;line_sigma&#32;=&#32;opt_params.get(<emphasis role="stringliteral">&apos;line_sigma&apos;</emphasis>,&#32;0.2)
+<anchor xml:id="_diversifier_8py_source_1l00332"/>00332 &#32;&#32;&#32;&#32;select_n&#32;=&#32;archive.capacity
+<anchor xml:id="_diversifier_8py_source_1l00333"/>00333 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">while</emphasis>&#32;evals.value&#32;&lt;&#32;max_evals:&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_diversifier_8py_source_1l00334"/>00334 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;use_sbx:
+<anchor xml:id="_diversifier_8py_source_1l00335"/>00335 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pop&#32;=&#32;archive.random_xs(select_n,&#32;popsize,&#32;rg)
+<anchor xml:id="_diversifier_8py_source_1l00336"/>00336 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xs&#32;=&#32;variation_(pop,&#32;bounds.lb,&#32;bounds.ub,&#32;rg,&#32;dis_c,&#32;dis_m)
+<anchor xml:id="_diversifier_8py_source_1l00337"/>00337 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>:
+<anchor xml:id="_diversifier_8py_source_1l00338"/>00338 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x1&#32;=&#32;archive.random_xs(select_n,&#32;popsize,&#32;rg)
+<anchor xml:id="_diversifier_8py_source_1l00339"/>00339 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x2&#32;=&#32;archive.random_xs(select_n,&#32;popsize,&#32;rg)
+<anchor xml:id="_diversifier_8py_source_1l00340"/>00340 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xs&#32;=&#32;iso_dd_(x1,&#32;x2,&#32;bounds.lb,&#32;bounds.ub,&#32;rg,&#32;iso_sigma,&#32;line_sigma)&#32;&#32;&#32;&#32;
+<anchor xml:id="_diversifier_8py_source_1l00341"/>00341 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;yds&#32;=&#32;[fitness(x)&#32;<emphasis role="keywordflow">for</emphasis>&#32;x&#32;<emphasis role="keywordflow">in</emphasis>&#32;xs]
+<anchor xml:id="_diversifier_8py_source_1l00342"/>00342 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;evals.value&#32;+=&#32;popsize
+<anchor xml:id="_diversifier_8py_source_1l00343"/>00343 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;descs&#32;=&#32;np.array([yd[1]&#32;<emphasis role="keywordflow">for</emphasis>&#32;yd&#32;<emphasis role="keywordflow">in</emphasis>&#32;yds])
+<anchor xml:id="_diversifier_8py_source_1l00344"/>00344 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;niches&#32;=&#32;archive.index_of_niches(descs)
+<anchor xml:id="_diversifier_8py_source_1l00345"/>00345 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(len(yds)):
+<anchor xml:id="_diversifier_8py_source_1l00346"/>00346 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;archive.set(niches[i],&#32;yds[i],&#32;xs[i])
+<anchor xml:id="_diversifier_8py_source_1l00347"/>00347 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;archive.argsort()&#32;&#32;&#32;
+<anchor xml:id="_diversifier_8py_source_1l00348"/>00348 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;select_n&#32;=&#32;archive.get_occupied()&#32;&#32;
+<anchor xml:id="_diversifier_8py_source_1l00349"/>00349 
+<anchor xml:id="_diversifier_8py_source_1l00350"/>00350 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefcmaes_1_1diversifier_1a4e57f15d7add818aaf5dfe6223e98475">minimize_</link>(archive,&#32;fitness,&#32;bounds,&#32;rg,&#32;evals,&#32;max_evals,&#32;opt_params,&#32;x0&#32;=&#32;None):
+<anchor xml:id="_diversifier_8py_source_1l00351"/>00351 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00352"/>00352 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Minimizes&#32;a&#32;given&#32;objective&#32;function&#32;using&#32;an&#32;evolutionary&#32;algorithm&#32;or&#32;the&#32;B.I.T.E.&#32;solver.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00353"/>00353 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00354"/>00354 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;The&#32;function&#32;determines&#32;the&#32;solver&#32;type&#32;based&#32;on&#32;the&#32;provided&#32;optimization&#32;parameters</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00355"/>00355 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;and&#32;runs&#32;the&#32;optimization&#32;process&#32;accordingly.&#32;It&#32;continuously&#32;updates&#32;an&#32;archive</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00356"/>00356 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;of&#32;candidate&#32;solutions&#32;and&#32;evaluates&#32;their&#32;fitness&#32;while&#32;adhering&#32;to&#32;the&#32;specified</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00357"/>00357 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;evaluation&#32;and&#32;iteration&#32;limits.&#32;A&#32;stopping&#32;condition&#32;is&#32;also&#32;applied&#32;based&#32;on&#32;lack</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00358"/>00358 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;of&#32;improvement.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00359"/>00359 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00360"/>00360 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00361"/>00361 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;archive:&#32;Archive&#32;object&#32;for&#32;storing&#32;solution&#32;candidates&#32;and&#32;their&#32;respective</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00362"/>00362 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fitness&#32;evaluations.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00363"/>00363 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fitness:&#32;Callable&#32;representing&#32;the&#32;fitness&#32;function&#32;or&#32;objective</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00364"/>00364 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;function&#32;to&#32;be&#32;minimized.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00365"/>00365 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;bounds:&#32;Bounds&#32;or&#32;constraints&#32;for&#32;the&#32;solution&#32;search&#32;space.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00366"/>00366 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;rg:&#32;Random&#32;number&#32;generator&#32;to&#32;ensure&#32;reproducibility.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00367"/>00367 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;evals:&#32;A&#32;mutable&#32;object,&#32;typically&#32;an&#32;integer,&#32;tracking&#32;the&#32;number&#32;of</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00368"/>00368 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;evaluations&#32;performed.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00369"/>00369 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_evals:&#32;Integer&#32;specifying&#32;the&#32;maximum&#32;number&#32;of&#32;fitness&#32;evaluations&#32;to&#32;allow.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00370"/>00370 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;opt_params:&#32;Dictionary&#32;containing&#32;optimization&#32;parameters,&#32;such&#32;as&#32;solver&#32;type</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00371"/>00371 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;and&#32;stopping&#32;criteria.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00372"/>00372 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x0:&#32;Optional&#32;initial&#32;guess&#32;or&#32;starting&#32;point&#32;for&#32;the&#32;optimization&#32;process.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00373"/>00373 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00374"/>00374 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Returns:</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00375"/>00375 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;The&#32;best&#32;found&#32;solution,&#32;represented&#32;as&#32;a&#32;real-valued&#32;array,</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00376"/>00376 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;that&#32;optimizes&#32;the&#32;provided&#32;fitness&#32;function.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00377"/>00377 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00378"/>00378 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;<emphasis role="stringliteral">&apos;BITE_CPP&apos;</emphasis>&#32;==&#32;opt_params.get(<emphasis role="stringliteral">&apos;solver&apos;</emphasis>):
+<anchor xml:id="_diversifier_8py_source_1l00379"/>00379 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_namespacefcmaes_1_1diversifier_1a91529f8a57353a18ce9ce8ea0e372f63">run_bite_</link>(archive,&#32;fitness,&#32;bounds,&#32;rg,&#32;evals,&#32;max_evals,&#32;opt_params,&#32;x0&#32;=&#32;<emphasis role="keywordtype">None</emphasis>)
+<anchor xml:id="_diversifier_8py_source_1l00380"/>00380 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>:
+<anchor xml:id="_diversifier_8py_source_1l00381"/>00381 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;es&#32;=&#32;<link linkend="_namespacefcmaes_1_1diversifier_1a7360db2f799d60d42b8a3f76650f075a">get_solver_</link>(bounds,&#32;opt_params,&#32;rg,&#32;x0)&#32;
+<anchor xml:id="_diversifier_8py_source_1l00382"/>00382 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;stall_criterion&#32;=&#32;opt_params.get(<emphasis role="stringliteral">&apos;stall_criterion&apos;</emphasis>,&#32;20)
+<anchor xml:id="_diversifier_8py_source_1l00383"/><link linkend="_namespacefcmaes_1_1diversifier_1a4e57f15d7add818aaf5dfe6223e98475">00383</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_evals_iter&#32;=&#32;opt_params.get(<emphasis role="stringliteral">&apos;max_evals&apos;</emphasis>,&#32;50000)
+<anchor xml:id="_diversifier_8py_source_1l00384"/>00384 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_iters&#32;=&#32;int(max_evals_iter/es.popsize)
+<anchor xml:id="_diversifier_8py_source_1l00385"/>00385 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;old_ys&#32;=&#32;<emphasis role="keywordtype">None</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00386"/>00386 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;last_improve&#32;=&#32;0
+<anchor xml:id="_diversifier_8py_source_1l00387"/>00387 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;best_x&#32;=&#32;<emphasis role="keywordtype">None</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00388"/>00388 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;best_y&#32;=&#32;np.inf
+<anchor xml:id="_diversifier_8py_source_1l00389"/>00389 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;iter&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(max_iters):
+<anchor xml:id="_diversifier_8py_source_1l00390"/>00390 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xs&#32;=&#32;es.ask()
+<anchor xml:id="_diversifier_8py_source_1l00391"/>00391 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ys,&#32;real_ys&#32;=&#32;update_archive(archive,&#32;xs,&#32;fitness)
+<anchor xml:id="_diversifier_8py_source_1l00392"/>00392 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;evals.value&#32;+=&#32;es.popsize
+<anchor xml:id="_diversifier_8py_source_1l00393"/>00393 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;update&#32;best&#32;real&#32;fitness</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00394"/>00394 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;yi&#32;=&#32;np.argmin(real_ys)
+<anchor xml:id="_diversifier_8py_source_1l00395"/>00395 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ybest&#32;=&#32;real_ys[yi]&#32;
+<anchor xml:id="_diversifier_8py_source_1l00396"/>00396 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;ybest&#32;&lt;&#32;best_y:
+<anchor xml:id="_diversifier_8py_source_1l00397"/>00397 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;best_y&#32;=&#32;ybest
+<anchor xml:id="_diversifier_8py_source_1l00398"/>00398 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;best_x&#32;=&#32;xs[yi]
+<anchor xml:id="_diversifier_8py_source_1l00399"/>00399 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;<emphasis role="keywordflow">not</emphasis>&#32;old_ys&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>:
+<anchor xml:id="_diversifier_8py_source_1l00400"/>00400 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(np.sort(ys)&#32;&lt;&#32;old_ys).any():
+<anchor xml:id="_diversifier_8py_source_1l00401"/>00401 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;last_improve&#32;=&#32;iter&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_diversifier_8py_source_1l00402"/>00402 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;last_improve&#32;+&#32;stall_criterion&#32;&lt;&#32;iter:
+<anchor xml:id="_diversifier_8py_source_1l00403"/>00403 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00404"/>00404 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;stop&#32;=&#32;es.tell(ys)
+<anchor xml:id="_diversifier_8py_source_1l00405"/>00405 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;stop&#32;!=&#32;0&#32;<emphasis role="keywordflow">or</emphasis>&#32;evals.value&#32;&gt;=&#32;max_evals:
+<anchor xml:id="_diversifier_8py_source_1l00406"/>00406 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>&#32;
+<anchor xml:id="_diversifier_8py_source_1l00407"/>00407 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;old_ys&#32;=&#32;np.sort(ys)
+<anchor xml:id="_diversifier_8py_source_1l00408"/>00408 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;best_x&#32;<emphasis role="comment">#&#32;real&#32;best&#32;solution</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00409"/>00409 
+<anchor xml:id="_diversifier_8py_source_1l00410"/>00410 <emphasis role="keyword">from</emphasis>&#32;fcmaes&#32;<emphasis role="keyword">import</emphasis>&#32;cmaes,&#32;cmaescpp,&#32;crfmnescpp,&#32;pgpecpp,&#32;decpp,&#32;crfmnes,&#32;de,&#32;bitecpp
+<anchor xml:id="_diversifier_8py_source_1l00411"/>00411 
+<anchor xml:id="_diversifier_8py_source_1l00412"/>00412 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefcmaes_1_1diversifier_1a91529f8a57353a18ce9ce8ea0e372f63">run_bite_</link>(archive,&#32;fitness,&#32;bounds,&#32;rg,&#32;evals,&#32;max_evals,&#32;opt_params,&#32;x0&#32;=&#32;None):
+<anchor xml:id="_diversifier_8py_source_1l00413"/>00413 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00414"/>00414 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Runs&#32;the&#32;BiteOpt&#32;algorithm&#32;to&#32;optimize&#32;a&#32;given&#32;fitness&#32;function.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00415"/>00415 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00416"/>00416 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;The&#32;function&#32;utilizes&#32;the&#32;BiteOpt&#32;implementation&#32;from&#32;bitecpp</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00417"/>00417 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;to&#32;minimize&#32;the&#32;provided&#32;fitness&#32;function&#32;over&#32;the&#32;given&#32;bounds&#32;and&#32;constraints.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00418"/>00418 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;It&#32;supports&#32;dynamic&#32;updates&#32;to&#32;the&#32;solution&#32;archive&#32;and&#32;stops&#32;execution</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00419"/>00419 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;based&#32;on&#32;a&#32;defined&#32;maximum&#32;evaluation&#32;limit&#32;or&#32;optimization&#32;parameters.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00420"/>00420 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00421"/>00421 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00422"/>00422 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;archive:&#32;An&#32;archive&#32;to&#32;keep&#32;track&#32;of&#32;the&#32;solution&#32;space&#32;explored&#32;during&#32;the&#32;optimization&#32;process.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00423"/>00423 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fitness:&#32;A&#32;callable&#32;that&#32;takes&#32;an&#32;input,&#32;evaluates&#32;it,&#32;and&#32;returns&#32;a&#32;fitness&#32;value.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00424"/>00424 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;bounds:&#32;The&#32;variable&#32;bounds&#32;for&#32;the&#32;optimization&#32;problem.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00425"/>00425 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;rg:&#32;A&#32;random&#32;generator&#32;instance&#32;to&#32;ensure&#32;reproducibility&#32;in&#32;the&#32;optimization&#32;process.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00426"/>00426 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;evals:&#32;An&#32;object&#32;containing&#32;a&#32;mutable&#32;integer&#32;used&#32;to&#32;track&#32;the&#32;number&#32;of&#32;evaluations&#32;performed.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00427"/>00427 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_evals:&#32;An&#32;integer&#32;defining&#32;the&#32;maximum&#32;number&#32;of&#32;evaluations&#32;before&#32;the&#32;optimization&#32;halts.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00428"/>00428 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;opt_params:&#32;A&#32;dictionary&#32;containing&#32;optimization&#32;parameters&#32;such&#32;as&#32;&apos;max_evals&apos;&#32;and&#32;&apos;stall_criterion&apos;.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00429"/>00429 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x0:&#32;Optional&#32;starting&#32;point&#32;for&#32;the&#32;optimization.&#32;Defaults&#32;to&#32;None.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00430"/>00430 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00431"/>00431 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Returns:</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00432"/>00432 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;The&#32;optimized&#32;solution&#32;vector&#32;obtained&#32;from&#32;BiteOpt.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00433"/>00433 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00434"/>00434 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;BiteOpt&#32;doesn&apos;t&#32;support&#32;ask/tell,&#32;so&#32;we&#32;have&#32;to&#32;&quot;patch&quot;&#32;fitness.&#32;Note&#32;that&#32;Voronoi&#32;</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00435"/>00435 &#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;tesselation&#32;is&#32;more&#32;expensive&#32;if&#32;called&#32;for&#32;single&#32;behavior&#32;vectors&#32;and&#32;not&#32;for&#32;batches.&#32;</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00436"/>00436 &#32;&#32;&#32;&#32;
+<anchor xml:id="_diversifier_8py_source_1l00437"/>00437 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis>fit(x:&#32;Callable[[ArrayLike],&#32;float]):
+<anchor xml:id="_diversifier_8py_source_1l00438"/>00438 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00439"/><link linkend="_namespacefcmaes_1_1diversifier_1a91529f8a57353a18ce9ce8ea0e372f63">00439</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Evaluates&#32;a&#32;given&#32;function&#32;with&#32;constraints&#32;on&#32;a&#32;maximum&#32;number&#32;of&#32;evaluations.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00440"/>00440 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00441"/>00441 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;This&#32;function&#32;checks&#32;if&#32;the&#32;given&#32;number&#32;of&#32;evaluations&#32;exceeds&#32;the&#32;permitted</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00442"/>00442 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;maximum&#32;before&#32;proceeding.&#32;If&#32;the&#32;threshold&#32;is&#32;not&#32;surpassed,&#32;it&#32;updates&#32;the</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00443"/>00443 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;archive&#32;with&#32;the&#32;computed&#32;fitness&#32;values&#32;and&#32;returns&#32;the&#32;fitness&#32;of&#32;the&#32;evaluated</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00444"/>00444 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;input.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00445"/>00445 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00446"/>00446 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00447"/>00447 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x:&#32;A&#32;callable&#32;function&#32;that&#32;takes&#32;an&#32;ArrayLike&#32;input&#32;and&#32;returns&#32;a&#32;float</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00448"/>00448 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;representing&#32;the&#32;fitness&#32;value.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00449"/>00449 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00450"/>00450 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Returns:</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00451"/>00451 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;float:&#32;The&#32;computed&#32;fitness&#32;value&#32;of&#32;the&#32;input&#32;`x`.&#32;If&#32;the&#32;maximum&#32;allowed</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00452"/>00452 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;evaluations&#32;are&#32;reached,&#32;returns&#32;infinity.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00453"/>00453 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00454"/>00454 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Raises:</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00455"/>00455 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ValueError:&#32;If&#32;the&#32;input&#32;function&#32;(or&#32;its&#32;return&#32;value)&#32;does&#32;not&#32;align&#32;with</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00456"/>00456 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;the&#32;expected&#32;structure&#32;or&#32;type&#32;definitions&#32;during&#32;processing.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00457"/>00457 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00458"/>00458 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;evals.value&#32;&gt;=&#32;max_evals:
+<anchor xml:id="_diversifier_8py_source_1l00459"/>00459 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;np.inf
+<anchor xml:id="_diversifier_8py_source_1l00460"/>00460 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;evals.value&#32;+=&#32;1
+<anchor xml:id="_diversifier_8py_source_1l00461"/>00461 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ys,&#32;_&#32;=&#32;update_archive(archive,&#32;[x],&#32;fitness)
+<anchor xml:id="_diversifier_8py_source_1l00462"/>00462 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;ys[0]
+<anchor xml:id="_diversifier_8py_source_1l00463"/>00463 &#32;&#32;&#32;&#32;
+<anchor xml:id="_diversifier_8py_source_1l00464"/>00464 &#32;&#32;&#32;&#32;max_evals_iter&#32;=&#32;opt_params.get(<emphasis role="stringliteral">&apos;max_evals&apos;</emphasis>,&#32;50000)&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_diversifier_8py_source_1l00465"/>00465 &#32;&#32;&#32;&#32;stall_criterion&#32;=&#32;opt_params.get(<emphasis role="stringliteral">&apos;stall_criterion&apos;</emphasis>,&#32;20)&#32;&#32;&#32;
+<anchor xml:id="_diversifier_8py_source_1l00466"/>00466 &#32;&#32;&#32;&#32;<emphasis role="comment">#popsize&#32;=&#32;opt_params.get(&apos;popsize&apos;,&#32;0)&#32;</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00467"/>00467 &#32;&#32;&#32;&#32;ret&#32;=&#32;bitecpp.minimize(fit,&#32;bounds,&#32;x0&#32;=&#32;x0,&#32;M&#32;=&#32;1,&#32;
+<anchor xml:id="_diversifier_8py_source_1l00468"/>00468 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;stall_criterion&#32;=&#32;stall_criterion,
+<anchor xml:id="_diversifier_8py_source_1l00469"/>00469 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_evaluations&#32;=&#32;max_evals_iter,&#32;rg&#32;=&#32;rg)
+<anchor xml:id="_diversifier_8py_source_1l00470"/>00470 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;ret.x&#32;&#32;&#32;
+<anchor xml:id="_diversifier_8py_source_1l00471"/>00471 
+<anchor xml:id="_diversifier_8py_source_1l00472"/>00472 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefcmaes_1_1diversifier_1a7360db2f799d60d42b8a3f76650f075a">get_solver_</link>(bounds,&#32;opt_params,&#32;rg,&#32;x0&#32;=&#32;None):
+<anchor xml:id="_diversifier_8py_source_1l00473"/>00473 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00474"/>00474 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Selects&#32;and&#32;initializes&#32;the&#32;appropriate&#32;optimization&#32;solver&#32;based&#32;on&#32;the&#32;specified</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00475"/>00475 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;parameters.&#32;The&#32;solver&#32;is&#32;chosen&#32;from&#32;a&#32;set&#32;of&#32;predefined&#32;options,&#32;and&#32;it&#32;is&#32;configured</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00476"/>00476 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;with&#32;the&#32;given&#32;dimensions,&#32;bounds,&#32;mean,&#32;population&#32;size,&#32;and&#32;other&#32;solver-specific</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00477"/>00477 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;parameters.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00478"/>00478 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00479"/>00479 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00480"/>00480 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;bounds:&#32;Object&#32;representing&#32;the&#32;bounds&#32;for&#32;the&#32;optimization&#32;problem.&#32;It&#32;provides</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00481"/>00481 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;attributes&#32;like&#32;lower&#32;bounds&#32;(`lb`)&#32;and&#32;upper&#32;bounds&#32;(`ub`).</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00482"/>00482 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;opt_params:&#32;Dictionary&#32;containing&#32;optional&#32;solver&#32;parameters,&#32;such&#32;as:</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00483"/>00483 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-&#32;&apos;popsize&apos;:&#32;Population&#32;size</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00484"/>00484 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-&#32;&apos;sigma&apos;:&#32;Step&#32;size</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00485"/>00485 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-&#32;&apos;mean&apos;:&#32;Initial&#32;mean&#32;position</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00486"/>00486 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-&#32;&apos;solver&apos;:&#32;Name&#32;of&#32;the&#32;solver&#32;to&#32;use,&#32;e.g.,&#32;&apos;CMA&apos;,&#32;&apos;CMA_CPP&apos;,&#32;etc.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00487"/>00487 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;rg:&#32;Random&#32;number&#32;generator&#32;for&#32;initializing&#32;values&#32;within&#32;the&#32;specified&#32;bounds</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00488"/>00488 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;or&#32;for&#32;stochastic&#32;components&#32;of&#32;the&#32;solver.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00489"/>00489 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x0:&#32;Optional&#32;starting&#32;position&#32;for&#32;the&#32;optimization.&#32;Overrides&#32;the&#32;`mean`&#32;parameter</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00490"/>00490 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;if&#32;provided.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00491"/>00491 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00492"/>00492 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Returns:</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00493"/>00493 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;The&#32;initialized&#32;optimization&#32;solver&#32;object&#32;if&#32;the&#32;specified&#32;solver&#32;name&#32;is&#32;valid.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00494"/>00494 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Returns&#32;`None`&#32;if&#32;an&#32;invalid&#32;solver&#32;name&#32;is&#32;provided.</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00495"/>00495 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00496"/>00496 &#32;&#32;&#32;&#32;dim&#32;=&#32;len(bounds.lb)
+<anchor xml:id="_diversifier_8py_source_1l00497"/>00497 &#32;&#32;&#32;&#32;popsize&#32;=&#32;opt_params.get(<emphasis role="stringliteral">&apos;popsize&apos;</emphasis>,&#32;31)&#32;
+<anchor xml:id="_diversifier_8py_source_1l00498"/>00498 &#32;&#32;&#32;&#32;<emphasis role="comment">#sigma&#32;=&#32;opt_params.get(&apos;sigma&apos;,rg.uniform(0.03,&#32;0.3)**2)</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00499"/>00499 &#32;&#32;&#32;&#32;sigma&#32;=&#32;opt_params.get(<emphasis role="stringliteral">&apos;sigma&apos;</emphasis>,rg.uniform(0.1,&#32;0.5)**2)
+<anchor xml:id="_diversifier_8py_source_1l00500"/>00500 &#32;&#32;&#32;&#32;<emphasis role="comment">#sigma&#32;=&#32;opt_params.get(&apos;sigma&apos;,rg.uniform(0.2,&#32;0.5)**2)</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00501"/><link linkend="_namespacefcmaes_1_1diversifier_1a7360db2f799d60d42b8a3f76650f075a">00501</link> &#32;&#32;&#32;&#32;<emphasis role="comment">#sigma&#32;=&#32;opt_params.get(&apos;sigma&apos;,rg.uniform(0.1,&#32;0.5))</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00502"/>00502 &#32;&#32;&#32;&#32;mean&#32;=&#32;opt_params.get(<emphasis role="stringliteral">&apos;mean&apos;</emphasis>,&#32;rg.uniform(bounds.lb,&#32;bounds.ub))&#32;\
+<anchor xml:id="_diversifier_8py_source_1l00503"/>00503 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;x0&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>&#32;<emphasis role="keywordflow">else</emphasis>&#32;x0
+<anchor xml:id="_diversifier_8py_source_1l00504"/>00504 &#32;&#32;&#32;&#32;name&#32;=&#32;opt_params.get(<emphasis role="stringliteral">&apos;solver&apos;</emphasis>,&#32;<emphasis role="stringliteral">&apos;CMA_CPP&apos;</emphasis>)
+<anchor xml:id="_diversifier_8py_source_1l00505"/>00505 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;name&#32;==&#32;<emphasis role="stringliteral">&apos;CMA&apos;</emphasis>:
+<anchor xml:id="_diversifier_8py_source_1l00506"/>00506 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_classfcmaes_1_1cmaes_1_1_cmaes">cmaes.Cmaes</link>(bounds,&#32;x0&#32;=&#32;mean,
+<anchor xml:id="_diversifier_8py_source_1l00507"/>00507 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;popsize&#32;=&#32;popsize,&#32;input_sigma&#32;=&#32;sigma,&#32;rg&#32;=&#32;rg)
+<anchor xml:id="_diversifier_8py_source_1l00508"/>00508 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">elif</emphasis>&#32;name&#32;==&#32;<emphasis role="stringliteral">&apos;CMA_CPP&apos;</emphasis>:
+<anchor xml:id="_diversifier_8py_source_1l00509"/>00509 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_classfcmaes_1_1cmaescpp_1_1_a_c_m_a___c">cmaescpp.ACMA_C</link>(dim,&#32;bounds,&#32;x0&#32;=&#32;mean,&#32;<emphasis role="comment">#stop_hist&#32;=&#32;0,</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00510"/>00510 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;popsize&#32;=&#32;popsize,&#32;input_sigma&#32;=&#32;sigma,&#32;rg&#32;=&#32;rg)
+<anchor xml:id="_diversifier_8py_source_1l00511"/>00511 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">elif</emphasis>&#32;name&#32;==&#32;<emphasis role="stringliteral">&apos;CRMFNES&apos;</emphasis>:
+<anchor xml:id="_diversifier_8py_source_1l00512"/>00512 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;crfmnes.CRFMNES(dim,&#32;bounds,&#32;x0&#32;=&#32;mean,
+<anchor xml:id="_diversifier_8py_source_1l00513"/>00513 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;popsize&#32;=&#32;popsize,&#32;input_sigma&#32;=&#32;sigma,&#32;rg&#32;=&#32;rg)
+<anchor xml:id="_diversifier_8py_source_1l00514"/>00514 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">elif</emphasis>&#32;name&#32;==&#32;<emphasis role="stringliteral">&apos;CRMFNES_CPP&apos;</emphasis>:
+<anchor xml:id="_diversifier_8py_source_1l00515"/>00515 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_classfcmaes_1_1crfmnescpp_1_1_c_r_f_m_n_e_s___c">crfmnescpp.CRFMNES_C</link>(dim,&#32;bounds,&#32;x0&#32;=&#32;mean,
+<anchor xml:id="_diversifier_8py_source_1l00516"/>00516 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;popsize&#32;=&#32;popsize,&#32;input_sigma&#32;=&#32;sigma,&#32;rg&#32;=&#32;rg)
+<anchor xml:id="_diversifier_8py_source_1l00517"/>00517 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">elif</emphasis>&#32;name&#32;==&#32;<emphasis role="stringliteral">&apos;DE&apos;</emphasis>:
+<anchor xml:id="_diversifier_8py_source_1l00518"/>00518 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_classfcmaes_1_1de_1_1_d_e">de.DE</link>(dim,&#32;bounds,&#32;popsize&#32;=&#32;popsize,&#32;rg&#32;=&#32;rg)
+<anchor xml:id="_diversifier_8py_source_1l00519"/>00519 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">elif</emphasis>&#32;name&#32;==&#32;<emphasis role="stringliteral">&apos;DE_CPP&apos;</emphasis>:
+<anchor xml:id="_diversifier_8py_source_1l00520"/>00520 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_classfcmaes_1_1decpp_1_1_d_e___c">decpp.DE_C</link>(dim,&#32;bounds,&#32;popsize&#32;=&#32;popsize,&#32;rg&#32;=&#32;rg)
+<anchor xml:id="_diversifier_8py_source_1l00521"/>00521 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">elif</emphasis>&#32;name&#32;==&#32;<emphasis role="stringliteral">&apos;PGPE&apos;</emphasis>:
+<anchor xml:id="_diversifier_8py_source_1l00522"/>00522 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_classfcmaes_1_1pgpecpp_1_1_p_g_p_e___c">pgpecpp.PGPE_C</link>(dim,&#32;bounds,&#32;x0&#32;=&#32;mean,
+<anchor xml:id="_diversifier_8py_source_1l00523"/>00523 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;popsize&#32;=&#32;popsize,&#32;input_sigma&#32;=&#32;sigma,&#32;rg&#32;=&#32;rg)
+<anchor xml:id="_diversifier_8py_source_1l00524"/>00524 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>:
+<anchor xml:id="_diversifier_8py_source_1l00525"/>00525 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">print</emphasis>&#32;(<emphasis role="stringliteral">&quot;invalid&#32;solver&quot;</emphasis>)
+<anchor xml:id="_diversifier_8py_source_1l00526"/>00526 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>
+<anchor xml:id="_diversifier_8py_source_1l00527"/>00527 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+</programlisting></section>

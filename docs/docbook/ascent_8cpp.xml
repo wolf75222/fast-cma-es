@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_ascent_8cpp" xml:lang="en-US">
+<title>_fcmaescpp/ascent.cpp File Reference</title>
+<indexterm><primary>_fcmaescpp/ascent.cpp</primary></indexterm>
+<programlisting linenumbering="unnumbered">#include &quot;ascent/Ascent.h&quot;<?linebreak?>#include &lt;math.h&gt;<?linebreak?>#include &lt;stdio.h&gt;<?linebreak?>#include &lt;stdlib.h&gt;<?linebreak?>#include &lt;string.h&gt;<?linebreak?>#include &quot;keplerian_toolbox/core_functions/propagate_lagrangian.hpp&quot;<?linebreak?>#include &quot;keplerian_toolbox/core_functions/propagate_taylor.hpp&quot;<?linebreak?>#include &quot;keplerian_toolbox/core_functions/propagate_taylor_J2.hpp&quot;<?linebreak?>#include &quot;keplerian_toolbox/core_functions/par2ic.hpp&quot;<?linebreak?>#include &quot;keplerian_toolbox/core_functions/ic2par.hpp&quot;<?linebreak?>#include &quot;keplerian_toolbox/core_functions/fb_vel.hpp&quot;<?linebreak?>#include &quot;keplerian_toolbox/core_functions/fb_prop.hpp&quot;<?linebreak?>#include &quot;keplerian_toolbox/core_functions/lambert_find_N.hpp&quot;<?linebreak?>#include &quot;keplerian_toolbox/planet/base.hpp&quot;<?linebreak?>#include &quot;keplerian_toolbox/planet/jpl_low_precision.hpp&quot;<?linebreak?>#include &quot;keplerian_toolbox/lambert_problem.hpp&quot;<?linebreak?></programlisting>Include dependency graph for ascent.cpp:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="ascent_8cpp__incl.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Classes    </title>
+        <itemizedlist>
+            <listitem><para>struct <link linkend="_struct_p_v_thrust">PVThrust</link></para>
+</listitem>
+            <listitem><para>struct <link linkend="_struct_damp">Damp</link></para>
+</listitem>
+            <listitem><para>struct <link linkend="_struct_f8">F8</link></para>
+</listitem>
+            <listitem><para>struct <link linkend="_struct_p_v_twaste">PVTwaste</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para>double * <link linkend="_ascent_8cpp_1ad82324920dbdc173d7bc71c3e8ebf7c8">integratePVthrust</link> (double *yd, double mu, double ux, double uy, double uz, double veff, double dt, double step)</para>
+</listitem>
+            <listitem><para>double * <link linkend="_ascent_8cpp_1a91f8ebf7f31b0db72464aede82c3a2bd">integrateDamp_C</link> (double *yd, double alpha, double dt, double step)</para>
+</listitem>
+            <listitem><para>double * <link linkend="_ascent_8cpp_1a6bf1992b7bf98468c32c6b6f19185dbf">integrateF8_C</link> (double *yd, double w, double dt, double step)</para>
+</listitem>
+            <listitem><para>void <link linkend="_ascent_8cpp_1a7029b8dc4f9351f6a28fbfc893a920a6">wic2par</link> (state_t rv, double *kep, double mu)</para>
+</listitem>
+            <listitem><para>int <link linkend="_ascent_8cpp_1a3ac859a2fc844d9b3218d8377ff8ddc3">integratePVTwaste_C</link> (double *rvt, double dt, double step, double cram, bool dopri)</para>
+</listitem>
+            <listitem><para>void <link linkend="_ascent_8cpp_1ae5ba225583cb2594ec1b3c02e0da17fb">integratePVTwasteN_C</link> (double *rvt, double dtN, double step, double cram, int N, bool dopri, double *res)</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Function Documentation</title>
+<anchor xml:id="_ascent_8cpp_1a91f8ebf7f31b0db72464aede82c3a2bd"/><section>
+    <title>integrateDamp_C()</title>
+<indexterm><primary>integrateDamp_C</primary><secondary>ascent.cpp</secondary></indexterm>
+<indexterm><primary>ascent.cpp</primary><secondary>integrateDamp_C</secondary></indexterm>
+<para><computeroutput>double * integrateDamp_C (double * yd, double alpha, double dt, double step)</computeroutput></para><para>
+Definition at line <link linkend="_ascent_8cpp_source_1l00121">121</link> of file <link linkend="_ascent_8cpp_source">ascent.cpp</link>.</para>
+</section>
+<anchor xml:id="_ascent_8cpp_1a6bf1992b7bf98468c32c6b6f19185dbf"/><section>
+    <title>integrateF8_C()</title>
+<indexterm><primary>integrateF8_C</primary><secondary>ascent.cpp</secondary></indexterm>
+<indexterm><primary>ascent.cpp</primary><secondary>integrateF8_C</secondary></indexterm>
+<para><computeroutput>double * integrateF8_C (double * yd, double w, double dt, double step)</computeroutput></para><para>
+Definition at line <link linkend="_ascent_8cpp_source_1l00186">186</link> of file <link linkend="_ascent_8cpp_source">ascent.cpp</link>.</para>
+</section>
+<anchor xml:id="_ascent_8cpp_1ad82324920dbdc173d7bc71c3e8ebf7c8"/><section>
+    <title>integratePVthrust()</title>
+<indexterm><primary>integratePVthrust</primary><secondary>ascent.cpp</secondary></indexterm>
+<indexterm><primary>ascent.cpp</primary><secondary>integratePVthrust</secondary></indexterm>
+<para><computeroutput>double * integratePVthrust (double * yd, double mu, double ux, double uy, double uz, double veff, double dt, double step)</computeroutput></para><para>
+Definition at line <link linkend="_ascent_8cpp_source_1l00053">53</link> of file <link linkend="_ascent_8cpp_source">ascent.cpp</link>.</para>
+</section>
+<anchor xml:id="_ascent_8cpp_1a3ac859a2fc844d9b3218d8377ff8ddc3"/><section>
+    <title>integratePVTwaste_C()</title>
+<indexterm><primary>integratePVTwaste_C</primary><secondary>ascent.cpp</secondary></indexterm>
+<indexterm><primary>ascent.cpp</primary><secondary>integratePVTwaste_C</secondary></indexterm>
+<para><computeroutput>int integratePVTwaste_C (double * rvt, double dt, double step, double cram, bool dopri)</computeroutput></para><para>
+Definition at line <link linkend="_ascent_8cpp_source_1l00432">432</link> of file <link linkend="_ascent_8cpp_source">ascent.cpp</link>.</para>
+</section>
+<anchor xml:id="_ascent_8cpp_1ae5ba225583cb2594ec1b3c02e0da17fb"/><section>
+    <title>integratePVTwasteN_C()</title>
+<indexterm><primary>integratePVTwasteN_C</primary><secondary>ascent.cpp</secondary></indexterm>
+<indexterm><primary>ascent.cpp</primary><secondary>integratePVTwasteN_C</secondary></indexterm>
+<para><computeroutput>void integratePVTwasteN_C (double * rvt, double dtN, double step, double cram, int N, bool dopri, double * res)</computeroutput></para><para>
+Definition at line <link linkend="_ascent_8cpp_source_1l00498">498</link> of file <link linkend="_ascent_8cpp_source">ascent.cpp</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="ascent_8cpp_ae5ba225583cb2594ec1b3c02e0da17fb_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_ascent_8cpp_1a7029b8dc4f9351f6a28fbfc893a920a6"/><section>
+    <title>wic2par()</title>
+<indexterm><primary>wic2par</primary><secondary>ascent.cpp</secondary></indexterm>
+<indexterm><primary>ascent.cpp</primary><secondary>wic2par</secondary></indexterm>
+<para><computeroutput>void wic2par (state_t rv, double * kep, double mu)</computeroutput></para><para>
+Definition at line <link linkend="_ascent_8cpp_source_1l00217">217</link> of file <link linkend="_ascent_8cpp_source">ascent.cpp</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="ascent_8cpp_a7029b8dc4f9351f6a28fbfc893a920a6_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+</section>

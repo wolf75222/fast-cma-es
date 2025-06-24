@@ -1,0 +1,242 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_classfcmaes_1_1evaluator_1_1_evaluator" xml:lang="en-US">
+<title>fcmaes.evaluator.Evaluator Class Reference</title>
+<indexterm><primary>fcmaes.evaluator.Evaluator</primary></indexterm>
+<para>
+
+<para><link linkend="_classfcmaes_1_1evaluator_1_1_evaluator">Evaluator</link> class to manage the parallel evaluation of a function across multiple workers. </para>
+ 
+</para>
+Collaboration diagram for fcmaes.evaluator.Evaluator:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="classfcmaes_1_1evaluator_1_1_evaluator__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Public Member Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1evaluator_1_1_evaluator_1a50ed6d53a492bce3552b2fc991271542">__init__</link> (self, Callable[[ArrayLike], float] <link linkend="_classfcmaes_1_1evaluator_1_1_evaluator_1ae5b016e0ced992bbb7b07073a7df5a4c">fun</link>)</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1evaluator_1_1_evaluator_1ac97052cab67773de915ff7f6b91dcbf2">start</link> (self, Optional[int] <link linkend="_classfcmaes_1_1evaluator_1_1_evaluator_1ae804d4d3f546dd5277b8592560a820db">workers</link>=mp.cpu_count())</para>
+
+<para>Starts the multiprocessing environment with a specified number of workers and initializes the processes required to execute the given function. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1evaluator_1_1_evaluator_1aa63fc8612c3f2849065ce8c7d00ef8f5">stop</link> (self)</para>
+
+<para>Stops all workers and frees resources properly. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Public Attributes    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classfcmaes_1_1evaluator_1_1_evaluator_1ae5b016e0ced992bbb7b07073a7df5a4c">fun</link> = fun</para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1evaluator_1_1_evaluator_1a4ca417b9deee1bddace8f316098da8f6">pipe</link> = Pipe()</para>
+
+<para>Interprocess communication pipe for sending and receiving data. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1evaluator_1_1_evaluator_1a3e267f2596f3621d04264f076ab3abd0">read_mutex</link> = mp.Lock()</para>
+
+<para>Mutex lock to ensure safe reading from the pipe. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1evaluator_1_1_evaluator_1ae4b2cf3ee6030d54b34a94a0a7365c03">write_mutex</link> = mp.Lock()</para>
+
+<para>Mutex lock to ensure safe writing to the pipe. </para>
+</listitem>
+            <listitem><para><link linkend="_classfcmaes_1_1evaluator_1_1_evaluator_1ae804d4d3f546dd5277b8592560a820db">workers</link> = workers</para>
+</listitem>
+            <listitem><para>list <link linkend="_classfcmaes_1_1evaluator_1_1_evaluator_1aca2cb8b8564a09c258b3b74472868860">proc</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para><link linkend="_classfcmaes_1_1evaluator_1_1_evaluator">Evaluator</link> class to manage the parallel evaluation of a function across multiple workers. </para>
+
+
+
+<para>The <link linkend="_classfcmaes_1_1evaluator_1_1_evaluator">Evaluator</link> class facilitates the distribution and parallel execution of a specified objective function using worker processes. It enables efficient evaluation of the function with shared resources such as pipes and mutex locks to ensure synchronization. Workers can be dynamically started based on the number of available CPUs.</para>
+
+<para><literallayout><computeroutput>   fun (Callable[[ArrayLike], float]): Objective function to be evaluated by workers.
+</computeroutput></literallayout> </para>
+<para>
+Definition at line <link linkend="_evaluator_8py_source_1l00183">183</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+</section>
+<section>
+<title>Constructor &amp; Destructor Documentation</title>
+<anchor xml:id="_classfcmaes_1_1evaluator_1_1_evaluator_1a50ed6d53a492bce3552b2fc991271542"/><section>
+    <title>__init__()</title>
+<indexterm><primary>__init__</primary><secondary>fcmaes.evaluator.Evaluator</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator.Evaluator</primary><secondary>__init__</secondary></indexterm>
+<para><computeroutput>fcmaes.evaluator.Evaluator.__init__ ( self, Callable[[ArrayLike], float] fun)</computeroutput></para><para>
+Definition at line <link linkend="_evaluator_8py_source_1l00203">203</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Function Documentation</title>
+<anchor xml:id="_classfcmaes_1_1evaluator_1_1_evaluator_1ac97052cab67773de915ff7f6b91dcbf2"/><section>
+    <title>start()</title>
+<indexterm><primary>start</primary><secondary>fcmaes.evaluator.Evaluator</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator.Evaluator</primary><secondary>start</secondary></indexterm>
+<para><computeroutput>fcmaes.evaluator.Evaluator.start ( self, Optional[int]  workers = <computeroutput>mp.cpu_count()</computeroutput>
+)</computeroutput></para><para>
+
+<para>Starts the multiprocessing environment with a specified number of workers and initializes the processes required to execute the given function. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>workers</entry><entry>
+<para>The number of worker processes to spawn. If not specified, defaults to the system&apos;s CPU count. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_evaluator_8py_source_1l00219">219</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1evaluator_1_1_evaluator_1aa63fc8612c3f2849065ce8c7d00ef8f5"/><section>
+    <title>stop()</title>
+<indexterm><primary>stop</primary><secondary>fcmaes.evaluator.Evaluator</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator.Evaluator</primary><secondary>stop</secondary></indexterm>
+<para><computeroutput>fcmaes.evaluator.Evaluator.stop ( self)</computeroutput></para><para>
+
+<para>Stops all workers and frees resources properly. </para>
+</para>
+
+<para><literallayout><computeroutput>   This method ensures a graceful shutdown of all initiated workers by notifying
+   them through the pipe and waiting for their termination. Once all workers have
+   been joined, it also closes all communication pipes.
+</computeroutput></literallayout></para>
+
+<para>
+                <formalpara>
+                    <title>
+Exceptions</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>OSError</entry><entry>
+<para>Raised if there are issues while closing any of the pipes. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_evaluator_8py_source_1l00236">236</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Data Documentation</title>
+<anchor xml:id="_classfcmaes_1_1evaluator_1_1_evaluator_1ae5b016e0ced992bbb7b07073a7df5a4c"/><section>
+    <title>fun</title>
+<indexterm><primary>fun</primary><secondary>fcmaes.evaluator.Evaluator</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator.Evaluator</primary><secondary>fun</secondary></indexterm>
+<para><computeroutput>fcmaes.evaluator.Evaluator.fun = fun</computeroutput></para><para>
+Definition at line <link linkend="_evaluator_8py_source_1l00206">206</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1evaluator_1_1_evaluator_1a4ca417b9deee1bddace8f316098da8f6"/><section>
+    <title>pipe</title>
+<indexterm><primary>pipe</primary><secondary>fcmaes.evaluator.Evaluator</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator.Evaluator</primary><secondary>pipe</secondary></indexterm>
+<para><computeroutput>fcmaes.evaluator.Evaluator.pipe = Pipe()</computeroutput></para><para>
+
+<para>Interprocess communication pipe for sending and receiving data. </para>
+</para>
+<para>
+Definition at line <link linkend="_evaluator_8py_source_1l00207">207</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1evaluator_1_1_evaluator_1aca2cb8b8564a09c258b3b74472868860"/><section>
+    <title>proc</title>
+<indexterm><primary>proc</primary><secondary>fcmaes.evaluator.Evaluator</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator.Evaluator</primary><secondary>proc</secondary></indexterm>
+<para><computeroutput>list fcmaes.evaluator.Evaluator.proc</computeroutput></para><emphasis role="strong">Initial value:</emphasis><programlisting linenumbering="unnumbered">=&#32;[Process(target=_evaluate,&#32;args=(self.fun,
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.pipe,&#32;self.read_mutex,&#32;self.write_mutex))&#32;<emphasis role="keywordflow">for</emphasis>&#32;_&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(workers)]
+</programlisting><para>
+Definition at line <link linkend="_evaluator_8py_source_1l00221">221</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1evaluator_1_1_evaluator_1a3e267f2596f3621d04264f076ab3abd0"/><section>
+    <title>read_mutex</title>
+<indexterm><primary>read_mutex</primary><secondary>fcmaes.evaluator.Evaluator</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator.Evaluator</primary><secondary>read_mutex</secondary></indexterm>
+<para><computeroutput>fcmaes.evaluator.Evaluator.read_mutex = mp.Lock()</computeroutput></para><para>
+
+<para>Mutex lock to ensure safe reading from the pipe. </para>
+</para>
+<para>
+Definition at line <link linkend="_evaluator_8py_source_1l00208">208</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1evaluator_1_1_evaluator_1ae804d4d3f546dd5277b8592560a820db"/><section>
+    <title>workers</title>
+<indexterm><primary>workers</primary><secondary>fcmaes.evaluator.Evaluator</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator.Evaluator</primary><secondary>workers</secondary></indexterm>
+<para><computeroutput>fcmaes.evaluator.Evaluator.workers = workers</computeroutput></para><para>
+Definition at line <link linkend="_evaluator_8py_source_1l00220">220</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+</section>
+<anchor xml:id="_classfcmaes_1_1evaluator_1_1_evaluator_1ae4b2cf3ee6030d54b34a94a0a7365c03"/><section>
+    <title>write_mutex</title>
+<indexterm><primary>write_mutex</primary><secondary>fcmaes.evaluator.Evaluator</secondary></indexterm>
+<indexterm><primary>fcmaes.evaluator.Evaluator</primary><secondary>write_mutex</secondary></indexterm>
+<para><computeroutput>fcmaes.evaluator.Evaluator.write_mutex = mp.Lock()</computeroutput></para><para>
+
+<para>Mutex lock to ensure safe writing to the pipe. </para>
+</para>
+
+<para>Initializes the instance of the class with the provided objective function, and sets up the necessary communication and synchronization mechanisms.</para>
+
+<para><literallayout><computeroutput>       fun (Callable[[ArrayLike], float]): Objective function to be used by the
+</computeroutput></literallayout> 
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>instance.</entry><entry>
+<para></para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_evaluator_8py_source_1l00209">209</link> of file <link linkend="_evaluator_8py_source">evaluator.py</link>.</para>
+</section>
+<para>
+The documentation for this class was generated from the following file:</para>
+fcmaes/<link linkend="_evaluator_8py">evaluator.py</link></section>
+</section>

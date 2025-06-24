@@ -1,0 +1,779 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>Fast CMA-ES: dual_annealing::Fitness Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/TeX/AMSmath','[tex]/TeX/AMSsymbols']
+  },
+  tex: {
+    macros: {},
+    packages: ['base','configmacros','TeX/AMSmath','TeX/AMSsymbols']
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/jothepro/doxygen-awesome-css" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="fcames.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Fast CMA-ES
+   &#160;<span id="projectnumber">1.6.11</span>
+   </div>
+   <div id="projectbrief">Fast Covariance Matrix Adaptation Evolution Strategy (CMA-ES) implementation in C++ and Python</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.13.2 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('classdual__annealing_1_1_fitness.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="classdual__annealing_1_1_fitness-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">dual_annealing::Fitness Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for dual_annealing::Fitness:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classdual__annealing_1_1_fitness__coll__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a4aeaf0549e22e464b769a52b97fd5cf8" id="r_a4aeaf0549e22e464b769a52b97fd5cf8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4aeaf0549e22e464b769a52b97fd5cf8">Fitness</a> (<a class="el" href="namespacedual__annealing.html#acc0e4feae757283b161380c003152d7c">callback_type</a> pfunc, <a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a> *lower_limit, <a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a> *upper_limit, long maxEvals_)</td></tr>
+<tr class="separator:a4aeaf0549e22e464b769a52b97fd5cf8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95a989c077c91a342b18f61125c2bea5" id="r_a95a989c077c91a342b18f61125c2bea5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a95a989c077c91a342b18f61125c2bea5">getClosestFeasible</a> (const <a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a> &amp;X) const</td></tr>
+<tr class="separator:a95a989c077c91a342b18f61125c2bea5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a459c83b85fbfc02a5811a0f98d2ac7b5" id="r_a459c83b85fbfc02a5811a0f98d2ac7b5"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a459c83b85fbfc02a5811a0f98d2ac7b5">eval</a> (const <a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a> &amp;X)</td></tr>
+<tr class="separator:a459c83b85fbfc02a5811a0f98d2ac7b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02a57480e20f23ac3d1b9eab91f408f7" id="r_a02a57480e20f23ac3d1b9eab91f408f7"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a02a57480e20f23ac3d1b9eab91f408f7">value</a> (const <a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a> &amp;X)</td></tr>
+<tr class="separator:a02a57480e20f23ac3d1b9eab91f408f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e4b28444de4d6951dfb416e8e7a8710" id="r_a0e4b28444de4d6951dfb416e8e7a8710"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0e4b28444de4d6951dfb416e8e7a8710">local_search</a> (const <a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a> &amp;x0, double currval, <a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a> &amp;res)</td></tr>
+<tr class="separator:a0e4b28444de4d6951dfb416e8e7a8710"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a288c5b34db28ee5a3c0e0916f6936d27" id="r_a288c5b34db28ee5a3c0e0916f6936d27"><td class="memItemLeft" align="right" valign="top"><a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a288c5b34db28ee5a3c0e0916f6936d27">encode</a> (const <a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a> &amp;X) const</td></tr>
+<tr class="separator:a288c5b34db28ee5a3c0e0916f6936d27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5755fabd06c8e86de566687f40c55e8" id="r_ad5755fabd06c8e86de566687f40c55e8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad5755fabd06c8e86de566687f40c55e8">decode</a> (const <a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a> &amp;X) const</td></tr>
+<tr class="separator:ad5755fabd06c8e86de566687f40c55e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9abe3257d970e7fec842dedfeb409f37" id="r_a9abe3257d970e7fec842dedfeb409f37"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9abe3257d970e7fec842dedfeb409f37">getEvaluations</a> ()</td></tr>
+<tr class="separator:a9abe3257d970e7fec842dedfeb409f37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8838720841139fdfbac2c37a4dc0548" id="r_aa8838720841139fdfbac2c37a4dc0548"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa8838720841139fdfbac2c37a4dc0548">maxEvalReached</a> ()</td></tr>
+<tr class="separator:aa8838720841139fdfbac2c37a4dc0548"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a20221f76a8ea7ea803e29e716a35b40d" id="r_a20221f76a8ea7ea803e29e716a35b40d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a20221f76a8ea7ea803e29e716a35b40d">lower</a></td></tr>
+<tr class="separator:a20221f76a8ea7ea803e29e716a35b40d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca95b5772925f77987ea96b12004b7b6" id="r_aca95b5772925f77987ea96b12004b7b6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aca95b5772925f77987ea96b12004b7b6">upper</a></td></tr>
+<tr class="separator:aca95b5772925f77987ea96b12004b7b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ca3b936412ade3edf4441e48f87a966" id="r_a6ca3b936412ade3edf4441e48f87a966"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6ca3b936412ade3edf4441e48f87a966">LS_MAXITER_RATIO</a> = 6</td></tr>
+<tr class="separator:a6ca3b936412ade3edf4441e48f87a966"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88756554a52354b1c976854944f5db4b" id="r_a88756554a52354b1c976854944f5db4b"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a88756554a52354b1c976854944f5db4b">LS_MAXITER_MIN</a> = 100</td></tr>
+<tr class="separator:a88756554a52354b1c976854944f5db4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6089fb532194afab1e05fac3e55c77c6" id="r_a6089fb532194afab1e05fac3e55c77c6"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6089fb532194afab1e05fac3e55c77c6">LS_MAXITER_MAX</a> = 1000</td></tr>
+<tr class="separator:a6089fb532194afab1e05fac3e55c77c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a420fcefb28b5a9ba16b80cabba1d017f" id="r_a420fcefb28b5a9ba16b80cabba1d017f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacedual__annealing.html#acc0e4feae757283b161380c003152d7c">callback_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a420fcefb28b5a9ba16b80cabba1d017f">func</a></td></tr>
+<tr class="separator:a420fcefb28b5a9ba16b80cabba1d017f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f692ead51aa3fbd74d7df8d63e35e42" id="r_a1f692ead51aa3fbd74d7df8d63e35e42"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1f692ead51aa3fbd74d7df8d63e35e42">evaluationCounter</a> = 0</td></tr>
+<tr class="separator:a1f692ead51aa3fbd74d7df8d63e35e42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6fb1053a249b16799a038672c59e915c" id="r_a6fb1053a249b16799a038672c59e915c"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6fb1053a249b16799a038672c59e915c">maxEvals</a></td></tr>
+<tr class="separator:a6fb1053a249b16799a038672c59e915c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48db5da79ec356d83901c6e264ef4c63" id="r_a48db5da79ec356d83901c6e264ef4c63"><td class="memItemLeft" align="right" valign="top"><a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a48db5da79ec356d83901c6e264ef4c63">scale</a></td></tr>
+<tr class="separator:a48db5da79ec356d83901c6e264ef4c63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59495a3cce1d7ed69a5ada5066911b7c" id="r_a59495a3cce1d7ed69a5ada5066911b7c"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a59495a3cce1d7ed69a5ada5066911b7c">bestY</a> = DBL_MAX</td></tr>
+<tr class="separator:a59495a3cce1d7ed69a5ada5066911b7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab67b400f380bb926698cf02edd2f5ffa" id="r_ab67b400f380bb926698cf02edd2f5ffa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab67b400f380bb926698cf02edd2f5ffa">bestX</a></td></tr>
+<tr class="separator:ab67b400f380bb926698cf02edd2f5ffa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="daoptimizer_8cpp_source.html#l00072">72</a> of file <a class="el" href="daoptimizer_8cpp_source.html">daoptimizer.cpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a4aeaf0549e22e464b769a52b97fd5cf8" name="a4aeaf0549e22e464b769a52b97fd5cf8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4aeaf0549e22e464b769a52b97fd5cf8">&#9670;&#160;</a></span>Fitness()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">dual_annealing::Fitness::Fitness </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacedual__annealing.html#acc0e4feae757283b161380c003152d7c">callback_type</a></td>          <td class="paramname"><span class="paramname"><em>pfunc</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a> *</td>          <td class="paramname"><span class="paramname"><em>lower_limit</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a> *</td>          <td class="paramname"><span class="paramname"><em>upper_limit</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">long</td>          <td class="paramname"><span class="paramname"><em>maxEvals_</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="daoptimizer_8cpp_source.html#l00079">79</a> of file <a class="el" href="daoptimizer_8cpp_source.html">daoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ad5755fabd06c8e86de566687f40c55e8" name="ad5755fabd06c8e86de566687f40c55e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5755fabd06c8e86de566687f40c55e8">&#9670;&#160;</a></span>decode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a> dual_annealing::Fitness::decode </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>X</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="daoptimizer_8cpp_source.html#l00143">143</a> of file <a class="el" href="daoptimizer_8cpp_source.html">daoptimizer.cpp</a>.</p>
+<div id="dynsection-1" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classdual__annealing_1_1_fitness_ad5755fabd06c8e86de566687f40c55e8_icgraph.svg" width="100%" height="378"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a288c5b34db28ee5a3c0e0916f6936d27" name="a288c5b34db28ee5a3c0e0916f6936d27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a288c5b34db28ee5a3c0e0916f6936d27">&#9670;&#160;</a></span>encode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a> dual_annealing::Fitness::encode </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>X</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="daoptimizer_8cpp_source.html#l00136">136</a> of file <a class="el" href="daoptimizer_8cpp_source.html">daoptimizer.cpp</a>.</p>
+<div id="dynsection-2" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classdual__annealing_1_1_fitness_a288c5b34db28ee5a3c0e0916f6936d27_icgraph.svg" width="324" height="54"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a459c83b85fbfc02a5811a0f98d2ac7b5" name="a459c83b85fbfc02a5811a0f98d2ac7b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a459c83b85fbfc02a5811a0f98d2ac7b5">&#9670;&#160;</a></span>eval()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double dual_annealing::Fitness::eval </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>X</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="daoptimizer_8cpp_source.html#l00096">96</a> of file <a class="el" href="daoptimizer_8cpp_source.html">daoptimizer.cpp</a>.</p>
+<div id="dynsection-3" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-3-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classdual__annealing_1_1_fitness_a459c83b85fbfc02a5811a0f98d2ac7b5_icgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a95a989c077c91a342b18f61125c2bea5" name="a95a989c077c91a342b18f61125c2bea5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a95a989c077c91a342b18f61125c2bea5">&#9670;&#160;</a></span>getClosestFeasible()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a> dual_annealing::Fitness::getClosestFeasible </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>X</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="daoptimizer_8cpp_source.html#l00089">89</a> of file <a class="el" href="daoptimizer_8cpp_source.html">daoptimizer.cpp</a>.</p>
+<div id="dynsection-4" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-4-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-4-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classdual__annealing_1_1_fitness_a95a989c077c91a342b18f61125c2bea5_icgraph.svg" width="100%" height="390"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a9abe3257d970e7fec842dedfeb409f37" name="a9abe3257d970e7fec842dedfeb409f37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9abe3257d970e7fec842dedfeb409f37">&#9670;&#160;</a></span>getEvaluations()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int dual_annealing::Fitness::getEvaluations </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="daoptimizer_8cpp_source.html#l00150">150</a> of file <a class="el" href="daoptimizer_8cpp_source.html">daoptimizer.cpp</a>.</p>
+<div id="dynsection-5" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-5-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-5-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classdual__annealing_1_1_fitness_a9abe3257d970e7fec842dedfeb409f37_icgraph.svg" width="324" height="54"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a0e4b28444de4d6951dfb416e8e7a8710" name="a0e4b28444de4d6951dfb416e8e7a8710"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e4b28444de4d6951dfb416e8e7a8710">&#9670;&#160;</a></span>local_search()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double dual_annealing::Fitness::local_search </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>x0</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>currval</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>res</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="daoptimizer_8cpp_source.html#l00120">120</a> of file <a class="el" href="daoptimizer_8cpp_source.html">daoptimizer.cpp</a>.</p>
+<div id="dynsection-6" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-6-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-6-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classdual__annealing_1_1_fitness_a0e4b28444de4d6951dfb416e8e7a8710_cgraph.svg" width="100%" height="490"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="aa8838720841139fdfbac2c37a4dc0548" name="aa8838720841139fdfbac2c37a4dc0548"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8838720841139fdfbac2c37a4dc0548">&#9670;&#160;</a></span>maxEvalReached()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool dual_annealing::Fitness::maxEvalReached </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="daoptimizer_8cpp_source.html#l00154">154</a> of file <a class="el" href="daoptimizer_8cpp_source.html">daoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a02a57480e20f23ac3d1b9eab91f408f7" name="a02a57480e20f23ac3d1b9eab91f408f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02a57480e20f23ac3d1b9eab91f408f7">&#9670;&#160;</a></span>value()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double dual_annealing::Fitness::value </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>X</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="daoptimizer_8cpp_source.html#l00103">103</a> of file <a class="el" href="daoptimizer_8cpp_source.html">daoptimizer.cpp</a>.</p>
+<div id="dynsection-7" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-7-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-7-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-7-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classdual__annealing_1_1_fitness_a02a57480e20f23ac3d1b9eab91f408f7_cgraph.svg" width="376" height="187"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-8" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-8-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-8-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-8-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classdual__annealing_1_1_fitness_a02a57480e20f23ac3d1b9eab91f408f7_icgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="ab67b400f380bb926698cf02edd2f5ffa" name="ab67b400f380bb926698cf02edd2f5ffa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab67b400f380bb926698cf02edd2f5ffa">&#9670;&#160;</a></span>bestX</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a> dual_annealing::Fitness::bestX</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="daoptimizer_8cpp_source.html#l00164">164</a> of file <a class="el" href="daoptimizer_8cpp_source.html">daoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a59495a3cce1d7ed69a5ada5066911b7c" name="a59495a3cce1d7ed69a5ada5066911b7c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59495a3cce1d7ed69a5ada5066911b7c">&#9670;&#160;</a></span>bestY</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double dual_annealing::Fitness::bestY = DBL_MAX</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="daoptimizer_8cpp_source.html#l00163">163</a> of file <a class="el" href="daoptimizer_8cpp_source.html">daoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a1f692ead51aa3fbd74d7df8d63e35e42" name="a1f692ead51aa3fbd74d7df8d63e35e42"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f692ead51aa3fbd74d7df8d63e35e42">&#9670;&#160;</a></span>evaluationCounter</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">long dual_annealing::Fitness::evaluationCounter = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="daoptimizer_8cpp_source.html#l00160">160</a> of file <a class="el" href="daoptimizer_8cpp_source.html">daoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a420fcefb28b5a9ba16b80cabba1d017f" name="a420fcefb28b5a9ba16b80cabba1d017f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a420fcefb28b5a9ba16b80cabba1d017f">&#9670;&#160;</a></span>func</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacedual__annealing.html#acc0e4feae757283b161380c003152d7c">callback_type</a> dual_annealing::Fitness::func</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="daoptimizer_8cpp_source.html#l00159">159</a> of file <a class="el" href="daoptimizer_8cpp_source.html">daoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a20221f76a8ea7ea803e29e716a35b40d" name="a20221f76a8ea7ea803e29e716a35b40d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20221f76a8ea7ea803e29e716a35b40d">&#9670;&#160;</a></span>lower</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a> dual_annealing::Fitness::lower</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="daoptimizer_8cpp_source.html#l00076">76</a> of file <a class="el" href="daoptimizer_8cpp_source.html">daoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a6089fb532194afab1e05fac3e55c77c6" name="a6089fb532194afab1e05fac3e55c77c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6089fb532194afab1e05fac3e55c77c6">&#9670;&#160;</a></span>LS_MAXITER_MAX</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const double dual_annealing::Fitness::LS_MAXITER_MAX = 1000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="daoptimizer_8cpp_source.html#l00118">118</a> of file <a class="el" href="daoptimizer_8cpp_source.html">daoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a88756554a52354b1c976854944f5db4b" name="a88756554a52354b1c976854944f5db4b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88756554a52354b1c976854944f5db4b">&#9670;&#160;</a></span>LS_MAXITER_MIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const double dual_annealing::Fitness::LS_MAXITER_MIN = 100</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="daoptimizer_8cpp_source.html#l00117">117</a> of file <a class="el" href="daoptimizer_8cpp_source.html">daoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a6ca3b936412ade3edf4441e48f87a966" name="a6ca3b936412ade3edf4441e48f87a966"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ca3b936412ade3edf4441e48f87a966">&#9670;&#160;</a></span>LS_MAXITER_RATIO</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const double dual_annealing::Fitness::LS_MAXITER_RATIO = 6</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="daoptimizer_8cpp_source.html#l00116">116</a> of file <a class="el" href="daoptimizer_8cpp_source.html">daoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a6fb1053a249b16799a038672c59e915c" name="a6fb1053a249b16799a038672c59e915c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6fb1053a249b16799a038672c59e915c">&#9670;&#160;</a></span>maxEvals</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">long dual_annealing::Fitness::maxEvals</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="daoptimizer_8cpp_source.html#l00161">161</a> of file <a class="el" href="daoptimizer_8cpp_source.html">daoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a48db5da79ec356d83901c6e264ef4c63" name="a48db5da79ec356d83901c6e264ef4c63"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a48db5da79ec356d83901c6e264ef4c63">&#9670;&#160;</a></span>scale</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a> dual_annealing::Fitness::scale</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="daoptimizer_8cpp_source.html#l00162">162</a> of file <a class="el" href="daoptimizer_8cpp_source.html">daoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aca95b5772925f77987ea96b12004b7b6" name="aca95b5772925f77987ea96b12004b7b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca95b5772925f77987ea96b12004b7b6">&#9670;&#160;</a></span>upper</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="daoptimizer_8cpp.html#aeb2fc0d8c764908dd0b77ed5ab437c3f">vec</a> dual_annealing::Fitness::upper</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="daoptimizer_8cpp_source.html#l00077">77</a> of file <a class="el" href="daoptimizer_8cpp_source.html">daoptimizer.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>_fcmaescpp/<a class="el" href="daoptimizer_8cpp_source.html">daoptimizer.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespacedual__annealing.html">dual_annealing</a></li><li class="navelem"><a class="el" href="classdual__annealing_1_1_fitness.html">Fitness</a></li>
+    <li class="footer">Generated on Tue Jun 24 2025 15:36:49 for Fast CMA-ES by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+  </ul>
+</div>
+</body>
+</html>

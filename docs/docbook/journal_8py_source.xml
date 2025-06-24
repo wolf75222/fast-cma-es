@@ -1,0 +1,624 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_journal_8py_source" xml:lang="en-US">
+<title>journal.py</title>
+<indexterm><primary>fcmaes/journal.py</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_journal_8py_source_1l00001"/><link linkend="_namespacefcmaes_1_1journal">00001</link> <emphasis role="comment">#&#32;-*-&#32;coding:&#32;utf-8&#32;-*-</emphasis>
+<anchor xml:id="_journal_8py_source_1l00002"/>00002 <emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00003"/>00003 <emphasis role="stringliteral">=============================================================================</emphasis>
+<anchor xml:id="_journal_8py_source_1l00004"/>00004 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00005"/>00005 <emphasis role="stringliteral">&#32;Fast&#32;CMA-ES&#32;-&#32;version&#32;1.6.11</emphasis>
+<anchor xml:id="_journal_8py_source_1l00006"/>00006 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00007"/>00007 <emphasis role="stringliteral">&#32;(c)&#32;2025&#32;–&#32;Dietmar&#32;Wolz</emphasis>
+<anchor xml:id="_journal_8py_source_1l00008"/>00008 <emphasis role="stringliteral">&#32;(c)&#32;2025&#32;–&#32;Latitude</emphasis>
+<anchor xml:id="_journal_8py_source_1l00009"/>00009 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00010"/>00010 <emphasis role="stringliteral">&#32;License:&#32;MIT</emphasis>
+<anchor xml:id="_journal_8py_source_1l00011"/>00011 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00012"/>00012 <emphasis role="stringliteral">&#32;File:</emphasis>
+<anchor xml:id="_journal_8py_source_1l00013"/>00013 <emphasis role="stringliteral">&#32;&#32;-&#32;journal.py</emphasis>
+<anchor xml:id="_journal_8py_source_1l00014"/>00014 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00015"/>00015 <emphasis role="stringliteral">&#32;Description:</emphasis>
+<anchor xml:id="_journal_8py_source_1l00016"/>00016 <emphasis role="stringliteral">&#32;&#32;-&#32;Simple&#32;Optuna&#32;Journal&#32;file&#32;generating&#32;wrapper&#32;for&#32;single&#32;and</emphasis>
+<anchor xml:id="_journal_8py_source_1l00017"/>00017 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;multiple&#32;objective&#32;fcmaes&#32;objective&#32;functions.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00018"/>00018 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Can&#32;be&#32;used&#32;to&#32;gain&#32;live&#32;insight&#32;into&#32;a&#32;long&#32;running&#32;optimization&#32;process.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00019"/>00019 <emphasis role="stringliteral">&#32;&#32;-&#32;Warning:&#32;Only&#32;use&#32;for&#32;slow&#32;Hyperparameter&#32;optimizations,&#32;otherwise&#32;the&#32;journal&#32;file&#32;will&#32;grow&#32;too&#32;big.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00020"/>00020 <emphasis role="stringliteral">&#32;&#32;-&#32;Usage&#32;example:&#32;[2];&#32;See&#32;[3],&#32;[4].</emphasis>
+<anchor xml:id="_journal_8py_source_1l00021"/>00021 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;install&#32;optuna-dashboard</emphasis>
+<anchor xml:id="_journal_8py_source_1l00022"/>00022 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;-&#32;pip&#32;install&#32;optuna-dashboard</emphasis>
+<anchor xml:id="_journal_8py_source_1l00023"/>00023 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;optional:</emphasis>
+<anchor xml:id="_journal_8py_source_1l00024"/>00024 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;-&#32;pip&#32;install&#32;optuna-fast-fanova&#32;gunicorn</emphasis>
+<anchor xml:id="_journal_8py_source_1l00025"/>00025 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Then&#32;call:</emphasis>
+<anchor xml:id="_journal_8py_source_1l00026"/>00026 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;-&#32;optuna-dashboard&#32;&lt;path_to_journalfile&gt;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00027"/>00027 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;In&#32;your&#32;browser&#32;open:</emphasis>
+<anchor xml:id="_journal_8py_source_1l00028"/>00028 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;-&#32;http://127.0.0.1:8080/</emphasis>
+<anchor xml:id="_journal_8py_source_1l00029"/>00029 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00030"/>00030 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00031"/>00031 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00032"/>00032 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00033"/>00033 <emphasis role="stringliteral">&#32;Authors:</emphasis>
+<anchor xml:id="_journal_8py_source_1l00034"/>00034 <emphasis role="stringliteral">&#32;&#32;-&#32;Dietmar&#32;Wolz</emphasis>
+<anchor xml:id="_journal_8py_source_1l00035"/>00035 <emphasis role="stringliteral">&#32;&#32;-&#32;romain.despoullains@latitude.eu</emphasis>
+<anchor xml:id="_journal_8py_source_1l00036"/>00036 <emphasis role="stringliteral">&#32;&#32;-&#32;corentin.generet@latitude.eu</emphasis>
+<anchor xml:id="_journal_8py_source_1l00037"/>00037 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00038"/>00038 <emphasis role="stringliteral">&#32;References:</emphasis>
+<anchor xml:id="_journal_8py_source_1l00039"/>00039 <emphasis role="stringliteral">&#32;&#32;-&#32;[1]&#32;https://github.com/dietmarwo/fast-cma-es</emphasis>
+<anchor xml:id="_journal_8py_source_1l00040"/>00040 <emphasis role="stringliteral">&#32;&#32;-&#32;[2]&#32;https://github.com/dietmarwo/fast-cma-es/blob/master/examples/prophet_opt.py</emphasis>
+<anchor xml:id="_journal_8py_source_1l00041"/>00041 <emphasis role="stringliteral">&#32;&#32;-&#32;[3]&#32;https://optuna-dashboard.readthedocs.io/en/latest/getting-started.html</emphasis>
+<anchor xml:id="_journal_8py_source_1l00042"/>00042 <emphasis role="stringliteral">&#32;&#32;-&#32;[4]&#32;https://optuna.readthedocs.io/en/latest/tutorial/20_recipes/011_journal_storage.html</emphasis>
+<anchor xml:id="_journal_8py_source_1l00043"/>00043 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00044"/>00044 <emphasis role="stringliteral">&#32;Documentation:</emphasis>
+<anchor xml:id="_journal_8py_source_1l00045"/>00045 <emphasis role="stringliteral">&#32;&#32;-</emphasis>
+<anchor xml:id="_journal_8py_source_1l00046"/>00046 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00047"/>00047 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00048"/>00048 <emphasis role="stringliteral">=============================================================================</emphasis>
+<anchor xml:id="_journal_8py_source_1l00049"/>00049 <emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00050"/>00050 
+<anchor xml:id="_journal_8py_source_1l00051"/>00051 
+<anchor xml:id="_journal_8py_source_1l00052"/>00052 <emphasis role="keyword">from</emphasis>&#32;dataclasses&#32;<emphasis role="keyword">import</emphasis>&#32;dataclass,&#32;asdict
+<anchor xml:id="_journal_8py_source_1l00053"/>00053 <emphasis role="keyword">from</emphasis>&#32;typing&#32;<emphasis role="keyword">import</emphasis>&#32;List,&#32;Dict,&#32;Any
+<anchor xml:id="_journal_8py_source_1l00054"/>00054 <emphasis role="keyword">from</emphasis>&#32;scipy.optimize&#32;<emphasis role="keyword">import</emphasis>&#32;Bounds
+<anchor xml:id="_journal_8py_source_1l00055"/>00055 <emphasis role="keyword">import</emphasis>&#32;numpy&#32;<emphasis role="keyword">as</emphasis>&#32;np
+<anchor xml:id="_journal_8py_source_1l00056"/>00056 <emphasis role="keyword">import</emphasis>&#32;multiprocessing&#32;<emphasis role="keyword">as</emphasis>&#32;mp
+<anchor xml:id="_journal_8py_source_1l00057"/>00057 <emphasis role="keyword">from</emphasis>&#32;multiprocessing&#32;<emphasis role="keyword">import</emphasis>&#32;Manager
+<anchor xml:id="_journal_8py_source_1l00058"/>00058 <emphasis role="keyword">import</emphasis>&#32;ctypes&#32;<emphasis role="keyword">as</emphasis>&#32;ct
+<anchor xml:id="_journal_8py_source_1l00059"/>00059 <emphasis role="keyword">import</emphasis>&#32;json
+<anchor xml:id="_journal_8py_source_1l00060"/>00060 <emphasis role="keyword">import</emphasis>&#32;sys
+<anchor xml:id="_journal_8py_source_1l00061"/>00061 
+<anchor xml:id="_journal_8py_source_1l00062"/>00062 <emphasis role="keyword">from</emphasis>&#32;datetime&#32;<emphasis role="keyword">import</emphasis>&#32;datetime
+<anchor xml:id="_journal_8py_source_1l00063"/>00063 
+<anchor xml:id="_journal_8py_source_1l00064"/>00064 <emphasis role="preprocessor">@dataclass</emphasis>
+<anchor xml:id="_journal_8py_source_1l00065"/>00065 <emphasis role="keyword">class&#32;</emphasis><link linkend="_classfcmaes_1_1journal_1_1_base__message">Base_message</link>:
+<anchor xml:id="_journal_8py_source_1l00066"/>00066 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00067"/>00067 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Represents&#32;the&#32;base&#32;structure&#32;of&#32;a&#32;message.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00068"/>00068 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00069"/>00069 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;This&#32;class&#32;serves&#32;as&#32;a&#32;base&#32;for&#32;creating&#32;message&#32;objects.&#32;It&#32;defines&#32;common</emphasis>
+<anchor xml:id="_journal_8py_source_1l00070"/>00070 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;attributes&#32;that&#32;are&#32;essential&#32;for&#32;message&#32;handling,&#32;such&#32;as&#32;operation&#32;code&#32;and</emphasis>
+<anchor xml:id="_journal_8py_source_1l00071"/>00071 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;worker&#32;identifier.&#32;Intended&#32;to&#32;be&#32;used&#32;as&#32;a&#32;foundational&#32;data&#32;structure&#32;for</emphasis>
+<anchor xml:id="_journal_8py_source_1l00072"/>00072 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;various&#32;message-related&#32;operations.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00073"/>00073 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00074"/>00074 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Attributes:</emphasis>
+<anchor xml:id="_journal_8py_source_1l00075"/>00075 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;op_code&#32;(int):&#32;The&#32;operation&#32;code&#32;indicating&#32;the&#32;type&#32;or&#32;purpose&#32;of</emphasis>
+<anchor xml:id="_journal_8py_source_1l00076"/>00076 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;the&#32;message.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00077"/>00077 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;worker_id&#32;(str):&#32;The&#32;unique&#32;identifier&#32;corresponding&#32;to&#32;the&#32;worker</emphasis>
+<anchor xml:id="_journal_8py_source_1l00078"/><link linkend="_classfcmaes_1_1journal_1_1_base__message">00078</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;associated&#32;with&#32;the&#32;message.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00079"/>00079 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00080"/>00080 &#32;&#32;&#32;&#32;op_code:&#32;int
+<anchor xml:id="_journal_8py_source_1l00081"/>00081 &#32;&#32;&#32;&#32;worker_id:&#32;str
+<anchor xml:id="_journal_8py_source_1l00082"/>00082 
+<anchor xml:id="_journal_8py_source_1l00083"/>00083 <emphasis role="preprocessor">@dataclass</emphasis>
+<anchor xml:id="_journal_8py_source_1l00084"/>00084 <emphasis role="keyword">class&#32;</emphasis><link linkend="_classfcmaes_1_1journal_1_1_study__start">Study_start</link>(<link linkend="_classfcmaes_1_1journal_1_1_base__message">Base_message</link>):
+<anchor xml:id="_journal_8py_source_1l00085"/>00085 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00086"/>00086 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Represents&#32;the&#32;initial&#32;message&#32;to&#32;start&#32;a&#32;study.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00087"/>00087 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00088"/>00088 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;This&#32;class&#32;is&#32;used&#32;to&#32;define&#32;the&#32;starting&#32;parameters&#32;of&#32;a&#32;study.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00089"/>00089 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;It&#32;holds&#32;critical&#32;information&#32;such&#32;as&#32;the&#32;name&#32;of&#32;the&#32;study&#32;and&#32;the</emphasis>
+<anchor xml:id="_journal_8py_source_1l00090"/>00090 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;directions&#32;for&#32;the&#32;study.&#32;The&#32;class&#32;ensures&#32;clear&#32;encapsulation&#32;of</emphasis>
+<anchor xml:id="_journal_8py_source_1l00091"/>00091 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;necessary&#32;data&#32;to&#32;initiate&#32;and&#32;guide&#32;the&#32;study&#32;process.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00092"/>00092 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00093"/>00093 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Attributes:</emphasis>
+<anchor xml:id="_journal_8py_source_1l00094"/>00094 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;study_name&#32;(str):&#32;Name&#32;of&#32;the&#32;study.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00095"/>00095 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;directions&#32;(List[int]):&#32;A&#32;list&#32;of&#32;integers&#32;representing&#32;the</emphasis>
+<anchor xml:id="_journal_8py_source_1l00096"/>00096 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;directions&#32;for&#32;the&#32;study.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00097"/>00097 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00098"/>00098 &#32;&#32;&#32;&#32;study_name:&#32;str
+<anchor xml:id="_journal_8py_source_1l00099"/>00099 &#32;&#32;&#32;&#32;directions:&#32;List[int]
+<anchor xml:id="_journal_8py_source_1l00100"/>00100 
+<anchor xml:id="_journal_8py_source_1l00101"/>00101 <emphasis role="preprocessor">@dataclass</emphasis>
+<anchor xml:id="_journal_8py_source_1l00102"/><link linkend="_classfcmaes_1_1journal_1_1_study__start">00102</link> <emphasis role="keyword">class&#32;</emphasis><link linkend="_classfcmaes_1_1journal_1_1_trial__start">Trial_start</link>(<link linkend="_classfcmaes_1_1journal_1_1_base__message">Base_message</link>):
+<anchor xml:id="_journal_8py_source_1l00103"/>00103 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00104"/>00104 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Represents&#32;the&#32;start&#32;of&#32;a&#32;trial&#32;within&#32;a&#32;specific&#32;study.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00105"/>00105 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00106"/>00106 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Provides&#32;details&#32;about&#32;the&#32;study&#32;identifier&#32;and&#32;the&#32;start&#32;date-time</emphasis>
+<anchor xml:id="_journal_8py_source_1l00107"/>00107 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;when&#32;the&#32;trial&#32;began.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00108"/>00108 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00109"/>00109 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Attributes:</emphasis>
+<anchor xml:id="_journal_8py_source_1l00110"/><link linkend="_classfcmaes_1_1journal_1_1_study__start_1a9f3c0e2c3c55503582f69efe70bcf07d">00110</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;study_id&#32;(int):&#32;Unique&#32;identifier&#32;of&#32;the&#32;study&#32;associated&#32;with</emphasis>
+<anchor xml:id="_journal_8py_source_1l00111"/>00111 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;the&#32;trial.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00112"/>00112 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;datetime_start&#32;(str):&#32;Start&#32;date&#32;and&#32;time&#32;of&#32;the&#32;trial&#32;in&#32;ISO</emphasis>
+<anchor xml:id="_journal_8py_source_1l00113"/>00113 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;date-time&#32;format.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00114"/>00114 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00115"/>00115 &#32;&#32;&#32;&#32;study_id:&#32;int
+<anchor xml:id="_journal_8py_source_1l00116"/>00116 &#32;&#32;&#32;&#32;datetime_start:&#32;str&#32;&#32;<emphasis role="comment">#&#32;ISO&#32;format&#32;date-time</emphasis>
+<anchor xml:id="_journal_8py_source_1l00117"/>00117 
+<anchor xml:id="_journal_8py_source_1l00118"/>00118 <emphasis role="preprocessor">@dataclass</emphasis>
+<anchor xml:id="_journal_8py_source_1l00119"/>00119 <emphasis role="keyword">class&#32;</emphasis><link linkend="_classfcmaes_1_1journal_1_1_trial__param">Trial_param</link>(<link linkend="_classfcmaes_1_1journal_1_1_base__message">Base_message</link>):
+<anchor xml:id="_journal_8py_source_1l00120"/>00120 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00121"/>00121 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Represents&#32;the&#32;parameters&#32;associated&#32;with&#32;a&#32;specific&#32;trial.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00122"/><link linkend="_classfcmaes_1_1journal_1_1_trial__start">00122</link> <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00123"/>00123 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;This&#32;class&#32;is&#32;used&#32;to&#32;encapsulate&#32;details&#32;about&#32;a&#32;single&#32;trial&#32;parameter,&#32;with</emphasis>
+<anchor xml:id="_journal_8py_source_1l00124"/>00124 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;its&#32;unique&#32;identifier,&#32;name,&#32;internal&#32;value,&#32;and&#32;associated&#32;distribution.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00125"/>00125 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;It&#32;extends&#32;from&#32;the&#32;Base_message&#32;class.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00126"/>00126 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00127"/>00127 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Attributes:</emphasis>
+<anchor xml:id="_journal_8py_source_1l00128"/>00128 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;trial_id&#32;(int):&#32;Unique&#32;identifier&#32;for&#32;the&#32;trial&#32;to&#32;which&#32;this&#32;parameter&#32;belongs.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00129"/>00129 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;param_name&#32;(str):&#32;Name&#32;of&#32;the&#32;trial&#32;parameter.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00130"/>00130 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;distribution&#32;(Dict[str,&#32;Any]):&#32;A&#32;dictionary&#32;defining&#32;the&#32;distribution&#32;of&#32;the&#32;parameter&#32;values.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00131"/>00131 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00132"/>00132 &#32;&#32;&#32;&#32;trial_id:&#32;int
+<anchor xml:id="_journal_8py_source_1l00133"/>00133 &#32;&#32;&#32;&#32;param_name:&#32;str
+<anchor xml:id="_journal_8py_source_1l00134"/>00134 &#32;&#32;&#32;&#32;param_value_internal:&#32;float
+<anchor xml:id="_journal_8py_source_1l00135"/>00135 &#32;&#32;&#32;&#32;distribution:&#32;Dict[str,&#32;Any]&#32;&#32;<emphasis role="comment">#&#32;Represented&#32;as&#32;a&#32;dictionary</emphasis>
+<anchor xml:id="_journal_8py_source_1l00136"/>00136 
+<anchor xml:id="_journal_8py_source_1l00137"/>00137 <emphasis role="preprocessor">@dataclass</emphasis>
+<anchor xml:id="_journal_8py_source_1l00138"/>00138 <emphasis role="keyword">class&#32;</emphasis><link linkend="_classfcmaes_1_1journal_1_1_trial__value">Trial_value</link>(<link linkend="_classfcmaes_1_1journal_1_1_base__message">Base_message</link>):
+<anchor xml:id="_journal_8py_source_1l00139"/>00139 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;Represents&#32;the&#32;value&#32;of&#32;a&#32;single&#32;trial&#32;in&#32;an&#32;experiment.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00140"/>00140 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00141"/>00141 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;This&#32;class&#32;is&#32;used&#32;to&#32;encapsulate&#32;and&#32;manage&#32;data&#32;regarding&#32;a&#32;specific</emphasis>
+<anchor xml:id="_journal_8py_source_1l00142"/>00142 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;trial,&#32;including&#32;its&#32;unique&#32;identifier,&#32;state,&#32;associated&#32;values,&#32;and</emphasis>
+<anchor xml:id="_journal_8py_source_1l00143"/>00143 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;completion&#32;date&#32;and&#32;time.&#32;It&#32;is&#32;intended&#32;to&#32;facilitate&#32;organization&#32;and</emphasis>
+<anchor xml:id="_journal_8py_source_1l00144"/>00144 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;manipulation&#32;of&#32;trial-related&#32;data,&#32;often&#32;in&#32;the&#32;context&#32;of&#32;optimization</emphasis>
+<anchor xml:id="_journal_8py_source_1l00145"/><link linkend="_classfcmaes_1_1journal_1_1_trial__param">00145</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;experiments&#32;or&#32;similar&#32;workflows.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00146"/>00146 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00147"/>00147 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Attributes:</emphasis>
+<anchor xml:id="_journal_8py_source_1l00148"/>00148 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;trial_id&#32;(int):&#32;The&#32;unique&#32;identifier&#32;of&#32;the&#32;trial.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00149"/>00149 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;state&#32;(int):&#32;The&#32;current&#32;state&#32;of&#32;the&#32;trial,&#32;typically&#32;represented</emphasis>
+<anchor xml:id="_journal_8py_source_1l00150"/>00150 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;as&#32;an&#32;integer&#32;mapping&#32;to&#32;specific&#32;status&#32;codes.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00151"/>00151 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;values&#32;(List[float]):&#32;A&#32;list&#32;of&#32;values&#32;or&#32;outcomes&#32;associated&#32;with</emphasis>
+<anchor xml:id="_journal_8py_source_1l00152"/>00152 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;the&#32;trial.&#32;These&#32;could&#32;represent&#32;results&#32;of&#32;the&#32;trial&#32;or</emphasis>
+<anchor xml:id="_journal_8py_source_1l00153"/>00153 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;metrics&#32;of&#32;evaluation.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00154"/>00154 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;datetime_complete&#32;(str):&#32;The&#32;completion&#32;date&#32;and&#32;time&#32;of&#32;the&#32;trial</emphasis>
+<anchor xml:id="_journal_8py_source_1l00155"/><link linkend="_classfcmaes_1_1journal_1_1_trial__param_1a8930836be9d47579078f327e59cbd447">00155</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;represented&#32;in&#32;ISO&#32;8601&#32;format.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00156"/>00156 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00157"/>00157 &#32;&#32;&#32;&#32;trial_id:&#32;int
+<anchor xml:id="_journal_8py_source_1l00158"/>00158 &#32;&#32;&#32;&#32;state:&#32;int
+<anchor xml:id="_journal_8py_source_1l00159"/>00159 &#32;&#32;&#32;&#32;values:&#32;List[float]
+<anchor xml:id="_journal_8py_source_1l00160"/>00160 &#32;&#32;&#32;&#32;datetime_complete:&#32;str&#32;&#32;<emphasis role="comment">#&#32;ISO&#32;format&#32;date-time</emphasis>
+<anchor xml:id="_journal_8py_source_1l00161"/>00161 
+<anchor xml:id="_journal_8py_source_1l00162"/>00162 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefcmaes_1_1journal_1ab2d4646b056641882ced63f7d0299978">message_to_json</link>(message):
+<anchor xml:id="_journal_8py_source_1l00163"/>00163 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00164"/>00164 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Converts&#32;a&#32;given&#32;message&#32;object&#32;to&#32;its&#32;JSON&#32;representation.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00165"/>00165 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00166"/>00166 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;This&#32;function&#32;serializes&#32;a&#32;message&#32;object&#32;based&#32;on&#32;its&#32;type.&#32;If&#32;the&#32;message&#32;type&#32;is</emphasis>
+<anchor xml:id="_journal_8py_source_1l00167"/>00167 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;`Trial_param`,&#32;its&#32;`distribution`&#32;field&#32;is&#32;serialized&#32;as&#32;a&#32;JSON&#32;string&#32;before&#32;converting</emphasis>
+<anchor xml:id="_journal_8py_source_1l00168"/>00168 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;the&#32;entire&#32;object&#32;to&#32;JSON&#32;format.&#32;For&#32;other&#32;message&#32;types,&#32;the&#32;object&#32;is&#32;directly</emphasis>
+<anchor xml:id="_journal_8py_source_1l00169"/><link linkend="_classfcmaes_1_1journal_1_1_trial__value">00169</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;converted&#32;to&#32;JSON&#32;format.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00170"/>00170 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00171"/>00171 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_journal_8py_source_1l00172"/>00172 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;message:&#32;The&#32;message&#32;object&#32;to&#32;be&#32;serialized&#32;to&#32;JSON.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00173"/>00173 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00174"/>00174 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Returns:</emphasis>
+<anchor xml:id="_journal_8py_source_1l00175"/>00175 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;str:&#32;A&#32;JSON&#32;string&#32;representation&#32;of&#32;the&#32;message.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00176"/>00176 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00177"/>00177 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;isinstance(message,&#32;Trial_param):
+<anchor xml:id="_journal_8py_source_1l00178"/>00178 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;data&#32;=&#32;asdict(message)
+<anchor xml:id="_journal_8py_source_1l00179"/>00179 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">#&#32;Serialize&#32;&apos;distribution&apos;&#32;field&#32;as&#32;JSON&#32;string</emphasis>
+<anchor xml:id="_journal_8py_source_1l00180"/>00180 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;data[<emphasis role="stringliteral">&apos;distribution&apos;</emphasis>]&#32;=&#32;json.dumps(data[<emphasis role="stringliteral">&apos;distribution&apos;</emphasis>])
+<anchor xml:id="_journal_8py_source_1l00181"/>00181 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;json.dumps(data,&#32;separators=(<emphasis role="stringliteral">&apos;,&apos;</emphasis>,&#32;<emphasis role="stringliteral">&apos;:&apos;</emphasis>))
+<anchor xml:id="_journal_8py_source_1l00182"/>00182 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>:
+<anchor xml:id="_journal_8py_source_1l00183"/>00183 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;data&#32;=&#32;asdict(message)
+<anchor xml:id="_journal_8py_source_1l00184"/>00184 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;json.dumps(data,&#32;separators=(<emphasis role="stringliteral">&apos;,&apos;</emphasis>,&#32;<emphasis role="stringliteral">&apos;:&apos;</emphasis>))
+<anchor xml:id="_journal_8py_source_1l00185"/>00185 &#32;&#32;&#32;&#32;
+<anchor xml:id="_journal_8py_source_1l00186"/>00186 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefcmaes_1_1journal_1a3d2994fbc61c2eb4fa0bf4b6018b055e">distribution</link>(low,&#32;high):
+<anchor xml:id="_journal_8py_source_1l00187"/>00187 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00188"/>00188 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Generates&#32;a&#32;JSON&#32;representation&#32;of&#32;a&#32;float&#32;distribution&#32;within&#32;a&#32;specified&#32;range.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00189"/>00189 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00190"/><link linkend="_classfcmaes_1_1journal_1_1_trial__value_1a57eb44e751294d63bf2b75422b23ccdd">00190</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;The&#32;function&#32;creates&#32;a&#32;JSON&#32;object&#32;representing&#32;a&#32;uniform&#32;float&#32;distribution</emphasis>
+<anchor xml:id="_journal_8py_source_1l00191"/>00191 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;with&#32;specified&#32;lower&#32;and&#32;upper&#32;bounds.&#32;The&#32;resulting&#32;JSON&#32;is&#32;parsed&#32;and&#32;returned</emphasis>
+<anchor xml:id="_journal_8py_source_1l00192"/>00192 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;as&#32;a&#32;Python&#32;dictionary.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00193"/>00193 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00194"/>00194 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_journal_8py_source_1l00195"/>00195 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;low&#32;(float):&#32;The&#32;lower&#32;bound&#32;of&#32;the&#32;distribution&#32;range.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00196"/>00196 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;high&#32;(float):&#32;The&#32;upper&#32;bound&#32;of&#32;the&#32;distribution&#32;range.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00197"/>00197 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00198"/>00198 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Returns:</emphasis>
+<anchor xml:id="_journal_8py_source_1l00199"/>00199 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dict:&#32;A&#32;dictionary&#32;representation&#32;of&#32;the&#32;float&#32;distribution.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00200"/>00200 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00201"/>00201 &#32;&#32;&#32;&#32;distribution_str&#32;=&#32;&#32;f<emphasis role="stringliteral">&apos;{{&quot;name&quot;:&#32;&quot;FloatDistribution&quot;,&#32;&quot;attributes&quot;:&#32;{{&quot;step&quot;:&#32;null,&#32;&quot;low&quot;:&#32;{low},&#32;&quot;high&quot;:&#32;{high},&#32;&quot;log&quot;:&#32;false}}}}&apos;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00202"/>00202 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;json.loads(distribution_str)
+<anchor xml:id="_journal_8py_source_1l00203"/>00203 
+<anchor xml:id="_journal_8py_source_1l00204"/>00204 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefcmaes_1_1journal_1a10dd7671556c1ec184e8402909fead3e">study_start</link>(worker_id,&#32;study_name,&#32;dir):
+<anchor xml:id="_journal_8py_source_1l00205"/>00205 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00206"/>00206 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Creates&#32;and&#32;returns&#32;a&#32;JSON&#32;representation&#32;of&#32;a&#32;study&#32;start&#32;message.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00207"/><link linkend="_namespacefcmaes_1_1journal_1ab2d4646b056641882ced63f7d0299978">00207</link> <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00208"/>00208 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;This&#32;function&#32;builds&#32;a&#32;study&#32;start&#32;message&#32;using&#32;provided&#32;worker&#32;identification,</emphasis>
+<anchor xml:id="_journal_8py_source_1l00209"/>00209 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;study&#32;name,&#32;and&#32;study&#32;directions.&#32;If&#32;the&#32;`dir`&#32;parameter&#32;is&#32;scalar,&#32;it&#32;is&#32;converted</emphasis>
+<anchor xml:id="_journal_8py_source_1l00210"/>00210 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;into&#32;a&#32;list;&#32;otherwise,&#32;it&#32;is&#32;used&#32;as&#32;is.&#32;The&#32;message&#32;is&#32;then&#32;serialized&#32;into&#32;a</emphasis>
+<anchor xml:id="_journal_8py_source_1l00211"/>00211 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;JSON&#32;string&#32;for&#32;further&#32;communication&#32;or&#32;processing.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00212"/>00212 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00213"/>00213 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_journal_8py_source_1l00214"/>00214 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;worker_id&#32;(int):&#32;Unique&#32;identifier&#32;for&#32;the&#32;worker&#32;initiating&#32;the&#32;study.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00215"/>00215 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;study_name&#32;(str):&#32;Name&#32;of&#32;the&#32;study&#32;being&#32;started.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00216"/>00216 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dir&#32;(Union[str,&#32;List[str]]):&#32;Direction(s)&#32;for&#32;the&#32;study.&#32;Can&#32;be&#32;a&#32;single</emphasis>
+<anchor xml:id="_journal_8py_source_1l00217"/>00217 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;direction&#32;(string)&#32;or&#32;a&#32;list&#32;of&#32;directions.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00218"/>00218 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00219"/>00219 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Returns:</emphasis>
+<anchor xml:id="_journal_8py_source_1l00220"/>00220 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;str:&#32;JSON-encoded&#32;representation&#32;of&#32;the&#32;constructed&#32;study&#32;start&#32;message.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00221"/>00221 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00222"/>00222 &#32;&#32;&#32;&#32;msg&#32;=&#32;<link linkend="_classfcmaes_1_1journal_1_1_study__start">Study_start</link>(
+<anchor xml:id="_journal_8py_source_1l00223"/>00223 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;op_code=0,
+<anchor xml:id="_journal_8py_source_1l00224"/>00224 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;worker_id=worker_id,
+<anchor xml:id="_journal_8py_source_1l00225"/>00225 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;study_name=study_name,&#32;
+<anchor xml:id="_journal_8py_source_1l00226"/>00226 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;directions=[dir]&#32;<emphasis role="keywordflow">if</emphasis>&#32;np.isscalar(dir)&#32;<emphasis role="keywordflow">else</emphasis>&#32;dir,
+<anchor xml:id="_journal_8py_source_1l00227"/>00227 &#32;&#32;&#32;&#32;)
+<anchor xml:id="_journal_8py_source_1l00228"/>00228 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_namespacefcmaes_1_1journal_1ab2d4646b056641882ced63f7d0299978">message_to_json</link>(msg)
+<anchor xml:id="_journal_8py_source_1l00229"/>00229 
+<anchor xml:id="_journal_8py_source_1l00230"/>00230 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefcmaes_1_1journal_1ab08848e83cf71c33842407ee31354411">trial_param</link>(worker_id,&#32;trial_id,&#32;param_name,&#32;param_value_internal,&#32;low,&#32;high):
+<anchor xml:id="_journal_8py_source_1l00231"/><link linkend="_namespacefcmaes_1_1journal_1a3d2994fbc61c2eb4fa0bf4b6018b055e">00231</link> &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00232"/>00232 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Generates&#32;a&#32;JSON&#32;message&#32;containing&#32;trial&#32;parameter&#32;details.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00233"/>00233 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00234"/>00234 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;This&#32;function&#32;creates&#32;a&#32;message&#32;using&#32;the&#32;given&#32;trial&#32;parameters&#32;and&#32;returns</emphasis>
+<anchor xml:id="_journal_8py_source_1l00235"/>00235 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;its&#32;JSON&#32;representation.&#32;The&#32;message&#32;contains&#32;information&#32;such&#32;as&#32;worker&#32;ID,</emphasis>
+<anchor xml:id="_journal_8py_source_1l00236"/>00236 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;trial&#32;ID,&#32;parameter&#32;name,&#32;internal&#32;parameter&#32;value,&#32;and&#32;the&#32;specified</emphasis>
+<anchor xml:id="_journal_8py_source_1l00237"/>00237 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;distribution&#32;range.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00238"/>00238 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00239"/>00239 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_journal_8py_source_1l00240"/>00240 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;worker_id:&#32;The&#32;unique&#32;identifier&#32;for&#32;the&#32;worker.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00241"/>00241 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;trial_id:&#32;The&#32;unique&#32;identifier&#32;for&#32;the&#32;trial.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00242"/>00242 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;param_name:&#32;The&#32;name&#32;of&#32;the&#32;parameter.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00243"/>00243 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;param_value_internal:&#32;The&#32;internal&#32;value&#32;of&#32;the&#32;parameter&#32;to&#32;be&#32;passed.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00244"/>00244 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;low:&#32;The&#32;lower&#32;bound&#32;of&#32;the&#32;parameter&apos;s&#32;range.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00245"/>00245 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;high:&#32;The&#32;upper&#32;bound&#32;of&#32;the&#32;parameter&apos;s&#32;range.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00246"/>00246 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00247"/>00247 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Returns:</emphasis>
+<anchor xml:id="_journal_8py_source_1l00248"/>00248 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;str:&#32;A&#32;JSON-formatted&#32;string&#32;with&#32;the&#32;details&#32;of&#32;the&#32;trial&#32;parameter.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00249"/>00249 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00250"/>00250 &#32;&#32;&#32;&#32;msg&#32;=&#32;<link linkend="_classfcmaes_1_1journal_1_1_trial__param">Trial_param</link>(
+<anchor xml:id="_journal_8py_source_1l00251"/>00251 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;op_code=5,
+<anchor xml:id="_journal_8py_source_1l00252"/><link linkend="_namespacefcmaes_1_1journal_1a10dd7671556c1ec184e8402909fead3e">00252</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;worker_id=worker_id,
+<anchor xml:id="_journal_8py_source_1l00253"/>00253 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;trial_id=trial_id,
+<anchor xml:id="_journal_8py_source_1l00254"/>00254 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;param_name=str(param_name),
+<anchor xml:id="_journal_8py_source_1l00255"/>00255 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;param_value_internal=param_value_internal,
+<anchor xml:id="_journal_8py_source_1l00256"/>00256 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;distribution=<link linkend="_namespacefcmaes_1_1journal_1a3d2994fbc61c2eb4fa0bf4b6018b055e">distribution</link>(low,&#32;high)
+<anchor xml:id="_journal_8py_source_1l00257"/>00257 &#32;&#32;&#32;&#32;)
+<anchor xml:id="_journal_8py_source_1l00258"/>00258 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_namespacefcmaes_1_1journal_1ab2d4646b056641882ced63f7d0299978">message_to_json</link>(msg)
+<anchor xml:id="_journal_8py_source_1l00259"/>00259 
+<anchor xml:id="_journal_8py_source_1l00260"/>00260 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefcmaes_1_1journal_1a7fd5c2a880bb6da8e4e2e42790dc9430">trial_start</link>(worker_id,&#32;study_id):
+<anchor xml:id="_journal_8py_source_1l00261"/>00261 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00262"/>00262 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Starts&#32;a&#32;trial&#32;by&#32;recording&#32;the&#32;worker&#32;ID,&#32;study&#32;ID,&#32;and&#32;the&#32;current&#32;timestamp,&#32;and</emphasis>
+<anchor xml:id="_journal_8py_source_1l00263"/>00263 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;generates&#32;a&#32;JSON&#32;message&#32;representation&#32;of&#32;the&#32;trial&#32;start&#32;event.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00264"/>00264 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00265"/>00265 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_journal_8py_source_1l00266"/>00266 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;worker_id&#32;(int):&#32;Unique&#32;identifier&#32;for&#32;the&#32;worker&#32;initiating&#32;the&#32;trial.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00267"/>00267 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;study_id&#32;(int):&#32;Unique&#32;identifier&#32;for&#32;the&#32;study&#32;related&#32;to&#32;the&#32;trial.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00268"/>00268 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00269"/>00269 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Returns:</emphasis>
+<anchor xml:id="_journal_8py_source_1l00270"/>00270 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;str:&#32;JSON&#32;representation&#32;of&#32;the&#32;trial&#32;start&#32;event.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00271"/>00271 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00272"/>00272 &#32;&#32;&#32;&#32;datetime_str&#32;=&#32;datetime.now().isoformat()
+<anchor xml:id="_journal_8py_source_1l00273"/>00273 &#32;&#32;&#32;&#32;msg&#32;=&#32;<link linkend="_classfcmaes_1_1journal_1_1_trial__start">Trial_start</link>(
+<anchor xml:id="_journal_8py_source_1l00274"/>00274 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;op_code=4,
+<anchor xml:id="_journal_8py_source_1l00275"/>00275 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;worker_id=worker_id,
+<anchor xml:id="_journal_8py_source_1l00276"/>00276 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;study_id=study_id,&#32;
+<anchor xml:id="_journal_8py_source_1l00277"/>00277 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;datetime_start=datetime_str
+<anchor xml:id="_journal_8py_source_1l00278"/>00278 &#32;&#32;&#32;&#32;)
+<anchor xml:id="_journal_8py_source_1l00279"/>00279 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_namespacefcmaes_1_1journal_1ab2d4646b056641882ced63f7d0299978">message_to_json</link>(msg)
+<anchor xml:id="_journal_8py_source_1l00280"/><link linkend="_namespacefcmaes_1_1journal_1ab08848e83cf71c33842407ee31354411">00280</link> 
+<anchor xml:id="_journal_8py_source_1l00281"/>00281 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefcmaes_1_1journal_1a968c87aa2fb6e2e186e221f834d63552">trial_value</link>(worker_id,&#32;trial_id,&#32;y):
+<anchor xml:id="_journal_8py_source_1l00282"/>00282 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00283"/>00283 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Creates&#32;and&#32;returns&#32;a&#32;JSON&#32;representation&#32;of&#32;a&#32;trial&#32;value&#32;message.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00284"/>00284 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00285"/>00285 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;The&#32;function&#32;generates&#32;a&#32;message&#32;object&#32;for&#32;a&#32;specific&#32;trial&#32;and&#32;worker,</emphasis>
+<anchor xml:id="_journal_8py_source_1l00286"/>00286 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;incorporating&#32;information&#32;about&#32;the&#32;trial&apos;s&#32;state,&#32;its&#32;values,&#32;and&#32;a</emphasis>
+<anchor xml:id="_journal_8py_source_1l00287"/>00287 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;timestamp&#32;indicating&#32;when&#32;the&#32;operation&#32;was&#32;completed.&#32;It&#32;converts&#32;the</emphasis>
+<anchor xml:id="_journal_8py_source_1l00288"/>00288 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;message&#32;to&#32;a&#32;JSON&#32;format&#32;before&#32;returning.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00289"/>00289 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00290"/>00290 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_journal_8py_source_1l00291"/>00291 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;worker_id&#32;(int):&#32;Identifier&#32;for&#32;the&#32;worker&#32;responsible&#32;for&#32;the&#32;trial.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00292"/>00292 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;trial_id&#32;(int):&#32;Identifier&#32;for&#32;the&#32;specific&#32;trial&#32;whose&#32;value&#32;is&#32;being</emphasis>
+<anchor xml:id="_journal_8py_source_1l00293"/>00293 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;processed.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00294"/>00294 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;y&#32;(Union[float,&#32;list[float]]):&#32;Numeric&#32;value(s)&#32;associated&#32;with&#32;the&#32;trial.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00295"/>00295 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;This&#32;can&#32;be&#32;a&#32;scalar&#32;value&#32;or&#32;a&#32;list&#32;of&#32;values.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00296"/>00296 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00297"/>00297 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Returns:</emphasis>
+<anchor xml:id="_journal_8py_source_1l00298"/>00298 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;str:&#32;JSON&#32;string&#32;representation&#32;of&#32;the&#32;trial&#32;value&#32;message.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00299"/>00299 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00300"/>00300 &#32;&#32;&#32;&#32;datetime_str&#32;=&#32;datetime.now().isoformat()
+<anchor xml:id="_journal_8py_source_1l00301"/>00301 &#32;&#32;&#32;&#32;msg&#32;=&#32;<link linkend="_classfcmaes_1_1journal_1_1_trial__value">Trial_value</link>(
+<anchor xml:id="_journal_8py_source_1l00302"/><link linkend="_namespacefcmaes_1_1journal_1a7fd5c2a880bb6da8e4e2e42790dc9430">00302</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;op_code=6,
+<anchor xml:id="_journal_8py_source_1l00303"/>00303 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;worker_id=worker_id,
+<anchor xml:id="_journal_8py_source_1l00304"/>00304 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;trial_id=trial_id,
+<anchor xml:id="_journal_8py_source_1l00305"/>00305 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;state=1,
+<anchor xml:id="_journal_8py_source_1l00306"/>00306 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;values=[y]&#32;<emphasis role="keywordflow">if</emphasis>&#32;np.isscalar(y)&#32;<emphasis role="keywordflow">else</emphasis>&#32;y,
+<anchor xml:id="_journal_8py_source_1l00307"/>00307 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;datetime_complete=datetime_str
+<anchor xml:id="_journal_8py_source_1l00308"/>00308 &#32;&#32;&#32;&#32;)
+<anchor xml:id="_journal_8py_source_1l00309"/>00309 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_namespacefcmaes_1_1journal_1ab2d4646b056641882ced63f7d0299978">message_to_json</link>(msg)
+<anchor xml:id="_journal_8py_source_1l00310"/>00310 
+<anchor xml:id="_journal_8py_source_1l00311"/>00311 <emphasis role="keyword">class&#32;</emphasis><link linkend="_classfcmaes_1_1journal_1_1_journal">Journal</link>:
+<anchor xml:id="_journal_8py_source_1l00312"/>00312 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00313"/>00313 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Handles&#32;logging&#32;of&#32;study,&#32;trial,&#32;parameter,&#32;and&#32;value&#32;information&#32;to&#32;a&#32;file.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00314"/>00314 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00315"/>00315 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;This&#32;class&#32;facilitates&#32;logging&#32;structured&#32;data&#32;for&#32;studies&#32;and&#32;their&#32;associated</emphasis>
+<anchor xml:id="_journal_8py_source_1l00316"/>00316 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;trials&#32;into&#32;a&#32;file.&#32;Each&#32;method&#32;corresponds&#32;to&#32;specific&#32;types&#32;of&#32;log&#32;entries&#32;such</emphasis>
+<anchor xml:id="_journal_8py_source_1l00317"/>00317 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;as&#32;study&#32;start,&#32;trial&#32;start,&#32;trial&#32;parameters,&#32;and&#32;trial&#32;values.&#32;It&#32;ensures&#32;the</emphasis>
+<anchor xml:id="_journal_8py_source_1l00318"/>00318 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;data&#32;is&#32;written&#32;in&#32;real-time&#32;and&#32;provides&#32;methods&#32;for&#32;handling&#32;batch&#32;operations</emphasis>
+<anchor xml:id="_journal_8py_source_1l00319"/>00319 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;where&#32;multiple&#32;workers&#32;or&#32;trials&#32;need&#32;to&#32;be&#32;recorded.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00320"/>00320 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00321"/>00321 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Attributes:</emphasis>
+<anchor xml:id="_journal_8py_source_1l00322"/>00322 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;filename&#32;(str):&#32;Path&#32;to&#32;the&#32;file&#32;where&#32;journal&#32;entries&#32;are&#32;logged.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00323"/>00323 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;file&#32;(TextIO):&#32;File&#32;object&#32;used&#32;for&#32;writing&#32;journal&#32;entries.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00324"/>00324 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00325"/>00325 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis>__init__(self,&#32;filename,&#32;study_name,&#32;dir):
+<anchor xml:id="_journal_8py_source_1l00326"/>00326 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00327"/>00327 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Initializes&#32;an&#32;instance&#32;for&#32;managing&#32;file&#32;operations&#32;and&#32;conducting&#32;initial&#32;study&#32;setup.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00328"/>00328 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00329"/>00329 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_journal_8py_source_1l00330"/><link linkend="_namespacefcmaes_1_1journal_1a968c87aa2fb6e2e186e221f834d63552">00330</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;filename&#32;(str):&#32;Name&#32;of&#32;the&#32;file&#32;to&#32;be&#32;created&#32;and&#32;written&#32;into.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00331"/>00331 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;study_name&#32;(str):&#32;Name&#32;of&#32;the&#32;study&#32;to&#32;be&#32;initialized&#32;in&#32;the&#32;setup&#32;process.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00332"/>00332 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dir&#32;(str):&#32;Directory&#32;path&#32;for&#32;the&#32;study&#32;workspace&#32;or&#32;initialization.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00333"/>00333 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00334"/>00334 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.filename&#32;=&#32;filename
+<anchor xml:id="_journal_8py_source_1l00335"/>00335 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.file&#32;=&#32;open(self.filename,&#32;<emphasis role="stringliteral">&apos;w&apos;</emphasis>)
+<anchor xml:id="_journal_8py_source_1l00336"/>00336 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.study(<emphasis role="stringliteral">&quot;main&quot;</emphasis>,&#32;study_name,&#32;dir)
+<anchor xml:id="_journal_8py_source_1l00337"/>00337 &#32;&#32;&#32;&#32;
+<anchor xml:id="_journal_8py_source_1l00338"/>00338 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis>study(self,&#32;worker_id,&#32;study_name,&#32;dir):
+<anchor xml:id="_journal_8py_source_1l00339"/>00339 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00340"/>00340 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Writes&#32;the&#32;start&#32;of&#32;a&#32;study&#32;to&#32;a&#32;file.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00341"/>00341 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00342"/>00342 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;This&#32;method&#32;appends&#32;a&#32;formatted&#32;string,&#32;indicating&#32;the&#32;start&#32;of&#32;a&#32;study,</emphasis>
+<anchor xml:id="_journal_8py_source_1l00343"/>00343 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;to&#32;the&#32;specified&#32;file&#32;and&#32;flushes&#32;the&#32;file&#32;buffer&#32;to&#32;ensure&#32;the&#32;data&#32;is</emphasis>
+<anchor xml:id="_journal_8py_source_1l00344"/>00344 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;written&#32;to&#32;disk&#32;immediately.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00345"/>00345 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00346"/>00346 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_journal_8py_source_1l00347"/>00347 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;worker_id:&#32;Worker&#32;identifier&#32;as&#32;a&#32;string&#32;or&#32;integer.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00348"/>00348 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;study_name:&#32;Name&#32;of&#32;the&#32;study&#32;as&#32;a&#32;string.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00349"/>00349 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dir:&#32;Directory&#32;or&#32;path&#32;related&#32;to&#32;the&#32;study&#32;as&#32;a&#32;string.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00350"/>00350 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00351"/>00351 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.file.write(<link linkend="_namespacefcmaes_1_1journal_1a10dd7671556c1ec184e8402909fead3e">study_start</link>(worker_id,&#32;study_name,&#32;dir)&#32;+&#32;<emphasis role="stringliteral">&apos;\n&apos;</emphasis>)
+<anchor xml:id="_journal_8py_source_1l00352"/>00352 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.file.flush()&#32;&#32;<emphasis role="comment">#&#32;Ensure&#32;that&#32;data&#32;is&#32;written&#32;to&#32;disk</emphasis>
+<anchor xml:id="_journal_8py_source_1l00353"/><link linkend="_classfcmaes_1_1journal_1_1_journal">00353</link> 
+<anchor xml:id="_journal_8py_source_1l00354"/>00354 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1journal_1_1_journal_1aeefe1aea935c585f4bbed751cfd8332f">trial</link>(self,&#32;worker_id,&#32;study_id):
+<anchor xml:id="_journal_8py_source_1l00355"/>00355 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00356"/>00356 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Initiates&#32;a&#32;trial&#32;session&#32;by&#32;logging&#32;the&#32;start&#32;of&#32;the&#32;trial&#32;and&#32;ensuring</emphasis>
+<anchor xml:id="_journal_8py_source_1l00357"/>00357 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;that&#32;the&#32;log&#32;data&#32;is&#32;immediately&#32;written&#32;to&#32;disk.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00358"/>00358 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00359"/>00359 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_journal_8py_source_1l00360"/>00360 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;worker_id:&#32;Unique&#32;identifier&#32;for&#32;the&#32;worker&#32;participating&#32;in&#32;the&#32;trial.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00361"/>00361 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;study_id:&#32;Unique&#32;identifier&#32;for&#32;the&#32;study&#32;to&#32;which&#32;the&#32;trial&#32;belongs.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00362"/>00362 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00363"/>00363 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1journal_1_1_journal_1a6a2f06762d55e23420c8a67aa056ba03">file</link>.write(<link linkend="_namespacefcmaes_1_1journal_1a7fd5c2a880bb6da8e4e2e42790dc9430">trial_start</link>(worker_id,&#32;study_id)&#32;+&#32;<emphasis role="stringliteral">&apos;\n&apos;</emphasis>)
+<anchor xml:id="_journal_8py_source_1l00364"/>00364 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1journal_1_1_journal_1a6a2f06762d55e23420c8a67aa056ba03">file</link>.flush()&#32;&#32;<emphasis role="comment">#&#32;Ensure&#32;that&#32;data&#32;is&#32;written&#32;to&#32;disk</emphasis>
+<anchor xml:id="_journal_8py_source_1l00365"/>00365 &#32;&#32;&#32;&#32;
+<anchor xml:id="_journal_8py_source_1l00366"/>00366 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1journal_1_1_journal_1a071316e37bbbe42be6c9dda9bfe0a7d7">param</link>(self,&#32;worker_id,&#32;trial_id,&#32;param_name,&#32;param_value_internal,&#32;low,&#32;high):
+<anchor xml:id="_journal_8py_source_1l00367"/>00367 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00368"/><link linkend="_classfcmaes_1_1journal_1_1_journal_1ad6b76d939a19c9c3df8d3387357163c6">00368</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Writes&#32;a&#32;parameter&#32;value&#32;to&#32;the&#32;associated&#32;file&#32;for&#32;a&#32;given&#32;trial&#32;and&#32;worker.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00369"/><link linkend="_classfcmaes_1_1journal_1_1_journal_1a708be2ce8c89c052edabab8d0a9c250e">00369</link> <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00370"/><link linkend="_classfcmaes_1_1journal_1_1_journal_1a6a2f06762d55e23420c8a67aa056ba03">00370</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;This&#32;method&#32;serializes&#32;the&#32;parameter&#32;information&#32;using&#32;the&#32;`trial_param`</emphasis>
+<anchor xml:id="_journal_8py_source_1l00371"/>00371 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;function&#32;and&#32;writes&#32;the&#32;resulting&#32;string&#32;representation&#32;to&#32;the&#32;file&#32;object</emphasis>
+<anchor xml:id="_journal_8py_source_1l00372"/>00372 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;associated&#32;with&#32;this&#32;class.&#32;Additionally,&#32;it&#32;ensures&#32;that&#32;the&#32;data&#32;is&#32;promptly</emphasis>
+<anchor xml:id="_journal_8py_source_1l00373"/>00373 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;written&#32;to&#32;disk.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00374"/>00374 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00375"/>00375 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_journal_8py_source_1l00376"/>00376 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;worker_id:&#32;Identifier&#32;of&#32;the&#32;worker&#32;requesting&#32;the&#32;execution.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00377"/>00377 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;trial_id:&#32;Identifier&#32;of&#32;the&#32;trial&#32;being&#32;executed.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00378"/>00378 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;param_name:&#32;Name&#32;of&#32;the&#32;parameter&#32;to&#32;be&#32;used&#32;in&#32;the&#32;computation.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00379"/>00379 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;param_value_internal:&#32;Internal&#32;representation&#32;or&#32;reference&#32;of&#32;the&#32;parameter&#32;value.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00380"/>00380 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;low:&#32;The&#32;lower&#32;bound&#32;of&#32;the&#32;parameter&apos;s&#32;acceptable&#32;range.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00381"/>00381 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;high:&#32;The&#32;upper&#32;bound&#32;of&#32;the&#32;parameter&apos;s&#32;acceptable&#32;range.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00382"/>00382 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00383"/>00383 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1journal_1_1_journal_1a6a2f06762d55e23420c8a67aa056ba03">file</link>.write(<link linkend="_namespacefcmaes_1_1journal_1ab08848e83cf71c33842407ee31354411">trial_param</link>(worker_id,&#32;trial_id,&#32;param_name,&#32;param_value_internal,&#32;low,&#32;high)&#32;+&#32;<emphasis role="stringliteral">&apos;\n&apos;</emphasis>)
+<anchor xml:id="_journal_8py_source_1l00384"/>00384 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1journal_1_1_journal_1a6a2f06762d55e23420c8a67aa056ba03">file</link>.flush()&#32;&#32;<emphasis role="comment">#&#32;Ensure&#32;that&#32;data&#32;is&#32;written&#32;to&#32;disk</emphasis>
+<anchor xml:id="_journal_8py_source_1l00385"/><link linkend="_classfcmaes_1_1journal_1_1_journal_1acbbc07226630aecfb75ee29f74077fc7">00385</link> 
+<anchor xml:id="_journal_8py_source_1l00386"/>00386 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1journal_1_1_journal_1a657e3ac3b8ab3aa80bed8190a69e753d">value</link>(self,&#32;worker_id,&#32;trial_id,&#32;y):
+<anchor xml:id="_journal_8py_source_1l00387"/>00387 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00388"/>00388 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Writes&#32;the&#32;trial&#32;value&#32;to&#32;a&#32;file&#32;and&#32;ensures&#32;that&#32;data&#32;is&#32;written&#32;to&#32;disk.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00389"/>00389 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00390"/>00390 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_journal_8py_source_1l00391"/>00391 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;worker_id:&#32;Identifier&#32;for&#32;the&#32;worker.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00392"/>00392 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;trial_id:&#32;Identifier&#32;for&#32;the&#32;trial.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00393"/>00393 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;y:&#32;Value&#32;associated&#32;with&#32;the&#32;trial.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00394"/>00394 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00395"/>00395 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00396"/>00396 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1journal_1_1_journal_1a6a2f06762d55e23420c8a67aa056ba03">file</link>.write(<link linkend="_namespacefcmaes_1_1journal_1a968c87aa2fb6e2e186e221f834d63552">trial_value</link>(worker_id,&#32;trial_id,&#32;y)&#32;+&#32;<emphasis role="stringliteral">&apos;\n&apos;</emphasis>)
+<anchor xml:id="_journal_8py_source_1l00397"/><link linkend="_classfcmaes_1_1journal_1_1_journal_1aeefe1aea935c585f4bbed751cfd8332f">00397</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1journal_1_1_journal_1a6a2f06762d55e23420c8a67aa056ba03">file</link>.flush()&#32;&#32;<emphasis role="comment">#&#32;Ensure&#32;that&#32;data&#32;is&#32;written&#32;to&#32;disk</emphasis>
+<anchor xml:id="_journal_8py_source_1l00398"/>00398 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_journal_8py_source_1l00399"/>00399 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1journal_1_1_journal_1a7f1df03b226966e2c112e449fe31747b">write_x</link>(self,&#32;worker_id,&#32;trial_id,&#32;x,&#32;bounds):
+<anchor xml:id="_journal_8py_source_1l00400"/>00400 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00401"/>00401 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Writes&#32;parameter&#32;values&#32;for&#32;a&#32;given&#32;trial&#32;and&#32;worker.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00402"/>00402 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00403"/>00403 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;This&#32;method&#32;iterates&#32;through&#32;the&#32;input&#32;vector&#32;`x`&#32;and&#32;assigns&#32;parameter&#32;values</emphasis>
+<anchor xml:id="_journal_8py_source_1l00404"/>00404 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;for&#32;corresponding&#32;indices,&#32;using&#32;lower&#32;and&#32;upper&#32;bounds&#32;provided&#32;in&#32;`bounds`.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00405"/>00405 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00406"/>00406 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_journal_8py_source_1l00407"/>00407 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;worker_id:&#32;Identifier&#32;for&#32;the&#32;worker.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00408"/>00408 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;trial_id:&#32;Identifier&#32;for&#32;the&#32;trial.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00409"/>00409 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x:&#32;List&#32;or&#32;array&#32;of&#32;parameter&#32;values.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00410"/>00410 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;bounds:&#32;Object&#32;containing&#32;lower&#32;(`lb`)&#32;and&#32;upper&#32;(`ub`)&#32;bounds&#32;for&#32;the&#32;parameters.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00411"/>00411 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00412"/>00412 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i,&#32;xi&#32;<emphasis role="keywordflow">in</emphasis>&#32;enumerate(x):
+<anchor xml:id="_journal_8py_source_1l00413"/>00413 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1journal_1_1_journal_1a071316e37bbbe42be6c9dda9bfe0a7d7">param</link>(worker_id,&#32;trial_id,&#32;i,&#32;xi,&#32;bounds.lb[i],&#32;bounds.ub[i])
+<anchor xml:id="_journal_8py_source_1l00414"/>00414 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_journal_8py_source_1l00415"/>00415 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1journal_1_1_journal_1a745cc0929536fec00ae35f51264a1af1">write_xs</link>(self,&#32;trial_id,&#32;xs,&#32;bounds):
+<anchor xml:id="_journal_8py_source_1l00416"/>00416 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00417"/><link linkend="_classfcmaes_1_1journal_1_1_journal_1a071316e37bbbe42be6c9dda9bfe0a7d7">00417</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Writes&#32;a&#32;set&#32;of&#32;parameter&#32;values&#32;(xs)&#32;for&#32;different&#32;workers&#32;associated&#32;with&#32;a&#32;trial.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00418"/>00418 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00419"/>00419 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;This&#32;method&#32;distributes&#32;parameter&#32;values&#32;to&#32;workers&#32;by&#32;iterating&#32;through&#32;the</emphasis>
+<anchor xml:id="_journal_8py_source_1l00420"/>00420 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;list&#32;`xs`.&#32;Each&#32;parameter&#32;value&#32;in&#32;`xs`&#32;is&#32;assigned&#32;to&#32;a&#32;worker&#32;identified&#32;by</emphasis>
+<anchor xml:id="_journal_8py_source_1l00421"/>00421 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;an&#32;incremental&#32;ID.&#32;The&#32;`write_x`&#32;method&#32;is&#32;invoked&#32;for&#32;each&#32;worker,&#32;linking&#32;the</emphasis>
+<anchor xml:id="_journal_8py_source_1l00422"/>00422 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;trial,&#32;worker,&#32;and&#32;provided&#32;bounds.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00423"/>00423 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00424"/>00424 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_journal_8py_source_1l00425"/>00425 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;trial_id&#32;(int):&#32;Identifier&#32;for&#32;the&#32;trial&#32;to&#32;which&#32;the&#32;parameters&#32;belong.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00426"/>00426 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xs&#32;(list):&#32;A&#32;list&#32;of&#32;parameter&#32;values&#32;to&#32;be&#32;assigned&#32;to&#32;workers.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00427"/>00427 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;bounds&#32;(tuple):&#32;Bounds&#32;within&#32;which&#32;the&#32;parameter&#32;values&#32;are&#32;constrained.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00428"/>00428 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00429"/>00429 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;worker_id,&#32;x&#32;<emphasis role="keywordflow">in</emphasis>&#32;enumerate(xs):
+<anchor xml:id="_journal_8py_source_1l00430"/><link linkend="_classfcmaes_1_1journal_1_1_journal_1a657e3ac3b8ab3aa80bed8190a69e753d">00430</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1journal_1_1_journal_1a7f1df03b226966e2c112e449fe31747b">write_x</link>(str(worker_id+1),&#32;trial_id+worker_id,&#32;x,&#32;bounds)
+<anchor xml:id="_journal_8py_source_1l00431"/>00431 &#32;&#32;&#32;&#32;
+<anchor xml:id="_journal_8py_source_1l00432"/>00432 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1journal_1_1_journal_1a7dd993c2fa0347ea449a35ec8c953120">write_ys</link>(self,&#32;trial_id,&#32;ys):
+<anchor xml:id="_journal_8py_source_1l00433"/>00433 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00434"/>00434 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Writes&#32;a&#32;list&#32;of&#32;values&#32;to&#32;corresponding&#32;trial&#32;IDs&#32;for&#32;all&#32;workers.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00435"/>00435 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00436"/>00436 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_journal_8py_source_1l00437"/>00437 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;trial_id&#32;(int):&#32;The&#32;base&#32;trial&#32;ID&#32;to&#32;which&#32;worker&#32;IDs&#32;and&#32;their&#32;corresponding</emphasis>
+<anchor xml:id="_journal_8py_source_1l00438"/>00438 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;values&#32;will&#32;be&#32;associated.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00439"/>00439 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ys&#32;(list):&#32;A&#32;list&#32;of&#32;values&#32;to&#32;be&#32;written&#32;for&#32;each&#32;worker.&#32;The&#32;values&#32;in&#32;this</emphasis>
+<anchor xml:id="_journal_8py_source_1l00440"/>00440 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;list&#32;correspond&#32;to&#32;workers&#32;incrementally&#32;starting&#32;from&#32;worker&#32;ID&#32;1.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00441"/>00441 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00442"/>00442 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;worker_id,&#32;y&#32;<emphasis role="keywordflow">in</emphasis>&#32;enumerate(ys):
+<anchor xml:id="_journal_8py_source_1l00443"/>00443 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1journal_1_1_journal_1a657e3ac3b8ab3aa80bed8190a69e753d">value</link>(str(worker_id+1),&#32;trial_id+worker_id,&#32;y)
+<anchor xml:id="_journal_8py_source_1l00444"/>00444 
+<anchor xml:id="_journal_8py_source_1l00445"/>00445 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1journal_1_1_journal_1aef6c2fd765119c081c3541b04831dedc">write_starts</link>(self,&#32;study_id,&#32;batch_size):
+<anchor xml:id="_journal_8py_source_1l00446"/><link linkend="_classfcmaes_1_1journal_1_1_journal_1a7f1df03b226966e2c112e449fe31747b">00446</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00447"/>00447 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Executes&#32;a&#32;series&#32;of&#32;trials&#32;for&#32;a&#32;given&#32;study&#32;ID.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00448"/>00448 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00449"/>00449 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;The&#32;method&#32;iterates&#32;over&#32;a&#32;range&#32;defined&#32;by&#32;the&#32;batch&#32;size&#32;and&#32;performs&#32;trials</emphasis>
+<anchor xml:id="_journal_8py_source_1l00450"/>00450 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;by&#32;invoking&#32;the&#32;`trial`&#32;method&#32;with&#32;the&#32;respective&#32;worker&#32;ID&#32;and&#32;study&#32;ID.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00451"/>00451 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00452"/>00452 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_journal_8py_source_1l00453"/>00453 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;study_id&#32;(str):&#32;The&#32;identifier&#32;of&#32;the&#32;study&#32;being&#32;processed.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00454"/>00454 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;batch_size&#32;(int):&#32;The&#32;number&#32;of&#32;workers/trials&#32;to&#32;execute.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00455"/>00455 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00456"/>00456 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;worker_id&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(batch_size):
+<anchor xml:id="_journal_8py_source_1l00457"/>00457 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1journal_1_1_journal_1aeefe1aea935c585f4bbed751cfd8332f">trial</link>(str(worker_id+1),&#32;study_id)
+<anchor xml:id="_journal_8py_source_1l00458"/>00458 
+<anchor xml:id="_journal_8py_source_1l00459"/>00459 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1journal_1_1_journal_1a09aa7fd18b891e40b6cb2b1682565efd">close</link>(self):
+<anchor xml:id="_journal_8py_source_1l00460"/>00460 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00461"/>00461 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Closes&#32;the&#32;associated&#32;file&#32;resource.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00462"/>00462 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00463"/><link linkend="_classfcmaes_1_1journal_1_1_journal_1a745cc0929536fec00ae35f51264a1af1">00463</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;This&#32;method&#32;safely&#32;closes&#32;the&#32;file&#32;resource&#32;associated&#32;with&#32;the&#32;instance,</emphasis>
+<anchor xml:id="_journal_8py_source_1l00464"/>00464 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ensuring&#32;that&#32;any&#32;resources&#32;tied&#32;to&#32;it&#32;are&#32;properly&#32;released.&#32;It&#32;is&#32;crucial</emphasis>
+<anchor xml:id="_journal_8py_source_1l00465"/>00465 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;to&#32;call&#32;this&#32;method&#32;after&#32;completion&#32;of&#32;file&#32;operations&#32;to&#32;avoid&#32;resource</emphasis>
+<anchor xml:id="_journal_8py_source_1l00466"/>00466 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;leaks&#32;or&#32;locking&#32;issues.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00467"/>00467 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00468"/>00468 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Raises:</emphasis>
+<anchor xml:id="_journal_8py_source_1l00469"/>00469 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;IOError:&#32;If&#32;an&#32;I/O&#32;operation&#32;error&#32;occurs&#32;while&#32;closing&#32;the&#32;file.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00470"/>00470 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00471"/>00471 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1journal_1_1_journal_1a6a2f06762d55e23420c8a67aa056ba03">file</link>.<link linkend="_classfcmaes_1_1journal_1_1_journal_1a09aa7fd18b891e40b6cb2b1682565efd">close</link>()
+<anchor xml:id="_journal_8py_source_1l00472"/>00472 
+<anchor xml:id="_journal_8py_source_1l00473"/>00473 <emphasis role="keyword">class&#32;</emphasis><link linkend="_classfcmaes_1_1journal_1_1journal__wrapper">journal_wrapper</link>(object):
+<anchor xml:id="_journal_8py_source_1l00474"/>00474 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00475"/>00475 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;A&#32;wrapper&#32;class&#32;for&#32;handling&#32;journaling&#32;operations&#32;related&#32;to&#32;batch&#32;processing&#32;in&#32;a</emphasis>
+<anchor xml:id="_journal_8py_source_1l00476"/><link linkend="_classfcmaes_1_1journal_1_1_journal_1a7dd993c2fa0347ea449a35ec8c953120">00476</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;parallelized&#32;optimization&#32;or&#32;search&#32;study.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00477"/>00477 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00478"/>00478 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;This&#32;class&#32;is&#32;responsible&#32;for&#32;managing&#32;concurrent&#32;journal&#32;entries&#32;that&#32;include&#32;trial</emphasis>
+<anchor xml:id="_journal_8py_source_1l00479"/>00479 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;start&#32;information,&#32;parameters,&#32;and&#32;trial&#32;evaluation&#32;results.&#32;It&#32;coordinates&#32;the&#32;storage,</emphasis>
+<anchor xml:id="_journal_8py_source_1l00480"/>00480 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;formatting,&#32;and&#32;writing&#32;of&#32;trial-related&#32;data&#32;into&#32;a&#32;journal&#32;file&#32;to&#32;support&#32;analytics</emphasis>
+<anchor xml:id="_journal_8py_source_1l00481"/>00481 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;or&#32;dashboards&#32;for&#32;the&#32;study.&#32;Synchronization&#32;mechanisms&#32;ensure&#32;thread-safe&#32;operations</emphasis>
+<anchor xml:id="_journal_8py_source_1l00482"/>00482 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;in&#32;multi-process&#32;environments.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00483"/>00483 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00484"/>00484 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Attributes:</emphasis>
+<anchor xml:id="_journal_8py_source_1l00485"/>00485 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fit&#32;(callable):&#32;A&#32;function&#32;that&#32;evaluates&#32;the&#32;input&#32;parameters&#32;`x`&#32;and&#32;returns&#32;the</emphasis>
+<anchor xml:id="_journal_8py_source_1l00486"/>00486 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;corresponding&#32;result.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00487"/>00487 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;bounds&#32;(object):&#32;An&#32;object&#32;that&#32;contains&#32;lower&#32;(`lb`)&#32;and&#32;upper&#32;(`ub`)&#32;bounds&#32;for</emphasis>
+<anchor xml:id="_journal_8py_source_1l00488"/>00488 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;parameters.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00489"/>00489 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;journal&#32;(Journal):&#32;An&#32;instance&#32;of&#32;the&#32;`Journal`&#32;class&#32;used&#32;for&#32;managing&#32;and&#32;writing</emphasis>
+<anchor xml:id="_journal_8py_source_1l00490"/><link linkend="_classfcmaes_1_1journal_1_1_journal_1aef6c2fd765119c081c3541b04831dedc">00490</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;to&#32;the&#32;journal&#32;file.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00491"/>00491 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;study_id&#32;(str):&#32;A&#32;unique&#32;identifier&#32;for&#32;the&#32;entire&#32;study.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00492"/>00492 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;batch_size&#32;(int):&#32;The&#32;number&#32;of&#32;trials&#32;to&#32;process&#32;in&#32;a&#32;batch.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00493"/>00493 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00494"/>00494 
+<anchor xml:id="_journal_8py_source_1l00495"/>00495 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1journal_1_1_journal_1ad6b76d939a19c9c3df8d3387357163c6">__init__</link>(self,&#32;fit,&#32;bounds,&#32;jfname,&#32;study_name,&#32;study_id,&#32;batch_size):
+<anchor xml:id="_journal_8py_source_1l00496"/>00496 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00497"/>00497 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Initializes&#32;the&#32;object&#32;with&#32;the&#32;given&#32;parameters&#32;and&#32;sets&#32;up&#32;the&#32;required&#32;attributes.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00498"/>00498 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00499"/>00499 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_journal_8py_source_1l00500"/>00500 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fit:&#32;Callable&#32;to&#32;perform&#32;fitting&#32;or&#32;evaluation&#32;tasks.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00501"/>00501 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;bounds:&#32;Iterable&#32;specifying&#32;the&#32;bounds&#32;or&#32;constraints&#32;for&#32;the&#32;fitting</emphasis>
+<anchor xml:id="_journal_8py_source_1l00502"/>00502 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;or&#32;evaluation&#32;process.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00503"/>00503 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;jfname:&#32;String&#32;specifying&#32;the&#32;file&#32;name&#32;for&#32;the&#32;journal.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00504"/>00504 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;study_name:&#32;String&#32;representing&#32;the&#32;name&#32;of&#32;the&#32;study.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00505"/><link linkend="_classfcmaes_1_1journal_1_1_journal_1a09aa7fd18b891e40b6cb2b1682565efd">00505</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;study_id:&#32;Integer&#32;representing&#32;the&#32;identifier&#32;of&#32;the&#32;study.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00506"/>00506 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;batch_size:&#32;Integer&#32;representing&#32;the&#32;batch&#32;size&#32;to&#32;be&#32;used.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00507"/>00507 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00508"/>00508 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.fit&#32;=&#32;fit
+<anchor xml:id="_journal_8py_source_1l00509"/>00509 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.bounds&#32;=&#32;bounds
+<anchor xml:id="_journal_8py_source_1l00510"/>00510 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.journal&#32;=&#32;<link linkend="_classfcmaes_1_1journal_1_1_journal">Journal</link>(jfname,&#32;study_name,&#32;1)
+<anchor xml:id="_journal_8py_source_1l00511"/>00511 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.study_id&#32;=&#32;study_id
+<anchor xml:id="_journal_8py_source_1l00512"/>00512 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.batch_size&#32;=&#32;batch_size
+<anchor xml:id="_journal_8py_source_1l00513"/>00513 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.trial_id&#32;=&#32;mp.RawValue(ct.c_int,&#32;0)
+<anchor xml:id="_journal_8py_source_1l00514"/>00514 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.lock&#32;=&#32;mp.Lock()
+<anchor xml:id="_journal_8py_source_1l00515"/>00515 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.mgr&#32;=&#32;Manager()
+<anchor xml:id="_journal_8py_source_1l00516"/>00516 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.reset()
+<anchor xml:id="_journal_8py_source_1l00517"/>00517 
+<anchor xml:id="_journal_8py_source_1l00518"/>00518 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis>reset(self):
+<anchor xml:id="_journal_8py_source_1l00519"/>00519 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00520"/><link linkend="_classfcmaes_1_1journal_1_1journal__wrapper">00520</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Resets&#32;the&#32;lists&#32;managed&#32;by&#32;the&#32;instance.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00521"/>00521 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00522"/>00522 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;This&#32;method&#32;reinitializes&#32;the&#32;lists&#32;`starts`,&#32;`xs`,&#32;and&#32;`ys`&#32;using&#32;the</emphasis>
+<anchor xml:id="_journal_8py_source_1l00523"/>00523 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;manager&#32;object&#32;to&#32;ensure&#32;they&#32;are&#32;shared&#32;lists&#32;in&#32;multiprocess&#32;scenarios.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00524"/>00524 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00525"/>00525 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_journal_8py_source_1l00526"/>00526 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;None</emphasis>
+<anchor xml:id="_journal_8py_source_1l00527"/>00527 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00528"/>00528 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Returns:</emphasis>
+<anchor xml:id="_journal_8py_source_1l00529"/>00529 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;None</emphasis>
+<anchor xml:id="_journal_8py_source_1l00530"/>00530 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00531"/>00531 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a793b40cf4389c39186273cd58e6aec68">starts</link>&#32;=&#32;self.<link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1af36fb00ab5b0b3a2dd393bf914df2f3f">mgr</link>.list()
+<anchor xml:id="_journal_8py_source_1l00532"/>00532 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a67bba76d67d66bbb648bf957b18e4ed1">xs</link>&#32;=&#32;self.<link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1af36fb00ab5b0b3a2dd393bf914df2f3f">mgr</link>.list()&#32;&#32;
+<anchor xml:id="_journal_8py_source_1l00533"/>00533 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a2b6cb16e9fca08a2a5eb8c9078afa4a5">ys</link>&#32;=&#32;self.<link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1af36fb00ab5b0b3a2dd393bf914df2f3f">mgr</link>.list()&#32;&#32;
+<anchor xml:id="_journal_8py_source_1l00534"/>00534 
+<anchor xml:id="_journal_8py_source_1l00535"/>00535 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1aa7a757ccc4986688a24911071e68e034">store_start</link>(self,&#32;worker_id,&#32;study_id):
+<anchor xml:id="_journal_8py_source_1l00536"/>00536 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00537"/>00537 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Stores&#32;the&#32;start&#32;of&#32;a&#32;trial&#32;by&#32;appending&#32;the&#32;formatted&#32;trial&#32;start&#32;string</emphasis>
+<anchor xml:id="_journal_8py_source_1l00538"/>00538 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;to&#32;the&#32;`starts`&#32;collection.&#32;This&#32;function&#32;helps&#32;track&#32;when&#32;each&#32;trial&#32;begins</emphasis>
+<anchor xml:id="_journal_8py_source_1l00539"/>00539 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;for&#32;a&#32;given&#32;worker&#32;and&#32;study.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00540"/>00540 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00541"/>00541 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_journal_8py_source_1l00542"/>00542 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;worker_id:&#32;Identifier&#32;for&#32;the&#32;worker&#32;who&#32;starts&#32;the&#32;trial.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00543"/>00543 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;study_id:&#32;Identifier&#32;for&#32;the&#32;study&#32;associated&#32;with&#32;the&#32;trial.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00544"/>00544 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00545"/>00545 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a793b40cf4389c39186273cd58e6aec68">starts</link>.append(<link linkend="_namespacefcmaes_1_1journal_1a7fd5c2a880bb6da8e4e2e42790dc9430">trial_start</link>(worker_id,&#32;study_id)&#32;+&#32;<emphasis role="stringliteral">&apos;\n&apos;</emphasis>)
+<anchor xml:id="_journal_8py_source_1l00546"/>00546 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_journal_8py_source_1l00547"/>00547 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a5adc885590326f2a0989cbef083646e2">store_x</link>(self,&#32;worker_id,&#32;trial_id,&#32;x):
+<anchor xml:id="_journal_8py_source_1l00548"/>00548 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00549"/>00549 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Stores&#32;the&#32;parameters&#32;of&#32;a&#32;specific&#32;trial&#32;for&#32;a&#32;worker.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00550"/>00550 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00551"/>00551 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;This&#32;method&#32;takes&#32;the&#32;worker&#32;ID,&#32;trial&#32;ID,&#32;and&#32;a&#32;list&#32;of&#32;parameters,&#32;formats</emphasis>
+<anchor xml:id="_journal_8py_source_1l00552"/>00552 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;them&#32;according&#32;to&#32;the&#32;trial&apos;s&#32;bounds,&#32;and&#32;appends&#32;the&#32;formatted&#32;string&#32;to&#32;the</emphasis>
+<anchor xml:id="_journal_8py_source_1l00553"/>00553 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;internal&#32;storage&#32;for&#32;later&#32;use.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00554"/>00554 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00555"/><link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a79c04d53fb0fc834ba1a867d06a7f8a4">00555</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_journal_8py_source_1l00556"/><link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a625328e1f0565bf7e8fedc5d2ffbd64a">00556</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;worker_id:&#32;The&#32;ID&#32;of&#32;the&#32;worker&#32;to&#32;associate&#32;with&#32;the&#32;parameters.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00557"/><link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a6153c4a1a7f4a645d276c3ddaf08b069">00557</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;trial_id:&#32;The&#32;ID&#32;of&#32;the&#32;trial&#32;to&#32;associate&#32;with&#32;the&#32;parameters.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00558"/><link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1aeaae96fabf88febd67162868798561ab">00558</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x:&#32;A&#32;list&#32;of&#32;numerical&#32;parameters&#32;to&#32;be&#32;stored&#32;for&#32;the&#32;given&#32;worker&#32;and</emphasis>
+<anchor xml:id="_journal_8py_source_1l00559"/><link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a1b7923ef0b7c7a833f78239cea442d87">00559</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;trial.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00560"/><link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a859bf29174f7087cbfe4e1527a651bb9">00560</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00561"/><link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a6d48fc2b71768abc5fd10898d5306431">00561</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x_str&#32;=&#32;<emphasis role="stringliteral">&apos;&apos;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00562"/><link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a6da25d7287b3ac5e8b848b4047eeb582">00562</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i,&#32;xi&#32;<emphasis role="keywordflow">in</emphasis>&#32;enumerate(x):
+<anchor xml:id="_journal_8py_source_1l00563"/><link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1af36fb00ab5b0b3a2dd393bf914df2f3f">00563</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x_str&#32;+=&#32;<link linkend="_namespacefcmaes_1_1journal_1ab08848e83cf71c33842407ee31354411">trial_param</link>(worker_id,&#32;trial_id,&#32;i,&#32;xi,&#32;self.<link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a6153c4a1a7f4a645d276c3ddaf08b069">bounds</link>.lb[i],&#32;self.<link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a6153c4a1a7f4a645d276c3ddaf08b069">bounds</link>.ub[i])&#32;+&#32;<emphasis role="stringliteral">&apos;\n&apos;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00564"/>00564 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a67bba76d67d66bbb648bf957b18e4ed1">xs</link>.append(x_str)
+<anchor xml:id="_journal_8py_source_1l00565"/>00565 
+<anchor xml:id="_journal_8py_source_1l00566"/>00566 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a36307cef398f9219427d7c4802c7079a">store_y</link>(self,&#32;worker_id,&#32;trial_id,&#32;y):
+<anchor xml:id="_journal_8py_source_1l00567"/>00567 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00568"/>00568 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Stores&#32;the&#32;provided&#32;`y`&#32;value,&#32;associated&#32;with&#32;a&#32;worker&#32;and&#32;trial&#32;ID,&#32;in&#32;the&#32;list&#32;of&#32;`ys`.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00569"/>00569 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00570"/>00570 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_journal_8py_source_1l00571"/>00571 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;worker_id&#32;(int):&#32;The&#32;unique&#32;identifier&#32;of&#32;the&#32;worker.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00572"/>00572 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;trial_id&#32;(int):&#32;The&#32;unique&#32;identifier&#32;of&#32;the&#32;trial.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00573"/>00573 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;y&#32;(Any):&#32;The&#32;value&#32;to&#32;store,&#32;associated&#32;with&#32;the&#32;worker&#32;and&#32;trial.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00574"/>00574 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00575"/>00575 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00576"/>00576 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a2b6cb16e9fca08a2a5eb8c9078afa4a5">ys</link>.append(<link linkend="_namespacefcmaes_1_1journal_1a968c87aa2fb6e2e186e221f834d63552">trial_value</link>(worker_id,&#32;trial_id,&#32;y)&#32;+&#32;<emphasis role="stringliteral">&apos;\n&apos;</emphasis>)
+<anchor xml:id="_journal_8py_source_1l00577"/>00577 &#32;&#32;&#32;&#32;
+<anchor xml:id="_journal_8py_source_1l00578"/><link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a593c2894a37eb1507db8fbad05539f60">00578</link> &#32;&#32;&#32;&#32;<emphasis role="comment">#we&#32;need&#32;to&#32;reorder&#32;the&#32;journal&#32;output&#32;to&#32;get&#32;the&#32;dashboard&#32;working&#32;&#32;&#32;&#32;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00579"/><link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a793b40cf4389c39186273cd58e6aec68">00579</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1ad219e74b48d4588e84683ec326143a48">__call__</link>(self,&#32;x):
+<anchor xml:id="_journal_8py_source_1l00580"/><link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a67bba76d67d66bbb648bf957b18e4ed1">00580</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00581"/><link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a2b6cb16e9fca08a2a5eb8c9078afa4a5">00581</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Executes&#32;the&#32;callable&#32;functionality,&#32;managing&#32;and&#32;processing&#32;a&#32;batch&#32;of&#32;inputs</emphasis>
+<anchor xml:id="_journal_8py_source_1l00582"/>00582 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;and&#32;outputs&#32;concurrently,&#32;while&#32;ensuring&#32;proper&#32;thread&#32;safety&#32;and&#32;data</emphasis>
+<anchor xml:id="_journal_8py_source_1l00583"/>00583 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;handling.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00584"/>00584 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00585"/>00585 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_journal_8py_source_1l00586"/>00586 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x:&#32;Input&#32;value&#32;to&#32;process&#32;and&#32;fit.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00587"/>00587 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00588"/>00588 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Returns:</emphasis>
+<anchor xml:id="_journal_8py_source_1l00589"/>00589 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;The&#32;processed&#32;output&#32;value&#32;as&#32;a&#32;result&#32;of&#32;`fit(x)`.&#32;If&#32;an&#32;exception&#32;occurs,</emphasis>
+<anchor xml:id="_journal_8py_source_1l00590"/>00590 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;returns&#32;the&#32;maximum&#32;possible&#32;float&#32;value&#32;as&#32;defined&#32;in&#32;`sys.float_info.max`.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00591"/>00591 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_journal_8py_source_1l00592"/><link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1aa7a757ccc4986688a24911071e68e034">00592</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Raises:</emphasis>
+<anchor xml:id="_journal_8py_source_1l00593"/>00593 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Not&#32;explicitly&#32;raised&#32;in&#32;documentation&#32;but&#32;exceptions&#32;are&#32;caught</emphasis>
+<anchor xml:id="_journal_8py_source_1l00594"/>00594 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;within&#32;the&#32;method.</emphasis>
+<anchor xml:id="_journal_8py_source_1l00595"/>00595 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_journal_8py_source_1l00596"/>00596 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">try</emphasis>:
+<anchor xml:id="_journal_8py_source_1l00597"/>00597 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">with</emphasis>&#32;self.<link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a6da25d7287b3ac5e8b848b4047eeb582">lock</link>:
+<anchor xml:id="_journal_8py_source_1l00598"/>00598 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;n&#32;=&#32;self.<link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a859bf29174f7087cbfe4e1527a651bb9">batch_size</link>
+<anchor xml:id="_journal_8py_source_1l00599"/>00599 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;len(self.<link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a2b6cb16e9fca08a2a5eb8c9078afa4a5">ys</link>)&#32;&gt;=&#32;n:&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_journal_8py_source_1l00600"/>00600 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(n):&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_journal_8py_source_1l00601"/>00601 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1aeaae96fabf88febd67162868798561ab">journal</link>.file.write(self.<link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a793b40cf4389c39186273cd58e6aec68">starts</link>.pop(0))
+<anchor xml:id="_journal_8py_source_1l00602"/>00602 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(n):&#32;
+<anchor xml:id="_journal_8py_source_1l00603"/>00603 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1aeaae96fabf88febd67162868798561ab">journal</link>.file.write(self.<link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a67bba76d67d66bbb648bf957b18e4ed1">xs</link>.pop(0))
+<anchor xml:id="_journal_8py_source_1l00604"/>00604 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(n):&#32;
+<anchor xml:id="_journal_8py_source_1l00605"/>00605 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1aeaae96fabf88febd67162868798561ab">journal</link>.file.write(self.<link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a2b6cb16e9fca08a2a5eb8c9078afa4a5">ys</link>.pop(0))
+<anchor xml:id="_journal_8py_source_1l00606"/>00606 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1aeaae96fabf88febd67162868798561ab">journal</link>.file.flush()
+<anchor xml:id="_journal_8py_source_1l00607"/>00607 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;trial_id&#32;=&#32;self.<link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a6d48fc2b71768abc5fd10898d5306431">trial_id</link>.value
+<anchor xml:id="_journal_8py_source_1l00608"/><link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a5adc885590326f2a0989cbef083646e2">00608</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a6d48fc2b71768abc5fd10898d5306431">trial_id</link>.value&#32;+=&#32;1
+<anchor xml:id="_journal_8py_source_1l00609"/>00609 
+<anchor xml:id="_journal_8py_source_1l00610"/>00610 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;worker_id&#32;=&#32;str(trial_id&#32;%&#32;self.<link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a859bf29174f7087cbfe4e1527a651bb9">batch_size</link>)
+<anchor xml:id="_journal_8py_source_1l00611"/>00611 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1aa7a757ccc4986688a24911071e68e034">store_start</link>(worker_id,&#32;self.<link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a1b7923ef0b7c7a833f78239cea442d87">study_id</link>)
+<anchor xml:id="_journal_8py_source_1l00612"/>00612 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a5adc885590326f2a0989cbef083646e2">store_x</link>(worker_id,&#32;trial_id,&#32;x)
+<anchor xml:id="_journal_8py_source_1l00613"/>00613 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;y&#32;=&#32;self.<link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a625328e1f0565bf7e8fedc5d2ffbd64a">fit</link>(x)
+<anchor xml:id="_journal_8py_source_1l00614"/>00614 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1journal_1_1journal__wrapper_1a36307cef398f9219427d7c4802c7079a">store_y</link>(worker_id,&#32;trial_id,&#32;y)&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_journal_8py_source_1l00615"/>00615 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;y
+<anchor xml:id="_journal_8py_source_1l00616"/>00616 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">except</emphasis>&#32;Exception&#32;<emphasis role="keyword">as</emphasis>&#32;ex:
+<anchor xml:id="_journal_8py_source_1l00617"/>00617 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;print(str(ex))&#32;&#32;
+<anchor xml:id="_journal_8py_source_1l00618"/>00618 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;sys.float_info.max&#32;&#32;
+<anchor xml:id="_journal_8py_source_1l00619"/>00619 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+</programlisting></section>

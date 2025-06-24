@@ -1,0 +1,440 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_pgpecpp_8py_source" xml:lang="en-US">
+<title>pgpecpp.py</title>
+<indexterm><primary>fcmaes/pgpecpp.py</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_pgpecpp_8py_source_1l00001"/><link linkend="_namespacefcmaes_1_1pgpecpp">00001</link> <emphasis role="comment">#&#32;-*-&#32;coding:&#32;utf-8&#32;-*-</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00002"/>00002 <emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00003"/>00003 <emphasis role="stringliteral">=============================================================================</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00004"/>00004 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00005"/>00005 <emphasis role="stringliteral">&#32;Fast&#32;CMA-ES&#32;-&#32;version&#32;1.6.11</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00006"/>00006 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00007"/>00007 <emphasis role="stringliteral">&#32;(c)&#32;2025&#32;–&#32;Dietmar&#32;Wolz</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00008"/>00008 <emphasis role="stringliteral">&#32;(c)&#32;2025&#32;–&#32;Latitude</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00009"/>00009 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00010"/>00010 <emphasis role="stringliteral">&#32;License:&#32;MIT</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00011"/>00011 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00012"/>00012 <emphasis role="stringliteral">&#32;File:</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00013"/>00013 <emphasis role="stringliteral">&#32;&#32;-&#32;pgpecpp.py</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00014"/>00014 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00015"/>00015 <emphasis role="stringliteral">&#32;Description:</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00016"/>00016 <emphasis role="stringliteral">&#32;&#32;-&#32;Eigen&#32;based&#32;implementation&#32;of&#32;PGPE&#32;see&#32;[2]&#32;derived&#32;from&#32;[3].</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00017"/>00017 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00018"/>00018 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00019"/>00019 <emphasis role="stringliteral">&#32;Authors:</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00020"/>00020 <emphasis role="stringliteral">&#32;&#32;-&#32;Dietmar&#32;Wolz</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00021"/>00021 <emphasis role="stringliteral">&#32;&#32;-&#32;romain.despoullains@latitude.eu</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00022"/>00022 <emphasis role="stringliteral">&#32;&#32;-&#32;corentin.generet@latitude.eu</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00023"/>00023 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00024"/>00024 <emphasis role="stringliteral">&#32;References:</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00025"/>00025 <emphasis role="stringliteral">&#32;&#32;-&#32;[1]&#32;https://github.com/dietmarwo/fast-cma-es</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00026"/>00026 <emphasis role="stringliteral">&#32;&#32;-&#32;[2]&#32;http://mediatum.ub.tum.de/doc/1099128/631352.pdf</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00027"/>00027 <emphasis role="stringliteral">&#32;&#32;-&#32;[3]&#32;https://github.com/google/evojax/blob/main/evojax/algo/pgpe.py</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00028"/>00028 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00029"/>00029 <emphasis role="stringliteral">&#32;Documentation:</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00030"/>00030 <emphasis role="stringliteral">&#32;&#32;-</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00031"/>00031 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00032"/>00032 <emphasis role="stringliteral">=============================================================================</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00033"/>00033 <emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00034"/>00034 
+<anchor xml:id="_pgpecpp_8py_source_1l00035"/>00035 
+<anchor xml:id="_pgpecpp_8py_source_1l00036"/>00036 <emphasis role="keyword">import</emphasis>&#32;sys
+<anchor xml:id="_pgpecpp_8py_source_1l00037"/>00037 <emphasis role="keyword">import</emphasis>&#32;os
+<anchor xml:id="_pgpecpp_8py_source_1l00038"/>00038 <emphasis role="keyword">import</emphasis>&#32;math
+<anchor xml:id="_pgpecpp_8py_source_1l00039"/>00039 <emphasis role="keyword">import</emphasis>&#32;ctypes&#32;<emphasis role="keyword">as</emphasis>&#32;ct
+<anchor xml:id="_pgpecpp_8py_source_1l00040"/>00040 <emphasis role="keyword">import</emphasis>&#32;numpy&#32;<emphasis role="keyword">as</emphasis>&#32;np
+<anchor xml:id="_pgpecpp_8py_source_1l00041"/>00041 <emphasis role="keyword">from</emphasis>&#32;numpy.random&#32;<emphasis role="keyword">import</emphasis>&#32;PCG64DXSM,&#32;Generator
+<anchor xml:id="_pgpecpp_8py_source_1l00042"/>00042 <emphasis role="keyword">from</emphasis>&#32;scipy.optimize&#32;<emphasis role="keyword">import</emphasis>&#32;OptimizeResult,&#32;Bounds
+<anchor xml:id="_pgpecpp_8py_source_1l00043"/>00043 <emphasis role="keyword">from</emphasis>&#32;<link linkend="_namespacefcmaes_1_1evaluator">fcmaes.evaluator</link>&#32;<emphasis role="keyword">import</emphasis>&#32;_check_bounds,&#32;_get_bounds,&#32;callback_par,&#32;parallel,&#32;call_back_par,&#32;libcmalib
+<anchor xml:id="_pgpecpp_8py_source_1l00044"/>00044 
+<anchor xml:id="_pgpecpp_8py_source_1l00045"/>00045 <emphasis role="keyword">from</emphasis>&#32;typing&#32;<emphasis role="keyword">import</emphasis>&#32;Optional,&#32;Callable,&#32;Union
+<anchor xml:id="_pgpecpp_8py_source_1l00046"/>00046 <emphasis role="keyword">from</emphasis>&#32;numpy.typing&#32;<emphasis role="keyword">import</emphasis>&#32;ArrayLike
+<anchor xml:id="_pgpecpp_8py_source_1l00047"/>00047 
+<anchor xml:id="_pgpecpp_8py_source_1l00048"/>00048 os.environ[<emphasis role="stringliteral">&apos;MKL_DEBUG_CPU_TYPE&apos;</emphasis>]&#32;=&#32;<emphasis role="stringliteral">&apos;5&apos;</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00049"/>00049 
+<anchor xml:id="_pgpecpp_8py_source_1l00050"/>00050 <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacefcmaes_1_1pgpecpp_1ac26ca85a239168914a5e741b112af39f">minimize</link>(fun:&#32;Callable[[ArrayLike],&#32;float],
+<anchor xml:id="_pgpecpp_8py_source_1l00051"/>00051 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;bounds:&#32;Optional[Bounds]&#32;=&#32;<emphasis role="keywordtype">None</emphasis>,
+<anchor xml:id="_pgpecpp_8py_source_1l00052"/>00052 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x0:&#32;Optional[ArrayLike]&#32;=&#32;<emphasis role="keywordtype">None</emphasis>,
+<anchor xml:id="_pgpecpp_8py_source_1l00053"/>00053 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;input_sigma:&#32;Optional[Union[float,&#32;ArrayLike,&#32;Callable]]&#32;=&#32;0.1,
+<anchor xml:id="_pgpecpp_8py_source_1l00054"/>00054 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;popsize:&#32;Optional[int]&#32;=&#32;32,
+<anchor xml:id="_pgpecpp_8py_source_1l00055"/>00055 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_evaluations:&#32;Optional[int]&#32;=&#32;100000,
+<anchor xml:id="_pgpecpp_8py_source_1l00056"/>00056 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;workers:&#32;Optional[int]&#32;=&#32;<emphasis role="keywordtype">None</emphasis>,
+<anchor xml:id="_pgpecpp_8py_source_1l00057"/>00057 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;stop_fitness:&#32;Optional[float]&#32;=&#32;-np.inf,
+<anchor xml:id="_pgpecpp_8py_source_1l00058"/>00058 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;rg:&#32;Optional[Generator]&#32;=&#32;Generator(PCG64DXSM()),
+<anchor xml:id="_pgpecpp_8py_source_1l00059"/>00059 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;runid:&#32;Optional[int]&#32;=&#32;0,
+<anchor xml:id="_pgpecpp_8py_source_1l00060"/>00060 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;normalize:&#32;Optional[bool]&#32;=&#32;<emphasis role="keyword">True</emphasis>,
+<anchor xml:id="_pgpecpp_8py_source_1l00061"/>00061 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;lr_decay_steps:&#32;Optional[int]&#32;=&#32;1000,
+<anchor xml:id="_pgpecpp_8py_source_1l00062"/>00062 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;use_ranking:&#32;Optional[bool]&#32;=&#32;<emphasis role="keyword">True</emphasis>,
+<anchor xml:id="_pgpecpp_8py_source_1l00063"/>00063 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;center_learning_rate:&#32;Optional[float]&#32;=&#32;0.15,
+<anchor xml:id="_pgpecpp_8py_source_1l00064"/>00064 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;stdev_learning_rate:&#32;Optional[float]&#32;=&#32;0.1,
+<anchor xml:id="_pgpecpp_8py_source_1l00065"/>00065 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;stdev_max_change:&#32;Optional[float]&#32;=&#32;0.2,
+<anchor xml:id="_pgpecpp_8py_source_1l00066"/>00066 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;b1:&#32;Optional[float]&#32;=&#32;0.9,
+<anchor xml:id="_pgpecpp_8py_source_1l00067"/>00067 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;b2:&#32;Optional[float]&#32;=&#32;0.999,
+<anchor xml:id="_pgpecpp_8py_source_1l00068"/>00068 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;eps:&#32;Optional[float]&#32;=&#32;1e-8,
+<anchor xml:id="_pgpecpp_8py_source_1l00069"/>00069 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;decay_coef:&#32;Optional[float]&#32;=&#32;1.0,
+<anchor xml:id="_pgpecpp_8py_source_1l00070"/>00070 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;)&#32;-&gt;&#32;OptimizeResult:
+<anchor xml:id="_pgpecpp_8py_source_1l00071"/>00071 
+<anchor xml:id="_pgpecpp_8py_source_1l00072"/>00072 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00073"/>00073 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Optimize&#32;a&#32;given&#32;objective&#32;function&#32;by&#32;minimizing&#32;its&#32;value&#32;using&#32;the&#32;PGPE</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00074"/>00074 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;(Policy&#32;Gradient&#32;with&#32;Parameter-based&#32;Exploration)&#32;method.&#32;This&#32;optimization</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00075"/>00075 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;approach&#32;uses&#32;parallel&#32;processing&#32;and&#32;supports&#32;both&#32;optional&#32;parameter</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00076"/>00076 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;normalization&#32;and&#32;adaptive&#32;learning&#32;rates&#32;for&#32;center&#32;and&#32;standard&#32;deviation.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00077"/>00077 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00078"/>00078 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00079"/>00079 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fun&#32;(Callable[[ArrayLike],&#32;float]):&#32;Objective&#32;function&#32;to&#32;minimize.&#32;Must</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00080"/>00080 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;take&#32;a&#32;single&#32;input&#32;of&#32;type&#32;ArrayLike&#32;and&#32;return&#32;a&#32;float.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00081"/>00081 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;bounds&#32;(Optional[Bounds]):&#32;Bounds&#32;for&#32;the&#32;variables.&#32;Should&#32;be&#32;specified</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00082"/>00082 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;as&#32;a&#32;tuple&#32;(lower_bounds,&#32;upper_bounds)&#32;or&#32;None&#32;for&#32;unbounded&#32;variables.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00083"/>00083 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x0&#32;(Optional[ArrayLike]):&#32;Initial&#32;guess&#32;for&#32;the&#32;variables.&#32;If&#32;None,</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00084"/>00084 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;random&#32;initialization&#32;will&#32;be&#32;applied&#32;within&#32;bounds&#32;if&#32;specified.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00085"/>00085 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;input_sigma&#32;(Optional[Union[float,&#32;ArrayLike,&#32;Callable]]):&#32;Initial</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00086"/>00086 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;standard&#32;deviation&#32;for&#32;parameter&#32;sampling.&#32;Defaults&#32;to&#32;0.1.&#32;Can&#32;be</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00087"/>00087 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;a&#32;scalar,&#32;array,&#32;or&#32;callable&#32;returning&#32;an&#32;array.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00088"/>00088 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;popsize&#32;(Optional[int]):&#32;Population&#32;size&#32;for&#32;sampling.&#32;Defaults&#32;to&#32;32.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00089"/>00089 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;If&#32;not&#32;specified&#32;or&#32;odd,&#32;it&#32;will&#32;be&#32;adjusted&#32;to&#32;the&#32;next&#32;even&#32;number.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00090"/>00090 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;max_evaluations&#32;(Optional[int]):&#32;Maximum&#32;number&#32;of&#32;function&#32;evaluations</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00091"/>00091 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;to&#32;perform.&#32;Defaults&#32;to&#32;100000.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00092"/>00092 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;workers&#32;(Optional[int]):&#32;Number&#32;of&#32;parallel&#32;workers&#32;to&#32;use&#32;for&#32;evaluation.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00093"/>00093 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Defaults&#32;to&#32;None&#32;(no&#32;parallelism).</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00094"/>00094 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;stop_fitness&#32;(Optional[float]):&#32;Value&#32;of&#32;fitness&#32;to&#32;stop&#32;early.&#32;If&#32;the</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00095"/>00095 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;objective&#32;reaches&#32;this&#32;value,&#32;the&#32;algorithm&#32;will&#32;terminate&#32;early.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00096"/>00096 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Defaults&#32;to&#32;-infinity.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00097"/>00097 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;rg&#32;(Optional[Generator]):&#32;Random&#32;number&#32;generator&#32;to&#32;use&#32;during</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00098"/>00098 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;optimization.&#32;Defaults&#32;to&#32;Generator(PCG64DXSM()).</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00099"/>00099 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;runid&#32;(Optional[int]):&#32;Unique&#32;identifier&#32;for&#32;the&#32;run.&#32;Useful&#32;for</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00100"/>00100 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;distinguishing&#32;runs&#32;in&#32;logging&#32;or&#32;debugging.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00101"/>00101 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;normalize&#32;(Optional[bool]):&#32;Whether&#32;to&#32;normalize&#32;the&#32;input&#32;parameters&#32;for&#32;the</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00102"/>00102 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;optimizer.&#32;Defaults&#32;to&#32;True.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00103"/>00103 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;lr_decay_steps&#32;(Optional[int]):&#32;Number&#32;of&#32;steps&#32;for&#32;learning&#32;rate&#32;decay.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00104"/>00104 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Defaults&#32;to&#32;1000.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00105"/>00105 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;use_ranking&#32;(Optional[bool]):&#32;Whether&#32;to&#32;use&#32;ranking&#32;over&#32;raw&#32;fitness</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00106"/>00106 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;when&#32;calculating&#32;updates.&#32;Defaults&#32;to&#32;True.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00107"/>00107 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;center_learning_rate&#32;(Optional[float]):&#32;Learning&#32;rate&#32;used&#32;to&#32;update</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00108"/>00108 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;the&#32;center.&#32;Defaults&#32;to&#32;0.15.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00109"/><link linkend="_namespacefcmaes_1_1pgpecpp_1ac26ca85a239168914a5e741b112af39f">00109</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;stdev_learning_rate&#32;(Optional[float]):&#32;Learning&#32;rate&#32;used&#32;to&#32;update&#32;the</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00110"/>00110 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;standard&#32;deviation.&#32;Defaults&#32;to&#32;0.1.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00111"/>00111 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;stdev_max_change&#32;(Optional[float]):&#32;Maximum&#32;allowed&#32;change&#32;for&#32;standard</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00112"/>00112 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;deviation&#32;updates.&#32;Defaults&#32;to&#32;0.2.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00113"/>00113 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;b1&#32;(Optional[float]):&#32;Exponential&#32;moving&#32;average&#32;factor&#32;for&#32;the&#32;first</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00114"/>00114 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;moment&#32;estimate&#32;during&#32;adaptive&#32;updates.&#32;Defaults&#32;to&#32;0.9.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00115"/>00115 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;b2&#32;(Optional[float]):&#32;Exponential&#32;moving&#32;average&#32;factor&#32;for&#32;the&#32;second</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00116"/>00116 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;moment&#32;estimate&#32;during&#32;adaptive&#32;updates.&#32;Defaults&#32;to&#32;0.999.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00117"/>00117 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;eps&#32;(Optional[float]):&#32;Small&#32;term&#32;added&#32;to&#32;avoid&#32;division&#32;by&#32;zero&#32;in</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00118"/>00118 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;adaptive&#32;algorithms.&#32;Defaults&#32;to&#32;1e-8.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00119"/>00119 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;decay_coef&#32;(Optional[float]):&#32;Coefficient&#32;that&#32;controls&#32;decay&#32;in&#32;the</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00120"/>00120 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;learning&#32;rate&#32;updates.&#32;Defaults&#32;to&#32;1.0.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00121"/>00121 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00122"/>00122 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Returns:</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00123"/>00123 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;OptimizeResult:&#32;An&#32;object&#32;containing&#32;optimization&#32;results,&#32;including</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00124"/>00124 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;the&#32;best&#32;parameters&#32;found&#32;(`x`),&#32;the&#32;objective&#32;value&#32;(`fun`)&#32;at</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00125"/>00125 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;those&#32;parameters,&#32;the&#32;number&#32;of&#32;function&#32;evaluations&#32;(`nfev`),&#32;the</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00126"/>00126 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;number&#32;of&#32;iterations&#32;(`nit`),&#32;the&#32;stopping&#32;status&#32;as&#32;an&#32;integer&#32;code</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00127"/>00127 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;(`status`),&#32;and&#32;a&#32;boolean&#32;success&#32;flag&#32;(`success`).</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00128"/>00128 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00129"/>00129 &#32;&#32;&#32;&#32;
+<anchor xml:id="_pgpecpp_8py_source_1l00130"/>00130 &#32;&#32;&#32;&#32;lower,&#32;upper,&#32;guess&#32;=&#32;_check_bounds(bounds,&#32;x0,&#32;rg)&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_pgpecpp_8py_source_1l00131"/>00131 &#32;&#32;&#32;&#32;dim&#32;=&#32;guess.size&#32;&#32;&#32;
+<anchor xml:id="_pgpecpp_8py_source_1l00132"/>00132 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;popsize&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>:
+<anchor xml:id="_pgpecpp_8py_source_1l00133"/>00133 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;popsize&#32;=&#32;32&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_pgpecpp_8py_source_1l00134"/>00134 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;popsize&#32;%&#32;2&#32;==&#32;1:&#32;<emphasis role="comment">#&#32;requires&#32;even&#32;popsize</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00135"/>00135 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;popsize&#32;+=&#32;1
+<anchor xml:id="_pgpecpp_8py_source_1l00136"/>00136 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;lower&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>:
+<anchor xml:id="_pgpecpp_8py_source_1l00137"/>00137 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;lower&#32;=&#32;[0]*dim
+<anchor xml:id="_pgpecpp_8py_source_1l00138"/>00138 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;upper&#32;=&#32;[0]*dim
+<anchor xml:id="_pgpecpp_8py_source_1l00139"/>00139 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;callable(input_sigma):
+<anchor xml:id="_pgpecpp_8py_source_1l00140"/>00140 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;input_sigma=input_sigma()
+<anchor xml:id="_pgpecpp_8py_source_1l00141"/>00141 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;np.ndim(input_sigma)&#32;==&#32;0:
+<anchor xml:id="_pgpecpp_8py_source_1l00142"/>00142 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;input_sigma&#32;=&#32;[input_sigma]&#32;*&#32;dim&#32;
+<anchor xml:id="_pgpecpp_8py_source_1l00143"/>00143 &#32;&#32;&#32;&#32;parfun&#32;=&#32;<emphasis role="keywordtype">None</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>&#32;(workers&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>&#32;<emphasis role="keywordflow">or</emphasis>&#32;workers&#32;&lt;=&#32;1)&#32;<emphasis role="keywordflow">else</emphasis>&#32;<link linkend="_classfcmaes_1_1evaluator_1_1parallel">parallel</link>(fun,&#32;workers)
+<anchor xml:id="_pgpecpp_8py_source_1l00144"/>00144 &#32;&#32;&#32;&#32;array_type&#32;=&#32;ct.c_double&#32;*&#32;dim&#32;&#32;&#32;
+<anchor xml:id="_pgpecpp_8py_source_1l00145"/>00145 &#32;&#32;&#32;&#32;c_callback_par&#32;=&#32;call_back_par(<link linkend="_classfcmaes_1_1evaluator_1_1callback__par">callback_par</link>(fun,&#32;parfun))
+<anchor xml:id="_pgpecpp_8py_source_1l00146"/>00146 &#32;&#32;&#32;&#32;res&#32;=&#32;np.empty(dim+4)
+<anchor xml:id="_pgpecpp_8py_source_1l00147"/>00147 &#32;&#32;&#32;&#32;res_p&#32;=&#32;res.ctypes.data_as(ct.POINTER(ct.c_double))
+<anchor xml:id="_pgpecpp_8py_source_1l00148"/>00148 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">try</emphasis>:
+<anchor xml:id="_pgpecpp_8py_source_1l00149"/>00149 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_namespacefcmaes_1_1pgpecpp_1af8da1cbe352bc1a796e5f15d878647f2">optimizePGPE_C</link>(runid,&#32;c_callback_par,&#32;dim,&#32;array_type(*guess),&#32;
+<anchor xml:id="_pgpecpp_8py_source_1l00150"/>00150 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;array_type(*lower),&#32;array_type(*upper),&#32;
+<anchor xml:id="_pgpecpp_8py_source_1l00151"/>00151 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;array_type(*input_sigma),&#32;max_evaluations,&#32;stop_fitness,
+<anchor xml:id="_pgpecpp_8py_source_1l00152"/>00152 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;popsize,&#32;int(rg.uniform(0,&#32;2**32&#32;-&#32;1)),&#32;
+<anchor xml:id="_pgpecpp_8py_source_1l00153"/>00153 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;lr_decay_steps,&#32;use_ranking,&#32;center_learning_rate,
+<anchor xml:id="_pgpecpp_8py_source_1l00154"/>00154 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;stdev_learning_rate,&#32;stdev_max_change,&#32;b1,&#32;b2,&#32;eps,&#32;decay_coef,
+<anchor xml:id="_pgpecpp_8py_source_1l00155"/>00155 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;normalize,&#32;res_p)
+<anchor xml:id="_pgpecpp_8py_source_1l00156"/>00156 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x&#32;=&#32;res[:dim]
+<anchor xml:id="_pgpecpp_8py_source_1l00157"/>00157 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;val&#32;=&#32;res[dim]
+<anchor xml:id="_pgpecpp_8py_source_1l00158"/>00158 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;evals&#32;=&#32;int(res[dim+1])
+<anchor xml:id="_pgpecpp_8py_source_1l00159"/>00159 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;iterations&#32;=&#32;int(res[dim+2])
+<anchor xml:id="_pgpecpp_8py_source_1l00160"/>00160 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;stop&#32;=&#32;int(res[dim+3])
+<anchor xml:id="_pgpecpp_8py_source_1l00161"/>00161 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;res&#32;=&#32;OptimizeResult(x=x,&#32;fun=val,&#32;nfev=evals,&#32;nit=iterations,&#32;status=stop,&#32;success=<emphasis role="keyword">True</emphasis>)
+<anchor xml:id="_pgpecpp_8py_source_1l00162"/>00162 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">except</emphasis>&#32;Exception&#32;<emphasis role="keyword">as</emphasis>&#32;ex:
+<anchor xml:id="_pgpecpp_8py_source_1l00163"/>00163 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;res&#32;=&#32;OptimizeResult(x=<emphasis role="keywordtype">None</emphasis>,&#32;fun=sys.float_info.max,&#32;nfev=0,&#32;nit=0,&#32;status=-1,&#32;success=<emphasis role="keyword">False</emphasis>)
+<anchor xml:id="_pgpecpp_8py_source_1l00164"/>00164 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;<emphasis role="keywordflow">not</emphasis>&#32;parfun&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>:
+<anchor xml:id="_pgpecpp_8py_source_1l00165"/>00165 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;parfun.stop()
+<anchor xml:id="_pgpecpp_8py_source_1l00166"/>00166 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;res
+<anchor xml:id="_pgpecpp_8py_source_1l00167"/>00167 
+<anchor xml:id="_pgpecpp_8py_source_1l00168"/>00168 <emphasis role="keyword">class&#32;</emphasis><link linkend="_classfcmaes_1_1pgpecpp_1_1_p_g_p_e___c">PGPE_C</link>:
+<anchor xml:id="_pgpecpp_8py_source_1l00169"/>00169 &#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00170"/>00170 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Optimization&#32;class&#32;using&#32;a&#32;C++&#32;CR-FM-NES&#32;implementation&#32;via&#32;`ctypes`.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00171"/>00171 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00172"/>00172 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Minimizes&#32;a&#32;scalar&#32;objective&#32;function&#32;of&#32;one&#32;or&#32;more&#32;variables&#32;using</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00173"/>00173 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;a&#32;population-based&#32;evolutionary&#32;strategy.&#32;This&#32;class&#32;allows&#32;interaction</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00174"/>00174 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;with&#32;the&#32;underlying&#32;C++&#32;implementation&#32;to&#32;run&#32;optimization&#32;tasks&#32;with</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00175"/>00175 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;high&#32;performance&#32;and&#32;flexibility.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00176"/>00176 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00177"/>00177 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;Attributes:</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00178"/>00178 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ptr&#32;(ctypes.c_void_p):&#32;Pointer&#32;to&#32;the&#32;C++&#32;PGPE&#32;object.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00179"/>00179 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;popsize&#32;(int):&#32;Population&#32;size&#32;used&#32;for&#32;evolutionary&#32;optimization.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00180"/><link linkend="_classfcmaes_1_1pgpecpp_1_1_p_g_p_e___c">00180</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dim&#32;(int):&#32;Dimensionality&#32;of&#32;the&#32;problem&apos;s&#32;search&#32;space.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00181"/>00181 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00182"/>00182 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1pgpecpp_1_1_p_g_p_e___c_1a966fbd9f17de3cc069973c3b9d01915c">__init__</link>(self,
+<anchor xml:id="_pgpecpp_8py_source_1l00183"/>00183 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dim:&#32;int,
+<anchor xml:id="_pgpecpp_8py_source_1l00184"/>00184 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;bounds:&#32;Optional[Bounds]&#32;=&#32;<emphasis role="keywordtype">None</emphasis>,
+<anchor xml:id="_pgpecpp_8py_source_1l00185"/>00185 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x0:&#32;Optional[ArrayLike]&#32;=&#32;<emphasis role="keywordtype">None</emphasis>,
+<anchor xml:id="_pgpecpp_8py_source_1l00186"/>00186 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;input_sigma:&#32;Optional[Union[float,&#32;ArrayLike,&#32;Callable]]&#32;=&#32;0.1,
+<anchor xml:id="_pgpecpp_8py_source_1l00187"/>00187 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;popsize:&#32;Optional[int]&#32;=&#32;32,
+<anchor xml:id="_pgpecpp_8py_source_1l00188"/>00188 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;rg:&#32;Optional[Generator]&#32;=&#32;Generator(PCG64DXSM()),
+<anchor xml:id="_pgpecpp_8py_source_1l00189"/>00189 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;runid:&#32;Optional[int]&#32;=&#32;0,
+<anchor xml:id="_pgpecpp_8py_source_1l00190"/>00190 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;normalize:&#32;Optional[bool]&#32;=&#32;<emphasis role="keyword">True</emphasis>,
+<anchor xml:id="_pgpecpp_8py_source_1l00191"/>00191 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;lr_decay_steps:&#32;Optional[int]&#32;=&#32;1000,
+<anchor xml:id="_pgpecpp_8py_source_1l00192"/>00192 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;use_ranking:&#32;Optional[bool]&#32;=&#32;<emphasis role="keyword">False</emphasis>,&#32;
+<anchor xml:id="_pgpecpp_8py_source_1l00193"/>00193 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;center_learning_rate:&#32;Optional[float]&#32;=&#32;0.15,
+<anchor xml:id="_pgpecpp_8py_source_1l00194"/>00194 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;stdev_learning_rate:&#32;Optional[float]&#32;=&#32;0.1,&#32;
+<anchor xml:id="_pgpecpp_8py_source_1l00195"/>00195 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;stdev_max_change:&#32;Optional[float]&#32;=&#32;0.2,&#32;
+<anchor xml:id="_pgpecpp_8py_source_1l00196"/>00196 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;b1:&#32;Optional[float]&#32;=&#32;0.9,
+<anchor xml:id="_pgpecpp_8py_source_1l00197"/>00197 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;b2:&#32;Optional[float]&#32;=&#32;0.999,&#32;
+<anchor xml:id="_pgpecpp_8py_source_1l00198"/>00198 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;eps:&#32;Optional[float]&#32;=&#32;1e-8,&#32;
+<anchor xml:id="_pgpecpp_8py_source_1l00199"/>00199 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;decay_coef:&#32;Optional[float]&#32;=&#32;1.0,&#32;
+<anchor xml:id="_pgpecpp_8py_source_1l00200"/>00200 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;):
+<anchor xml:id="_pgpecpp_8py_source_1l00201"/>00201 
+<anchor xml:id="_pgpecpp_8py_source_1l00202"/>00202 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00203"/>00203 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Initializes&#32;an&#32;instance&#32;of&#32;the&#32;class&#32;with&#32;parameters&#32;for&#32;a&#32;PGPE&#32;(Policy&#32;Gradients</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00204"/>00204 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;with&#32;Parameter-based&#32;Exploration)&#32;optimization&#32;algorithm.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00205"/>00205 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00206"/>00206 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;This&#32;constructor&#32;sets&#32;various&#32;hyperparameters&#32;and&#32;configuration&#32;options&#32;for</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00207"/>00207 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;running&#32;the&#32;algorithm.&#32;These&#32;include&#32;the&#32;problem&#32;dimension,&#32;bounds,&#32;initial</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00208"/>00208 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;guess,&#32;population&#32;size,&#32;learning&#32;rates,&#32;and&#32;other&#32;factors&#32;that&#32;control&#32;the</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00209"/>00209 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;optimization&#32;process.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00210"/>00210 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00211"/>00211 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00212"/>00212 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dim&#32;(int):&#32;Dimensionality&#32;of&#32;the&#32;optimization&#32;problem.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00213"/>00213 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;bounds&#32;(Optional[Bounds]):&#32;Input&#32;bounds&#32;defining&#32;the&#32;feasible&#32;region.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00214"/>00214 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x0&#32;(Optional[ArrayLike]):&#32;Initial&#32;guess&#32;for&#32;the&#32;algorithm.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00215"/>00215 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;input_sigma&#32;(Optional[Union[float,&#32;ArrayLike,&#32;Callable]]):&#32;Initial&#32;standard</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00216"/>00216 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;deviation&#32;for&#32;exploration,&#32;either&#32;as&#32;a&#32;scalar&#32;or&#32;array&#32;or&#32;function&#32;returning</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00217"/>00217 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;a&#32;value.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00218"/>00218 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;popsize&#32;(Optional[int]):&#32;Size&#32;of&#32;the&#32;population.&#32;Ensures&#32;even&#32;number&#32;if&#32;not</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00219"/>00219 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;already.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00220"/>00220 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;rg&#32;(Optional[Generator]):&#32;Random&#32;number&#32;generator&#32;to&#32;control&#32;randomization&#32;in</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00221"/>00221 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;the&#32;algorithm.&#32;Defaults&#32;to&#32;a&#32;PCG64DXSM&#32;generator.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00222"/>00222 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;runid&#32;(Optional[int]):&#32;Unique&#32;identifier&#32;for&#32;the&#32;optimization&#32;run.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00223"/>00223 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;normalize&#32;(Optional[bool]):&#32;Whether&#32;to&#32;normalize&#32;the&#32;input&#32;bounds.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00224"/>00224 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;lr_decay_steps&#32;(Optional[int]):&#32;Number&#32;of&#32;iterations&#32;over&#32;which&#32;the&#32;learning</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00225"/>00225 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;rate&#32;decays.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00226"/>00226 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;use_ranking&#32;(Optional[bool]):&#32;If&#32;True,&#32;enables&#32;ranking-based&#32;updates.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00227"/>00227 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;center_learning_rate&#32;(Optional[float]):&#32;Learning&#32;rate&#32;for&#32;the&#32;mean&#32;or&#32;center</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00228"/>00228 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;of&#32;the&#32;distribution.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00229"/>00229 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;stdev_learning_rate&#32;(Optional[float]):&#32;Learning&#32;rate&#32;for&#32;the&#32;standard</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00230"/>00230 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;deviation&#32;of&#32;the&#32;search&#32;distribution.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00231"/>00231 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;stdev_max_change&#32;(Optional[float]):&#32;Maximum&#32;allowable&#32;change&#32;for&#32;standard</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00232"/>00232 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;deviation&#32;in&#32;an&#32;iteration.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00233"/>00233 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;b1&#32;(Optional[float]):&#32;Exponential&#32;decay&#32;rate&#32;for&#32;first&#32;moment&#32;estimates&#32;in</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00234"/><link linkend="_classfcmaes_1_1pgpecpp_1_1_p_g_p_e___c_1a966fbd9f17de3cc069973c3b9d01915c">00234</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;adaptive&#32;learning.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00235"/>00235 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;b2&#32;(Optional[float]):&#32;Exponential&#32;decay&#32;rate&#32;for&#32;second&#32;moment&#32;estimates&#32;in</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00236"/>00236 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;adaptive&#32;learning.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00237"/>00237 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;eps&#32;(Optional[float]):&#32;Small&#32;constant&#32;to&#32;prevent&#32;division&#32;by&#32;zero&#32;in</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00238"/>00238 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;adaptive&#32;learning.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00239"/>00239 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;decay_coef&#32;(Optional[float]):&#32;Coefficient&#32;controlling&#32;overall&#32;decay&#32;in</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00240"/>00240 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;learning&#32;adjustments.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00241"/>00241 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00242"/>00242 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Raises:</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00243"/>00243 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Exception:&#32;Propagates&#32;exceptions&#32;encountered&#32;during&#32;the&#32;initialization&#32;of</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00244"/>00244 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;the&#32;algorithm&#32;backend.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00245"/>00245 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00246"/>00246 
+<anchor xml:id="_pgpecpp_8py_source_1l00247"/>00247 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;lower,&#32;upper,&#32;guess&#32;=&#32;_get_bounds(dim,&#32;bounds,&#32;x0,&#32;rg)&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_pgpecpp_8py_source_1l00248"/>00248 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;popsize&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>:
+<anchor xml:id="_pgpecpp_8py_source_1l00249"/>00249 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;popsize&#32;=&#32;32&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_pgpecpp_8py_source_1l00250"/>00250 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;popsize&#32;%&#32;2&#32;==&#32;1:&#32;<emphasis role="comment">#&#32;requires&#32;even&#32;popsize</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00251"/>00251 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;popsize&#32;+=&#32;1
+<anchor xml:id="_pgpecpp_8py_source_1l00252"/>00252 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;lower&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>:
+<anchor xml:id="_pgpecpp_8py_source_1l00253"/>00253 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;lower&#32;=&#32;[0]*dim
+<anchor xml:id="_pgpecpp_8py_source_1l00254"/>00254 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;upper&#32;=&#32;[0]*dim
+<anchor xml:id="_pgpecpp_8py_source_1l00255"/>00255 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;callable(input_sigma):
+<anchor xml:id="_pgpecpp_8py_source_1l00256"/>00256 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;input_sigma=input_sigma()
+<anchor xml:id="_pgpecpp_8py_source_1l00257"/>00257 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;np.ndim(input_sigma)&#32;==&#32;0:
+<anchor xml:id="_pgpecpp_8py_source_1l00258"/>00258 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;input_sigma&#32;=&#32;[input_sigma]&#32;*&#32;dim&#32;
+<anchor xml:id="_pgpecpp_8py_source_1l00259"/>00259 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;array_type&#32;=&#32;ct.c_double&#32;*&#32;dim&#32;&#32;&#32;
+<anchor xml:id="_pgpecpp_8py_source_1l00260"/>00260 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">try</emphasis>:
+<anchor xml:id="_pgpecpp_8py_source_1l00261"/>00261 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1pgpecpp_1_1_p_g_p_e___c_1a9ffbedaabec9d62b8bd10edab6324c33">ptr</link>&#32;=&#32;<link linkend="_namespacefcmaes_1_1pgpecpp_1aee73bd986018e30ab0fef7ab6f5d8b18">initPGPE_C</link>(runid,&#32;dim,&#32;array_type(*guess),&#32;
+<anchor xml:id="_pgpecpp_8py_source_1l00262"/>00262 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;array_type(*lower),&#32;array_type(*upper),&#32;
+<anchor xml:id="_pgpecpp_8py_source_1l00263"/>00263 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;array_type(*input_sigma),&#32;popsize,&#32;int(rg.uniform(0,&#32;2**32&#32;-&#32;1)),
+<anchor xml:id="_pgpecpp_8py_source_1l00264"/>00264 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;lr_decay_steps,&#32;use_ranking,&#32;center_learning_rate,
+<anchor xml:id="_pgpecpp_8py_source_1l00265"/>00265 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;stdev_learning_rate,&#32;stdev_max_change,&#32;b1,&#32;b2,&#32;eps,&#32;decay_coef,&#32;
+<anchor xml:id="_pgpecpp_8py_source_1l00266"/>00266 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;normalize)
+<anchor xml:id="_pgpecpp_8py_source_1l00267"/>00267 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1pgpecpp_1_1_p_g_p_e___c_1a65ed94e32ef0d14d2e63d6db3df4ef34">popsize</link>&#32;=&#32;popsize
+<anchor xml:id="_pgpecpp_8py_source_1l00268"/>00268 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;self.<link linkend="_classfcmaes_1_1pgpecpp_1_1_p_g_p_e___c_1ac4aea22f09cd578e95e7e4b7eeca12e2">dim</link>&#32;=&#32;dim&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_pgpecpp_8py_source_1l00269"/><link linkend="_classfcmaes_1_1pgpecpp_1_1_p_g_p_e___c_1a9ffbedaabec9d62b8bd10edab6324c33">00269</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">except</emphasis>&#32;Exception&#32;<emphasis role="keyword">as</emphasis>&#32;ex:
+<anchor xml:id="_pgpecpp_8py_source_1l00270"/>00270 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">print</emphasis>&#32;(ex)
+<anchor xml:id="_pgpecpp_8py_source_1l00271"/>00271 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">pass</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00272"/>00272 &#32;&#32;&#32;&#32;
+<anchor xml:id="_pgpecpp_8py_source_1l00273"/>00273 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1pgpecpp_1_1_p_g_p_e___c_1a255b3fc3e61ebee7f65b20d63c6ba3d4">__del__</link>(self):
+<anchor xml:id="_pgpecpp_8py_source_1l00274"/>00274 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00275"/><link linkend="_classfcmaes_1_1pgpecpp_1_1_p_g_p_e___c_1a65ed94e32ef0d14d2e63d6db3df4ef34">00275</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Handles&#32;the&#32;destruction&#32;of&#32;the&#32;PGPE_C&#32;object&#32;to&#32;manage&#32;resources&#32;effectively.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00276"/><link linkend="_classfcmaes_1_1pgpecpp_1_1_p_g_p_e___c_1ac4aea22f09cd578e95e7e4b7eeca12e2">00276</link> <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00277"/>00277 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;This&#32;method&#32;is&#32;invoked&#32;automatically&#32;when&#32;the&#32;instance&#32;is&#32;about&#32;to&#32;be&#32;destroyed,</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00278"/>00278 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;allowing&#32;for&#32;proper&#32;cleanup&#32;of&#32;associated&#32;resources.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00279"/>00279 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00280"/>00280 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Raises:</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00281"/>00281 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;None</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00282"/>00282 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00283"/>00283 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_namespacefcmaes_1_1pgpecpp_1a03df7e468c547553701bf0f0dc702b4f">destroyPGPE_C</link>(self.<link linkend="_classfcmaes_1_1pgpecpp_1_1_p_g_p_e___c_1a9ffbedaabec9d62b8bd10edab6324c33">ptr</link>)
+<anchor xml:id="_pgpecpp_8py_source_1l00284"/>00284 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_pgpecpp_8py_source_1l00285"/>00285 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1pgpecpp_1_1_p_g_p_e___c_1ab63d18c231a89de22d03945f00e5fdfe">ask</link>(self)&#32;-&gt;&#32;np.array:
+<anchor xml:id="_pgpecpp_8py_source_1l00286"/>00286 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00287"/>00287 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Generates&#32;and&#32;returns&#32;a&#32;population&#32;of&#32;samples&#32;based&#32;on&#32;the&#32;current&#32;state&#32;of&#32;the&#32;algorithm.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00288"/>00288 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00289"/>00289 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;This&#32;method&#32;interacts&#32;with&#32;the&#32;C&#32;library&#32;function&#32;`askPGPE_C`&#32;to&#32;generate&#32;a&#32;new&#32;set&#32;of&#32;samples</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00290"/><link linkend="_classfcmaes_1_1pgpecpp_1_1_p_g_p_e___c_1a255b3fc3e61ebee7f65b20d63c6ba3d4">00290</link> <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;for&#32;the&#32;population.&#32;The&#32;returned&#32;samples&#32;are&#32;organized&#32;into&#32;a&#32;2D&#32;NumPy&#32;array.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00291"/>00291 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00292"/>00292 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Returns:</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00293"/>00293 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;np.array:&#32;A&#32;2D&#32;array&#32;where&#32;each&#32;row&#32;corresponds&#32;to&#32;a&#32;sample&#32;in&#32;the&#32;population.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00294"/>00294 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00295"/>00295 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Raises:</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00296"/>00296 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Exception:&#32;If&#32;an&#32;error&#32;occurs&#32;during&#32;the&#32;population&#32;generation&#32;process&#32;with&#32;specific&#32;details</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00297"/>00297 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;printed&#32;to&#32;the&#32;console.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00298"/>00298 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00299"/>00299 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_pgpecpp_8py_source_1l00300"/>00300 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">try</emphasis>:
+<anchor xml:id="_pgpecpp_8py_source_1l00301"/>00301 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;lamb&#32;=&#32;self.<link linkend="_classfcmaes_1_1pgpecpp_1_1_p_g_p_e___c_1a65ed94e32ef0d14d2e63d6db3df4ef34">popsize</link>
+<anchor xml:id="_pgpecpp_8py_source_1l00302"/>00302 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;n&#32;=&#32;self.<link linkend="_classfcmaes_1_1pgpecpp_1_1_p_g_p_e___c_1ac4aea22f09cd578e95e7e4b7eeca12e2">dim</link>
+<anchor xml:id="_pgpecpp_8py_source_1l00303"/>00303 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;res&#32;=&#32;np.empty(lamb*n)
+<anchor xml:id="_pgpecpp_8py_source_1l00304"/>00304 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;res_p&#32;=&#32;res.ctypes.data_as(ct.POINTER(ct.c_double))
+<anchor xml:id="_pgpecpp_8py_source_1l00305"/>00305 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_namespacefcmaes_1_1pgpecpp_1a89e498c3d796b4113e670e638aa85163">askPGPE_C</link>(self.<link linkend="_classfcmaes_1_1pgpecpp_1_1_p_g_p_e___c_1a9ffbedaabec9d62b8bd10edab6324c33">ptr</link>,&#32;res_p)
+<anchor xml:id="_pgpecpp_8py_source_1l00306"/><link linkend="_classfcmaes_1_1pgpecpp_1_1_p_g_p_e___c_1ab63d18c231a89de22d03945f00e5fdfe">00306</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xs&#32;=&#32;np.empty((lamb,&#32;n))
+<anchor xml:id="_pgpecpp_8py_source_1l00307"/>00307 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;p&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(lamb):
+<anchor xml:id="_pgpecpp_8py_source_1l00308"/>00308 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xs[p,:]&#32;=&#32;res[p*n&#32;:&#32;(p+1)*n]
+<anchor xml:id="_pgpecpp_8py_source_1l00309"/>00309 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;xs
+<anchor xml:id="_pgpecpp_8py_source_1l00310"/>00310 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">except</emphasis>&#32;Exception&#32;<emphasis role="keyword">as</emphasis>&#32;ex:
+<anchor xml:id="_pgpecpp_8py_source_1l00311"/>00311 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">print</emphasis>&#32;(ex)
+<anchor xml:id="_pgpecpp_8py_source_1l00312"/>00312 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00313"/>00313 
+<anchor xml:id="_pgpecpp_8py_source_1l00314"/>00314 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1pgpecpp_1_1_p_g_p_e___c_1a3d030c90af2ea816f60372c4f0bb98d5">tell</link>(self,&#32;
+<anchor xml:id="_pgpecpp_8py_source_1l00315"/>00315 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ys:&#32;np.ndarray)&#32;-&gt;&#32;int:
+<anchor xml:id="_pgpecpp_8py_source_1l00316"/>00316 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00317"/>00317 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Executes&#32;the&#32;PGPE&#32;(Policy&#32;Gradient&#32;with&#32;Parameter-based&#32;Exploration)&#32;algorithm&#32;by&#32;interfacing</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00318"/>00318 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;with&#32;native&#32;code&#32;through&#32;ctypes.&#32;The&#32;method&#32;passes&#32;the&#32;given&#32;numpy&#32;array&#32;to&#32;the</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00319"/>00319 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;underlying&#32;PGPE&#32;implementation.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00320"/>00320 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00321"/>00321 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Args:</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00322"/>00322 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ys&#32;(np.ndarray):&#32;A&#32;1D&#32;numpy&#32;array&#32;containing&#32;the&#32;parameters&#32;to&#32;be&#32;used&#32;by&#32;the&#32;PGPE&#32;algorithm.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00323"/>00323 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00324"/>00324 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Returns:</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00325"/>00325 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;int:&#32;The&#32;result&#32;returned&#32;by&#32;the&#32;PGPE&#32;native&#32;implementation.&#32;Returns&#32;-1&#32;in&#32;case&#32;of&#32;an&#32;error.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00326"/>00326 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00327"/>00327 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_pgpecpp_8py_source_1l00328"/>00328 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">try</emphasis>:
+<anchor xml:id="_pgpecpp_8py_source_1l00329"/>00329 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;array_type_ys&#32;=&#32;ct.c_double&#32;*&#32;len(ys)
+<anchor xml:id="_pgpecpp_8py_source_1l00330"/>00330 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_namespacefcmaes_1_1pgpecpp_1a83964137647622f1ea94a90106b7fc85">tellPGPE_C</link>(self.<link linkend="_classfcmaes_1_1pgpecpp_1_1_p_g_p_e___c_1a9ffbedaabec9d62b8bd10edab6324c33">ptr</link>,&#32;array_type_ys(*ys))
+<anchor xml:id="_pgpecpp_8py_source_1l00331"/>00331 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">except</emphasis>&#32;Exception&#32;<emphasis role="keyword">as</emphasis>&#32;ex:
+<anchor xml:id="_pgpecpp_8py_source_1l00332"/>00332 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">print</emphasis>&#32;(ex)
+<anchor xml:id="_pgpecpp_8py_source_1l00333"/><link linkend="_classfcmaes_1_1pgpecpp_1_1_p_g_p_e___c_1a3d030c90af2ea816f60372c4f0bb98d5">00333</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;-1&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_pgpecpp_8py_source_1l00334"/>00334 
+<anchor xml:id="_pgpecpp_8py_source_1l00335"/>00335 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1pgpecpp_1_1_p_g_p_e___c_1aeaf7b21b34fd7cb1438ed8bcf23a2f4c">population</link>(self)&#32;-&gt;&#32;np.array:
+<anchor xml:id="_pgpecpp_8py_source_1l00336"/>00336 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00337"/>00337 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Retrieves&#32;the&#32;population&#32;from&#32;a&#32;population&#32;PGPE&#32;algorithm,&#32;processes&#32;it,&#32;and&#32;returns&#32;it</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00338"/>00338 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;as&#32;a&#32;NumPy&#32;array.&#32;This&#32;method&#32;interacts&#32;with&#32;external&#32;C&#32;code&#32;for&#32;handling&#32;population</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00339"/>00339 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;data&#32;and&#32;converts&#32;the&#32;resulting&#32;data&#32;into&#32;a&#32;structured&#32;array.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00340"/>00340 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00341"/>00341 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Returns:</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00342"/>00342 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;np.array:&#32;A&#32;NumPy&#32;array&#32;containing&#32;the&#32;processed&#32;population&#32;data,&#32;where&#32;each</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00343"/>00343 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;entry&#32;corresponds&#32;to&#32;a&#32;subset&#32;of&#32;individuals&#32;in&#32;the&#32;population&#32;as&#32;defined</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00344"/>00344 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;by&#32;the&#32;`popsize`&#32;and&#32;`dim`&#32;attributes.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00345"/>00345 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00346"/>00346 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Raises:</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00347"/>00347 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Exception:&#32;If&#32;an&#32;error&#32;occurs&#32;during&#32;the&#32;execution&#32;of&#32;the&#32;underlying</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00348"/>00348 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;population&#32;retrieval&#32;process&#32;or&#32;data&#32;processing.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00349"/>00349 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00350"/>00350 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">try</emphasis>:
+<anchor xml:id="_pgpecpp_8py_source_1l00351"/>00351 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;lamb&#32;=&#32;self.<link linkend="_classfcmaes_1_1pgpecpp_1_1_p_g_p_e___c_1a65ed94e32ef0d14d2e63d6db3df4ef34">popsize</link>
+<anchor xml:id="_pgpecpp_8py_source_1l00352"/>00352 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;n&#32;=&#32;self.<link linkend="_classfcmaes_1_1pgpecpp_1_1_p_g_p_e___c_1ac4aea22f09cd578e95e7e4b7eeca12e2">dim</link>
+<anchor xml:id="_pgpecpp_8py_source_1l00353"/>00353 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;res&#32;=&#32;np.empty(lamb*n)
+<anchor xml:id="_pgpecpp_8py_source_1l00354"/>00354 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;res_p&#32;=&#32;res.ctypes.data_as(ct.POINTER(ct.c_double))
+<anchor xml:id="_pgpecpp_8py_source_1l00355"/>00355 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_namespacefcmaes_1_1pgpecpp_1a3c39b0fa9cb8f471f226bc6916bf3a71">populationPGPE_C</link>(self.<link linkend="_classfcmaes_1_1pgpecpp_1_1_p_g_p_e___c_1a9ffbedaabec9d62b8bd10edab6324c33">ptr</link>,&#32;res_p)
+<anchor xml:id="_pgpecpp_8py_source_1l00356"/>00356 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xs&#32;=&#32;np.array(lamb,&#32;n)
+<anchor xml:id="_pgpecpp_8py_source_1l00357"/><link linkend="_classfcmaes_1_1pgpecpp_1_1_p_g_p_e___c_1aeaf7b21b34fd7cb1438ed8bcf23a2f4c">00357</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;p&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(lamb):
+<anchor xml:id="_pgpecpp_8py_source_1l00358"/>00358 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;xs[p]&#32;=&#32;res[p*n&#32;:&#32;(p+1)*n]
+<anchor xml:id="_pgpecpp_8py_source_1l00359"/>00359 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;xs
+<anchor xml:id="_pgpecpp_8py_source_1l00360"/>00360 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">except</emphasis>&#32;Exception&#32;<emphasis role="keyword">as</emphasis>&#32;ex:
+<anchor xml:id="_pgpecpp_8py_source_1l00361"/>00361 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">print</emphasis>&#32;(ex)
+<anchor xml:id="_pgpecpp_8py_source_1l00362"/>00362 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00363"/>00363 
+<anchor xml:id="_pgpecpp_8py_source_1l00364"/>00364 &#32;&#32;&#32;&#32;<emphasis role="keyword">def&#32;</emphasis><link linkend="_classfcmaes_1_1pgpecpp_1_1_p_g_p_e___c_1a93ccd2d19bf80b6da653b292f276e94e">result</link>(self)&#32;-&gt;&#32;OptimizeResult:
+<anchor xml:id="_pgpecpp_8py_source_1l00365"/>00365 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00366"/>00366 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Fetches&#32;the&#32;optimization&#32;result.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00367"/>00367 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00368"/>00368 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;The&#32;method&#32;retrieves&#32;the&#32;solution&#32;obtained&#32;from&#32;the&#32;optimization&#32;procedure</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00369"/>00369 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;using&#32;a&#32;C-based&#32;backend.&#32;The&#32;result&#32;includes&#32;the&#32;optimized&#32;parameters,</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00370"/>00370 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;objective&#32;function&#32;value&#32;at&#32;the&#32;solution,&#32;the&#32;number&#32;of&#32;function</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00371"/>00371 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;evaluations,&#32;the&#32;number&#32;of&#32;iterations,&#32;and&#32;the&#32;exit&#32;status&#32;of&#32;the&#32;optimizer.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00372"/>00372 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00373"/>00373 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;In&#32;case&#32;of&#32;any&#32;exception&#32;during&#32;the&#32;retrieval&#32;process,&#32;a&#32;default&#32;result</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00374"/>00374 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;indicating&#32;failure&#32;is&#32;returned.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00375"/>00375 <emphasis role="stringliteral"></emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00376"/>00376 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Returns:</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00377"/>00377 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;OptimizeResult:&#32;An&#32;object&#32;containing&#32;the&#32;optimization&#32;result.&#32;It&#32;includes</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00378"/>00378 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;the&#32;following&#32;fields:</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00379"/>00379 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-&#32;x:&#32;ndarray&#32;of&#32;the&#32;optimized&#32;parameters.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00380"/>00380 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-&#32;fun:&#32;float&#32;value&#32;of&#32;the&#32;objective&#32;function&#32;at&#32;the&#32;solution.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00381"/>00381 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-&#32;nfev:&#32;int&#32;count&#32;of&#32;function&#32;evaluations.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00382"/>00382 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-&#32;nit:&#32;int&#32;count&#32;of&#32;iterations&#32;performed.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00383"/>00383 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-&#32;status:&#32;int&#32;exit&#32;status&#32;of&#32;the&#32;optimization.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00384"/>00384 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-&#32;success:&#32;bool&#32;indicating&#32;the&#32;success&#32;(True)&#32;or&#32;failure&#32;(False)&#32;of&#32;the&#32;optimization.</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00385"/>00385 <emphasis role="stringliteral">&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;&quot;</emphasis>
+<anchor xml:id="_pgpecpp_8py_source_1l00386"/>00386 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;res&#32;=&#32;np.empty(self.<link linkend="_classfcmaes_1_1pgpecpp_1_1_p_g_p_e___c_1ac4aea22f09cd578e95e7e4b7eeca12e2">dim</link>+4)
+<anchor xml:id="_pgpecpp_8py_source_1l00387"/>00387 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;res_p&#32;=&#32;res.ctypes.data_as(ct.POINTER(ct.c_double))
+<anchor xml:id="_pgpecpp_8py_source_1l00388"/>00388 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">try</emphasis>:
+<anchor xml:id="_pgpecpp_8py_source_1l00389"/>00389 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_namespacefcmaes_1_1pgpecpp_1a550fd833f381cfb0e882cdccfe52ef2a">resultPGPE_C</link>(self.<link linkend="_classfcmaes_1_1pgpecpp_1_1_p_g_p_e___c_1a9ffbedaabec9d62b8bd10edab6324c33">ptr</link>,&#32;res_p)
+<anchor xml:id="_pgpecpp_8py_source_1l00390"/>00390 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;x&#32;=&#32;res[:self.<link linkend="_classfcmaes_1_1pgpecpp_1_1_p_g_p_e___c_1ac4aea22f09cd578e95e7e4b7eeca12e2">dim</link>]
+<anchor xml:id="_pgpecpp_8py_source_1l00391"/>00391 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;val&#32;=&#32;res[self.<link linkend="_classfcmaes_1_1pgpecpp_1_1_p_g_p_e___c_1ac4aea22f09cd578e95e7e4b7eeca12e2">dim</link>]
+<anchor xml:id="_pgpecpp_8py_source_1l00392"/>00392 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;evals&#32;=&#32;int(res[self.<link linkend="_classfcmaes_1_1pgpecpp_1_1_p_g_p_e___c_1ac4aea22f09cd578e95e7e4b7eeca12e2">dim</link>+1])
+<anchor xml:id="_pgpecpp_8py_source_1l00393"/><link linkend="_classfcmaes_1_1pgpecpp_1_1_p_g_p_e___c_1a93ccd2d19bf80b6da653b292f276e94e">00393</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;iterations&#32;=&#32;int(res[self.<link linkend="_classfcmaes_1_1pgpecpp_1_1_p_g_p_e___c_1ac4aea22f09cd578e95e7e4b7eeca12e2">dim</link>+2])
+<anchor xml:id="_pgpecpp_8py_source_1l00394"/>00394 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;stop&#32;=&#32;int(res[self.<link linkend="_classfcmaes_1_1pgpecpp_1_1_p_g_p_e___c_1ac4aea22f09cd578e95e7e4b7eeca12e2">dim</link>+3])
+<anchor xml:id="_pgpecpp_8py_source_1l00395"/>00395 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;res&#32;=&#32;OptimizeResult(x=x,&#32;fun=val,&#32;nfev=evals,&#32;nit=iterations,&#32;status=stop,&#32;success=<emphasis role="keyword">True</emphasis>)
+<anchor xml:id="_pgpecpp_8py_source_1l00396"/>00396 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">except</emphasis>&#32;Exception&#32;<emphasis role="keyword">as</emphasis>&#32;ex:
+<anchor xml:id="_pgpecpp_8py_source_1l00397"/>00397 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;res&#32;=&#32;OptimizeResult(x=<emphasis role="keywordtype">None</emphasis>,&#32;fun=sys.float_info.max,&#32;nfev=0,&#32;nit=0,&#32;status=-1,&#32;success=<emphasis role="keyword">False</emphasis>)
+<anchor xml:id="_pgpecpp_8py_source_1l00398"/>00398 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;res
+<anchor xml:id="_pgpecpp_8py_source_1l00399"/>00399 
+<anchor xml:id="_pgpecpp_8py_source_1l00400"/>00400 <emphasis role="keywordflow">if</emphasis>&#32;<emphasis role="keywordflow">not</emphasis>&#32;libcmalib&#32;<emphasis role="keywordflow">is</emphasis>&#32;<emphasis role="keywordtype">None</emphasis>:&#32;
+<anchor xml:id="_pgpecpp_8py_source_1l00401"/>00401 
+<anchor xml:id="_pgpecpp_8py_source_1l00402"/>00402 &#32;&#32;&#32;&#32;optimizePGPE_C&#32;=&#32;libcmalib.optimizePGPE_C
+<anchor xml:id="_pgpecpp_8py_source_1l00403"/>00403 &#32;&#32;&#32;&#32;optimizePGPE_C.argtypes&#32;=&#32;[ct.c_long,&#32;call_back_par,&#32;ct.c_int,&#32;\
+<anchor xml:id="_pgpecpp_8py_source_1l00404"/>00404 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ct.POINTER(ct.c_double),&#32;ct.POINTER(ct.c_double),&#32;ct.POINTER(ct.c_double),&#32;\
+<anchor xml:id="_pgpecpp_8py_source_1l00405"/>00405 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ct.POINTER(ct.c_double),&#32;ct.c_int,&#32;ct.c_double,&#32;ct.c_int,&#32;
+<anchor xml:id="_pgpecpp_8py_source_1l00406"/>00406 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ct.c_long,&#32;ct.c_int,&#32;
+<anchor xml:id="_pgpecpp_8py_source_1l00407"/>00407 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ct.c_bool,&#32;ct.c_double,&#32;ct.c_double,&#32;ct.c_double,&#32;
+<anchor xml:id="_pgpecpp_8py_source_1l00408"/>00408 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ct.c_double,&#32;ct.c_double,&#32;ct.c_double,&#32;ct.c_double,&#32;
+<anchor xml:id="_pgpecpp_8py_source_1l00409"/>00409 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ct.c_bool,&#32;ct.POINTER(ct.c_double)]
+<anchor xml:id="_pgpecpp_8py_source_1l00410"/><link linkend="_namespacefcmaes_1_1pgpecpp_1af8da1cbe352bc1a796e5f15d878647f2">00410</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;
+<anchor xml:id="_pgpecpp_8py_source_1l00411"/><link linkend="_namespacefcmaes_1_1pgpecpp_1af356a4b052dd645eb6858407c6c30cca">00411</link> &#32;&#32;&#32;&#32;initPGPE_C&#32;=&#32;libcmalib.initPGPE_C
+<anchor xml:id="_pgpecpp_8py_source_1l00412"/>00412 &#32;&#32;&#32;&#32;initPGPE_C.argtypes&#32;=&#32;[ct.c_long,&#32;ct.c_int,&#32;ct.POINTER(ct.c_double),&#32;
+<anchor xml:id="_pgpecpp_8py_source_1l00413"/>00413 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ct.POINTER(ct.c_double),&#32;ct.POINTER(ct.c_double),&#32;ct.POINTER(ct.c_double),&#32;
+<anchor xml:id="_pgpecpp_8py_source_1l00414"/>00414 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ct.c_int,&#32;ct.c_long,&#32;ct.c_int,&#32;
+<anchor xml:id="_pgpecpp_8py_source_1l00415"/>00415 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ct.c_bool,&#32;ct.c_double,&#32;ct.c_double,&#32;ct.c_double,&#32;
+<anchor xml:id="_pgpecpp_8py_source_1l00416"/>00416 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ct.c_double,&#32;ct.c_double,&#32;ct.c_double,&#32;ct.c_double,&#32;
+<anchor xml:id="_pgpecpp_8py_source_1l00417"/>00417 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;ct.c_bool]
+<anchor xml:id="_pgpecpp_8py_source_1l00418"/>00418 &#32;&#32;&#32;&#32;
+<anchor xml:id="_pgpecpp_8py_source_1l00419"/><link linkend="_namespacefcmaes_1_1pgpecpp_1aee73bd986018e30ab0fef7ab6f5d8b18">00419</link> &#32;&#32;&#32;&#32;initPGPE_C.restype&#32;=&#32;ct.c_void_p&#32;&#32;&#32;
+<anchor xml:id="_pgpecpp_8py_source_1l00420"/>00420 &#32;&#32;&#32;&#32;
+<anchor xml:id="_pgpecpp_8py_source_1l00421"/>00421 &#32;&#32;&#32;&#32;destroyPGPE_C&#32;=&#32;libcmalib.destroyPGPE_C
+<anchor xml:id="_pgpecpp_8py_source_1l00422"/>00422 &#32;&#32;&#32;&#32;destroyPGPE_C.argtypes&#32;=&#32;[ct.c_void_p]
+<anchor xml:id="_pgpecpp_8py_source_1l00423"/>00423 &#32;&#32;&#32;&#32;
+<anchor xml:id="_pgpecpp_8py_source_1l00424"/>00424 &#32;&#32;&#32;&#32;askPGPE_C&#32;=&#32;libcmalib.askPGPE_C
+<anchor xml:id="_pgpecpp_8py_source_1l00425"/>00425 &#32;&#32;&#32;&#32;askPGPE_C.argtypes&#32;=&#32;[ct.c_void_p,&#32;ct.POINTER(ct.c_double)]
+<anchor xml:id="_pgpecpp_8py_source_1l00426"/>00426 &#32;&#32;&#32;&#32;
+<anchor xml:id="_pgpecpp_8py_source_1l00427"/><link linkend="_namespacefcmaes_1_1pgpecpp_1a5c33aa0b6c6e1fb0369e7516eacb5649">00427</link> &#32;&#32;&#32;&#32;tellPGPE_C&#32;=&#32;libcmalib.tellPGPE_C
+<anchor xml:id="_pgpecpp_8py_source_1l00428"/>00428 &#32;&#32;&#32;&#32;tellPGPE_C.argtypes&#32;=&#32;[ct.c_void_p,&#32;ct.POINTER(ct.c_double)]
+<anchor xml:id="_pgpecpp_8py_source_1l00429"/><link linkend="_namespacefcmaes_1_1pgpecpp_1a03df7e468c547553701bf0f0dc702b4f">00429</link> &#32;&#32;&#32;&#32;tellPGPE_C.restype&#32;=&#32;ct.c_int
+<anchor xml:id="_pgpecpp_8py_source_1l00430"/>00430 &#32;&#32;&#32;&#32;
+<anchor xml:id="_pgpecpp_8py_source_1l00431"/>00431 &#32;&#32;&#32;&#32;populationPGPE_C&#32;=&#32;libcmalib.populationPGPE_C
+<anchor xml:id="_pgpecpp_8py_source_1l00432"/><link linkend="_namespacefcmaes_1_1pgpecpp_1a89e498c3d796b4113e670e638aa85163">00432</link> &#32;&#32;&#32;&#32;populationPGPE_C.argtypes&#32;=&#32;[ct.c_void_p,&#32;ct.POINTER(ct.c_double)]
+<anchor xml:id="_pgpecpp_8py_source_1l00433"/>00433 &#32;&#32;&#32;&#32;
+<anchor xml:id="_pgpecpp_8py_source_1l00434"/>00434 &#32;&#32;&#32;&#32;resultPGPE_C&#32;=&#32;libcmalib.resultPGPE_C
+<anchor xml:id="_pgpecpp_8py_source_1l00435"/><link linkend="_namespacefcmaes_1_1pgpecpp_1a83964137647622f1ea94a90106b7fc85">00435</link> &#32;&#32;&#32;&#32;resultPGPE_C.argtypes&#32;=&#32;[ct.c_void_p,&#32;ct.POINTER(ct.c_double)]
+</programlisting></section>

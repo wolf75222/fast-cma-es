@@ -1,0 +1,185 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_md_doxygen-awesome-css_2docs_2tricks" xml:lang="en-US">
+<title>Tips &amp; Tricks</title>
+<indexterm><primary>Tips &amp; Tricks</primary></indexterm>
+
+<para><anchor xml:id="_md_doxygen-awesome-css_2docs_2tricks_1autotoc_md19"/></para>
+<section xml:id="_md_doxygen-awesome-css_2docs_2tricks_1tricks-graphviz">
+<title>Diagrams with Graphviz</title>
+<para>To get the best-looking class diagrams for your documentation, generate them with Graphviz as vector graphics with transparent background:</para>
+
+<para><literallayout><computeroutput>#&#32;Doxyfile
+HAVE_DOT&#32;=&#32;YES
+DOT_IMAGE_FORMAT&#32;=&#32;svg
+DOT_TRANSPARENT&#32;=&#32;YES
+</computeroutput></literallayout></para>
+
+<para>In case <computeroutput>INTERACTIVE_SVG = YES</computeroutput> is set in the Doxyfile, all user-defined dotgraphs must be wrapped with the <computeroutput>interactive_dotgraph</computeroutput> CSS class for them to be rendered correctly:</para>
+
+<para><literallayout><computeroutput>&lt;div&#32;class=&quot;interactive_dotgraph&quot;&gt;
+
+\dotfile&#32;graph.dot
+
+&lt;/div&gt;
+</computeroutput></literallayout></para>
+
+<para><note><title>Note</title>
+
+<para>Both the default overflow scrolling behavior in this theme and the interactive editor enabled by <computeroutput>INTERACTIVE_SVG</computeroutput> are unsatisfying workarounds IMHO. Consider designing your graphs to be narrow enough to fit the page to avoid scrolling.</para>
+</note>
+</para>
+</section>
+<section xml:id="_md_doxygen-awesome-css_2docs_2tricks_1tricks-darkmode">
+<title>Disable Dark Mode</title>
+<para>If you don&apos;t want the theme to automatically switch to dark mode depending on the browser preference, you can disable dark mode by adding the <computeroutput>light-mode</computeroutput> class to the HTML tag in the header template:</para>
+
+<para><literallayout><computeroutput>&lt;html&#32;xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&#32;class=&quot;light-mode&quot;&gt;
+</computeroutput></literallayout></para>
+
+<para>The same can be done to always enable dark mode:</para>
+
+<para><literallayout><computeroutput>&lt;html&#32;xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&#32;class=&quot;dark-mode&quot;&gt;
+</computeroutput></literallayout></para>
+
+<para><warning><title>Warning</title>
+
+<para>This only works if you don&apos;t use the dark-mode toggle extension.</para>
+</warning>
+</para>
+</section>
+<section xml:id="_md_doxygen-awesome-css_2docs_2tricks_1tricks-sidebar">
+<title>Choosing Sidebar Width</title>
+<para>If you have enabled the sidebar-only theme variant, make sure to carefully choose a proper width for your sidebar. It should be wide enough to hold the icon, project title and version number. If the content is too wide, it will be cut off.</para>
+
+<para><literallayout><computeroutput>html&#32;{
+&#32;&#32;&#32;&#32;/*&#32;Make&#32;sure&#32;sidebar&#32;is&#32;wide&#32;enough&#32;to&#32;contain&#32;the&#32;page&#32;title&#32;(logo&#32;+&#32;title&#32;+&#32;version)&#32;*/
+&#32;&#32;&#32;&#32;--side-nav-fixed-width:&#32;335px;
+}
+</computeroutput></literallayout></para>
+
+<para>The chosen width should also be set in the Doxyfile:</para>
+
+<para><literallayout><computeroutput>#&#32;Doxyfile
+TREEVIEW_WIDTH&#32;=&#32;335
+</computeroutput></literallayout></para>
+</section>
+<section xml:id="_md_doxygen-awesome-css_2docs_2tricks_1tricks-tables">
+<title>Formatting Tables</title>
+<para>By default tables in this theme are left-aligned and as wide as required to fit their content. Those properties can be changed for individual tables.</para>
+<section xml:id="_md_doxygen-awesome-css_2docs_2tricks_1autotoc_md20">
+<title>Centering</title>
+<para>Tables can be centered by wrapping them in the <computeroutput>&lt;center&gt;</computeroutput> HTML tag.</para>
+
+<para></para>
+
+<para><itemizedlist>
+<listitem>
+<para>Code <literallayout><computeroutput>&lt;center&gt;
+&#32;&#32;&#32;&#32;|&#32;This&#32;table&#32;|&#32;is&#32;centered&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;|
+&#32;&#32;&#32;&#32;|------------|----------------------|
+&#32;&#32;&#32;&#32;|&#32;test&#32;1&#32;&#32;&#32;&#32;&#32;|&#32;test&#32;2&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;|
+&lt;/center&gt;
+</computeroutput></literallayout></para>
+</listitem><listitem>
+<para>Result <informaltable frame='none'><tgroup cols='1'><colspec align='center'/><tbody><row><entry align='center'> <informaltable frame="all">
+    <tgroup cols="2" align="left" colsep="1" rowsep="1">
+      <colspec colname='c1'/>
+      <colspec colname='c2'/>
+<thead>
+      <row  class='markdownTableHead'>
+<entry>
+<para>This table   </para>
+</entry><entry>
+<para>is centered    </para>
+</entry></row>
+</thead><tbody>
+      <row  class='markdownTableRowOdd'>
+<entry>
+<para>test 1   </para>
+</entry><entry>
+<para>test 2   </para>
+</entry></row>
+    </tbody>
+    </tgroup>
+</informaltable>
+</entry></row></tbody></tgroup></informaltable></para>
+</listitem></itemizedlist>
+</para>
+
+<para></para>
+</section>
+<section xml:id="_md_doxygen-awesome-css_2docs_2tricks_1autotoc_md21">
+<title>Full Width</title>
+<para>To make tables span the full width of the page, no matter how wide the content is, wrap the table in the <computeroutput>full_width_table</computeroutput> CSS class.</para>
+
+<para><warning><title>Warning</title>
+
+<para>Apply with caution! This breaks the overflow scrolling of the table. Content might be cut off on small screens!</para>
+</warning>
+</para>
+
+<para><itemizedlist>
+<listitem>
+<para>Code <literallayout><computeroutput>&lt;div&#32;class=&quot;full_width_table&quot;&gt;
+&#32;&#32;&#32;&#32;|&#32;This&#32;table&#32;|&#32;spans&#32;the&#32;full&#32;width&#32;|
+&#32;&#32;&#32;&#32;|------------|----------------------|
+&#32;&#32;&#32;&#32;|&#32;test&#32;1&#32;&#32;&#32;&#32;&#32;|&#32;test&#32;2&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;|
+&lt;/div&gt;
+</computeroutput></literallayout></para>
+</listitem><listitem>
+<para>Result  <informaltable frame="all">
+    <tgroup cols="2" align="left" colsep="1" rowsep="1">
+      <colspec colname='c1'/>
+      <colspec colname='c2'/>
+<thead>
+      <row  class='markdownTableHead'>
+<entry>
+<para>This table   </para>
+</entry><entry>
+<para>spans the full width    </para>
+</entry></row>
+</thead><tbody>
+      <row  class='markdownTableRowOdd'>
+<entry>
+<para>test 1   </para>
+</entry><entry>
+<para>test 2   </para>
+</entry></row>
+    </tbody>
+    </tgroup>
+</informaltable>
+</para>
+</listitem></itemizedlist>
+</para>
+
+<para></para>
+
+<para></para>
+
+<para><informaltable frame="all">
+    <tgroup cols="2" align="left" colsep="1" rowsep="1">
+      <colspec colname='c1'/>
+      <colspec colname='c2'/>
+<thead>
+      <row  class='markdownTableHead'>
+<entry align='left'>
+<para>Previous   </para>
+</entry><entry align='right'>
+<para>Next    </para>
+</entry></row>
+</thead><tbody>
+      <row  class='markdownTableRowOdd'>
+<entry align='left'>
+<para><link linkend="_md_doxygen-awesome-css_2docs_2customization">Customization</link>   </para>
+</entry><entry align='right'>
+<para><link xlink:href="https://jothepro.github.io/doxygen-awesome-css/class_my_library_1_1_example.html">Example</link>   </para>
+</entry></row>
+    </tbody>
+    </tgroup>
+</informaltable>
+</para>
+
+<para> </para>
+</section>
+</section>
+</section>

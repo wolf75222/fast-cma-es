@@ -1,0 +1,274 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>Fast CMA-ES: examples/interferometry.py Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+window.MathJax = {
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  loader: {
+    load: ['[tex]/TeX/AMSmath','[tex]/TeX/AMSsymbols']
+  },
+  tex: {
+    macros: {},
+    packages: ['base','configmacros','TeX/AMSmath','TeX/AMSsymbols']
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/jothepro/doxygen-awesome-css" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="fcames.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Fast CMA-ES
+   &#160;<span id="projectnumber">1.6.11</span>
+   </div>
+   <div id="projectbrief">Fast Covariance Matrix Adaptation Evolution Strategy (CMA-ES) implementation in C++ and Python</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.13.2 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('interferometry_8py_source.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">interferometry.py</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="interferometry_8py.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1interferometry.html">    1</a></span><span class="comment"># Copyright (c) Dietmar Wolz.</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">#</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"># This source code is licensed under the MIT license found in the</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"># LICENSE file in the root directory.</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"># This code was posted on https://gitter.im/pagmo2/Lobby by </span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"># Markus Märtens @CoolRunning and is extended here by a </span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment"># fcmaes parallel differential evolution solver for comparison with the pagmo island concept.</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment"># Tested with miniconda using Python 3.8/3.10 on Linux</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment"># Corresponds to the equivalent python example</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment"># https://github.com/dietmarwo/fcmaes-java/blob/master/src/main/java/fcmaes/examples/Interferometry.java</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment"># The test image used is here: https://api.optimize.esa.int/data/interferometry/orion.jpg</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment"># Install dependencies:</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment"># do &quot;pip install scikit-image&quot;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="comment"># Tested using https://docs.conda.io/en/main/miniconda.html on Linux Mint 21.2</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">import</span> pygmo <span class="keyword">as</span> pg</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">from</span> time <span class="keyword">import</span> time</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">from</span> interferometry_udp <span class="keyword">import</span> Interferometry</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">from</span> fcmaes <span class="keyword">import</span> de, cmaes, retry, advretry</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">from</span> <a class="code hl_namespace" href="namespacefcmaes_1_1optimizer.html">fcmaes.optimizer</a> <span class="keyword">import</span> single_objective, de_cma_py, Cma_python, De_python, Cma_cpp, De_cpp, de_cma, Bite_cpp</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">import</span> sys </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">from</span> loguru <span class="keyword">import</span> logger</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>logger.remove()</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1interferometry.html#a4f82e920edf90012be4468c9b2ca878f">   29</a></span>logger.add(sys.stdout, format=<span class="stringliteral">&quot;{time:HH:mm:ss.SS} | {process} | {level} | {message}&quot;</span>, level=<span class="stringliteral">&quot;INFO&quot;</span>)</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>logger.add(<span class="stringliteral">&quot;log_{time}.txt&quot;</span>, format=<span class="stringliteral">&quot;{time:HH:mm:ss.SS} | {process} | {level} | {message}&quot;</span>, level=<span class="stringliteral">&quot;INFO&quot;</span>)</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1interferometry.html#a58061aa172c8b7502b21a633b5e32e77">   32</a></span>udp = <a class="code hl_class" href="classexamples_1_1interferometry__udp_1_1_interferometry.html">Interferometry</a>(11, <span class="stringliteral">&#39;./img/orion.jpg&#39;</span>, 512) </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment">#udp = Interferometry(5, &#39;./img/orion.jpg&#39;, 32)</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="foldopen" id="foldopen00035" data-start="" data-end="">
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1interferometry.html#a4d145c826df624e173c54c792e88ebe8">   35</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1interferometry.html#a4d145c826df624e173c54c792e88ebe8">archipelago</a>():    </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    print(<span class="stringliteral">&#39;interferometer sga archipelago&#39;</span>)</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    uda = pg.sga(gen = 50000)</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="comment"># instantiate an unconnected archipelago</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    archi = pg.archipelago(t = pg.topologies.unconnected())</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    t = time()</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordflow">for</span> _ <span class="keywordflow">in</span> range(8):</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        alg = pg.algorithm(uda)</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <span class="comment">#alg.set_verbosity(1)    </span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        prob = pg.problem(udp)</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        pop = pg.population(prob, 20)    </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        isl = pg.island(algo=alg, pop=pop)</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        archi.push_back(isl)   </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    archi.evolve()</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    archi.wait_check()</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    print(f<span class="stringliteral">&#39;archi: {time() - t:0.3f}s&#39;</span>)</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+</div>
+<div class="foldopen" id="foldopen00054" data-start="" data-end="">
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1interferometry.html#a73aab1174c417c8b5a55b336f223f95d">   54</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1interferometry.html#a73aab1174c417c8b5a55b336f223f95d">check_good_solution</a>():</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    fprob = <a class="code hl_class" href="classfcmaes_1_1optimizer_1_1single__objective.html">single_objective</a>(pg.problem(udp))</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="comment"># fval = 98.086 can you find a better solution?</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    x = [ -0.5016772016823452, 0.30751689551825745, 0.4323143278123409, 0.4588915028506375, 0.2935318720729294, </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>         0.35501406938728586, -0.12561001993113785, 0.49885034791382843, 0.624893109559642, -0.3038874087002077, </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>         -0.03467743910056187, 0.6006883618631653, 0.37736802000765257, 0.37867502641967277, 0.3714318987537504, </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>         0.3753384727157436, 0.3994622345786947, 0.3566850399605477, 0.36146540697265817, 0.547468916941172, </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>         0.38332007285093006, 0.37488058793892387 ]        </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    y = fprob.fun(x)</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    print(<span class="stringliteral">&#39;fval = &#39;</span> + str(y))</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    </div>
+</div>
+<div class="foldopen" id="foldopen00066" data-start="" data-end="">
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="namespaceexamples_1_1interferometry.html#add210e1c8397b3514e0f8db7459e950f">   66</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceexamples_1_1interferometry.html#add210e1c8397b3514e0f8db7459e950f">optimize</a>():   </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    fprob = <a class="code hl_class" href="classfcmaes_1_1optimizer_1_1single__objective.html">single_objective</a>(pg.problem(udp))</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    print(<span class="stringliteral">&#39;interferometer optimization&#39;</span>)</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>       </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="comment"># Python Differential Evolution implementation, uses ask/tell for parallel function evaluation.</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    ret = de.minimize(fprob.fun, bounds=fprob.bounds, workers=16, popsize=32, max_evaluations=50000)</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="comment"># Python CMAES implementation, uses ask/tell for parallel function evaluation.</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="comment">#ret = cmaes.minimize(fprob.fun, bounds=fprob.bounds, workers=16, popsize=32, max_evaluations=50000)</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="comment"># Parallel retry using DE    </span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="comment">#ret = retry.minimize(fprob.fun, bounds=fprob.bounds, optimizer=De_cpp(20000, popsize=32), workers=16, num_retries=64)</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="comment"># Parallel retry using Bite    </span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="comment"># ret = retry.minimize(fprob.fun, bounds=fprob.bounds, optimizer=Bite_cpp(20000, M=1), workers=16, num_retries=64)</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="comment"># Parallel retry using CMA-ES</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="comment">#ret = retry.minimize(udp.fitness, bounds=bounds, optimizer=Cma_cpp(20000, popsize=32), workers=16, num_retries=64)</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="comment"># Smart retry using DE</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="comment">#ret = advretry.minimize(fprob.fun, bounds=fprob.bounds, optimizer=De_cpp(1500, popsize=32), workers=16)</span></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="comment"># Smart retry using CMA-ES  </span></div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <span class="comment">#ret = advretry.minimize(fprob.fun, bounds=fprob.bounds, optimizer=Cma_cpp(1500, popsize=32), workers=16)</span></div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="comment"># Smart retry using DE-&gt;CMA sequence  </span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <span class="comment">#ret = advretry.minimize(fprob.fun, bounds=fprob.bounds, optimizer=de_cma(1500, popsize=32), workers=16)</span></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    print(<span class="stringliteral">&quot;best result is &quot;</span> + str(ret.fun) + <span class="stringliteral">&#39; x = &#39;</span> + <span class="stringliteral">&quot;, &quot;</span>.join(str(x) <span class="keywordflow">for</span> x <span class="keywordflow">in</span> ret.x))</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
+</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="keywordflow">if</span> __name__ == <span class="stringliteral">&#39;__main__&#39;</span>:</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <a class="code hl_function" href="namespaceexamples_1_1interferometry.html#add210e1c8397b3514e0f8db7459e950f">optimize</a>()</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="comment">#archipelago()</span></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="comment"># check_good_solution()</span></div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <span class="keywordflow">pass</span></div>
+<div class="ttc" id="aclassexamples_1_1interferometry__udp_1_1_interferometry_html"><div class="ttname"><a href="classexamples_1_1interferometry__udp_1_1_interferometry.html">examples.interferometry_udp.Interferometry</a></div><div class="ttdef"><b>Definition</b> <a href="interferometry__udp_8py_source.html#l00065">interferometry_udp.py:65</a></div></div>
+<div class="ttc" id="aclassfcmaes_1_1optimizer_1_1single__objective_html"><div class="ttname"><a href="classfcmaes_1_1optimizer_1_1single__objective.html">fcmaes.optimizer.single_objective</a></div><div class="ttdoc">Represents a wrapper for a single-objective optimization problem.</div><div class="ttdef"><b>Definition</b> <a href="optimizer_8py_source.html#l03157">optimizer.py:3157</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1interferometry_html_a4d145c826df624e173c54c792e88ebe8"><div class="ttname"><a href="namespaceexamples_1_1interferometry.html#a4d145c826df624e173c54c792e88ebe8">examples.interferometry.archipelago</a></div><div class="ttdeci">archipelago()</div><div class="ttdef"><b>Definition</b> <a href="#l00035">interferometry.py:35</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1interferometry_html_a73aab1174c417c8b5a55b336f223f95d"><div class="ttname"><a href="namespaceexamples_1_1interferometry.html#a73aab1174c417c8b5a55b336f223f95d">examples.interferometry.check_good_solution</a></div><div class="ttdeci">check_good_solution()</div><div class="ttdef"><b>Definition</b> <a href="#l00054">interferometry.py:54</a></div></div>
+<div class="ttc" id="anamespaceexamples_1_1interferometry_html_add210e1c8397b3514e0f8db7459e950f"><div class="ttname"><a href="namespaceexamples_1_1interferometry.html#add210e1c8397b3514e0f8db7459e950f">examples.interferometry.optimize</a></div><div class="ttdeci">optimize()</div><div class="ttdef"><b>Definition</b> <a href="#l00066">interferometry.py:66</a></div></div>
+<div class="ttc" id="anamespacefcmaes_1_1optimizer_html"><div class="ttname"><a href="namespacefcmaes_1_1optimizer.html">fcmaes.optimizer</a></div><div class="ttdef"><b>Definition</b> <a href="optimizer_8py_source.html#l00001">optimizer.py:1</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d28a4824dc47e487b107a5db32ef43c4.html">examples</a></li><li class="navelem"><a class="el" href="interferometry_8py.html">interferometry.py</a></li>
+    <li class="footer">Generated on Tue Jun 24 2025 15:36:03 for Fast CMA-ES by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+  </ul>
+</div>
+</body>
+</html>
