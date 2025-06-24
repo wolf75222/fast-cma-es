@@ -1,7 +1,40 @@
-# Copyright (c) Dietmar Wolz.
-#
-# This source code is licensed under the MIT license found in the
-# LICENSE file in the root directory.
+# -*- coding: utf-8 -*-
+"""
+=============================================================================
+
+ Fast CMA-ES - version 1.6.11
+
+ (c) 2025 – Dietmar Wolz
+ (c) 2025 – Latitude
+
+ License: MIT
+
+ File:
+  - advretry.py
+
+ Description:
+  - This module implements an advanced retry mechanism for optimization tasks
+    using the Fast CMA-ES algorithm. It provides functionality for parallel
+    evaluations, statistical tracking, and result persistence.
+  - The retry mechanism allows for multiple attempts to optimize a function
+    while managing resources efficiently. It supports parallel processing and
+    statistical analysis of the optimization process.
+
+ Authors:
+  - Dietmar Wolz
+  - romain.despoullains@latitude.eu
+  - corentin.generet@latitude.eu
+
+ References:
+  - [1] https://github.com/dietmarwo/fast-cma-es
+
+ Documentation:
+  -
+
+
+=============================================================================
+"""
+
 
 
 from __future__ import annotations
@@ -46,60 +79,40 @@ def minimize(fun: Callable[[ArrayLike], float],
              statistic_num: Optional[int] = 0,
              datafile: Optional[str]  = None
              ) -> OptimizeResult:
-    """Minimization of a scalar function of one or more variables using 
-    smart parallel optimization retry.
-     
-    Parameters
-    ----------
-    fun : callable
-        The objective function to be minimized.
-            ``fun(x) -> float``
-        where ``x`` is an 1-D array with shape (n,)
-    bounds : sequence or `Bounds`, optional
-        Bounds on variables. There are two ways to specify the bounds:
-            1. Instance of the `scipy.Bounds` class.
-            2. Sequence of ``(min, max)`` pairs for each element in `x`. None
-               is used to specify no bound.
-    value_limit : float, optional
-        Upper limit for optimized function values to be stored. 
-        This limit needs to be carefully set to a value which is seldom
-        found by optimization retry to keep the store free of bad runs.
-        The crossover offspring of bad parents can
-        cause the algorithm to get stuck at local minima.   
-    num_retries : int, optional
-        Number of optimization retries.    
-    workers : int, optional
-        number of parallel processes used. Default is mp.cpu_count()
-    popsize = int, optional
-        CMA-ES population size used for all CMA-ES runs. 
-        Not used for differential evolution. 
-        Ignored if parameter optimizer is defined. 
-    min_evaluations : int, optional 
-        Initial limit of the number of function evaluations. Only used if optimizer is undefined, 
-        otherwise this setting is defined in the optimizer. 
-    max_eval_fac : int, optional
-        Final limit of the number of function evaluations = max_eval_fac*min_evaluations
-    check_interval : int, optional
-        After ``check_interval`` runs the store is sorted and the evaluation limit
-        is incremented by ``evals_step_size``
-    capacity : int, optional
-        capacity of the evaluation store. Higher value means broader search.
-    stop_fitness : float, optional 
-         Limit for fitness value. optimization runs terminate if this value is reached. 
-    optimizer : optimizer.Optimizer, optional
-        optimizer to use. Default is a sequence of differential evolution and CMA-ES.
-        Since advanced retry sets the initial step size it works best if CMA-ES is 
-        used / in the sequence of optimizers. 
-    datafile, optional
-        file to persist / retrieve the internal state of the optimizations. 
-    
-    Returns
-    -------
-    res : scipy.OptimizeResult
-        The optimization result is represented as an ``OptimizeResult`` object.
-        Important attributes are: ``x`` the solution array, 
-        ``fun`` the best function value, ``nfev`` the number of function evaluations,
-        ``success`` a Boolean flag indicating if the optimizer exited successfully. """
+    """
+    Minimizes an objective function using a specified optimizer with options for retrying
+    and parallel evaluations, storing intermediate and final results.
+
+    Args:
+        fun (Callable[[ArrayLike], float]): The objective function to be minimized.
+            It should accept a single argument as an array-like structure and return
+            a float value representing the function evaluation.
+        bounds (Bounds): The bounds of the search space for the optimization problem.
+        value_limit (Optional[float]): The optional threshold for the objective function value.
+            If exceeded, the optimization process will terminate.
+        num_retries (Optional[int]): The number of retries allowed for optimization attempts.
+        workers (Optional[int]): The number of workers available for parallel computation.
+        popsize (Optional[int]): The size of the population in the optimization algorithm.
+        min_evaluations (Optional[int]): The minimum number of function evaluations to perform
+            before considering termination.
+        max_eval_fac (Optional[int]): The maximum number of evaluation factors allowed.
+        check_interval (Optional[int]): The interval at which evaluations are checked during
+            retries.
+        capacity (Optional[int]): The capacity of the storage to hold records and data
+            during optimization.
+        stop_fitness (Optional[float]): The stopping criteria for fitness. Optimization halts
+            if this value is achieved or surpassed.
+        optimizer (Optional[Optimizer]): The optimization algorithm to be used. If None is
+            provided, a default optimizer is created.
+        statistic_num (Optional[int]): The number of statistical records to maintain if required.
+        datafile (Optional[str]): The path to the file used to store or load intermediate
+            optimization data.
+
+    Returns:
+        OptimizeResult: The result of the optimization process, which includes details like
+            the best-found solution, its fitness value, and related metadata about the
+            optimization process.
+    """
 
     if optimizer is None:
         optimizer = de_cma(min_evaluations, popsize, stop_fitness)     
@@ -119,7 +132,28 @@ def retry(store: Store,
           value_limit:Optional[float] = np.inf, 
           workers=mp.cpu_count(), 
           stop_fitness = -np.inf) -> OptimizeResult:
-    
+    """
+    Retries the optimization process using multiple worker processes and random
+    number generators. This function parallelizes the optimization task, applies
+    a stopping criterion based on the provided fitness value, and selects the best
+    result from the optimization attempts.
+
+    Args:
+        store (Store): Stores results of optimization during the process.
+        optimize (Callable): The optimization function to be applied.
+        value_limit (Optional[float]): The upper limit for the function value
+            considered in optimization. Defaults to positive infinity (np.inf).
+        workers (int): The number of parallel workers to allocate for the process.
+            Defaults to the total number of CPU cores available.
+        stop_fitness (float): The stopping fitness criterion for the optimization
+            process. The optimization stops when this value is reached. Defaults
+            to negative infinity (-np.inf).
+
+    Returns:
+        OptimizeResult: The result of the optimization process containing the best
+        solution found (x), the fitness of this solution (fun), the number of
+        function evaluations (nfev), and a success flag (success).
+    """
     sg = SeedSequence()
     rgs = [Generator(PCG64DXSM(s)) for s in sg.spawn(workers)]
     proc=[Process(target=_retry_loop,
@@ -141,7 +175,34 @@ def minimize_plot(name: str,
                   workers: Optional[int] = mp.cpu_count(), 
                   stop_fitness: Optional[float] = -np.inf, 
                   statistic_num: Optional[int] = 5000) -> OptimizeResult:
-    
+    """
+    Minimizes an objective function using a specified optimizer and plots the optimization
+    progress. The function performs multiple retries, applies value and plot limits,
+    and saves the optimization improvements for further analysis.
+
+    Args:
+        name (str): The base name for the optimization run, used in logs and
+            output file names.
+        optimizer (Optimizer): The optimization algorithm instance to be used.
+        fun (Callable[[ArrayLike], float]): The objective function to minimize.
+        bounds (Bounds): Bounds for the input space of the optimization.
+        value_limit (Optional[float]): The threshold for the function value beyond
+            which the results are not considered. Defaults to infinity.
+        plot_limit (Optional[float]): The limit for the maximum function value to
+            include in the plot. Defaults to infinity.
+        num_retries (Optional[int]): The number of optimization retries allowed.
+            Defaults to 1024.
+        workers (Optional[int]): The number of parallel workers to use during
+            optimization. Defaults to the number of CPU cores available.
+        stop_fitness (Optional[float]): The fitness threshold to stop the
+            optimization early if reached. Defaults to negative infinity.
+        statistic_num (Optional[int]): The number of stored samples for statistical
+            analysis during optimization. Defaults to 5000.
+
+    Returns:
+        OptimizeResult: The results of the optimization, which include details on
+        the best solution found, its fitness, and other metrics.
+    """
     time0 = time.perf_counter() # optimization start time
     name += '_' + optimizer.name
     logger.info('optimize ' + name)       
@@ -158,8 +219,29 @@ def minimize_plot(name: str,
     return ret
  
 class Store(object):
-    """thread safe storage for optimization retry results; 
-    delivers boundary and initial step size vectors for advanced retry crossover operation."""
+    """
+    Manages the storing, evaluation, and tracking of data in an optimization problem.
+
+    The class enables handling function evaluations and implements tools for statistics
+    tracking, result persistence, and multiprocessing compatibility. It facilitates managing
+    optimization tasks with specific bounds, ensuring efficient computational resource usage
+    and tracking statistical progress over iterations.
+
+    Attributes:
+        fun (Callable[[ArrayLike], float]): The fitness function to be optimized.
+        lower (ArrayLike): The lower bounds for the optimization problem.
+        upper (ArrayLike): The upper bounds for the optimization problem.
+        delta (ArrayLike): The difference between upper and lower bounds.
+        capacity (int): Maximum storage capacity for evaluated results.
+        num_retries (int): Maximum number of retries during the optimization process.
+        eval_fac_incr (float): Increment factor for evaluation adjustments.
+        max_eval_fac (int): Maximum evaluation factor throughout the retries.
+        check_interval (int): Interval for sorting the evaluation store.
+        dim (int): Dimension of the optimization problem based on bounds.
+        t0 (float): Timestamp indicating the start of evaluations (used for timing statistics).
+        statistic_num (int): Number of statistical points maintained for tracking.
+        datafile (Optional[str]): Path to file for saving and loading data.
+    """
          
     def __init__(self, 
                  fun: Callable[[ArrayLike], float], # fitness function
@@ -171,6 +253,27 @@ class Store(object):
                  statistic_num: Optional[int] = 0,
                  datafile: Optional[str] = None
                ):
+        """
+        Initializes an instance of the class with parameters and attributes required for
+        managing function optimization within specified bounds using shared multiprocessing
+        resources. Sets up the evaluation store, statistic tracking, and random generator.
+
+        Args:
+            fun: A fitness function to be optimized. It takes an array-like input and returns
+                a float value.
+            bounds: Bounds of the objective function arguments defined as an instance of the
+                Bounds class.
+            max_eval_fac: Optional; Maximum number of evaluations factor. Defaults to None. If
+                None, it is calculated based on `num_retries` and `check_interval`.
+            check_interval: Optional; Number of iterations after which the evaluation store is
+                sorted. Defaults to 100.
+            capacity: Optional; Capacity of the evaluation store. Defaults to 500.
+            num_retries: Optional; Maximum number of retries allowed. If None, it is calculated
+                based on `max_eval_fac` and `check_interval`. Defaults to None.
+            statistic_num: Optional; Number of statistics points to be maintained for tracking.
+                Set to 0 to disable statistics. Defaults to 0.
+            datafile: Optional; Path to a file for saving/loading relevant data. Defaults to None.
+        """
         self.fun = fun
         self.lower, self.upper = _convertBounds(bounds)
         self.delta = self.upper - self.lower      
@@ -218,6 +321,17 @@ class Store(object):
 
     # register improvement - time and value
     def wrapper(self, x: ArrayLike) -> float:
+        """
+        Wrapper function to evaluate a given function, update statistics, and log the
+        results. It is typically used in optimization procedures to monitor evaluations
+        and track progress over iterations.
+
+        Args:
+            x (ArrayLike): The input array to evaluate the function.
+
+        Returns:
+            float: The evaluated function output for the given input array.
+        """
         y = self.fun(x)
         self.sevals.value += 1
         if y < self.bval.value:
@@ -235,14 +349,42 @@ class Store(object):
                     
     # persist store
     def save(self, name: str):
-        with bz2.BZ2File(name + '.pbz2', 'w') as f: 
+        """
+        Saves the current data of the instance to a compressed file using bz2 and cPickle modules.
+
+        The method compresses and serializes the data obtained from `get_data` and saves
+        it to a file with the specified name appended by the '.pbz2' extension.
+
+        Args:
+            name (str): The desired name for the output file, excluding the extension.
+        """
+        with bz2.BZ2File(name + '.pbz2', 'w') as f:
             cPickle.dump(self.get_data(), f)
 
     def load(self, name: str):
+        """Loads and processes data from a compressed file.
+
+        This method allows loading data from a file compressed with BZ2 and serialized
+        with cPickle. After loading, the data is processed or assigned using the
+        `set_data` method of the instance.
+
+        Args:
+            name (str): The name of the file (without extension) to load data from.
+        """
         data = cPickle.load(bz2.BZ2File(name + '.pbz2', 'rb'))
         self.set_data(data)
   
     def get_data(self) -> List:
+        """
+        Retrieves and aggregates data from various attributes and methods.
+
+        This method gathers data by calling several other methods and accessing a specific
+        attribute. It consolidates these pieces of data into a single list and returns it.
+
+        Returns:
+            List: A list containing data from `get_xs()`, `get_ys()`, `get_x_best()`,
+            `get_y_best()` methods, and the `num_stored.value` attribute.
+        """
         data = []
         data.append(self.get_xs())
         data.append(self.get_ys())
@@ -252,6 +394,18 @@ class Store(object):
         return data
         
     def set_data(self, data: ArrayLike):
+        """
+        Sets the data for an internal storage structure and processes it.
+
+        Args:
+            data (ArrayLike): A multi-dimensional array-like structure containing:
+                - data[0]: The x-coordinates.
+                - data[1]: The y-coordinates.
+                - data[2]: A subset of best x-coordinates.
+                - data[3]: The best y-coordinate.
+                - data[4]: The total count of stored elements.
+
+        """
         xs = data[0]
         ys = data[1]
         for i in range(len(ys)):
@@ -262,10 +416,39 @@ class Store(object):
         self.sort()
                
     def get_improvements(self) -> np.ndarray:
+        """
+        Calculates and returns an array of improvements based on stored time and value data.
+
+        The method processes the time and value attributes up to the index defined by `si.value`
+        and combines them into a structured NumPy array. It allows extracting the corresponding
+        values and improvements over the determined slice of the data.
+
+        Returns:
+            np.ndarray: A NumPy array containing pairs of time and value up to `si.value`.
+        """
         return np.array(list(zip(self.time[:self.si.value], self.val[:self.si.value])))
  
     # get num best values at evenly distributed times
     def get_statistics(self, num: int) -> List:
+        """
+        Calculates and returns a list of statistics determined by evenly dividing the provided
+        time series data into a specified number of segments.
+
+        This function processes time series and value arrays to calculate specific statistics
+        based on the distribution of data over a fixed number of intervals. It uses the time
+        array to sample the values array at designated points, ensuring that the result represents
+        data distributed across the defined segments.
+
+        Args:
+            num (int): The number of segments into which the time series data will be divided.
+
+        Returns:
+            List: A list containing the computed statistics based on the segmented intervals of
+            the time series data.
+
+        Raises:
+            IndexError: If the number of segments exceeds the number of available data points.
+        """
         ts = self.time[:self.si.value]
         vs = self.val[:self.si.value]
         mt = ts[-1]
@@ -281,10 +464,43 @@ class Store(object):
         return stats
                                     
     def eval_num(self, max_evals: int) -> int:
+        """
+        Calculates the evaluation number based on a multiplier and maximum evaluations.
+
+        This method computes the product of a multiplier (`eval_fac.value`) and the
+        provided maximum evaluations (`max_evals`). The result is cast to an integer
+        and returned.
+
+        Args:
+            max_evals (int): The maximum number of evaluations.
+
+        Returns:
+            int: The calculated evaluation number.
+        """
         return int(self.eval_fac.value * max_evals)
                                                
     def limits(self) -> Tuple[float, np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
-        """guess, boundaries and initial step size for crossover operation."""
+        """
+        Returns the limits and other related calculations used for determining bounds
+        during operations like crossover and mutation. The function calculates adjusted
+        bounds, scaled deviations, and other factors based on the input variables, making
+        use of random factors and mutex locks for thread safety.
+
+        Args:
+            None
+
+        Returns:
+            Tuple[float, numpy.ndarray, numpy.ndarray, numpy.ndarray, numpy.ndarray]:
+            A tuple containing the following elements:
+              - A float value representing the initial target point y0.
+              - A NumPy array representing the point x1 selected for crossover.
+              - A NumPy array representing the calculated lower bounds for crossover.
+              - A NumPy array representing the calculated upper bounds for crossover.
+              - A NumPy array representing the scaled standard deviations for crossover.
+
+        Raises:
+            None
+        """
         diff_fac = self.rg.uniform(0.5, 1.0)
         lim_fac =  self.rg.uniform(2.0, 4.0) * diff_fac
         with self.add_mutex:
@@ -302,17 +518,52 @@ class Store(object):
         sdev = np.clip(diff_fac * deltax / self.delta, 0.001, 0.5)        
         return y0, x1, lower, upper, sdev
                  
-    def distance(self, xprev: np.ndarray, x: np.ndarray) -> float: 
-        """distance between entries in store."""
+    def distance(self, xprev: np.ndarray, x: np.ndarray) -> float:
+        """
+        Calculates the normalized distance between two points in a Euclidean space.
+
+        The distance is normalized based on the difference between two points, scaled
+        by a pre-defined parameter `delta`, and divided by the square root of the
+        number of dimensions (`dim`).
+
+        Args:
+            xprev (np.ndarray): A numpy array representing the previous point.
+            x (np.ndarray): A numpy array representing the current point.
+
+        Returns:
+            float: The normalized distance between `xprev` and `x`.
+        """
         return norm((x - xprev) / self.delta) / math.sqrt(self.dim)
         
     def replace(self, i: int, y: float, x: np.ndarray):
-        """replace entry in store."""
+        """
+        Replaces the y and x values at a specified index.
+
+        This method updates the y and x values in the object's internal data structure at the index
+        provided by the user.
+
+        Args:
+            i (int): Index at which to set the new y and x values.
+            y (float): The new value for y to be set at the specified index.
+            x (np.ndarray): The new value for x to be set at the specified index.
+        """
         self.set_y(i, y)
         self.set_x(i, x)
  
     def crossover(self) -> Tuple[int,int]: # Choose two good entries for recombination
-        """indices of store entries to be used for crossover operation."""
+        """
+        Selects two good entries for recombination based on a probabilistic threshold.
+
+        This method attempts to choose two distinct indices from a pool based on a
+        random limit derived from the current number of stored entries. The method
+        performs several attempts to identify these indices under the defined constraints.
+        If successful, it returns the selected indices; otherwise, it returns default
+        values indicating no valid selection.
+
+        Returns:
+            Tuple[int, int]: A tuple containing two indices selected for recombination.
+            If the selection fails, returns (-1, -1).
+        """
         n = self.num_stored.value
         if n < 2:
             return -1, -1
@@ -329,9 +580,21 @@ class Store(object):
                         return i1, i2
         return -1, -1
             
-    def sort(self) -> int: 
-        """sorts all store entries, keep only the 90% best to make room for new ones;
-        skip entries having similar x values than their neighbors to preserve diversity"""
+    def sort(self) -> int:
+        """
+        Sorts and updates stored data based on the given criteria.
+
+        The method sorts the stored data `ys` in ascending order of their values. It ensures
+        diversity by selecting specific data points that meet the distance threshold from the
+        two most recently added elements. It then updates the stored data to retain only the
+        best 90% of the sorted elements up to the storage capacity.
+
+        Returns:
+            int: The updated number of stored elements.
+
+        Raises:
+            ValueError: If the number of stored elements is less than 2.
+        """
         ns = self.num_stored.value
         if ns < 2:
             return
@@ -356,7 +619,22 @@ class Store(object):
         return ns
 
     def add_result(self, y: float, x: np.ndarray, evals: int, limit: Optional[float] = np.inf):
-        """registers an optimization result at the store."""
+        """
+        Adds a result to the current optimization process, updating the best result if
+        necessary and storing the new result in the internal data structure.
+
+        This method is designed to handle updates in a thread-safe manner. It increments
+        the number of evaluations, checks if the new result is within the given limit,
+        and updates the best result as well as the storage if the criteria are met. If the
+        storage reaches its capacity, it triggers a sorting operation to maintain order.
+
+        Args:
+            y (float): The result value to be added.
+            x (np.ndarray): The array representing input parameters corresponding to the result.
+            evals (int): The number of evaluations associated with this result.
+            limit (Optional[float]): The threshold value. Results with a value greater than
+                this limit are ignored. Defaults to infinity.
+        """
         with self.add_mutex:
             self.count_evals.value += evals
             if y < limit:
@@ -374,37 +652,152 @@ class Store(object):
                 self.num_stored.value = ns + 1
       
     def get_x_best(self) -> np.ndarray:
+        """
+        Returns a copy of the best solutions stored in the internal state.
+
+        This method retrieves the best solution(s) found, which are stored
+        internally, and returns a copy of the data to avoid unintentional
+        modifications to the original data.
+
+        Returns:
+            np.ndarray: A numpy array containing the best solution(s).
+        """
         return np.array(self.best_x[:])
 
     def get_x(self, pid) -> np.ndarray:
+        """
+        Retrieves a segment of the `xs` array corresponding to the provided `pid`.
+
+        Args:
+            pid (int): Index used to calculate the segment.
+
+        Returns:
+            np.ndarray: The segment of the `xs` array.
+        """
         return self.xs[pid*self.dim:(pid+1)*self.dim]
 
     def get_xs(self)-> np.ndarray:
+        """
+        Builds and returns an array of x values stored in the object.
+
+        This method iterates over the number of stored x values and retrieves each
+        value using the `get_x` method. The retrieved values are then compiled into
+        a NumPy array, which is returned.
+
+        Returns:
+            np.ndarray: A NumPy array containing the retrieved x values.
+        """
         return np.array([self.get_x(i) for i in range(self.num_stored.value)])
 
     def get_y(self, pid: int) -> float:
+        """
+        Fetches a value for a given ID from a dictionary of float values.
+
+        This method retrieves a corresponding float value from the `ys` dictionary
+        based on the provided integer ID. The dictionary `ys` maps integer IDs to
+        float values. The function returns the float value associated with the
+        supplied `pid`.
+
+        Args:
+            pid (int): The unique identifier used to fetch a value from the `ys`
+                dictionary.
+
+        Returns:
+            float: The value corresponding to the provided `pid` from the `ys`
+                dictionary.
+        """
         return self.ys[pid]
 
     def get_ys(self) -> np.ndarray:
+        """
+        Gets the stored y-values up to the specified count.
+
+        This method retrieves the portion of the y-values list that corresponds to
+        the count determined by `num_stored.value`. The result is returned as a
+        NumPy array.
+
+        Returns:
+            np.ndarray: A NumPy array containing the stored y-values up to the specified count.
+        """
         return np.array(self.ys[:self.num_stored.value])
 
     def get_y_best(self) -> float:
+        """
+        Returns the best value of y stored in the `best_y` attribute.
+
+        The function accesses the `best_y` attribute and retrieves its value
+        as a float.
+
+        Returns:
+            float: The best value of y.
+        """
         return self.best_y.value
 
     def get_count_evals(self) -> int:
+        """
+        Retrieves the value of the evaluation count.
+
+        This method accesses the `count_evals` attribute and returns its integer
+        value. It is primarily intended to report the current count of evaluations
+        stored in the `count_evals` attribute.
+
+        Returns:
+            int: The current evaluation count stored in `count_evals`.
+        """
         return self.count_evals.value
   
     def get_count_runs(self) -> int:
+        """
+        Retrieves the count of runs.
+
+        This method returns the value of the `count_runs` attribute, representing
+        the total count of runs made.
+
+        Returns:
+            int: The value of the `count_runs` attribute.
+        """
         return self.count_runs.value
 
     def set_x(self, pid, xs):
+        """
+        Sets a subset of the `xs` list for a specific process ID.
+
+        This function updates a section of the `xs` attribute corresponding to a
+        particular process ID (`pid`) based on the provided input values.
+
+        Args:
+            pid: Process ID whose section in `xs` is to be updated.
+            xs: List of values to update in the specific section of `xs` for the given
+                process ID.
+        """
         self.xs[pid*self.dim:(pid+1)*self.dim] = xs[:]
 
     def set_y(self, pid, y):
+        """
+        Sets the value of y for a given pid within the 'ys' mapping.
+
+        Modifies the associated value of y in the dictionary 'ys' for the
+        provided process identifier (pid). This method stores or updates
+        the y value tied to a specific pid.
+
+        Args:
+            pid: Identifier for the process whose y value is being set.
+            y: The value to associate with the given pid in the 'ys' mapping.
+        """
         self.ys[pid] = y
 
     def get_runs_compare_incr(self, limit: float) -> bool:
-        """trigger sorting after check_interval calls. """
+        """
+        Compares the current count of runs against a specified limit and increments internal
+        counters accordingly if the limit is not exceeded.
+
+        Args:
+            limit (float): The upper threshold to compare against the current count of runs.
+
+        Returns:
+            bool: True if the current count is less than the limit and the increment operation was
+            performed. False otherwise.
+        """
         with self.add_mutex:
             if self.count_runs.value < limit:
                 self.count_runs.value += 1
@@ -417,7 +810,20 @@ class Store(object):
                 return False 
 
     def dump(self):
-        """logs the current status of the store if logger defined."""
+        """
+        Logs a summary of the execution metrics and current status.
+
+        This method collects relevant metrics about the execution process and generates a
+        formatted log message to provide insights into the current state. Metrics such as
+        evaluation counts, best and worst outcomes, and a snapshot of the best solutions are
+        included in the message.
+
+        Args:
+            None
+
+        Returns:
+            None
+        """
         Ys = self.get_ys()
         vals = []
         for i in range(min(20, len(Ys))):
@@ -429,7 +835,27 @@ class Store(object):
             vals, self.best_x[:])
         logger.info(message)
    
-def _retry_loop(pid, rgs, store, optimize, value_limit, stop_fitness = -np.inf):  
+def _retry_loop(pid, rgs, store, optimize, value_limit, stop_fitness = -np.inf):
+    """
+    Retries a loop for optimization until stopping criteria are met.
+
+    The function performs optimization processes in a loop, sampling solutions and evaluating their
+    fitness to improve a defined objective within bounds. It also incorporates handling parallel
+    executions for optimization using private random generator and thread limits.
+
+    Args:
+        pid (int): The process or thread identifier for parallel computation.
+        rgs (List[RandomState]): A list of random generator states that control the stochastic
+            behavior of each process or thread.
+        store (Store): The shared data store, containing optimization inherent details like lower
+            and upper bounds, number of retries, best fitness achieved, and statistical configurations.
+        optimize (Callable): The optimization function responsible for processing sample solutions
+            and measuring fitness outcomes.
+        value_limit (float): The maximum value allowed for a solution, restricting unacceptable
+            outliers in the results.
+        stop_fitness (float): The fitness threshold at which the optimization ceases if exceeded
+            by best achieved fitness. Defaults to negative infinity.
+    """
     fun = store.wrapper if store.statistic_num > 0 else store.fun
     #with threadpoolctl.threadpool_limits(limits=1, user_api="blas"):
     while store.get_runs_compare_incr(store.num_retries) and store.best_y.value > stop_fitness:
@@ -445,6 +871,25 @@ def _retry_loop(pid, rgs, store, optimize, value_limit, stop_fitness = -np.inf):
             continue
  
 def _crossover(fun, store, optimize, rg):
+    """
+    Performs a crossover operation to optimize a function.
+
+    This function attempts to optimize a given function using an optimization
+    strategy by utilizing the provided parameters and probabilistic logic to decide
+    whether crossover should be performed. It uses the specified random generator
+    and optimization function, and updates the solution store upon successful
+    optimization completion.
+
+    Args:
+        fun: The objective function to be optimized.
+        store: An object that stores limits, results, and other related data.
+        optimize: A callable function used to perform the optimization.
+        rg: A random generator for probabilistic decisions and randomness during
+            the optimization process.
+
+    Returns:
+        bool: True if the optimization process completes successfully; False otherwise.
+    """
     if rg.uniform(0,1) < 0.5:
         return False
     y0, guess, lower, upper, sdev = store.limits()

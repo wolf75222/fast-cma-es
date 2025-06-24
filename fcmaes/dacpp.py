@@ -1,12 +1,40 @@
-# Copyright (c) Dietmar Wolz.
-#
-# This source code is licensed under the MIT license found in the
-# LICENSE file in the root directory.
-
-""" Eigen based implementation of dual annealing.
-    Derived from https://github.com/scipy/scipy/blob/master/scipy/optimize/_dual_annealing.py.
-    Local search is fixed to LBFGS-B
+# -*- coding: utf-8 -*-
 """
+=============================================================================
+
+ Fast CMA-ES - version 1.6.11
+
+ (c) 2025 – Dietmar Wolz
+ (c) 2025 – Latitude
+
+ License: MIT
+
+ File:
+  - dacpp.py
+
+ Description:
+  - Eigen based implementation of dual annealing.
+  - Derived from [2].
+  - Local search is fixed to LBFGS-B.
+
+
+ Authors:
+  - Dietmar Wolz
+  - romain.despoullains@latitude.eu
+  - corentin.generet@latitude.eu
+
+ References:
+  - [1] https://github.com/dietmarwo/fast-cma-es
+  - [2] https://github.com/scipy/scipy/blob/master/scipy/optimize/_dual_annealing.py
+
+ Documentation:
+  -
+
+
+=============================================================================
+"""
+
+
 
 import sys
 import os
@@ -27,43 +55,35 @@ def minimize(fun: Callable[[ArrayLike], float],
              max_evaluations: Optional[int] = 100000, 
              use_local_search: Optional[bool] = True,
              rg: Optional[Generator] = Generator(PCG64DXSM()),
-             runid: Optional[int] = 0) -> OptimizeResult:   
+             runid: Optional[int] = 0) -> OptimizeResult:
 
-    """Minimization of a scalar function of one or more variables using a 
-    C++ Dual Annealing implementation called via ctypes.
-     
-    Parameters
-    ----------
-    fun : callable
-        The objective function to be minimized.
-            ``fun(x) -> float``
-        where ``x`` is an 1-D array with shape (dim,)
-    bounds : sequence or `Bounds`, optional
-        Bounds on variables. There are two ways to specify the bounds:
-            1. Instance of the `scipy.Bounds` class.
-            2. Sequence of ``(min, max)`` pairs for each element in `x`. None
-               is used to specify no bound.
-    x0 : ndarray, shape (dim,)
-        Initial guess. Array of real elements of size (dim,),
-        where 'dim' is the number of independent variables.  
-    max_evaluations : int, optional
-        Forced termination after ``max_evaluations`` function evaluations.
-    use_local_search : bool, optional
-        If true local search is performed.
-    rg = numpy.random.Generator, optional
-        Random generator for creating random guesses.
-    runid : int, optional
-        id used to identify the run for debugging / logging. 
-            
-    Returns
-    -------
-    res : scipy.OptimizeResult
-        The optimization result is represented as an ``OptimizeResult`` object.
-        Important attributes are: ``x`` the solution array, 
-        ``fun`` the best function value, 
-        ``nfev`` the number of function evaluations,
-        ``nit`` the number of iterations,
-        ``success`` a Boolean flag indicating if the optimizer exited successfully. """
+    """
+    Minimizes a given function using Differential Annealing (DA) algorithm with optional
+    local search. This function is a Python interface to an underlying C implementation.
+
+    Args:
+        fun: The objective function to be minimized. It should accept a 1-D array-like
+            object as input and return a float.
+        bounds: Optional bounds for the variables as an instance of `scipy.optimize.Bounds`.
+            This defines the lower and upper bounds of the search space.
+        x0: Optional initial guess for the solution as a 1-D array-like object.
+            If not provided, it will be generated randomly within the bounds.
+        max_evaluations: Maximum number of function evaluations allowed. Default is 100000.
+        use_local_search: Whether to perform local search after the main optimization
+            (True) or not (False). Default is True.
+        rg: Random number generator instance for reproducibility. Defaults to
+            `numpy.random.Generator(PCG64DXSM())`.
+        runid: Optional identifier for the optimization run. Defaults to 0.
+
+    Returns:
+        OptimizeResult: The optimization result represented as a `scipy.optimize.OptimizeResult` object.
+            This object includes the found solution, function value at the solution, number of
+            function evaluations (nfev), number of iterations (nit), the status of the optimization,
+            and a success flag.
+
+    Raises:
+        Exception: If an unexpected error occurs during the optimization process.
+    """
                 
     lower, upper, guess = _check_bounds(bounds, x0, rg)   
     dim = guess.size

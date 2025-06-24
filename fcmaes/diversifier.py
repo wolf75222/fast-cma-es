@@ -1,27 +1,55 @@
-# Copyright (c) Dietmar Wolz.
-#
-# This source code is licensed under the MIT license found in the
-# LICENSE file in the root directory.
+# -*- coding: utf-8 -*-
+"""
+=============================================================================
+
+ Fast CMA-ES - version 1.6.11
+
+ (c) 2025 – Dietmar Wolz
+ (c) 2025 – Latitude
+
+ License: MIT
+
+ File:
+  - diversifier.py
+
+ Description:
+  - Numpy based implementation of an diversifying wrapper / parallel retry mechanism.
+
+    Uses the archive from CVT MAP-Elites [2] to maintain a set of diverse solutions
+    and generalizes ideas from CMA-ME [3]
+    to other wrapped algorithms.
+
+    Both the parallel retry and the archive based modification of the fitness
+    function enhance the diversification of the optimization result.
+    The resulting archive may be stored and can be used to continue the
+    optimization later.
+
+    Requires a QD-fitness function returning both an fitness value and a
+    behavior vector used to determine the corresponding archive niche using
+    Voronoi tesselation.
+
+    Returns an archive of niche-elites containing also for each niche statistics
+    about the associated solutions.
+
+
+ Authors:
+  - Dietmar Wolz
+  - romain.despoullains@latitude.eu
+  - corentin.generet@latitude.eu
+
+ References:
+  - [1] https://github.com/dietmarwo/fast-cma-es
+  - [2] https://arxiv.org/abs/1610.05729
+  - [3] https://arxiv.org/pdf/1912.02400.pdf
+
+ Documentation:
+  -
+
+
+=============================================================================
+"""
 from __future__ import annotations
 
-""" Numpy based implementation of an diversifying wrapper / parallel retry mechanism. 
-
-Uses the archive from CVT MAP-Elites (https://arxiv.org/abs/1610.05729)
-and generalizes ideas from CMA-ME (https://arxiv.org/pdf/1912.02400.pdf)
-to other wrapped algorithms. 
-
-Both the parallel retry and the archive based modification of the fitness 
-function enhance the diversification of the optimization result.
-The resulting archive may be stored and can be used to continue the
-optimization later.   
-
-Requires a QD-fitness function returning both an fitness value and a
-behavior vector used to determine the corresponding archive niche using
-Voronoi tesselation. 
-
-Returns an archive of niche-elites containing also for each niche statistics 
-about the associated solutions.     
-"""
 
 import numpy as np
 from numpy.random import Generator, PCG64DXSM, SeedSequence
@@ -51,57 +79,40 @@ def minimize(qd_fitness: Callable[[ArrayLike], Tuple[float, np.ndarray]],
             opt_params: Optional[Dict] = {},
             use_stats: Optional[bool] = False,            
             ) -> Archive:
-    
-    """Wraps an fcmaes optmizer/solver by hijacking its tell function.
-    Works as CVT Map-Elites in maintaining an archive of diverse elites. 
-    But this archive is not used to derive solution vectors, but to reevaluate them. 
-    For each fitness result it determines its niche. The "told" fitness is
-    determined relative to its local elite. If it is better the evaluated solution
-    becomes the new niche-elite.  
-    This way the wrapped solver is "tricked" to follow a QD-goal: Finding empty niches
-    and improving all niches. This works not only for CMA-ES, but also for other 
-    solvers: DE, CR-FM-NES and PGPE. Both their Python and C++ versions are supported. 
-     
-    Parameters
-    ----------
-    solver : evolutionary algorithm, needs to support ask/tell 
-    qd_fitness : callable
-        The objective function to be minimized. Returns a fitness value and a behavior vector. 
-            ``qd_fitness(x) -> float, array``
-        where ``x`` is an 1-D array with shape (n,)
-    bounds : `Bounds`
-        Bounds on variables. Instance of the `scipy.Bounds` class.
-    qd_bounds : `Bounds`
-        Bounds on behavior descriptors. Instance of the `scipy.Bounds` class.        
-    niche_num : int, optional
-        Number of niches.
-    samples_per_niche : int, optional
-        Number of samples used for niche computation. 
-        If samples_per_niche > 0 cvt-clustering is used, else grid-clustering is used. 
-    max_evals : int, optional
-        Number of fitness evaluations.
-    workers : int, optional
-        Number of spawned parallel worker processes.
-    archive : Archive, optional
-        If defined MAP-elites is continued for this archive.
-    opt_params : dictionary, optional (or a list/tuple/array of these)
-        Parameters selecting and configuring the wrapped solver.
-        'solver' - supported are 'CMA','CMA_CPP','CRMFNES','CRMFNES_CPP','DE','DE_CPP','PGPE'
-                    default is 'CMA_CPP'
-        'popsize' - population size, default = 32
-        'sigma' -  initial distribution sigma, default = rg.uniform(0.03, 0.3)**2)
-        'mean' - initial distribution mean, default=rg.uniform(bounds.lb, bounds.ub)) 
-        'max_evals' - maximal number of evaluations per run, default = 50000
-        'stall_criterion' - how many iterations without progress allowed, default = 50 iterations 
-        If a list/tuple/array of parameters are given, the corresponding solvers are called in a 
-        sequence.      
-    use_stats : bool, optional 
-        If True, archive accumulates statistics of the solutions
-                
-    Returns
-    -------
-    archive : Archive
-        Resulting archive of niches. Can be stored for later continuation of MAP-elites."""
+
+    """
+    Performs parallel optimization to minimize the fitness function with a focus on
+    quality-diversity. The function initializes an archive that stores optimal
+    inputs and their fitness values, organizes the records into defined niches,
+    and carries out optimization using parallel processing.
+
+    Args:
+        qd_fitness: Callable fitness function that takes an input array and returns
+            a tuple containing a scalar objective value and an array of descriptor
+            values.
+        bounds: Bounds object defining the lower and upper bounds of the search
+            space.
+        qd_bounds: Bounds object defining the lower and upper bounds for the
+            quality-diversity archive.
+        niche_num: Optional; The number of niches to partition the archive.
+            Default is 10000.
+        samples_per_niche: Optional; The number of samples to initialize in each
+            niche. Default is 20.
+        max_evals: Optional; The maximum number of function evaluations. If not
+            provided, the default is workers * 50000.
+        workers: Optional; The number of parallel processes to use. Default is the
+            number of CPU cores available.
+        archive: Optional; An existing archive object to initialize the optimization
+            process. If not provided, a new archive is created.
+        opt_params: Optional; A dictionary of parameters used by the optimization
+            function. Default is an empty dictionary.
+        use_stats: Optional; A flag to determine whether to track statistical
+            properties within the archive. Default is False.
+
+    Returns:
+        Archive: An archive object containing the optimized results, including
+            fitness values and descriptors.
+    """
 
     if max_evals is None:
         max_evals = workers*50000
@@ -131,44 +142,38 @@ def apply_advretry(fitness: Callable[[ArrayLike], float],
                    xs: Optional[np.ndarray] = None,
                    ys: Optional[np.ndarray] = None,
                    x_conv: Callable[[ArrayLike], ArrayLike] = None):
-        
-    """Unifies the QD world with traditional optimization. It converts
-    a QD-archive into a multiprocessing store used by the fcmaes smart
-    boundary management meta algorithm (advretry). Then advretry is applied
-    to find the global optimum. Finally the updated store is feed back into
-    the QD-archive. For this we need a descriptor generating function 
-    'descriptors' which may require reevaluation of the new solutions.  
-        
-    Parameters
-    ----------
-    solver : evolutionary algorithm, needs to support ask/tell 
-    fitness : callable
-        The objective function to be minimized. Returns a fitness value. 
-            ``fitness(x) -> float``
-    qf_fun : callable
-        Generates the descriptors for a solution. Returns a behavior vector. 
-            ``descriptors(x) -> array``
-        where ``x`` is an 1-D array with shape (n,)
-    bounds : `Bounds`
-        Bounds on variables. Instance of the `scipy.Bounds` class.
-    archive : Archive
-        Improves the solutions if this archive.
-    optimizer : optimizer.Optimizer, optional
-        Optimizer to use. Default is a sequence of differential evolution and CMA-ES.
-    num_retries : int, optional
-        Number of optimization runs.
-    workers : int, optional
-        Number of spawned parallel worker processes.
-    max_eval_fac : int, optional
-        Final limit of the number of function evaluations = max_eval_fac*min_evaluations  
-    xs : ndarray, optional
-        Used to initialize advretry. If undefined the archive content is used. 
-        If xs is defined, ys must be too
-    ys : ndarray, optional
-        Used to initialize advretry. If undefined the archive content is used.  
-    x_conv : callable, optional
-        If defined converts the x in xs to solutions suitable for the given archive.
-        If undefined it is assumed that the x in xs are valid archive solutons.   
+
+    """
+    Applies an advanced retry mechanism to optimize solutions for a given fitness function
+    and update an archive with optimized results.
+
+    This function manages an iterative process where previously computed solutions from
+    an archive are refined and optimized using a specified optimizer. Advanced retry logic
+    is utilized to ensure the process effectively minimizes the given fitness function
+    within the defined bounds and constraints.
+
+    Args:
+        fitness: Callable that evaluates the fitness of a solution. Must return a
+            floating-point fitness score for a given input.
+        qd_fitness: Callable that evaluates the quality-diversity of a solution. Returns
+            a tuple where the first item is the fitness value (float) and the second item is
+            a feature descriptor (e.g., NumPy array).
+        bounds: Boundary constraints for the optimization process.
+        archive: Archive object that stores and manages solutions.
+        optimizer: Optional optimizer to be used for the minimization process. If none,
+            defaults to a DE-CMA optimizer with 1500 iterations.
+        num_retries: Optional integer setting the number of retries allowed in
+            advanced retry logic. Defaults to 1000.
+        workers: Optional integer specifying the number of workers for parallelization.
+            Defaults to the number of CPUs available.
+        max_eval_fac: Optional floating-point factor setting the maximum allowed
+            fitness function evaluations per retry. Defaults to 5.0.
+        xs: Optional NumPy array containing a set of previously obtained solutions.
+            If none, solutions are derived from the archive's current entries.
+        ys: Optional NumPy array containing fitness values corresponding to `xs`.
+            If none, fitness values are derived from the archive's entries.
+        x_conv: Optional callable to transform or convert solutions (`xs`) before
+            evaluating their quality-diversity fitness. If none, no transformation is applied.
     """
 
     if optimizer is None:
@@ -206,6 +211,33 @@ def apply_advretry(fitness: Callable[[ArrayLike], float],
                  f'mean {np.mean(ys):.3f} stdev {np.std(ys):.3f} time {dtime(t0)} s')    
 
 def minimize_parallel_(archive, fitness, bounds, workers, opt_params, max_evals):
+    """
+    Minimizes a fitness function in parallel using multiple workers.
+
+    This function utilizes multiprocessing to divide the workload of minimizing
+    a fitness function across several worker processes. Each worker operates
+    independently using its own random number generator, and the results are
+    combined to find the minimum value.
+
+    Args:
+        archive: Object or structure used to store and manage state or intermediate
+            results during the optimization process. Details of its structure or
+            behavior depend on the implementation.
+        fitness: Callable that evaluates the fitness or cost function to be
+            minimized. Accepts input variables and returns a numerical value
+            representing the cost/fitness.
+        bounds: Defines the boundaries within which the optimization process is
+            allowed to search. Typically, this can be a list of tuples specifying
+            the lower and upper bounds for each dimension.
+        workers: Integer specifying the number of parallel workers (processes) to
+            execute the fitness function evaluation and optimization tasks.
+        opt_params: Parameters or configuration values required for the optimization
+            method. Includes details specific to the optimization algorithm being
+            employed.
+        max_evals: Integer representing the maximum number of fitness function
+            evaluations allowed across all worker processes in total.
+
+    """
     sg = SeedSequence()
     rgs = [Generator(PCG64DXSM(s)) for s in sg.spawn(workers)]
     evals = mp.RawValue(ct.c_long, 0)
@@ -215,7 +247,27 @@ def minimize_parallel_(archive, fitness, bounds, workers, opt_params, max_evals)
     [p.start() for p in proc]
     [p.join() for p in proc]
                     
-def run_minimize_(archive, fitness, bounds, rg, opt_params, p, workers, evals, max_evals):  
+def run_minimize_(archive, fitness, bounds, rg, opt_params, p, workers, evals, max_evals):
+    """
+    Executes the optimization processes involving MAP-Elites or solvers in a sequential or
+    multiple configuration depending on the provided optimization parameters. The method adapts
+    to the given `opt_params`, evaluating various solvers until the maximum number of allowed
+    evaluations (`max_evals`) is reached.
+
+    Args:
+        archive: Archive object used for storing solutions and managing population niches.
+        fitness: A callable fitness function used to evaluate solutions.
+        bounds: Boundary constraints associated with the problem.
+        rg: Random generator for deterministic random processes.
+        opt_params: Optimization parameters, which can be in the form of a dictionary, list,
+            tuple, or NumPy array.
+        p: Integer indicating the number of processing resources available.
+        workers: Integer specifying the number of worker threads or processes allocated for
+            solver execution.
+        evals: A shared counter object tracking the current total number of evaluations performed.
+        max_evals: Maximum allowed number of evaluations over the optimization processes.
+
+    """
     with threadpoolctl.threadpool_limits(limits=1, user_api="blas"):
         if isinstance(opt_params, (list, tuple, np.ndarray)):
             default_workers = int(workers/2) if len(opt_params) > 1 else workers
@@ -243,7 +295,34 @@ def run_minimize_(archive, fitness, bounds, rg, opt_params, p, workers, evals, m
 
 from fcmaes.mapelites import variation_,  iso_dd_
                 
-def run_map_elites_(archive, fitness, bounds, rg, evals, max_evals, opt_params = {}):    
+def run_map_elites_(archive, fitness, bounds, rg, evals, max_evals, opt_params = {}):
+    """
+    Executes the MAP-Elites algorithm for a given archive and fitness function.
+
+    The function iteratively generates a population of individuals, applies variation
+    operators on them, evaluates their fitness, and updates the archive with the newly
+    generated individuals. It can utilize either simulated binary crossover (SBX) or isolation
+    distribution crossover (ISO/DD) depending on the specified optimization parameters.
+    Additionally, the function includes boundaries for the search space and adjusts the
+    archive to maintain its capacity.
+
+    Args:
+        archive (object): The data structure representing the archive of solutions.
+        fitness (callable): The fitness function to evaluate each solution.
+        bounds (object): The search space bounds containing lower (`lb`) and upper (`ub`)
+            limits for variables.
+        rg (numpy.random.Generator): Random number generator for stochastic operations.
+        evals (object): Object to track the number of evaluations performed.
+        max_evals (int): Maximum number of evaluations allowed for the algorithm.
+        opt_params (dict, optional): A dictionary of optional parameters for optimization.
+            Includes:
+            - popsize (int): Population size for the algorithm (default: 32).
+            - use_sbx (bool): Whether to use simulated binary crossover (default: True).
+            - dis_c (float): Distribution index for simulated binary crossover (SBX) (default: 20).
+            - dis_m (float): Distribution index for mutation (default: 20).
+            - iso_sigma (float): Standard deviation for isotropic distribution (default: 0.01).
+            - line_sigma (float): Standard deviation for line distribution (default: 0.2).
+    """
     popsize = opt_params.get('popsize', 32)  
     use_sbx = opt_params.get('use_sbx', True)     
     dis_c = opt_params.get('dis_c', 20)   
@@ -268,7 +347,34 @@ def run_map_elites_(archive, fitness, bounds, rg, evals, max_evals, opt_params =
         archive.argsort()   
         select_n = archive.get_occupied()  
 
-def minimize_(archive, fitness, bounds, rg, evals, max_evals, opt_params, x0 = None): 
+def minimize_(archive, fitness, bounds, rg, evals, max_evals, opt_params, x0 = None):
+    """
+    Minimizes a given objective function using an evolutionary algorithm or the B.I.T.E. solver.
+
+    The function determines the solver type based on the provided optimization parameters
+    and runs the optimization process accordingly. It continuously updates an archive
+    of candidate solutions and evaluates their fitness while adhering to the specified
+    evaluation and iteration limits. A stopping condition is also applied based on lack
+    of improvement.
+
+    Args:
+        archive: Archive object for storing solution candidates and their respective
+            fitness evaluations.
+        fitness: Callable representing the fitness function or objective
+            function to be minimized.
+        bounds: Bounds or constraints for the solution search space.
+        rg: Random number generator to ensure reproducibility.
+        evals: A mutable object, typically an integer, tracking the number of
+            evaluations performed.
+        max_evals: Integer specifying the maximum number of fitness evaluations to allow.
+        opt_params: Dictionary containing optimization parameters, such as solver type
+            and stopping criteria.
+        x0: Optional initial guess or starting point for the optimization process.
+
+    Returns:
+        The best found solution, represented as a real-valued array,
+        that optimizes the provided fitness function.
+    """
     if 'BITE_CPP' == opt_params.get('solver'):
         return run_bite_(archive, fitness, bounds, rg, evals, max_evals, opt_params, x0 = None)
     else:
@@ -303,11 +409,52 @@ def minimize_(archive, fitness, bounds, rg, evals, max_evals, opt_params, x0 = N
 
 from fcmaes import cmaes, cmaescpp, crfmnescpp, pgpecpp, decpp, crfmnes, de, bitecpp
 
-def run_bite_(archive, fitness, bounds, rg, evals, max_evals, opt_params, x0 = None):  
+def run_bite_(archive, fitness, bounds, rg, evals, max_evals, opt_params, x0 = None):
+    """
+    Runs the BiteOpt algorithm to optimize a given fitness function.
+
+    The function utilizes the BiteOpt implementation from bitecpp
+    to minimize the provided fitness function over the given bounds and constraints.
+    It supports dynamic updates to the solution archive and stops execution
+    based on a defined maximum evaluation limit or optimization parameters.
+
+    Args:
+        archive: An archive to keep track of the solution space explored during the optimization process.
+        fitness: A callable that takes an input, evaluates it, and returns a fitness value.
+        bounds: The variable bounds for the optimization problem.
+        rg: A random generator instance to ensure reproducibility in the optimization process.
+        evals: An object containing a mutable integer used to track the number of evaluations performed.
+        max_evals: An integer defining the maximum number of evaluations before the optimization halts.
+        opt_params: A dictionary containing optimization parameters such as 'max_evals' and 'stall_criterion'.
+        x0: Optional starting point for the optimization. Defaults to None.
+
+    Returns:
+        The optimized solution vector obtained from BiteOpt.
+    """
     # BiteOpt doesn't support ask/tell, so we have to "patch" fitness. Note that Voronoi 
     # tesselation is more expensive if called for single behavior vectors and not for batches. 
     
     def fit(x: Callable[[ArrayLike], float]):
+        """
+        Evaluates a given function with constraints on a maximum number of evaluations.
+
+        This function checks if the given number of evaluations exceeds the permitted
+        maximum before proceeding. If the threshold is not surpassed, it updates the
+        archive with the computed fitness values and returns the fitness of the evaluated
+        input.
+
+        Args:
+            x: A callable function that takes an ArrayLike input and returns a float
+                representing the fitness value.
+
+        Returns:
+            float: The computed fitness value of the input `x`. If the maximum allowed
+            evaluations are reached, returns infinity.
+
+        Raises:
+            ValueError: If the input function (or its return value) does not align with
+            the expected structure or type definitions during processing.
+        """
         if evals.value >= max_evals:
             return np.inf
         evals.value += 1
@@ -323,6 +470,29 @@ def run_bite_(archive, fitness, bounds, rg, evals, max_evals, opt_params, x0 = N
     return ret.x   
 
 def get_solver_(bounds, opt_params, rg, x0 = None):
+    """
+    Selects and initializes the appropriate optimization solver based on the specified
+    parameters. The solver is chosen from a set of predefined options, and it is configured
+    with the given dimensions, bounds, mean, population size, and other solver-specific
+    parameters.
+
+    Args:
+        bounds: Object representing the bounds for the optimization problem. It provides
+            attributes like lower bounds (`lb`) and upper bounds (`ub`).
+        opt_params: Dictionary containing optional solver parameters, such as:
+            - 'popsize': Population size
+            - 'sigma': Step size
+            - 'mean': Initial mean position
+            - 'solver': Name of the solver to use, e.g., 'CMA', 'CMA_CPP', etc.
+        rg: Random number generator for initializing values within the specified bounds
+            or for stochastic components of the solver.
+        x0: Optional starting position for the optimization. Overrides the `mean` parameter
+            if provided.
+
+    Returns:
+        The initialized optimization solver object if the specified solver name is valid.
+        Returns `None` if an invalid solver name is provided.
+    """
     dim = len(bounds.lb)
     popsize = opt_params.get('popsize', 31) 
     #sigma = opt_params.get('sigma',rg.uniform(0.03, 0.3)**2)

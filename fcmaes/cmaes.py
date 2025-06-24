@@ -1,11 +1,41 @@
-# Copyright (c) Dietmar Wolz.
-#
-# This source code is licensed under the MIT license found in the
-# LICENSE file in the root directory.
+# -*- coding: utf-8 -*-
+"""
+=============================================================================
 
-""" Numpy based implementation of active CMA-ES.
-    Derived from http://cma.gforge.inria.fr/cmaes.m which follows
-    https://www.researchgate.net/publication/227050324_The_CMA_Evolution_Strategy_A_Comparing_Review
+ Fast CMA-ES - version 1.6.11
+
+ (c) 2025 – Dietmar Wolz
+ (c) 2025 – Latitude
+
+ License: MIT
+
+ File:
+  - cmaes.py
+
+ Description:
+  - This module implements the Covariance Matrix Adaptation Evolution Strategy (CMA-ES)
+    for optimization tasks. It provides a framework for minimizing scalar functions
+    using evolutionary strategies, with support for parallel execution and adaptive
+    stopping criteria.
+  - The implementation is based on the original CMA-ES algorithm and has been optimized
+    for performance using NumPy and SciPy libraries.
+
+
+ Authors:
+  - Dietmar Wolz
+  - romain.despoullains@latitude.eu
+  - corentin.generet@latitude.eu
+
+ References:
+  - [1] https://github.com/dietmarwo/fast-cma-es
+  - [2] http://cma.gforge.inria.fr/cmaes.m
+  - [3] https://www.researchgate.net/publication/227050324_The_CMA_Evolution_Strategy_A_Comparing_Review
+
+ Documentation:
+  -
+
+
+=============================================================================
 """
 
 import sys
@@ -41,57 +71,53 @@ def minimize(fun: Callable[[ArrayLike], float],
              runid: Optional[int] = 0,
              normalize: Optional[bool] = True,
              update_gap: Optional[int] = None) -> OptimizeResult:
-    """Minimization of a scalar function of one or more variables using CMA-ES.
-     
-    Parameters
-    ----------
-    fun : callable
-        The objective function to be minimized.
-            ``fun(x) -> float``
-        where ``x`` is an 1-D array with shape (n,)
-    bounds : sequence or `Bounds`, optional
-        Bounds on variables. There are two ways to specify the bounds:
-            1. Instance of the `scipy.Bounds` class.
-            2. Sequence of ``(min, max)`` pairs for each element in `x`. None
-               is used to specify no bound.
-    x0 : ndarray, shape (n,)
-        Initial guess. Array of real elements of size (n,),
-        where 'n' is the number of independent variables.  
-    input_sigma : ndarray, shape (n,) or scalar
-        Initial step size for each dimension.
-    popsize = int, optional
-        CMA-ES population size.
-    max_evaluations : int, optional
-        Forced termination after ``max_evaluations`` function evaluations.
-    max_iterations : int, optional
-        Forced termination after ``max_iterations`` iterations.
-    workers : int or None, optional
-        If workers > 1, function evaluation is performed in parallel for the whole population. 
-        Useful for costly objective functions but is deactivated for parallel retry.      
-    accuracy : float, optional
-        values > 1.0 reduce the accuracy.
-    stop_fitness : float, optional 
-         Limit for fitness value. If reached minimize terminates.
-    is_terminate : callable, optional
-        Callback to be used if the caller of minimize wants to 
-        decide when to terminate. 
-    rg = numpy.random.Generator, optional
-        Random generator for creating random guesses.
-    runid : int, optional
-        id used by the is_terminate callback to identify the CMA-ES run. 
-    normalize : boolean, optional
-        pheno -> if true geno transformation maps arguments to interval [-1,1] 
-    update_gap : int, optional
-        number of iterations without distribution update
-   
-    Returns
-    -------
-    res : scipy.OptimizeResult
-        The optimization result is represented as an ``OptimizeResult`` object.
-        Important attributes are: ``x`` the solution array, 
-        ``fun`` the best function value, ``nfev`` the number of function evaluations,
-        ``nit`` the number of CMA-ES iterations, ``status`` the stopping critera and
-        ``success`` a Boolean flag indicating if the optimizer exited successfully. """
+    """
+    Minimizes a scalar function using the Covariance Matrix Adaptation Evolution
+    Strategy (CMA-ES) algorithm.
+
+    This function is designed to handle optimization tasks for non-linear, non-convex,
+    and possibly noisy objective functions. It supports parallel execution via workers,
+    normalization of the input search space, and adaptive stopping criteria based on given
+    conditions.
+
+    Args:
+        fun (Callable[[ArrayLike], float]): The objective function to be minimized.
+            It should take an input array and return a scalar value.
+        bounds (Optional[Bounds]): The lower and upper bounds for the search space.
+            If None, the search space is considered unbounded.
+        x0 (Optional[ArrayLike]): Initial solution guess. If None, an initial guess
+            will be generated randomly.
+        input_sigma (Optional[Union[float, ArrayLike, Callable]]): The initial
+            standard deviation for the sampling. Can be float, array, or callable.
+        popsize (Optional[int]): The population size for the CMA-ES algorithm.
+            Defaults to 31.
+        max_evaluations (Optional[int]): Maximum number of function evaluations
+            allowed. Defaults to 100,000.
+        max_iterations (Optional[int]): Maximum number of iterations allowed
+            for the algorithm. Defaults to 100,000.
+        workers (Optional[int]): Number of parallel processes to be used. If set
+            to 1 or less, the algorithm will run in serial mode. Defaults to 1.
+        accuracy (Optional[float]): The accuracy tolerance used to adjust the
+            optimization stopping criteria. Defaults to 1.0.
+        stop_fitness (Optional[float]): Objective function value at which the
+            optimization process is terminated if reached. Defaults to -infinity.
+        is_terminate (Optional[Callable[[ArrayLike, float], bool]]): Custom
+            termination condition provided as a callable. Defaults to None.
+        rg (Optional[Generator]): The random number generator to be used. Defaults
+            to `Generator(PCG64DXSM())`.
+        runid (Optional[int]): Identifier for the optimization run. Defaults to 0.
+        normalize (Optional[bool]): Indicates if the search space should be normalized.
+            Defaults to True.
+        update_gap (Optional[int]): Interval for delayed updates in the algorithm.
+            If None, updates are not delayed.
+
+    Returns:
+        OptimizeResult: Object containing the results of the optimization. Includes
+            the optimized solution (`x`), the minimized function value (`fun`),
+            number of function evaluations (`nfev`), number of iterations (`nit`),
+            algorithm exit status (`status`), and success flag (`success`).
+
+    """
   
     if workers is None or workers <= 1:
         fun = serial(fun)        
@@ -109,7 +135,11 @@ def minimize(fun: Callable[[ArrayLike], float],
                           success=True)
 
 class Cmaes(object):
-    """Implements the cma-es ask/tell interactive interface."""
+    """
+    Optimization solver implementing the Covariance Matrix Adaptation Evolution Strategy (CMA-ES).
+
+    The CMA-ES algorithm is an evolutionary strategy for solving complex optimization problems. This
+    class is used to configure and execute the"""
     
     def __init__(self, bounds: Optional[Bounds] = None,
                         x0: Optional[ArrayLike] = None,
@@ -127,7 +157,43 @@ class Cmaes(object):
                         update_gap: Optional[int] = None,
                         fun: Optional[Callable[[ArrayLike], float]] = None
                         ):
-                        
+        """
+        Initializes the optimizer with user-defined or default parameters.
+
+        This constructor sets up the configuration for the optimization process. Users can customize the
+        initial state, population size, termination criteria, and other critical parameters to tune the
+        algorithm's behavior. The initialization process also ensures that random generation settings are
+        appropriately defined or defaulted.
+
+        Args:
+            bounds (Optional[Bounds]): Specifies the boundaries within which the optimization will occur.
+            x0 (Optional[ArrayLike]): Initial guess or starting point for optimization.
+            input_sigma (Optional[Union[float, ArrayLike, Callable]]): Initial standard deviation of the
+                distribution used in the optimization process, with a default value of 0.3.
+            popsize (Optional[int]): Population size for the evolutionary algorithm; default is 31.
+            max_evaluations (Optional[int]): Maximum number of function evaluations allowed during the
+                optimization process; default is 100000.
+            max_iterations (Optional[int]): Maximum number of optimization iterations; default is 100000.
+            accuracy (Optional[int]): Desired accuracy or precision level for the optimization process, with
+                a default value of 1.0.
+            stop_fitness (Optional[float]): Fitness value at which the optimization terminates early. The
+                default is negative infinity (-np.inf), implying no fitness-based stopping criterion.
+            is_terminate (Optional[bool]): Flag indicating whether early termination criteria are defined.
+            rg (Optional[Generator]): A generator object for random number generation, used if x0 is
+                undefined; the default is Generator(PCG64DXSM()).
+            randn (Optional[Callable]): Function for generating random offspring during the optimization
+                process; default is `np.random.randn`.
+            runid (Optional[int]): Identifier for the optimization run, useful for tracking multiple runs;
+                default is 0.
+            normalize (Optional[bool]): Flag indicating whether inputs should be normalized during the
+                process; default is True.
+            update_gap (Optional[int]): Frequency of updating certain parameters or values in the
+                optimization process.
+            fun (Optional[Callable[[ArrayLike], float]]): Objective function to be minimized or maximized.
+                This function should accept an array-like input and return a float value representing
+                the objective value.
+        """
+
     # runid used in is_terminate callback to identify a specific run at different iteration
         self.runid = runid
     # bounds and guess
@@ -253,30 +319,41 @@ class Cmaes(object):
         self.fitness = None
 
     def ask(self) -> np.array:
-        """ask for popsize new argument vectors.
-            
-        Returns
-        -------
-        xs : popsize sized list of dim sized argument lists."""
+        """
+        Generates a NumPy array by decoding elements in the current data structure.
+
+        The method processes elements stored in the internal structure, applies a decoding
+        mechanism via the fitfun's decode method, and produces an array containing the results.
+
+        Args:
+            self: Instance of the class containing necessary properties and methods to execute
+                the decoding logic.
+
+        Returns:
+            np.array: A NumPy array containing the decoded elements.
+        """
 
         self.newArgs()
         return np.array([self.fitfun.decode(x) for x in self.arx])
  
     def tell(self, 
              ys: np.ndarray, 
-             xs: Optional[np.ndarray] = None) -> int:      
-        """tell function values for the argument lists retrieved by ask().
-    
-        Parameters
-        ----------
-        ys : popsize sized list of function values
-        xs : popsize sized list of dim sized argument lists, optional
-            use only if you want to submit values for arguments not from ask()
-            Needs either to be defined, or ask needs to be called before. 
- 
-        Returns
-        -------
-        stop : int termination criteria, if != 0 loop should stop."""
+             xs: Optional[np.ndarray] = None) -> int:
+        """
+        Processes the input function values and updates the internal state of the CMA-ES algorithm.
+
+        Args:
+            ys (np.ndarray): An array of objective function values corresponding to the solutions.
+            xs (Optional[np.ndarray]): An optional array of candidate solutions. If not provided,
+                must have `arz` defined or `ask` must have been called prior.
+
+        Returns:
+            int: The stop condition value indicating the status of the CMA-ES run.
+
+        Raises:
+            ValueError: If `xs` is None and `arz` is not defined or `ask` has not been previously
+                called.
+        """
 
         if xs is None:
             if self.arz is None:
@@ -296,19 +373,59 @@ class Cmaes(object):
         return self.stop
     
     def population(self) -> np.array:
+        """
+        Decodes the given array of representations into their respective solutions.
+
+        This method utilizes the decoding function defined by the `fitfun` attribute to
+        convert the input array `arx` into a population of solutions. The returned value
+        is the decoded representation of the input data.
+
+        Returns:
+            np.array: Decoded population solutions.
+        """
         return self.fitfun.decode(self.arx)
 
     def result(self) -> OptimizeResult:
-        return OptimizeResult(x=self.best_x, fun=self.best_value, 
+        """
+        Returns the optimization result containing the details of the optimization process.
+
+        The result is an instance of `OptimizeResult`, which summarizes the outcome
+        of the optimization, including the final optimum, function values, and
+        additional side information.
+
+        Args:
+            self: The instance of the class containing the optimization process data.
+
+        Returns:
+            OptimizeResult: A dataclass containing the following attributes:
+                - x: The best solution found during the optimization process.
+                - fun: The value of the function at the best solution.
+                - nfev: The number of function evaluations performed.
+                - nit: The total number of iterations performed.
+                - status: The status code indicating the stopping condition.
+                - success: A boolean value indicating if the optimization was
+                  successful.
+
+        """
+        return OptimizeResult(x=self.best_x, fun=self.best_value,
                               nfev=self.fitfun.evaluation_counter, 
                               nit=self.iterations, status=self.stop, success=True)
         
     def ask_one(self) -> np.array:
-        """ask for one new argument vector.
-        
-        Returns
-        -------
-        x : dim sized argument ."""
+        """
+        Generates a single decoded solution vector based on the current distribution.
+
+        This method utilizes the generated random numbers and transformation matrices to
+        produce a candidate solution vector that adheres to feasibility constraints, while
+        decoding it through the associated objective function.
+
+        Args:
+            self: Instance of the class containing current state for generating a
+                feasible and decoded solution vector.
+
+        Returns:
+            np.array: A decoded feasible solution vector.
+        """
         arz = self.randn(self.dim) 
         delta = (self.BD @ arz.transpose()) * self.sigma
         arx = self.fitfun.closestFeasible(self.xmean + delta.transpose())  
@@ -316,17 +433,22 @@ class Cmaes(object):
 
     def tell_one(self,
                  y: float, 
-                 x: np.array) -> int:      
-        """tell function value for a argument list retrieved by ask_one().
-    
-        Parameters
-        ----------
-        y : function value
-        x : dim sized argument list
- 
-        Returns
-        -------
-        stop : int termination criteria, if != 0 loop should stop."""
+                 x: np.array) -> int:
+        """
+        Processes the given fitness value and solution vector, performs updates
+        to internal data structures, and logs progress during optimization.
+
+        This function evaluates and integrates a solution (x) and its corresponding
+        fitness value (y), updating the CMA-ES optimization state when the required
+        population size is reached.
+
+        Args:
+            y: A float representing the fitness value of the solution.
+            x: A numpy array containing the solution.
+
+        Returns:
+            An integer indicating whether the optimization process should stop.
+        """
 
         if self.fitness is None or not type(self.fitness) is list:
             self.arx = []
@@ -360,13 +482,49 @@ class Cmaes(object):
         return self.stop                
            
     def newArgs(self):
+        """
+        Generates a new population of candidate solutions for optimization.
+
+        The method produces random offspring solutions based on the current mean and the
+        covariance matrix of the search distribution. These offspring are then adjusted
+        to ensure they are closest to feasible solutions within the search space.
+
+        Args:
+            self: The instance of the class invoking this method.
+        """
         # generate random offspring
         self.arz = self.randn(self.popsize, self.dim)    
         delta = (self.BD @ self.arz.transpose()) * self.sigma
         self.arx = self.fitfun.closestFeasible(self.xmean + delta.transpose())  
     
     def do_optimize_delayed_update(self, fun, max_evals=None, workers=mp.cpu_count()):
-        if not max_evals is None: 
+        """
+        Optimizes a given function asynchronously with delayed updates.
+
+        This method performs optimization by evaluating the function in parallel.
+        It uses a worker-based approach where several evaluations of `fun` are
+        performed simultaneously to explore the parameter space. The results
+        are processed iteratively to determine the best solution based on the given
+        optimization criteria.
+
+        Args:
+            self: Represents the instance of the class in which this function is
+                defined.
+            fun: Callable optimization objective function to be minimized or maximized.
+            max_evals: Optional; Maximum number of evaluations to perform. If not
+                provided, the default value of `self.max_evaluations` is used.
+            workers: Optional; The number of parallel workers to use for evaluating
+                the objective function. Defaults to the number of CPU cores.
+
+        Returns:
+            tuple: A tuple containing:
+                - best_x: The best solution found for the input function.
+                - best_value: The best function value found.
+                - evals: The total number of evaluations performed.
+                - iterations: The number of iterations completed during optimization.
+                - stop: The stop condition or code signaling the termination reason.
+        """
+        if not max_evals is None:
             self.max_evaluations =  max_evals
         evaluator = Evaluator(fun)
         evaluator.start(workers)
@@ -395,6 +553,23 @@ class Cmaes(object):
         return self.best_x, self.best_value, evals, self.iterations, self.stop 
          
     def doOptimize(self):
+        """
+        Performs an optimization process within a generation loop until termination
+        conditions are met. This method repeatedly generates candidate solutions,
+        evaluates them using the objective function, updates the optimization state,
+        and checks for stopping criteria.
+
+        Args:
+            self:
+
+        Returns:
+            tuple: A tuple containing the following elements:
+                - best_x: The best solution found during the optimization process.
+                - best_value: The objective function value of the best solution.
+                - fitfun.evaluation_counter: Total number of evaluations performed.
+                - iterations: Total number of iterations executed.
+                - stop: Stop flag indicating the reason for termination.
+        """
         # -------------------- Generation Loop --------------------------------
         while True:
             if self.iterations > self.max_iterations:
@@ -410,7 +585,20 @@ class Cmaes(object):
         return self.best_x, self.best_value, self.fitfun.evaluation_counter, self.iterations, self.stop 
         
     def updateCMA(self):
-        # Stop for Nan / infinite fitness values 
+        """
+        Updates the evolutionary process using the Covariance Matrix Adaptation (CMA)
+        strategy. This method handles the main operational logic for adaptive step-size
+        control, selection, recombination, fitness evaluation, constraint checking, and
+        diverse termination criteria during the optimization.
+
+        Args:
+            self: Instance of the class to which this method belongs.
+
+        Returns:
+            int: Returns -1 if the fitness values contain NaN or infinite entries;
+            otherwise, returns nothing.
+        """
+        # Stop for Nan / infinite fitness values
         if np.isfinite(self.fitness).sum() < self.popsize:
             return -1
         # Sort by fitness and compute weighted mean into xmean
@@ -484,16 +672,23 @@ class Cmaes(object):
         return       
     
     def updateEvolutionPaths(self, zmean, xold):
-        """update evolution paths.
-    
-        Parameters
-        ----------
-        zmean: weighted row matrix of the gaussian random numbers generating the current offspring
-        xold: xmean matrix of the previous generation
-        
-        Returns
-        -------
-        hsig flag indicating a small correction."""
+        """
+        Updates the evolution paths required for generating new samples in
+        the covariance matrix adaptation evolution strategy (CMA-ES). This
+        method modifies the evolution paths `ps` and `pc` based on the
+        weighted mean of new samples (`zmean`) and the previous solution
+        (`xold`). Additionally, it computes a flag (`hsig`) indicating
+        whether the evolution path `ps` satisfies specific conditions,
+        which is used to adapt the covariance matrix of the algorithm.
+
+        Args:
+            zmean: Weighted mean of new samples in the search space.
+            xold: Previous solution in the search space.
+
+        Returns:
+            bool: A flag indicating whether the evolution path `ps` satisfies
+            the computed conditions.
+        """
 
         self.ps = self.ps * (1. - self.cs) + \
             ((self.B @ zmean) * math.sqrt(self.cs * (2. - self.cs) * self.mueff))
@@ -506,19 +701,25 @@ class Cmaes(object):
         return hsig
     
     def updateCovariance(self, hsig, bestArx, arz, arindex, xold):
-        """update covariance matrix.
-    
-        Parameters
-        ----------
-        hsig: flag indicating a small correction.
-        bestArx: fitness-sorted matrix of the argument vectors producing the current offspring.
-        arz: unsorted matrix containing the gaussian random values of the current offspring.
-        arindex: indices indicating the fitness-order of the current offspring.
-        xold: xmean matrix of the previous generation.
-        
-        Returns
-        -------
-        negccov: Negative covariance factor."""
+        """Updates the covariance matrix and returns the negative covariance scaling factor.
+
+        This method adjusts the covariance matrix based on the current best solution, the
+        distribution of previous samples, and other adaptations. It incorporates mechanisms
+        to adaptively handle both positive and negative covariance contributions and ensures
+        that minimal residual variance is maintained for better exploration capabilities.
+
+        Args:
+            self: Instance of the class calling this method.
+            hsig (bool): Indicates the success of the covariance step size adaptation.
+            bestArx (numpy.ndarray): Array containing the best solutions in the current iteration.
+            arz (numpy.ndarray): Array of normalized random vectors representing candidate solutions.
+            arindex (numpy.ndarray): Array containing sorted indices corresponding to ranked solutions.
+            xold (numpy.ndarray): Centroid of the previous population.
+
+        Returns:
+            float: The negative covariance scaling factor (negccov), which indicates the adaptation
+            strength for negative covariance components.
+        """
       
         negccov = 0.
         if self.ccov1 + self.ccovmu > 0:
@@ -560,11 +761,15 @@ class Cmaes(object):
         return negccov
     
     def updateBD(self, negccov):
-        """update B and diagD from covariance matrix C.
-    
-        Parameters
-        ----------
-        negccov: Negative covariance factor."""
+        """
+        Updates the internal state of the covariance matrix and its derived attributes, such as eigenvalues, eigenvectors,
+        and transformations for sampling scaled isotropic Gaussian distributions. The method ensures numerical stability
+        by handling edge cases like non-positive eigenvalues or large differences between eigenvalues.
+
+        Args:
+            self: Instance of the class.
+            negccov: The covariance matrix adjustment parameter used for updating.
+        """
  
         if self.ccov1 + self.ccovmu + negccov > 0 and \
                 self.iterations % (1. / (self.ccov1 + self.ccovmu + negccov) / self.dim / 10.) < 1.:

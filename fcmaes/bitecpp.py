@@ -1,12 +1,39 @@
-# Copyright (c) Dietmar Wolz.
-#
-# This source code is licensed under the MIT license found in the
-# LICENSE file in the root directory.
-
-""" Implements a stochastic non-linear
-    bound-constrained derivative-free optimization method.
-    Description is available at https://github.com/avaneev/biteopt
+# -*- coding: utf-8 -*-
 """
+=============================================================================
+
+ Fast CMA-ES - version 1.6.11
+
+ (c) 2025 – Dietmar Wolz
+ (c) 2025 – Latitude
+
+ License: MIT
+
+ File:
+  - bitecpp.py
+
+ Description:
+  - This module implements a stochastic non-linear bound-constrained derivative-free optimization method.
+  - It is a Python wrapper for the C++ implementation of the BiteOpt algorithm.
+  - The BiteOpt algorithm is designed for efficient optimization in high-dimensional spaces.
+
+ Authors:
+  - Dietmar Wolz
+  - romain.despoullains@latitude.eu
+  - corentin.generet@latitude.eu
+
+ References:
+  - [1] https://github.com/dietmarwo/fast-cma-es
+  - [2] https://github.com/avaneev/biteopt
+
+ Documentation:
+  -
+
+
+=============================================================================
+"""
+
+
 
 import sys
 import os
@@ -32,48 +59,36 @@ def minimize(fun: Callable[[ArrayLike], float],
              stall_criterion: Optional[int]  = 0,
              rg: Optional[Generator]  = Generator(PCG64DXSM()),
              runid: Optional[int] = 0) -> OptimizeResult:
-    """Minimization of a scalar function of one or more variables using a 
-    C++ SCMA implementation called via ctypes.
-     
-    Parameters
-    ----------
-    fun : callable
-        The objective function to be minimized.
-            ``fun(x) -> float``
-        where ``x`` is an 1-D array with shape (dim,)
-    bounds : sequence or `Bounds`, optional
-        Bounds on variables. There are two ways to specify the bounds:
-            1. Instance of the `scipy.Bounds` class.
-            2. Sequence of ``(min, max)`` pairs for each element in `x`. None
-               is used to specify no bound.
-    x0 : ndarray, shape (dim,)
-        Initial guess. Array of real elements of size (dim,),
-        where 'dim' is the number of independent variables.  
-    max_evaluations : int, optional
-        Forced termination after ``max_evaluations`` function evaluations.
-    stop_fitness : float, optional 
-         Limit for fitness value. If reached minimize terminates.
-    M : int, optional 
-        Depth to use, 1 for plain CBiteOpt algorithm, >1 for CBiteOptDeep. Expected range is [1; 36].
-    popsize = int, optional
-        initial population size.
-    stall_criterion : int, optional 
-        Terminate if stall_criterion*128*evaluations stalled, Not used if <= 0
-    rg = numpy.random.Generator, optional
-        Random generator for creating random guesses.
-    runid : int, optional
-        id used to identify the run for debugging / logging. 
-           
-    Returns
-    -------
-    res : scipy.OptimizeResult
-        The optimization result is represented as an ``OptimizeResult`` object.
-        Important attributes are: ``x`` the solution array, 
-        ``fun`` the best function value, 
-        ``nfev`` the number of function evaluations,
-        ``nit`` the number of CMA-ES iterations, 
-        ``status`` the stopping critera and
-        ``success`` a Boolean flag indicating if the optimizer exited successfully. """
+    """
+    Minimize an objective function using the optimizer.
+
+    This function performs optimization on a given callable objective function by utilizing specified
+    bounds, constraints, and other parameters. The optimizer iteratively adjusts the input variables
+    to reach an optimal solution that minimizes the objective function.
+
+    Args:
+        fun: A callable objective function that accepts an array-like input and returns a float value
+            representing the function value to be minimized.
+        bounds: Optional bounds for the input variables, which must be consistent with the search space.
+        x0: Optional initial guess for the input variables; used to initialize the search process.
+        max_evaluations: Maximum number of function evaluations allowed during optimization.
+        stop_fitness: Optional stopping criterion based on achieving a particular fitness value.
+        M: Optional parameter for additional optimization configuration.
+        popsize: Optional population size parameter for optimization algorithms requiring population-based
+            computations.
+        stall_criterion: Optional criterion to stop the search when no significant improvement is seen.
+        rg: Optional random number generator, used for ensuring reproducibility and randomness in the
+            optimization.
+        runid: Optional identifier for the specific optimization run; used for tracking and reporting.
+
+    Returns:
+        OptimizeResult: A data structure containing the optimization results, including the best solution
+            found, its corresponding function value, number of function evaluations, number of iterations
+            performed, status, and a boolean indicating success or failure.
+
+    Raises:
+        Exception: Raised for any unexpected errors encountered during the optimization process.
+    """
     
     lower, upper, guess = _check_bounds(bounds, x0, rg)      
     dim = guess.size   

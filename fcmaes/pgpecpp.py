@@ -1,12 +1,37 @@
-# Copyright (c) Dietmar Wolz.
-#
-# This source code is licensed under the MIT license found in the
-# LICENSE file in the root directory.
+# -*- coding: utf-8 -*-
+"""
+=============================================================================
 
+ Fast CMA-ES - version 1.6.11
+
+ (c) 2025 – Dietmar Wolz
+ (c) 2025 – Latitude
+
+ License: MIT
+
+ File:
+  - pgpecpp.py
+
+ Description:
+  - Eigen based implementation of PGPE see [2] derived from [3].
+
+
+ Authors:
+  - Dietmar Wolz
+  - romain.despoullains@latitude.eu
+  - corentin.generet@latitude.eu
+
+ References:
+  - [1] https://github.com/dietmarwo/fast-cma-es
+  - [2] http://mediatum.ub.tum.de/doc/1099128/631352.pdf
+  - [3] https://github.com/google/evojax/blob/main/evojax/algo/pgpe.py
+
+ Documentation:
+  -
+
+=============================================================================
 """
-Eigen based implementation of PGPE see http://mediatum.ub.tum.de/doc/1099128/631352.pdf .
-Derived from https://github.com/google/evojax/blob/main/evojax/algo/pgpe.py .
-"""
+
 
 import sys
 import os
@@ -43,62 +68,64 @@ def minimize(fun: Callable[[ArrayLike], float],
              eps: Optional[float] = 1e-8,
              decay_coef: Optional[float] = 1.0,
              ) -> OptimizeResult:
-       
-    """Minimization of a scalar function of one or more variables using a 
-    C++ PGPE implementation called via ctypes.
-     
-    Parameters
-    ----------
-    fun : callable
-        The objective function to be minimized.
-            ``fun(x) -> float``
-        where ``x`` is an 1-D array with shape (dim,)
-    bounds : sequence or `Bounds`, optional
-        Bounds on variables. There are two ways to specify the bounds:
-            1. Instance of the `scipy.Bounds` class.
-            2. Sequence of ``(min, max)`` pairs for each element in `x`. None
-               is used to specify no bound.
-    x0 : ndarray, shape (dim,)
-        Initial guess. Array of real elements of size (dim,),
-        where 'dim' is the number of independent variables.  
-    input_sigma : float or np.array, optional
-        Initial step size.
-    popsize = int, optional
-        CMA-ES population size.
-    max_evaluations : int, optional
-        Forced termination after ``max_evaluations`` function evaluations.
-    workers : int or None, optional
-        If workers > 1, function evaluation is performed in parallel for the whole population. 
-        Useful for costly objective functions but is deactivated for parallel retry.  
-    stop_fitness : float, optional 
-         Limit for fitness value. If reached minimize terminates.
-    rg = numpy.random.Generator, optional
-        Random generator for creating random guesses.
-    runid : int, optional
-        id used by the is_terminate callback to identify the CMA-ES run.     
-    normalize : boolean, optional
-        if true pheno -> geno transformation maps arguments to interval [-1,1] 
-    lr_decay_steps int, optional - ADAM optimizer configuration
-    use_ranking : boolean, optional - Should we treat the fitness as rankings or not.       
-    center_learning_rate : float, optional - Learning rate for the Gaussian mean.
-    stdev_learning_rate : float, optional - Learning rate for the Gaussian stdev.
-    init_stdev : float, optional - Initial stdev for the Gaussian distribution.
-    stdev_max_change : float, optional - Maximum allowed change for stdev in abs values.    
-    b1 : float, optional - ADAM optimizer configuration
-    b2 : float, optional - ADAM optimizer configuration
-    eps : float, optional - ADAM optimizer configuration
-    decay_coef : float, optional - ADAM optimizer configuration
-        
-    Returns
-    -------
-    res : scipy.OptimizeResult
-        The optimization result is represented as an ``OptimizeResult`` object.
-        Important attributes are: ``x`` the solution array, 
-        ``fun`` the best function value, 
-        ``nfev`` the number of function evaluations,
-        ``nit`` the number of CMA-ES iterations, 
-        ``status`` the stopping critera and
-        ``success`` a Boolean flag indicating if the optimizer exited successfully. """
+
+    """
+    Optimize a given objective function by minimizing its value using the PGPE
+    (Policy Gradient with Parameter-based Exploration) method. This optimization
+    approach uses parallel processing and supports both optional parameter
+    normalization and adaptive learning rates for center and standard deviation.
+
+    Args:
+        fun (Callable[[ArrayLike], float]): Objective function to minimize. Must
+            take a single input of type ArrayLike and return a float.
+        bounds (Optional[Bounds]): Bounds for the variables. Should be specified
+            as a tuple (lower_bounds, upper_bounds) or None for unbounded variables.
+        x0 (Optional[ArrayLike]): Initial guess for the variables. If None,
+            random initialization will be applied within bounds if specified.
+        input_sigma (Optional[Union[float, ArrayLike, Callable]]): Initial
+            standard deviation for parameter sampling. Defaults to 0.1. Can be
+            a scalar, array, or callable returning an array.
+        popsize (Optional[int]): Population size for sampling. Defaults to 32.
+            If not specified or odd, it will be adjusted to the next even number.
+        max_evaluations (Optional[int]): Maximum number of function evaluations
+            to perform. Defaults to 100000.
+        workers (Optional[int]): Number of parallel workers to use for evaluation.
+            Defaults to None (no parallelism).
+        stop_fitness (Optional[float]): Value of fitness to stop early. If the
+            objective reaches this value, the algorithm will terminate early.
+            Defaults to -infinity.
+        rg (Optional[Generator]): Random number generator to use during
+            optimization. Defaults to Generator(PCG64DXSM()).
+        runid (Optional[int]): Unique identifier for the run. Useful for
+            distinguishing runs in logging or debugging.
+        normalize (Optional[bool]): Whether to normalize the input parameters for the
+            optimizer. Defaults to True.
+        lr_decay_steps (Optional[int]): Number of steps for learning rate decay.
+            Defaults to 1000.
+        use_ranking (Optional[bool]): Whether to use ranking over raw fitness
+            when calculating updates. Defaults to True.
+        center_learning_rate (Optional[float]): Learning rate used to update
+            the center. Defaults to 0.15.
+        stdev_learning_rate (Optional[float]): Learning rate used to update the
+            standard deviation. Defaults to 0.1.
+        stdev_max_change (Optional[float]): Maximum allowed change for standard
+            deviation updates. Defaults to 0.2.
+        b1 (Optional[float]): Exponential moving average factor for the first
+            moment estimate during adaptive updates. Defaults to 0.9.
+        b2 (Optional[float]): Exponential moving average factor for the second
+            moment estimate during adaptive updates. Defaults to 0.999.
+        eps (Optional[float]): Small term added to avoid division by zero in
+            adaptive algorithms. Defaults to 1e-8.
+        decay_coef (Optional[float]): Coefficient that controls decay in the
+            learning rate updates. Defaults to 1.0.
+
+    Returns:
+        OptimizeResult: An object containing optimization results, including
+            the best parameters found (`x`), the objective value (`fun`) at
+            those parameters, the number of function evaluations (`nfev`), the
+            number of iterations (`nit`), the stopping status as an integer code
+            (`status`), and a boolean success flag (`success`).
+    """
     
     lower, upper, guess = _check_bounds(bounds, x0, rg)      
     dim = guess.size   
@@ -139,7 +166,19 @@ def minimize(fun: Callable[[ArrayLike], float],
     return res
 
 class PGPE_C:
+    """
+    Optimization class using a C++ CR-FM-NES implementation via `ctypes`.
 
+    Minimizes a scalar objective function of one or more variables using
+    a population-based evolutionary strategy. This class allows interaction
+    with the underlying C++ implementation to run optimization tasks with
+    high performance and flexibility.
+
+    Attributes:
+        ptr (ctypes.c_void_p): Pointer to the C++ PGPE object.
+        popsize (int): Population size used for evolutionary optimization.
+        dim (int): Dimensionality of the problem's search space.
+    """
     def __init__(self,
         dim: int,
         bounds: Optional[Bounds] = None,
@@ -159,49 +198,51 @@ class PGPE_C:
         eps: Optional[float] = 1e-8, 
         decay_coef: Optional[float] = 1.0, 
         ):
-       
-        """Minimization of a scalar function of one or more variables using a 
-        C++ CR-FM-NES implementation called via ctypes.
-         
-        Parameters
-        ----------
-        dim : int
-            dimension of the argument of the objective function
-        bounds : sequence or `Bounds`, optional
-            Bounds on variables. There are two ways to specify the bounds:
-                1. Instance of the `scipy.Bounds` class.
-                2. Sequence of ``(min, max)`` pairs for each element in `x`. None
-                   is used to specify no bound.
-        x0 : ndarray, shape (dim,)
-            Initial guess. Array of real elements of size (dim,),
-            where 'dim' is the number of independent variables.  
-        input_sigma : float, optional
-            Initial step size.
-        popsize = int, optional
-            CMA-ES population size.
-        max_evaluations : int, optional
-            Forced termination after ``max_evaluations`` function evaluations.
-        workers : int or None, optional
-            If workers > 1, function evaluation is performed in parallel for the whole population. 
-            Useful for costly objective functions but is deactivated for parallel retry.  
-        stop_fitness : float, optional 
-             Limit for fitness value. If reached minimize terminates.
-        rg = numpy.random.Generator, optional
-            Random generator for creating random guesses.
-        runid : int, optional
-            id used by the is_terminate callback to identify the CMA-ES run.     
-        normalize : boolean, optional
-            if true pheno -> geno transformation maps arguments to interval [-1,1]
-        lr_decay_steps int, optional - ADAM optimizer configuration
-        use_ranking : boolean, optional - Should we treat the fitness as rankings or not.       
-        center_learning_rate : float, optional - Learning rate for the Gaussian mean.
-        stdev_learning_rate : float, optional - Learning rate for the Gaussian stdev.
-        init_stdev : float, optional - Initial stdev for the Gaussian distribution.
-        stdev_max_change : float, optional - Maximum allowed change for stdev in abs values.    
-        b1 : float, optional - ADAM optimizer configuration
-        b2 : float, optional - ADAM optimizer configuration
-        eps : float, optional - ADAM optimizer configuration
-        decay_coef : float, optional - ADAM optimizer configuration"""
+
+        """
+        Initializes an instance of the class with parameters for a PGPE (Policy Gradients
+        with Parameter-based Exploration) optimization algorithm.
+
+        This constructor sets various hyperparameters and configuration options for
+        running the algorithm. These include the problem dimension, bounds, initial
+        guess, population size, learning rates, and other factors that control the
+        optimization process.
+
+        Args:
+            dim (int): Dimensionality of the optimization problem.
+            bounds (Optional[Bounds]): Input bounds defining the feasible region.
+            x0 (Optional[ArrayLike]): Initial guess for the algorithm.
+            input_sigma (Optional[Union[float, ArrayLike, Callable]]): Initial standard
+                deviation for exploration, either as a scalar or array or function returning
+                a value.
+            popsize (Optional[int]): Size of the population. Ensures even number if not
+                already.
+            rg (Optional[Generator]): Random number generator to control randomization in
+                the algorithm. Defaults to a PCG64DXSM generator.
+            runid (Optional[int]): Unique identifier for the optimization run.
+            normalize (Optional[bool]): Whether to normalize the input bounds.
+            lr_decay_steps (Optional[int]): Number of iterations over which the learning
+                rate decays.
+            use_ranking (Optional[bool]): If True, enables ranking-based updates.
+            center_learning_rate (Optional[float]): Learning rate for the mean or center
+                of the distribution.
+            stdev_learning_rate (Optional[float]): Learning rate for the standard
+                deviation of the search distribution.
+            stdev_max_change (Optional[float]): Maximum allowable change for standard
+                deviation in an iteration.
+            b1 (Optional[float]): Exponential decay rate for first moment estimates in
+                adaptive learning.
+            b2 (Optional[float]): Exponential decay rate for second moment estimates in
+                adaptive learning.
+            eps (Optional[float]): Small constant to prevent division by zero in
+                adaptive learning.
+            decay_coef (Optional[float]): Coefficient controlling overall decay in
+                learning adjustments.
+
+        Raises:
+            Exception: Propagates exceptions encountered during the initialization of
+                the algorithm backend.
+        """
 
         lower, upper, guess = _get_bounds(dim, bounds, x0, rg)      
         if popsize is None:
@@ -230,14 +271,31 @@ class PGPE_C:
             pass
     
     def __del__(self):
+        """
+        Handles the destruction of the PGPE_C object to manage resources effectively.
+
+        This method is invoked automatically when the instance is about to be destroyed,
+        allowing for proper cleanup of associated resources.
+
+        Raises:
+            None
+        """
         destroyPGPE_C(self.ptr)
             
     def ask(self) -> np.array:
-        """ask for popsize new argument vectors.
-            
-        Returns
-        -------
-        xs : popsize sized list of dim sized argument lists."""
+        """
+        Generates and returns a population of samples based on the current state of the algorithm.
+
+        This method interacts with the C library function `askPGPE_C` to generate a new set of samples
+        for the population. The returned samples are organized into a 2D NumPy array.
+
+        Returns:
+            np.array: A 2D array where each row corresponds to a sample in the population.
+
+        Raises:
+            Exception: If an error occurs during the population generation process with specific details
+                       printed to the console.
+        """
         
         try:
             lamb = self.popsize
@@ -254,16 +312,18 @@ class PGPE_C:
             return None
 
     def tell(self, 
-             ys: np.ndarray) -> int:      
-        """tell function values for the argument lists retrieved by ask().
-        
-        Parameters
-        ----------
-        ys : popsize sized list of function values 
- 
-        Returns
-        -------
-        stop : int termination criteria, if != 0 loop should stop."""        
+             ys: np.ndarray) -> int:
+        """
+        Executes the PGPE (Policy Gradient with Parameter-based Exploration) algorithm by interfacing
+        with native code through ctypes. The method passes the given numpy array to the
+        underlying PGPE implementation.
+
+        Args:
+            ys (np.ndarray): A 1D numpy array containing the parameters to be used by the PGPE algorithm.
+
+        Returns:
+            int: The result returned by the PGPE native implementation. Returns -1 in case of an error.
+        """
         
         try:
             array_type_ys = ct.c_double * len(ys)
@@ -273,6 +333,20 @@ class PGPE_C:
             return -1        
 
     def population(self) -> np.array:
+        """
+        Retrieves the population from a population PGPE algorithm, processes it, and returns it
+        as a NumPy array. This method interacts with external C code for handling population
+        data and converts the resulting data into a structured array.
+
+        Returns:
+            np.array: A NumPy array containing the processed population data, where each
+            entry corresponds to a subset of individuals in the population as defined
+            by the `popsize` and `dim` attributes.
+
+        Raises:
+            Exception: If an error occurs during the execution of the underlying
+            population retrieval process or data processing.
+        """
         try:
             lamb = self.popsize
             n = self.dim
@@ -288,6 +362,27 @@ class PGPE_C:
             return None
 
     def result(self) -> OptimizeResult:
+        """
+        Fetches the optimization result.
+
+        The method retrieves the solution obtained from the optimization procedure
+        using a C-based backend. The result includes the optimized parameters,
+        objective function value at the solution, the number of function
+        evaluations, the number of iterations, and the exit status of the optimizer.
+
+        In case of any exception during the retrieval process, a default result
+        indicating failure is returned.
+
+        Returns:
+            OptimizeResult: An object containing the optimization result. It includes
+            the following fields:
+                - x: ndarray of the optimized parameters.
+                - fun: float value of the objective function at the solution.
+                - nfev: int count of function evaluations.
+                - nit: int count of iterations performed.
+                - status: int exit status of the optimization.
+                - success: bool indicating the success (True) or failure (False) of the optimization.
+        """
         res = np.empty(self.dim+4)
         res_p = res.ctypes.data_as(ct.POINTER(ct.c_double))
         try:
